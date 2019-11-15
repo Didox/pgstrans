@@ -1,0 +1,71 @@
+<div class="container">
+
+  <p id="notice"><%= notice %></p>
+
+  <h1>Topup Recargas</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Validation</th>
+        <th>Header element</th>
+        <th>Topup req header</th>
+        <th>Request</th>
+        <th>Header timestamp</th>
+        <th>Header source system</th>
+        <th>Credentials element</th>
+        <th>Credentials user</th>
+        <th>Credentials password</th>
+        <th>Attributes list</th>
+        <th>Attribute element</th>
+        <th>Attribute name</th>
+        <th>Attribute value</th>
+        <th>Body element</th>
+        <th>Body req element</th>
+        <th>Body input message</th>
+        <th>Body topup req body type</th>
+        <th>Body topup req body amount</th>
+        <th>Body topup req body msisdn</th>
+        <th>Od header element</th>
+        <th>Od topup resp input message</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @topup_recargas.each do |topup_recarga| %>
+        <tr>
+          <td><%= topup_recarga.validation_id %></td>
+          <td><%= topup_recarga.header_element %></td>
+          <td><%= topup_recarga.topup_req_header %></td>
+          <td><%= topup_recarga.request_id %></td>
+          <td><%= topup_recarga.header_timestamp %></td>
+          <td><%= topup_recarga.header_source_system %></td>
+          <td><%= topup_recarga.credentials_element %></td>
+          <td><%= topup_recarga.credentials_user %></td>
+          <td><%= topup_recarga.credentials_password %></td>
+          <td><%= topup_recarga.attributes_list %></td>
+          <td><%= topup_recarga.attribute_element %></td>
+          <td><%= topup_recarga.attribute_name %></td>
+          <td><%= topup_recarga.attribute_value %></td>
+          <td><%= topup_recarga.body_element %></td>
+          <td><%= topup_recarga.body_req_element %></td>
+          <td><%= topup_recarga.body_input_message %></td>
+          <td><%= topup_recarga.body_topup_req_body_type %></td>
+          <td><%= topup_recarga.body_topup_req_body_amount %></td>
+          <td><%= topup_recarga.body_topup_req_body_msisdn %></td>
+          <td><%= topup_recarga.od_header_element %></td>
+          <td><%= topup_recarga.od_topup_resp_input_message %></td>
+          <td><%= link_to 'Show', topup_recarga %></td>
+          <td><%= link_to 'Edit', edit_topup_recarga_path(topup_recarga) %></td>
+          <td><%= link_to 'Destroy', topup_recarga, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <%= link_to 'New Topup Recarga', new_topup_recarga_path %>
+
+</div>

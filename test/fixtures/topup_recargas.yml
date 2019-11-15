@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  validation_id: MyString
+  header_element: MyString
+  topup_req_header: MyString
+  request_id: MyString
+  header_timestamp: MyString
+  header_source_system: MyString
+  credentials_element: MyString
+  credentials_user: MyString
+  credentials_password: MyString
+  attributes_list: MyString
+  attribute_element: MyString
+  attribute_name: MyString
+  attribute_value: MyString
+  body_element: MyString
+  body_req_element: MyString
+  body_input_message: MyString
+  body_topup_req_body_type: 1
+  body_topup_req_body_amount: 1.5
+  body_topup_req_body_msisdn: MyString
+  od_header_element: MyString
+  od_topup_resp_input_message: MyString
+
+two:
+  validation_id: MyString
+  header_element: MyString
+  topup_req_header: MyString
+  request_id: MyString
+  header_timestamp: MyString
+  header_source_system: MyString
+  credentials_element: MyString
+  credentials_user: MyString
+  credentials_password: MyString
+  attributes_list: MyString
+  attribute_element: MyString
+  attribute_name: MyString
+  attribute_value: MyString
+  body_element: MyString
+  body_req_element: MyString
+  body_input_message: MyString
+  body_topup_req_body_type: 1
+  body_topup_req_body_amount: 1.5
+  body_topup_req_body_msisdn: MyString
+  od_header_element: MyString
+  od_topup_resp_input_message: MyString

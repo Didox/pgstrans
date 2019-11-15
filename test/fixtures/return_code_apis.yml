@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  return_code: MyString
+  return_description: MyString
+  error_description: MyString
+  error_description_pt: MyString
+
+two:
+  return_code: MyString
+  return_description: MyString
+  error_description: MyString
+  error_description_pt: MyString

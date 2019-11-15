@@ -1,0 +1,2 @@
+json.extract! topup_recarga, :id, :validation_id, :header_element, :topup_req_header, :request_id, :header_timestamp, :header_source_system, :credentials_element, :credentials_user, :credentials_password, :attributes_list, :attribute_element, :attribute_name, :attribute_value, :body_element, :body_req_element, :body_input_message, :body_topup_req_body_type, :body_topup_req_body_amount, :body_topup_req_body_msisdn, :od_header_element, :od_topup_resp_input_message, :created_at, :updated_at
+json.url topup_recarga_url(topup_recarga, format: :json)

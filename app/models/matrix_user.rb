@@ -1,0 +1,2 @@
+class MatrixUser < ApplicationRecord
+end

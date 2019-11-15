@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="0bd49955-3475-4735-a304-9e27708a0d4f" activeEnvironment="Default" name="wsqa.movicel.co" resourceRoot="${projectDir}" soapui-version="5.5.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="620827dc-fd51-41fa-a5c2-b1b011e2d193" wsaVersion="NONE" name="BasicHttpBinding_DirectTopupService_Outbound" type="wsdl" bindingName="{http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface}BasicHttpBinding_DirectTopupService_Outbound" soapVersion="1_1" anonymous="optional" definition="http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/?singleWsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/?singleWsdl"><con:part><con:url>http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/?singleWsdl</con:url><con:content><![CDATA[<wsdl:definitions name="DirectTopupService" targetNamespace="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter"/>
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/Middleware.Common.Common"/>
+      <xs:element name="ValidateTopupReq">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="ValidateTopupReqBody" nillable="true" type="q1:ValidateTopupReqBody" xmlns:q1="http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ValidateTopupReqHeader" nillable="true" type="q2:RequestHeader" xmlns:q2="http://schemas.datacontract.org/2004/07/Middleware.Common.Common"/>
+      <xs:element name="ValidateTopupResp">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="ValidateTopupRespBody" nillable="true" type="q3:ValidateTopupRespBody" xmlns:q3="http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ValidateTopupRespHeader" nillable="true" type="q4:ResponseHeader" xmlns:q4="http://schemas.datacontract.org/2004/07/Middleware.Common.Common"/>
+      <xs:element name="TopupReq">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="TopupReqBody" nillable="true" type="q5:TopupReqBody" xmlns:q5="http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TopupReqHeader" nillable="true" type="q6:RequestHeader" xmlns:q6="http://schemas.datacontract.org/2004/07/Middleware.Common.Common"/>
+      <xs:element name="TopupResp">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="TopupRespBody" nillable="true" type="q7:TopupRespBody" xmlns:q7="http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TopupRespHeader" nillable="true" type="q8:ResponseHeader" xmlns:q8="http://schemas.datacontract.org/2004/07/Middleware.Common.Common"/>
+      <xs:element name="QueryTransactionReq">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="QueryTransactionReqBody" nillable="true" type="q9:QueryTransactionReqBody" xmlns:q9="http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="QueryTransactionReqHeader" nillable="true" type="q10:RequestHeader" xmlns:q10="http://schemas.datacontract.org/2004/07/Middleware.Common.Common"/>
+      <xs:element name="QueryTransactionResp">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="QueryTransactionRespBody" nillable="true" type="q11:QueryTransactionRespBody" xmlns:q11="http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="QueryTransactionRespHeader" nillable="true" type="q12:ResponseHeader" xmlns:q12="http://schemas.datacontract.org/2004/07/Middleware.Common.Common"/>
+      <xs:element name="QueryBalanceReq">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="QueryBalanceReqBody" nillable="true" type="q13:QueryBalanceReqBody" xmlns:q13="http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="QueryBalanceReqHeader" nillable="true" type="q14:RequestHeader" xmlns:q14="http://schemas.datacontract.org/2004/07/Middleware.Common.Common"/>
+      <xs:element name="QueryBalanceResp">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="QueryBalanceRespBody" nillable="true" type="q15:QueryBalanceRespBody" xmlns:q15="http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="QueryBalanceRespHeader" nillable="true" type="q16:ResponseHeader" xmlns:q16="http://schemas.datacontract.org/2004/07/Middleware.Common.Common"/>
+    </xs:schema>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+      <xs:element name="anyType" nillable="true" type="xs:anyType"/>
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+      <xs:element name="boolean" nillable="true" type="xs:boolean"/>
+      <xs:element name="byte" nillable="true" type="xs:byte"/>
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+      <xs:element name="decimal" nillable="true" type="xs:decimal"/>
+      <xs:element name="double" nillable="true" type="xs:double"/>
+      <xs:element name="float" nillable="true" type="xs:float"/>
+      <xs:element name="int" nillable="true" type="xs:int"/>
+      <xs:element name="long" nillable="true" type="xs:long"/>
+      <xs:element name="QName" nillable="true" type="xs:QName"/>
+      <xs:element name="short" nillable="true" type="xs:short"/>
+      <xs:element name="string" nillable="true" type="xs:string"/>
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+      <xs:element name="char" nillable="true" type="tns:char"/>
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int"/>
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration"/>
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid"/>
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName"/>
+      <xs:attribute name="Id" type="xs:ID"/>
+      <xs:attribute name="Ref" type="xs:IDREF"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+      <xs:complexType name="ValidateTopupReqBody">
+        <xs:sequence>
+          <xs:element name="Amount" type="xs:decimal"/>
+          <xs:element name="MSISDN" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Type" type="tns:TypesTopup"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ValidateTopupReqBody" nillable="true" type="tns:ValidateTopupReqBody"/>
+      <xs:simpleType name="TypesTopup">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Default">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="TypesTopup" nillable="true" type="tns:TypesTopup"/>
+      <xs:complexType name="ValidateTopupRespBody">
+        <xs:sequence>
+          <xs:element name="TransactionNumber" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ValidateTopupRespBody" nillable="true" type="tns:ValidateTopupRespBody"/>
+      <xs:complexType name="TopupReqBody">
+        <xs:sequence>
+          <xs:element name="Amount" type="xs:decimal"/>
+          <xs:element name="MSISDN" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Type" type="tns:TypesTopup"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="TopupReqBody" nillable="true" type="tns:TopupReqBody"/>
+      <xs:complexType name="TopupRespBody">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:element name="TopupRespBody" nillable="true" type="tns:TopupRespBody"/>
+      <xs:complexType name="QueryTransactionReqBody">
+        <xs:sequence>
+          <xs:element name="TransactionNumber" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="QueryTransactionReqBody" nillable="true" type="tns:QueryTransactionReqBody"/>
+      <xs:complexType name="QueryTransactionRespBody">
+        <xs:sequence>
+          <xs:element name="Status" type="tns:StatusTopup"/>
+          <xs:element name="TransactionNumber" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="QueryTransactionRespBody" nillable="true" type="tns:QueryTransactionRespBody"/>
+      <xs:simpleType name="StatusTopup">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="New">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="InProgress">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Completed">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Validated">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NotValidated">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="StatusTopup" nillable="true" type="tns:StatusTopup"/>
+      <xs:complexType name="QueryBalanceReqBody">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:element name="QueryBalanceReqBody" nillable="true" type="tns:QueryBalanceReqBody"/>
+      <xs:complexType name="QueryBalanceRespBody">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Balance" type="xs:decimal"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="QueryBalanceRespBody" nillable="true" type="tns:QueryBalanceRespBody"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Middleware.Common.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/Middleware.Common.Common">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/Middleware.Common"/>
+      <xs:complexType name="RequestHeader">
+        <xs:sequence>
+          <xs:element name="RequestId" nillable="true" type="xs:string"/>
+          <xs:element name="Timestamp" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="SourceSystem" nillable="true" type="xs:string"/>
+          <xs:element name="Credentials" nillable="true" type="tns:Credentials"/>
+          <xs:element minOccurs="0" name="Attributes" nillable="true" type="tns:ArrayOfAttribute"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="RequestHeader" nillable="true" type="tns:RequestHeader"/>
+      <xs:complexType name="Credentials">
+        <xs:sequence>
+          <xs:element name="User" nillable="true" type="xs:string"/>
+          <xs:element name="Password" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Credentials" nillable="true" type="tns:Credentials"/>
+      <xs:complexType name="ArrayOfAttribute">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Attribute" nillable="true" type="tns:Attribute"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfAttribute" nillable="true" type="tns:ArrayOfAttribute"/>
+      <xs:complexType name="Attribute">
+        <xs:sequence>
+          <xs:element name="Name" nillable="true" type="xs:string"/>
+          <xs:element name="Value" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Attribute" nillable="true" type="tns:Attribute"/>
+      <xs:complexType name="ResponseHeader">
+        <xs:sequence>
+          <xs:element name="ReturnCode" type="xs:int"/>
+          <xs:element name="ReturnMessage" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="ReturnError" nillable="true" type="tns:ReturnError"/>
+          <xs:element minOccurs="0" name="RequestId" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="CorrelationId" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Timestamp" type="xs:dateTime"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ResponseHeader" nillable="true" type="tns:ResponseHeader"/>
+      <xs:complexType name="ReturnError">
+        <xs:sequence>
+          <xs:element name="ErrorCode" nillable="true" type="xs:string"/>
+          <xs:element name="ErrorMessage" nillable="true" type="xs:string"/>
+          <xs:element name="ErrorType" type="q1:ErrorType" xmlns:q1="http://schemas.datacontract.org/2004/07/Middleware.Common"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ReturnError" nillable="true" type="tns:ReturnError"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Middleware.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/Middleware.Common">
+      <xs:simpleType name="ErrorType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="T"/>
+          <xs:enumeration value="F"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="ErrorType" nillable="true" type="tns:ErrorType"/>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ValidateTopupReq">
+    <wsdl:part name="parameters" element="tns:ValidateTopupReq"/>
+  </wsdl:message>
+  <wsdl:message name="ValidateTopupReq_Headers">
+    <wsdl:part name="ValidateTopupReqHeader" element="tns:ValidateTopupReqHeader"/>
+  </wsdl:message>
+  <wsdl:message name="ValidateTopupResp">
+    <wsdl:part name="parameters" element="tns:ValidateTopupResp"/>
+  </wsdl:message>
+  <wsdl:message name="ValidateTopupResp_Headers">
+    <wsdl:part name="ValidateTopupRespHeader" element="tns:ValidateTopupRespHeader"/>
+  </wsdl:message>
+  <wsdl:message name="TopupReq">
+    <wsdl:part name="parameters" element="tns:TopupReq"/>
+  </wsdl:message>
+  <wsdl:message name="TopupReq_Headers">
+    <wsdl:part name="TopupReqHeader" element="tns:TopupReqHeader"/>
+  </wsdl:message>
+  <wsdl:message name="TopupResp">
+    <wsdl:part name="parameters" element="tns:TopupResp"/>
+  </wsdl:message>
+  <wsdl:message name="TopupResp_Headers">
+    <wsdl:part name="TopupRespHeader" element="tns:TopupRespHeader"/>
+  </wsdl:message>
+  <wsdl:message name="QueryTransactionReq">
+    <wsdl:part name="parameters" element="tns:QueryTransactionReq"/>
+  </wsdl:message>
+  <wsdl:message name="QueryTransactionReq_Headers">
+    <wsdl:part name="QueryTransactionReqHeader" element="tns:QueryTransactionReqHeader"/>
+  </wsdl:message>
+  <wsdl:message name="QueryTransactionResp">
+    <wsdl:part name="parameters" element="tns:QueryTransactionResp"/>
+  </wsdl:message>
+  <wsdl:message name="QueryTransactionResp_Headers">
+    <wsdl:part name="QueryTransactionRespHeader" element="tns:QueryTransactionRespHeader"/>
+  </wsdl:message>
+  <wsdl:message name="QueryBalanceReq">
+    <wsdl:part name="parameters" element="tns:QueryBalanceReq"/>
+  </wsdl:message>
+  <wsdl:message name="QueryBalanceReq_Headers">
+    <wsdl:part name="QueryBalanceReqHeader" element="tns:QueryBalanceReqHeader"/>
+  </wsdl:message>
+  <wsdl:message name="QueryBalanceResp">
+    <wsdl:part name="parameters" element="tns:QueryBalanceResp"/>
+  </wsdl:message>
+  <wsdl:message name="QueryBalanceResp_Headers">
+    <wsdl:part name="QueryBalanceRespHeader" element="tns:QueryBalanceRespHeader"/>
+  </wsdl:message>
+  <wsdl:portType name="DirectTopupService_Outbound">
+    <wsdl:operation name="ValidateTopup">
+      <wsdl:input wsaw:Action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup" name="ValidateTopupReq" message="tns:ValidateTopupReq"/>
+      <wsdl:output wsaw:Action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopupResponse" name="ValidateTopupResp" message="tns:ValidateTopupResp"/>
+    </wsdl:operation>
+    <wsdl:operation name="Topup">
+      <wsdl:input wsaw:Action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup" name="TopupReq" message="tns:TopupReq"/>
+      <wsdl:output wsaw:Action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/TopupResponse" name="TopupResp" message="tns:TopupResp"/>
+    </wsdl:operation>
+    <wsdl:operation name="QueryTransaction">
+      <wsdl:input wsaw:Action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryTransaction" name="QueryTransactionReq" message="tns:QueryTransactionReq"/>
+      <wsdl:output wsaw:Action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryTransactionResponse" name="QueryTransactionResp" message="tns:QueryTransactionResp"/>
+    </wsdl:operation>
+    <wsdl:operation name="QueryBalance">
+      <wsdl:input wsaw:Action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryBalance" name="QueryBalanceReq" message="tns:QueryBalanceReq"/>
+      <wsdl:output wsaw:Action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryBalanceResponse" name="QueryBalanceResp" message="tns:QueryBalanceResp"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_DirectTopupService_Outbound" type="tns:DirectTopupService_Outbound">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ValidateTopup">
+      <soap:operation soapAction="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup" style="document"/>
+      <wsdl:input name="ValidateTopupReq">
+        <soap:header message="tns:ValidateTopupReq_Headers" part="ValidateTopupReqHeader" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ValidateTopupResp">
+        <soap:header message="tns:ValidateTopupResp_Headers" part="ValidateTopupRespHeader" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Topup">
+      <soap:operation soapAction="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup" style="document"/>
+      <wsdl:input name="TopupReq">
+        <soap:header message="tns:TopupReq_Headers" part="TopupReqHeader" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="TopupResp">
+        <soap:header message="tns:TopupResp_Headers" part="TopupRespHeader" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryTransaction">
+      <soap:operation soapAction="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryTransaction" style="document"/>
+      <wsdl:input name="QueryTransactionReq">
+        <soap:header message="tns:QueryTransactionReq_Headers" part="QueryTransactionReqHeader" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="QueryTransactionResp">
+        <soap:header message="tns:QueryTransactionResp_Headers" part="QueryTransactionRespHeader" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryBalance">
+      <soap:operation soapAction="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryBalance" style="document"/>
+      <wsdl:input name="QueryBalanceReq">
+        <soap:header message="tns:QueryBalanceReq_Headers" part="QueryBalanceReqHeader" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="QueryBalanceResp">
+        <soap:header message="tns:QueryBalanceResp_Headers" part="QueryBalanceRespHeader" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DirectTopupService">
+    <wsdl:port name="BasicHttpBinding_DirectTopupService_Outbound" binding="tns:BasicHttpBinding_DirectTopupService_Outbound">
+      <soap:address location="http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/</con:endpoint></con:endpoints><con:operation id="d0864e3a-2773-4d19-a21f-e852145cc857" isOneWay="false" action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryBalance" name="QueryBalance" bindingOperationName="QueryBalance" type="Request-Response" outputName="QueryBalanceResp" inputName="QueryBalanceReq" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="1adb75de-c4c7-41fc-9cb9-c4e2343e7a9b" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:int="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface" xmlns:mid="http://schemas.datacontract.org/2004/07/Middleware.Common.Common">\r
+   <soapenv:Header>\r
+      <int:QueryBalanceReqHeader>\r
+         <mid:RequestId>?</mid:RequestId>\r
+         <mid:Timestamp>?</mid:Timestamp>\r
+         <!--Optional:-->\r
+         <mid:SourceSystem>?</mid:SourceSystem>\r
+         <mid:Credentials>\r
+            <mid:User>?</mid:User>\r
+            <mid:Password>?</mid:Password>\r
+         </mid:Credentials>\r
+         <!--Optional:-->\r
+         <mid:Attributes>\r
+            <!--Zero or more repetitions:-->\r
+            <mid:Attribute>\r
+               <mid:Name>?</mid:Name>\r
+               <mid:Value>?</mid:Value>\r
+            </mid:Attribute>\r
+         </mid:Attributes>\r
+      </int:QueryBalanceReqHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <int:QueryBalanceReq>\r
+         <!--Optional:-->\r
+         <int:QueryBalanceReqBody/>\r
+      </int:QueryBalanceReq>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryBalance"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="42ffd2f0-a927-416e-8e9d-c400361b746d" isOneWay="false" action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryTransaction" name="QueryTransaction" bindingOperationName="QueryTransaction" type="Request-Response" outputName="QueryTransactionResp" inputName="QueryTransactionReq" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2585fe31-c69f-4e30-b11f-04e20cd1fe38" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:int="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface" xmlns:mid="http://schemas.datacontract.org/2004/07/Middleware.Common.Common" xmlns:mid1="http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter">\r
+   <soapenv:Header>\r
+      <int:QueryTransactionReqHeader>\r
+         <mid:RequestId>R086963745</mid:RequestId>\r
+         <mid:Timestamp>2019-11-02T18:04:21.477796+01:00</mid:Timestamp>\r
+         <!--Optional:-->\r
+         <mid:SourceSystem>Pagaso</mid:SourceSystem>\r
+         <mid:Credentials>\r
+            <mid:User>TivTechno</mid:User>\r
+            <mid:Password>5CF0AC45050B030B9E3A5FC14A5D7C8B609B2BDD40119B5C32539E1F3B6CEF7F</mid:Password>\r
+         </mid:Credentials>\r
+         <!--Optional:-->\r
+         <mid:Attributes>\r
+            <!--Zero or more repetitions:-->\r
+            <mid:Attribute>\r
+               <mid:Name>Recarga</mid:Name>\r
+               <mid:Value>10000</mid:Value>\r
+            </mid:Attribute>\r
+         </mid:Attributes>\r
+      </int:QueryTransactionReqHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <int:QueryTransactionReq>\r
+         <!--Optional:-->\r
+         <int:QueryTransactionReqBody>\r
+            <mid1:TransactionNumber>?</mid1:TransactionNumber>\r
+         </int:QueryTransactionReqBody>\r
+      </int:QueryTransactionReq>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryTransaction"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="a8950b95-0240-4b43-a49e-bab0e637af63" isOneWay="false" action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup" name="Topup" bindingOperationName="Topup" type="Request-Response" outputName="TopupResp" inputName="TopupReq" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ab99532c-06bf-4ca7-8caf-88e693d6a336" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:int="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface" xmlns:mid="http://schemas.datacontract.org/2004/07/Middleware.Common.Common" xmlns:mid1="http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter">\r
+   <soapenv:Header>\r
+      <int:TopupReqHeader>\r
+         <mid:RequestId>R086963745</mid:RequestId>\r
+         <mid:Timestamp>2019-11-02T18:04:21.477796+01:00</mid:Timestamp>\r
+         <!--Optional:-->\r
+         <mid:SourceSystem>Pagaso</mid:SourceSystem>\r
+         <mid:Credentials>\r
+            <mid:User>TivTechno</mid:User>\r
+            <mid:Password>5CF0AC45050B030B9E3A5FC14A5D7C8B609B2BDD40119B5C32539E1F3B6CEF7F</mid:Password>\r
+         </mid:Credentials>\r
+         <!--Optional:-->\r
+         <mid:Attributes>\r
+            <!--Zero or more repetitions:-->\r
+            <mid:Attribute>\r
+               <mid:Name>Recarga</mid:Name>\r
+               <mid:Value>10000</mid:Value>\r
+            </mid:Attribute>\r
+         </mid:Attributes>\r
+      </int:TopupReqHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <int:TopupReq>\r
+         <!--Optional:-->\r
+         <int:TopupReqBody>\r
+            <mid1:Amount>12500</mid1:Amount>\r
+            <mid1:MSISDN>244998524570</mid1:MSISDN>\r
+         </int:TopupReqBody>\r
+      </int:TopupReq>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="0f8c5006-1a6e-4566-911c-c9d9cec65f1a" isOneWay="false" action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup" name="ValidateTopup" bindingOperationName="ValidateTopup" type="Request-Response" outputName="ValidateTopupResp" inputName="ValidateTopupReq" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="82fa9c9b-7073-459e-a834-fdc6ac29f7f6" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/?wsdl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:int="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface" xmlns:mid="http://schemas.datacontract.org/2004/07/Middleware.Common.Common" xmlns:mid1="http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter">\r
+   <soapenv:Header>\r
+      <int:ValidateTopupReqHeader>\r
+         <mid:RequestId>R086963745</mid:RequestId>\r
+         <mid:Timestamp>2019-11-02T18:04:21.477796+01:00</mid:Timestamp>\r
+         <!--Optional:-->\r
+         <mid:SourceSystem>Pagaso</mid:SourceSystem>\r
+         <mid:Credentials>\r
+            <mid:User>TivTechno</mid:User>\r
+            <mid:Password>5CF0AC45050B030B9E3A5FC14A5D7C8B609B2BDD40119B5C32539E1F3B6CEF7F</mid:Password>\r
+         </mid:Credentials>\r
+         <!--Optional:-->\r
+         <mid:Attributes>\r
+            <!--Zero or more repetitions:-->\r
+            <mid:Attribute>\r
+               <mid:Name>Recarga</mid:Name>\r
+               <mid:Value>10000</mid:Value>\r
+            </mid:Attribute>\r
+         </mid:Attributes>\r
+      </int:ValidateTopupReqHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <int:ValidateTopupReq>\r
+         <!--Optional:-->\r
+         <int:ValidateTopupReqBody>\r
+            <mid1:Amount>12500</mid1:Amount>\r
+            <mid1:MSISDN>244998524570</mid1:MSISDN>\r
+            <!--Optional:-->\r
+         </int:ValidateTopupReqBody>\r
+      </int:ValidateTopupReq>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

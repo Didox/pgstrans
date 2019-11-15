@@ -1,0 +1,57 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  header_element: MyString
+  query_request_req_header: MyString
+  header_request_id: MyString
+  header_timestamp: 2019-11-01 20:58:47
+  header_source_system: MyString
+  credentials_element: MyString
+  credentials_user: MyString
+  credentials_password: MyString
+  attributes_list: MyString
+  attribute_element: MyString
+  attribute_name: MyString
+  attribute_value: MyString
+  body_element: MyString
+  body_query_request_req_element: MyString
+  body_query_request_input_message: MyString
+  body_query_request_id: MyString
+  od_header_element: MyString
+  od_query_request_input_message: MyString
+  od_query_request_request_id: MyString
+  od_query_request_return_code: MyString
+  od_query_request_return_message: MyString
+  od_query_request_timestamp: 2019-11-01 20:58:47
+  od_query_request_body_element: MyString
+  od_query_request_output_message: MyString
+  od_query_request_request_id: MyString
+  od_query_request_status: 1
+
+two:
+  header_element: MyString
+  query_request_req_header: MyString
+  header_request_id: MyString
+  header_timestamp: 2019-11-01 20:58:47
+  header_source_system: MyString
+  credentials_element: MyString
+  credentials_user: MyString
+  credentials_password: MyString
+  attributes_list: MyString
+  attribute_element: MyString
+  attribute_name: MyString
+  attribute_value: MyString
+  body_element: MyString
+  body_query_request_req_element: MyString
+  body_query_request_input_message: MyString
+  body_query_request_id: MyString
+  od_header_element: MyString
+  od_query_request_input_message: MyString
+  od_query_request_request_id: MyString
+  od_query_request_return_code: MyString
+  od_query_request_return_message: MyString
+  od_query_request_timestamp: 2019-11-01 20:58:47
+  od_query_request_body_element: MyString
+  od_query_request_output_message: MyString
+  od_query_request_request_id: MyString
+  od_query_request_status: 1

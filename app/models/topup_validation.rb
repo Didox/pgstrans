@@ -1,0 +1,2 @@
+class TopupValidation < ApplicationRecord
+end

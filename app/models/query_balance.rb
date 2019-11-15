@@ -1,0 +1,2 @@
+class QueryBalance < ApplicationRecord
+end

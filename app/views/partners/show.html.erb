@@ -1,0 +1,22 @@
+<div class="container">
+	<p id="notice"><%= notice %></p>
+
+	<p>
+	  <strong>ID:</strong>
+	  <%= @partner.id %>
+	</p>
+
+	<p>
+	  <strong>Name:</strong>
+	  <%= @partner.name %>
+	</p>
+
+	<p>
+	  <strong>Alteração:</strong>
+	  <%= @partner.updated_at %>
+	</p>
+
+
+	<%= link_to 'Edit', edit_partner_path(@partner) %> |
+	<%= link_to 'Back', partners_path %>
+</div>
