@@ -19,6 +19,7 @@
   <div class="field">
     <%= form.label :master_profile %>
     <%= form.number_field :master_profile %>
+    <%#= form.select :master_profile, MasterProfile.all.collect{|d| [d.description, d.id]}, {}, required:true, class: "form-control" %>
   </div>
 
   <div class="field">
