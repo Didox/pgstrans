@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :matrix_users
   resources :partners
   resources :topup_recargas
   root 'welcome#index'
@@ -7,5 +6,6 @@ Rails.application.routes.draw do
   resources :query_balances
   resources :query_requests
   resources :topup_validations
+  resources :matrix_users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

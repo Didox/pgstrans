@@ -1,8 +1,10 @@
 require 'byebug'
-require 'rest_client'
+require 'rest-client'
 
 data = RestClient.get 'https://parceiros.unitel.co.ao:8444/spgw/V2/getStatus', {
   agentId: 83271,
+  storeId: 115356,
+  sellerId: 115709,
   sequenceId: 12346,
   saleSequenceId: 12343,
   terminalId: "00244TP0000001",
