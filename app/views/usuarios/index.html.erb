@@ -6,6 +6,7 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <th scope="col">ID</th>
         <th scope="col">Nome</th>
         <th scope="col">Email</th>
         <th scope="col">Senha</th>
@@ -16,6 +17,7 @@
     <tbody>
       <% @usuarios.each do |usuario| %>
         <tr>
+          <td><%= usuario.id %></td>
           <td><%= usuario.nome %></td>
           <td><%= usuario.email %></td>
           <td><%= usuario.senha %></td>
