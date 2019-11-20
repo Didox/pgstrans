@@ -1,0 +1,36 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <strong>Nome:</strong>
+    <%= @sub_distribuidor.nome %>
+  </p>
+
+  <p>
+    <strong>BI:</strong>
+    <%= @sub_distribuidor.bi %>
+  </p>
+
+  <p>
+    <strong>Telefone:</strong>
+    <%= @sub_distribuidor.telefone %>
+  </p>
+
+  <p>
+    <strong>Morada:</strong>
+    <%= @sub_distribuidor.morada %>
+  </p>
+
+  <p>
+    <strong>Municipio:</strong>
+    <%= @sub_distribuidor.municipio %>
+  </p>
+
+  <p>
+    <strong>Provincia:</strong>
+    <%= @sub_distribuidor.provincia %>
+  </p>
+
+  <%= link_to 'Editar', edit_sub_distribuidor_path(@sub_distribuidor) %> |
+  <%= link_to 'Voltar', sub_distribuidors_path %>
+</div>

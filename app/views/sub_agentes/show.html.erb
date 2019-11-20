@@ -1,0 +1,51 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <strong>Razao social:</strong>
+    <%= @sub_agente.razao_social %>
+  </p>
+
+  <p>
+    <strong>Nome fantasia:</strong>
+    <%= @sub_agente.nome_fantasia %>
+  </p>
+
+  <p>
+    <strong>BI:</strong>
+    <%= @sub_agente.bi %>
+  </p>
+
+  <p>
+    <strong>Ramo de Atividade:</strong>
+    <%= @sub_agente.industry_id %>
+  </p>
+
+  <p>
+    <strong>Morada:</strong>
+    <%= @sub_agente.morada %>
+  </p>
+
+  <p>
+    <strong>Bairro:</strong>
+    <%= @sub_agente.bairro %>
+  </p>
+
+  <p>
+    <strong>Provincia:</strong>
+    <%= @sub_agente.provincia %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= @sub_agente.email %>
+  </p>
+
+  <p>
+    <strong>Telefone:</strong>
+    <%= @sub_agente.telefone %>
+  </p>
+
+  <%= link_to 'Editar', edit_sub_agente_path(@sub_agente) %> |
+  <%= link_to 'Voltar', sub_agentes_path %>
+</div>

@@ -1,0 +1,34 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h3>Usuários / Administradores </h3>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Email</th>
+        <th scope="col">Senha</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @usuarios.each do |usuario| %>
+        <tr>
+          <td><%= usuario.nome %></td>
+          <td><%= usuario.email %></td>
+          <td><%= usuario.senha %></td>
+          <td><%= link_to 'Mostrar', usuario %></td>
+          <td><%= link_to 'Editar', edit_usuario_path(usuario) %></td>
+          <td><%= link_to 'Apagar', usuario, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <%= link_to 'Novo Registro', new_usuario_path %> |
+  <%= link_to 'Voltar', root_path %>
+</div>

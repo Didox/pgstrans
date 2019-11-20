@@ -1,0 +1,11 @@
+<div class="container">
+	<p id="notice"><%= notice %></p>
+
+	<p>
+	  <strong>Nome:</strong>
+	  <%= @municipio.nome %>
+	</p>
+
+	<%= link_to 'Editar', edit_municipio_path(@municipio) %> |
+	<%= link_to 'Voltar', municipios_path %>
+</div>

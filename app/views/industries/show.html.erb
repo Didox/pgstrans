@@ -1,0 +1,16 @@
+<div class="container">
+	<p id="notice"><%= notice %></p>
+
+	<p>
+	  <strong>Descrição Curta:</strong>
+	  <%= @industry.descr_curta %>
+	</p>
+
+	<p>
+	  <strong>Descrição Longa:</strong>
+	  <%= @industry.descr_longa %>
+	</p>
+
+	<%= link_to 'Editar', edit_industry_path(@industry) %> |
+	<%= link_to 'Voltar', industries_path %>
+</div>

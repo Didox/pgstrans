@@ -22,3 +22,16 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+::::::::: Documentações ::::::::: 
+
+url = "https://address/spgw/#{VERSION}/query_string"
+
+uri = URI.parse(URI.escape(url))
+request = HTTParty.get(uri, :query => query)
+if (200...300).include?(request.code.to_i)
+  if request.body.present?
+    return JSON.parse(request.body)
+  end
+end

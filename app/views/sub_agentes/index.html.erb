@@ -1,0 +1,46 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h3>Sub-Agentes</h3>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Razao Social</th>
+        <th scope="col">Nome Fantasia</th>
+        <th scope="col">BI</th>
+        <th scope="col">Ramo de Atividade</th>
+        <th scope="col">Morada</th>
+        <th scope="col">Bairro</th>
+        <th scope="col">Provincia</th>
+        <th scope="col">Email</th>
+        <th scope="col">Telefone</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @sub_agentes.each do |sub_agente| %>
+        <tr>
+          <td><%= sub_agente.razao_social %></td>
+          <td><%= sub_agente.nome_fantasia %></td>
+          <td><%= sub_agente.bi %></td>
+          <td><%= sub_agente.industry_id %></td>
+          <td><%= sub_agente.morada %></td>
+          <td><%= sub_agente.bairro %></td>
+          <td><%= sub_agente.provincia %></td>
+          <td><%= sub_agente.email %></td>
+          <td><%= sub_agente.telefone %></td>
+          <td><%= link_to 'Mostrar', sub_agente %></td>
+          <td><%= link_to 'Editar', edit_sub_agente_path(sub_agente) %></td>
+          <td><%= link_to 'Apagar', sub_agente, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <%= link_to 'Novo Registro', new_sub_agente_path %> |
+  <%= link_to 'Voltar', root_path %>
+</div>

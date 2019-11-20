@@ -1,5 +1,5 @@
 
-<div class="col-md-6" data-target="toggle.grid">
+<div class="col-md-12" data-target="toggle.grid">
 <div class="card border-simpleform box-shadow mb-4">
 	<div class="card-header text-simpleform d-flex align-items-center justify-content-between">
 	  <div>
@@ -8,7 +8,7 @@
 	</div>
 
 	<div class="card border-bootstrap box-shadow mb-4">
-	    <div class="card-header text-bootstrap d-flex align-items-center justify-content-between">
+	    <div class="card-header text-bootstrap align-items-center justify-content-between">
 			<%= simple_form_for(@partner) do |f| %>
 			  <%= f.error_notification %>
 			  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
@@ -18,10 +18,9 @@
 			  </div>
 
 			  <div class="form-actions">
-			    <%= f.button :submit %>
+			    <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
 			  </div>
 			<% end %>
 		</div>
-	</div>
 	</div>
 </div>

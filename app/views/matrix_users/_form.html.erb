@@ -1,48 +1,52 @@
-<%= form_with(model: matrix_user, local: true) do |form| %>
-  <% if matrix_user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(matrix_user.errors.count, "error") %> prohibited this matrix_user from being saved:</h2>
-
-      <ul>
-      <% matrix_user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="col-md-12" data-target="toggle.grid">
+<div class="card border-simpleform box-shadow mb-4">
+  <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
+    <div>
+      <strong>Dados</strong><br />
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
   </div>
 
-  <div class="field">
-    <%= form.label :master_profile %>
-    <%= form.number_field :master_profile %>
-    <%#= form.select :master_profile, MasterProfile.all.collect{|d| [d.description, d.id]}, {}, required:true, class: "form-control" %>
-  </div>
 
-  <div class="field">
-    <%= form.label :sub_dist %>
-    <%= form.number_field :sub_dist %>
-  </div>
+  <div class="card border-bootstrap box-shadow mb-4">
+    <div class="card-header text-bootstrap align-items-center justify-content-between">
+      
+        <%= simple_form_for(@matrix_user) do |f| %>
+          <%= f.error_notification %>
+          <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="field">
-    <%= form.label :sub_agent %>
-    <%= form.number_field :sub_agent %>
-  </div>
+            <div class="form-inputs">
+              <%= f.input :user_id %>
+            </div>
 
-  <div class="field">
-    <%= form.label :filial %>
-    <%= form.number_field :filial %>
-  </div>
+            <div class="form-inputs">
+              <%= f.label :master_profile, "Master Profile" %>
+              <%= f.select :master_profile, MasterProfile.all.collect{|d| [d.description, d.id]}, {}, required:true, class: "form-control" %>
+            </div>
 
-  <div class="field">
-    <%= form.label :pdv %>
-    <%= form.number_field :pdv %>
-  </div>
+            <div class="form-inputs">
+              <%= f.label :sub_distribuidor, "Sub-Distribuidor" %>
+              <%= f.select :sub_distribuidor, SubDistribuidor.all.collect{|d| [d.nome, d.id]}, {}, required:true, class: "form-control" %>   
+            </div>
 
-  <div class="actions">
-    <%= form.submit %>
+            <div class="form-inputs">
+              <%= f.label :sub_agente, "Sub-Agente" %>
+              <%= f.select :sub_agente, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {}, required:true, class: "form-control" %>      
+            </div>
+
+            <div class="form-inputs">
+              <%= f.input :filial %>
+            </div>
+
+            <div class="form-inputs">
+              <%= f.input :pdv %>
+            </div>
+
+              <div class="form-actions">
+                <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
+              </div>
+
+      <% end %>
+    </div>
+    </div>
   </div>
-<% end %>
+</div>

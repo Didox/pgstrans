@@ -65,9 +65,7 @@
           <td><%= query_balance.od_query_balance_output_message %></td>
           <td><%= query_balance.od_query_balance_request_id %></td>
           <td><%= query_balance.od_query_balance_balance %></td>
-          <td><%= link_to 'Show', query_balance %></td>
-          <td><%= link_to 'Edit', edit_query_balance_path(query_balance) %></td>
-          <td><%= link_to 'Destroy', query_balance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Mostrar', query_balance %></td>
         </tr>
       <% end %>
     </tbody>
@@ -75,5 +73,5 @@
 
   <br>
 
-  <%= link_to 'New Query Balance', new_query_balance_path %>
+  <%= link_to 'Voltar', root_path %>
 </div>

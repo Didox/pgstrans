@@ -69,6 +69,6 @@ class MatrixUsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def matrix_user_params
-      params.require(:matrix_user).permit(:user_id, :master_profile, :sub_dist, :sub_agent, :filial, :pdv)
+      params.require(:matrix_user).permit(:user_id, :master_profile, :sub_distribuidor, :sub_agente, :filial, :pdv)
     end
 end

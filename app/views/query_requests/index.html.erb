@@ -65,9 +65,7 @@
           <td><%= query_request.od_query_request_output_message %></td>
           <td><%= query_request.od_query_request_request_id %></td>
           <td><%= query_request.od_query_request_status %></td>
-          <td><%= link_to 'Show', query_request %></td>
-          <td><%= link_to 'Edit', edit_query_request_path(query_request) %></td>
-          <td><%= link_to 'Destroy', query_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Mostrar', query_request %></td>
         </tr>
       <% end %>
     </tbody>
@@ -75,5 +73,6 @@
 
   <br>
 
-  <%= link_to 'New Query Request', new_query_request_path %>
+  <%#= link_to 'Novo Registro', new_query_request_path %>
+  <%= link_to 'Voltar', root_path %>
 </div>

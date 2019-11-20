@@ -1,6 +1,3 @@
-class MasterProfile
-  def self.all()
-    profiles = Rest.all("https://www.pagaso.com.br/master_profiles.json")
-    profiles.map{|c| OpenStruct.new(c) }
-  end
+class MasterProfile < ApplicationRecord
+	validates :id, presence: true, uniqueness: true
 end

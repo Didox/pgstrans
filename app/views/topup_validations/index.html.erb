@@ -3,39 +3,39 @@
 
   <h1>Topup Validations</h1>
 
-  <table>
+  <table class="table table-hover">
     <thead>
       <tr>
-        <th>Spree order</th>
-        <th>Spree products</th>
-        <th>Header element</th>
-        <th>Validate topup req header element</th>
-        <th>Request</th>
-        <th>Header timestamp</th>
-        <th>Header source system</th>
-        <th>Credentials element</th>
-        <th>Credentials user</th>
-        <th>Credentials password</th>
-        <th>Attributes list</th>
-        <th>Attributes element</th>
-        <th>Attribute name</th>
-        <th>Attribute value</th>
-        <th>Body element</th>
-        <th>Validation topup req</th>
-        <th>Validate topup input message</th>
-        <th>Validate topup req body type</th>
-        <th>Validate topup req body amount</th>
-        <th>Validate topup req body msisdn</th>
-        <th>Op header</th>
-        <th>Op validate topup input message</th>
-        <th>Op request</th>
-        <th>Op return code</th>
-        <th>Op return message</th>
-        <th>Op timestamp</th>
-        <th>Op body element</th>
-        <th>Op body validate topup resp</th>
-        <th>Op body validate topup output message</th>
-        <th>Qtde retry</th>
+        <th scope="col">Spree order</th>
+        <th scope="col">Spree products</th>
+        <th scope="col">Header element</th>
+        <th scope="col">Validate topup req header element</th>
+        <th scope="col">Request</th>
+        <th scope="col">Header timestamp</th>
+        <th scope="col">Header source system</th>
+        <th scope="col">Credentials element</th>
+        <th scope="col">Credentials user</th>
+        <th scope="col">Credentials password</th>
+        <th scope="col">Attributes list</th>
+        <th scope="col">Attributes element</th>
+        <th scope="col">Attribute name</th>
+        <th scope="col">Attribute value</th>
+        <th scope="col">Body element</th>
+        <th scope="col">Validation topup req</th>
+        <th scope="col">Validate topup input message</th>
+        <th scope="col">Validate topup req body type</th>
+        <th scope="col">Validate topup req body amount</th>
+        <th scope="col">Validate topup req body msisdn</th>
+        <th scope="col">Op header</th>
+        <th scope="col">Op validate topup input message</th>
+        <th scope="col">Op request</th>
+        <th scope="col">Op return code</th>
+        <th scope="col">Op return message</th>
+        <th scope="col">Op timestamp</th>
+        <th scope="col">Op body element</th>
+        <th scope="col">Op body validate topup resp</th>
+        <th scope="col">Op body validate topup output message</th>
+        <th scope="col">Qtde retry</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -73,9 +73,7 @@
           <td><%= topup_validation.op_body_validate_topup_resp %></td>
           <td><%= topup_validation.op_body_validate_topup_output_message %></td>
           <td><%= topup_validation.qtde_retry %></td>
-          <td><%= link_to 'Show', topup_validation %></td>
-          <td><%= link_to 'Edit', edit_topup_validation_path(topup_validation) %></td>
-          <td><%= link_to 'Destroy', topup_validation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Mostrar', topup_validation %></td>
         </tr>
       <% end %>
     </tbody>
@@ -83,5 +81,5 @@
 
   <br>
 
-  <%= link_to 'New Topup Validation', new_topup_validation_path %>
+  <%= link_to 'Voltar', root_path %>
 </div>

@@ -1,7 +1,19 @@
 Rails.application.routes.draw do
+  resources :municipios
+  resources :industries
+  resources :usuarios
+  resources :sub_agentes
+  resources :sub_distribuidors
+  resources :master_profiles
   resources :partners
   resources :topup_recargas
   root 'welcome#index'
+
+  get 'login', to: 'login#index'
+  get 'login', to: 'login#index'
+  get 'logout', to: 'login#logout'
+  post 'autentica', to: 'login#autentica'
+
   resources :return_code_apis
   resources :query_balances
   resources :query_requests

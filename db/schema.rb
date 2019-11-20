@@ -10,18 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_15_145654) do
+ActiveRecord::Schema.define(version: 2019_11_19_001303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "industries", force: :cascade do |t|
+    t.string "descr_curta"
+    t.string "descr_longa"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "master_profiles", force: :cascade do |t|
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "matrix_users", force: :cascade do |t|
     t.bigint "user_id"
     t.integer "master_profile"
-    t.integer "sub_dist"
-    t.integer "sub_agent"
+    t.integer "sub_distribuidor"
+    t.integer "sub_agente"
     t.integer "filial"
     t.integer "pdv"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "municipios", force: :cascade do |t|
+    t.string "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -102,6 +121,31 @@ ActiveRecord::Schema.define(version: 2019_11_15_145654) do
     t.integer "partner_code"
   end
 
+  create_table "sub_agentes", force: :cascade do |t|
+    t.string "razao_social"
+    t.string "nome_fantasia"
+    t.string "bi"
+    t.string "industry_id"
+    t.string "morada"
+    t.string "bairro"
+    t.string "provincia"
+    t.string "email"
+    t.string "telefone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sub_distribuidors", force: :cascade do |t|
+    t.string "nome"
+    t.string "bi"
+    t.string "telefone"
+    t.string "morada"
+    t.string "municipio"
+    t.string "provincia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "topup_recargas", force: :cascade do |t|
     t.string "validation_id"
     t.string "header_element"
@@ -159,6 +203,14 @@ ActiveRecord::Schema.define(version: 2019_11_15_145654) do
     t.string "op_body_validate_topup_resp"
     t.string "op_body_validate_topup_output_message"
     t.datetime "qtde_retry"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "usuarios", force: :cascade do |t|
+    t.string "nome"
+    t.string "email"
+    t.string "senha"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

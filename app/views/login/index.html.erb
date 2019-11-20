@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+        <h1>Login</h1>
+    </div>
+    <div class="panel-body">
+      <div class="row col-md-12 col-md-offset-4">
+        <div class="wrapper fadeInDown">
+          <div id="formContent">
+            <form action="/autentica" method="post">
+              <input type="text" id="email" class="fadeIn second" name="email" placeholder="E-mail">
+              <input type="password" id="senha" class="fadeIn third" name="senha" placeholder="senha">
+
+              <% if flash[:error].present? %>
+                <div class="alert alert-danger alert-dismissable" role="alert">
+                  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                  <ul>
+                    <li><%= flash[:error] %></li>
+                  </ul>
+                </div>
+              <% end %>
+              <input type="submit" class="fadeIn fourth" value="Log In">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

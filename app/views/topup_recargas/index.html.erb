@@ -4,30 +4,30 @@
 
   <h1>Topup Recargas</h1>
 
-  <table>
+  <table class="table table-hover">
     <thead>
       <tr>
-        <th>Validation</th>
-        <th>Header element</th>
-        <th>Topup req header</th>
-        <th>Request</th>
-        <th>Header timestamp</th>
-        <th>Header source system</th>
-        <th>Credentials element</th>
-        <th>Credentials user</th>
-        <th>Credentials password</th>
-        <th>Attributes list</th>
-        <th>Attribute element</th>
-        <th>Attribute name</th>
-        <th>Attribute value</th>
-        <th>Body element</th>
-        <th>Body req element</th>
-        <th>Body input message</th>
-        <th>Body topup req body type</th>
-        <th>Body topup req body amount</th>
-        <th>Body topup req body msisdn</th>
-        <th>Od header element</th>
-        <th>Od topup resp input message</th>
+        <th scope="col">Validation</th>
+        <th scope="col">Header element</th>
+        <th scope="col">Topup req header</th>
+        <th scope="col">Request</th>
+        <th scope="col">Header timestamp</th>
+        <th scope="col">Header source system</th>
+        <th scope="col">Credentials element</th>
+        <th scope="col">Credentials user</th>
+        <th scope="col">Credentials password</th>
+        <th scope="col">Attributes list</th>
+        <th scope="col">Attribute element</th>
+        <th scope="col">Attribute name</th>
+        <th scope="col">Attribute value</th>
+        <th scope="col">Body element</th>
+        <th scope="col">Body req element</th>
+        <th scope="col">Body input message</th>
+        <th scope="col">Body topup req body type</th>
+        <th scope="col">Body topup req body amount</th>
+        <th scope="col">Body topup req body msisdn</th>
+        <th scope="col">Od header element</th>
+        <th scope="col">Od topup resp input message</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -56,9 +56,7 @@
           <td><%= topup_recarga.body_topup_req_body_msisdn %></td>
           <td><%= topup_recarga.od_header_element %></td>
           <td><%= topup_recarga.od_topup_resp_input_message %></td>
-          <td><%= link_to 'Show', topup_recarga %></td>
-          <td><%= link_to 'Edit', edit_topup_recarga_path(topup_recarga) %></td>
-          <td><%= link_to 'Destroy', topup_recarga, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Mostrar', topup_recarga %></td>
         </tr>
       <% end %>
     </tbody>
@@ -66,6 +64,6 @@
 
   <br>
 
-  <%= link_to 'New Topup Recarga', new_topup_recarga_path %>
+  <%= link_to 'Voltar', root_path %>
 
 </div>
