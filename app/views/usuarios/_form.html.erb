@@ -27,6 +27,11 @@
       <%= form.text_field :senha %>
     </div>
 
+    <div class="field">
+      <%= form.label :perfil_usuario_id %>
+      <%= form.select :perfil_usuario_id, PerfilUsuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+    </div>
+
     <div class="actions">
       <%= form.submit %>
     </div>

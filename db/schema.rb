@@ -265,13 +265,13 @@ ActiveRecord::Schema.define(version: 2019_11_20_152616) do
     t.string "senha"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "perfil_usuarios_id"
-    t.index ["perfil_usuarios_id"], name: "index_usuarios_on_perfil_usuarios_id"
+    t.bigint "perfil_usuario_id"
+    t.index ["perfil_usuario_id"], name: "index_usuarios_on_perfil_usuario_id"
   end
 
   add_foreign_key "produtos", "partners"
   add_foreign_key "produtos", "status_produtos"
   add_foreign_key "remuneracaos", "produtos"
   add_foreign_key "remuneracaos", "usuarios"
-  add_foreign_key "usuarios", "perfil_usuarios", column: "perfil_usuarios_id"
+  add_foreign_key "usuarios", "perfil_usuarios"
 end
