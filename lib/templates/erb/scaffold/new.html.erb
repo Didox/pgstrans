@@ -1,9 +1,9 @@
-<h1>Novo <%= singular_table_name %></h1>
+<h4>Novo <%= singular_table_name.camelize %></h4>
 <div class="container">
-	<%= render 'form' %>
+  <%%= render 'form' %>
 
-	<%%= link_to <%= index_helper %>_path, class: 'btn btn-default' do %>
-	    <span class="glyphicon glyphicon-list-alt"></span>
-	    Voltar
-	<%% end %>
+  <%%= link_to <%= index_helper %>_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <%% end %>
 </div>

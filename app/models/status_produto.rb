@@ -1,0 +1,2 @@
+class StatusProduto < ApplicationRecord
+end
