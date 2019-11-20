@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_20_150138) do
+ActiveRecord::Schema.define(version: 2019_11_20_152323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,22 @@ ActiveRecord::Schema.define(version: 2019_11_20_150138) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "remuneracaos", force: :cascade do |t|
+    t.string "nome"
+    t.bigint "usuario_id"
+    t.bigint "produto_id"
+    t.float "valor_venda_final_telemovel"
+    t.float "valor_venda_final_site"
+    t.float "valor_venda_final_pos"
+    t.float "valor_venda_final_tef"
+    t.datetime "vigencia_inicio"
+    t.datetime "vigencia_fim"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["produto_id"], name: "index_remuneracaos_on_produto_id"
+    t.index ["usuario_id"], name: "index_remuneracaos_on_usuario_id"
+  end
+
   create_table "return_code_apis", force: :cascade do |t|
     t.string "return_code"
     t.string "return_description"
@@ -246,4 +262,6 @@ ActiveRecord::Schema.define(version: 2019_11_20_150138) do
 
   add_foreign_key "produtos", "partners"
   add_foreign_key "produtos", "status_produtos"
+  add_foreign_key "remuneracaos", "produtos"
+  add_foreign_key "remuneracaos", "usuarios"
 end

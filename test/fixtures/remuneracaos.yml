@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  usuario: one
+  produto: one
+  valor_venda_final_telemovel: 1.5
+  valor_venda_final_site: 1.5
+  valor_venda_final_pos: 1.5
+  valor_venda_final_tef: 1.5
+  vigencia_inicio: 2019-11-20 13:23:23
+  vigencia_fim: 2019-11-20 13:23:23
+
+two:
+  nome: MyString
+  usuario: two
+  produto: two
+  valor_venda_final_telemovel: 1.5
+  valor_venda_final_site: 1.5
+  valor_venda_final_pos: 1.5
+  valor_venda_final_tef: 1.5
+  vigencia_inicio: 2019-11-20 13:23:23
+  vigencia_fim: 2019-11-20 13:23:23
