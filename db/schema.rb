@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_20_152323) do
+ActiveRecord::Schema.define(version: 2019_11_20_152616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,13 @@ ActiveRecord::Schema.define(version: 2019_11_20_152323) do
 
   create_table "partners", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "perfil_usuarios", force: :cascade do |t|
+    t.string "nome"
+    t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -258,10 +265,13 @@ ActiveRecord::Schema.define(version: 2019_11_20_152323) do
     t.string "senha"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "perfil_usuarios_id"
+    t.index ["perfil_usuarios_id"], name: "index_usuarios_on_perfil_usuarios_id"
   end
 
   add_foreign_key "produtos", "partners"
   add_foreign_key "produtos", "status_produtos"
   add_foreign_key "remuneracaos", "produtos"
   add_foreign_key "remuneracaos", "usuarios"
+  add_foreign_key "usuarios", "perfil_usuarios", column: "perfil_usuarios_id"
 end
