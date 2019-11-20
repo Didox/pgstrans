@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_20_141249) do
+ActiveRecord::Schema.define(version: 2019_11_20_150138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,29 @@ ActiveRecord::Schema.define(version: 2019_11_20_141249) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "produtos", force: :cascade do |t|
+    t.string "description"
+    t.bigint "partner_id"
+    t.bigint "status_produto_id"
+    t.float "valor_compra_telemovel"
+    t.float "valor_compra_site"
+    t.float "valor_compra_pos"
+    t.float "valor_compra_tef"
+    t.float "valor_minimo_venda_telemovel"
+    t.float "valor_minimo_venda_site"
+    t.float "valor_minimo_venda_pos"
+    t.float "valor_minimo_venda_tef"
+    t.float "margem_telemovel"
+    t.string "margem_site"
+    t.float "margem_pos"
+    t.float "margem_tef"
+    t.text "mensagem_cupom_venda"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["partner_id"], name: "index_produtos_on_partner_id"
+    t.index ["status_produto_id"], name: "index_produtos_on_status_produto_id"
   end
 
   create_table "query_balances", force: :cascade do |t|
@@ -221,4 +244,6 @@ ActiveRecord::Schema.define(version: 2019_11_20_141249) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "produtos", "partners"
+  add_foreign_key "produtos", "status_produtos"
 end

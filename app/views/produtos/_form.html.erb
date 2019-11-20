@@ -1,0 +1,133 @@
+<div class="col-md-12" data-target="toggle.grid">
+  <div class="card border-simpleform box-shadow mb-4">
+    <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
+      <div>
+        <strong>Dados</strong><br />
+      </div>
+    </div>
+
+    <div class="border-bootstrap box-shadow mb-4">
+      <div class="card-header text-bootstrap align-items-center justify-content-between">
+        
+      <%= form_for(@produto, html: { class: "form-horizontal", role: "form" }) do |f| %>
+        <% if @produto.errors.any? %>
+          <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4><%= pluralize(@produto.errors.count, "error") %> prohibited this produto from being saved:</h4>
+
+            <ul>
+            <% @produto.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+              <div class="form-group">
+          <%= f.label :description, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :description, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :partner, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :partner, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :status_produto, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :status_produto, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :valor_compra_telemovel, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :valor_compra_telemovel, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :valor_compra_site, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :valor_compra_site, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :valor_compra_pos, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :valor_compra_pos, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :valor_compra_tef, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :valor_compra_tef, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :valor_minimo_venda_telemovel, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :valor_minimo_venda_telemovel, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :valor_minimo_venda_site, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :valor_minimo_venda_site, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :valor_minimo_venda_pos, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :valor_minimo_venda_pos, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :valor_minimo_venda_tef, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :valor_minimo_venda_tef, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :margem_telemovel, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :margem_telemovel, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :margem_site, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :margem_site, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :margem_pos, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :margem_pos, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :margem_tef, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_field :margem_tef, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <%= f.label :mensagem_cupom_venda, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.text_area :mensagem_cupom_venda, class: "form-control" %>
+          </div>
+        </div>
+              <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <%= f.submit "Salvar", class: "btn btn-danger" %>
+          </div>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+

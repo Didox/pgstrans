@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :produtos
   resources :status_produtos
   resources :municipios
   resources :industries

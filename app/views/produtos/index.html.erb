@@ -1,0 +1,58 @@
+<div class="container">
+  <h4>Produtos</h4>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+                <th scope="col">Description</th>
+                <th scope="col">Partner</th>
+                <th scope="col">Status produto</th>
+                <th scope="col">Valor compra telemovel</th>
+                <th scope="col">Valor compra site</th>
+                <th scope="col">Valor compra pos</th>
+                <th scope="col">Valor compra tef</th>
+                <th scope="col">Valor minimo venda telemovel</th>
+                <th scope="col">Valor minimo venda site</th>
+                <th scope="col">Valor minimo venda pos</th>
+                <th scope="col">Valor minimo venda tef</th>
+                <th scope="col">Margem telemovel</th>
+                <th scope="col">Margem site</th>
+                <th scope="col">Margem pos</th>
+                <th scope="col">Margem tef</th>
+                <th scope="col">Mensagem cupom venda</th>
+                <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @produtos.each do |produto| %>
+      <tr>
+                <td><%= produto.description %></td>
+                <td><%= produto.partner %></td>
+                <td><%= produto.status_produto %></td>
+                <td><%= produto.valor_compra_telemovel %></td>
+                <td><%= produto.valor_compra_site %></td>
+                <td><%= produto.valor_compra_pos %></td>
+                <td><%= produto.valor_compra_tef %></td>
+                <td><%= produto.valor_minimo_venda_telemovel %></td>
+                <td><%= produto.valor_minimo_venda_site %></td>
+                <td><%= produto.valor_minimo_venda_pos %></td>
+                <td><%= produto.valor_minimo_venda_tef %></td>
+                <td><%= produto.margem_telemovel %></td>
+                <td><%= produto.margem_site %></td>
+                <td><%= produto.margem_pos %></td>
+                <td><%= produto.margem_tef %></td>
+                <td><%= produto.mensagem_cupom_venda %></td>
+                <td><%= link_to 'Mostrar', produto %></td>
+        <td><%= link_to 'Editar', edit_produto_path(produto) %></td>
+        <td><%= link_to 'Apagar', produto, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <%= link_to "Novo Registo", new_produto_path, class: 'btn btn-danger' %>
+  <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
+</div>
