@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_21_143035) do
+ActiveRecord::Schema.define(version: 2019_11_21_144538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "industries", force: :cascade do |t|
-    t.string "descr_curta"
-    t.string "descr_longa"
+    t.string "descricao_seccao"
+    t.string "descricao_divisao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "descricao_grupo"
   end
 
   create_table "master_profiles", force: :cascade do |t|
