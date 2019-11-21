@@ -20,7 +20,7 @@
       <% @matrix_users.each do |matrix_user| %>
         <tr>
           <td>
-            <%= matrix_user.user_id %>
+            <%= matrix_user.usuario.nome rescue "" %>
           </td>
           <td>
             <%= "#{matrix_user.master_profile} / #{matrix_user.master_profile_obj.description}" %>

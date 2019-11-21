@@ -23,7 +23,8 @@
           <% end %>
 
           <div class="form-inputs">
-            <%= f.input :user_id %>
+            <%= f.label :usuario_id, "Usuario" %>
+            <%= f.select :usuario_id, Usuario.all.collect{|d| [d.nome, d.id]}, {}, required:true, class: "form-control" %>
           </div>
 
           <div class="form-inputs">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_20_152616) do
+ActiveRecord::Schema.define(version: 2019_11_21_140548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 2019_11_20_152616) do
   end
 
   create_table "matrix_users", force: :cascade do |t|
-    t.bigint "user_id"
     t.integer "master_profile"
     t.integer "sub_distribuidor"
     t.integer "sub_agente"
@@ -37,6 +36,8 @@ ActiveRecord::Schema.define(version: 2019_11_20_152616) do
     t.integer "pdv"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "usuario_id"
+    t.index ["usuario_id"], name: "index_matrix_users_on_usuario_id"
   end
 
   create_table "municipios", force: :cascade do |t|
@@ -269,6 +270,7 @@ ActiveRecord::Schema.define(version: 2019_11_20_152616) do
     t.index ["perfil_usuario_id"], name: "index_usuarios_on_perfil_usuario_id"
   end
 
+  add_foreign_key "matrix_users", "usuarios"
   add_foreign_key "produtos", "partners"
   add_foreign_key "produtos", "status_produtos"
   add_foreign_key "remuneracaos", "produtos"

@@ -1,5 +1,6 @@
 class MatrixUser < ApplicationRecord
-  validates :id, presence: true, uniqueness: true
+  belongs_to :usuario
+  validates :usuario_id, presence: true, uniqueness: true
   default_scope { order(id: :asc) }
 
   def master_profile_obj

@@ -19,7 +19,7 @@ class MatrixUsersTest < ApplicationSystemTestCase
     fill_in "Pdv", with: @matrix_user.pdv
     fill_in "Sub agent", with: @matrix_user.sub_agent
     fill_in "Sub dist", with: @matrix_user.sub_dist
-    fill_in "User", with: @matrix_user.user_id
+    fill_in "User", with: @matrix_user.usuario_id
     click_on "Create Matrix user"
 
     assert_text "Matrix user was successfully created"
@@ -35,7 +35,7 @@ class MatrixUsersTest < ApplicationSystemTestCase
     fill_in "Pdv", with: @matrix_user.pdv
     fill_in "Sub agent", with: @matrix_user.sub_agent
     fill_in "Sub dist", with: @matrix_user.sub_dist
-    fill_in "User", with: @matrix_user.user_id
+    fill_in "User", with: @matrix_user.usuario_id
     click_on "Update Matrix user"
 
     assert_text "Matrix user was successfully updated"

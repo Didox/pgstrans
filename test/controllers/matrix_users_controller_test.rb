@@ -17,7 +17,7 @@ class MatrixUsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create matrix_user" do
     assert_difference('MatrixUser.count') do
-      post matrix_users_url, params: { matrix_user: { filial: @matrix_user.filial, master_profile: @matrix_user.master_profile, pdv: @matrix_user.pdv, sub_agent: @matrix_user.sub_agent, sub_dist: @matrix_user.sub_dist, user_id: @matrix_user.user_id } }
+      post matrix_users_url, params: { matrix_user: { filial: @matrix_user.filial, master_profile: @matrix_user.master_profile, pdv: @matrix_user.pdv, sub_agent: @matrix_user.sub_agent, sub_dist: @matrix_user.sub_dist, user_id: @matrix_user.usuario_id } }
     end
 
     assert_redirected_to matrix_user_url(MatrixUser.last)
@@ -34,7 +34,7 @@ class MatrixUsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update matrix_user" do
-    patch matrix_user_url(@matrix_user), params: { matrix_user: { filial: @matrix_user.filial, master_profile: @matrix_user.master_profile, pdv: @matrix_user.pdv, sub_agent: @matrix_user.sub_agent, sub_dist: @matrix_user.sub_dist, user_id: @matrix_user.user_id } }
+    patch matrix_user_url(@matrix_user), params: { matrix_user: { filial: @matrix_user.filial, master_profile: @matrix_user.master_profile, pdv: @matrix_user.pdv, sub_agent: @matrix_user.sub_agent, sub_dist: @matrix_user.sub_dist, user_id: @matrix_user.usuario_id } }
     assert_redirected_to matrix_user_url(@matrix_user)
   end
 
