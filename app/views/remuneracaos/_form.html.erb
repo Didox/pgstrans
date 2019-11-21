@@ -23,26 +23,21 @@
           </div>
         <% end %>
 
-              <div class="form-group">
-          <%= f.label :nome, class: "col-sm-2 control-label" %>
+        <div class="form-group">
+          <%= f.label :usuario_id, class: "col-sm-2 control-label" %>
           <div class="col-sm-10">
-            <%= f.text_field :nome, class: "form-control" %>
+            <%= f.select :usuario_id, Usuario.all.collect{|d| [d.nome, d.id]}, {}, required:true, class: "form-control" %>
+          </div>
+        </div>
+      
+        <div class="form-group">
+          <%= f.label :produto_id, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= f.select :produto_id, Produto.all.collect{|d| [d.description, d.id]}, {}, required:true, class: "form-control" %>
           </div>
         </div>
               <div class="form-group">
-          <%= f.label :usuario, class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= f.text_field :usuario, class: "form-control" %>
-          </div>
-        </div>
-              <div class="form-group">
-          <%= f.label :produto, class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= f.text_field :produto, class: "form-control" %>
-          </div>
-        </div>
-              <div class="form-group">
-          <%= f.label :valor_venda_final_telemovel, class: "col-sm-2 control-label" %>
+          <%= f.label :valor_venda_final_telemovel, "Valor venda", class: "col-sm-2 control-label" %>
           <div class="col-sm-10">
             <%= f.text_field :valor_venda_final_telemovel, class: "form-control" %>
           </div>
@@ -59,7 +54,7 @@
             <%= f.text_field :valor_venda_final_pos, class: "form-control" %>
           </div>
         </div>
-              <div class="form-group">
+        <div class="form-group">
           <%= f.label :valor_venda_final_tef, class: "col-sm-2 control-label" %>
           <div class="col-sm-10">
             <%= f.text_field :valor_venda_final_tef, class: "form-control" %>
@@ -68,13 +63,13 @@
               <div class="form-group">
           <%= f.label :vigencia_inicio, class: "col-sm-2 control-label" %>
           <div class="col-sm-10">
-            <%= f.datetime_select :vigencia_inicio, class: "form-control" %>
+            <%= f.datetime_field :vigencia_inicio, class: "form-control" %>
           </div>
         </div>
               <div class="form-group">
           <%= f.label :vigencia_fim, class: "col-sm-2 control-label" %>
           <div class="col-sm-10">
-            <%= f.datetime_select :vigencia_fim, class: "form-control" %>
+            <%= f.datetime_field :vigencia_fim, class: "form-control" %>
           </div>
         </div>
               <div class="form-group">
