@@ -1,7 +1,7 @@
   <header class="blog-header py-3">
     <div class="row flex-nowrap justify-content-between align-items-center">
       <div class="col-4 pt-1">
-        <a class="text-muted" href="<%= root_path %>">Registo</a>
+        <a class="text-muted" href="<%= root_path %>">Home</a>
       </div>
       <div class="col-4 text-center">
         <img class="img-responsive" data-image="assets/images/PagaSo-Logo.png">
@@ -13,14 +13,13 @@
           <span class="fa fa-user"></span>
           <%= usuario_logado.nome.camelize %>
         </a>&nbsp;
-        <a class="btn btn-sm btn-outline-secondary" href="<%= logout_path %>">Logout</a>
+        <a class="btn btn-sm btn-outline-secondary" href="<%= logout_path %>">Sair</a>
       </div>
     </div>
   </header>
 
   <div class="nav-scroller py-1 mb-2 ">
     <nav class="nav d-flex justify-content-between navbar-dark bg-warning">
-      <a class="p-2 text-dark" href="<%= root_path %>">Home</a>
       <a class="p-2 text-dark" href="#">Unitel</a>
       <a class="p-2 text-dark" href="#">Movicel</a>
       <a class="p-2 text-dark" href="#">DSTV</a>

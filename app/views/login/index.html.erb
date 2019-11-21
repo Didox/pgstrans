@@ -1,29 +1,41 @@
 <div class="container">
-  <div class="panel panel-default">
+  <br>
+  <div class="col-md-12 panel panel-default">
     <div class="panel-heading">
-        <h1>Login</h1>
+        <h1>Aceder</h1>
     </div>
     <div class="panel-body">
-      <div class="row col-md-12 col-md-offset-4">
-        <div class="wrapper fadeInDown">
-          <div id="formContent">
-            <form action="/autentica" method="post">
-              <input type="text" id="email" class="fadeIn second" name="email" placeholder="E-mail">
-              <input type="password" id="senha" class="fadeIn third" name="senha" placeholder="senha">
+        <div class="col-md-4">
+          <img class="img-responsive" data-image="assets/images/Mascote_270x228.png">
+            <%= link_to image_tag("Mascote_270x228.png")%>
+          </img>
+        </div>
+        <div class="col-md-8 d-flex wrapper fadeInDown">
+          <div class="row">
+            <h3>Mais vantagens para você <strong>VENDER MAIS!</strong></h3>
+          </div>
+          <div class="row">
+            <div id="formContent">
+              <form action="/autentica" method="post">
+                <input type="text" id="email" size="40" class="fadeIn second" name="email" placeholder="E-mail">
+                <input type="password" id="senha" size="40" class="fadeIn third" name="senha" placeholder="Palavra-passe">
 
-              <% if flash[:error].present? %>
-                <div class="alert alert-danger alert-dismissable" role="alert">
-                  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
-                  <ul>
-                    <li><%= flash[:error] %></li>
-                  </ul>
-                </div>
-              <% end %>
-              <input type="submit" class="fadeIn fourth" value="Log In">
-            </form>
+                <% if flash[:error].present? %>
+                  <div class="alert alert-danger alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                    <ul>
+                      <li><%= flash[:error] %></li>
+                    </ul>
+                  </div>
+                <% end %>
+                <input type="submit" class="fadeIn fourth" value="Aceder">
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <%= link_to 'Precisa de ajuda?', "https://www.pagaso.co.ao/pages/contact?locale=pt", 
+        target: "_blank" %>
   </div>
 </div>
