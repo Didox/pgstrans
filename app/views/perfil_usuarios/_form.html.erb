@@ -13,7 +13,7 @@
           <% if @perfil_usuario.errors.any? %>
             <div class="alert alert-danger alert-dismissable" role="alert">
               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <h4><%= pluralize(@perfil_usuario.errors.count, "error") %> prohibited this perfil_usuario from being saved:</h4>
+              <h4><%= pluralize(@perfil_usuario.errors.count, "erros") %> no perfil do usuário, confira abaixo:</h4>
 
               <ul>
               <% @perfil_usuario.errors.full_messages.each do |msg| %>

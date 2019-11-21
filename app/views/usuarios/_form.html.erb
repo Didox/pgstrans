@@ -2,7 +2,7 @@
   <%= form_with(model: usuario, local: true) do |form| %>
     <% if usuario.errors.any? %>
       <div id="error_explanation">
-        <h2><%= pluralize(usuario.errors.count, "error") %> prohibited this usuario from being saved:</h2>
+        <h2><%= pluralize(usuario.errors.count, "erros") %> no usuario, confira abaixo:</h2>
 
         <ul>
         <% usuario.errors.full_messages.each do |message| %>
