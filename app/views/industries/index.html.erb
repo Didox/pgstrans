@@ -6,8 +6,9 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th scope="col">Descrição Curta</th>
-        <th scope="col">Descrição Longa</th>
+        <th scope="col">Descrição Seccao</th>
+        <th scope="col">Descrição Divisão</th>
+        <th scope="col">Descrição Grupo</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -15,8 +16,9 @@
     <tbody>
       <% @industries.each do |industry| %>
         <tr>
-          <td><%= industry.descr_curta %></td>
-          <td><%= industry.descr_longa %></td>
+          <td><%= industry.descricao_seccao %></td>
+          <td><%= industry.descricao_divisao %></td>
+          <td><%= industry.descricao_grupo %></td>
           <td><%= link_to 'Mostrar', industry %></td>
           <td><%= link_to 'Editar', edit_industry_path(industry) %></td>
           <td><%= link_to 'Apagar', industry, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>

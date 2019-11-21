@@ -19,7 +19,7 @@ class UsuariosTest < ApplicationSystemTestCase
     fill_in "Senha", with: @usuario.senha
     click_on "Create Usuario"
 
-    assert_text "Usuario was successfully created"
+    assert_text "Usuario foi criado com sucesso"
     click_on "Back"
   end
 
@@ -32,7 +32,7 @@ class UsuariosTest < ApplicationSystemTestCase
     fill_in "Senha", with: @usuario.senha
     click_on "Update Usuario"
 
-    assert_text "Usuario was successfully updated"
+    assert_text "Usuario foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -42,6 +42,6 @@ class UsuariosTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Usuario was successfully destroyed"
+    assert_text "Usuario foi apagado com sucesso"
   end
 end

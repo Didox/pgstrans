@@ -18,7 +18,7 @@ class IndustriesTest < ApplicationSystemTestCase
     fill_in "Descr longa", with: @industry.descr_longa
     click_on "Create Industry"
 
-    assert_text "Industry was successfully created"
+    assert_text "Industry foi criado com sucesso"
     click_on "Back"
   end
 
@@ -30,7 +30,7 @@ class IndustriesTest < ApplicationSystemTestCase
     fill_in "Descr longa", with: @industry.descr_longa
     click_on "Update Industry"
 
-    assert_text "Industry was successfully updated"
+    assert_text "Industry foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -40,6 +40,6 @@ class IndustriesTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Industry was successfully destroyed"
+    assert_text "Industry foi apagado com sucesso"
   end
 end

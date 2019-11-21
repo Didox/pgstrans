@@ -17,7 +17,7 @@ class MunicipiosTest < ApplicationSystemTestCase
     fill_in "Nome", with: @municipio.nome
     click_on "Create Municipio"
 
-    assert_text "Municipio was successfully created"
+    assert_text "Municipio foi criado com sucesso"
     click_on "Back"
   end
 
@@ -28,7 +28,7 @@ class MunicipiosTest < ApplicationSystemTestCase
     fill_in "Nome", with: @municipio.nome
     click_on "Update Municipio"
 
-    assert_text "Municipio was successfully updated"
+    assert_text "Municipio foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -38,6 +38,6 @@ class MunicipiosTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Municipio was successfully destroyed"
+    assert_text "Municipio foi apagado com sucesso"
   end
 end

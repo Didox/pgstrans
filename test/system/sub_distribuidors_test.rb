@@ -22,7 +22,7 @@ class SubDistribuidorsTest < ApplicationSystemTestCase
     fill_in "Telefone", with: @sub_distribuidor.telefone
     click_on "Create Sub distribuidor"
 
-    assert_text "Sub distribuidor was successfully created"
+    assert_text "Sub distribuidor foi criado com sucesso"
     click_on "Back"
   end
 
@@ -38,7 +38,7 @@ class SubDistribuidorsTest < ApplicationSystemTestCase
     fill_in "Telefone", with: @sub_distribuidor.telefone
     click_on "Update Sub distribuidor"
 
-    assert_text "Sub distribuidor was successfully updated"
+    assert_text "Sub distribuidor foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -48,6 +48,6 @@ class SubDistribuidorsTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Sub distribuidor was successfully destroyed"
+    assert_text "Sub distribuidor foi apagado com sucesso"
   end
 end

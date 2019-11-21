@@ -28,7 +28,7 @@ class IndustriesController < ApplicationController
 
     respond_to do |format|
       if @industry.save
-        format.html { redirect_to @industry, notice: 'Industry was successfully created.' }
+        format.html { redirect_to @industry, notice: 'Industry foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @industry }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class IndustriesController < ApplicationController
   def update
     respond_to do |format|
       if @industry.update(industry_params)
-        format.html { redirect_to @industry, notice: 'Industry was successfully updated.' }
+        format.html { redirect_to @industry, notice: 'Industry foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @industry }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class IndustriesController < ApplicationController
   def destroy
     @industry.destroy
     respond_to do |format|
-      format.html { redirect_to industries_url, notice: 'Industry was successfully destroyed.' }
+      format.html { redirect_to industries_url, notice: 'Industry foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +69,6 @@ class IndustriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def industry_params
-      params.require(:industry).permit(:descr_curta, :descr_longa)
+      params.require(:industry).permit(:descricao_seccao, :descricao_divisao, :descricao_grupo)
     end
 end

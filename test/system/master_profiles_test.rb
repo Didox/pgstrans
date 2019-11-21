@@ -17,7 +17,7 @@ class MasterProfilesTest < ApplicationSystemTestCase
     fill_in "Description", with: @master_profile.description
     click_on "Create Master profile"
 
-    assert_text "Master profile was successfully created"
+    assert_text "Master profile foi criado com sucesso"
     click_on "Back"
   end
 
@@ -28,7 +28,7 @@ class MasterProfilesTest < ApplicationSystemTestCase
     fill_in "Description", with: @master_profile.description
     click_on "Update Master profile"
 
-    assert_text "Master profile was successfully updated"
+    assert_text "Master profile foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -38,6 +38,6 @@ class MasterProfilesTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Master profile was successfully destroyed"
+    assert_text "Master profile foi apagado com sucesso"
   end
 end

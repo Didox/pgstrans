@@ -46,7 +46,7 @@ class TopupValidationsTest < ApplicationSystemTestCase
     fill_in "Validation topup req", with: @topup_validation.validation_topup_req
     click_on "Create Topup validation"
 
-    assert_text "Topup validation was successfully created"
+    assert_text "Topup validation foi criado com sucesso"
     click_on "Back"
   end
 
@@ -86,7 +86,7 @@ class TopupValidationsTest < ApplicationSystemTestCase
     fill_in "Validation topup req", with: @topup_validation.validation_topup_req
     click_on "Update Topup validation"
 
-    assert_text "Topup validation was successfully updated"
+    assert_text "Topup validation foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -96,6 +96,6 @@ class TopupValidationsTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Topup validation was successfully destroyed"
+    assert_text "Topup validation foi apagado com sucesso"
   end
 end

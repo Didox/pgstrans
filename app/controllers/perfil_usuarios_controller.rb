@@ -28,7 +28,7 @@ class PerfilUsuariosController < ApplicationController
 
     respond_to do |format|
       if @perfil_usuario.save
-        format.html { redirect_to @perfil_usuario, notice: 'Perfil usuario was successfully created.' }
+        format.html { redirect_to @perfil_usuario, notice: 'Perfil usuario foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @perfil_usuario }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class PerfilUsuariosController < ApplicationController
   def update
     respond_to do |format|
       if @perfil_usuario.update(perfil_usuario_params)
-        format.html { redirect_to @perfil_usuario, notice: 'Perfil usuario was successfully updated.' }
+        format.html { redirect_to @perfil_usuario, notice: 'Perfil usuario foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @perfil_usuario }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class PerfilUsuariosController < ApplicationController
   def destroy
     @perfil_usuario.destroy
     respond_to do |format|
-      format.html { redirect_to perfil_usuarios_url, notice: 'Perfil usuario was successfully destroyed.' }
+      format.html { redirect_to perfil_usuarios_url, notice: 'Perfil usuario foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

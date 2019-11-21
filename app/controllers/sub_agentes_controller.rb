@@ -28,7 +28,7 @@ class SubAgentesController < ApplicationController
 
     respond_to do |format|
       if @sub_agente.save
-        format.html { redirect_to @sub_agente, notice: 'Sub agente was successfully created.' }
+        format.html { redirect_to @sub_agente, notice: 'Sub agente foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @sub_agente }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class SubAgentesController < ApplicationController
   def update
     respond_to do |format|
       if @sub_agente.update(sub_agente_params)
-        format.html { redirect_to @sub_agente, notice: 'Sub agente was successfully updated.' }
+        format.html { redirect_to @sub_agente, notice: 'Sub agente foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @sub_agente }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class SubAgentesController < ApplicationController
   def destroy
     @sub_agente.destroy
     respond_to do |format|
-      format.html { redirect_to sub_agentes_url, notice: 'Sub agente was successfully destroyed.' }
+      format.html { redirect_to sub_agentes_url, notice: 'Sub agente foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

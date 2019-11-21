@@ -28,7 +28,7 @@ class MasterProfilesController < ApplicationController
 
     respond_to do |format|
       if @master_profile.save
-        format.html { redirect_to @master_profile, notice: 'Master profile was successfully created.' }
+        format.html { redirect_to @master_profile, notice: 'Master profile foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @master_profile }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MasterProfilesController < ApplicationController
   def update
     respond_to do |format|
       if @master_profile.update(master_profile_params)
-        format.html { redirect_to @master_profile, notice: 'Master profile was successfully updated.' }
+        format.html { redirect_to @master_profile, notice: 'Master profile foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @master_profile }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class MasterProfilesController < ApplicationController
   def destroy
     @master_profile.destroy
     respond_to do |format|
-      format.html { redirect_to master_profiles_url, notice: 'Master profile was successfully destroyed.' }
+      format.html { redirect_to master_profiles_url, notice: 'Master profile foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

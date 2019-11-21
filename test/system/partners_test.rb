@@ -17,7 +17,7 @@ class PartnersTest < ApplicationSystemTestCase
     fill_in "Name", with: @partner.name
     click_on "Create Partner"
 
-    assert_text "Partner was successfully created"
+    assert_text "Partner foi criado com sucesso"
     click_on "Back"
   end
 
@@ -28,7 +28,7 @@ class PartnersTest < ApplicationSystemTestCase
     fill_in "Name", with: @partner.name
     click_on "Update Partner"
 
-    assert_text "Partner was successfully updated"
+    assert_text "Partner foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -38,6 +38,6 @@ class PartnersTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Partner was successfully destroyed"
+    assert_text "Partner foi apagado com sucesso"
   end
 end

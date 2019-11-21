@@ -2,13 +2,18 @@
 	<p id="notice"><%= notice %></p>
 
 	<p>
-	  <strong>Descrição Curta:</strong>
-	  <%= @industry.descr_curta %>
+	  <strong>Descrição Seccão:</strong>
+	  <%= @industry.descricao_seccao %>
 	</p>
 
 	<p>
-	  <strong>Descrição Longa:</strong>
-	  <%= @industry.descr_longa %>
+	  <strong>Descrição Divisão:</strong>
+	  <%= @industry.descricao_divisao %>
+	</p>
+
+	<p>
+	  <strong>Descrição Grupo:</strong>
+	  <%= @industry.descricao_grupo %>
 	</p>
 
 	<%= link_to 'Editar', edit_industry_path(@industry) %> |

@@ -28,7 +28,7 @@ class RemuneracaosController < ApplicationController
 
     respond_to do |format|
       if @remuneracao.save
-        format.html { redirect_to @remuneracao, notice: 'Remuneracao was successfully created.' }
+        format.html { redirect_to @remuneracao, notice: 'Remuneracao foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @remuneracao }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class RemuneracaosController < ApplicationController
   def update
     respond_to do |format|
       if @remuneracao.update(remuneracao_params)
-        format.html { redirect_to @remuneracao, notice: 'Remuneracao was successfully updated.' }
+        format.html { redirect_to @remuneracao, notice: 'Remuneracao foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @remuneracao }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class RemuneracaosController < ApplicationController
   def destroy
     @remuneracao.destroy
     respond_to do |format|
-      format.html { redirect_to remuneracaos_url, notice: 'Remuneracao was successfully destroyed.' }
+      format.html { redirect_to remuneracaos_url, notice: 'Remuneracao foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

@@ -28,7 +28,7 @@ class QueryRequestsController < ApplicationController
 
     respond_to do |format|
       if @query_request.save
-        format.html { redirect_to @query_request, notice: 'Query request was successfully created.' }
+        format.html { redirect_to @query_request, notice: 'Query request foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @query_request }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class QueryRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @query_request.update(query_request_params)
-        format.html { redirect_to @query_request, notice: 'Query request was successfully updated.' }
+        format.html { redirect_to @query_request, notice: 'Query request foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @query_request }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class QueryRequestsController < ApplicationController
   def destroy
     @query_request.destroy
     respond_to do |format|
-      format.html { redirect_to query_requests_url, notice: 'Query request was successfully destroyed.' }
+      format.html { redirect_to query_requests_url, notice: 'Query request foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end
