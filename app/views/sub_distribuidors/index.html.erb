@@ -6,6 +6,7 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <th scope="col">ID</th>
         <th scope="col">Nome</th>
         <th scope="col">BI</th>
         <th scope="col">Telefone</th>
@@ -19,6 +20,7 @@
     <tbody>
       <% @sub_distribuidors.each do |sub_distribuidor| %>
         <tr>
+          <td><%= sub_distribuidor.id %></td>
           <td scope="row"><%= sub_distribuidor.nome %></td>
           <td><%= sub_distribuidor.bi %></td>
           <td><%= sub_distribuidor.telefone %></td>

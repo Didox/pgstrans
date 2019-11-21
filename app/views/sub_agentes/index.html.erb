@@ -6,6 +6,7 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <th scope="col">ID</th>
         <th scope="col">Razao Social</th>
         <th scope="col">Nome Fantasia</th>
         <th scope="col">BI</th>
@@ -22,6 +23,7 @@
     <tbody>
       <% @sub_agentes.each do |sub_agente| %>
         <tr>
+          <td><%= sub_agente.id %></td>
           <td><%= sub_agente.razao_social %></td>
           <td><%= sub_agente.nome_fantasia %></td>
           <td><%= sub_agente.bi %></td>

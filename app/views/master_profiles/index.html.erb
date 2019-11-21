@@ -6,6 +6,7 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <th scope="col">ID</th>
         <th scope="col">Descrição</th>
         <th scope="col" colspan="3"></th>
       </tr>
@@ -14,6 +15,7 @@
     <tbody>
       <% @master_profiles.each do |master_profile| %>
         <tr>
+          <td><%= master_profile.id %></td>
           <td><%= master_profile.description %></td>
           <td><%= link_to 'Mostrar', master_profile %></td>
           <td><%= link_to 'Editar', edit_master_profile_path(master_profile) %></td>

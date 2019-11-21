@@ -1,9 +1,10 @@
 <div class="container">
-  <h4>Remuneracaos</h4>
+  <h4>Remunerações</h4>
 
   <table class="table table-hover">
     <thead>
       <tr>
+                <th scope="col">ID</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Usuario</th>
                 <th scope="col">Produto</th>
@@ -20,6 +21,7 @@
     <tbody>
       <% @remuneracaos.each do |remuneracao| %>
       <tr>
+                <td><%= remuneracao.id %></td>
                 <td><%= remuneracao.nome %></td>
                 <td><%= remuneracao.usuario %></td>
                 <td><%= remuneracao.produto %></td>

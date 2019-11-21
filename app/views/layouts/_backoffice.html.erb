@@ -1,0 +1,139 @@
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Backoffice
+                <small>Área Restrita</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><%= link_to 'Home', root_path %>
+                </li>
+                <li class="active">Administrador</li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-info text-center">
+                <div class="panel-heading">
+                     <h3 class="panel-title"><span class="label label-danger">Usuários / Clientes</span></h3>
+                </div>
+                <div class="panel-body">
+                    <span><%= link_to 'Matriz de Usuários', matrix_users_path %>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><%= link_to 'Master Profile', master_profiles_path %></li>
+                    <li class="list-group-item"><%= link_to 'Sub-Distribuidor', sub_distribuidors_path %></li>
+                    <li class="list-group-item"><%= link_to 'Sub-Agentes', sub_agentes_path %></li>
+                    <li class="list-group-item">Filial</li>
+                    <li class="list-group-item"><%= link_to 'Perfil de Usuários', perfil_usuarios_path %></li>
+                    <li class="list-group-item"><%= link_to 'Usuários', usuarios_path %>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-info text-center">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="label label-danger">Parceiros / Produtos</span></h3>
+                </div>
+                <div class="panel-body">
+                    <span><%= link_to 'Parceiros', partners_path %></span>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><%= link_to 'Produtos', produtos_path %></li>
+                    <li class="list-group-item"><%= link_to 'Status de Produtos', status_produtos_path %></li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-info text-center">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="label label-danger">Remuneração / Margem</span></h3>
+                </div>
+                <div class="panel-body">
+                    <span><%= link_to 'Remuneração Clientes', remuneracaos_path %></span>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-info text-center">
+                <div class="panel-heading">
+                     <h3 class="panel-title"><span class="label label-success">Transações</span></h3>
+                </div>
+                <div class="panel-body">
+                    <span><%= link_to 'Topup Validations', topup_validations_path %>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><%= link_to 'Topup (Recarga)', topup_recargas_path %></li>
+                    <li class="list-group-item"><%= link_to 'Query Request', query_requests_path %></li>
+                    <li class="list-group-item"><%= link_to 'Query Balance', query_balances_path %></li>
+                    <li class="list-group-item"><%= link_to 'Return Codes', return_code_apis_path %></li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-info text-center">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="label label-success">Conta Corrente</span></h3>
+                </div>
+                <div class="panel-body">
+                    <span>Texto</span>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-info text-center">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="label label-success">Tabelas Auxiliares</span></h3>
+                </div>
+                <div class="panel-body">
+                    <span><%= link_to 'Ramos de Atividade', industries_path %></sup></span>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><%= link_to 'Municípios', municipios_path %></li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                    <li class="list-group-item">Texto</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+
+</div>
+<!-- /.container -->

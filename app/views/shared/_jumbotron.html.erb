@@ -33,46 +33,9 @@
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-      Backoffice / Administrador
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="container nav-scroller py-1 mb-2">
-          <div class="nav-scroller py-1 mb-2">
-            <nav class="nav d-flex justify-content-between">
-              <%= link_to 'Usuários', usuarios_path, :style => "color: #fff" %>
-              <%= link_to 'Matriz de Usuários', matrix_users_path %>
-              <%= link_to 'Master Profile', master_profiles_path %>
-              <%= link_to 'Sub-Distribuidor', sub_distribuidors_path %>
-              <%= link_to 'Sub-Agentes', sub_agentes_path %>
-              <%= link_to 'Parceiros', partners_path %>
-              <%= link_to 'Ramos de Atividade', industries_path %>
-              <%= link_to 'Municípios', municipios_path %>
-              <%= link_to 'Perfil de Usuários', perfil_usuarios_path %>
-              <%= link_to 'Remuneração Clientes', remuneracaos_path %>
-              <%= link_to 'Produtos', produtos_path %>
-              <%= link_to 'Status de Produtos', status_produtos_path %>
 
-            </nav>
-          </div>
-        </div>
-
-        <main role="main" class="container">
-          <div class="p-4">
-            <h4 class="font-italic">Dados de Transações</h4>
-            <ol class="list-unstyled">
-              <li><%= link_to 'Topup Validations', topup_validations_path %></li>     
-              <li><%= link_to 'Topup (Recarga)', topup_recargas_path %></li>
-              <li><%= link_to 'Query Request', query_requests_path %></li>
-              <li><%= link_to 'Query Balance', query_balances_path %></li>
-              <li><%= link_to 'Return Codes', return_code_apis_path %></li>
-            </ol>
-          </div>
-          </main><!-- /.container -->
-      </div>
-    </div>
-  </div>
+  <!--Backoffice -->
 
   <%= render 'layouts/backoffice' %>
+
+  <!--Backoffice -->
