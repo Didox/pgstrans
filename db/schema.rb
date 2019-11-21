@@ -10,10 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_21_144538) do
+ActiveRecord::Schema.define(version: 2019_11_21_151505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bancos", force: :cascade do |t|
+    t.string "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "canal_vendas", force: :cascade do |t|
+    t.string "nome"
+    t.float "carragamento_minimo"
+    t.bigint "dispositivo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dispositivo_id"], name: "index_canal_vendas_on_dispositivo_id"
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name_eng"
+    t.string "name_pt"
+    t.string "iso2"
+    t.integer "bacen"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "dispositivos", force: :cascade do |t|
+    t.string "nome"
+    t.string "marca"
+    t.string "modelo"
+    t.string "numero_serie"
+    t.string "macaddr"
+    t.string "imei"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "industries", force: :cascade do |t|
     t.string "descricao_seccao"
@@ -21,6 +56,12 @@ ActiveRecord::Schema.define(version: 2019_11_21_144538) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "descricao_grupo"
+  end
+
+  create_table "lancamentos", force: :cascade do |t|
+    t.string "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "master_profiles", force: :cascade do |t|
@@ -39,6 +80,12 @@ ActiveRecord::Schema.define(version: 2019_11_21_144538) do
     t.datetime "updated_at", null: false
     t.bigint "usuario_id"
     t.index ["usuario_id"], name: "index_matrix_users_on_usuario_id"
+  end
+
+  create_table "movimentacao_conta", force: :cascade do |t|
+    t.string "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "municipios", force: :cascade do |t|
@@ -81,6 +128,18 @@ ActiveRecord::Schema.define(version: 2019_11_21_144538) do
     t.float "margem_site"
     t.index ["partner_id"], name: "index_produtos_on_partner_id"
     t.index ["status_produto_id"], name: "index_produtos_on_status_produto_id"
+  end
+
+  create_table "provincia", force: :cascade do |t|
+    t.string "nome"
+    t.string "capital"
+    t.string "area_km2"
+    t.integer "population"
+    t.string "image_map"
+    t.bigint "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_provincia_on_country_id"
   end
 
   create_table "query_balances", force: :cascade do |t|
@@ -168,6 +227,18 @@ ActiveRecord::Schema.define(version: 2019_11_21_144538) do
     t.integer "partner_code"
   end
 
+  create_table "status_alegacao_pagamentos", force: :cascade do |t|
+    t.string "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "status_clientes", force: :cascade do |t|
+    t.string "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "status_produtos", force: :cascade do |t|
     t.string "nome"
     t.datetime "created_at", null: false
@@ -195,6 +266,12 @@ ActiveRecord::Schema.define(version: 2019_11_21_144538) do
     t.string "morada"
     t.string "municipio"
     t.string "provincia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tipo_transacaos", force: :cascade do |t|
+    t.string "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -260,6 +337,12 @@ ActiveRecord::Schema.define(version: 2019_11_21_144538) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "uni_pessoal_empresas", force: :cascade do |t|
+    t.string "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "usuarios", force: :cascade do |t|
     t.string "nome"
     t.string "email"
@@ -270,9 +353,11 @@ ActiveRecord::Schema.define(version: 2019_11_21_144538) do
     t.index ["perfil_usuario_id"], name: "index_usuarios_on_perfil_usuario_id"
   end
 
+  add_foreign_key "canal_vendas", "dispositivos"
   add_foreign_key "matrix_users", "usuarios"
   add_foreign_key "produtos", "partners"
   add_foreign_key "produtos", "status_produtos"
+  add_foreign_key "provincia", "countries"
   add_foreign_key "remuneracaos", "produtos"
   add_foreign_key "remuneracaos", "usuarios"
   add_foreign_key "usuarios", "perfil_usuarios"

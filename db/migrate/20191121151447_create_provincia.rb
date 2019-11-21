@@ -4,7 +4,7 @@ class CreateProvincia < ActiveRecord::Migration[5.2]
       t.string :nome
       t.string :capital
       t.string :area_km2
-      t.int :population
+      t.integer :population
       t.string :image_map
       t.references :country, foreign_key: true
 
