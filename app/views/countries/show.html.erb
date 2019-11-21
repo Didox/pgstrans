@@ -1,0 +1,23 @@
+<h4>Mostrar Country</h4>
+
+<dl class="dl-horizontal">
+  <dt>Name eng:</dt>
+  <dd><%= @country.name_eng %></dd>
+  <dt>Name pt:</dt>
+  <dd><%= @country.name_pt %></dd>
+  <dt>Iso2:</dt>
+  <dd><%= @country.iso2 %></dd>
+  <dt>Bacen:</dt>
+  <dd><%= @country.bacen %></dd>
+</dl>
+
+<div class="page-header">
+  <%= link_to countries_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+  <%= link_to edit_country_path(@country), class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Editar
+  <% end %>
+</div>

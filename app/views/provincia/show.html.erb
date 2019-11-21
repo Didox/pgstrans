@@ -1,0 +1,27 @@
+<h4>Mostrar Provincium</h4>
+
+<dl class="dl-horizontal">
+  <dt>Nome:</dt>
+  <dd><%= @provincium.nome %></dd>
+  <dt>Capital:</dt>
+  <dd><%= @provincium.capital %></dd>
+  <dt>Area km2:</dt>
+  <dd><%= @provincium.area_km2 %></dd>
+  <dt>Population:</dt>
+  <dd><%= @provincium.population %></dd>
+  <dt>Image map:</dt>
+  <dd><%= @provincium.image_map %></dd>
+  <dt>Country:</dt>
+  <dd><%= @provincium.country %></dd>
+</dl>
+
+<div class="page-header">
+  <%= link_to provincia_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+  <%= link_to edit_provincium_path(@provincium), class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Editar
+  <% end %>
+</div>

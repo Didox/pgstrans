@@ -1,0 +1,2 @@
+module StatusAlegacaoPagamentosHelper
+end

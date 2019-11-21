@@ -1,0 +1,32 @@
+<div class="container">
+  <h4>CanalVendas</h4>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Carragamento minimo</th>
+                <th scope="col">Dispositivo</th>
+                <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @canal_vendas.each do |canal_venda| %>
+      <tr>
+                <td><%= canal_venda.nome %></td>
+                <td><%= canal_venda.carragamento_minimo %></td>
+                <td><%= canal_venda.dispositivo %></td>
+                <td><%= link_to 'Mostrar', canal_venda %></td>
+        <td><%= link_to 'Editar', edit_canal_venda_path(canal_venda) %></td>
+        <td><%= link_to 'Apagar', canal_venda, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <%= link_to "Novo Registo", new_canal_venda_path, class: 'btn btn-danger' %>
+  <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
+</div>

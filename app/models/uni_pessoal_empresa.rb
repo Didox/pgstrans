@@ -1,0 +1,2 @@
+class UniPessoalEmpresa < ApplicationRecord
+end

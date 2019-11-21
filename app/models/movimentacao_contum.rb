@@ -1,0 +1,2 @@
+class MovimentacaoContum < ApplicationRecord
+end

@@ -1,0 +1,14 @@
+<div class="container"> 
+  <h4>Edição Banco</h4>
+
+  <%= render 'form' %>
+
+  <%= link_to @banco, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    Mostrar
+  <% end %>
+  <%= link_to bancos_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+</div>

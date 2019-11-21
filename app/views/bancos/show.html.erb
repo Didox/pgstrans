@@ -1,0 +1,17 @@
+<h4>Mostrar Banco</h4>
+
+<dl class="dl-horizontal">
+  <dt>Nome:</dt>
+  <dd><%= @banco.nome %></dd>
+</dl>
+
+<div class="page-header">
+  <%= link_to bancos_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+  <%= link_to edit_banco_path(@banco), class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Editar
+  <% end %>
+</div>

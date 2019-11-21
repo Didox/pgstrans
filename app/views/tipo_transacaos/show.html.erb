@@ -1,0 +1,17 @@
+<h4>Mostrar TipoTransacao</h4>
+
+<dl class="dl-horizontal">
+  <dt>Nome:</dt>
+  <dd><%= @tipo_transacao.nome %></dd>
+</dl>
+
+<div class="page-header">
+  <%= link_to tipo_transacaos_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+  <%= link_to edit_tipo_transacao_path(@tipo_transacao), class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Editar
+  <% end %>
+</div>

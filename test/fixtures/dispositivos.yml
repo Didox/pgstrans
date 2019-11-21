@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  marca: MyString
+  modelo: MyString
+  numero_serie: MyString
+  macaddr: MyString
+  imei: MyString
+
+two:
+  nome: MyString
+  marca: MyString
+  modelo: MyString
+  numero_serie: MyString
+  macaddr: MyString
+  imei: MyString

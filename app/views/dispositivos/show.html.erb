@@ -1,0 +1,27 @@
+<h4>Mostrar Dispositivo</h4>
+
+<dl class="dl-horizontal">
+  <dt>Nome:</dt>
+  <dd><%= @dispositivo.nome %></dd>
+  <dt>Marca:</dt>
+  <dd><%= @dispositivo.marca %></dd>
+  <dt>Modelo:</dt>
+  <dd><%= @dispositivo.modelo %></dd>
+  <dt>Numero serie:</dt>
+  <dd><%= @dispositivo.numero_serie %></dd>
+  <dt>Macaddr:</dt>
+  <dd><%= @dispositivo.macaddr %></dd>
+  <dt>Imei:</dt>
+  <dd><%= @dispositivo.imei %></dd>
+</dl>
+
+<div class="page-header">
+  <%= link_to dispositivos_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+  <%= link_to edit_dispositivo_path(@dispositivo), class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Editar
+  <% end %>
+</div>

@@ -1,0 +1,14 @@
+<div class="container"> 
+  <h4>Edição Country</h4>
+
+  <%= render 'form' %>
+
+  <%= link_to @country, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    Mostrar
+  <% end %>
+  <%= link_to countries_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+</div>

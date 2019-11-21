@@ -1,0 +1,2 @@
+class Lancamento < ApplicationRecord
+end

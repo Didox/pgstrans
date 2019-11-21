@@ -1,0 +1,14 @@
+<div class="container"> 
+  <h4>Edição StatusCliente</h4>
+
+  <%= render 'form' %>
+
+  <%= link_to @status_cliente, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    Mostrar
+  <% end %>
+  <%= link_to status_clientes_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+</div>

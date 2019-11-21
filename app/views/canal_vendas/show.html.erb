@@ -1,0 +1,21 @@
+<h4>Mostrar CanalVenda</h4>
+
+<dl class="dl-horizontal">
+  <dt>Nome:</dt>
+  <dd><%= @canal_venda.nome %></dd>
+  <dt>Carragamento minimo:</dt>
+  <dd><%= @canal_venda.carragamento_minimo %></dd>
+  <dt>Dispositivo:</dt>
+  <dd><%= @canal_venda.dispositivo %></dd>
+</dl>
+
+<div class="page-header">
+  <%= link_to canal_vendas_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+  <%= link_to edit_canal_venda_path(@canal_venda), class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Editar
+  <% end %>
+</div>

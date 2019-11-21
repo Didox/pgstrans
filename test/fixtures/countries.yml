@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name_eng: MyString
+  name_pt: MyString
+  iso2: MyString
+  bacen: 1
+
+two:
+  name_eng: MyString
+  name_pt: MyString
+  iso2: MyString
+  bacen: 1

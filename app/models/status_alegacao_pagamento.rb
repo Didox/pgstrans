@@ -1,0 +1,2 @@
+class StatusAlegacaoPagamento < ApplicationRecord
+end

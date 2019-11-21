@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  resources :lancamentos
+  resources :status_alegacao_pagamentos
+  resources :bancos
+  resources :movimentacao_conta
+  resources :tipo_transacaos
+  resources :provincia
+  resources :countries
+  resources :canal_vendas
+  resources :dispositivos
+  resources :status_clientes
+  resources :uni_pessoal_empresas
   resources :perfil_usuarios
   resources :remuneracaos
   resources :produtos

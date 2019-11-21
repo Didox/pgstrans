@@ -1,0 +1,17 @@
+<h4>Mostrar MovimentacaoContum</h4>
+
+<dl class="dl-horizontal">
+  <dt>Nome:</dt>
+  <dd><%= @movimentacao_contum.nome %></dd>
+</dl>
+
+<div class="page-header">
+  <%= link_to movimentacao_conta_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+  <%= link_to edit_movimentacao_contum_path(@movimentacao_contum), class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Editar
+  <% end %>
+</div>
