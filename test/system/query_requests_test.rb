@@ -41,7 +41,7 @@ class QueryRequestsTest < ApplicationSystemTestCase
     fill_in "Query request req header", with: @query_request.query_request_req_header
     click_on "Create Query request"
 
-    assert_text "Query request was successfully created"
+    assert_text "Query request foi criado com sucesso"
     click_on "Back"
   end
 
@@ -76,7 +76,7 @@ class QueryRequestsTest < ApplicationSystemTestCase
     fill_in "Query request req header", with: @query_request.query_request_req_header
     click_on "Update Query request"
 
-    assert_text "Query request was successfully updated"
+    assert_text "Query request foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -86,6 +86,6 @@ class QueryRequestsTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Query request was successfully destroyed"
+    assert_text "Query request foi apagado com sucesso"
   end
 end

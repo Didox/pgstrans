@@ -17,7 +17,7 @@ class StatusProdutosTest < ApplicationSystemTestCase
     fill_in "Nome", with: @status_produto.nome
     click_on "Create Status produto"
 
-    assert_text "Status produto was successfully created"
+    assert_text "Status produto foi criado com sucesso"
     click_on "Back"
   end
 
@@ -28,7 +28,7 @@ class StatusProdutosTest < ApplicationSystemTestCase
     fill_in "Nome", with: @status_produto.nome
     click_on "Update Status produto"
 
-    assert_text "Status produto was successfully updated"
+    assert_text "Status produto foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -38,6 +38,6 @@ class StatusProdutosTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Status produto was successfully destroyed"
+    assert_text "Status produto foi apagado com sucesso"
   end
 end

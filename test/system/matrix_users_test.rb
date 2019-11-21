@@ -22,7 +22,7 @@ class MatrixUsersTest < ApplicationSystemTestCase
     fill_in "User", with: @matrix_user.usuario_id
     click_on "Create Matrix user"
 
-    assert_text "Matrix user was successfully created"
+    assert_text "Matrix user foi criado com sucesso"
     click_on "Back"
   end
 
@@ -38,7 +38,7 @@ class MatrixUsersTest < ApplicationSystemTestCase
     fill_in "User", with: @matrix_user.usuario_id
     click_on "Update Matrix user"
 
-    assert_text "Matrix user was successfully updated"
+    assert_text "Matrix user foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -48,6 +48,6 @@ class MatrixUsersTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Matrix user was successfully destroyed"
+    assert_text "Matrix user foi apagado com sucesso"
   end
 end

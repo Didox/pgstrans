@@ -41,7 +41,7 @@ class QueryBalancesTest < ApplicationSystemTestCase
     fill_in "Query balance req header", with: @query_balance.query_balance_req_header
     click_on "Create Query balance"
 
-    assert_text "Query balance was successfully created"
+    assert_text "Query balance foi criado com sucesso"
     click_on "Back"
   end
 
@@ -76,7 +76,7 @@ class QueryBalancesTest < ApplicationSystemTestCase
     fill_in "Query balance req header", with: @query_balance.query_balance_req_header
     click_on "Update Query balance"
 
-    assert_text "Query balance was successfully updated"
+    assert_text "Query balance foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -86,6 +86,6 @@ class QueryBalancesTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Query balance was successfully destroyed"
+    assert_text "Query balance foi apagado com sucesso"
   end
 end

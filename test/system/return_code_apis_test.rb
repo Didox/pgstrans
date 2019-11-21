@@ -20,7 +20,7 @@ class ReturnCodeApisTest < ApplicationSystemTestCase
     fill_in "Return description", with: @return_code_api.return_description
     click_on "Create Return code api"
 
-    assert_text "Return code api was successfully created"
+    assert_text "Return code api foi criado com sucesso"
     click_on "Back"
   end
 
@@ -34,7 +34,7 @@ class ReturnCodeApisTest < ApplicationSystemTestCase
     fill_in "Return description", with: @return_code_api.return_description
     click_on "Update Return code api"
 
-    assert_text "Return code api was successfully updated"
+    assert_text "Return code api foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -44,6 +44,6 @@ class ReturnCodeApisTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Return code api was successfully destroyed"
+    assert_text "Return code api foi apagado com sucesso"
   end
 end

@@ -32,7 +32,7 @@ class ProdutosTest < ApplicationSystemTestCase
     fill_in "Valor minimo venda telemovel", with: @produto.valor_minimo_venda_telemovel
     click_on "Create Produto"
 
-    assert_text "Produto was successfully created"
+    assert_text "Produto foi criado com sucesso"
     click_on "Back"
   end
 
@@ -58,7 +58,7 @@ class ProdutosTest < ApplicationSystemTestCase
     fill_in "Valor minimo venda telemovel", with: @produto.valor_minimo_venda_telemovel
     click_on "Update Produto"
 
-    assert_text "Produto was successfully updated"
+    assert_text "Produto foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -68,6 +68,6 @@ class ProdutosTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Produto was successfully destroyed"
+    assert_text "Produto foi apagado com sucesso"
   end
 end

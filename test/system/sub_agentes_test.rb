@@ -25,7 +25,7 @@ class SubAgentesTest < ApplicationSystemTestCase
     fill_in "Telefone", with: @sub_agente.telefone
     click_on "Create Sub agente"
 
-    assert_text "Sub agente was successfully created"
+    assert_text "Sub agente foi criado com sucesso"
     click_on "Back"
   end
 
@@ -44,7 +44,7 @@ class SubAgentesTest < ApplicationSystemTestCase
     fill_in "Telefone", with: @sub_agente.telefone
     click_on "Update Sub agente"
 
-    assert_text "Sub agente was successfully updated"
+    assert_text "Sub agente foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -54,6 +54,6 @@ class SubAgentesTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Sub agente was successfully destroyed"
+    assert_text "Sub agente foi apagado com sucesso"
   end
 end

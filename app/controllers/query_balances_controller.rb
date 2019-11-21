@@ -28,7 +28,7 @@ class QueryBalancesController < ApplicationController
 
     respond_to do |format|
       if @query_balance.save
-        format.html { redirect_to @query_balance, notice: 'Query balance was successfully created.' }
+        format.html { redirect_to @query_balance, notice: 'Query balance foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @query_balance }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class QueryBalancesController < ApplicationController
   def update
     respond_to do |format|
       if @query_balance.update(query_balance_params)
-        format.html { redirect_to @query_balance, notice: 'Query balance was successfully updated.' }
+        format.html { redirect_to @query_balance, notice: 'Query balance foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @query_balance }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class QueryBalancesController < ApplicationController
   def destroy
     @query_balance.destroy
     respond_to do |format|
-      format.html { redirect_to query_balances_url, notice: 'Query balance was successfully destroyed.' }
+      format.html { redirect_to query_balances_url, notice: 'Query balance foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

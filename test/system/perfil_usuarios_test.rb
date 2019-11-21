@@ -18,7 +18,7 @@ class PerfilUsuariosTest < ApplicationSystemTestCase
     fill_in "Nome", with: @perfil_usuario.nome
     click_on "Create Perfil usuario"
 
-    assert_text "Perfil usuario was successfully created"
+    assert_text "Perfil usuario foi criado com sucesso"
     click_on "Back"
   end
 
@@ -30,7 +30,7 @@ class PerfilUsuariosTest < ApplicationSystemTestCase
     fill_in "Nome", with: @perfil_usuario.nome
     click_on "Update Perfil usuario"
 
-    assert_text "Perfil usuario was successfully updated"
+    assert_text "Perfil usuario foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -40,6 +40,6 @@ class PerfilUsuariosTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Perfil usuario was successfully destroyed"
+    assert_text "Perfil usuario foi apagado com sucesso"
   end
 end

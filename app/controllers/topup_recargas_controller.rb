@@ -28,7 +28,7 @@ class TopupRecargasController < ApplicationController
 
     respond_to do |format|
       if @topup_recarga.save
-        format.html { redirect_to @topup_recarga, notice: 'Topup recarga was successfully created.' }
+        format.html { redirect_to @topup_recarga, notice: 'Topup recarga foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @topup_recarga }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class TopupRecargasController < ApplicationController
   def update
     respond_to do |format|
       if @topup_recarga.update(topup_recarga_params)
-        format.html { redirect_to @topup_recarga, notice: 'Topup recarga was successfully updated.' }
+        format.html { redirect_to @topup_recarga, notice: 'Topup recarga foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @topup_recarga }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class TopupRecargasController < ApplicationController
   def destroy
     @topup_recarga.destroy
     respond_to do |format|
-      format.html { redirect_to topup_recargas_url, notice: 'Topup recarga was successfully destroyed.' }
+      format.html { redirect_to topup_recargas_url, notice: 'Topup recarga foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

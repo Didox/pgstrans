@@ -28,7 +28,7 @@ class TopupValidationsController < ApplicationController
 
     respond_to do |format|
       if @topup_validation.save
-        format.html { redirect_to @topup_validation, notice: 'Topup validation was successfully created.' }
+        format.html { redirect_to @topup_validation, notice: 'Topup validation foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @topup_validation }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class TopupValidationsController < ApplicationController
   def update
     respond_to do |format|
       if @topup_validation.update(topup_validation_params)
-        format.html { redirect_to @topup_validation, notice: 'Topup validation was successfully updated.' }
+        format.html { redirect_to @topup_validation, notice: 'Topup validation foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @topup_validation }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class TopupValidationsController < ApplicationController
   def destroy
     @topup_validation.destroy
     respond_to do |format|
-      format.html { redirect_to topup_validations_url, notice: 'Topup validation was successfully destroyed.' }
+      format.html { redirect_to topup_validations_url, notice: 'Topup validation foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

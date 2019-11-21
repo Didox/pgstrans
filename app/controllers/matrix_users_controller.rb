@@ -28,7 +28,7 @@ class MatrixUsersController < ApplicationController
 
     respond_to do |format|
       if @matrix_user.save
-        format.html { redirect_to @matrix_user, notice: 'Matrix user was successfully created.' }
+        format.html { redirect_to @matrix_user, notice: 'Matrix user foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @matrix_user }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MatrixUsersController < ApplicationController
   def update
     respond_to do |format|
       if @matrix_user.update(matrix_user_params)
-        format.html { redirect_to @matrix_user, notice: 'Matrix user was successfully updated.' }
+        format.html { redirect_to @matrix_user, notice: 'Matrix user foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @matrix_user }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class MatrixUsersController < ApplicationController
   def destroy
     @matrix_user.destroy
     respond_to do |format|
-      format.html { redirect_to matrix_users_url, notice: 'Matrix user was successfully destroyed.' }
+      format.html { redirect_to matrix_users_url, notice: 'Matrix user foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

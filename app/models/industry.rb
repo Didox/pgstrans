@@ -1,4 +1,3 @@
 class Industry < ApplicationRecord
-	validates :descr_curta, presence: true
-	validates :descr_longa, presence: true
+	validates :descricao_seccao, :descricao_divisao, :descricao_grupo, presence: true
 end

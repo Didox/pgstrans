@@ -37,7 +37,7 @@ class TopupRecargasTest < ApplicationSystemTestCase
     fill_in "Validation", with: @topup_recarga.validation_id
     click_on "Create Topup recarga"
 
-    assert_text "Topup recarga was successfully created"
+    assert_text "Topup recarga foi criado com sucesso"
     click_on "Back"
   end
 
@@ -68,7 +68,7 @@ class TopupRecargasTest < ApplicationSystemTestCase
     fill_in "Validation", with: @topup_recarga.validation_id
     click_on "Update Topup recarga"
 
-    assert_text "Topup recarga was successfully updated"
+    assert_text "Topup recarga foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -78,6 +78,6 @@ class TopupRecargasTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Topup recarga was successfully destroyed"
+    assert_text "Topup recarga foi apagado com sucesso"
   end
 end
