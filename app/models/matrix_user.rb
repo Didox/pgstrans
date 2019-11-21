@@ -1,6 +1,8 @@
 class MatrixUser < ApplicationRecord
   belongs_to :usuario
-  validates :usuario_id, presence: true, uniqueness: true
+  validates :usuario_id, :master_profile, :sub_distribuidor, :sub_agente, :filial, :pdv, presence: true
+  validates :usuario_id, uniqueness: true
+
   default_scope { order(id: :asc) }
 
   def master_profile_obj
