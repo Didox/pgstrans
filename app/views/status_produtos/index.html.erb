@@ -1,9 +1,10 @@
 <div class="container">
-  <h4>StatusProdutos</h4>
+  <h4>Status de Produtos</h4>
 
   <table class="table table-hover">
     <thead>
       <tr>
+                <th scope="col">ID</th>
                 <th scope="col">Nome</th>
                 <th colspan="3"></th>
       </tr>
@@ -12,6 +13,7 @@
     <tbody>
       <% @status_produtos.each do |status_produto| %>
       <tr>
+                <td><%= status_produto.id %></td>
                 <td><%= status_produto.nome %></td>
                 <td><%= link_to 'Mostrar', status_produto %></td>
         <td><%= link_to 'Editar', edit_status_produto_path(status_produto) %></td>
