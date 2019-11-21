@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_21_140548) do
+ActiveRecord::Schema.define(version: 2019_11_21_141800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,12 +72,12 @@ ActiveRecord::Schema.define(version: 2019_11_21_140548) do
     t.float "valor_minimo_venda_pos"
     t.float "valor_minimo_venda_tef"
     t.float "margem_telemovel"
-    t.string "margem_site"
     t.float "margem_pos"
     t.float "margem_tef"
     t.text "mensagem_cupom_venda"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "margem_site"
     t.index ["partner_id"], name: "index_produtos_on_partner_id"
     t.index ["status_produto_id"], name: "index_produtos_on_status_produto_id"
   end
