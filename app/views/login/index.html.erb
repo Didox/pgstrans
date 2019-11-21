@@ -10,29 +10,22 @@
             <%= link_to image_tag("Mascote_270x228.png")%>
           </img>
         </div>
-        <div class="col-md-8 d-flex wrapper fadeInDown">
-          <div class="row">
-            <h3>Mais vantagens para você <strong>VENDER MAIS!</strong></h3>
-          </div>
-          <div class="row">
+        <h3 style="font-size: 25px;margin-bottom: 10px;">Mais vantagens para você <strong>VENDER MAIS!</strong></h3>
+        <div id="formContent">
+          <form action="/autentica" method="post">
+            <input type="text" id="email" size="40" class="fadeIn second" name="email" placeholder="E-mail">
+            <input type="password" id="senha" size="40" class="fadeIn third" name="senha" placeholder="Palavra-passe">
 
-            <div id="formContent">
-              <form action="/autentica" method="post">
-                <input type="text" id="email" size="40" class="fadeIn second" name="email" placeholder="E-mail">
-                <input type="password" id="senha" size="40" class="fadeIn third" name="senha" placeholder="Palavra-passe">
-
-                <% if flash[:error].present? %>
-                  <div class="alert alert-danger alert-dismissable" role="alert">
-                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
-                    <ul>
-                      <li><%= flash[:error] %></li>
-                    </ul>
-                  </div>
-                <% end %>
-                <input type="submit" class="fadeIn fourth" value="Aceder">
-              </form>
-            </div>
-          </div>
+            <% if flash[:error].present? %>
+              <div class="alert alert-danger alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                <ul>
+                  <li><%= flash[:error] %></li>
+                </ul>
+              </div>
+            <% end %>
+            <input type="submit" class="fadeIn fourth btn btn-primary" value="Aceder" style="display: block;margin-top: 10px;">
+          </form>
         </div>
       </div>
     </div>
