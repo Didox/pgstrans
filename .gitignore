@@ -27,3 +27,4 @@
 /config/master.key
 
 sftp-config.json
+_sftp-config.json
