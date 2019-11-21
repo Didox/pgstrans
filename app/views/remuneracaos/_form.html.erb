@@ -24,50 +24,50 @@
         <% end %>
 
         <div class="form-group">
-          <%= f.label :usuario_id, class: "col-sm-2 control-label" %>
+          <%= f.label :usuario_id, "Usuário", class: "col-sm-2 control-label" %>
           <div class="col-sm-10">
-            <%= f.select :usuario_id, Usuario.all.collect{|d| [d.nome, d.id]}, {}, required:true, class: "form-control" %>
+            <%= f.select :usuario_id, Usuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           </div>
         </div>
       
         <div class="form-group">
           <%= f.label :produto_id, class: "col-sm-2 control-label" %>
           <div class="col-sm-10">
-            <%= f.select :produto_id, Produto.all.collect{|d| [d.description, d.id]}, {}, required:true, class: "form-control" %>
+            <%= f.select :produto_id, Produto.all.collect{|d| [d.description, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           </div>
         </div>
               <div class="form-group">
-          <%= f.label :valor_venda_final_telemovel, "Valor venda", class: "col-sm-2 control-label" %>
+          <%= f.label :valor_venda_final_telemovel, "Valor Telemóvel", class: "col-sm-2 control-label" %>
           <div class="col-sm-10">
-            <%= f.text_field :valor_venda_final_telemovel, class: "form-control" %>
+            <%= f.text_field :valor_venda_final_telemovel, placeholder: "Valor de venda no agente - telemóvel", class: "form-control" %>
           </div>
         </div>
               <div class="form-group">
-          <%= f.label :valor_venda_final_site, class: "col-sm-2 control-label" %>
+          <%= f.label :valor_venda_final_site, "Valor Site", class: "col-sm-2 control-label" %>
           <div class="col-sm-10">
-            <%= f.text_field :valor_venda_final_site, class: "form-control" %>
+            <%= f.text_field :valor_venda_final_site, placeholder: "Valor de venda no agente - site", class: "form-control" %>
           </div>
         </div>
               <div class="form-group">
-          <%= f.label :valor_venda_final_pos, class: "col-sm-2 control-label" %>
+          <%= f.label :valor_venda_final_pos, "Valor POS", class: "col-sm-2 control-label" %>
           <div class="col-sm-10">
-            <%= f.text_field :valor_venda_final_pos, class: "form-control" %>
+            <%= f.text_field :valor_venda_final_pos, placeholder: "Valor de venda no agente - POS", class: "form-control" %>
           </div>
         </div>
         <div class="form-group">
-          <%= f.label :valor_venda_final_tef, class: "col-sm-2 control-label" %>
+          <%= f.label :valor_venda_final_tef, "Valor TEF", class: "col-sm-2 control-label" %>
           <div class="col-sm-10">
-            <%= f.text_field :valor_venda_final_tef, class: "form-control" %>
+            <%= f.text_field :valor_venda_final_tef, placeholder: "Valor de venda no agente - TEF", class: "form-control" %>
           </div>
         </div>
               <div class="form-group">
-          <%= f.label :vigencia_inicio, class: "col-sm-2 control-label" %>
+          <%= f.label :vigencia_inicio, "Início de vigência", class: "col-sm-2 control-label" %>
           <div class="col-sm-10">
             <%= f.datetime_field :vigencia_inicio, class: "form-control" %>
           </div>
         </div>
               <div class="form-group">
-          <%= f.label :vigencia_fim, class: "col-sm-2 control-label" %>
+          <%= f.label :vigencia_fim, "Fim de vigência", class: "col-sm-2 control-label" %>
           <div class="col-sm-10">
             <%= f.datetime_field :vigencia_fim, class: "form-control" %>
           </div>

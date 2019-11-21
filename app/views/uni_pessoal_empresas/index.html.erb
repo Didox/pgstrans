@@ -1,9 +1,10 @@
 <div class="container">
-  <h4>UniPessoalEmpresas</h4>
+  <h4>Cliente Unipessoal ou Empresa</h4>
 
   <table class="table table-hover">
     <thead>
       <tr>
+                <th scope="col">ID</th>
                 <th scope="col">Nome</th>
                 <th colspan="3"></th>
       </tr>
@@ -12,6 +13,7 @@
     <tbody>
       <% @uni_pessoal_empresas.each do |uni_pessoal_empresa| %>
       <tr>
+                <td><%= uni_pessoal_empresa.id %></td>
                 <td><%= uni_pessoal_empresa.nome %></td>
                 <td><%= link_to 'Mostrar', uni_pessoal_empresa %></td>
         <td><%= link_to 'Editar', edit_uni_pessoal_empresa_path(uni_pessoal_empresa) %></td>
