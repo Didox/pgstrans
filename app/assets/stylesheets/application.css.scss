@@ -27,3 +27,35 @@ body, .btn, .h4, h4, imput, select, textarea, .form-control{
 #error_explanation{
   color: red;
 }
+
+.form-control{
+  height: 50px!important;
+}
+
+.form-inputs{
+  margin-bottom: 32px!important;
+}
+
+label{
+  font-weight: normal!important;
+}
+
+.justify-content-between, .card-header:first-child{
+  padding: 15px;
+}
+
+.container h3, .container h4{
+  padding: 15px;
+}
+
+::-webkit-input-placeholder { /* Edge */
+  color: #cfcfcf!important;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #cfcfcf!important;
+}
+
+::placeholder {
+  color: #cfcfcf!important;
+}
