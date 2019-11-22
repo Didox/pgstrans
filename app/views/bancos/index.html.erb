@@ -5,6 +5,17 @@
     <thead>
       <tr>
                 <th scope="col">Nome</th>
+                <th scope="col">Sigla</th>
+<!--                
+                <th scope="col">Morada sede</th>
+                <th scope="col">Telefone sede</th>
+                <th scope="col">Fax sede</th>
+                <th scope="col">Morada escritório</th>
+                <th scope="col">Telefone escritório</th>
+                <th scope="col">Fax escritório</th-->
+                <th scope="col">Website</th>
+                <th scope="col">Email</th>
+                <th scope="col">Logomarca</th-->
                 <th colspan="3"></th>
       </tr>
     </thead>
@@ -13,6 +24,16 @@
       <% @bancos.each do |banco| %>
       <tr>
                 <td><%= banco.nome %></td>
+                <td><%= banco.sigla %></td>
+                <td><%= banco.morada_sede %></td>
+                <td><%= banco.telefone_sede %></td>
+<!--                <td><%= banco.fax_sede %></td>
+                <td><%= banco.morada_escritorio %></td>
+                <td><%= banco.telefone_escritorio %></td>
+                <td><%= banco.fax_escritorio %></td-->
+                <td><%= banco.website %></td>
+                <td><%= banco.email %></td>
+                <td><%= banco.logomarca %></td>
                 <td><%= link_to 'Mostrar', banco %></td>
         <td><%= link_to 'Editar', edit_banco_path(banco) %></td>
         <td><%= link_to 'Apagar', banco, method: :delete, data: { confirm: 'Tem certeza?' } %></td>

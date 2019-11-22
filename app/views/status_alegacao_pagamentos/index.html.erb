@@ -1,21 +1,23 @@
 <div class="container">
-  <h4>StatusAlegacaoPagamentos</h4>
+  <h4>Status de Alegação Pagamentos</h4>
 
   <table class="table table-hover">
     <thead>
       <tr>
-                <th scope="col">Nome</th>
-                <th colspan="3"></th>
+        <th scope="col">ID</th>
+        <th scope="col">Nome</th>
+        <th colspan="3"></th>
       </tr>
     </thead>
 
     <tbody>
       <% @status_alegacao_pagamentos.each do |status_alegacao_pagamento| %>
       <tr>
-                <td><%= status_alegacao_pagamento.nome %></td>
-                <td><%= link_to 'Mostrar', status_alegacao_pagamento %></td>
-        <td><%= link_to 'Editar', edit_status_alegacao_pagamento_path(status_alegacao_pagamento) %></td>
-        <td><%= link_to 'Apagar', status_alegacao_pagamento, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+          <td><%= status_alegacao_pagamento.id %></td>
+          <td><%= status_alegacao_pagamento.nome %></td>
+          <td><%= link_to 'Mostrar', status_alegacao_pagamento %></td>
+          <td><%= link_to 'Editar', edit_status_alegacao_pagamento_path(status_alegacao_pagamento) %></td>
+          <td><%= link_to 'Apagar', status_alegacao_pagamento, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
       </tr>
       <% end %>
     </tbody>

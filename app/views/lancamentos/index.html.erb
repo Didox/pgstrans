@@ -1,19 +1,21 @@
 <div class="container">
-  <h4>Lancamentos</h4>
+  <h4>Tipos de Lançamentos</h4>
 
   <table class="table table-hover">
     <thead>
       <tr>
-                <th scope="col">Nome</th>
-                <th colspan="3"></th>
+        <th scope="col">ID</th>
+        <th scope="col">Nome</th>
+        <th colspan="3"></th>
       </tr>
     </thead>
 
     <tbody>
       <% @lancamentos.each do |lancamento| %>
       <tr>
-                <td><%= lancamento.nome %></td>
-                <td><%= link_to 'Mostrar', lancamento %></td>
+          <td><%= lancamento.id %></td>  
+          <td><%= lancamento.nome %></td>
+          <td><%= link_to 'Mostrar', lancamento %></td>
         <td><%= link_to 'Editar', edit_lancamento_path(lancamento) %></td>
         <td><%= link_to 'Apagar', lancamento, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
       </tr>
@@ -24,5 +26,8 @@
   <br>
 
   <%= link_to "Novo Registo", new_lancamento_path, class: 'btn btn-danger' %>
-  <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
+  <%= link_to lancamentos_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+  <% end %>
 </div>

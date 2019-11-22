@@ -10,7 +10,7 @@
   <div class="card border-bootstrap box-shadow mb-4">
     <div class="card-header text-bootstrap align-items-center justify-content-between">
       
-      <%= simple_form_for(@produto) do |f| %>
+      <%= simple_form_for(@produto, html: { class: "form-vertical", role: "form" }) do |f| %>
         <% if @produto.errors.any? %>
           <div class="alert alert-danger alert-dismissable" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -91,7 +91,7 @@
         </div>
 
         <div class="form-actions col-sm-12">
-          <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
+          <%= f.button :submit, "Confirmar", class: 'btn btn-danger' %>
         </div>
 
       <% end %>

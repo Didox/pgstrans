@@ -5,11 +5,12 @@
         <strong>Dados</strong><br />
       </div>
     </div>
+  </div>
 
-    <div class="border-bootstrap box-shadow mb-4">
-      <div class="card-header text-bootstrap align-items-center justify-content-between">
-        
-      <%= form_for(@canal_venda, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <div class="card border-bootstrap box-shadow mb-4">
+    <div class="card-header text-bootstrap align-items-center justify-content-between">
+      
+      <%= simple_form_for(@canal_venda, html: { class: "form-vertical", role: "form" }) do |f| %>
         <% if @canal_venda.errors.any? %>
           <div class="alert alert-danger alert-dismissable" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -23,33 +24,22 @@
           </div>
         <% end %>
 
-              <div class="form-group">
-          <%= f.label :nome, class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= f.text_field :nome, class: "form-control" %>
-          </div>
+        <div class="form-inputs col-sm-6">
+          <%= f.input :nome, placeholder: "Nome do canal de venda" %>
         </div>
-              <div class="form-group">
-          <%= f.label :carragamento_minimo, class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= f.text_field :carragamento_minimo, class: "form-control" %>
-          </div>
+
+        <div class="col-sm-6">
+          <%= f.input :carragamento_minimo, :label => "Carregamento Mínimo", placeholder: "Carregamento mínimo no credenciamento do agente" %>
         </div>
-              <div class="form-group">
-          <%= f.label :dispositivo, class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= f.text_field :dispositivo, class: "form-control" %>
-          </div>
+ 
+        <div class="col-sm-6">
+          <%= f.input :dispositivo, :label => "Dispositivo", placeholder: "Dispositivo" %>
         </div>
-              <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <%= f.submit "Salvar", class: "btn btn-danger" %>
-          </div>
+  
+        <div class="form-actions col-sm-12">
+          <%= f.button :submit, "Confirmar", class: 'btn btn-danger' %>
         </div>
       <% end %>
-      </div>
     </div>
   </div>
 </div>
-
-

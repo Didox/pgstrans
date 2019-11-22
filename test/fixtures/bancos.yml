@@ -2,6 +2,26 @@
 
 one:
   nome: MyString
+  sigla: MyString
+  morada_sede: MyString
+  telefone_sede: MyString
+  fax_sede: MyString
+  morada_escritorio: MyString
+  telefone_escritorio: MyString
+  fax_escritorio: MyString
+  website: MyString
+  email: MyString
+  logomarca: MyString
 
 two:
   nome: MyString
+  sigla: MyString
+  morada_sede: MyString
+  telefone_sede: MyString
+  fax_sede: MyString
+  morada_escritorio: MyString
+  telefone_escritorio: MyString
+  fax_escritorio: MyString
+  website: MyString
+  email: MyString
+  logomarca: MyString

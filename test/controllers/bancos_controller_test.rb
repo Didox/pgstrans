@@ -17,7 +17,7 @@ class BancosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create banco" do
     assert_difference('Banco.count') do
-      post bancos_url, params: { banco: { nome: @banco.nome } }
+      post bancos_url, params: { banco: { email: @banco.email, fax_escritorio: @banco.fax_escritorio, fax_sede: @banco.fax_sede, logomarca: @banco.logomarca, morada_escritorio: @banco.morada_escritorio, morada_sede: @banco.morada_sede, nome: @banco.nome, sigla: @banco.sigla, telefone_escritorio: @banco.telefone_escritorio, telefone_sede: @banco.telefone_sede, website: @banco.website } }
     end
 
     assert_redirected_to banco_url(Banco.last)
@@ -34,7 +34,7 @@ class BancosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update banco" do
-    patch banco_url(@banco), params: { banco: { nome: @banco.nome } }
+    patch banco_url(@banco), params: { banco: { email: @banco.email, fax_escritorio: @banco.fax_escritorio, fax_sede: @banco.fax_sede, logomarca: @banco.logomarca, morada_escritorio: @banco.morada_escritorio, morada_sede: @banco.morada_sede, nome: @banco.nome, sigla: @banco.sigla, telefone_escritorio: @banco.telefone_escritorio, telefone_sede: @banco.telefone_sede, website: @banco.website } }
     assert_redirected_to banco_url(@banco)
   end
 

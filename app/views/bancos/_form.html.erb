@@ -2,14 +2,15 @@
   <div class="card border-simpleform box-shadow mb-4">
     <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
       <div>
-        <strong>Dados</strong><br />
+        <strong>Dado do Banco</strong><br />
       </div>
     </div>
+  </div>
 
-    <div class="border-bootstrap box-shadow mb-4">
-      <div class="card-header text-bootstrap align-items-center justify-content-between">
-        
-      <%= form_for(@banco, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <div class="card border-bootstrap box-shadow mb-4">
+    <div class="card-header text-bootstrap align-items-center justify-content-between">
+      
+      <%= simple_form_for(@banco, html: { class: "form-vertical", role: "form" }) do |f| %>
         <% if @banco.errors.any? %>
           <div class="alert alert-danger alert-dismissable" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -23,21 +24,55 @@
           </div>
         <% end %>
 
-              <div class="form-group">
-          <%= f.label :nome, class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= f.text_field :nome, class: "form-control" %>
-          </div>
+        <div class="form-inputs col-sm-6">
+          <%= f.input :nome, placeholder: "Nome do banco" %>
         </div>
-              <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <%= f.submit "Salvar", class: "btn btn-danger" %>
-          </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :sigla, placeholder: "Sigla do banco" %>
         </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :morada_sede, :label => "Endereço da sede", placeholder: "Endereço da sede" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :telefone_sede, :label => "Telefone da sede", placeholder: "Telefone da sede" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :fax_sede, :label => "Fax da sede", placeholder: "Fax da sede" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :morada_escritorio, :label => "Endereço do Escritorio", placeholder: "Endereço do escritório" %>
+        </div>
+        
+        <div class="form-inputs col-sm-6">
+          <%= f.input :telefone_escritorio, :label => "Telefone do Escritorio", placeholder: "Telefone do escritório" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :fax_escritorio, :label => "Fax do Escritorio", placeholder: "Fax do escritório" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :website, :label => "Website", placeholder: "Website" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :email, :label => "Website", placeholder: "Website" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :logomarca, as: :file, :label => "Logomarca" %>
+        </div>
+
+        <div class="form-actions col-sm-12">
+          <%= f.button :submit, "Confirmar", class: 'btn btn-danger' %>
+        </div>
+
       <% end %>
-      </div>
     </div>
   </div>
 </div>
-
-
