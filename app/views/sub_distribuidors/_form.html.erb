@@ -41,11 +41,13 @@
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :municipio %>
+          <%= f.label :municipio_id, "Município" %>
+          <%= f.select :municipio_id, Municipio.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :provincia %>
+          <%= f.label :provincia_id, "Província" %>
+          <%= f.select :provincia_id, Provincium.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
 
         <div class="form-actions col-sm-12">

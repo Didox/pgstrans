@@ -23,12 +23,12 @@
 
   <p>
     <strong>Municipio:</strong>
-    <%= @sub_distribuidor.municipio %>
+    <%= @sub_distribuidor.municipio.nome %>
   </p>
 
   <p>
     <strong>Provincia:</strong>
-    <%= @sub_distribuidor.provincia %>
+    <%= @sub_distribuidor.provincia.nome %>
   </p>
 
   <%= link_to 'Editar', edit_sub_distribuidor_path(@sub_distribuidor) %> |

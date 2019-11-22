@@ -4,26 +4,26 @@
   <table class="table table-hover">
     <thead>
       <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Capital</th>
-                <th scope="col">Area km2</th>
-                <th scope="col">Population</th>
-                <th scope="col">Image map</th>
-                <th scope="col">Country</th>
-                <th colspan="3"></th>
+        <th scope="col">Nome</th>
+        <th scope="col">Capital</th>
+        <th scope="col">Area km2</th>
+        <th scope="col">Population</th>
+        <th scope="col">Image map</th>
+        <th scope="col">Country</th>
+        <th colspan="3"></th>
       </tr>
     </thead>
 
     <tbody>
       <% @provincia.each do |provincium| %>
       <tr>
-                <td><%= provincium.nome %></td>
-                <td><%= provincium.capital %></td>
-                <td><%= provincium.area_km2 %></td>
-                <td><%= provincium.population %></td>
-                <td><%= provincium.image_map %></td>
-                <td><%= provincium.country %></td>
-                <td><%= link_to 'Mostrar', provincium %></td>
+        <td><%= provincium.nome %></td>
+        <td><%= provincium.capital %></td>
+        <td><%= provincium.area_km2 %></td>
+        <td><%= provincium.population %></td>
+        <td><%= provincium.image_map %></td>
+        <td><%= provincium.country.name_eng %></td>
+        <td><%= link_to 'Mostrar', provincium %></td>
         <td><%= link_to 'Editar', edit_provincium_path(provincium) %></td>
         <td><%= link_to 'Apagar', provincium, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
       </tr>

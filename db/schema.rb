@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_224400) do
+ActiveRecord::Schema.define(version: 2019_11_22_230949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -269,10 +269,12 @@ ActiveRecord::Schema.define(version: 2019_11_22_224400) do
     t.string "bi"
     t.string "telefone"
     t.string "morada"
-    t.string "municipio"
-    t.string "provincia"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "provincia_id"
+    t.bigint "municipio_id"
+    t.index ["municipio_id"], name: "index_sub_distribuidors_on_municipio_id"
+    t.index ["provincia_id"], name: "index_sub_distribuidors_on_provincia_id"
   end
 
   create_table "tipo_transacaos", force: :cascade do |t|
@@ -365,5 +367,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_224400) do
   add_foreign_key "provincia", "countries"
   add_foreign_key "remuneracaos", "produtos"
   add_foreign_key "remuneracaos", "usuarios"
+  add_foreign_key "sub_distribuidors", "municipios"
+  add_foreign_key "sub_distribuidors", "provincia", column: "provincia_id"
   add_foreign_key "usuarios", "perfil_usuarios"
 end

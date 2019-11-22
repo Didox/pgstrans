@@ -25,8 +25,8 @@
           <td><%= sub_distribuidor.bi %></td>
           <td><%= sub_distribuidor.telefone %></td>
           <td><%= sub_distribuidor.morada %></td>
-          <td><%= sub_distribuidor.municipio %></td>
-          <td><%= sub_distribuidor.provincia %></td>
+          <td><%= sub_distribuidor.municipio.nome %></td>
+          <td><%= sub_distribuidor.provincia.nome %></td>
           <td><%= link_to 'Mostrar', sub_distribuidor %></td>
           <td><%= link_to 'Editar', edit_sub_distribuidor_path(sub_distribuidor) %></td>
           <td><%= link_to 'Apagar', sub_distribuidor, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
