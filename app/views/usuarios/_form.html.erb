@@ -1,39 +1,50 @@
-<div class="container">
-  <%= form_with(model: usuario, local: true) do |form| %>
-    <% if usuario.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(usuario.errors.count, "erros") %> no usuario, confira abaixo:</h2>
+<div class="col-md-12" data-target="toggle.grid">
+<div class="card border-simpleform box-shadow mb-4">
+  <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
+    <div>
+      <strong>Dados</strong><br />
+    </div>
+  </div>
 
-        <ul>
-        <% usuario.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+  <div class="col-md-12 card border-bootstrap box-shadow mb-4">
+    <div class="card-header text-bootstrap align-items-center justify-content-between">
+
+        <%= simple_form_for(@usuario) do |f| %>
+          <% if @usuario.errors.any? %>
+            <div class="alert alert-danger alert-dismissable" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4><%= pluralize(@usuario.errors.count, "erros") %> no cadastro usuários, confira abaixo:</h4>
+
+              <ul>
+              <% @usuario.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :nome, placeholder: "Informe o nome completo do usuário" %>
+          </div>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :email, placeholder: "Informe um e-mail válido" %>
+          </div>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :senha, placeholder: "Informe a senha" %>
+          </div>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.label :perfil_usuario_id, "Perfil do Usuário" %>
+            <%= f.select :perfil_usuario_id, PerfilUsuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          </div><br>
+            
+          <div class="form-actions col-sm-12">
+            <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
+          </div>
         <% end %>
-        </ul>
       </div>
-    <% end %>
-
-    <div class="field">
-      <%= form.label :nome %>
-      <%= form.text_field :nome %>
     </div>
-
-    <div class="field">
-      <%= form.label :email %>
-      <%= form.text_field :email %>
-    </div>
-
-    <div class="field">
-      <%= form.label :senha %>
-      <%= form.text_field :senha %>
-    </div>
-
-    <div class="field">
-      <%= form.label :perfil_usuario_id %>
-      <%= form.select :perfil_usuario_id, PerfilUsuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
-    </div>
-
-    <div class="actions">
-      <%= form.submit %>
-    </div>
-  <% end %>
+  </div>
 </div>

@@ -8,11 +8,12 @@
 
   <div class="card border-bootstrap box-shadow mb-4">
     <div class="card-header text-bootstrap align-items-center justify-content-between">
+
         <%= simple_form_for(@matrix_user) do |f| %>
           <% if @matrix_user.errors.any? %>
             <div class="alert alert-danger alert-dismissable" role="alert">
               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <h4><%= pluralize(@matrix_user.errors.count, "erros") %> no matriz de usuários, confira abaixo:</h4>
+              <h4><%= pluralize(@matrix_user.errors.count, "erros") %> na matriz de usuários, confira abaixo:</h4>
 
               <ul>
               <% @matrix_user.errors.full_messages.each do |msg| %>
@@ -22,35 +23,35 @@
             </div>
           <% end %>
 
-          <div class="form-inputs">
+          <div class="form-inputs col-sm-6">
             <%= f.label :usuario_id, "Usuario" %>
-            <%= f.select :usuario_id, Usuario.all.collect{|d| [d.nome, d.id]}, {}, required:true, class: "form-control" %>
+            <%= f.select :usuario_id, Usuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           </div>
 
-          <div class="form-inputs">
+          <div class="form-inputs col-sm-6">
             <%= f.label :master_profile, "Master Profile" %>
-            <%= f.select :master_profile, MasterProfile.all.collect{|d| [d.description, d.id]}, {}, required:true, class: "form-control" %>
+            <%= f.select :master_profile, MasterProfile.all.collect{|d| [d.description, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           </div>
 
-          <div class="form-inputs">
+          <div class="form-inputs col-sm-6">
             <%= f.label :sub_distribuidor, "Sub-Distribuidor" %>
-            <%= f.select :sub_distribuidor, SubDistribuidor.all.collect{|d| [d.nome, d.id]}, {}, required:true, class: "form-control" %>   
+            <%= f.select :sub_distribuidor, SubDistribuidor.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>   
           </div>
 
-          <div class="form-inputs">
+          <div class="form-inputs col-sm-6">
             <%= f.label :sub_agente, "Sub-Agente" %>
-            <%= f.select :sub_agente, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {}, required:true, class: "form-control" %>      
+            <%= f.select :sub_agente, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
           </div>
 
-          <div class="form-inputs">
+          <div class="form-inputs col-sm-6">
             <%= f.input :filial %>
           </div>
 
-          <div class="form-inputs">
+          <div class="form-inputs col-sm-6">
             <%= f.input :pdv %>
           </div>
 
-          <div class="form-actions">
+          <div class="form-actions col-sm-12">
             <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
           </div>
         <% end %>

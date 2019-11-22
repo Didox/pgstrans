@@ -6,127 +6,95 @@
       </div>
     </div>
 
-    <div class="border-bootstrap box-shadow mb-4">
+    <div class="card border-bootstrap box-shadow mb-4">
       <div class="card-header text-bootstrap align-items-center justify-content-between">
         
-      <%= form_for(@produto, html: { class: "form-horizontal", role: "form" }) do |f| %>
-        <% if @produto.errors.any? %>
-          <div class="alert alert-danger alert-dismissable" role="alert">
-            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4><%= pluralize(@produto.errors.count, "erros") %> no produto, confira abaixo:</h4>
-            <ul>
-              <% @produto.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
+        <%= simple_form_for(@produto) do |f| %>
+          <% if @produto.errors.any? %>
+            <div class="alert alert-danger alert-dismissable" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4><%= pluralize(@produto.errors.count, "erros") %> no produto, confira abaixo:</h4>
 
-        <div class="form-group">
-          <%= f.label :description, "Descrição", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
-             <%= f.text_field :description, placeholder: "Descrição do Produto", class: "form-control" %>
+              <ul>
+                <% @produto.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-inputs col-sm-6">
+             <%= f.input :description, placeholder: "Descrição do Produto" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :partner_id, "Parceiro", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
+
+          <div class="form-inputs col-sm-6">
+            <%= f.label :partner_id, "Parceiro" %>
             <%= f.select :partner_id, Partner.all.collect{|d| [d.name, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :status_produto_id, "Status do Produto", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
+
+          <div class="form-inputs col-sm-12">
+            <%= f.label :status_produto_id, "Status do Produto" %>
             <%= f.select :status_produto_id, StatusProduto.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :valor_compra_telemovel, "Valor de Compra Telemóvel", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
-            <%= f.number_field :valor_compra_telemovel, placeholder: "Valor de compra do produto na operadora para venda por telemóvel", class: "form-control" %>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :valor_compra_telemovel, placeholder: "Valor de compra do produto na operadora" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :valor_compra_site, "Valor de Compra Site", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
-            <%= f.number_field :valor_compra_site, placeholder: "Valor de compra do produto para na operadora venda pelo site", class: "form-control" %>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :valor_compra_site, placeholder: "Valor de compra do produto na operadora" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :valor_compra_pos, "Valor de Compra POS", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
-            <%= f.number_field :valor_compra_pos, placeholder: "Valor de compra do produto na operadora para venda por POS", class: "form-control" %>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :valor_compra_pos, placeholder: "Valor de compra do produto na operadora" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :valor_compra_tef, "Valor de Compra TEF", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
-            <%= f.number_field :valor_compra_tef, placeholder: "Valor de compra do produto na operadora para venda por TEF", class: "form-control" %>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :valor_compra_tef, placeholder: "Valor de compra do produto na operadora" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :valor_minimo_venda_telemovel, "Valor de Mínimo de Venda Telemóvel", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
-            <%= f.number_field :valor_minimo_venda_telemovel, placeholder: "Valor mínimo de venda do produto por telemóvel", class: "form-control" %>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :valor_minimo_venda_telemovel, placeholder: "Valor mínimo de venda do produto" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :valor_minimo_venda_site, "Valor de Mínimo de Venda Site", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
-            <%= f.number_field :valor_minimo_venda_site, placeholder: "Valor mínimo de venda do produto pelo site", class: "form-control" %>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :valor_minimo_venda_site, placeholder: "Valor mínimo de venda do produto" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :valor_minimo_venda_pos, "Valor de Mínimo de Venda POS", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
-            <%= f.number_field :valor_minimo_venda_pos, placeholder: "Valor mínimo de venda do produto por POS", class: "form-control" %>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :valor_minimo_venda_pos, placeholder: "Valor mínimo de venda do produto" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :valor_minimo_venda_tef, "Valor de Mínimo de Venda TEF", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
-            <%= f.number_field :valor_minimo_venda_tef, placeholder: "Valor mínimo de venda do produto por TEF", class: "form-control" %>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :valor_minimo_venda_tef, placeholder: "Valor mínimo de venda do produto" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :margem_telemovel, "Margem para Telemóvel", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
-            <%= f.number_field :margem_telemovel, placeholder: "Margem % de venda para telemóvel", class: "form-control" %>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :margem_telemovel, placeholder: "Margem % de venda para telemóvel" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :margem_site, "Margem para Site", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
-            <%= f.number_field :margem_site, placeholder: "Margem % de venda pelo site", class: "form-control" %>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :margem_site, placeholder: "Margem % de venda pelo site" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :margem_pos, "Margem para POS", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
-            <%= f.number_field :margem_pos, placeholder: "Margem % de venda por POS", class: "form-control" %>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :margem_pos, placeholder: "Margem % de venda por POS" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :margem_tef, "Margem para TEF", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
-            <%= f.number_field :margem_tef, placeholder: "Margem % de venda por TEF", class: "form-control" %>
+
+          <div class="form-inputs col-sm-6">
+            <%= f.input :margem_tef, placeholder: "Margem % de venda por TEF" %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label :mensagem_cupom_venda, "Mensagem Cupom de Venda", class: "col-sm-4 control-label" %>
-          <div class="col-sm-8">
-            <%= f.text_area :mensagem_cupom_venda, placeholder: "Mensagem a ser impressa no cupom de venda. Funcionalidade para POS ou TEF.", class: "form-control" %>
+
+          <div class="form-inputs col-sm-12">
+            <%= f.input :mensagem_cupom_venda, placeholder: "Mensagem a ser impressa no cupom de venda. Funcionalidade para POS ou TEF." %>
           </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <%= f.submit "Salvar", class: "btn btn-danger" %>
+
+          <div class="form-actions col-sm-12">
+            <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
           </div>
-        </div>
-      <% end %>
+
+        <% end %>
       </div>
     </div>
   </div>
 </div>
-
-
