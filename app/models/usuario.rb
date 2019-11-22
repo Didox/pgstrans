@@ -1,6 +1,6 @@
 class Usuario < ApplicationRecord
   validates :email, presence: true, uniqueness: true
-  validates :email, presence: true
+  validates :nome, :email, :senha, presence: true
 
   belongs_to :perfil_usuario
 end

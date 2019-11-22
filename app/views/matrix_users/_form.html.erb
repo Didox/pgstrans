@@ -25,7 +25,7 @@
         <% end %>
 
         <div class="form-inputs col-sm-6">
-          <%= f.label :usuario_id, "Usuario" %>
+          <%= f.label :usuario_id, "Usuário" %>
           <%= f.select :usuario_id, Usuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
@@ -49,7 +49,7 @@
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :pdv %>
+          <%= f.input :pdv, :label => "PDV" %>
         </div>
 
         <div class="form-actions col-sm-12">

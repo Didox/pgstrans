@@ -1,14 +1,14 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <h3>Usuários / Administradores </h3>
+  <h3>Usuários</h3>
 
   <table class="table table-hover">
     <thead>
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Nome</th>
-        <th scope="col">Email</th>
+        <th scope="col">E-Mail</th>
         <th scope="col">Senha</th>
         <th scope="col">Admin?</th>
         <th scope="col">Criado em</th>
@@ -23,7 +23,7 @@
           <td><%= usuario.nome %></td>
           <td><%= usuario.email %></td>
           <td><%= usuario.senha %></td>
-          <td><%= usuario.perfil_usuario_id %></td>
+          <td class="text-center"><%= usuario.perfil_usuario_id %></td>
           <td><%= usuario.created_at %></td>
           <td><%= link_to 'Mostrar', usuario %></td>
           <td><%= link_to 'Editar', edit_usuario_path(usuario) %></td>
@@ -32,8 +32,6 @@
       <% end %>
     </tbody>
   </table>
-
-  <br>
 
   <%= link_to 'Novo Registro', new_usuario_path %> |
   <%= link_to 'Voltar', root_path %>

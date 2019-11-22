@@ -1,3 +1,3 @@
 class MasterProfile < ApplicationRecord
-	validates :id, presence: true, uniqueness: true
+	validates :description, presence: true, uniqueness: true
 end

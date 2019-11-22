@@ -1,4 +1,7 @@
 <div class="container">
+
+	<h3>Dados do Usuários</h3>
+	
 	<p id="notice"><%= notice %></p>
 
 	<p>
@@ -14,6 +17,16 @@
 	<p>
 	  <strong>Senha:</strong>
 	  <%= @usuario.senha %>
+	</p>
+
+	<p>
+	  <strong>Perfil:</strong>
+	  <%= @usuario.perfil_usuario_id %>
+	</p>
+
+	<p>
+	  <strong>Perfil:</strong>
+	  <%= @usuario.created_at %>
 	</p>
 
 	<%= link_to 'Editar', edit_usuario_path(@usuario) %> |
