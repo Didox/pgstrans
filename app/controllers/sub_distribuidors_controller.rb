@@ -4,7 +4,7 @@ class SubDistribuidorsController < ApplicationController
   # GET /sub_distribuidors
   # GET /sub_distribuidors.json
   def index
-    @sub_distribuidors = SubDistribuidor.all
+    @sub_distribuidors = SubDistribuidor.all.order(nome: :asc)
   end
 
   # GET /sub_distribuidors/1

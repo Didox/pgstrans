@@ -4,7 +4,7 @@ class StatusClientesController < ApplicationController
   # GET /status_clientes
   # GET /status_clientes.json
   def index
-    @status_clientes = StatusCliente.all
+    @status_clientes = StatusCliente.all.order(nome: :asc)
   end
 
   # GET /status_clientes/1

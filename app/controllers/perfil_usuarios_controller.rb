@@ -4,7 +4,7 @@ class PerfilUsuariosController < ApplicationController
   # GET /perfil_usuarios
   # GET /perfil_usuarios.json
   def index
-    @perfil_usuarios = PerfilUsuario.all
+    @perfil_usuarios = PerfilUsuario.all.order(nome: :asc)
   end
 
   # GET /perfil_usuarios/1

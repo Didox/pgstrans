@@ -4,7 +4,7 @@ class MasterProfilesController < ApplicationController
   # GET /master_profiles
   # GET /master_profiles.json
   def index
-    @master_profiles = MasterProfile.all
+    @master_profiles = MasterProfile.all.order(description: :asc)
   end
 
   # GET /master_profiles/1

@@ -4,7 +4,7 @@ class RemuneracaosController < ApplicationController
   # GET /remuneracaos
   # GET /remuneracaos.json
   def index
-    @remuneracaos = Remuneracao.all
+    @remuneracaos = Remuneracao.all.order(usuario_id: :asc)
   end
 
   # GET /remuneracaos/1

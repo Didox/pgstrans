@@ -4,7 +4,7 @@ class StatusAlegacaoPagamentosController < ApplicationController
   # GET /status_alegacao_pagamentos
   # GET /status_alegacao_pagamentos.json
   def index
-    @status_alegacao_pagamentos = StatusAlegacaoPagamento.all
+    @status_alegacao_pagamentos = StatusAlegacaoPagamento.all.order(nome: :asc)
   end
 
   # GET /status_alegacao_pagamentos/1

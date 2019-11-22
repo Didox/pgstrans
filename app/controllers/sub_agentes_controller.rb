@@ -4,7 +4,7 @@ class SubAgentesController < ApplicationController
   # GET /sub_agentes
   # GET /sub_agentes.json
   def index
-    @sub_agentes = SubAgente.all
+    @sub_agentes = SubAgente.all.order(razao_social: :asc)
   end
 
   # GET /sub_agentes/1

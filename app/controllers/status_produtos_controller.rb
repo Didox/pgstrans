@@ -4,7 +4,7 @@ class StatusProdutosController < ApplicationController
   # GET /status_produtos
   # GET /status_produtos.json
   def index
-    @status_produtos = StatusProduto.all
+    @status_produtos = StatusProduto.all.order(nome: :asc)
   end
 
   # GET /status_produtos/1

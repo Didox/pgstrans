@@ -4,7 +4,7 @@ class MatrixUsersController < ApplicationController
   # GET /matrix_users
   # GET /matrix_users.json
   def index
-    @matrix_users = MatrixUser.all
+    @matrix_users = MatrixUser.all.order(usuario_id: :asc)
   end
 
   # GET /matrix_users/1

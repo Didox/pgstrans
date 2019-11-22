@@ -4,7 +4,7 @@ class CanalVendasController < ApplicationController
   # GET /canal_vendas
   # GET /canal_vendas.json
   def index
-    @canal_vendas = CanalVenda.all
+    @canal_vendas = CanalVenda.all.order(nome: :asc)
   end
 
   # GET /canal_vendas/1

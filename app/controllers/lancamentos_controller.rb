@@ -4,7 +4,7 @@ class LancamentosController < ApplicationController
   # GET /lancamentos
   # GET /lancamentos.json
   def index
-    @lancamentos = Lancamento.all
+    @lancamentos = Lancamento.all.order(nome: :asc)
   end
 
   # GET /lancamentos/1

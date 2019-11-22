@@ -4,7 +4,7 @@ class UniPessoalEmpresasController < ApplicationController
   # GET /uni_pessoal_empresas
   # GET /uni_pessoal_empresas.json
   def index
-    @uni_pessoal_empresas = UniPessoalEmpresa.all
+    @uni_pessoal_empresas = UniPessoalEmpresa.all.order(nome: :asc)
   end
 
   # GET /uni_pessoal_empresas/1

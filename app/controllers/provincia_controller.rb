@@ -4,7 +4,7 @@ class ProvinciaController < ApplicationController
   # GET /provincia
   # GET /provincia.json
   def index
-    @provincia = Provincium.all
+    @provincia = Provincium.all.order(nome: :asc)
   end
 
   # GET /provincia/1

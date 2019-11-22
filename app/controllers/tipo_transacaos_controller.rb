@@ -4,7 +4,7 @@ class TipoTransacaosController < ApplicationController
   # GET /tipo_transacaos
   # GET /tipo_transacaos.json
   def index
-    @tipo_transacaos = TipoTransacao.all
+    @tipo_transacaos = TipoTransacao.all.order(nome: :asc)
   end
 
   # GET /tipo_transacaos/1

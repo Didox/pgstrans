@@ -4,7 +4,7 @@ class MunicipiosController < ApplicationController
   # GET /municipios
   # GET /municipios.json
   def index
-    @municipios = Municipio.all
+    @municipios = Municipio.all.order(nome: :asc)
   end
 
   # GET /municipios/1

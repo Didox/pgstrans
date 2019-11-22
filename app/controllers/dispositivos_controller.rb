@@ -4,7 +4,7 @@ class DispositivosController < ApplicationController
   # GET /dispositivos
   # GET /dispositivos.json
   def index
-    @dispositivos = Dispositivo.all
+    @dispositivos = Dispositivo.all.order(nome: :asc)
   end
 
   # GET /dispositivos/1

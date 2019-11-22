@@ -4,7 +4,7 @@ class MovimentacaoContaController < ApplicationController
   # GET /movimentacao_conta
   # GET /movimentacao_conta.json
   def index
-    @movimentacao_conta = MovimentacaoContum.all
+    @movimentacao_conta = MovimentacaoContum.all.order(nome: :asc)
   end
 
   # GET /movimentacao_conta/1
