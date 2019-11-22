@@ -34,6 +34,11 @@
         </div>
 
         <div class="form-inputs col-sm-12">
+          <%= f.label :moeda %>
+          <%= f.select :moeda, [["KZ", "KZ"], ["Dolar", "Dolar"], ["Euro", "Euro"], ["Real", "Real"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
           <%= f.label :status_produto_id, "Status do Produto" %>
           <%= f.select :status_produto_id, StatusProduto.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>

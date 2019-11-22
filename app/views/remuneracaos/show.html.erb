@@ -14,9 +14,9 @@
   <dt>Valor TEF:</dt>
   <dd><%= @remuneracao.valor_venda_final_tef %></dd>
   <dt>Início de Vigência:</dt>
-  <dd><%= @remuneracao.vigencia_inicio %></dd>
+  <dd><%= @remuneracao.vigencia_inicio.strftime("%d/%m/%Y") rescue "" %></dd>
   <dt>Fim de Vigência:</dt>
-  <dd><%= @remuneracao.vigencia_fim %></dd>
+  <dd><%= @remuneracao.vigencia_fim.strftime("%d/%m/%Y") rescue "" %></dd>
 </dl>
 
 <div class="page-header">
