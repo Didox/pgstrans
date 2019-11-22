@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   resources :lancamentos
   resources :status_alegacao_pagamentos
   resources :bancos
-  resources :movimentacao_conta
   resources :tipo_transacaos
   resources :provincia
   resources :countries

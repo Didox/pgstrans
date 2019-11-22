@@ -1,7 +1,11 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <h1>Query Balances</h1>
+  <h3>Query Balances</h3>
+
+  <p>Transações enviadas ou recebidas das operadoras após consulta por meio de API</p>
+
+  <p>Estas informações estão disponíveis apenas para consulta. Não pode haver manipulação dessas informações diretamente pelo <i>backoffice</i></p>
 
   <table>
     <thead>
@@ -12,6 +16,7 @@
         <th>Header timestamp</th>
         <th>Header source system</th>
         <th>Credentials element</th>
+<!--        
         <th>Credentials user</th>
         <th>Credentials password</th>
         <th>Attributes list</th>
@@ -31,7 +36,7 @@
         <th>Od query balance resp</th>
         <th>Od query balance output message</th>
         <th>Od query balance request</th>
-        <th>Od query balance balance</th>
+        <th>Od query balance balance</th-->
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -45,6 +50,7 @@
           <td><%= query_balance.header_timestamp %></td>
           <td><%= query_balance.header_source_system %></td>
           <td><%= query_balance.credentials_element %></td>
+<!--          
           <td><%= query_balance.credentials_user %></td>
           <td><%= query_balance.credentials_password %></td>
           <td><%= query_balance.attributes_list %></td>
@@ -64,7 +70,7 @@
           <td><%= query_balance.od_query_balance_resp %></td>
           <td><%= query_balance.od_query_balance_output_message %></td>
           <td><%= query_balance.od_query_balance_request_id %></td>
-          <td><%= query_balance.od_query_balance_balance %></td>
+          <td><%= query_balance.od_query_balance_balance %></td-->
           <td><%= link_to 'Mostrar', query_balance %></td>
         </tr>
       <% end %>
@@ -73,5 +79,5 @@
 
   <br>
 
-  <%= link_to 'Voltar', root_path %>
+  <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
 </div>

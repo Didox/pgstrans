@@ -1,8 +1,10 @@
 <div class="container">
 
-  <p id="notice"><%= notice %></p>
+  <h3>Topup Recargas</h3>
 
-  <h1>Topup Recargas</h1>
+  <p>Transações enviadas ou recebidas das operadoras após consulta por meio de API</p>
+
+  <p>Estas informações estão disponíveis apenas para consulta. Não pode haver manipulação dessas informações diretamente pelo <i>backoffice</i></p>
 
   <table class="table table-hover">
     <thead>
@@ -14,6 +16,7 @@
         <th scope="col">Header timestamp</th>
         <th scope="col">Header source system</th>
         <th scope="col">Credentials element</th>
+<!--
         <th scope="col">Credentials user</th>
         <th scope="col">Credentials password</th>
         <th scope="col">Attributes list</th>
@@ -27,7 +30,7 @@
         <th scope="col">Body topup req body amount</th>
         <th scope="col">Body topup req body msisdn</th>
         <th scope="col">Od header element</th>
-        <th scope="col">Od topup resp input message</th>
+        <th scope="col">Od topup resp input message</th -->
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -42,6 +45,7 @@
           <td><%= topup_recarga.header_timestamp %></td>
           <td><%= topup_recarga.header_source_system %></td>
           <td><%= topup_recarga.credentials_element %></td>
+<!--
           <td><%= topup_recarga.credentials_user %></td>
           <td><%= topup_recarga.credentials_password %></td>
           <td><%= topup_recarga.attributes_list %></td>
@@ -55,7 +59,7 @@
           <td><%= topup_recarga.body_topup_req_body_amount %></td>
           <td><%= topup_recarga.body_topup_req_body_msisdn %></td>
           <td><%= topup_recarga.od_header_element %></td>
-          <td><%= topup_recarga.od_topup_resp_input_message %></td>
+          <td><%= topup_recarga.od_topup_resp_input_message %></td-->
           <td><%= link_to 'Mostrar', topup_recarga %></td>
         </tr>
       <% end %>
@@ -64,6 +68,6 @@
 
   <br>
 
-  <%= link_to 'Voltar', root_path %>
+  <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
 
 </div>
