@@ -29,8 +29,8 @@
         <td><%= remuneracao.valor_venda_final_site %></td>
         <td><%= remuneracao.valor_venda_final_pos %></td>
         <td><%= remuneracao.valor_venda_final_tef %></td>
-        <td><%= remuneracao.vigencia_inicio %></td>
-        <td><%= remuneracao.vigencia_fim %></td>
+        <td><%= remuneracao.vigencia_inicio.strftime("%d/%m/%Y") rescue "" %></td>
+        <td><%= remuneracao.vigencia_fim.strftime("%d/%m/%Y") rescue "" %></td>
         <td><%= link_to 'Mostrar', remuneracao %></td>
         <td><%= link_to 'Editar', edit_remuneracao_path(remuneracao) %></td>
         <td><%= link_to 'Apagar', remuneracao, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
