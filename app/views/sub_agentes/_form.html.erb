@@ -2,58 +2,68 @@
   <div class="card border-simpleform box-shadow mb-4">
     <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
       <div>
-        <strong>Sub-Agente</strong><br />
+        <strong>Dados</strong><br />
       </div>
     </div>
+  </div>
 
   <div class="card border-bootstrap box-shadow mb-4">
-      <div class="card-header text-bootstrap align-items-center justify-content-between">
+    <div class="card-header text-bootstrap align-items-center justify-content-between">
 
-        <%= simple_form_for(@sub_agente) do |f| %>
-          <%= f.error_notification %>
-          <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+       <%= simple_form_for(@sub_agente) do |f| %>
+        <% if @sub_agente.errors.any? %>
+          <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4><%= pluralize(@sub_agente.errors.count, "erros") %> sub-agente, confira abaixo:</h4>
 
-              <div class="form-inputs">
-                <%= f.input :razao_social %>
-              </div>
-
-              <div class="form-inputs">
-                <%= f.input :nome_fantasia %>
-              </div>
-
-              <div class="form-inputs">
-                <%= f.input :bi %>
-              </div>
-
-              <div class="form-inputs">
-                <%= f.input :industry_id %>
-              </div>
-
-              <div class="form-inputs">
-                <%= f.input :morada %>
-              </div>
-
-              <div class="form-inputs">
-                <%= f.input :bairro %>
-              </div>
-
-              <div class="form-inputs">
-                <%= f.input :provincia %>
-              </div>
-
-              <div class="form-inputs">
-                <%= f.input :email %>
-              </div>
-
-              <div class="form-inputs">
-                <%= f.input :telefone %>
-              </div>
-
-              <div class="form-actions">
-                <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
-              </div>
+            <ul>
+            <% @sub_agente.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
             <% end %>
+            </ul>
           </div>
-        </div>
-      </div>
+        <% end %>
 
+        <div class="form-inputs col-sm-6">
+          <%= f.input :razao_social, :label => "Razão Social", placeholder: "Razão Social" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :nome_fantasia, :label => "Nome Fantasia", placeholder: "Nome Fantasia" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :bi, :label => "BI", placeholder: "Bilhete de Identidade" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :industry_id, :label => "Atividade Econômica" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :morada, placeholder: "Morada" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :bairro, placeholder: "Bairro" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :provincia %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :email, :label => "E-Mail", placeholder: "E-Mail" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :telefone, :label => "Telefone(s)", placeholder: "Telefones com DDD" %>
+        </div>
+
+        <div class="form-actions col-sm-12">
+          <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

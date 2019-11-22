@@ -2,45 +2,56 @@
   <div class="card border-simpleform box-shadow mb-4">
     <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
       <div>
-        <strong>Ramos de Atividade</strong><br />
-      </div>
-    </div>
-
-  <div class="card border-bootstrap box-shadow mb-4">
-      <div class="card-header text-bootstrap align-items-center justify-content-between">
-
-        <%= simple_form_for(@sub_distribuidor) do |f| %>
-          <%= f.error_notification %>
-          <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-            <div class="form-inputs">
-              <%= f.input :nome %>
-            </div>
-
-            <div class="form-inputs">
-              <%= f.input :bi %>
-            </div>
-
-            <div class="form-inputs">
-              <%= f.input :telefone %>
-            </div>
-
-            <div class="form-inputs">
-              <%= f.input :morada %>
-            </div>
-
-            <div class="form-inputs">
-              <%= f.input :municipio %>
-            </div>
-
-            <div class="form-inputs">
-              <%= f.input :provincia %>
-            </div>
-
-            <div class="form-actions">
-              <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
-            </div>
-        <% end %>
+        <strong>Dados</strong><br />
       </div>
     </div>
   </div>
+
+  <div class="card border-bootstrap box-shadow mb-4">
+    <div class="card-header text-bootstrap align-items-center justify-content-between">
+
+      <%= simple_form_for(@sub_distribuidor) do |f| %>
+        <% if @sub_distribuidor.errors.any? %>
+          <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4><%= pluralize(@sub_distribuidor.errors.count, "erros") %> no sub-distribuidor, confira abaixo:</h4>
+
+            <ul>
+              <% @sub_distribuidor.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :nome, placeholder: "Nome" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :bi, placeholder: "Documento de Indentificação" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :telefone, placeholder: "Telefones" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :morada, placeholder: "Morada" %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :municipio %>
+        </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :provincia %>
+        </div>
+
+        <div class="form-actions col-sm-12">
+          <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
