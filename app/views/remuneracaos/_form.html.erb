@@ -5,11 +5,12 @@
         <strong>Dados</strong><br />
       </div>
     </div>
+  </div>
 
-    <div class="border-bootstrap box-shadow mb-4">
-      <div class="card-header text-bootstrap align-items-center justify-content-between">
-        
-      <%= form_for(@remuneracao, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <div class="card border-bootstrap box-shadow mb-4">
+    <div class="card-header text-bootstrap align-items-center justify-content-between">
+      
+      <%= simple_form_for(@remuneracao, html: { class: "form-vertical", role: "form" }) do |f| %>
         <% if @remuneracao.errors.any? %>
           <div class="alert alert-danger alert-dismissable" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -23,64 +24,46 @@
           </div>
         <% end %>
 
-        <div class="form-group">
-          <%= f.label :usuario_id, "Usuário", class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= f.select :usuario_id, Usuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
-          </div>
+        <div class="form-inputs col-sm-6">
+          <%= f.label :usuario_id, "Usuário" %>
+          <%= f.select :usuario_id, Usuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
       
-        <div class="form-group">
-          <%= f.label :produto_id, class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= f.select :produto_id, Produto.all.collect{|d| [d.description, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
-          </div>
+        <div class="form-inputs col-sm-6">
+          <%= f.label :produto_id %>
+          <%= f.select :produto_id, Produto.all.collect{|d| [d.description, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
-              <div class="form-group">
-          <%= f.label :valor_venda_final_telemovel, "Valor Telemóvel", class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= f.text_field :valor_venda_final_telemovel, placeholder: "Valor de venda no agente - telemóvel", class: "form-control" %>
-          </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :valor_venda_final_telemovel, :label => "Valor venda final telemóvel", placeholder: "Valor de venda no agente" %>
         </div>
-              <div class="form-group">
-          <%= f.label :valor_venda_final_site, "Valor Site", class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= f.text_field :valor_venda_final_site, placeholder: "Valor de venda no agente - site", class: "form-control" %>
-          </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :valor_venda_final_site, :label => "Valor venda final site", placeholder: "Valor de venda no agente" %>
         </div>
-              <div class="form-group">
-          <%= f.label :valor_venda_final_pos, "Valor POS", class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= f.text_field :valor_venda_final_pos, placeholder: "Valor de venda no agente - POS", class: "form-control" %>
-          </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :valor_venda_final_pos, :label => "Valor venda final POS", placeholder: "Valor de venda no agente" %>
         </div>
-        <div class="form-group">
-          <%= f.label :valor_venda_final_tef, "Valor TEF", class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= f.text_field :valor_venda_final_tef, placeholder: "Valor de venda no agente - TEF", class: "form-control" %>
-          </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.input :valor_venda_final_tef, :label => "Valor venda final TEF", placeholder: "Valor de venda no agente" %>
         </div>
-              <div class="form-group">
-          <%= f.label :vigencia_inicio, "Início de vigência", class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= f.datetime_field :vigencia_inicio, class: "form-control" %>
-          </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.label :vigencia_inicio, "Início de vigência" %>
+          <%= f.datetime_field :vigencia_inicio %>
         </div>
-              <div class="form-group">
-          <%= f.label :vigencia_fim, "Fim de vigência", class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= f.datetime_field :vigencia_fim, class: "form-control" %>
-          </div>
+
+        <div class="form-inputs col-sm-6">
+          <%= f.label :vigencia_fim, "Fim de vigência" %>
+          <%= f.datetime_field :vigencia_fim %>
         </div>
-              <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <%= f.submit "Salvar", class: "btn btn-danger" %>
-          </div>
+
+        <div class="form-actions col-sm-12">
+          <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
         </div>
       <% end %>
-      </div>
     </div>
   </div>
 </div>
-
-

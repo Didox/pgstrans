@@ -1,41 +1,73 @@
-<h4>Detalhe de Produto</h4>
+<h3>Detalhe de Produto</h3>
 
 <dl class="dl-horizontal">
-  <dt>Description:</dt>
-  <dd><%= @produto.description %></dd>
-  <dt>Partner:</dt>
-  <dd><%= @produto.partner.name %></dd>
-  <dt>Status produto:</dt>
-  <dd><%= @produto.status_produto.nome %></dd>
-  <dt>Valor compra telemovel:</dt>
-  <dd><%= @produto.valor_compra_telemovel %></dd>
-  <dt>Valor compra site:</dt>
-  <dd><%= @produto.valor_compra_site %></dd>
-  <dt>Valor compra pos:</dt>
-  <dd><%= @produto.valor_compra_pos %></dd>
-  <dt>Valor compra tef:</dt>
-  <dd><%= @produto.valor_compra_tef %></dd>
-  <dt>Valor minimo venda telemovel:</dt>
-  <dd><%= @produto.valor_minimo_venda_telemovel %></dd>
-  <dt>Valor minimo venda site:</dt>
-  <dd><%= @produto.valor_minimo_venda_site %></dd>
-  <dt>Valor minimo venda pos:</dt>
-  <dd><%= @produto.valor_minimo_venda_pos %></dd>
-  <dt>Valor minimo venda tef:</dt>
-  <dd><%= @produto.valor_minimo_venda_tef %></dd>
-  <dt>Margem telemovel:</dt>
-  <dd><%= @produto.margem_telemovel %></dd>
-  <dt>Margem site:</dt>
-  <dd><%= @produto.margem_site %></dd>
-  <dt>Margem pos:</dt>
-  <dd><%= @produto.margem_pos %></dd>
-  <dt>Margem tef:</dt>
-  <dd><%= @produto.margem_tef %></dd>
-  <dt>Mensagem cupom venda:</dt>
-  <dd><%= @produto.mensagem_cupom_venda %></dd>
+  <div class="col-sm-6">
+    <dt>Descrição</dt>
+    <dd><%= @produto.description %></dd>
+  </div>
+  <div class="col-sm-6">
+    <dt>Parceiro</dt>
+    <dd><%= @produto.partner.name %></dd>
+  </div>
+  <div class="col-sm-6">
+    <dt>Status produto:</dt>
+    <dd><%= @produto.status_produto.nome %></dd>
+  </div>
+  <div class="col-sm-6">
+    <dt>Valor compra telemovel:</dt>
+    <dd><%= @produto.valor_compra_telemovel %></dd>
+  </div>
+  <div class="col-sm-6">
+    <dt>Valor compra site:</dt>
+    <dd><%= @produto.valor_compra_site %></dd>
+  </div>
+  <div class="col-sm-6">
+    <dt>Valor compra pos:</dt>
+    <dd><%= @produto.valor_compra_pos %></dd>
+  </div>
+  <div class="col-sm-6">
+    <dt>Valor compra tef:</dt>
+    <dd><%= @produto.valor_compra_tef %></dd>
+  </div>
+  <div class="col-sm-6">
+    <dt>Valor minimo venda telemovel:</dt>
+    <dd><%= @produto.valor_minimo_venda_telemovel %></dd>
+  </div>
+  <div class="col-sm-6">
+    <dt>Valor minimo venda site:</dt>
+    <dd><%= @produto.valor_minimo_venda_site %></dd>
+  </div>
+  <div class="col-sm-6">
+    <dt>Valor minimo venda pos:</dt>
+    <dd><%= @produto.valor_minimo_venda_pos %></dd>
+  </div>
+  <div class="col-sm-6">
+    <dt>Valor minimo venda tef:</dt>
+    <dd><%= @produto.valor_minimo_venda_tef %></dd>
+  </div>
+  <div class="col-sm-6">
+    <dt>Margem telemovel:</dt>
+    <dd><%= @produto.margem_telemovel %></dd>
+  </div>
+  <div class="col-sm-6">
+    <dt>Margem site:</dt>
+    <dd><%= @produto.margem_site %></dd>
+  </div>
+  <div class="col-sm-6">
+    <dt>Margem pos:</dt>
+    <dd><%= @produto.margem_pos %></dd>
+  </div>
+  <div class="col-sm-6">
+    <dt>Margem tef:</dt>
+    <dd><%= @produto.margem_tef %></dd>
+  </div>
+  <div class="col-sm-12">
+    <dt>Mensagem cupom venda:</dt>
+    <dd><%= @produto.mensagem_cupom_venda %></dd>
+  </div>  
 </dl>
 
-<div class="page-header">
+<div class="col-sm-12 page-header">
   <%= link_to produtos_path, class: 'btn btn-danger' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
     Voltar
