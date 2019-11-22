@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_233136) do
+ActiveRecord::Schema.define(version: 2019_11_22_233935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_233136) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "margem_site"
+    t.string "moeda"
     t.index ["partner_id"], name: "index_produtos_on_partner_id"
     t.index ["status_produto_id"], name: "index_produtos_on_status_produto_id"
   end
@@ -253,14 +254,16 @@ ActiveRecord::Schema.define(version: 2019_11_22_233136) do
     t.string "razao_social"
     t.string "nome_fantasia"
     t.string "bi"
-    t.string "industry_id"
     t.string "morada"
     t.string "bairro"
-    t.string "provincia"
     t.string "email"
     t.string "telefone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "provincia_id"
+    t.bigint "industry_id"
+    t.index ["industry_id"], name: "index_sub_agentes_on_industry_id"
+    t.index ["provincia_id"], name: "index_sub_agentes_on_provincia_id"
   end
 
   create_table "sub_distribuidors", force: :cascade do |t|
@@ -366,6 +369,8 @@ ActiveRecord::Schema.define(version: 2019_11_22_233136) do
   add_foreign_key "provincia", "countries"
   add_foreign_key "remuneracaos", "produtos"
   add_foreign_key "remuneracaos", "usuarios"
+  add_foreign_key "sub_agentes", "industries"
+  add_foreign_key "sub_agentes", "provincia", column: "provincia_id"
   add_foreign_key "sub_distribuidors", "municipios"
   add_foreign_key "sub_distribuidors", "provincia", column: "provincia_id"
   add_foreign_key "usuarios", "perfil_usuarios"

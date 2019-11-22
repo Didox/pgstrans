@@ -37,7 +37,8 @@
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :industry_id, :label => "Atividade Econômica" %>
+          <%= f.label :industry_id, "Atividade Econômica" %>
+          <%= f.select :industry_id, Industry.all.collect{|d| [d.descricao_seccao, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
 
         <div class="form-inputs col-sm-6">
@@ -49,7 +50,8 @@
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :provincia %>
+          <%= f.label :provincia_id, "Província" %>
+          <%= f.select :provincia_id, Provincium.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
 
         <div class="form-inputs col-sm-6">
