@@ -69,6 +69,6 @@ class CanalVendasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def canal_venda_params
-      params.require(:canal_venda).permit(:nome, :carragamento_minimo, :dispositivo_id)
+      params.require(:canal_venda).permit(:nome, :carregamento_minimo, :dispositivo_id)
     end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_230949) do
+ActiveRecord::Schema.define(version: 2019_11_22_233136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_230949) do
 
   create_table "canal_vendas", force: :cascade do |t|
     t.string "nome"
-    t.float "carragamento_minimo"
+    t.float "carregamento_minimo"
     t.bigint "dispositivo_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_230949) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "margem_site"
+    t.string "moeda"
     t.index ["partner_id"], name: "index_produtos_on_partner_id"
     t.index ["status_produto_id"], name: "index_produtos_on_status_produto_id"
   end

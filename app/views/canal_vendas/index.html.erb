@@ -15,10 +15,10 @@
     <tbody>
       <% @canal_vendas.each do |canal_venda| %>
       <tr>
-        <td><%= canal_venda.ID %></td>
+        <td><%= canal_venda.id %></td>
         <td><%= canal_venda.nome %></td>
-        <td><%= canal_venda.carragamento_minimo %></td>
-        <td><%= canal_venda.dispositivo %></td>
+        <td><%= canal_venda.carregamento_minimo %></td>
+        <td><%= canal_venda.dispositivo.nome %></td>
         <td><%= link_to 'Mostrar', canal_venda %></td>
         <td><%= link_to 'Editar', edit_canal_venda_path(canal_venda) %></td>
         <td><%= link_to 'Apagar', canal_venda, method: :delete, data: { confirm: 'Tem certeza?' } %></td>

@@ -29,11 +29,12 @@
         </div>
 
         <div class="col-sm-6">
-          <%= f.input :carragamento_minimo, :label => "Carregamento Mínimo", placeholder: "Carregamento mínimo no credenciamento do agente" %>
+          <%= f.input :carregamento_minimo, :label => "Carregamento Mínimo", placeholder: "Carregamento mínimo no credenciamento do agente" %>
         </div>
  
-        <div class="col-sm-6">
-          <%= f.input :dispositivo, :label => "Dispositivo", placeholder: "Dispositivo" %>
+        <div class="form-inputs col-sm-6">
+          <%= f.label :dispositivo_id, "Sub-Distribuidor" %>
+          <%= f.select :dispositivo_id, Dispositivo.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>   
         </div>
   
         <div class="form-actions col-sm-12">
