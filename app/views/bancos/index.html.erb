@@ -33,7 +33,9 @@
                 <td><%= banco.fax_escritorio %></td-->
                 <td><%= banco.website %></td>
                 <td><%= banco.email %></td>
-                <td><%= banco.logomarca %></td>
+                <td>
+                  <img src="<%= banco.logomarca %>" style="width: 200px">
+                </td>
                 <td><%= link_to 'Mostrar', banco %></td>
         <td><%= link_to 'Editar', edit_banco_path(banco) %></td>
         <td><%= link_to 'Apagar', banco, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
