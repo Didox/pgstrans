@@ -1,7 +1,11 @@
 <div class="container"> 
-  <h4>Edição Perfil do Usuário</h4>
+  <h3>Edição Perfil do Usuário</h3>
 
-  <%= render 'form' %>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <%= render 'form', partner: @perfil_usuario %>
 
   <%= link_to @perfil_usuario, class: 'btn btn-danger' do %>
     <span class="glyphicon glyphicon-info-sign"></span>

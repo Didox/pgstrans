@@ -35,7 +35,7 @@
 
         <div class="form-inputs col-sm-12">
           <%= f.label :moeda %>
-          <%= f.select :moeda, [["KZ", "KZ"], ["Dolar", "Dolar"], ["Euro", "Euro"], ["Real", "Real"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <%= f.select :moeda, [["KZ", "Kwanza"], ["USD", "Dolar"], ["Eur", "Euro"], ["BRL", "Real"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
         <div class="form-inputs col-sm-6">
@@ -96,7 +96,10 @@
         </div>
 
         <div class="form-actions col-sm-12">
-          <%= f.button :submit, "Confirmar", class: 'btn btn-danger' %>
+          <%= f.button :button, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-ok"></span>
+            Confirmar
+          <% end %>
         </div>
 
       <% end %>

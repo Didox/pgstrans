@@ -1,19 +1,28 @@
-<h4>Mostrar Perfil de Usuário</h4>
+<div class="container">
 
-<dl class="dl-horizontal">
-  <dt>Nome:</dt>
-  <dd><%= @perfil_usuario.nome %></dd>
-  <dt>Admin:</dt>
-  <dd><%= @perfil_usuario.admin %></dd>
-</dl>
+  <h4>Mostrar Perfil de Usuário</h4>
 
-<div class="page-header">
-  <%= link_to perfil_usuarios_path, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Voltar
-  <% end %>
-  <%= link_to edit_perfil_usuario_path(@perfil_usuario), class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Editar
-  <% end %>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Nome:</dt>
+      <dd><%= @perfil_usuario.nome %></dd>
+      <dt>Admin?</dt>
+      <dd><%= @perfil_usuario.admin %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to perfil_usuarios_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_perfil_usuario_path(@perfil_usuario), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
 </div>
