@@ -1,8 +1,18 @@
 <div class="container">	
 	<h3>Edição de Matriz de Usuário</h3>
 
+  	<!-- Page Heading/Breadcrumbs -->
+  	<%= render :partial => 'shared/header_backoffice' %>
+  	<!-- /.row -->
+
 	<%= render 'form', matrix_user: @matrix_user %>
 
-	<%= link_to 'Mostrar', @matrix_user %> |
-	<%= link_to 'Voltar', matrix_users_path %>
+	<%= link_to @matrix_user, class: 'btn btn-danger' do %>
+		<span class="glyphicon glyphicon-info-sign"></span>
+		Mostrar
+	<% end %>
+	<%= link_to matrix_users_path, class: 'btn btn-danger' do %>
+		<span class="glyphicon glyphicon-list-alt"></span>
+		Voltar
+	<% end %>
 </div>

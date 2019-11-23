@@ -1,26 +1,40 @@
 <div class="col-md-12" data-target="toggle.grid">
-<div class="card border-simpleform box-shadow mb-4">
-  <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
-    <div>
-      <strong>Dados</strong><br />
-    </div>
-  </div>
-
-  <div class="card border-bootstrap box-shadow mb-4">
-      <div class="card-header text-bootstrap align-items-center justify-content-between">
-
-        <%= simple_form_for(@municipio) do |f| %>
-          <%= f.error_notification %>
-          <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-          <div class="form-inputs">
-            <%= f.input :nome %>
-          </div>
-
-          <div class="form-actions">
-            <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
-          </div>
-        <% end %>
+    <div class="card border-simpleform box-shadow mb-4">
+      <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
+        <div>
+          <strong>Dados</strong><br />
+        </div>
       </div>
     </div>
+
+    <div class="card border-bootstrap box-shadow mb-4">
+      <div class="card-header text-bootstrap align-items-center justify-content-between">
+
+      <%= simple_form_for(@municipio) do |f| %>
+        <% if @municipio.errors.any? %>
+          <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4><%= pluralize(@municipio.errors.count, "erros") %> no município, confira abaixo:</h4>
+
+            <ul>
+            <% @municipio.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>          
+
+        <div class="form-inputs">
+          <%= f.input :nome %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :button, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-ok"></span>
+            Confirmar
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

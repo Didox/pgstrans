@@ -1,5 +1,10 @@
-<div class="container"> 
+<div class="container">
+
   <h4>Edição de Tipo Lançamento</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
 
   <%= render 'form' %>
 
@@ -7,6 +12,7 @@
     <span class="glyphicon glyphicon-info-sign"></span>
     Mostrar
   <% end %>
+
   <%= link_to lancamentos_path, class: 'btn btn-danger' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
     Voltar

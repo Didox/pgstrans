@@ -1,33 +1,43 @@
 <div class="container">
+  <p id="notice"><%= notice %></p>
+  
   <h4>Tipos de Lançamentos</h4>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nome</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
 
-    <tbody>
-      <% @lancamentos.each do |lancamento| %>
-      <tr>
-          <td><%= lancamento.id %></td>  
-          <td><%= lancamento.nome %></td>
-          <td><%= link_to 'Mostrar', lancamento %></td>
-        <td><%= link_to 'Editar', edit_lancamento_path(lancamento) %></td>
-        <td><%= link_to 'Apagar', lancamento, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="container">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nome</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-  <br>
+      <tbody>
+        <% @lancamentos.each do |lancamento| %>
+        <tr>
+            <td><%= lancamento.id %></td>  
+            <td><%= lancamento.nome %></td>
+            <td><%= link_to 'Mostrar', lancamento %></td>
+          <td><%= link_to 'Editar', edit_lancamento_path(lancamento) %></td>
+          <td><%= link_to 'Apagar', lancamento, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-  <%= link_to "Novo Registo", new_lancamento_path, class: 'btn btn-danger' %>
-  <%= link_to lancamentos_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
-      Voltar
-  <% end %>
+    <%= link_to new_lancamento_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      Novo Registro
+    <% end %> 
+
+    <%= link_to lancamentos_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+    <% end %>
+  </div>
 </div>

@@ -1,6 +1,10 @@
 <div class="container"> 
   <h4>Edição de Informação de Dispositivo</h4>
 
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
   <%= render 'form' %>
 
   <%= link_to @dispositivo, class: 'btn btn-danger' do %>

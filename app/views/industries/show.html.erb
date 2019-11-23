@@ -1,21 +1,36 @@
 <div class="container">
 	<p id="notice"><%= notice %></p>
 
-	<p>
-	  <strong>Descrição Seccão:</strong>
-	  <%= @industry.descricao_seccao %>
-	</p>
+	<h4>Dados de Atividade Econômica</h4>
 
-	<p>
-	  <strong>Descrição Divisão:</strong>
-	  <%= @industry.descricao_divisao %>
-	</p>
+	<!-- Page Heading/Breadcrumbs -->
+	<%= render :partial => 'shared/header_backoffice' %>
+	<!-- /.row -->
 
-	<p>
-	  <strong>Descrição Grupo:</strong>
-	  <%= @industry.descricao_grupo %>
-	</p>
+	<div class="container">
+		<p>
+		  <strong>Descrição Seccão:</strong>
+		  <%= @industry.descricao_seccao %>
+		</p>
 
-	<%= link_to 'Editar', edit_industry_path(@industry) %> |
-	<%= link_to 'Voltar', industries_path %>
+		<p>
+		  <strong>Descrição Divisão:</strong>
+		  <%= @industry.descricao_divisao %>
+		</p>
+
+		<p>
+		  <strong>Descrição Grupo:</strong>
+		  <%= @industry.descricao_grupo %>
+		</p>
+
+	    <%= link_to edit_industry_path(@industry), class: 'btn btn-danger' do %>
+	      	<span class="glyphicon glyphicon-edit"></span>
+	      	Editar
+	    <% end %>
+	    
+		<%= link_to industries_path, class: 'btn btn-danger' do %>
+			<span class="glyphicon glyphicon-list-alt"></span>
+			Voltar
+		<% end %>
+	</div>
 </div>

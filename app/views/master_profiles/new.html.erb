@@ -1,7 +1,14 @@
+<h4>Novo Tipo de Perfil Principal</h4>
+
+<!-- Page Heading/Breadcrumbs -->
+<%= render :partial => 'shared/header_backoffice' %>
+<!-- /.row -->
+  
 <div class="container">
-	<h3>Novo Perfil Master</h3>
+  <%= render 'form' %>
 
-	<%= render 'form', master_profile: @master_profile %>
-
-	<%= link_to 'Voltar', master_profiles_path %>
+  <%= link_to master_profiles_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
 </div>

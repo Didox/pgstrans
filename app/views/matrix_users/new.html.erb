@@ -2,6 +2,10 @@
 	
 	<h3>Nova Matriz de Usuário</h3>
 
+	<!-- Page Heading/Breadcrumbs -->
+  	<%= render :partial => 'shared/header_backoffice' %>
+  	<!-- /.row -->
+
 	<%= render 'form', matrix_user: @matrix_user %>
 
 	<%= link_to matrix_users_path, class: 'btn btn-danger' do %>

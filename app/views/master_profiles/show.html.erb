@@ -1,11 +1,31 @@
 <div class="container">
 	<p id="notice"><%= notice %></p>
 
-	<p>
-	  <strong>Descrição:</strong>
-	  <%= @master_profile.description %>
-	</p>
+	<h4>Mostra Tipo de Perfil Master</h4>
 
-	<%= link_to 'Editar', edit_master_profile_path(@master_profile) %> |
-	<%= link_to 'Voltar', master_profiles_path %>
+	<!-- Page Heading/Breadcrumbs -->
+	<%= render :partial => 'shared/header_backoffice' %>
+	<!-- /.row -->
+
+	<div class="container">
+		<p>
+		  <strong>ID:</strong>
+		  <%= @master_profile.id %>
+		</p>
+
+		<p>
+		  <strong>Descrição:</strong>
+		  <%= @master_profile.description %>
+		</p>
+
+		<%= link_to edit_master_profile_path(@master_profile), class: 'btn btn-danger' do %>
+		  <span class="glyphicon glyphicon-pencil"></span>
+		  Editar
+		<% end %>
+
+		<%= link_to master_profiles_path, class: 'btn btn-danger' do %>
+		  <span class="glyphicon glyphicon-list-alt"></span>
+		  Voltar
+		<% end %>
+	</div>
 </div>

@@ -1,43 +1,47 @@
 <div class="col-md-12" data-target="toggle.grid">
-<div class="card border-simpleform box-shadow mb-4">
-  <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
-    <div>
-      <strong>Ramos de Atividade</strong><br />
+  <div class="card border-simpleform box-shadow mb-4">
+    <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
+      <div>
+        <strong>Ramos de Atividade</strong><br />
+      </div>
     </div>
-  </div>
+  </div>    
 
   <div class="card border-bootstrap box-shadow mb-4">
-      <div class="card-header text-bootstrap align-items-center justify-content-between">
+    <div class="card-header text-bootstrap align-items-center justify-content-between">
 
-        <%= simple_form_for(@industry) do |f| %>
-          <% if @industry.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(@industry.errors.count, "erros") %> no @industry, confira abaixo:</h2>
+      <%= simple_form_for(@industry) do |f| %>
+        <% if @industry.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@industry.errors.count, "erros") %> no @industry, confira abaixo:</h2>
 
-              <ul>
-              <% @industry.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-              </ul>
-            </div>
-          <% end %>
-          
-          <div class="form-inputs">
-            <%= f.input :descricao_seccao %>
-          </div>
-
-          <div class="form-inputs">
-            <%= f.input :descricao_divisao %>
-          </div>
-
-          <div class="form-inputs">
-            <%= f.input :descricao_grupo %>
-          </div>
-
-          <div class="form-actions">
-            <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
+            <ul>
+            <% @industry.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
           </div>
         <% end %>
+        
+        <div class="form-inputs">
+          <%= f.input :descricao_seccao, :label => "Descrição da Secção", placeholder: "Descrição da Secção" %>
+        </div>
+
+        <div class="form-inputs">
+          <%= f.input :descricao_divisao, :label => "Descrição da Divisão", placeholder: "Descrição da Divisão" %>
+        </div>
+
+        <div class="form-inputs">
+          <%= f.input :descricao_grupo, :label => "Descrição do Grupo", placeholder: "Descrição da Grupo" %>
+        </div>
+
+        <div class="form-actions col-sm-12">
+          <%= f.button :button, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-ok"></span>
+            Confirmar
+          <% end %>
+        </div>          
+      <% end %>
       </div>
     </div>
   </div>

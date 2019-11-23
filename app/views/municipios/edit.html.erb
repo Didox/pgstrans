@@ -1,6 +1,18 @@
-	<h3>Editando Município</h3>
+<div class="container">	
+	<h3>Edição de Município</h3>
+
+  	<!-- Page Heading/Breadcrumbs -->
+  	<%= render :partial => 'shared/header_backoffice' %>
+  	<!-- /.row -->
 
 	<%= render 'form', municipio: @municipio %>
 
-	<%= link_to 'Mostrar', @municipio %> |
-	<%= link_to 'Voltar', municipios_path %>
+	<%= link_to @municipio, class: 'btn btn-danger' do %>
+		<span class="glyphicon glyphicon-info-sign"></span>
+		Mostrar
+	<% end %>
+	<%= link_to municipios_path, class: 'btn btn-danger' do %>
+		<span class="glyphicon glyphicon-list-alt"></span>
+		Voltar
+	<% end %>
+</div>

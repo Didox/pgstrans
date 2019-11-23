@@ -1,6 +1,20 @@
-	<h3>Editando Perfil Master</h3>
+<div class="container">
 
-	<%= render 'form', master_profile: @master_profile %>
+  <h4>Edita Tipo de Perfil Master</h4>
 
-	<%= link_to 'Mostrar', @master_profile %> |
-	<%= link_to 'Voltar', master_profiles_path %>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <%= render 'form' %>
+
+  <%= link_to @master_profile, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    Mostrar
+  <% end %>
+
+  <%= link_to master_profiles_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+</div>

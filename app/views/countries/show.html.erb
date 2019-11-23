@@ -1,23 +1,29 @@
-<h4>Dados de País</h4>
-<br>
-<dl class="dl-horizontal">
-  <dt>Name em Inglês:</dt>
-  <dd><%= @country.name_eng %></dd>
-  <dt>Name em Português:</dt>
-  <dd><%= @country.name_pt %></dd>
-  <dt>ISO2:</dt>
-  <dd><%= @country.iso2 %></dd>
-  <dt>BACEN:</dt>
-  <dd><%= @country.bacen %></dd>
-</dl>
+<h4>Mostra Dados do País</h4>
 
-<div class="page-header">
-  <%= link_to countries_path, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Voltar
-  <% end %>
-  <%= link_to edit_country_path(@country), class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Editar
-  <% end %>
+<!-- Page Heading/Breadcrumbs -->
+<%= render :partial => 'shared/header_backoffice' %>
+<!-- /.row -->
+
+<div class="container">
+  <dl class="dl-horizontal">
+    <dt>Name em Inglês:</dt>
+    <dd><%= @country.name_eng %></dd>
+    <dt>Name em Português:</dt>
+    <dd><%= @country.name_pt %></dd>
+    <dt>Código Internacional do País:</dt>
+    <dd><%= @country.iso2 %></dd>
+    <dt>Código BACEN:</dt>
+    <dd><%= @country.bacen %></dd>
+  </dl>
+
+  <div class="page-header">
+    <%= link_to countries_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>
+    <%= link_to edit_country_path(@country), class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+      Editar
+    <% end %>
+  </div>
 </div>

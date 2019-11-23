@@ -1,0 +1,9 @@
+<% if usuario_logado.perfil_usuario.admin %>
+	<!-- Page Heading/Breadcrumbs -->
+	<%= render :partial => 'layouts/backoffice' %>
+	<!-- /.row -->
+<% else %>
+  	<div class="alert alert-info" role="alert">
+    	Acesso Restrito! Usuário sem permissão de Backoffice!
+  	</div>
+<% end %>

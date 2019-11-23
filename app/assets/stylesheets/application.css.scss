@@ -41,6 +41,10 @@ label{
 }
 
 .justify-content-between, .card-header:first-child{
+  padding: 10px;
+}
+
+.card-header:first-child{
   padding: 15px;
 }
 
@@ -59,3 +63,4 @@ label{
 ::placeholder {
   color: #a9a4a4!important;
 }
+

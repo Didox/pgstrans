@@ -1,7 +1,14 @@
 <div class="container">
 	<h3>Novo Ramo de Atividade</h3>
 
+	<!-- Page Heading/Breadcrumbs -->
+	<%= render :partial => 'shared/header_backoffice' %>
+	<!-- /.row -->
+
 	<%= render 'form', industry: @industry %>
 
-	<%= link_to 'Voltar', industries_path %>
+	<%= link_to industries_path, class: 'btn btn-danger' do %>
+		<span class="glyphicon glyphicon-list-alt"></span>
+		Voltar
+	<% end %>
 </div>
