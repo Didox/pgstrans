@@ -1,0 +1,33 @@
+<div class="container">
+
+  <h4>Mostrar Moeda</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Nome:</dt>
+      <dd><%= @moeda.nome %></dd>
+      <dt>Codigo iso:</dt>
+      <dd><%= @moeda.codigo_iso %></dd>
+      <dt>Simbolo:</dt>
+      <dd><%= @moeda.simbolo %></dd>
+      <dt>Country:</dt>
+      <dd>"#<%= @moeda.country %></dd>
+      <dd><%= "#{@moeda.country} / #{moeda.country.name_eng}" %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to moedas_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_moeda_path(@moeda), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>

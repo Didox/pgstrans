@@ -11,22 +11,24 @@
     <table class="table table-hover">
       <thead>
         <tr>
-                  <th scope="col">Name eng</th>
-                  <th scope="col">Name pt</th>
-                  <th scope="col">Iso2</th>
-                  <th scope="col">Bacen</th>
-                  <th colspan="3"></th>
+          <th scope="col">ID</th>
+          <th scope="col">Nome em Inglês</th>
+          <th scope="col">Nome em Português</th>
+          <th scope="col">ISO2</th>
+          <th scope="col">Bacen</th>
+          <th colspan="3"></th>
         </tr>
       </thead>
 
       <tbody>
         <% @countries.each do |country| %>
         <tr>
-                  <td><%= country.name_eng %></td>
-                  <td><%= country.name_pt %></td>
-                  <td><%= country.iso2 %></td>
-                  <td><%= country.bacen %></td>
-                  <td><%= link_to 'Mostrar', country %></td>
+          <td><%= country.id %></td>
+          <td><%= country.name_eng %></td>
+          <td><%= country.name_pt %></td>
+          <td><%= country.iso2 %></td>
+          <td class="text-right"><%= country.bacen %></td>
+          <td><%= link_to 'Mostrar', country %></td>
           <td><%= link_to 'Editar', edit_country_path(country) %></td>
           <td><%= link_to 'Apagar', country, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>
