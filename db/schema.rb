@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_23_184129) do
+ActiveRecord::Schema.define(version: 2019_11_23_204633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,16 @@ ActiveRecord::Schema.define(version: 2019_11_23_184129) do
     t.datetime "updated_at", null: false
     t.bigint "usuario_id"
     t.index ["usuario_id"], name: "index_matrix_users_on_usuario_id"
+  end
+
+  create_table "moedas", force: :cascade do |t|
+    t.string "nome"
+    t.string "codigo_iso"
+    t.string "simbolo"
+    t.bigint "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_moedas_on_country_id"
   end
 
   create_table "municipios", force: :cascade do |t|
@@ -364,6 +374,7 @@ ActiveRecord::Schema.define(version: 2019_11_23_184129) do
 
   add_foreign_key "canal_vendas", "dispositivos"
   add_foreign_key "matrix_users", "usuarios"
+  add_foreign_key "moedas", "countries"
   add_foreign_key "produtos", "partners"
   add_foreign_key "produtos", "status_produtos"
   add_foreign_key "provincia", "countries"

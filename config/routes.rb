@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :moedas
   get 'backoffice/home'
   resources :bancos
   resources :lancamentos

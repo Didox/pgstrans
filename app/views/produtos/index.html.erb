@@ -13,11 +13,12 @@
         <tr>
           <th scope="col">Nome</th>
           <th scope="col">Partner</th>
+          <th scope="col">Moeda</th>
           <th scope="col">Status</th>
-          <th scope="col">Margem telemovel</th>
-          <th scope="col">Margem site</th>
-          <th scope="col">Margem pos</th>
-          <th scope="col">Margem tef</th>
+          <th scope="col">Margem Telemóvel</th>
+          <th scope="col">Margem SITE</th>
+<!--          <th scope="col">Margem POS</th>
+          <th scope="col">Margem TEF</th-->
           <th scope="col">Mensagem cupom venda</th>
           <th colspan="3"></th>
         </tr>
@@ -28,11 +29,12 @@
         <tr>
           <td><%= produto.description %></td>
           <td><%= produto.partner.name %></td>
+          <td><%= produto.moeda %></td>
           <td><%= produto.status_produto.nome %></td>
-          <td><%= produto.margem_telemovel %></td>
-          <td><%= produto.margem_site %></td>
-          <td><%= produto.margem_pos %></td>
-          <td><%= produto.margem_tef %></td>
+          <td class="text-right"><%= produto.margem_telemovel %></td>
+          <td class="text-right"><%= produto.margem_site %></td>
+<!--          <td><%= produto.margem_pos %></td>
+          <td><%= produto.margem_tef %></td-->
           <td><%= produto.mensagem_cupom_venda %></td>
           <td><%= link_to 'Mostrar', produto %></td>
           <td><%= link_to 'Editar', edit_produto_path(produto) %></td>

@@ -25,7 +25,7 @@
         <% end %>
 
         <div class="form-inputs col-sm-6">
-           <%= f.input :description, placeholder: "Descrição do Produto" %>
+           <%= f.input :description, :label => "Descrição do Produto", placeholder: "Descrição do Produto" %>
         </div>
 
         <div class="form-inputs col-sm-6">
@@ -35,7 +35,7 @@
 
         <div class="form-inputs col-sm-12">
           <%= f.label :moeda %>
-          <%= f.select :moeda, [["KZ", "Kwanza"], ["USD", "Dolar"], ["Eur", "Euro"], ["BRL", "Real"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <%= f.select :moeda, [["KZ - Kwanza", "1"], ["USD - Dolar", "2"], ["EUR - Euro", "3"], ["BRL - Real", "4"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
         <div class="form-inputs col-sm-6">
@@ -44,55 +44,55 @@
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :valor_compra_telemovel, placeholder: "Valor de compra do produto na operadora" %>
+          <%= f.input :valor_compra_telemovel, :label => "Valor de compra para revenda pelo TELEMÓVEL", placeholder: "Valor de compra do produto na operadora" %>
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :valor_compra_site, placeholder: "Valor de compra do produto na operadora" %>
+          <%= f.input :valor_compra_site,:label => "Valor de compra para revenda pelo SITE",placeholder: "Valor de compra do produto na operadora" %>
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :valor_compra_pos, placeholder: "Valor de compra do produto na operadora" %>
+          <%= f.input :valor_compra_pos, :label => "Valor de compra do produto para revenda pelo POS",placeholder: "Valor de compra do produto na operadora" %>
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :valor_compra_tef, placeholder: "Valor de compra do produto na operadora" %>
+          <%= f.input :valor_compra_tef, :label => "Valor de compra do produto para revenda por TEF",placeholder: "Valor de compra do produto na operadora" %>
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :valor_minimo_venda_telemovel, placeholder: "Valor mínimo de venda do produto" %>
+          <%= f.input :valor_minimo_venda_telemovel, :label => "Valor mínimo de venda TELEMÓVEL", placeholder: "Valor mínimo de venda do produto" %>
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :valor_minimo_venda_site, placeholder: "Valor mínimo de venda do produto" %>
+          <%= f.input :valor_minimo_venda_site, :label => "Valor mínimo de venda SITE", placeholder: "Valor mínimo de venda do produto" %>
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :valor_minimo_venda_pos, placeholder: "Valor mínimo de venda do produto" %>
+          <%= f.input :valor_minimo_venda_pos, :label => "Valor mínimo de venda POS", placeholder: "Valor mínimo de venda do produto" %>
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :valor_minimo_venda_tef, placeholder: "Valor mínimo de venda do produto" %>
+          <%= f.input :valor_minimo_venda_tef, :label => "Valor mínimo de venda TEF", placeholder: "Valor mínimo de venda do produto" %>
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :margem_telemovel, placeholder: "Margem % de venda para telemóvel" %>
+          <%= f.input :margem_telemovel, :label => "Margem para TELEMÓVEL", placeholder: "Margem % de venda para telemóvel" %>
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :margem_site, placeholder: "Margem % de venda pelo site" %>
+          <%= f.input :margem_site, :label => "Margem para SITE", placeholder: "Margem % de venda pelo site" %>
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :margem_pos, placeholder: "Margem % de venda por POS" %>
+          <%= f.input :margem_pos, :label => "Margem para POS", placeholder: "Margem % de venda por POS" %>
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.input :margem_tef, placeholder: "Margem % de venda por TEF" %>
+          <%= f.input :margem_tef, :label => "Margem para TEF", placeholder: "Margem % de venda por TEF" %>
         </div>
 
         <div class="form-inputs col-sm-12">
-          <%= f.input :mensagem_cupom_venda, placeholder: "Mensagem a ser impressa no cupom de venda. Funcionalidade para POS ou TEF." %>
+          <%= f.input :mensagem_cupom_venda, :label => "Mensagem cupom de venda", placeholder: "Mensagem a ser impressa no cupom de venda. Funcionalidade para POS ou TEF." %>
         </div>
 
         <div class="form-actions col-sm-12">
