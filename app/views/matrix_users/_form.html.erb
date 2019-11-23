@@ -30,7 +30,7 @@
         </div>
 
         <div class="form-inputs col-sm-6">
-          <%= f.label :master_profile, "Master Profile" %>
+          <%= f.label :master_profile, "Perfil Principal" %>
           <%= f.select :master_profile, MasterProfile.all.collect{|d| [d.description, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
@@ -53,8 +53,12 @@
         </div>
 
         <div class="form-actions col-sm-12">
-          <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
+          <%= f.button :button, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-ok"></span>
+            Confirmar
+          <% end %>
         </div>
+
       <% end %>
     </div>
   </div>

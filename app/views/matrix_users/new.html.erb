@@ -4,5 +4,9 @@
 
 	<%= render 'form', matrix_user: @matrix_user %>
 
-	<%= link_to 'Voltar', matrix_users_path %>
+	<%= link_to matrix_users_path, class: 'btn btn-danger' do %>
+    	<span class="glyphicon glyphicon-list-alt"></span>
+    	Voltar
+  	<% end %>
+
 </div>

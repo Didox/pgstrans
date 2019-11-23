@@ -1,6 +1,18 @@
 <div class="container">
+  <h4>Detalhe da Matriz do Usuário</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="container">
     <p id="notice"><%= notice %></p>
- 
+
+      <p>
+        <strong>ID:</strong>
+        <%= @matrix_user.usuario.id rescue "" %>
+      </p>
+
       <p>
         <strong>Usuário:</strong>
         <%= @matrix_user.usuario.nome rescue "" %>
@@ -31,7 +43,15 @@
         <%= @matrix_user.pdv %>
       </p>
 
-      <%= link_to 'Editar', edit_matrix_user_path(@matrix_user) %> |
-      <%= link_to 'Voltar', matrix_users_path %>
-    </div>
-  
+      <%= link_to edit_matrix_user_path(@matrix_user), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-edit"></span>
+        Editar
+      <% end %>
+
+
+      <%= link_to matrix_users_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+  </div>
+</div>
