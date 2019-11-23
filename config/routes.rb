@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'backoffice/home'
   resources :bancos
   resources :lancamentos
   resources :status_alegacao_pagamentos
