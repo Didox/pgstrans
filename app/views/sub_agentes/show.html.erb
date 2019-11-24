@@ -1,51 +1,72 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <p>
-    <strong>Razao social:</strong>
-    <%= @sub_agente.razao_social %>
-  </p>
+  <h4>Detalhe Status de Produto</h4>
 
-  <p>
-    <strong>Nome fantasia:</strong>
-    <%= @sub_agente.nome_fantasia %>
-  </p>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
 
-  <p>
-    <strong>BI:</strong>
-    <%= @sub_agente.bi %>
-  </p>
+  <div class="container">
+    <p>
+      <strong>Razao Social:</strong>
+      <%= @sub_agente.razao_social %>
+    </p>
 
-  <p>
-    <strong>Ramo de Atividade:</strong>
-    <%= @sub_agente.industry.descricao_seccao %>
-  </p>
+    <p>
+      <strong>Nome Fantasia:</strong>
+      <%= @sub_agente.nome_fantasia %>
+    </p>
 
-  <p>
-    <strong>Morada:</strong>
-    <%= @sub_agente.morada %>
-  </p>
+    <p>
+      <strong>BI:</strong>
+      <%= @sub_agente.bi %>
+    </p>
 
-  <p>
-    <strong>Bairro:</strong>
-    <%= @sub_agente.bairro %>
-  </p>
+    <p>
+      <strong>Ramo de Atividade:</strong>
+      <%= @sub_agente.industry.descricao_seccao %>
+    </p>
 
-  <p>
-    <strong>Provincia:</strong>
-    <%= @sub_agente.provincia.nome %>
-  </p>
+    <p>
+      <strong>Morada:</strong>
+      <%= @sub_agente.morada %>
+    </p>
 
-  <p>
-    <strong>Email:</strong>
-    <%= @sub_agente.email %>
-  </p>
+    <p>
+      <strong>Bairro:</strong>
+      <%= @sub_agente.bairro %>
+    </p>
 
-  <p>
-    <strong>Telefone:</strong>
-    <%= @sub_agente.telefone %>
-  </p>
+    <p>
+      <strong>Província:</strong>
+      <%= @sub_agente.provincia.nome %>
+    </p>
 
-  <%= link_to 'Editar', edit_sub_agente_path(@sub_agente) %> |
-  <%= link_to 'Voltar', sub_agentes_path %>
+    <p>
+      <strong>E-Mail:</strong>
+      <%= @sub_agente.email %>
+    </p>
+
+    <p>
+      <strong>Telefone:</strong>
+      <%= @sub_agente.telefone %>
+    </p>
+
+    <p>
+      <strong>Contato:</strong>
+      <%= @sub_agente.contato %>
+    </p>
+
+    <div class="page-header">
+      <%= link_to sub_agentes_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_sub_agente_path(@sub_agente), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
 </div>

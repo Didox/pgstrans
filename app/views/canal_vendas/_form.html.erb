@@ -24,7 +24,7 @@
           </div>
         <% end %>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.input :nome, placeholder: "Nome do canal de venda" %>
         </div>
 
@@ -32,7 +32,7 @@
           <%= f.input :carregamento_minimo, :label => "Carregamento Mínimo", placeholder: "Carregamento mínimo no credenciamento do agente" %>
         </div>
  
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.label :dispositivo_id, "Sub-Distribuidor" %>
           <%= f.select :dispositivo_id, Dispositivo.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>   
         </div>

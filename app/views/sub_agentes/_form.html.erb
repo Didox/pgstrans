@@ -58,9 +58,13 @@
           <%= f.input :email, :label => "E-Mail", placeholder: "E-Mail" %>
         </div>
 
-        <div class="form-input col-sm-12">
+        <div class="form-input col-sm-6">
           <%= f.input :telefone, :label => "Telefone(s)", placeholder: "Telefones com DDD" %>
         </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.input :contato, :label => "Pessoa de Contato", placeholder: "Contato" %>
+        </div>        
 
         <div class="form-actions col-sm-12">
           <%= f.button :button, class: 'btn btn-danger' do %>

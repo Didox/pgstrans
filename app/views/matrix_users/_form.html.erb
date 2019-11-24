@@ -24,31 +24,31 @@
           </div>
         <% end %>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.label :usuario_id, "Usuário" %>
           <%= f.select :usuario_id, Usuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.label :master_profile, "Perfil Principal" %>
           <%= f.select :master_profile, MasterProfile.all.collect{|d| [d.description, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.label :sub_distribuidor, "Sub-Distribuidor" %>
           <%= f.select :sub_distribuidor, SubDistribuidor.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>   
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.label :sub_agente, "Sub-Agente" %>
           <%= f.select :sub_agente, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.input :filial %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.input :pdv, :label => "PDV" %>
         </div>
 

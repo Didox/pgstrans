@@ -24,38 +24,38 @@
           </div>
         <% end %>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.label :usuario_id, "Usuário" %>
           <%= f.select :usuario_id, Usuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
       
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.label :produto_id %>
           <%= f.select :produto_id, Produto.all.collect{|d| [d.description, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.input :valor_venda_final_telemovel, :label => "Valor venda final telemóvel", placeholder: "Valor de venda no agente" %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.input :valor_venda_final_site, :label => "Valor venda final site", placeholder: "Valor de venda no agente" %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.input :valor_venda_final_pos, :label => "Valor venda final POS", placeholder: "Valor de venda no agente" %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.input :valor_venda_final_tef, :label => "Valor venda final TEF", placeholder: "Valor de venda no agente" %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.label :vigencia_inicio, "Início de vigência" %>
           <%= f.date_field :vigencia_inicio, class:"form-control" %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.label :vigencia_fim, "Fim de vigência" %>
           <%= f.date_field :vigencia_fim, class:"form-control" %>
         </div>
