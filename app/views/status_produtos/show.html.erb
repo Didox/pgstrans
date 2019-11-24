@@ -1,17 +1,26 @@
-<h4>Detalhe Status de Produto</h4>
+<div class="container">
 
-<dl class="dl-horizontal">
-  <dt>Nome:</dt>
-  <dd><%= @status_produto.nome %></dd>
-</dl>
+  <h4>Detalhe Status de Produto</h4>
 
-<div class="page-header">
-  <%= link_to status_produtos_path, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Voltar
-  <% end %>
-  <%= link_to edit_status_produto_path(@status_produto), class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Editar
-  <% end %>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Nome:</dt>
+      <dd><%= @status_produto.nome %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to status_produtos_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_status_produto_path(@status_produto), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
 </div>

@@ -1,46 +1,58 @@
 <div class="container">
-  <h4>Remunerações</h4>
+  <p id="notice"><%= notice %></p>
 
-  <p>Os valores são os acertados com o agente e que incluem a margem acertada na revenda da recarga.<p>
+  <h4>Lista de Remunerações</h4>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Usuário</th>
-        <th scope="col">Produto</th>
-        <th scope="col">Valor telemóvel</th>
-        <th scope="col">Valor site</th>
-        <th scope="col">Valor POS</th>
-        <th scope="col">Valor TEF</th>
-        <th scope="col">Início da Vigência</th>
-        <th scope="col">Fim da Vigência</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
 
-    <tbody>
-      <% @remuneracaos.each do |remuneracao| %>
-      <tr>
-        <td><%= remuneracao.id %></td>
-        <td><%= remuneracao.usuario.nome %></td>
-        <td><%= remuneracao.produto.description %></td>
-        <td><%= remuneracao.valor_venda_final_telemovel %></td>
-        <td><%= remuneracao.valor_venda_final_site %></td>
-        <td><%= remuneracao.valor_venda_final_pos %></td>
-        <td><%= remuneracao.valor_venda_final_tef %></td>
-        <td><%= remuneracao.vigencia_inicio.strftime("%d/%m/%Y") rescue "" %></td>
-        <td><%= remuneracao.vigencia_fim.strftime("%d/%m/%Y") rescue "" %></td>
-        <td><%= link_to 'Mostrar', remuneracao %></td>
-        <td><%= link_to 'Editar', edit_remuneracao_path(remuneracao) %></td>
-        <td><%= link_to 'Apagar', remuneracao, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="container">
+    <p>Os valores são os acertados com o agente e que incluem a margem acertada na revenda da recarga.</p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Usuário</th>
+          <th scope="col">Produto</th>
+          <th scope="col">Valor telemóvel</th>
+          <th scope="col">Valor site</th>
+          <th scope="col">Valor POS</th>
+          <th scope="col">Valor TEF</th>
+          <th scope="col">Início da Vigência</th>
+          <th scope="col">Fim da Vigência</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-  <br>
+      <tbody>
+        <% @remuneracaos.each do |remuneracao| %>
+        <tr>
+          <td><%= remuneracao.id %></td>
+          <td><%= remuneracao.usuario.nome %></td>
+          <td><%= remuneracao.produto.description %></td>
+          <td><%= remuneracao.valor_venda_final_telemovel %></td>
+          <td><%= remuneracao.valor_venda_final_site %></td>
+          <td><%= remuneracao.valor_venda_final_pos %></td>
+          <td><%= remuneracao.valor_venda_final_tef %></td>
+          <td><%= remuneracao.vigencia_inicio.strftime("%d/%m/%Y") rescue "" %></td>
+          <td><%= remuneracao.vigencia_fim.strftime("%d/%m/%Y") rescue "" %></td>
+          <td><%= link_to 'Mostrar', remuneracao %></td>
+          <td><%= link_to 'Editar', edit_remuneracao_path(remuneracao) %></td>
+          <td><%= link_to 'Apagar', remuneracao, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-  <%= link_to "Novo Registo", new_remuneracao_path, class: 'btn btn-danger' %>
-  <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
+    <%= link_to new_remuneracao_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      Novo Registro
+    <% end %>    
+
+    <%= link_to root_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>
+  </div>
 </div>

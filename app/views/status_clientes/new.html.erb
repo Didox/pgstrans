@@ -1,9 +1,16 @@
-<h4>Novo Status de Cliente</h4>
 <div class="container">
-  <%= render 'form' %>
 
-  <%= link_to status_clientes_path, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Voltar
-  <% end %>
+	<h4>Novo Status de Cliente</h4>
+
+	<!-- Page Heading/Breadcrumbs -->
+  	<%= render :partial => 'shared/header_backoffice' %>
+  	<!-- /.row -->
+
+	<%= render 'form' %>
+
+	<%= link_to status_clientes_path, class: 'btn btn-danger' do %>
+		<span class="glyphicon glyphicon-list-alt"></span>
+		Voltar
+	<% end %>
+
 </div>

@@ -1,20 +1,28 @@
-<h4>Mostrar Status de Cliente</h4>
+<div class="container">
 
-<br>
-<dl class="dl-horizontal">
-  <dt>ID:</dt>
-  <dd><%= @status_cliente.id %></dd>
-  <dt>Nome:</dt>
-  <dd><%= @status_cliente.nome %></dd>
-</dl>
+  <h4>Mostrar Status de Cliente</h4>
 
-<div class="page-header">
-  <%= link_to status_clientes_path, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Voltar
-  <% end %>
-  <%= link_to edit_status_cliente_path(@status_cliente), class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Editar
-  <% end %>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>ID:</dt>
+      <dd><%= @status_cliente.id %></dd>
+      <dt>Nome:</dt>
+      <dd><%= @status_cliente.nome %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to status_clientes_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_status_cliente_path(@status_cliente), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
 </div>

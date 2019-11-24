@@ -1,31 +1,40 @@
-<h4>Detalhe de Remuneração</h4>
+<div class="container">
 
-<dl class="dl-horizontal">
-  <dt>Usuário:</dt>
-  <dd><%= @remuneracao.usuario.nome %></dd>
-  <dt>Produto:</dt>
-  <dd><%= @remuneracao.produto.description %></dd>
-  <dt>Valor Telemovel:</dt>
-  <dd><%= @remuneracao.valor_venda_final_telemovel %></dd>
-  <dt>Valor Site:</dt>
-  <dd><%= @remuneracao.valor_venda_final_site %></dd>
-  <dt>Valor POS:</dt>
-  <dd><%= @remuneracao.valor_venda_final_pos %></dd>
-  <dt>Valor TEF:</dt>
-  <dd><%= @remuneracao.valor_venda_final_tef %></dd>
-  <dt>Início de Vigência:</dt>
-  <dd><%= @remuneracao.vigencia_inicio.strftime("%d/%m/%Y") rescue "" %></dd>
-  <dt>Fim de Vigência:</dt>
-  <dd><%= @remuneracao.vigencia_fim.strftime("%d/%m/%Y") rescue "" %></dd>
-</dl>
+  <h4>Mostrar Moeda</h4>
 
-<div class="page-header">
-  <%= link_to remuneracaos_path, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Voltar
-  <% end %>
-  <%= link_to edit_remuneracao_path(@remuneracao), class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Editar
-  <% end %>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Usuário:</dt>
+      <dd><%= "#{@remuneracao.usuario_id}/#{@remuneracao.usuario.nome}" %></dd>
+      <dt>Produto:</dt>
+      <dd><%= @remuneracao.produto.description %></dd>
+      <dt>Valor Telemóvel:</dt>
+      <dd><%= @remuneracao.valor_venda_final_telemovel %></dd>
+      <dt>Valor Site:</dt>
+      <dd><%= @remuneracao.valor_venda_final_site %></dd>
+      <dt>Valor POS:</dt>
+      <dd><%= @remuneracao.valor_venda_final_pos %></dd>
+      <dt>Valor TEF:</dt>
+      <dd><%= @remuneracao.valor_venda_final_tef %></dd>
+      <dt>Início de Vigência:</dt>
+      <dd><%= @remuneracao.vigencia_inicio.strftime("%d/%m/%Y") rescue "" %></dd>
+      <dt>Fim de Vigência:</dt>
+      <dd><%= @remuneracao.vigencia_fim.strftime("%d/%m/%Y") rescue "" %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to remuneracaos_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_remuneracao_path(@remuneracao), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
 </div>
