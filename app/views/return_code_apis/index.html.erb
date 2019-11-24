@@ -4,37 +4,48 @@
 
   <h3>Códigos de Retorno das APIs</h3>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Código de Retorno</th>
-        <th scope="col">Descrição do Retorno</th>
-        <th scope="col">Descrição do Erro</th>
-        <th scope="col">Descrição do Erro em Português</th>
-        <th scope="col">Código do Parceiro</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
 
-    <tbody>
-      <% @return_code_apis.each do |return_code_api| %>
+  <div class="container">
+    <table class="table table-hover">
+      <thead>
         <tr>
-          <td><%= return_code_api.return_code %></td>
-          <td><%= return_code_api.return_description %></td>
-          <td><%= return_code_api.error_description %></td>
-          <td><%= return_code_api.error_description_pt %></td>
-          <td><%= return_code_api.partner_code %></td>
-
-          <td><%= link_to 'Mostrar', return_code_api %></td>
-          <td><%= link_to 'Editar', edit_return_code_api_path(return_code_api) %></td>
-          <td><%= link_to 'Apagar', return_code_api, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
+          <th scope="col">Código de Retorno</th>
+          <th scope="col">Descrição do Retorno</th>
+          <th scope="col">Descrição do Erro</th>
+          <th scope="col">Descrição do Erro em Português</th>
+          <th scope="col">Código do Parceiro</th>
+          <th colspan="3"></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
 
-  <br>
+      <tbody>
+        <% @return_code_apis.each do |return_code_api| %>
+          <tr>
+            <td><%= return_code_api.return_code %></td>
+            <td><%= return_code_api.return_description %></td>
+            <td><%= return_code_api.error_description %></td>
+            <td><%= return_code_api.error_description_pt %></td>
+            <td><%= return_code_api.partner_code %></td>
 
-  <%= link_to 'Novo Registro', new_return_code_api_path, class: 'btn btn-danger' %>
-  <%= link_to 'Voltar', return_code_apis_path, class: 'btn btn-danger' %>
+            <td><%= link_to 'Mostrar', return_code_api %></td>
+            <td><%= link_to 'Editar', edit_return_code_api_path(return_code_api) %></td>
+            <td><%= link_to 'Apagar', return_code_api, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to new_return_code_api_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      Novo Registro
+    <% end %>    
+
+    <%= link_to root_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>
+  </div>
 </div>

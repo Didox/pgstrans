@@ -38,7 +38,7 @@
 
         <div class="form-input col-sm-6">
           <%= f.label :industry_id, "Atividade Econômica" %>
-          <%= f.select :industry_id, Industry.all.collect{|d| [d.descricao_seccao, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
+          <%= f.select :industry_id, Industry.all.collect{|d| [d.descricao_grupo, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
 
         <div class="form-input col-sm-12">

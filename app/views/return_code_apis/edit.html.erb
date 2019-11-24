@@ -1,8 +1,18 @@
-<div class="container">
-	<h3>Editando Return Code Api</h1>
+<div class="container"> 
+  <h4>Editar Código de Retorno das APIs</h4>
 
-	<%= render 'form', return_code_api: @return_code_api %>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
 
-	<%= link_to 'Mostrar', @return_code_api %> |
-	<%= link_to 'Voltar', return_code_apis_path %>
+  <%= render 'form', return_code_api: @return_code_api %>
+
+  <%= link_to @return_code_api, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    Mostrar
+  <% end %>
+  <%= link_to return_code_apis_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
 </div>
