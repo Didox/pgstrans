@@ -69,6 +69,6 @@ class MoedasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def moeda_params
-      params.require(:moeda).permit(:nome, :codigo_iso, :simbolo, :country_id, :name_eng)
+      params.require(:moeda).permit(:nome, :codigo_iso, :simbolo, :country_id, :name_pt)
     end
 end

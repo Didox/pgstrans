@@ -24,21 +24,21 @@
           </div>
         <% end %>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
             <%= f.input :nome, :label => "Nome da Moeda", placeholder: "Nome da Moeda" %>
         </div>
         
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
             <%= f.input :codigo_iso, :label => "Código ISO", placeholder: "Código ISO" %>
         </div>
         
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
             <%= f.input :simbolo, :label => "Símbolo", placeholder: "Símbolo" %>
         </div>
         
-        <div class="form-inputs col-sm-6">
-          <%= f.label :country, "País" %>
-          <%= f.select :country, Country.all.collect{|d| [d.name_eng, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+        <div class="form-input col-sm-6">
+          <%= f.label :country_id, "País" %>
+          <%= f.select :country_id, Country.all.collect{|d| [d.name_pt, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
         <div class="form-actions col-sm-12">

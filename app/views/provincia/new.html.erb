@@ -1,9 +1,16 @@
-<h4>Novo Provincium</h4>
 <div class="container">
-  <%= render 'form' %>
 
-  <%= link_to provincia_path, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Voltar
-  <% end %>
+	<h3>Nova Província</h3>
+
+	<!-- Page Heading/Breadcrumbs -->
+  	<%= render :partial => 'shared/header_backoffice' %>
+  	<!-- /.row -->
+
+	<%= render 'form',  produto: @provincium %>
+
+	<%= link_to provincia_path, class: 'btn btn-danger' do %>
+    	<span class="glyphicon glyphicon-list-alt"></span>
+    	Voltar
+  	<% end %>
+
 </div>

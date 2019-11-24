@@ -9,7 +9,7 @@
 PerfilUsuario.create(nome: "Admin", admin: true)
 Usuario.create(nome: "Danilo", email: "danilo@rosi.com", senha: "123456", perfil_usuario_id:  PerfilUsuario.first.id)
 
-begin
+=begin
 Municipio.create([{nome: "Caimbambo" }, 
 				{nome: "Calai"},
 				{nome: "Calandula"},
@@ -392,4 +392,27 @@ Country.create([
 	{name_eng: "Sint Maarten (Países Baixos)", name_pt: "Ilha de São Martinho (Países Baixos)", iso2: "SM", bacen: "6998" },
 	{name_eng: "Territoire des Terres australes et antarctiques françaises", name_pt: "Território das Terras Austrais e Antárcticas Francesas", iso2: "TF", bacen: "7811" }
 ])
-end
+=end
+
+Provincium.create([
+	{nome: "Bengo", capital: "Caxito", area_km2: "31371", population: "356641", image_map: "", country_id: "6" },
+	{nome: "Benguela", capital: "Benguela", area_km2: "31788", population: "2231385", image_map: "", country_id: "6" },
+	{nome: "Bié", capital: "Kuito", area_km2: "70314", population: "1455255", image_map: "", country_id: "6" },
+	{nome: "Cabinda", capital: "Cabinda", area_km2: "7270", population: "716076", image_map: "", country_id: "6"},
+	{nome: "Cuando-Cubango", capital: "Menongue", area_km2: "199049", population: "534002", image_map: "", country_id: "6"},
+	{nome: "Cuanza Norte", capital: "Ndalatando", area_km2: "24190", population: "443386", image_map: "", country_id: "6" },
+	{nome: "Cuanza Sul", capital: "Sumbe", area_km2: "55660", population: "1881873", image_map: "", country_id: "6" },
+	{nome: "Cunene", capital: "Ondjiva", area_km2: "89342", population: "990087", image_map: "", country_id: "6" },
+	{nome: "Huambo", capital: "Huambo", area_km2: "34274", population: "2019555", image_map: "", country_id: "6" },
+	{nome: "Huíla", capital: "Lubango", area_km2: "75002", population: "2497422", image_map: "", country_id: "6" },
+	{nome: "Luanda", capital: "Luanda", area_km2: "2418", population: "6945386", image_map: "", country_id: "6" },
+	{nome: "Luanda do Norte", capital: "Dundo", area_km2: "102783", population: "862566", image_map: "", country_id: "6" },
+	{nome: "Luanda Sul", capital: "Saurimo", area_km2: "45649", population: "537587", image_map: "", country_id: "6" },
+	{nome: "Malanje", capital: "Malanje", area_km2: "97602", population: "986363", image_map: "", country_id: "6" },
+	{nome: "Moxico", capital: "Luena", area_km2: "223023", population: "758568", image_map: "", country_id: "6" },
+	{nome: "Namibe", capital: "Moçâmedes", area_km2: "58137", population: "495326", image_map: "", country_id: "6" },
+	{nome: "Uíge", capital: "Uíge", area_km2: "58698", population: "1483118", image_map: "", country_id: "6" },
+	{nome: "Zaire", capital: "MBanza Kongo", area_km2: "40130", population: "594428", image_map: "", country_id: "6" }
+])
+
+

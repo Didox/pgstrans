@@ -12,7 +12,7 @@
       <thead>
         <tr>
           <th scope="col">Nome</th>
-          <th scope="col">Codigo ISO</th>
+          <th scope="col">Código ISO</th>
           <th scope="col">Símbolo</th>
           <th scope="col">País</th>
           <th colspan="3"></th>
@@ -25,7 +25,7 @@
           <td><%= moeda.nome %></td>
           <td><%= moeda.codigo_iso %></td>
           <td><%= moeda.simbolo %></td>
-          <td><%= "#{moeda.country} / #{moeda.country.name_eng}" %></td>
+          <td><%= "#{moeda.country_id}/#{moeda.country.name_pt}" %></td>
           <td><%= link_to 'Mostrar', moeda %></td>
           <td><%= link_to 'Editar', edit_moeda_path(moeda) %></td>
           <td><%= link_to 'Apagar', moeda, method: :delete, data: { confirm: 'Tem certeza?' } %></td>

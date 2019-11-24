@@ -2,66 +2,50 @@
    <div class="card border-simpleform box-shadow mb-4">
       <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
          <div>
-            <strong>Dados</strong><br />
+            <strong>Dados</strong><br/>
          </div>
       </div>
-      <div class="border-bootstrap box-shadow mb-4">
-         <div class="card-header text-bootstrap align-items-center justify-content-between">
-            <%= form_for(@provincium, html: { class: "form-horizontal", role: "form" }) do |f| %>
-            <% if @provincium.errors.any? %>
-            <div class="alert alert-danger alert-dismissable" role="alert">
-               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-               <h4><%= pluralize(@provincium.errors.count, "erros") %> no provincium, confira abaixo:</h4>
-               <ul>
-                  <% @provincium.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-                  <% end %>
-               </ul>
-            </div>
-            <% end %>
-            <div class="form-group">
-               <%= f.label :nome, class: "col-sm-2 control-label" %>
-               <div class="col-sm-10">
-                  <%= f.text_field :nome, class: "form-control" %>
-               </div>
-            </div>
-            <div class="form-group">
-               <%= f.label :capital, class: "col-sm-2 control-label" %>
-               <div class="col-sm-10">
-                  <%= f.text_field :capital, class: "form-control" %>
-               </div>
-            </div>
-            <div class="form-group">
-               <%= f.label :area_km2, class: "col-sm-2 control-label" %>
-               <div class="col-sm-10">
-                  <%= f.text_field :area_km2, class: "form-control" %>
-               </div>
-            </div>
-            <div class="form-group">
-               <%= f.label :population, class: "col-sm-2 control-label" %>
-               <div class="col-sm-10">
-                  <%= f.text_field :population, class: "form-control" %>
-               </div>
-            </div>
-            <div class="form-group">
-               <%= f.label :image_map, class: "col-sm-2 control-label" %>
-               <div class="col-sm-10">
-                  <%= f.text_field :image_map, class: "form-control" %>
-               </div>
-            </div>
-            <div class="form-group">
-               <%= f.label :country_id, "País", class: "col-sm-2 control-label" %>
-               <div class="col-sm-10">
-               <%= f.select :country_id, Country.all.collect{|d| [d.name_eng, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
-               </div>
-            </div>
-            <div class="form-group">
-               <div class="col-sm-offset-2 col-sm-10">
-                  <%= f.submit "Salvar", class: "btn btn-danger" %>
-               </div>
-            </div>
+   </div>
+
+   <div class="card border-bootstrap box-shadow mb-4">
+      <div class="card-header text-bootstrap align-items-center justify-content-between">
+         <%= simple_form_for(@provincium, html: { class: "form-vertical", role: "form" }) do |f| %>
+         <% if @provincium.errors.any? %>
+         <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4><%= pluralize(@provincium.errors.count, "erros") %> no provincium, confira abaixo:</h4>
+            <ul>
+               <% @provincium.errors.full_messages.each do |msg| %>
+               <li><%= msg %></li>
+               <% end %>
+            </ul>
+         </div>
+         <% end %>
+         <div class="form-input col-sm-6">
+            <%= f.input :nome, :label => "Nome da Província", placeholder: "Nome da província" %>
+         </div>
+         <div class="form-input col-sm-6">
+            <%= f.input :capital, :label => "Capital da Província", placeholder: "Capital da província" %>
+         </div>
+         <div class="form-input col-sm-6">
+            <%= f.input :area_km2, :label => "Área da Província em KM2", placeholder: "Área da Província em KM2" %>
+         </div>
+         <div class="form-input col-sm-6">
+            <%= f.input :population, :label => "População da Província", placeholder: "População da Província" %>
+         </div>
+         <div class="form-input col-sm-6">
+            <%= f.input :image_map, :label => "Mapa da Região", placeholder: "Mapa da Região" %>
+         </div>
+         <div class="form-input col-sm-6">
+            <%= f.label :country_id, "País" %>
+            <%= f.select :country_id, Country.all.collect{|d| [d.name_pt, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
+         </div>
+         <div class="form-actions col-sm-12">
+            <%= f.button :button, class: 'btn btn-danger' do %>
+               <span class="glyphicon glyphicon-ok"></span>
+               Confirmar
             <% end %>
          </div>
-      </div>
+      <% end %>
    </div>
 </div>

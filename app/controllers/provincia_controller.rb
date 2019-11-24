@@ -69,6 +69,6 @@ class ProvinciaController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def provincium_params
-      params.require(:provincium).permit(:nome, :capital, :area_km2, :population, :image_map, :country_id)
+      params.require(:provincium).permit(:nome, :capital, :area_km2, :population, :image_map, :country_id, :nome_pt)
     end
 end
