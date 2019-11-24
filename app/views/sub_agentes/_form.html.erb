@@ -24,46 +24,49 @@
           </div>
         <% end %>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.input :razao_social, :label => "Razão Social", placeholder: "Razão Social" %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.input :nome_fantasia, :label => "Nome Fantasia", placeholder: "Nome Fantasia" %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.input :bi, :label => "BI", placeholder: "Bilhete de Identidade" %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.label :industry_id, "Atividade Econômica" %>
           <%= f.select :industry_id, Industry.all.collect{|d| [d.descricao_seccao, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-12">
           <%= f.input :morada, placeholder: "Morada" %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.input :bairro, placeholder: "Bairro" %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-6">
           <%= f.label :provincia_id, "Província" %>
           <%= f.select :provincia_id, Provincium.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-12">
           <%= f.input :email, :label => "E-Mail", placeholder: "E-Mail" %>
         </div>
 
-        <div class="form-inputs col-sm-6">
+        <div class="form-input col-sm-12">
           <%= f.input :telefone, :label => "Telefone(s)", placeholder: "Telefones com DDD" %>
         </div>
 
         <div class="form-actions col-sm-12">
-          <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
+          <%= f.button :button, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-ok"></span>
+            Confirmar
+          <% end %>
         </div>
       <% end %>
     </div>

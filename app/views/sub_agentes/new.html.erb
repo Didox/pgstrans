@@ -1,5 +1,16 @@
+<div class="container">
+
 	<h3>Novo Sub Agente</h3>
 
-	<%= render 'form', sub_agente: @sub_agente %>
+	<!-- Page Heading/Breadcrumbs -->
+  	<%= render :partial => 'shared/header_backoffice' %>
+  	<!-- /.row -->
 
-	<%= link_to 'Voltar', sub_agentes_path %>
+	<%= render 'form',  sub_agente: @sub_agente %>
+
+	<%= link_to sub_agentes_path, class: 'btn btn-danger' do %>
+    	<span class="glyphicon glyphicon-list-alt"></span>
+    	Voltar
+  	<% end %>
+
+</div>
