@@ -69,6 +69,6 @@ class ProdutosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def produto_params
-      params.require(:produto).permit(:description, :partner_id, :status_produto_id, :valor_compra_telemovel, :valor_compra_site, :valor_compra_pos, :valor_compra_tef, :valor_minimo_venda_telemovel, :valor_minimo_venda_site, :valor_minimo_venda_pos, :valor_minimo_venda_tef, :margem_telemovel, :margem_site, :margem_pos, :margem_tef, :mensagem_cupom_venda, :moeda)
+      params.require(:produto).permit(:description, :partner_id, :status_produto_id, :valor_compra_telemovel, :valor_compra_site, :valor_compra_pos, :valor_compra_tef, :valor_minimo_venda_telemovel, :valor_minimo_venda_site, :valor_minimo_venda_pos, :valor_minimo_venda_tef, :margem_telemovel, :margem_site, :margem_pos, :margem_tef, :mensagem_cupom_venda, :moeda_id)
     end
 end

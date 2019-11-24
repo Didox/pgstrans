@@ -32,10 +32,15 @@
           <%= f.label :partner_id, "Parceiro" %>
           <%= f.select :partner_id, Partner.all.collect{|d| [d.name, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
+<!--
+        <div class="form-input col-sm-12">
+          <%#= f.label :moeda %>
+          <%#= f.select :moeda, [["KZ - Kwanza", "1"], ["USD - Dolar", "2"], ["EUR - Euro", "3"], ["BRL - Real", "4"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+        </div-->
 
         <div class="form-input col-sm-12">
-          <%= f.label :moeda %>
-          <%= f.select :moeda, [["KZ - Kwanza", "1"], ["USD - Dolar", "2"], ["EUR - Euro", "3"], ["BRL - Real", "4"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <%= f.label :moeda_id %>
+          <%= f.select :moeda_id, Moeda.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
         <div class="form-input col-sm-6">

@@ -3,38 +3,42 @@
 
   <h3>Subdistribuidores</h3>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nome</th>
-        <th scope="col">BI</th>
-        <th scope="col">Telefone</th>
-        <th scope="col">Morada</th>
-        <th scope="col">Município</th>
-        <th scope="col">Província</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
 
-    <tbody>
-      <% @sub_distribuidors.each do |sub_distribuidor| %>
+  <div class="container">
+    <table class="table table-hover">
+      <thead>
         <tr>
-          <td><%= sub_distribuidor.id %></td>
-          <td scope="row"><%= sub_distribuidor.nome %></td>
-          <td><%= sub_distribuidor.bi %></td>
-          <td><%= sub_distribuidor.telefone %></td>
-          <td><%= sub_distribuidor.morada %></td>
-          <td><%= sub_distribuidor.municipio.nome %></td>
-          <td><%= sub_distribuidor.provincia.nome %></td>
-          <td><%= link_to 'Mostrar', sub_distribuidor %></td>
-          <td><%= link_to 'Editar', edit_sub_distribuidor_path(sub_distribuidor) %></td>
-          <td><%= link_to 'Apagar', sub_distribuidor, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
+          <th scope="col">ID</th>
+          <th scope="col">Nome</th>
+          <th scope="col">BI</th>
+          <th scope="col">Telefone</th>
+          <th scope="col">Morada</th>
+          <th scope="col">Município</th>
+          <th scope="col">Província</th>
+          <th colspan="3"></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
 
+      <tbody>
+        <% @sub_distribuidors.each do |sub_distribuidor| %>
+          <tr>
+            <td><%= sub_distribuidor.id %></td>
+            <td scope="row"><%= sub_distribuidor.nome %></td>
+            <td><%= sub_distribuidor.bi %></td>
+            <td><%= sub_distribuidor.telefone %></td>
+            <td><%= sub_distribuidor.morada %></td>
+            <td><%= sub_distribuidor.municipio.nome %></td>
+            <td><%= sub_distribuidor.provincia.nome %></td>
+            <td><%= link_to 'Mostrar', sub_distribuidor %></td>
+            <td><%= link_to 'Editar', edit_sub_distribuidor_path(sub_distribuidor) %></td>
+            <td><%= link_to 'Apagar', sub_distribuidor, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
     <%= link_to new_sub_distribuidor_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registro
@@ -44,5 +48,5 @@
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar
     <% end %>
-
+  </div>
 </div>

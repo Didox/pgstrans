@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_24_124645) do
+ActiveRecord::Schema.define(version: 2019_11_24_174128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,7 +140,8 @@ ActiveRecord::Schema.define(version: 2019_11_24_124645) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "margem_site"
-    t.string "moeda"
+    t.bigint "moeda_id"
+    t.index ["moeda_id"], name: "index_produtos_on_moeda_id"
     t.index ["partner_id"], name: "index_produtos_on_partner_id"
     t.index ["status_produto_id"], name: "index_produtos_on_status_produto_id"
   end
@@ -376,6 +377,7 @@ ActiveRecord::Schema.define(version: 2019_11_24_124645) do
   add_foreign_key "canal_vendas", "dispositivos"
   add_foreign_key "matrix_users", "usuarios"
   add_foreign_key "moedas", "countries"
+  add_foreign_key "produtos", "moedas"
   add_foreign_key "produtos", "partners"
   add_foreign_key "produtos", "status_produtos"
   add_foreign_key "provincia", "countries"

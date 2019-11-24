@@ -4,7 +4,7 @@ class MoedasController < ApplicationController
   # GET /moedas
   # GET /moedas.json
   def index
-    @moedas = Moeda.all
+    @moedas = Moeda.all.order(nome: :asc)
   end
 
   # GET /moedas/1
