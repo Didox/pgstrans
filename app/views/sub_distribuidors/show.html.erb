@@ -1,36 +1,53 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <p>
-    <strong>Nome:</strong>
-    <%= @sub_distribuidor.nome %>
-  </p>
+  <h4>Detalhe de Subdistribuidor</h4>
 
-  <p>
-    <strong>BI:</strong>
-    <%= @sub_distribuidor.bi %>
-  </p>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
 
-  <p>
-    <strong>Telefone:</strong>
-    <%= @sub_distribuidor.telefone %>
-  </p>
+  <div class="container">
 
-  <p>
-    <strong>Morada:</strong>
-    <%= @sub_distribuidor.morada %>
-  </p>
+    <p>
+      <strong>Nome:</strong>
+      <%= @sub_distribuidor.nome %>
+    </p>
 
-  <p>
-    <strong>Municipio:</strong>
-    <%= @sub_distribuidor.municipio.nome %>
-  </p>
+    <p>
+      <strong>BI:</strong>
+      <%= @sub_distribuidor.bi %>
+    </p>
 
-  <p>
-    <strong>Provincia:</strong>
-    <%= @sub_distribuidor.provincia.nome %>
-  </p>
+    <p>
+      <strong>Telefone:</strong>
+      <%= @sub_distribuidor.telefone %>
+    </p>
 
-  <%= link_to 'Editar', edit_sub_distribuidor_path(@sub_distribuidor) %> |
-  <%= link_to 'Voltar', sub_distribuidors_path %>
+    <p>
+      <strong>Morada:</strong>
+      <%= @sub_distribuidor.morada %>
+    </p>
+
+    <p>
+      <strong>Municipio:</strong>
+      <%= @sub_distribuidor.municipio.nome %>
+    </p>
+
+    <p>
+      <strong>Provincia:</strong>
+      <%= @sub_distribuidor.provincia.nome %>
+    </p>
+
+    <div class="page-header">
+      <%= link_to sub_distribuidors_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_sub_distribuidor_path(@sub_distribuidor), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
 </div>

@@ -1,34 +1,48 @@
 <div class="container">
 
-	<h3>Dados do Usuários</h3>
-	
 	<p id="notice"><%= notice %></p>
 
-	<p>
-	  <strong>Nome:</strong>
-	  <%= @usuario.nome %>
-	</p>
+  	<h4>Detalhe de Usuário</h4>
 
-	<p>
-	  <strong>Email:</strong>
-	  <%= @usuario.email %>
-	</p>
+  	<!-- Page Heading/Breadcrumbs -->
+  	<%= render :partial => 'shared/header_backoffice' %>
+  	<!-- /.row --> 
 
-	<p>
-	  <strong>Senha:</strong>
-	  <%= @usuario.senha %>
-	</p>
+	<div class="container">
+		<p>
+		  <strong>Nome:</strong>
+		  <%= @usuario.nome %>
+		</p>
 
-	<p>
-	  <strong>Perfil:</strong>
-	  <%= @usuario.perfil_usuario_id %>
-	</p>
+		<p>
+		  <strong>Email:</strong>
+		  <%= @usuario.email %>
+		</p>
 
-	<p>
-	  <strong>Perfil:</strong>
-	  <%= @usuario.created_at %>
-	</p>
+		<p>
+		  <strong>Palavra-passe:</strong>
+		  <%= @usuario.senha %>
+		</p>
 
-	<%= link_to 'Editar', edit_usuario_path(@usuario) %> |
-	<%= link_to 'Voltar', usuarios_path %>
+		<p>
+		  <strong>Perfil:</strong>
+		  <%= @usuario.perfil_usuario_id %>
+		</p>
+
+		<p>
+		  <strong>Data da criação:</strong>
+		  <%= @usuario.created_at %>
+		</p>
+
+	    <div class="page-header">
+	      <%= link_to usuarios_path, class: 'btn btn-danger' do %>
+	        <span class="glyphicon glyphicon-list-alt"></span>
+	        Voltar
+	      <% end %>
+	      <%= link_to edit_usuario_path(@usuario), class: 'btn btn-danger' do %>
+	        <span class="glyphicon glyphicon-pencil"></span>
+	        Editar
+	      <% end %>
+	    </div>
+	</div>
 </div>

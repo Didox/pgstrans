@@ -1,17 +1,26 @@
-<h4>Mostrar Registro Cliente Unipessoal ou Empresa</h4>
+<div class="container">
 
-<dl class="dl-vertical">
-  <dt>Nome:</dt>
-  <dd><%= @uni_pessoal_empresa.nome %></dd>
-</dl>
+  <h4>Mostrar Registro Cliente Unipessoal ou Empresa</h4>
 
-<div class="page-header">
-  <%= link_to uni_pessoal_empresas_path, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Voltar
-  <% end %>
-  <%= link_to edit_uni_pessoal_empresa_path(@uni_pessoal_empresa), class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Editar
-  <% end %>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->    
+
+  <div class="container">
+    <dl class="dl-vertical">
+      <dt>Nome:</dt>
+      <dd><%= @uni_pessoal_empresa.nome %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to uni_pessoal_empresas_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_uni_pessoal_empresa_path(@uni_pessoal_empresa), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
 </div>

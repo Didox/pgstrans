@@ -1,7 +1,11 @@
 <div class="container"> 
   <h4>Edição de Tipo Transação</h4>
 
-  <%= render 'form' %>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <%= render 'form', tipo_transacao:  @tipo_transacao %>
 
   <%= link_to @tipo_transacao, class: 'btn btn-danger' do %>
     <span class="glyphicon glyphicon-info-sign"></span>

@@ -25,7 +25,7 @@
         <%% end %>
 
         <% attributes.each do |attribute| -%>
-          <div class="form-inputs col-sm-6">
+          <div class="form-input col-sm-6">
             <%%= f.label :<%= attribute.name %>, class: "col-sm-2 control-label" %>
             <%%= f.<%= attribute.field_type %> :<%= attribute.name %>, class: "form-control" %>
           </div>

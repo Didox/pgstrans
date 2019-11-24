@@ -1,7 +1,16 @@
 <div class="container">
+
 	<h3>Novo Usuário</h3>
+
+	<!-- Page Heading/Breadcrumbs -->
+  	<%= render :partial => 'shared/header_backoffice' %>
+  	<!-- /.row -->
 
 	<%= render 'form', usuario: @usuario %>
 
-	<%= link_to 'Voltar', usuarios_path %>
+	<%= link_to usuarios_path, class: 'btn btn-danger' do %>
+    	<span class="glyphicon glyphicon-list-alt"></span>
+    	Voltar
+  	<% end %>
+
 </div>

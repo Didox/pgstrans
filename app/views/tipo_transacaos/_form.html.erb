@@ -10,7 +10,7 @@
   <div class="card border-bootstrap box-shadow mb-4">
     <div class="card-header text-bootstrap align-items-center justify-content-between">
       
-      <%= simple_form_for(@tipo_transacao, html: { class: "form-horizontal", role: "form" }) do |f| %>
+      <%= simple_form_for(@tipo_transacao, html: { class: "form-vertical", role: "form" }) do |f| %>
         <% if @tipo_transacao.errors.any? %>
           <div class="alert alert-danger alert-dismissable" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -24,13 +24,17 @@
           </div>
         <% end %>
 
-        <div class="form-inputs col-sm-10">
+        <div class="form-input col-sm-12">
             <%= f.input :nome, :label => "Descrição da Transação", placeholder: "Descrição da transação" %>
         </div>
 
         <div class="form-actions col-sm-12">
-          <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
+          <%= f.button :button, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-ok"></span>
+            Confirmar
+          <% end %>
         </div>
+        
       <% end %>
     </div>
   </div>
