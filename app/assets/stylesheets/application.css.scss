@@ -64,3 +64,15 @@ label{
   color: #a9a4a4!important;
 }
 
+.seta-cima:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 0; 
+  height: 0; 
+
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
+  border-bottom: 35px solid #ababab;
+}
+

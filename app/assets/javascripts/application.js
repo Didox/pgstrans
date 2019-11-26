@@ -19,3 +19,13 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+
+
+const pgstrans = {};
+
+pgstrans.displayRecarga = (tipo) => {
+  $(".seta-cima, .campos").hide();
+  $("#seta" + tipo).show();
+  $("." + tipo).show();
+  $("#recarga").show();
+}

@@ -6,28 +6,185 @@
    <div class="col-md-12 row justify-content-center">
     <!--Unitel-->
         <div class="col-md-3">
-          <%#= link_to page_path('portfolio-item') do %>
+          <a href="javascript:;" onclick="pgstrans.displayRecarga('Unitel')">
             <%= image_tag("partner/Unitel_160x160c.png", alt: "Unitel", class: "img-responsive") %>
-          <%# end %>
+          </a>
+          <span class="seta-cima" id="setaUnitel" style="margin-left: 40px;display: none"></span>
         </div>
     <!--Movicel-->
         <div class="col-md-3">
-          <%#= link_to page_path('portfolio-item') do %>
+          <a href="javascript:;" onclick="pgstrans.displayRecarga('Movicel')">
             <%= image_tag("partner/Movicel_160x160c.png", alt: "Movicel", class: "img-responsive") %>
-          <%# end %>
+          </a>
+          <span class="seta-cima" id="setaMovicel" style="margin-left: 40px;display: none"></span>
         </div>
     <!--DSTv-->
         <div class="col-md-3">
-          <%#= link_to page_path('portfolio-item') do %>
+          <a href="javascript:;" onclick="pgstrans.displayRecarga('DSTv')">
             <%= image_tag("partner/DSTv_160x160c.png", alt: "DSTv", class: "img-responsive") %>
-          <%# end %>
+          </a>
+          <span class="seta-cima" id="setaDSTv" style="margin-left: 40px;display: none"></span>
         </div>
     <!--ZAPTv-->
         <div class="col-md-3">
-          <%#= link_to page_path('portfolio-item') do %>
+          <a href="javascript:;" onclick="pgstrans.displayRecarga('ZAPTv')">
             <%= image_tag("partner/ZAPTv_160x160c.png", alt: "ZAPTv", class: "img-responsive") %>
-          <%# end %>
+          </a>
+          <span class="seta-cima" id="setaZAPTv" style="margin-left: 40px;display: none"></span>
         </div>
+    </div>
+    <div class="col-md-12" id="recarga" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
+      <div style="background-color: #C8102E;padding: 10px;color: #fff;">
+        <h1>Recargas</h1>
+      </div>
+      <div id="dialogRecharge" title="Recarga">
+        <div class="overlayLoading" id="recargas_RightMenuListItemOverlay"></div>
+          <div class="dialogDiv" style="padding: 0px;margin-top: 15px;">
+            <div class="campos Unitel">
+              <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
+                <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                    Recarga<span class="required">&nbsp;*</span>
+                </div>
+                <div>
+                  <select id="rechargeType" class="form-control">
+                    <option value="" >Escolher</option>
+                    <% Produto.where(partner_id: Partner.where(name: "Unitel")).each do |produto| %>
+                      <option value="<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="campos Movicel">
+              <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
+                <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                    Recarga<span class="required">&nbsp;*</span>
+                </div>
+                <div>
+                  <select id="rechargeType" class="form-control">
+                    <option value="" >Escolher</option>
+                    <% Produto.where(partner_id: Partner.where(name: "Movicel")).each do |produto| %>
+                      <option value="<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="campos DSTv">
+              <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
+                <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                    Recarga<span class="required">&nbsp;*</span>
+                </div>
+                <div>
+                  <select id="rechargeType" class="form-control">
+                    <option value="" >Escolher</option>
+                    <% Produto.where(partner_id: Partner.where(name: "DSTv")).each do |produto| %>
+                      <option value="<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="campos ZAPTv">
+              <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
+                <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                    Recarga<span class="required">&nbsp;*</span>
+                </div>
+                <div>
+                  <select id="rechargeType" class="form-control">
+                    <option value="" >Escolher</option>
+                    <% Produto.where(partner_id: Partner.where(name: "ZAPTv")).each do |produto| %>
+                      <option value="<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="campos Unitel Movicel DSTv ZAPTv">
+              <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
+                <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                  Valor
+                </div>
+                <div class="number">
+                  <input type="text" id="rechargeValue" class="form-control" value="" readonly="" placeholder="Valor...">
+                </div>
+              </div>
+            </div>
+            <div class="campos Movicel " id="divAditionalFieldsMovicel">
+              <div class="editArea editAreaDiv">
+                <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                  Telefone<span class="required">&nbsp;*</span>
+                </div>
+                <div>
+                  <input type="text" id="phoneNr" class="form-control" value="" placeholder="Telefone..." maxlength="9" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                </div>
+              </div>
+            </div>
+            <div class="campos DSTv" id="divAditionalFieldsDSTV">
+              <div class="editArea editAreaDiv">
+                <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                   Nº SmartCard <span class="required">&nbsp;*</span>
+                </div>
+                <div>
+                  <input type="text" id="dstvNr" class="form-control" value="" placeholder="Nº SmartCard..." maxlength="11" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                </div>
+              </div>
+            </div>
+            <div class="campos ZAPTv" id="divAditionalFieldsZAP">
+              <div class="editArea editAreaDiv">
+                <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                  Nº do cartão Zap <span class="required">&nbsp;*</span>
+                </div>
+                <div>
+                  <input type="text" id="zapNr" class="form-control" value="" placeholder="Nº do cartão Zap..." maxlength="12" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                </div>
+              </div>
+            </div>
+            <div class="campos" id="divAditionalFieldsTELO">
+              <div class="editArea editAreaDiv">
+                <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                  Nº Telo <span class="required">&nbsp;*</span>
+                </div>
+                <div>
+                  <input type="text" id="teloNr" class="form-control" value="" placeholder="Nº Telo..." maxlength="9" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                </div>
+              </div>
+            </div>
+            <div class="campos Unitel" id="divAditionalFieldsUnitel">
+              <div class="editArea editAreaDiv">
+                <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                  Telefone <span class="required">*</span>
+                </div>
+                <div>
+                  <input type="text" id="unitelNr" class="form-control" value="" placeholder="Telefone..." maxlength="9" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                </div>
+              </div>
+            </div>
+            <div class="campos" id="divAditionalFieldsSMS" style="display: none">
+              <div class="editArea editAreaDiv">
+                <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                  Talão p/SMS <span class="required">&nbsp;*</span>
+                </div>
+                <div>
+                  <input type="text" id="SMSNr" class="form-control" value="" placeholder="Talão p/SMS..." maxlength="9" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="saveCancelbts" style="padding-top: 25px">
+          <div style="float: left;">
+            <button type="button" class="btn btn-primary" id="btCancel" style="width: 210px; text-align: center;">
+              LIMPAR CAMPOS
+            </button>
+          </div>
+          <div style="float: right;">
+            <button type="button" class="btn btn-success" id="btSave" style="width: 210px; text-align: center;">
+              SUBMETER PAGAMENTO
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

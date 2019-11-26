@@ -29,7 +29,7 @@
         <tr>
           <td><%= produto.description %></td>
           <td><%= produto.partner.name %></td>
-          <td><%= "#{produto.moeda_id}/#{produto.moeda.nome}" %></td>       
+          <td><%= "#{produto.moeda_id}/#{(produto.moeda.nome rescue "")}" %></td>       
           <td><%= produto.status_produto.nome %></td>
           <td class="text-right"><%= produto.margem_telemovel %></td>
           <td class="text-right"><%= produto.margem_site %></td>
