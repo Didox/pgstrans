@@ -29,3 +29,9 @@ pgstrans.displayRecarga = (tipo) => {
   $("." + tipo).show();
   $("#recarga").show();
 }
+
+$(() => {
+  $(".rechargeType").change(function(){
+    $("#rechargeValue").val(this.value);
+  })
+});
