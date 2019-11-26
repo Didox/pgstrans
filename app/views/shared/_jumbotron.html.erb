@@ -93,7 +93,7 @@
                 <div>
                   <select id="rechargeType" class="form-control">
                     <option value="" >Escolher</option>
-                    <% Produto.where(partner_id: Partner.where(name: "ZAPTv")).each do |produto| %>
+                    <% Produto.where(partner_id: Partner.where(name: "ZAP")).each do |produto| %>
                       <option value="<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
                     <% end %>
                   </select>
