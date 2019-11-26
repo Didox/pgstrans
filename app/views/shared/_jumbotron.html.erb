@@ -48,7 +48,6 @@
                 <div>
                   <select class="rechargeType form-control">
                     <option value="" >Escolher</option>
-                    <option value="2" >2222</option>
                     <% Produto.where(partner_id: Partner.where(name: "Unitel")).each do |produto| %>
                       <option value="<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
                     <% end %>
