@@ -28,6 +28,8 @@ pgstrans.displayRecarga = (tipo) => {
   $("#seta" + tipo).show();
   $("." + tipo).show();
   $("#recarga").show();
+  $("#rechargeValue").val("");
+  $(".rechargeType").val("");
 }
 
 $(() => {
