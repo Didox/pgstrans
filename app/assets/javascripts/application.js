@@ -39,8 +39,28 @@ $(function(){
     $(".recarga .talao" + $("#tipo_ativo").val() + "").show();
   })
 
-
   $(".recarga #btSave").click(function(){
+    let message = "";
+    $(".validate.v" + $("#tipo_ativo").val()).each(function(){
+      if($(this).val() == ""){
+        if(message == ""){
+          message = $(this).data("message");
+          $(this).focus();
+          return;
+        }
+      }
+    });
+
+    if(message !== ""){
+      $.alert({
+        title: 'Validação!',
+        content: message,
+      });
+      return;
+    }
+
+    $(".recarga .talao" + $("#tipo_ativo").val() + "").show();
+
     $.confirm({
       title: 'Confirmação!',
       content: 'TEM A CERTEZA QUE DESEJA EFECTUAR A RECARGA?',

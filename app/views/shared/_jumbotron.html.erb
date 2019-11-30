@@ -47,7 +47,7 @@
                     Recarga<span class="required">&nbsp;*</span>
                 </div>
                 <div>
-                  <select class="rechargeType form-control">
+                  <select class="rechargeType form-control validate vUnitel" data-message="Selecione um produto">
                     <option value="" >Escolher</option>
                     <% Produto.where(partner_id: Partner.where(slug: "Unitel")).each do |produto| %>
                       <option value="<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
@@ -62,7 +62,7 @@
                     Recarga<span class="required">&nbsp;*</span>
                 </div>
                 <div>
-                  <select class="rechargeType form-control">
+                  <select class="rechargeType form-control validate vMovicel" data-message="Selecione um produto">
                     <option value="" >Escolher</option>
                     <% Produto.where(partner_id: Partner.where(slug: "Movicel")).each do |produto| %>
                       <option value="<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
@@ -77,7 +77,7 @@
                     Recarga<span class="required">&nbsp;*</span>
                 </div>
                 <div>
-                  <select class="rechargeType form-control">
+                  <select class="rechargeType form-control validate vDSTv" data-message="Selecione um produto">
                     <option value="" >Escolher</option>
                     <% Produto.where(partner_id: Partner.where(slug: "DSTV")).each do |produto| %>
                       <option value="<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
@@ -92,7 +92,7 @@
                     Recarga<span class="required">&nbsp;*</span>
                 </div>
                 <div>
-                  <select class="rechargeType form-control">
+                  <select class="rechargeType form-control validate vZAPTv" data-message="Selecione um produto">
                     <option value="" >Escolher</option>
                     <% Produto.where(partner_id: Partner.where(slug: "ZAP TV")).each do |produto| %>
                       <option value="<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
@@ -117,7 +117,7 @@
                   Telefone<span class="required">&nbsp;*</span>
                 </div>
                 <div>
-                  <input type="text" id="phoneNr" class="form-control" value="" placeholder="Telefone..." maxlength="9" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                  <input type="text" id="phoneNr" class="form-control vMovicel validate" data-message="Informe o número" value="" placeholder="Telefone..." maxlength="9" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                 </div>
               </div>
             </div>
@@ -127,7 +127,7 @@
                    Nº SmartCard <span class="required">&nbsp;*</span>
                 </div>
                 <div>
-                  <input type="text" id="dstvNr" class="form-control" value="" placeholder="Nº SmartCard..." maxlength="11" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                  <input type="text" id="dstvNr" class="form-control vDSTv validate" data-message="Informe o número" value="" placeholder="Nº SmartCard..." maxlength="11" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                 </div>
               </div>
             </div>
@@ -137,7 +137,7 @@
                   Nº do cartão Zap <span class="required">&nbsp;*</span>
                 </div>
                 <div>
-                  <input type="text" id="zapNr" class="form-control" value="" placeholder="Nº do cartão Zap..." maxlength="12" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                  <input type="text" id="zapNr" class="form-control vZAPTv validate" data-message="Informe o número" value="" placeholder="Nº do cartão Zap..." maxlength="12" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                 </div>
               </div>
             </div>
@@ -147,7 +147,7 @@
                   Nº Telo <span class="required">&nbsp;*</span>
                 </div>
                 <div>
-                  <input type="text" id="teloNr" class="form-control" value="" placeholder="Nº Telo..." maxlength="9" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                  <input type="text" id="teloNr" class="form-control validate" data-message="Informe o número" value="" placeholder="Nº Telo..." maxlength="9" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                 </div>
               </div>
             </div>
@@ -157,7 +157,7 @@
                   Telefone <span class="required">*</span>
                 </div>
                 <div>
-                  <input type="text" id="unitelNr" class="form-control" value="" placeholder="Telefone..." maxlength="9" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                  <input type="text" id="unitelNr" class="form-control vUnitel validate" data-message="Informe o número" value="" placeholder="Telefone..." maxlength="9" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                 </div>
               </div>
             </div>
@@ -167,7 +167,7 @@
                   Talão p/SMS <span class="required">&nbsp;*</span>
                 </div>
                 <div>
-                  <input type="text" id="SMSNr" class="form-control" value="" placeholder="Talão p/SMS..." maxlength="9" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                  <input type="text" id="SMSNr" class="form-control talaoUnitel talaoMovicel talaoDSTv talaoZAPTv vUnitel vMovicel vDSTv vZAPTv validate" data-message="Informe o número" value="" placeholder="Talão p/SMS..." maxlength="9" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                 </div>
               </div>
             </div>
