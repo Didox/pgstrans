@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 2019_11_30_091806) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
   end
 
   create_table "perfil_usuarios", force: :cascade do |t|

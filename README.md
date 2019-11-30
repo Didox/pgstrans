@@ -1,27 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+::::::::: Backup Database ::::::::: 
+pg_dump -h localhost -U "pgsdba" "pgstrans_development" -Fc > dump/pgstrans_development.bkp
 
-* Ruby version
+::::::::: Backup Database ::::::::: 
+pg_restore -U danilo -d pgstrans_development -1 < dump/pgstrans_development.bkp
 
-* System dependencies
+psql pgstrans_development
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+CREATE USER pgsdba WITH ENCRYPTED PASSWORD '';
 
 
 ::::::::: Documentações ::::::::: 

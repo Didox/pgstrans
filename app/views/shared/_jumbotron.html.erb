@@ -2,7 +2,7 @@
   <div class="card-header">
   Escolha um Parceiro/Fornecedor
 </div>
-<div class="card-body">
+<div class="card-body recarga">
    <div class="col-md-12 row justify-content-center">
     <!--Unitel-->
         <div class="col-md-3">
@@ -38,6 +38,7 @@
         <h1>Recargas</h1>
       </div>
       <div id="dialogRecharge" title="Recarga">
+        <input type="hidden" id="tipo_ativo">
         <div class="overlayLoading" id="recargas_RightMenuListItemOverlay"></div>
           <div class="dialogDiv" style="padding: 0px;margin-top: 15px;">
             <div class="campos Unitel">
@@ -48,7 +49,7 @@
                 <div>
                   <select class="rechargeType form-control">
                     <option value="" >Escolher</option>
-                    <% Produto.where(partner_id: Partner.where(name: "Unitel")).each do |produto| %>
+                    <% Produto.where(partner_id: Partner.where(slug: "Unitel")).each do |produto| %>
                       <option value="<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
                     <% end %>
                   </select>
@@ -63,7 +64,7 @@
                 <div>
                   <select class="rechargeType form-control">
                     <option value="" >Escolher</option>
-                    <% Produto.where(partner_id: Partner.where(name: "Movicel")).each do |produto| %>
+                    <% Produto.where(partner_id: Partner.where(slug: "Movicel")).each do |produto| %>
                       <option value="<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
                     <% end %>
                   </select>
@@ -78,7 +79,7 @@
                 <div>
                   <select class="rechargeType form-control">
                     <option value="" >Escolher</option>
-                    <% Produto.where(partner_id: Partner.where(name: "DSTV")).each do |produto| %>
+                    <% Produto.where(partner_id: Partner.where(slug: "DSTV")).each do |produto| %>
                       <option value="<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
                     <% end %>
                   </select>
@@ -93,7 +94,7 @@
                 <div>
                   <select class="rechargeType form-control">
                     <option value="" >Escolher</option>
-                    <% Produto.where(partner_id: Partner.where(name: "ZAP TV")).each do |produto| %>
+                    <% Produto.where(partner_id: Partner.where(slug: "ZAP TV")).each do |produto| %>
                       <option value="<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
                     <% end %>
                   </select>
@@ -160,7 +161,7 @@
                 </div>
               </div>
             </div>
-            <div class="campos" id="divAditionalFieldsSMS" style="display: none">
+            <div class="campos talaoUnitel talaoMovicel talaoDSTv talaoZAPTv" id="divAditionalFieldsSMS" style="display: none;margin-top: 10px">
               <div class="editArea editAreaDiv">
                 <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
                   Talão p/SMS <span class="required">&nbsp;*</span>
@@ -173,11 +174,6 @@
           </div>
         </div>
         <div class="saveCancelbts" style="padding-top: 25px">
-          <div style="float: left;">
-            <button type="button" class="btn btn-primary" id="btCancel" style="width: 210px; text-align: center;">
-              LIMPAR CAMPOS
-            </button>
-          </div>
           <div style="float: right;">
             <button type="button" class="btn btn-success" id="btSave" style="width: 210px; text-align: center;">
               SUBMETER PAGAMENTO
