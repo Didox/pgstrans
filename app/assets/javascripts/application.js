@@ -24,16 +24,42 @@
 const pgstrans = {};
 
 pgstrans.displayRecarga = (tipo) => {
-  $(".seta-cima, .campos").hide();
-  $("#seta" + tipo).show();
-  $("." + tipo).show();
-  $("#recarga").show();
-  $("#rechargeValue").val("");
-  $(".rechargeType").val("");
+  $(".recarga .seta-cima, .campos").hide();
+  $(".recarga #seta" + tipo).show();
+  $(".recarga ." + tipo).show();
+  $(".recarga #recarga").show();
+  $(".recarga #rechargeValue").val("");
+  $(".recarga .rechargeType").val("");
+  $(".recarga #tipo_ativo").val(tipo);
 }
 
-$(() => {
-  $(".rechargeType").change(function(){
-    $("#rechargeValue").val(this.value);
+$(function(){
+  $(".recarga .rechargeType").change(function(){
+    $(".recarga #rechargeValue").val(this.value);
+    $(".recarga .talao" + $("#tipo_ativo").val() + "").show();
   })
+
+
+  $(".recarga #btSave").click(function(){
+    $.confirm({
+      title: 'Confirmação!',
+      content: 'TEM A CERTEZA QUE DESEJA EFECTUAR A RECARGA?',
+      buttons: {
+        confirmar: {
+          text: 'Confirmar',
+          btnClass: 'btn-warning',
+          action: function(){
+            $.alert('confirmado!');
+          }
+        },
+        cancelar: {
+          text: 'Cancelar',
+          btnClass: 'btn-danger',
+          action: function(){
+            $.alert('cancelado!');
+          }
+        }
+      }
+    });
+  });
 });
