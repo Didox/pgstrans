@@ -15,9 +15,16 @@
 @import "tether";
 
 // btn-space - espaço entre botões
+.menu_recarga{
+  display: inline-block;background: #e2e0e0;padding: 10px;margin-bottom: 2px
+}
+
+.active_menu{
+  background: #fec109;
+}
 
 .btn-space {
-    margin-right: 15px;
+  margin-right: 15px;
 }
 
 body, .btn, .h4, h4, imput, select, textarea, .form-control{
