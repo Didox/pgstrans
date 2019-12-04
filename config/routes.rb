@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :perfil_usuarios
   resources :remuneracaos
   resources :produtos
+  resources :saldos
   resources :status_produtos
   resources :municipios
   resources :industries
