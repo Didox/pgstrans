@@ -8,7 +8,7 @@ data = RestClient.get 'https://parceiros.unitel.co.ao:8444/spgw/V2/getStatus', {
   sequenceId: 12346,
   saleSequenceId: 12343,
   terminalId: "00244TP00221",
-  token: "ew0KwqAgImNsaWVudE1zaXNkbiI6ICIrMjQ0OTg3NjU0MzIxIiwNCsKgICJwcm9kdWN0SWQiOiAxMywNCsKgICJzYWxlVGltZXN0YW1wIjogMTQ3OTY2NzMyMA0KwqAgInNlcXVlbmNlSWQiOiAxMjM0NSwNCsKgICJzZWxsZXJJZCI6IDgzMjcxLA0KwqAgInN0b3JlSWQiOiA4MzI3MSwNCsKgICJ0ZXJtaW5hbElkIjogIisyNDQxMjM0NTY3ODkiLA0KwqAgInZhbHVlQWt6IjogMTAwMCwNCn0="
+  token: "Y7fEbaU1os7yvwGPuIKTePxIzID0uS06vDd2UL+oGwPkqJT6Na23LXREW6U6VaK8L6Fl7GRWunMqkV2/SGxNAwF9AqecOUeNxp2f/AimDvCqmYV/axcEgKh2lrGlpnUBd1JHoT2tg7m31mqae/5MpphzQFUrJ21NXHGYGlNj0aw="
 }
 
 debugger
