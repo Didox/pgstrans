@@ -23,3 +23,9 @@ if (200...300).include?(request.code.to_i)
     return JSON.parse(request.body)
   end
 end
+
+
+/home/pgsadmin/.ssh/spgw_public.der ##### arquivo de autnticação MoveCell #####
+
+scp -P22 -r pgsadmin@172.26.8.2:/home/pgsadmin/spgw_public.der ~/Downloads/spgw_public.der
+scp -P22 -r ~/Downloads/spgw_public.der pgsadmin@172.26.8.2:/home/pgsadmin/spgw_public.der
