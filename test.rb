@@ -2,14 +2,18 @@ require 'byebug'
 require 'httparty'
 
 query = {
-  agentId: 114250,
-  storeId: 115356,
-  sellerId: 115709,
-  sequenceId: 12346,
-  saleSequenceId: 12343,
-  terminalId: "00244TP00221",
-  token: "C2RHhXiwWnHbheaTcd4Sfoemj5ToEPVJbIZOrDGPAhIeLxAJ/PMRQNtZhgfEo/t2v/aLm/RZK+qezh/YgrU3lMuoCUoUGh6/v6JJ9iFXI8e6Q+PxCmpmY2lJtRLgQFU2yqkzS7Ia0FgiE11NWo/bYLqVXTq4J1jq1s7p1ueItoQ="
+  "agentId": 114250,
+  "sequenceId": 0,
+  "storeId": 115356,
+  "sellerId": 115358,
+  "terminalId": "00244TP00221",
+  "productId": 450,
+  "valueAkz": 10000,
+  "clientMsisdn": "244916120426",
+  "saleTimestamp": 1575622137758,
+  "token": "av/Tbj3t9bkpVS63lv4WnMKzR0Y5Uf92J+WLgxg+CVSJN/7/xiYqqS1dF3TKGbkeCJtRHbGDARkmC7IilpU8lHzERVXkt7+6wk4PKQKEKsvono/DKcTIpe34RBuTfZfviB83ln4L5EVFIGFitjlht0YnvtjqvwDbvpRi92SVz4qydC6sHCjOR6dKJb7EJbLZb5GnUYi0D14meA7ED6/terR211EL45HQ2GIAnpbuFN7D1m+k3HsAEwuPYhzQ7fy4T+smCsmeuQpYhPgS8B5CsT2Tgkl/SQcRQGvZOaFY8R4Sg0t/F+5Mn1a8ndgehirf1cVujvINdOCyFdKp6zla+g=="
 }
+
 
 uri = URI.parse(URI.escape("https://parceiros.unitel.co.ao:8444/spgw/V2/getStatus"))
 headers = {"x-noauth" => "true"}
