@@ -12,8 +12,8 @@ client_msisdn=244916120426
 sale_timestamp=`date +%s%3N`
 
 ## A chave privada
-private_key=/Users/danilo/projetos/rosi/pgstrans/chaves/rsapagasoprivkey.pem
-public_key=/Users/danilo/projetos/rosi/pgstrans/chaves/spgw_public.der
+private_key=/home/pgsadmin/PagasoAPP/pgstrans/chaves/rsapagasoprivkey.pem
+public_key=/home/pgsadmin/PagasoAPP/pgstrans/chaves/spgw_public.der
 
 ## Criar a chave privada RSA de 2048 bits
 # -> openssl genpkey -algorithm RSA -outform DER -out test_priv_rsa_key.der  -pkeyopt rsa_keygen_bits:2048
