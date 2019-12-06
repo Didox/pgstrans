@@ -77,7 +77,7 @@ echo -e "\nToken dencryptado:"
 echo "$decrypted_token"
 
 echo "==========================[Enviar no request]===================================="
-echo $make_sale_endpoint
+echo $tmp_make_sale_request
 echo "==========================[Enviar no request]===================================="
 
 # Executar o pedido
