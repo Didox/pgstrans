@@ -24,8 +24,8 @@ public_key=/home/pgsadmin/PagasoAPP/pgstrans/chaves/rsapagasopubkey.der
 ## Parametros da ligação
 max_time=30
 connect_timeout=30
-# make_sale_endpoint="https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale"
-make_sale_endpoint="https://parceiros.unitel.co.ao:8444/spgw/V2/getStatus"
+make_sale_endpoint="https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale"
+# make_sale_endpoint="https://parceiros.unitel.co.ao:8444/spgw/V2/getStatus"
 
 ## Exemplo simples, de como criar um pedido de makeSale à API de parceiros
 make_sale_request='
@@ -83,7 +83,7 @@ echo "==========================[Enviar no request]=============================
 
 # Executar o pedido
 # echo -n "Parceiro [$agent_id], com vendedor [$seller_id] da loja [$store_id] e terminal [$terminal_id], está a tentar fazer um makeSale do produto [$product_id] de valor [$value] Akz para o msisdn [$client_msisdn]..."
-tmp_make_sale_response=`curl -vs -X GET \
+tmp_make_sale_response=`curl -vs -X POST \
 	--max-time $max_time --connect-timeout $connect_timeout \
  	$make_sale_endpoint \
  	-H 'Cache-Control: no-cache' \
