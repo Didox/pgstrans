@@ -1,19 +1,7 @@
 require 'byebug'
 require 'httparty'
 
-query = {
-  "agentId": 114250,
-  "sequenceId": 0,
-  "storeId": 115356,
-  "sellerId": 115358,
-  "terminalId": "00244TP00221",
-  "productId": 450,
-  "valueAkz": 10000,
-  "clientMsisdn": "244916120426",
-  "saleTimestamp": 1575622137758,
-  "token": "av/Tbj3t9bkpVS63lv4WnMKzR0Y5Uf92J+WLgxg+CVSJN/7/xiYqqS1dF3TKGbkeCJtRHbGDARkmC7IilpU8lHzERVXkt7+6wk4PKQKEKsvono/DKcTIpe34RBuTfZfviB83ln4L5EVFIGFitjlht0YnvtjqvwDbvpRi92SVz4qydC6sHCjOR6dKJb7EJbLZb5GnUYi0D14meA7ED6/terR211EL45HQ2GIAnpbuFN7D1m+k3HsAEwuPYhzQ7fy4T+smCsmeuQpYhPgS8B5CsT2Tgkl/SQcRQGvZOaFY8R4Sg0t/F+5Mn1a8ndgehirf1cVujvINdOCyFdKp6zla+g=="
-}
-
+query = { "agentId": 114250, "sequenceId": 0, "storeId": 115356, "sellerId": 115358, "terminalId": "00244TP00221", "productId": 450, "valueAkz": 10000, "clientMsisdn": "244916120426", "saleTimestamp": 1575622855179, "token": "SZb12iswmEiEKcdAEzK3HYcU/ibhCCPgcSnXsn0CBx3qiq/z4Lg1ikXSmWqbC9T2ahNjSprwco/o oDecVQSwrpSoTgjTtBlTvuKJlbs7Rwxr5XG9pxVPkSICZjadSV9U5opPFdWhtU/PYg5LZOpmDDTu NMRfAtIi+OUKHwnvJ0aQwMp+9K0i8A/qEA+0y8eyDJQ/mELFItK3gX0QKbgDI85v7NouppcFdQ7m abNyOmsLP4Y08XIkAm7RLp/MTsL8VPad1d1RkUjyWojRbMx0cuNuw7MXaZKbcMezDAAvZ7iuTc91 FMqtgyrvOiq+GK7+bq1N7lBkT1/FMfU+dUYC5w==" }
 
 uri = URI.parse(URI.escape("https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale"))
 headers = {"x-noauth" => "true"}
