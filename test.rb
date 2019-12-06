@@ -15,9 +15,9 @@ query = {
 }
 
 
-uri = URI.parse(URI.escape("https://parceiros.unitel.co.ao:8444/spgw/V2/getStatus"))
+uri = URI.parse(URI.escape("https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale"))
 headers = {"x-noauth" => "true"}
-request = HTTParty.get(uri, :query => query, :headers => headers)
+request = HTTParty.post(uri, :query => query, :headers => headers)
 
 puts "======================[request.code]=========================="
 puts request.code
