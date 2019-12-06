@@ -24,7 +24,8 @@ public_key=/home/pgsadmin/PagasoAPP/pgstrans/chaves/rsapagasopubkey.der
 ## Parametros da ligação
 max_time=30
 connect_timeout=30
-make_sale_endpoint="https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale"
+# make_sale_endpoint="https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale"
+make_sale_endpoint="https://parceiros.unitel.co.ao:8444/spgw/V2/getStatus"
 
 ## Exemplo simples, de como criar um pedido de makeSale à API de parceiros
 make_sale_request='
