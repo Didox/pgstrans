@@ -83,7 +83,7 @@ echo "==========================[Enviar no request]=============================
 
 # Executar o pedido
 # echo -n "Parceiro [$agent_id], com vendedor [$seller_id] da loja [$store_id] e terminal [$terminal_id], está a tentar fazer um makeSale do produto [$product_id] de valor [$value] Akz para o msisdn [$client_msisdn]..."
-tmp_make_sale_response=`curl -X POST \
+tmp_make_sale_response=`curl -vs -X POST \
 	--max-time $max_time --connect-timeout $connect_timeout \
  	$make_sale_endpoint \
  	-H 'Cache-Control: no-cache' \
