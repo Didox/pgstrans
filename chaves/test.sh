@@ -4,11 +4,11 @@
 agent_id=114250
 sequence_id=0
 store_id=115356
-seller_id=115358
+seller_id=115709
 terminal_id=00244TP00221
-product_id=450
-value=10000
-client_msisdn=244916120426
+product_id=586
+value=500
+client_msisdn=943046358
 sale_timestamp=`date +%s%3N`
 
 ## A chave privada
