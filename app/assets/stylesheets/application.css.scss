@@ -16,11 +16,19 @@
 
 // btn-space - espaço entre botões
 .menu_recarga{
-  display: inline-block;background: #e2e0e0;padding: 10px;margin-bottom: 2px
+  display: inline-block;
+  background: #FFCC00;
+  padding: 10px;
+  margin-bottom: 0px;
+  color: #000;
+  font-size: 18px;
+  width: 150px;
+  text-align: center;
 }
 
 .active_menu{
-  background: #fec109;
+  background: #C8102E;
+  color: #fff;
 }
 
 .btn-space {

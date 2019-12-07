@@ -8,12 +8,12 @@
 
 sequence_id=$1
 product_id=$2
-agent_id=114250
-store_id=115356
-seller_id=115709
-terminal_id=00244TP00221
-value=500
-client_msisdn=943046358
+agent_id=$3
+store_id=$4
+seller_id=$5
+terminal_id=$6
+value=$7
+client_msisdn=$8
 sale_timestamp=`date +%s%3N`
 
 ## A chave privada
