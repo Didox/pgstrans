@@ -10,7 +10,8 @@ retorno = `./exec.sh #{sequence_id} #{product_id}`
 File.write(file, (sequence_id + 1))
 
 puts "======================[retorno]=========================="
-puts retorno
-puts "================================================"
-puts retorno
-puts "======================[retorno]=========================="
+puts JSON.parse(retorno)
+
+debugger
+
+x = ""

@@ -76,6 +76,4 @@ tmp_make_sale_response=`curl -vs -X POST \
  	-H 'Cache-Control: no-cache' \
  	-d "$tmp_make_sale_request"`
 
-echo "==========================[Enviar no request]===================================="
 echo $tmp_make_sale_response
-echo "==========================[Enviar no request]===================================="
