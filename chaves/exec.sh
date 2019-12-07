@@ -5,7 +5,7 @@ agent_id=114250
 ## alterar a sequencia a cada nova requisicao
 ## o próximo pedido que fizerem ( quer seja makeSale, quer seja getStatus ) a sequence tem de ser encrementada!
 ## ultima sequencia enviada 3
-sequence_id=8
+sequence_id=$1
 ##
 store_id=115356
 seller_id=115709
@@ -13,7 +13,7 @@ terminal_id=00244TP00221
 
 #procuct_id alterado a pedido do Joao
 #product_id=586
-product_id=9
+product_id=$2
 value=500
 client_msisdn=943046358
 sale_timestamp=`date +%s%3N`
@@ -67,26 +67,6 @@ token=`echo "$tmp_token_data" | openssl rsautl -sign -keyform PEM -inkey $privat
 tmp_make_sale_request="$tmp_make_sale_request"',
 	"token": "'$token'"
 }'
-
-# Pedido no formato Json
-echo "Pedido do makeSale no formato JSON:"
-echo "$tmp_make_sale_request"
-
-# Token encryptado
-echo -e "\nToken encryptado:"
-echo "$token"
-
-echo "=============================================================="
-# Desencryptar o token
-decrypted_token=`echo "$token" | base64 -d | openssl rsautl -verify -keyform DER -pubin -inkey $public_key`
-
-# Token dencryptado
-echo -e "\nToken dencryptado:"
-echo "$decrypted_token"
-
-echo "==========================[Enviar no request]===================================="
-echo $tmp_make_sale_request
-echo "==========================[Enviar no request]===================================="
 
 ##### Executar o pedido
 ##### echo -n "Parceiro [$agent_id], com vendedor [$seller_id] da loja [$store_id] e terminal [$terminal_id], está a tentar fazer um makeSale do produto [$product_id] de valor [$value] Akz para o msisdn [$client_msisdn]..."

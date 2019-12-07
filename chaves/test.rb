@@ -1,37 +1,15 @@
 require 'byebug'
 require 'httparty'
 
-## Variáveis pra usar abaixo...
-agent_id="114250"
-## alterar a sequencia a cada nova requisicao
-## o próximo pedido que fizerem ( quer seja makeSale, quer seja getStatus ) a sequence tem de ser encrementada!
-## ultima sequencia enviada 3
-sequence_id="8"
-##
-store_id="115356"
-seller_id="115709"
-terminal_id="00244TP00221"
+product_id = 9
+sequence_id = File.open("sequence.txt").readlines.to_i
 
-#procuct_id alterado a pedido do Joao
-#product_id=586
-product_id="9"
-value="500"
-client_msisdn="943046358"
-sale_timestamp=Time.now.to_i
+retorno = `./exec.sh #{sequence_id} #{product_id}`
 
-## A chave privada
-private_key="/home/pgsadmin/PagasoAPP/pgstrans/chaves/rsapagasoprivkey.pem"
-public_key="/home/pgsadmin/PagasoAPP/pgstrans/chaves/rsapagasopubkey.der"
+File.write("sequence.txt", (sequence_id + 1))
 
-
-query = { "agentId": 114250, "sequenceId": 5, "storeId": 115356, "sellerId": 115709, "terminalId": "00244TP00221", "productId": 9, "valueAkz": 500, "clientMsisdn": "943046358", "saleTimestamp": 1575711089776, "token": "l6ruFY67REalPx0XkgzyYtT3BYQwvXnGjN17spl2iKnmOLE8aYyR/akSmHXKkayn6aR4bz180AJ2 Aliec7n9nSYlYaVn+1FGrMRy+wCeaGt4OaIFVl8CxFUFLzgE9VvGj5LzrLGlJh+pDndV7V0b7OF6 POZCZC0QcGisA5rhGq2PcTXMu+7T/cwvF7sR+xccGKeYEBMnd3aytzkrXd+tbS9MBUb2avCTvr5o cBmpF2POu43oTj81gzoJYRufLpFEbpCw/hajxcekLzNazeqPW8wKoCeKgBI4rRf4bJBcBeh1VmUP Bt7B4jBd2FhN4xLdtZ61SEmqFdBCIcXFYwXE4Q==" }
-
-uri = URI.parse(URI.escape("https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale"))
-headers = {"x-noauth" => "true"}
-request = HTTParty.post(uri, :query => query, :headers => headers)
-
-puts "======================[request.code]=========================="
-puts request.code
+puts "======================[retorno]=========================="
+puts retorno
 puts "================================================"
-puts request.body
-puts "======================[request.body]=========================="
+puts retorno
+puts "======================[retorno]=========================="
