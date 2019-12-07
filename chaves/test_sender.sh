@@ -3,7 +3,7 @@
 connect_timeout=30
 max_time=30
 make_sale_endpoint="https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale"
-tmp_make_sale_request="{ \"agentId\": 114250, \"sequenceId\": 5, \"storeId\": 115356, \"sellerId\": 115709, \"terminalId\": \"00244TP00221\", \"productId\": 9, \"valueAkz\": 500, \"clientMsisdn\": \"943046358\", \"saleTimestamp\": 1575711089776, \"token\": \"l6ruFY67REalPx0XkgzyYtT3BYQwvXnGjN17spl2iKnmOLE8aYyR/akSmHXKkayn6aR4bz180AJ2 Aliec7n9nSYlYaVn+1FGrMRy+wCeaGt4OaIFVl8CxFUFLzgE9VvGj5LzrLGlJh+pDndV7V0b7OF6 POZCZC0QcGisA5rhGq2PcTXMu+7T/cwvF7sR+xccGKeYEBMnd3aytzkrXd+tbS9MBUb2avCTvr5o cBmpF2POu43oTj81gzoJYRufLpFEbpCw/hajxcekLzNazeqPW8wKoCeKgBI4rRf4bJBcBeh1VmUP Bt7B4jBd2FhN4xLdtZ61SEmqFdBCIcXFYwXE4Q==\" }"
+tmp_make_sale_request="{ \"agentId\": 114250, \"sequenceId\": 6, \"storeId\": 115356, \"sellerId\": 115709, \"terminalId\": \"00244TP00221\", \"productId\": 9, \"valueAkz\": 500, \"clientMsisdn\": \"943046358\", \"saleTimestamp\": 1575711646790, \"token\": \"yhoS9fOw+7/cPbHuNzyEQx3v3q/lRsYxWK9ek6fzLYimkt+GdqerdPkzDBzN7edg7HD8v8U7WKm3 fEi0bdzZdFBMYRl40O0es4QCHBKr06rWs27wOvl7BXxbqU0HyDfGSdFWCvyRqbThsuebOnfNWf2z FO5eOBQ1VZAvDFB7aVNVgIVxU/skpvH2iZQfIVnL2MSRc2Q6KaAuRe/U2QxX1mEfQt1eCNQ/cF0e cVRB3g7UzdIXOp0UPFzzTFCoQmNa0WjQO5inwmr4Fb66TOLvezgvKFDjGgFjKVJGGUDZjZRFGkO5 u04TlF5VD0Koz2cW0olbfT0Mkicy5TCl6leodw==\" }"
 echo "==========================[Enviar no request]===================================="
 echo $tmp_make_sale_request
 echo "==========================[Enviar no request]===================================="
