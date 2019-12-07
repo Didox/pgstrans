@@ -5,7 +5,7 @@ agent_id=114250
 ## alterar a sequencia a cada nova requisicao
 ## o próximo pedido que fizerem ( quer seja makeSale, quer seja getStatus ) a sequence tem de ser encrementada!
 ## ultima sequencia enviada 3
-sequence_id=3
+sequence_id=4
 ##
 store_id=115356
 seller_id=115709
