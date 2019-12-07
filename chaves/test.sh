@@ -5,7 +5,7 @@ agent_id=114250
 ## alterar a sequencia a cada nova requisicao
 ## o próximo pedido que fizerem ( quer seja makeSale, quer seja getStatus ) a sequence tem de ser encrementada!
 ## ultima sequencia enviada 3
-sequence_id=5
+sequence_id=6
 ##
 store_id=115356
 seller_id=115709
@@ -88,10 +88,14 @@ echo "==========================[Enviar no request]=============================
 echo $tmp_make_sale_request
 echo "==========================[Enviar no request]===================================="
 
-## Executar o pedido
-### echo -n "Parceiro [$agent_id], com vendedor [$seller_id] da loja [$store_id] e terminal [$terminal_id], está a tentar fazer um makeSale do produto [$product_id] de valor [$value] Akz para o msisdn [$client_msisdn]..."
-### tmp_make_sale_response=`curl -vs -X POST \
-# 	--max-time $max_time --connect-timeout $connect_timeout \
-#  	$make_sale_endpoint \
-#  	-H 'Cache-Control: no-cache' \
-#  	-d "$tmp_make_sale_request"`
+# Executar o pedido
+# echo -n "Parceiro [$agent_id], com vendedor [$seller_id] da loja [$store_id] e terminal [$terminal_id], está a tentar fazer um makeSale do produto [$product_id] de valor [$value] Akz para o msisdn [$client_msisdn]..."
+tmp_make_sale_response=`curl -vs -X POST \
+	--max-time $max_time --connect-timeout $connect_timeout \
+ 	$make_sale_endpoint \
+ 	-H 'Cache-Control: no-cache' \
+ 	-d "$tmp_make_sale_request"`
+
+echo "==========================[Enviar no request]===================================="
+echo $tmp_make_sale_response
+echo "==========================[Enviar no request]===================================="
