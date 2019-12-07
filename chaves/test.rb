@@ -1,12 +1,13 @@
 require 'byebug'
 require 'httparty'
 
+file = "sequence.txt"
+sequence_id = File.read(file).to_i rescue 1
 product_id = 9
-sequence_id = File.open("sequence.txt").readlines.to_i
 
 retorno = `./exec.sh #{sequence_id} #{product_id}`
 
-File.write("sequence.txt", (sequence_id + 1))
+File.write(file, (sequence_id + 1))
 
 puts "======================[retorno]=========================="
 puts retorno
