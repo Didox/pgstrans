@@ -1,19 +1,17 @@
 #!/bin/bash
 
 ## Variáveis pra usar abaixo...
-agent_id=114250
 ## alterar a sequencia a cada nova requisicao
 ## o próximo pedido que fizerem ( quer seja makeSale, quer seja getStatus ) a sequence tem de ser encrementada!
 ## ultima sequencia enviada 3
-sequence_id=$1
 ##
+
+sequence_id=$1
+product_id=$2
+agent_id=114250
 store_id=115356
 seller_id=115709
 terminal_id=00244TP00221
-
-#procuct_id alterado a pedido do Joao
-#product_id=586
-product_id=$2
 value=500
 client_msisdn=943046358
 sale_timestamp=`date +%s%3N`
