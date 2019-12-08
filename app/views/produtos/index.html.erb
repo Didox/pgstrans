@@ -11,6 +11,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
+          <th scope="col">ID</th>
           <th scope="col">Nome</th>
           <th scope="col">Partner</th>
           <th scope="col">Moeda</th>
@@ -27,9 +28,10 @@
       <tbody>
         <% @produtos.each do |produto| %>
         <tr>
+          <td><%= produto.id %></td>
           <td><%= produto.description %></td>
           <td><%= produto.partner.name %></td>
-          <td><%= "#{produto.moeda_id}/#{(produto.moeda.nome rescue "")}" %></td>       
+          <td><%= "#{produto.moeda_id}/#{(produto.moeda.simbolo rescue "")}" %></td>       
           <td><%= produto.status_produto.nome %></td>
           <td class="text-right"><%= produto.margem_telemovel %></td>
           <td class="text-right"><%= produto.margem_site %></td>
