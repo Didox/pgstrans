@@ -12,7 +12,7 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require jquery3
+//= require jquery-3.4.1.min
 //= require popper
 //= require tether
 //= require bootstrap
@@ -35,11 +35,13 @@ pgstrans.displayRecarga = (tipo) => {
 
 $(function(){
   $(".recarga .rechargeType").change(function(){
-    $(".recarga #rechargeValue").val(this.value);
+    $(".recarga #rechargeValue").val(this.value.split("-")[1]);
     $(".recarga .talao" + $("#tipo_ativo").val() + "").show();
   })
 
-  $(".recarga #btSave").click(function(){
+  $(".recarga #recargaForm").submit(function(e) {
+    e.preventDefault();
+
     let message = "";
     $(".validate.v" + $("#tipo_ativo").val()).each(function(){
       if($(this).val() == ""){
@@ -69,7 +71,19 @@ $(function(){
           text: 'Confirmar',
           btnClass: 'btn-warning',
           action: function(){
-            $.alert('confirmado!');
+            var form = $(".recarga #recargaForm");
+            var url = form.attr('action');
+            $.ajax({
+              type: "POST",
+              url: url,
+              data: form.serialize(),
+              success: function(data){
+                $.alert('confirmado!');
+              },
+              error: function(xhr, ajaxOptions, thrownError){
+                $.alert('ERRO! ' + JSON.parse(xhr.responseText).erro);
+              }
+            });
           }
         },
         cancelar: {
@@ -82,4 +96,5 @@ $(function(){
       }
     });
   });
+
 });

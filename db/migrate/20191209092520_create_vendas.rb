@@ -1,7 +1,6 @@
 class CreateVendas < ActiveRecord::Migration[5.2]
   def change
     create_table :vendas do |t|
-      t.string :sequence_id
       t.string :product_id
       t.string :agent_id
       t.string :store_id

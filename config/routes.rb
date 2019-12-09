@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get 'login', to: 'login#index'
   get 'logout', to: 'login#logout'
   post 'autentica', to: 'login#autentica'
+  post 'recarga/confirma', to: 'recarga#confirma', as: "recarga_confirma"
 
   resources :return_code_apis
   resources :query_balances

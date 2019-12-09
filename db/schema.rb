@@ -379,7 +379,6 @@ ActiveRecord::Schema.define(version: 2019_12_09_092520) do
   end
 
   create_table "vendas", force: :cascade do |t|
-    t.string "sequence_id"
     t.string "product_id"
     t.string "agent_id"
     t.string "store_id"
