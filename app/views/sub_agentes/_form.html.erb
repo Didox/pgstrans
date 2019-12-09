@@ -64,7 +64,19 @@
 
         <div class="form-input col-sm-6">
           <%= f.input :contato, :label => "Pessoa de Contato", placeholder: "Contato" %>
-        </div>        
+        </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.input :store_id_parceiro, :label => "Identificação da Loja na Unitel", placeholder: "Identificação da Loja na Unitel" %>
+        </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.input :agent_id_parceiro, :label => "Identificação do Agente na Unitel", placeholder: "Identificação do Agente na Unitel" %>
+        </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.input :terminal_id_parceiro, :label => "Identificação do Terminal na Unitel", placeholder: "Identificação do Terminal na Unitel" %>
+        </div>
 
         <div class="form-actions col-sm-12">
           <%= f.button :button, class: 'btn btn-danger' do %>

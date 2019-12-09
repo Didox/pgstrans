@@ -58,6 +58,21 @@
       <%= @sub_agente.contato %>
     </p>
 
+    <p>
+      <strong>Identificação da loja na Unitel (store_id):</strong>
+      <%= @sub_agente.store_id_parceiro %>
+    </p>
+
+    <p>
+      <strong>Identificação do agente na Unitel (seller_id):</strong>
+      <%= @sub_agente.agent_id_parceiro %>
+    </p>
+
+    <p>
+      <strong>Identificação do terminal na Unitel (terminal_id):</strong>
+      <%= @sub_agente.terminal_id_parceiro %>
+    </p>
+
     <div class="page-header">
       <%= link_to sub_agentes_path, class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
