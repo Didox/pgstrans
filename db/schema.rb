@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_08_201611) do
+ActiveRecord::Schema.define(version: 2019_12_09_092520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -376,6 +376,21 @@ ActiveRecord::Schema.define(version: 2019_12_08_201611) do
     t.datetime "updated_at", null: false
     t.bigint "perfil_usuario_id"
     t.index ["perfil_usuario_id"], name: "index_usuarios_on_perfil_usuario_id"
+  end
+
+  create_table "vendas", force: :cascade do |t|
+    t.string "sequence_id"
+    t.string "product_id"
+    t.string "agent_id"
+    t.string "store_id"
+    t.string "seller_id"
+    t.string "terminal_id"
+    t.float "value"
+    t.string "client_msisdn"
+    t.text "request_send"
+    t.text "response_get"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "canal_vendas", "dispositivos"
