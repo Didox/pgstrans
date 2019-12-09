@@ -43,7 +43,7 @@ make_sale_request='
 	"productId": #PRODUCT_ID#,
 	"valueAkz": #VALUE#,
 	"clientMsisdn": "#CLIENT_MSISDN#",
-	"saleTimestamp": #SALE_TIMESTAMP#'
+	"saleTimestamp": "#SALE_TIMESTAMP#"'
 
 ## Preparar o pedido makeSale
 tmp_make_sale_request=`echo "$make_sale_request" | sed "s/#AGENT_ID#/$agent_id/g" | sed "s/#SEQUENCE_ID#/$sequence_id/g" | sed "s/#STORE_ID#/$store_id/g" | \
@@ -74,4 +74,7 @@ tmp_make_sale_response=`curl -vs -X POST \
  	-H 'Cache-Control: no-cache' \
  	-d "$tmp_make_sale_request"`
 
-echo $tmp_make_sale_response
+echo "$tmp_make_sale_request --- $tmp_make_sale_response"
+
+
+
