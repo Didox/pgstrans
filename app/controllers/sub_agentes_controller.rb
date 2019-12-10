@@ -69,6 +69,6 @@ class SubAgentesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sub_agente_params
-      params.require(:sub_agente).permit(:razao_social, :nome_fantasia, :bi, :industry_id, :descricao_grupo, :morada, :bairro, :provincia_id, :email, :telefone, :contato)
+      params.require(:sub_agente).permit(:razao_social, :nome_fantasia, :bi, :industry_id, :descricao_grupo, :morada, :bairro, :provincia_id, :email, :telefone, :contato, :seller_id_parceiro, :store_id_parceiro, :terminal_id_parceiro)
     end
 end

@@ -278,6 +278,7 @@ ActiveRecord::Schema.define(version: 2019_12_10_084847) do
     t.string "store_id_parceiro"
     t.string "agent_id_parceiro"
     t.string "terminal_id_parceiro"
+    t.bigint "seller_id_parceiro"
     t.index ["industry_id"], name: "index_sub_agentes_on_industry_id"
     t.index ["provincia_id"], name: "index_sub_agentes_on_provincia_id"
   end
@@ -376,7 +377,6 @@ ActiveRecord::Schema.define(version: 2019_12_10_084847) do
     t.datetime "updated_at", null: false
     t.bigint "perfil_usuario_id"
     t.bigint "sub_agente_id"
-    t.bigint "seller_id_parceiro"
     t.index ["perfil_usuario_id"], name: "index_usuarios_on_perfil_usuario_id"
     t.index ["sub_agente_id"], name: "index_usuarios_on_sub_agente_id"
   end
