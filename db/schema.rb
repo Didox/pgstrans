@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_09_092520) do
+ActiveRecord::Schema.define(version: 2019_12_10_084847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -276,6 +276,7 @@ ActiveRecord::Schema.define(version: 2019_12_09_092520) do
     t.bigint "industry_id"
     t.string "contato"
     t.string "store_id_parceiro"
+    t.string "agent_id_parceiro"
     t.string "terminal_id_parceiro"
     t.bigint "seller_id_parceiro"
     t.index ["industry_id"], name: "index_sub_agentes_on_industry_id"
@@ -375,7 +376,9 @@ ActiveRecord::Schema.define(version: 2019_12_09_092520) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "perfil_usuario_id"
+    t.bigint "sub_agente_id"
     t.index ["perfil_usuario_id"], name: "index_usuarios_on_perfil_usuario_id"
+    t.index ["sub_agente_id"], name: "index_usuarios_on_sub_agente_id"
   end
 
   create_table "vendas", force: :cascade do |t|
@@ -406,4 +409,5 @@ ActiveRecord::Schema.define(version: 2019_12_09_092520) do
   add_foreign_key "sub_distribuidors", "municipios"
   add_foreign_key "sub_distribuidors", "provincia", column: "provincia_id"
   add_foreign_key "usuarios", "perfil_usuarios"
+  add_foreign_key "usuarios", "sub_agentes"
 end

@@ -1,0 +1,42 @@
+<div class="container">
+
+  <h4>Mostrar Venda</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Product:</dt>
+      <dd><%= @venda.product_id %></dd>
+      <dt>Agent:</dt>
+      <dd><%= @venda.agent_id %></dd>
+      <dt>Store:</dt>
+      <dd><%= @venda.store_id %></dd>
+      <dt>Seller:</dt>
+      <dd><%= @venda.seller_id %></dd>
+      <dt>Terminal:</dt>
+      <dd><%= @venda.terminal_id %></dd>
+      <dt>Value:</dt>
+      <dd><%= @venda.value %></dd>
+      <dt>Client msisdn:</dt>
+      <dd><%= @venda.client_msisdn %></dd>
+      <dt>Request send:</dt>
+      <dd><%= @venda.request_send %></dd>
+      <dt>Response get:</dt>
+      <dd><%= @venda.response_get %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to vendas_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_venda_path(@venda), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>
