@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   before_action :validate_login
 
+  def usuario_logado
+    Usuario.find(JSON.parse(cookies[:usuario_pgstrans_oauth])["id"])
+  end
+
   private
     def validate_login
       if cookies[:usuario_pgstrans_oauth].blank?

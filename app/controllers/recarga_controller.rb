@@ -2,7 +2,7 @@ class RecargaController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def confirma
-    venda = Venda.fazer_venda(params)
+    venda = Venda.fazer_venda(params, usuario_logado)
     begin
       status = venda.response_get_parse[:status].to_i
       if (200..300).include?(status)
