@@ -40,6 +40,11 @@
           <%= f.label :perfil_usuario_id, "Perfil do Usuário" %>
           <%= f.select :perfil_usuario_id, PerfilUsuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.label :sub_agente_id %>
+          <%= f.select :sub_agente_id, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+        </div>
           
         <div class="form-actions col-sm-12">
           <%= f.button :button, class: 'btn btn-danger' do %>
