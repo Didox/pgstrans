@@ -276,7 +276,6 @@ ActiveRecord::Schema.define(version: 2019_12_10_084847) do
     t.bigint "industry_id"
     t.string "contato"
     t.string "store_id_parceiro"
-    t.string "agent_id_parceiro"
     t.string "terminal_id_parceiro"
     t.bigint "seller_id_parceiro"
     t.index ["industry_id"], name: "index_sub_agentes_on_industry_id"
