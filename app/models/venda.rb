@@ -1,4 +1,5 @@
 class Venda < ApplicationRecord
+  default_scope { order(updated_at: :desc) }
 
   def request_send_parse
     JSON.parse(self.request_send.gsub(/\n|\t/, ""))
