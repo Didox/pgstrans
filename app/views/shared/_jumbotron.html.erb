@@ -51,7 +51,7 @@
                     <select class="rechargeType form-control validate vUnitel" name="unitel_produto_id" data-message="Selecione um produto">
                       <option value="" >Escolher</option>
                       <% Produto.where(partner_id: Partner.where(slug: "Unitel")).each do |produto| %>
-                        <option value="<%= produto.id %>-<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
+                        <option value="<%= produto.produto_id_parceiro %>-<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
                       <% end %>
                     </select>
                   </div>
@@ -66,7 +66,7 @@
                     <select class="rechargeType form-control validate vMovicel" name="movicel_produto_id" data-message="Selecione um produto">
                       <option value="" >Escolher</option>
                       <% Produto.where(partner_id: Partner.where(slug: "Movicel")).each do |produto| %>
-                        <option value="<%= produto.id %>-<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
+                        <option value="<%= produto.produto_id_parceiro %>-<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
                       <% end %>
                     </select>
                   </div>
@@ -81,7 +81,7 @@
                     <select class="rechargeType form-control validate vDSTv" name="dstv_produto_id" data-message="Selecione um produto">
                       <option value="" >Escolher</option>
                       <% Produto.where(partner_id: Partner.where(slug: "DSTV")).each do |produto| %>
-                        <option value="<%= produto.id %>-<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
+                        <option value="<%= produto.produto_id_parceiro %>-<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
                       <% end %>
                     </select>
                   </div>
@@ -96,7 +96,7 @@
                     <select class="rechargeType form-control validate vZAPTv" name="zaptv_produto_id" data-message="Selecione um produto">
                       <option value="" >Escolher</option>
                       <% Produto.where(partner_id: Partner.where(slug: "ZAP TV")).each do |produto| %>
-                        <option value="<%= produto.id %>-<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
+                        <option value="<%= produto.produto_id_parceiro %>-<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
                       <% end %>
                     </select>
                   </div>
