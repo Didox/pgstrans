@@ -100,6 +100,24 @@
           <%= f.input :mensagem_cupom_venda, :label => "Mensagem cupom de venda", placeholder: "Mensagem a ser impressa no cupom de venda. Funcionalidade para POS ou TEF." %>
         </div>
 
+        <div class="form-input col-sm-6">
+          <%= f.input :produto_id_parceiro, :label => "produto_id_parceiro", placeholder: "Id do produto no parceiro" %>
+        </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.input :valor_unitario, :label => "valor_unitario" %>
+        </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.label :tipo, "Status do Produto" %>
+          <%= f.select :tipo, [["RECHARGE", "RECHARGE"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+        </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.label :subtipo, "Status do Produto" %>
+          <%= f.select :subtipo, [["VOS", "VOS"], ["DADOS", "DADOS"], ["SMS", "SMS"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+        </div>
+
         <div class="form-actions col-sm-12">
           <%= f.button :button, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-ok"></span>
