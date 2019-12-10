@@ -16,7 +16,7 @@ class Venda < ApplicationRecord
     product_id = params[:unitel_produto_id].split("-").first
     telefone = params[:unitel_telefone]
 
-    venda = Venda.create(agent_id: 114250, product_id: product_id, value: params[:valor], client_msisdn: telefone)
+    venda = Venda.create(agent_id: AGENTE_ID, product_id: product_id, value: params[:valor], client_msisdn: telefone)
 
     venda.store_id = usuario.sub_agente.store_id_parceiro
     venda.seller_id = usuario.sub_agente.seller_id_parceiro
