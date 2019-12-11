@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_105054) do
+ActiveRecord::Schema.define(version: 2019_12_11_105825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,9 +47,10 @@ ActiveRecord::Schema.define(version: 2019_12_11_105054) do
     t.float "valor"
     t.string "iban"
     t.datetime "data_alegacao_pagamento"
-    t.string "saldo_anterior"
-    t.string "saldo_atual"
+    t.float "saldo_anterior"
+    t.float "saldo_atual"
     t.datetime "data_ultima_atualizacao_saldo"
+    t.text "observacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["banco_id"], name: "index_conta_correntes_on_banco_id"

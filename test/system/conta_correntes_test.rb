@@ -19,6 +19,7 @@ class ContaCorrentesTest < ApplicationSystemTestCase
     fill_in "Data ultima atualizacao saldo", with: @conta_corrente.data_ultima_atualizacao_saldo
     fill_in "Iban", with: @conta_corrente.iban
     fill_in "Lancamento", with: @conta_corrente.lancamento_id
+    fill_in "Observacao", with: @conta_corrente.observacao
     fill_in "Saldo anterior", with: @conta_corrente.saldo_anterior
     fill_in "Saldo atual", with: @conta_corrente.saldo_atual
     fill_in "Usuario", with: @conta_corrente.usuario_id
@@ -38,6 +39,7 @@ class ContaCorrentesTest < ApplicationSystemTestCase
     fill_in "Data ultima atualizacao saldo", with: @conta_corrente.data_ultima_atualizacao_saldo
     fill_in "Iban", with: @conta_corrente.iban
     fill_in "Lancamento", with: @conta_corrente.lancamento_id
+    fill_in "Observacao", with: @conta_corrente.observacao
     fill_in "Saldo anterior", with: @conta_corrente.saldo_anterior
     fill_in "Saldo atual", with: @conta_corrente.saldo_atual
     fill_in "Usuario", with: @conta_corrente.usuario_id

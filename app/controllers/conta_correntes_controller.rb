@@ -69,6 +69,6 @@ class ContaCorrentesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def conta_corrente_params
-      params.require(:conta_corrente).permit(:usuario_id, :lancamento_id, :banco_id, :valor, :iban, :data_alegacao_pagamento, :saldo_anterior, :saldo_atual, :data_ultima_atualizacao_saldo)
+      params.require(:conta_corrente).permit(:usuario_id, :lancamento_id, :banco_id, :valor, :iban, :data_alegacao_pagamento, :saldo_anterior, :saldo_atual, :data_ultima_atualizacao_saldo, :observacao)
     end
 end

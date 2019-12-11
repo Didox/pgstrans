@@ -43,6 +43,17 @@ class Venda < ApplicationRecord
 
     venda.save!
 
+    ContaCorrente.create(
+      usuario_id: usuario.id,
+      valor: "-#{valor}",
+      observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+      lancamento_id: 1,
+      banco_id: 1, #usuario.banco_id,
+      iban: "iban",
+      saldo_anterior: ContaCorrente.where(usuario_id: usuario).sum(:valor),
+      data_ultima_atualizacao_saldo: Time.zone.now
+    )
+
     venda
   end
 end

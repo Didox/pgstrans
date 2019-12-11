@@ -20,6 +20,7 @@
                     <th scope="col">Saldo anterior</th>
                     <th scope="col">Saldo atual</th>
                     <th scope="col">Data ultima atualizacao saldo</th>
+                    <th scope="col">Observacao</th>
                     <th colspan="3"></th>
         </tr>
       </thead>
@@ -36,6 +37,7 @@
                     <td><%= conta_corrente.saldo_anterior %></td>
                     <td><%= conta_corrente.saldo_atual %></td>
                     <td><%= conta_corrente.data_ultima_atualizacao_saldo %></td>
+                    <td><%= conta_corrente.observacao %></td>
                     <td><%= link_to 'Mostrar', conta_corrente %></td>
           <td><%= link_to 'Editar', edit_conta_corrente_path(conta_corrente) %></td>
           <td><%= link_to 'Apagar', conta_corrente, method: :delete, data: { confirm: 'Tem certeza?' } %></td>

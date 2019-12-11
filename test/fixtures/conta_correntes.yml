@@ -6,10 +6,11 @@ one:
   banco: one
   valor: 1.5
   iban: MyString
-  data_alegacao_pagamento: 2019-12-11 11:50:54
-  saldo_anterior: MyString
-  saldo_atual: MyString
-  data_ultima_atualizacao_saldo: 2019-12-11 11:50:54
+  data_alegacao_pagamento: 2019-12-11 11:58:25
+  saldo_anterior: 1.5
+  saldo_atual: 1.5
+  data_ultima_atualizacao_saldo: 2019-12-11 11:58:25
+  observacao: MyText
 
 two:
   usuario: two
@@ -17,7 +18,8 @@ two:
   banco: two
   valor: 1.5
   iban: MyString
-  data_alegacao_pagamento: 2019-12-11 11:50:54
-  saldo_anterior: MyString
-  saldo_atual: MyString
-  data_ultima_atualizacao_saldo: 2019-12-11 11:50:54
+  data_alegacao_pagamento: 2019-12-11 11:58:25
+  saldo_anterior: 1.5
+  saldo_atual: 1.5
+  data_ultima_atualizacao_saldo: 2019-12-11 11:58:25
+  observacao: MyText

@@ -60,6 +60,10 @@
             <%= f.label :data_ultima_atualizacao_saldo, class: "col-sm-2 control-label" %>
             <%= f.datetime_select :data_ultima_atualizacao_saldo, class: "form-control" %>
           </div>
+                  <div class="form-input col-sm-6">
+            <%= f.label :observacao, class: "col-sm-2 control-label" %>
+            <%= f.text_area :observacao, class: "form-control" %>
+          </div>
                 <div class="form-actions col-sm-12">
           <%= f.button :button, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-ok"></span>
