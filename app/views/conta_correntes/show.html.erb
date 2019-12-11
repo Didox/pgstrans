@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h4>Mostrar ContaCorrente</h4>
+  <h4>Conta Corrente</h4>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -8,25 +8,25 @@
 
   <div class="container">
     <dl class="dl-horizontal">
-      <dt>Usuario:</dt>
+      <dt>Usuário:</dt>
       <dd><%= @conta_corrente.usuario %></dd>
-      <dt>Lancamento:</dt>
+      <dt>Lançamento:</dt>
       <dd><%= @conta_corrente.lancamento %></dd>
       <dt>Banco:</dt>
       <dd><%= @conta_corrente.banco %></dd>
       <dt>Valor:</dt>
       <dd><%= @conta_corrente.valor %></dd>
-      <dt>Iban:</dt>
+      <dt>IBAN:</dt>
       <dd><%= @conta_corrente.iban %></dd>
-      <dt>Data alegacao pagamento:</dt>
+      <dt>Data da Alegação de Pagamento:</dt>
       <dd><%= @conta_corrente.data_alegacao_pagamento %></dd>
-      <dt>Saldo anterior:</dt>
+      <dt>Saldo Anterior:</dt>
       <dd><%= @conta_corrente.saldo_anterior %></dd>
-      <dt>Saldo atual:</dt>
+      <dt>Saldo Atual:</dt>
       <dd><%= @conta_corrente.saldo_atual %></dd>
-      <dt>Data ultima atualizacao saldo:</dt>
+      <dt>Data da Última Atualização de Saldo:</dt>
       <dd><%= @conta_corrente.data_ultima_atualizacao_saldo %></dd>
-      <dt>Observacao:</dt>
+      <dt>Observação:</dt>
       <dd><%= @conta_corrente.observacao %></dd>
     </dl>
 
