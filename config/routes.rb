@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :conta_correntes
   resources :vendas
   resources :moedas
   get 'backoffice/home'

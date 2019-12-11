@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_102457) do
+ActiveRecord::Schema.define(version: 2019_12_11_105054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,23 @@ ActiveRecord::Schema.define(version: 2019_12_11_102457) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["dispositivo_id"], name: "index_canal_vendas_on_dispositivo_id"
+  end
+
+  create_table "conta_correntes", force: :cascade do |t|
+    t.bigint "usuario_id"
+    t.bigint "lancamento_id"
+    t.bigint "banco_id"
+    t.float "valor"
+    t.string "iban"
+    t.datetime "data_alegacao_pagamento"
+    t.string "saldo_anterior"
+    t.string "saldo_atual"
+    t.datetime "data_ultima_atualizacao_saldo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["banco_id"], name: "index_conta_correntes_on_banco_id"
+    t.index ["lancamento_id"], name: "index_conta_correntes_on_lancamento_id"
+    t.index ["usuario_id"], name: "index_conta_correntes_on_usuario_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -406,6 +423,9 @@ ActiveRecord::Schema.define(version: 2019_12_11_102457) do
   end
 
   add_foreign_key "canal_vendas", "dispositivos"
+  add_foreign_key "conta_correntes", "bancos"
+  add_foreign_key "conta_correntes", "lancamentos"
+  add_foreign_key "conta_correntes", "usuarios"
   add_foreign_key "matrix_users", "usuarios"
   add_foreign_key "moedas", "countries"
   add_foreign_key "produtos", "moedas"

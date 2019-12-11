@@ -13,15 +13,17 @@ class Venda < ApplicationRecord
     {}
   end
 
-  def status
-    ReturnCodeApi.where(return_code: self.response_get_parse["statusCode"], partner_id: self.partner_id).first || ReturnCodeApi.new(error_description_pt: "Status não localizado")
+  def status_desc
+    ReturnCodeApi.where(return_code: self.status, partner_id: self.partner_id).first || ReturnCodeApi.new(error_description_pt: "Status não localizado")
   rescue
     ReturnCodeApi.new(error_description_pt: "Status não localizado")
   end
 
   def self.fazer_venda(params, usuario)
     parceiro = Partner.where(slug: "unitel").first
+    valor = params[:valor].to_i
 
+    raise "Saldo insuficiente para recarga" if usuario.saldo < valor
     raise "Parceiro não localizado" if parceiro.blank?
     raise "Produto não selecionado" if params[:unitel_produto_id].blank?
     raise "Selecione o valor" if params[:valor].blank?
@@ -29,7 +31,6 @@ class Venda < ApplicationRecord
 
     product_id = params[:unitel_produto_id].split("-").first
     telefone = params[:unitel_telefone]
-    valor = params[:valor].to_i
 
     venda = Venda.create(agent_id: AGENTE_ID, product_id: product_id, value: valor, client_msisdn: telefone, usuario_id: usuario.id, parceiro_id: parceiro.id)
 

@@ -5,4 +5,8 @@ class Usuario < ApplicationRecord
   
   validates :email, presence: true, uniqueness: true
   validates :nome, :email, :senha, presence: true
+
+  def saldo
+    ContaCorrente.where(usuario_id: self.id).sum(:valor)
+  end
 end

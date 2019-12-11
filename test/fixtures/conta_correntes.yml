@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  usuario: one
+  lancamento: one
+  banco: one
+  valor: 1.5
+  iban: MyString
+  data_alegacao_pagamento: 2019-12-11 11:50:54
+  saldo_anterior: MyString
+  saldo_atual: MyString
+  data_ultima_atualizacao_saldo: 2019-12-11 11:50:54
+
+two:
+  usuario: two
+  lancamento: two
+  banco: two
+  valor: 1.5
+  iban: MyString
+  data_alegacao_pagamento: 2019-12-11 11:50:54
+  saldo_anterior: MyString
+  saldo_atual: MyString
+  data_ultima_atualizacao_saldo: 2019-12-11 11:50:54
