@@ -1,3 +1,3 @@
 class ReturnCodeApi < ApplicationRecord
-	belongs_to :partners
+	belongs_to :partner
 end

@@ -69,6 +69,6 @@ class ReturnCodeApisController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def return_code_api_params
-      params.require(:return_code_api).permit(:return_code, :return_description, :error_description, :error_description_pt, :partner_code)
+      params.require(:return_code_api).permit(:return_code, :return_description, :error_description, :error_description_pt, :partner_id)
     end
 end

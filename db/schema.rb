@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_10_094302) do
+ActiveRecord::Schema.define(version: 2019_12_11_102457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -245,7 +245,8 @@ ActiveRecord::Schema.define(version: 2019_12_10_094302) do
     t.string "error_description_pt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "partner_code"
+    t.bigint "partner_id"
+    t.index ["partner_id"], name: "index_return_code_apis_on_partner_id"
   end
 
   create_table "status_alegacao_pagamentos", force: :cascade do |t|
@@ -397,6 +398,11 @@ ActiveRecord::Schema.define(version: 2019_12_10_094302) do
     t.text "response_get"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "partner_id"
+    t.bigint "usuario_id"
+    t.string "status"
+    t.index ["partner_id"], name: "index_vendas_on_partner_id"
+    t.index ["usuario_id"], name: "index_vendas_on_usuario_id"
   end
 
   add_foreign_key "canal_vendas", "dispositivos"
@@ -408,10 +414,13 @@ ActiveRecord::Schema.define(version: 2019_12_10_094302) do
   add_foreign_key "provincia", "countries"
   add_foreign_key "remuneracaos", "produtos"
   add_foreign_key "remuneracaos", "usuarios"
+  add_foreign_key "return_code_apis", "partners"
   add_foreign_key "sub_agentes", "industries"
   add_foreign_key "sub_agentes", "provincia", column: "provincia_id"
   add_foreign_key "sub_distribuidors", "municipios"
   add_foreign_key "sub_distribuidors", "provincia", column: "provincia_id"
   add_foreign_key "usuarios", "perfil_usuarios"
   add_foreign_key "usuarios", "sub_agentes"
+  add_foreign_key "vendas", "partners"
+  add_foreign_key "vendas", "usuarios"
 end
