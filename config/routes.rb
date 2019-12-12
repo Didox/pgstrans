@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :status_parceiros
   resources :conta_correntes
   resources :vendas
   resources :moedas

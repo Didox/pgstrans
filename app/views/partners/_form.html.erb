@@ -31,6 +31,11 @@
 				<%= f.input :slug, placeholder: "Slug (código para busca)" %>
 				</div>
 
+		        <div class="form-input">
+		          <%= f.label :status_parceiro_id, "Status do Parceiro" %>
+		          <%= f.select :status_parceiro_id, StatusParceiro.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+		        </div>
+
 				<div class="form-actions col-sm-12">
 					<%= f.button :button, class: 'btn btn-danger' do %>
 						<span class="glyphicon glyphicon-ok"></span>
