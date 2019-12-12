@@ -1,0 +1,26 @@
+<div class="container">
+
+  <h4>Mostrar Status de Parceiro</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Nome:</dt>
+      <dd><%= @status_parceiro.nome %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to status_parceiros_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_status_parceiro_path(@status_parceiro), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>

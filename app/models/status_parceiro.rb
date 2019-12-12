@@ -1,0 +1,2 @@
+class StatusParceiro < ApplicationRecord
+end
