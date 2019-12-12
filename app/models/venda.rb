@@ -20,7 +20,7 @@ class Venda < ApplicationRecord
   end
 
   def self.fazer_venda(params, usuario)
-    parceiro = Partner.where(slug: "unitel").first
+    parceiro = Partner.where("lower(slug) = 'unitel'").first
     valor = params[:valor].to_i
 
     raise "Saldo insuficiente para recarga" if usuario.saldo < valor
