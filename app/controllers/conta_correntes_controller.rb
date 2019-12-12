@@ -4,7 +4,11 @@ class ContaCorrentesController < ApplicationController
   # GET /conta_correntes
   # GET /conta_correntes.json
   def index
-    @conta_correntes = ContaCorrente.all
+    if usuario_logado.admin?
+      @conta_correntes = ContaCorrente.all
+    else
+      @conta_correntes = ContaCorrente.where(usuario: usuario_logado)
+    end
   end
 
   # GET /conta_correntes/1
@@ -35,7 +39,7 @@ class ContaCorrentesController < ApplicationController
           @conta_corrente.usuario = usuario_logado
         end
       
-        format.html { redirect_to @conta_corrente, notice: 'Conta corrente foi criado com sucesso.' }
+        format.html { redirect_to conta_correntes_url, notice: 'Conta corrente foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @conta_corrente }
       else
         format.html { render :new }
@@ -49,7 +53,7 @@ class ContaCorrentesController < ApplicationController
   def update
     respond_to do |format|
       if @conta_corrente.update(conta_corrente_params)
-        format.html { redirect_to @conta_corrente, notice: 'Conta corrente was successfully updated.' }
+        format.html { redirect_to conta_correntes_url, notice: 'Conta corrente was successfully updated.' }
         format.json { render :show, status: :ok, location: @conta_corrente }
       else
         format.html { render :edit }
@@ -76,6 +80,6 @@ class ContaCorrentesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def conta_corrente_params
-      params.require(:conta_corrente).permit(:usuario_id, :lancamento_id, :banco_id, :valor, :iban, :data_alegacao_pagamento, :saldo_anterior, :saldo_atual, :data_ultima_atualizacao_saldo, :observacao)
+      params.require(:conta_corrente).permit(:usuario_id, :lancamento_id, :banco_id, :valor, :iban, :data_alegacao_pagamento, :observacao)
     end
 end
