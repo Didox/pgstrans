@@ -19,6 +19,7 @@ class ContaCorrentesController < ApplicationController
   # GET /conta_correntes/new
   def new
     @conta_corrente = ContaCorrente.new
+    @conta_corrente.data_alegacao_pagamento = Time.zone.now
   end
 
   # GET /conta_correntes/1/edit
