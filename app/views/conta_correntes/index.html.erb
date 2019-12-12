@@ -12,12 +12,8 @@
       <thead>
         <tr>
           <th scope="col">Dados</th>
-          <th scope="col">Valor KZ</th>
-          <th scope="col">Data do Lançamento</th>
-          <th scope="col">Saldo Anterior</th>
-          <th scope="col">Saldo Atual</th>
-          <th scope="col">Última Atualiz.</th>
-          <th scope="col">Observação</th>
+          <th scope="col">Valores</th>
+          <th scope="col">Datas</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -25,19 +21,23 @@
       <tbody>
         <% @conta_correntes.each do |conta_corrente| %>
         <tr>
-          <td>
+          <td style="width: 250px">
             <b>Usuario:</b> <%= conta_corrente.usuario.nome %><br>
             <b>Lançamento:</b> <%= conta_corrente.lancamento.nome %><br>
             <b>Banco:</b> <%= conta_corrente.banco.nome %><br>
             <b>IBAN:</b> <%= conta_corrente.iban %><br>
             <b>Observação:</b> <%= conta_corrente.observacao %>
           </td>
-          <td><%= conta_corrente.valor %></td>
-          <td><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") rescue "" %></td>
-          <td><%= conta_corrente.saldo_anterior %></td>
-          <td><%= conta_corrente.saldo_atual %></td>
-          <td><%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") rescue "" %></td>
-          
+          <td style="width: 300px">
+            <b>Valor do lançamento:</b> <%= number_to_currency(conta_corrente.valor, :unit => "KZ") %><br>
+            <b>Saldo Atual:</b> <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %><br>
+            <b>Saldo Anterior:</b> <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %><br>
+          </td>
+          <td style="width: 350px">
+            <b>Data do Lançamento:</b> <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %><br>
+            <b>Última Atualização:</b> <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %><br>
+          </td>
+
           <td><%= link_to 'Mostrar', conta_corrente %></td>
           <% if usuario_logado.admin? %>
             <td><%= link_to 'Editar', edit_conta_corrente_path(conta_corrente) %></td>
