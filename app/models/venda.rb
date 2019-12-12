@@ -24,40 +24,42 @@ class Venda < ApplicationRecord
   end
 
   def self.fazer_venda(params, usuario)
-    parceiro = Partner.where("lower(slug) = 'unitel'").first
-    valor = params[:valor].to_i
+    ActiveRecord::Base.transaction do
+      parceiro = Partner.where("lower(slug) = 'unitel'").first
+      valor = params[:valor].to_i
 
-    raise "Saldo insuficiente para recarga" if usuario.saldo < valor
-    raise "Parceiro não localizado" if parceiro.blank?
-    raise "Produto não selecionado" if params[:unitel_produto_id].blank?
-    raise "Selecione o valor" if params[:valor].blank?
-    raise "Digite o telefone" if params[:unitel_telefone].blank?
+      raise "Saldo insuficiente para recarga" if usuario.saldo < valor
+      raise "Parceiro não localizado" if parceiro.blank?
+      raise "Produto não selecionado" if params[:unitel_produto_id].blank?
+      raise "Selecione o valor" if params[:valor].blank?
+      raise "Digite o telefone" if params[:unitel_telefone].blank?
 
-    product_id = params[:unitel_produto_id].split("-").first
-    telefone = params[:unitel_telefone]
+      product_id = params[:unitel_produto_id].split("-").first
+      telefone = params[:unitel_telefone]
 
-    venda = Venda.create(agent_id: AGENTE_ID, product_id: product_id, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+      venda = Venda.create(agent_id: AGENTE_ID, product_id: product_id, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
 
-    venda.store_id = usuario.sub_agente.store_id_parceiro
-    venda.seller_id = usuario.sub_agente.seller_id_parceiro
-    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+      venda.store_id = usuario.sub_agente.store_id_parceiro
+      venda.seller_id = usuario.sub_agente.seller_id_parceiro
+      venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
 
-    retorno = `./chaves/exec.sh #{venda.id} #{venda.product_id} #{venda.agent_id} #{venda.store_id} #{venda.seller_id} #{venda.terminal_id} #{valor} #{venda.client_msisdn}`
-    venda.request_send, venda.response_get = retorno.split(" --- ")
-    venda.status = venda.response_get_parse["statusCode"] rescue "3"
-    venda.save!
+      retorno = `./chaves/exec.sh #{venda.id} #{venda.product_id} #{venda.agent_id} #{venda.store_id} #{venda.seller_id} #{venda.terminal_id} #{valor} #{venda.client_msisdn}`
+      venda.request_send, venda.response_get = retorno.split(" --- ")
+      venda.status = venda.response_get_parse["statusCode"] rescue "3"
+      venda.save!
 
-    if venda.sucesso?
-      ContaCorrente.create!(
-        usuario: usuario,
-        valor: "-#{valor}",
-        observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-        lancamento: Lancamento.where(nome: "Compra de crédito"),
-        banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
-        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
-      )
+      if venda.sucesso?
+        ContaCorrente.create!(
+          usuario: usuario,
+          valor: "-#{valor}",
+          observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+          lancamento: Lancamento.where(nome: "Compra de crédito"),
+          banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
+          iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
+        )
+      end
+
+      return venda
     end
-
-    venda
   end
 end
