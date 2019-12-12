@@ -38,7 +38,7 @@ class ProvinciaTest < ApplicationSystemTestCase
     fill_in "Population", with: @provincium.population
     click_on "Update Provincium"
 
-    assert_text "Provincium was successfully updated"
+    assert_text "Provincium foi atualizado com sucesso"
     click_on "Back"
   end
 

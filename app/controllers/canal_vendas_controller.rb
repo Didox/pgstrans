@@ -42,7 +42,7 @@ class CanalVendasController < ApplicationController
   def update
     respond_to do |format|
       if @canal_venda.update(canal_venda_params)
-        format.html { redirect_to @canal_venda, notice: 'Canal venda was successfully updated.' }
+        format.html { redirect_to @canal_venda, notice: 'Canal venda foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @canal_venda }
       else
         format.html { render :edit }

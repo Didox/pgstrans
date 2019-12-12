@@ -46,7 +46,7 @@ class ContaCorrentesTest < ApplicationSystemTestCase
     fill_in "Valor", with: @conta_corrente.valor
     click_on "Update Conta corrente"
 
-    assert_text "Conta corrente was successfully updated"
+    assert_text "Conta corrente foi atualizado com sucesso"
     click_on "Back"
   end
 

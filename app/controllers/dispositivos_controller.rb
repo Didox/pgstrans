@@ -42,7 +42,7 @@ class DispositivosController < ApplicationController
   def update
     respond_to do |format|
       if @dispositivo.update(dispositivo_params)
-        format.html { redirect_to @dispositivo, notice: 'Dispositivo was successfully updated.' }
+        format.html { redirect_to @dispositivo, notice: 'Dispositivo foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @dispositivo }
       else
         format.html { render :edit }

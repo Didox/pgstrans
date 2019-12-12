@@ -42,7 +42,7 @@ class ProvinciaController < ApplicationController
   def update
     respond_to do |format|
       if @provincium.update(provincium_params)
-        format.html { redirect_to @provincium, notice: 'Provincium was successfully updated.' }
+        format.html { redirect_to @provincium, notice: 'Provincium foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @provincium }
       else
         format.html { render :edit }

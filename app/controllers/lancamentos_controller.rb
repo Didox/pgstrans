@@ -42,7 +42,7 @@ class LancamentosController < ApplicationController
   def update
     respond_to do |format|
       if @lancamento.update(lancamento_params)
-        format.html { redirect_to @lancamento, notice: 'Lancamento was successfully updated.' }
+        format.html { redirect_to @lancamento, notice: 'Lancamento foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @lancamento }
       else
         format.html { render :edit }

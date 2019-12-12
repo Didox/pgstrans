@@ -42,7 +42,7 @@ class MoedasController < ApplicationController
   def update
     respond_to do |format|
       if @moeda.update(moeda_params)
-        format.html { redirect_to @moeda, notice: 'Moeda was successfully updated.' }
+        format.html { redirect_to @moeda, notice: 'Moeda foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @moeda }
       else
         format.html { render :edit }

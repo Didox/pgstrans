@@ -9,13 +9,13 @@
   <div class="container">
     <dl class="dl-horizontal">
       <dt>Usuário:</dt>
-      <dd><%= @conta_corrente.usuario %></dd>
+      <dd><%= @conta_corrente.usuario.nome %></dd>
       <dt>Lançamento:</dt>
-      <dd><%= @conta_corrente.lancamento %></dd>
+      <dd><%= @conta_corrente.lancamento.nome %></dd>
       <dt>Banco:</dt>
-      <dd><%= @conta_corrente.banco %></dd>
+      <dd><%= @conta_corrente.banco.nome %></dd>
       <dt>Valor:</dt>
-      <dd><%= @conta_corrente.valor %></dd>
+      <dd><%= number_to_currency(@conta_corrente.valor, :unit => "KZ") %></dd>
       <dt>IBAN:</dt>
       <dd><%= @conta_corrente.iban %></dd>
       <dt>Data da Alegação de Pagamento:</dt>

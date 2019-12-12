@@ -28,7 +28,7 @@ class StatusClientesTest < ApplicationSystemTestCase
     fill_in "Nome", with: @status_cliente.nome
     click_on "Update Status cliente"
 
-    assert_text "Status cliente was successfully updated"
+    assert_text "Status cliente foi atualizado com sucesso"
     click_on "Back"
   end
 

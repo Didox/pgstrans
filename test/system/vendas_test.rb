@@ -44,7 +44,7 @@ class VendasTest < ApplicationSystemTestCase
     fill_in "Value", with: @venda.value
     click_on "Update Venda"
 
-    assert_text "Venda was successfully updated"
+    assert_text "Venda foi atualizado com sucesso"
     click_on "Back"
   end
 

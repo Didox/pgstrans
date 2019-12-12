@@ -34,7 +34,7 @@ class MoedasTest < ApplicationSystemTestCase
     fill_in "Simbolo", with: @moeda.simbolo
     click_on "Update Moeda"
 
-    assert_text "Moeda was successfully updated"
+    assert_text "Moeda foi atualizado com sucesso"
     click_on "Back"
   end
 

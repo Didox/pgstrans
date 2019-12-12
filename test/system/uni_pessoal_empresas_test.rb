@@ -28,7 +28,7 @@ class UniPessoalEmpresasTest < ApplicationSystemTestCase
     fill_in "Nome", with: @uni_pessoal_empresa.nome
     click_on "Update Uni pessoal empresa"
 
-    assert_text "Uni pessoal empresa was successfully updated"
+    assert_text "Uni pessoal empresa foi atualizado com sucesso"
     click_on "Back"
   end
 

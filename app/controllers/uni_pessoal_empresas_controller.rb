@@ -42,7 +42,7 @@ class UniPessoalEmpresasController < ApplicationController
   def update
     respond_to do |format|
       if @uni_pessoal_empresa.update(uni_pessoal_empresa_params)
-        format.html { redirect_to @uni_pessoal_empresa, notice: 'Uni pessoal empresa was successfully updated.' }
+        format.html { redirect_to @uni_pessoal_empresa, notice: 'Uni pessoal empresa foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @uni_pessoal_empresa }
       else
         format.html { render :edit }

@@ -48,7 +48,7 @@ class BancosTest < ApplicationSystemTestCase
     fill_in "Website", with: @banco.website
     click_on "Update Banco"
 
-    assert_text "Banco was successfully updated"
+    assert_text "Banco foi atualizado com sucesso"
     click_on "Back"
   end
 

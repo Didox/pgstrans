@@ -34,7 +34,7 @@ class CountriesTest < ApplicationSystemTestCase
     fill_in "Name pt", with: @country.name_pt
     click_on "Update Country"
 
-    assert_text "Country was successfully updated"
+    assert_text "Country foi atualizado com sucesso"
     click_on "Back"
   end
 

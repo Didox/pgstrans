@@ -42,7 +42,7 @@ class TipoTransacaosController < ApplicationController
   def update
     respond_to do |format|
       if @tipo_transacao.update(tipo_transacao_params)
-        format.html { redirect_to @tipo_transacao, notice: 'Tipo transacao was successfully updated.' }
+        format.html { redirect_to @tipo_transacao, notice: 'Tipo transacao foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @tipo_transacao }
       else
         format.html { render :edit }

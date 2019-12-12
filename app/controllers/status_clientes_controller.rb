@@ -42,7 +42,7 @@ class StatusClientesController < ApplicationController
   def update
     respond_to do |format|
       if @status_cliente.update(status_cliente_params)
-        format.html { redirect_to @status_cliente, notice: 'Status cliente was successfully updated.' }
+        format.html { redirect_to @status_cliente, notice: 'Status cliente foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @status_cliente }
       else
         format.html { render :edit }

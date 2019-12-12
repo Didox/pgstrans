@@ -28,7 +28,7 @@ class LancamentosTest < ApplicationSystemTestCase
     fill_in "Nome", with: @lancamento.nome
     click_on "Update Lancamento"
 
-    assert_text "Lancamento was successfully updated"
+    assert_text "Lancamento foi atualizado com sucesso"
     click_on "Back"
   end
 

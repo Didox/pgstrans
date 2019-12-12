@@ -42,7 +42,7 @@ class VendasController < ApplicationController
   def update
     respond_to do |format|
       if @venda.update(venda_params)
-        format.html { redirect_to @venda, notice: 'Venda was successfully updated.' }
+        format.html { redirect_to @venda, notice: 'Venda foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @venda }
       else
         format.html { render :edit }

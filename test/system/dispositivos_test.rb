@@ -38,7 +38,7 @@ class DispositivosTest < ApplicationSystemTestCase
     fill_in "Numero serie", with: @dispositivo.numero_serie
     click_on "Update Dispositivo"
 
-    assert_text "Dispositivo was successfully updated"
+    assert_text "Dispositivo foi atualizado com sucesso"
     click_on "Back"
   end
 

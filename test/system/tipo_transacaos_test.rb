@@ -28,7 +28,7 @@ class TipoTransacaosTest < ApplicationSystemTestCase
     fill_in "Nome", with: @tipo_transacao.nome
     click_on "Update Tipo transacao"
 
-    assert_text "Tipo transacao was successfully updated"
+    assert_text "Tipo transacao foi atualizado com sucesso"
     click_on "Back"
   end
 

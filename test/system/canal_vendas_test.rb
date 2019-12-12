@@ -32,7 +32,7 @@ class CanalVendasTest < ApplicationSystemTestCase
     fill_in "Nome", with: @canal_venda.nome
     click_on "Update Canal venda"
 
-    assert_text "Canal venda was successfully updated"
+    assert_text "Canal venda foi atualizado com sucesso"
     click_on "Back"
   end
 
