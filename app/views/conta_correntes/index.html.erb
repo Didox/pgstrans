@@ -34,9 +34,9 @@
           </td>
           <td><%= conta_corrente.valor %></td>
           <td><%= conta_corrente.data_alegacao_pagamento %></td>
-          <td><%= conta_corrente.saldo_anterior.strftime("%d/%m/%Y %H:%M") %></td>
-          <td><%= conta_corrente.saldo_atual.strftime("%d/%m/%Y %H:%M") %></td>
-          <td><%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %></td>
+          <td><%= conta_corrente.saldo_anterior.strftime("%d/%m/%Y %H:%M") rescue "" %></td>
+          <td><%= conta_corrente.saldo_atual.strftime("%d/%m/%Y %H:%M") rescue "" %></td>
+          <td><%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") rescue "" %></td>
           <td><%= link_to 'Mostrar', conta_corrente %></td>
           <td><%= link_to 'Editar', edit_conta_corrente_path(conta_corrente) %></td>
           <td><%= link_to 'Apagar', conta_corrente, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
