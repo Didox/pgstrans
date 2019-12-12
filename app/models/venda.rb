@@ -48,8 +48,8 @@ class Venda < ApplicationRecord
     venda.save!
 
     if venda.sucesso?
-      ContaCorrente.create(
-        usuario_id: usuario.id,
+      ContaCorrente.create!(
+        usuario: usuario,
         valor: "-#{valor}",
         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
         lancamento: Lancamento.where(nome: "Compra de crédito"),
