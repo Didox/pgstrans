@@ -24,17 +24,21 @@
           </div>
         <% end %>
 
-
+        <% if usuario_logado.admin? %>
+          <div class="form-input col-sm-6">
+            <%= f.label :usuario_id, "Usuário" %>
+            <%= f.select :usuario_id, Usuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          </div>
+        <% end %>
+        
         <div class="form-input col-sm-6">
-          <%= f.input :usuario, :label => "Usuário" %>
+          <%= f.label :lancamento_id, "Lançamento" %>
+          <%= f.select :lancamento_id, Lancamento.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
         
         <div class="form-input col-sm-6">
-          <%= f.input :lancamento, :label => "Lançamento" %>
-        </div>
-        
-        <div class="form-input col-sm-6">
-          <%= f.input :banco, :label => "Banco" %>
+          <%= f.label :banco_id, "Banco" %>
+          <%= f.select :banco_id, Banco.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
         
         <div class="form-input col-sm-6">

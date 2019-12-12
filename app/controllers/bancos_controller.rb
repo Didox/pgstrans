@@ -28,7 +28,7 @@ class BancosController < ApplicationController
 
     respond_to do |format|
       if @banco.save
-        format.html { redirect_to @banco, notice: 'Banco was successfully created.' }
+        format.html { redirect_to @banco, notice: 'Banco foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @banco }
       else
         format.html { render :new }
@@ -56,7 +56,7 @@ class BancosController < ApplicationController
   def destroy
     @banco.destroy
     respond_to do |format|
-      format.html { redirect_to bancos_url, notice: 'Banco was successfully destroyed.' }
+      format.html { redirect_to bancos_url, notice: 'Banco foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

@@ -25,7 +25,7 @@ class VendasTest < ApplicationSystemTestCase
     fill_in "Value", with: @venda.value
     click_on "Create Venda"
 
-    assert_text "Venda was successfully created"
+    assert_text "Venda foi criado com sucesso"
     click_on "Back"
   end
 
@@ -54,6 +54,6 @@ class VendasTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Venda was successfully destroyed"
+    assert_text "Venda foi apagado com sucesso"
   end
 end

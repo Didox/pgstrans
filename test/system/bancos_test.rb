@@ -27,7 +27,7 @@ class BancosTest < ApplicationSystemTestCase
     fill_in "Website", with: @banco.website
     click_on "Create Banco"
 
-    assert_text "Banco was successfully created"
+    assert_text "Banco foi criado com sucesso"
     click_on "Back"
   end
 
@@ -58,6 +58,6 @@ class BancosTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Banco was successfully destroyed"
+    assert_text "Banco foi apagado com sucesso"
   end
 end

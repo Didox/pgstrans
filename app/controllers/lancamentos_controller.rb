@@ -28,7 +28,7 @@ class LancamentosController < ApplicationController
 
     respond_to do |format|
       if @lancamento.save
-        format.html { redirect_to @lancamento, notice: 'Lancamento was successfully created.' }
+        format.html { redirect_to @lancamento, notice: 'Lancamento foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @lancamento }
       else
         format.html { render :new }
@@ -56,7 +56,7 @@ class LancamentosController < ApplicationController
   def destroy
     @lancamento.destroy
     respond_to do |format|
-      format.html { redirect_to lancamentos_url, notice: 'Lancamento was successfully destroyed.' }
+      format.html { redirect_to lancamentos_url, notice: 'Lancamento foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

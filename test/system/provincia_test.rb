@@ -22,7 +22,7 @@ class ProvinciaTest < ApplicationSystemTestCase
     fill_in "Population", with: @provincium.population
     click_on "Create Provincium"
 
-    assert_text "Provincium was successfully created"
+    assert_text "Provincium foi criado com sucesso"
     click_on "Back"
   end
 
@@ -48,6 +48,6 @@ class ProvinciaTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Provincium was successfully destroyed"
+    assert_text "Provincium foi apagado com sucesso"
   end
 end

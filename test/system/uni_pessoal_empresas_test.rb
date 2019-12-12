@@ -17,7 +17,7 @@ class UniPessoalEmpresasTest < ApplicationSystemTestCase
     fill_in "Nome", with: @uni_pessoal_empresa.nome
     click_on "Create Uni pessoal empresa"
 
-    assert_text "Uni pessoal empresa was successfully created"
+    assert_text "Uni pessoal empresa foi criado com sucesso"
     click_on "Back"
   end
 
@@ -38,6 +38,6 @@ class UniPessoalEmpresasTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Uni pessoal empresa was successfully destroyed"
+    assert_text "Uni pessoal empresa foi apagado com sucesso"
   end
 end

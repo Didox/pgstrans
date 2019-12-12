@@ -28,7 +28,7 @@ class DispositivosController < ApplicationController
 
     respond_to do |format|
       if @dispositivo.save
-        format.html { redirect_to @dispositivo, notice: 'Dispositivo was successfully created.' }
+        format.html { redirect_to @dispositivo, notice: 'Dispositivo foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @dispositivo }
       else
         format.html { render :new }
@@ -56,7 +56,7 @@ class DispositivosController < ApplicationController
   def destroy
     @dispositivo.destroy
     respond_to do |format|
-      format.html { redirect_to dispositivos_url, notice: 'Dispositivo was successfully destroyed.' }
+      format.html { redirect_to dispositivos_url, notice: 'Dispositivo foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

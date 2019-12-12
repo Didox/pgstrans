@@ -17,7 +17,7 @@ class StatusClientesTest < ApplicationSystemTestCase
     fill_in "Nome", with: @status_cliente.nome
     click_on "Create Status cliente"
 
-    assert_text "Status cliente was successfully created"
+    assert_text "Status cliente foi criado com sucesso"
     click_on "Back"
   end
 
@@ -38,6 +38,6 @@ class StatusClientesTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Status cliente was successfully destroyed"
+    assert_text "Status cliente foi apagado com sucesso"
   end
 end

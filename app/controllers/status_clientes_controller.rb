@@ -28,7 +28,7 @@ class StatusClientesController < ApplicationController
 
     respond_to do |format|
       if @status_cliente.save
-        format.html { redirect_to @status_cliente, notice: 'Status cliente was successfully created.' }
+        format.html { redirect_to @status_cliente, notice: 'Status cliente foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @status_cliente }
       else
         format.html { render :new }
@@ -56,7 +56,7 @@ class StatusClientesController < ApplicationController
   def destroy
     @status_cliente.destroy
     respond_to do |format|
-      format.html { redirect_to status_clientes_url, notice: 'Status cliente was successfully destroyed.' }
+      format.html { redirect_to status_clientes_url, notice: 'Status cliente foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

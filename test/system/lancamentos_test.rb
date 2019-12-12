@@ -17,7 +17,7 @@ class LancamentosTest < ApplicationSystemTestCase
     fill_in "Nome", with: @lancamento.nome
     click_on "Create Lancamento"
 
-    assert_text "Lancamento was successfully created"
+    assert_text "Lancamento foi criado com sucesso"
     click_on "Back"
   end
 
@@ -38,6 +38,6 @@ class LancamentosTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Lancamento was successfully destroyed"
+    assert_text "Lancamento foi apagado com sucesso"
   end
 end

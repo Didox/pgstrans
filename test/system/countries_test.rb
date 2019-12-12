@@ -20,7 +20,7 @@ class CountriesTest < ApplicationSystemTestCase
     fill_in "Name pt", with: @country.name_pt
     click_on "Create Country"
 
-    assert_text "Country was successfully created"
+    assert_text "Country foi criado com sucesso"
     click_on "Back"
   end
 
@@ -44,6 +44,6 @@ class CountriesTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Country was successfully destroyed"
+    assert_text "Country foi apagado com sucesso"
   end
 end

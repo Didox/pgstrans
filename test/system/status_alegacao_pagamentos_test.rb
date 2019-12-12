@@ -17,7 +17,7 @@ class StatusAlegacaoPagamentosTest < ApplicationSystemTestCase
     fill_in "Nome", with: @status_alegacao_pagamento.nome
     click_on "Create Status alegacao pagamento"
 
-    assert_text "Status alegacao pagamento was successfully created"
+    assert_text "Status alegacao pagamento foi criado com sucesso"
     click_on "Back"
   end
 
@@ -28,7 +28,7 @@ class StatusAlegacaoPagamentosTest < ApplicationSystemTestCase
     fill_in "Nome", with: @status_alegacao_pagamento.nome
     click_on "Update Status alegacao pagamento"
 
-    assert_text "Status alegacao pagamento was successfully updated"
+    assert_text "Status alegacao foi atualizado com sucesso"
     click_on "Back"
   end
 
@@ -38,6 +38,6 @@ class StatusAlegacaoPagamentosTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Status alegacao pagamento was successfully destroyed"
+    assert_text "Status alegacao pagamento foi apagado com sucesso"
   end
 end

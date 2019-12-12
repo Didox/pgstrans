@@ -19,7 +19,7 @@ class CanalVendasTest < ApplicationSystemTestCase
     fill_in "Nome", with: @canal_venda.nome
     click_on "Create Canal venda"
 
-    assert_text "Canal venda was successfully created"
+    assert_text "Canal venda foi criado com sucesso"
     click_on "Back"
   end
 
@@ -42,6 +42,6 @@ class CanalVendasTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Canal venda was successfully destroyed"
+    assert_text "Canal venda foi apagado com sucesso"
   end
 end

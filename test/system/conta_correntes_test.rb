@@ -26,7 +26,7 @@ class ContaCorrentesTest < ApplicationSystemTestCase
     fill_in "Valor", with: @conta_corrente.valor
     click_on "Create Conta corrente"
 
-    assert_text "Conta corrente was successfully created"
+    assert_text "Conta corrente foi criado com sucesso"
     click_on "Back"
   end
 
@@ -56,6 +56,6 @@ class ContaCorrentesTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Conta corrente was successfully destroyed"
+    assert_text "Conta corrente foi apagado com sucesso"
   end
 end

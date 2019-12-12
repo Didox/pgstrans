@@ -20,7 +20,7 @@ class MoedasTest < ApplicationSystemTestCase
     fill_in "Simbolo", with: @moeda.simbolo
     click_on "Create Moeda"
 
-    assert_text "Moeda was successfully created"
+    assert_text "Moeda foi criado com sucesso"
     click_on "Back"
   end
 
@@ -44,6 +44,6 @@ class MoedasTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Moeda was successfully destroyed"
+    assert_text "Moeda foi apagado com sucesso"
   end
 end

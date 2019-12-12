@@ -28,7 +28,7 @@ class TipoTransacaosController < ApplicationController
 
     respond_to do |format|
       if @tipo_transacao.save
-        format.html { redirect_to @tipo_transacao, notice: 'Tipo transacao was successfully created.' }
+        format.html { redirect_to @tipo_transacao, notice: 'Tipo transacao foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @tipo_transacao }
       else
         format.html { render :new }
@@ -56,7 +56,7 @@ class TipoTransacaosController < ApplicationController
   def destroy
     @tipo_transacao.destroy
     respond_to do |format|
-      format.html { redirect_to tipo_transacaos_url, notice: 'Tipo transacao was successfully destroyed.' }
+      format.html { redirect_to tipo_transacaos_url, notice: 'Tipo transacao foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

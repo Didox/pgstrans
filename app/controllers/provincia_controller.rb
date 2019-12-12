@@ -28,7 +28,7 @@ class ProvinciaController < ApplicationController
 
     respond_to do |format|
       if @provincium.save
-        format.html { redirect_to @provincium, notice: 'Provincium was successfully created.' }
+        format.html { redirect_to @provincium, notice: 'Provincium foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @provincium }
       else
         format.html { render :new }
@@ -56,7 +56,7 @@ class ProvinciaController < ApplicationController
   def destroy
     @provincium.destroy
     respond_to do |format|
-      format.html { redirect_to provincia_url, notice: 'Provincium was successfully destroyed.' }
+      format.html { redirect_to provincia_url, notice: 'Provincium foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

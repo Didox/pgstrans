@@ -22,7 +22,7 @@ class DispositivosTest < ApplicationSystemTestCase
     fill_in "Numero serie", with: @dispositivo.numero_serie
     click_on "Create Dispositivo"
 
-    assert_text "Dispositivo was successfully created"
+    assert_text "Dispositivo foi criado com sucesso"
     click_on "Back"
   end
 
@@ -48,6 +48,6 @@ class DispositivosTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Dispositivo was successfully destroyed"
+    assert_text "Dispositivo foi apagado com sucesso"
   end
 end

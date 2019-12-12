@@ -28,7 +28,7 @@ class MoedasController < ApplicationController
 
     respond_to do |format|
       if @moeda.save
-        format.html { redirect_to @moeda, notice: 'Moeda was successfully created.' }
+        format.html { redirect_to @moeda, notice: 'Moeda foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @moeda }
       else
         format.html { render :new }
@@ -56,7 +56,7 @@ class MoedasController < ApplicationController
   def destroy
     @moeda.destroy
     respond_to do |format|
-      format.html { redirect_to moedas_url, notice: 'Moeda was successfully destroyed.' }
+      format.html { redirect_to moedas_url, notice: 'Moeda foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

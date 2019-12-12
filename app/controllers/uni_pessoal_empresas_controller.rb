@@ -28,7 +28,7 @@ class UniPessoalEmpresasController < ApplicationController
 
     respond_to do |format|
       if @uni_pessoal_empresa.save
-        format.html { redirect_to @uni_pessoal_empresa, notice: 'Uni pessoal empresa was successfully created.' }
+        format.html { redirect_to @uni_pessoal_empresa, notice: 'Uni pessoal empresa foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @uni_pessoal_empresa }
       else
         format.html { render :new }
@@ -56,7 +56,7 @@ class UniPessoalEmpresasController < ApplicationController
   def destroy
     @uni_pessoal_empresa.destroy
     respond_to do |format|
-      format.html { redirect_to uni_pessoal_empresas_url, notice: 'Uni pessoal empresa was successfully destroyed.' }
+      format.html { redirect_to uni_pessoal_empresas_url, notice: 'Uni pessoal empresa foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

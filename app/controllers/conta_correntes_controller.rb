@@ -25,10 +25,17 @@ class ContaCorrentesController < ApplicationController
   # POST /conta_correntes.json
   def create
     @conta_corrente = ContaCorrente.new(conta_corrente_params)
+    unless usuario_logado.admin?
+      @conta_corrente.usuario = usuario_logado
+    end
 
     respond_to do |format|
       if @conta_corrente.save
-        format.html { redirect_to @conta_corrente, notice: 'Conta corrente was successfully created.' }
+        unless usuario_logado.admin?
+          @conta_corrente.usuario = usuario_logado
+        end
+      
+        format.html { redirect_to @conta_corrente, notice: 'Conta corrente foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @conta_corrente }
       else
         format.html { render :new }
@@ -56,7 +63,7 @@ class ContaCorrentesController < ApplicationController
   def destroy
     @conta_corrente.destroy
     respond_to do |format|
-      format.html { redirect_to conta_correntes_url, notice: 'Conta corrente was successfully destroyed.' }
+      format.html { redirect_to conta_correntes_url, notice: 'Conta corrente foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

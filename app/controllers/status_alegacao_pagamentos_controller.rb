@@ -28,7 +28,7 @@ class StatusAlegacaoPagamentosController < ApplicationController
 
     respond_to do |format|
       if @status_alegacao_pagamento.save
-        format.html { redirect_to @status_alegacao_pagamento, notice: 'Status alegacao pagamento was successfully created.' }
+        format.html { redirect_to @status_alegacao_pagamento, notice: 'Status alegacao pagamento foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @status_alegacao_pagamento }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class StatusAlegacaoPagamentosController < ApplicationController
   def update
     respond_to do |format|
       if @status_alegacao_pagamento.update(status_alegacao_pagamento_params)
-        format.html { redirect_to @status_alegacao_pagamento, notice: 'Status alegacao pagamento was successfully updated.' }
+        format.html { redirect_to @status_alegacao_pagamento, notice: 'Status alegacao foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @status_alegacao_pagamento }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class StatusAlegacaoPagamentosController < ApplicationController
   def destroy
     @status_alegacao_pagamento.destroy
     respond_to do |format|
-      format.html { redirect_to status_alegacao_pagamentos_url, notice: 'Status alegacao pagamento was successfully destroyed.' }
+      format.html { redirect_to status_alegacao_pagamentos_url, notice: 'Status alegacao pagamento foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

@@ -17,7 +17,7 @@ class TipoTransacaosTest < ApplicationSystemTestCase
     fill_in "Nome", with: @tipo_transacao.nome
     click_on "Create Tipo transacao"
 
-    assert_text "Tipo transacao was successfully created"
+    assert_text "Tipo transacao foi criado com sucesso"
     click_on "Back"
   end
 
@@ -38,6 +38,6 @@ class TipoTransacaosTest < ApplicationSystemTestCase
       click_on "Destroy", match: :first
     end
 
-    assert_text "Tipo transacao was successfully destroyed"
+    assert_text "Tipo transacao foi apagado com sucesso"
   end
 end
