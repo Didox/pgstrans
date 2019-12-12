@@ -33,7 +33,7 @@
             <b>Observação:</b> <%= conta_corrente.observacao %>
           </td>
           <td><%= conta_corrente.valor %></td>
-          <td><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") rescue "" %></td>
+          <td><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y") rescue "" %></td>
           <td><%= conta_corrente.saldo_anterior %></td>
           <td><%= conta_corrente.saldo_atual %></td>
           <td><%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") rescue "" %></td>
