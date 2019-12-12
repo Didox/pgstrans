@@ -28,7 +28,7 @@
             <td><%= return_code_api.return_description %></td>
             <td><%= return_code_api.error_description %></td>
             <td><%= return_code_api.error_description_pt %></td>
-            <td><%= return_code_api.partner.name %></td>
+            <td><%= return_code_api.partner.name rescue "" %></td>
 
             <td><%= link_to 'Mostrar', return_code_api %></td>
             <td><%= link_to 'Editar', edit_return_code_api_path(return_code_api) %></td>

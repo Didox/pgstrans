@@ -4,7 +4,7 @@ class RecargaController < ApplicationController
   def confirma
     venda = Venda.fazer_venda(params, usuario_logado)
     begin
-      if venda.response_get_parse["statusCode"] == "0"
+      if venda.sucesso?
         render json: {mensagem: "Recarga efetuada com sucesso!"}, status: 200
       else
         render json: {mensagem: "Falha ao efetuar recarga", erro: venda.response_get}, status: 401
