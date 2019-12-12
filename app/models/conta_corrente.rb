@@ -12,7 +12,7 @@ class ContaCorrente < ApplicationRecord
   def preenche_padrao
   	self.data_alegacao_pagamento ||= Time.zone.now
   	self.data_alegacao_pagamento ||= Time.zone.now
-  	self.saldo_atual = ContaCorrente.where(usuario_id: usuario).sum(:valor)
+  	self.saldo_anterior = ContaCorrente.where(usuario_id: usuario).sum(:valor)
   end
 
   def atualiza_saldo
