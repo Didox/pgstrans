@@ -13,16 +13,16 @@
         @partner_default = partner if index == 0 %>
         <% if partner.status_parceiro_id == 1 %>
           <!--<%= partner.slug %>-->
-          <div class="col-md-3">
+          <div class="col-md-3" style="text-align: center;">
             <a href="javascript:;" onclick="pgstrans.displayRecarga('<%= partner.slug %>')">
-              <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive") rescue "" %>
+              <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive", style: "display: inline-block;") rescue "" %>
             </a>
-            <span class="seta-cima" id="seta<%= partner.slug %>" style="margin-left: 40px;display: none"></span>
+            <span class="seta-cima" id="seta<%= partner.slug %>" style="display: none"></span>
           </div>
         <% else %>
           <!--<%= partner.slug %>-->
-          <div class="col-md-3">
-            <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive") rescue "" %>
+          <div class="col-md-3" style="text-align: center;">
+            <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive", style: "display: inline-block;") rescue "" %>
           </div>
         <% end %>
       <% end %>
