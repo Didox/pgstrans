@@ -9,7 +9,8 @@
   </div>
   <div class="card-body recarga">
     <div class="col-md-12 row justify-content-center">
-      <% Partner.all.each do |partner| %>
+      <% Partner.all.each_with_index do |partner, index| 
+        @partner_default = partner if index == 0 %>
         <% if partner.status_parceiro_id == 1 %>
           <!--<%= partner.slug %>-->
           <div class="col-md-3">
@@ -131,6 +132,11 @@
           </div>
         </div>
       </form>
+      <% if @partner_default.present? %>
+        <script type="text/javascript">
+          pgstrans.displayRecarga('<%= @partner_default.slug %>')
+        </script>
+      <% end %>
     </div>
   </div>
 </div>
