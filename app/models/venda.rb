@@ -33,7 +33,7 @@ class Venda < ApplicationRecord
       raise "Produto não selecionado" if params[:unitel_produto_id].blank?
       raise "Selecione o valor" if params[:valor].blank?
       raise "Digite o telefone" if params[:unitel_telefone].blank?
-      raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro, entre em contato com o administrador" if usuario.sub_agente.blank?
+      raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
 
       product_id = params[:unitel_produto_id].split("-").first
       telefone = params[:unitel_telefone]
