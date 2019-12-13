@@ -9,41 +9,20 @@
   </div>
   <div class="card-body recarga">
     <div class="col-md-12 row justify-content-center">
-      <% if Partner.where(slug: "Unitel", status_parceiro_id: 1).count > 0 %>
-        <!--Unitel-->
-        <div class="col-md-3">
-          <a href="javascript:;" onclick="pgstrans.displayRecarga('Unitel')">
-            <%= image_tag("partner/Unitel_160x160c.png", alt: "Unitel", class: "img-responsive") %>
-          </a>
-          <span class="seta-cima" id="setaUnitel" style="margin-left: 40px;display: none"></span>
-        </div>
-      <% end %>
-      <% if Partner.where(slug: "Movicel", status_parceiro_id: 1).count > 0 %>
-        <!--Movicel-->
-        <div class="col-md-3">
-          <a href="javascript:;" onclick="pgstrans.displayRecarga('Movicel')">
-            <%= image_tag("partner/Movicel_160x160c.png", alt: "Movicel", class: "img-responsive") %>
-          </a>
-          <span class="seta-cima" id="setaMovicel" style="margin-left: 40px;display: none"></span>
-        </div>
-      <% end %>
-      <% if Partner.where(slug: "DSTv", status_parceiro_id: 1).count > 0 %>
-        <!--DSTv-->
-        <div class="col-md-3">
-          <a href="javascript:;" onclick="pgstrans.displayRecarga('DSTv')">
-            <%= image_tag("partner/DSTv_160x160c.png", alt: "DSTv", class: "img-responsive") %>
-          </a>
-          <span class="seta-cima" id="setaDSTv" style="margin-left: 40px;display: none"></span>
-        </div>
-      <% end %>
-      <% if Partner.where(slug: "ZAPTv", status_parceiro_id: 1).count > 0 %>
-        <!--ZAPTv-->
-        <div class="col-md-3">
-          <a href="javascript:;" onclick="pgstrans.displayRecarga('ZAPTv')">
-            <%= image_tag("partner/ZAPTv_160x160c.png", alt: "ZAPTv", class: "img-responsive") %>
-          </a>
-          <span class="seta-cima" id="setaZAPTv" style="margin-left: 40px;display: none"></span>
-        </div>
+      <% if Partner.all.each do |partner| %>
+        <% if partner.status_parceiro_id == 1 %>
+          <!--<%= partner.slug %>-->
+          <div class="col-md-3">
+            <a href="javascript:;" onclick="pgstrans.displayRecarga('<%= partner.slug %>')">
+              <%= image_tag("partner/<%= partner.slug %>_160x160c.png", alt: "<%= partner.slug %>", class: "img-responsive") %>
+            </a>
+            <span class="seta-cima" id="seta<%= partner.slug %>" style="margin-left: 40px;display: none"></span>
+          </div>
+        <% else %>
+          <!--<%= partner.slug %>-->
+          <%= image_tag("partner/<%= partner.slug %>_160x160c.png", alt: "<%= partner.slug %>", class: "img-responsive") %>
+          </div>
+        <% end %>
       <% end %>
     </div>
     <form action="<%= recarga_confirma_path %>" id="recargaForm" method="post">
@@ -55,66 +34,23 @@
           <input type="hidden" id="tipo_ativo">
           <div class="overlayLoading" id="recargas_RightMenuListItemOverlay"></div>
             <div class="dialogDiv" style="padding: 0px;margin-top: 15px;">
-              <div class="campos Unitel">
-                <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
-                  <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
-                      Recarga<span class="required">&nbsp;*</span>
-                  </div>
-                  <div>
-                    <select class="rechargeType form-control validate vUnitel" name="unitel_produto_id" data-message="Selecione um produto">
-                      <option value="" >Escolher</option>
-                      <% Produto.where(partner_id: Partner.where(slug: "Unitel")).each do |produto| %>
-                        <option value="<%= produto.produto_id_parceiro %>-<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
-                      <% end %>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="campos Movicel">
-                <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
-                  <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
-                      Recarga<span class="required">&nbsp;*</span>
-                  </div>
-                  <div>
-                    <select class="rechargeType form-control validate vMovicel" name="movicel_produto_id" data-message="Selecione um produto">
-                      <option value="" >Escolher</option>
-                      <% Produto.where(partner_id: Partner.where(slug: "Movicel")).each do |produto| %>
-                        <option value="<%= produto.produto_id_parceiro %>-<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
-                      <% end %>
-                    </select>
+              <% if Partner.where(status_parceiro_id: 1).each do |partner| %>
+                <div class="campos <%= partner.slug %>">
+                  <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
+                    <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                        Recarga<span class="required">&nbsp;*</span>
+                    </div>
+                    <div>
+                      <select class="rechargeType form-control validate v<%= partner.slug %>" name="<%= partner.slug.downcase %>_produto_id" data-message="Selecione um produto">
+                        <option value="" >Escolher</option>
+                        <% Produto.where(partner_id: Partner.where(slug: partner.slug)).each do |produto| %>
+                          <option value="<%= produto.produto_id_parceiro %>-<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
+                        <% end %>
+                      </select>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="campos DSTv">
-                <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
-                  <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
-                      Recarga<span class="required">&nbsp;*</span>
-                  </div>
-                  <div>
-                    <select class="rechargeType form-control validate vDSTv" name="dstv_produto_id" data-message="Selecione um produto">
-                      <option value="" >Escolher</option>
-                      <% Produto.where(partner_id: Partner.where(slug: "DSTV")).each do |produto| %>
-                        <option value="<%= produto.produto_id_parceiro %>-<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
-                      <% end %>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="campos ZAPTv">
-                <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
-                  <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
-                      Recarga<span class="required">&nbsp;*</span>
-                  </div>
-                  <div>
-                    <select class="rechargeType form-control validate vZAPTv" name="zaptv_produto_id" data-message="Selecione um produto">
-                      <option value="" >Escolher</option>
-                      <% Produto.where(partner_id: Partner.where(slug: "ZAP TV")).each do |produto| %>
-                        <option value="<%= produto.produto_id_parceiro %>-<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
-                      <% end %>
-                    </select>
-                  </div>
-                </div>
-              </div>
+              <% end %>
               <div class="campos Unitel Movicel DSTv ZAPTv">
                 <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
                   <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
