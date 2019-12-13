@@ -20,7 +20,9 @@
           </div>
         <% else %>
           <!--<%= partner.slug %>-->
-          <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive") rescue "" %>
+          <div class="col-md-3">
+            <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive") rescue "" %>
+          </div>
         <% end %>
       <% end %>
     </div>
