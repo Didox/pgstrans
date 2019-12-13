@@ -8,35 +8,37 @@
     </div>
   </div>
   <div class="card-body recarga">
-   <div class="col-md-12 row justify-content-center">
-    <!--Unitel-->
+    <div class="col-md-12 row justify-content-center">
+      <% if Partner.where(slug: "Unitel").count > 0 && Partner.where(slug: "Unitel").first.status_parceiro.nome == "Ativo" %>
+        <!--Unitel-->
         <div class="col-md-3">
           <a href="javascript:;" onclick="pgstrans.displayRecarga('Unitel')">
             <%= image_tag("partner/Unitel_160x160c.png", alt: "Unitel", class: "img-responsive") %>
           </a>
           <span class="seta-cima" id="setaUnitel" style="margin-left: 40px;display: none"></span>
         </div>
-    <!--Movicel-->
-        <div class="col-md-3">
-          <a href="javascript:;" onclick="pgstrans.displayRecarga('Movicel')">
-            <%= image_tag("partner/Movicel_160x160c.png", alt: "Movicel", class: "img-responsive") %>
-          </a>
-          <span class="seta-cima" id="setaMovicel" style="margin-left: 40px;display: none"></span>
-        </div>
-    <!--DSTv-->
-        <div class="col-md-3">
-          <a href="javascript:;" onclick="pgstrans.displayRecarga('DSTv')">
-            <%= image_tag("partner/DSTv_160x160c.png", alt: "DSTv", class: "img-responsive") %>
-          </a>
-          <span class="seta-cima" id="setaDSTv" style="margin-left: 40px;display: none"></span>
-        </div>
-    <!--ZAPTv-->
-        <div class="col-md-3">
-          <a href="javascript:;" onclick="pgstrans.displayRecarga('ZAPTv')">
-            <%= image_tag("partner/ZAPTv_160x160c.png", alt: "ZAPTv", class: "img-responsive") %>
-          </a>
-          <span class="seta-cima" id="setaZAPTv" style="margin-left: 40px;display: none"></span>
-        </div>
+      <% end %>
+      <!--Movicel-->
+      <div class="col-md-3">
+        <a href="javascript:;" onclick="pgstrans.displayRecarga('Movicel')">
+          <%= image_tag("partner/Movicel_160x160c.png", alt: "Movicel", class: "img-responsive") %>
+        </a>
+        <span class="seta-cima" id="setaMovicel" style="margin-left: 40px;display: none"></span>
+      </div>
+      <!--DSTv-->
+      <div class="col-md-3">
+        <a href="javascript:;" onclick="pgstrans.displayRecarga('DSTv')">
+          <%= image_tag("partner/DSTv_160x160c.png", alt: "DSTv", class: "img-responsive") %>
+        </a>
+        <span class="seta-cima" id="setaDSTv" style="margin-left: 40px;display: none"></span>
+      </div>
+      <!--ZAPTv-->
+      <div class="col-md-3">
+        <a href="javascript:;" onclick="pgstrans.displayRecarga('ZAPTv')">
+          <%= image_tag("partner/ZAPTv_160x160c.png", alt: "ZAPTv", class: "img-responsive") %>
+        </a>
+        <span class="seta-cima" id="setaZAPTv" style="margin-left: 40px;display: none"></span>
+      </div>
     </div>
     <form action="<%= recarga_confirma_path %>" id="recargaForm" method="post">
       <div class="col-md-12" id="recarga" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
