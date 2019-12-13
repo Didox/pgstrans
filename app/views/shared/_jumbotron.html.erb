@@ -9,7 +9,6 @@
   </div>
   <div class="card-body recarga">
     <div class="col-md-12 row justify-content-center">
-      <% if Partner.where(slug: "Unitel").count > 0 && Partner.where(slug: "Unitel").first.status_parceiro.nome == "Ativo" %>
         <!--Unitel-->
         <div class="col-md-3">
           <a href="javascript:;" onclick="pgstrans.displayRecarga('Unitel')">
@@ -17,7 +16,6 @@
           </a>
           <span class="seta-cima" id="setaUnitel" style="margin-left: 40px;display: none"></span>
         </div>
-      <% end %>
       <!--Movicel-->
       <div class="col-md-3">
         <a href="javascript:;" onclick="pgstrans.displayRecarga('Movicel')">
