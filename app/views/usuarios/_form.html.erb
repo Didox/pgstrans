@@ -33,7 +33,8 @@
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :senha, :label => "Palavra-passe", placeholder: "Informe a senha" %>
+          <%= f.label :senha, "Palavra-passe" %>
+          <%= f.password_field :senha, class: "form-control" %>
         </div>
 
         <div class="form-input col-sm-6">
