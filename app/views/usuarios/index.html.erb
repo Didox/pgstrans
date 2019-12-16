@@ -24,7 +24,7 @@
             <td><%= usuario.id %></td>
             <td><%= usuario.nome %></td>
             <td><%= usuario.email %></td>
-            <td><%= usuario.senha %></td>
+            <td><%= usuario.admin? ? "Sim": "Não" %></td>
             <td class="text-center"><%= usuario.perfil_usuario_id %></td>
             <td><%= usuario.created_at %></td>
             <td><%= link_to 'Editar', edit_usuario_path(usuario) %></td>
