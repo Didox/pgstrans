@@ -59,6 +59,12 @@ class UsuariosController < ApplicationController
       format.html { redirect_to usuarios_url, notice: 'Usuario foi apagado com sucesso.' }
       format.json { head :no_content }
     end
+  rescue ActiveRecord::InvalidForeignKey => erro
+    flash[:error] = "Usuário não pode ser excluido pois tem vinculos a ser apagado."
+    respond_to do |format|
+      format.html { redirect_to usuarios_url }
+      format.json { head :no_content }
+    end
   end
 
   private
