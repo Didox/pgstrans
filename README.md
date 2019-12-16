@@ -29,3 +29,8 @@ end
 
 scp -P22 -r pgsadmin@172.26.8.2:/home/pgsadmin/spgw_public.der ~/Downloads/spgw_public.der
 scp -P22 -r ~/Downloads/spgw_public.der pgsadmin@172.26.8.2:/home/pgsadmin/spgw_public.der
+
+## Gerando chave publica para integração
+openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
+## Convertendo em .der RSA
+openssl rsa -in key.pem -pubout -outform DER -out rsapagasopubkey.de
