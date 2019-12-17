@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_12_122712) do
+ActiveRecord::Schema.define(version: 2019_12_17_091252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -400,6 +400,13 @@ ActiveRecord::Schema.define(version: 2019_12_12_122712) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "usuario_acessos", force: :cascade do |t|
+    t.bigint "usuario_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["usuario_id"], name: "index_usuario_acessos_on_usuario_id"
+  end
+
   create_table "usuarios", force: :cascade do |t|
     t.string "nome"
     t.string "email"
@@ -449,6 +456,7 @@ ActiveRecord::Schema.define(version: 2019_12_12_122712) do
   add_foreign_key "sub_agentes", "provincia", column: "provincia_id"
   add_foreign_key "sub_distribuidors", "municipios"
   add_foreign_key "sub_distribuidors", "provincia", column: "provincia_id"
+  add_foreign_key "usuario_acessos", "usuarios"
   add_foreign_key "usuarios", "perfil_usuarios"
   add_foreign_key "usuarios", "sub_agentes"
   add_foreign_key "vendas", "partners"
