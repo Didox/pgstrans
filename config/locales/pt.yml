@@ -1,4 +1,8 @@
 pt:
+  will_paginate:
+    page_gap: "&hellip;"
+    previous_label: "Anterior"
+    next_label: "Proximo"
   activerecord:
     errors:
       messages:

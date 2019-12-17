@@ -15,7 +15,7 @@
               <select name="return_code" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
                 <% ReturnCodeApi.all.each do |ret| %>
-                  <option value="<%= ret.return_code %>" <% if ret.return_code == params[:return_code] %> selected="selected" <% end %> ><%= ret.return_description %></option>
+                  <option value="<%= ret.return_code %>" <% if ret.return_code == params[:return_code] %> selected="selected" <% end %> ><%= ret.error_description_pt %></option>
                 <% end %>
               </select>
             </div>
@@ -61,8 +61,6 @@
           <th scope="col">Terminal</th>
           <th scope="col">Value</th>
           <th scope="col">Client msisdn</th>
-          <th scope="col">Request send</th>
-          <th scope="col">Response get</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -81,13 +79,15 @@
           <td><%= venda.terminal_id %></td>
           <td><%= venda.value %></td>
           <td><%= venda.client_msisdn %></td>
-          <td><%= venda.request_send %></td>
-          <td><%= venda.response_get %></td>
           <td><%= link_to 'Mostrar', venda %></td>
         </tr>
         <% end %>
       </tbody>
     </table>
+
+    <div class="apple_pagination">
+      <%= will_paginate @usuarios, :container => false %>
+    </div>
 
     <%= link_to "Novo Registo", new_venda_path, class: 'btn btn-danger' %>
     <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
