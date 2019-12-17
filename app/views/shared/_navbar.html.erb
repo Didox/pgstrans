@@ -8,12 +8,21 @@
           <%= link_to image_tag("PagaSo-Logo.png"), "https://www.pagaso.co.ao", target: "_blank" %>
         </img>
       </div>
-      <div class="col-4 d-flex justify-content-end align-items-center">
-        <a class="text-muted" href="#">
-          <span class="fa fa-user"></span>
-          <%= usuario_logado.nome.camelize %>
-        </a>&nbsp;
-        <a class="btn btn-sm btn-outline-secondary" href="<%= logout_path %>">Sair</a>
+      <div class="col-4 d-flex justify-content-end align-items-center jsmenu">
+        <div style="display: inline-block;">
+          <a class="text-muted jsdropdown" id="jsItensMenu" style="margin-right: 20px;" href="javascript:;">
+            <span class="fa fa-user"></span>
+            <%= usuario_logado.nome.camelize %>
+            &#10549;
+          </a>
+          <div class="jsItensMenu" style="display: none; position: absolute;">
+            <div>Seu último acesso: <%= usuario_logado.ultimo_acesso.strftime("%d/%m/%Y %H:%M") rescue "" %></div>
+            <div><a class="text-muted" href="/perfil"><span class="fa fa-user"></span> Perfil</a></div>
+          </div>
+        </div>
+        <div style="display: inline-block;">
+          <a class="text-muted" class="btn btn-sm btn-outline-secondary" href="<%= logout_path %>">Sair</a>
+        </div>
       </div>
     </div>
   </header>

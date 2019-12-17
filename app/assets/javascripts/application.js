@@ -34,6 +34,14 @@ pgstrans.displayRecarga = (tipo) => {
 }
 
 $(function(){
+  $(".jsmenu a.jsdropdown").click(function(){
+    $(".jsmenu ." + $(this).attr("id")).show();
+  });
+
+  $("#content").click(function(){
+    $(".jsmenu .jsItensMenu").hide();
+  });
+
   $(".recarga .rechargeType").change(function(){
     $(".recarga #rechargeValue").val(this.value.split("-")[1]);
     $(".recarga .talao" + $("#tipo_ativo").val() + "").show();
