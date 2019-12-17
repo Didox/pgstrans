@@ -21,6 +21,11 @@ class Usuario < ApplicationRecord
     false
   end
 
+  def ultimo_acesso
+    acesso = UsuarioAcesso.where(usuario_id: self.id).reorder("created_at desc").first
+    acesso.created_at if acesso.present?
+  end
+
   private
 
   def verifica_tamanho_senha

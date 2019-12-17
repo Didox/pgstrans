@@ -53,8 +53,9 @@
             <%= msg %>
           <% end %>
         <% end %>
-
-        <%= yield %>
+        <div id="content">
+          <%= yield %>
+        </div>
         <footer>
           <%= render 'shared/footer' %>     
         </footer>

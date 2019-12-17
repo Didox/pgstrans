@@ -26,6 +26,17 @@
   text-align: center;
 }
 
+.jsItensMenu{
+  border: 1px solid #ececec;
+  z-index: 999;
+  background: #fff;
+}
+
+.jsItensMenu div{
+  padding: 5px;
+  border-bottom: 1px solid #ececec;
+}
+
 .active_menu{
   background: #C8102E;
   color: #fff;

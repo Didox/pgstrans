@@ -402,6 +402,7 @@ ActiveRecord::Schema.define(version: 2019_12_17_091252) do
 
   create_table "usuario_acessos", force: :cascade do |t|
     t.bigint "usuario_id"
+    t.string "mac_adress"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["usuario_id"], name: "index_usuario_acessos_on_usuario_id"

@@ -19,6 +19,7 @@ class LoginController < ApplicationController
           expires: Time.zone.now + 1.year, 
           httponly: true 
         }
+        UsuarioAcesso.create(usuario: usuario, mac_adress: request.ip)
         redirect_to root_path
         return
       end
