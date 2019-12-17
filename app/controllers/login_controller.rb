@@ -6,8 +6,8 @@ class LoginController < ApplicationController
   def index;end
   def autentica
     if params[:email].present? && params[:senha].present?
-      params[:senha] = Digest::SHA1.hexdigest(params[:senha])
-      usuarios = Usuario.where(email: params[:email], senha: params[:senha])
+      senha = Digest::SHA1.hexdigest(params[:senha])
+      usuarios = Usuario.ativo.where(email: params[:email], senha: senha)
       if usuarios.count > 0
         usuario = usuarios.first
         cookies[:usuario_pgstrans_oauth] = { 

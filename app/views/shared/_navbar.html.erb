@@ -17,7 +17,7 @@
           </a>
           <div class="jsItensMenu" style="display: none; position: absolute;">
             <div>Seu último acesso: <%= usuario_logado.ultimo_acesso.strftime("%d/%m/%Y %H:%M") rescue "" %></div>
-            <div><a class="text-muted" href="/perfil"><span class="fa fa-user"></span> Perfil</a></div>
+            <div><a class="text-muted" href="<%= edit_usuario_path(usuario_logado) %>"><span class="fa fa-user"></span> Perfil</a></div>
           </div>
         </div>
         <div style="display: inline-block;">

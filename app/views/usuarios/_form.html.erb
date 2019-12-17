@@ -46,6 +46,11 @@
           <%= f.label :sub_agente_id %>
           <%= f.select :sub_agente_id, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {}, required:true, class: "form-control" %>
         </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.label :status_cliente_id %>
+          <%= f.select :status_cliente_id, StatusCliente.all.collect{|d| [d.nome, d.id]}, {}, required:true, class: "form-control" %>
+        </div>
           
         <div class="form-actions col-sm-12">
           <%= f.button :button, class: 'btn btn-danger' do %>

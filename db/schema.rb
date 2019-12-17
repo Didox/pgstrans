@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_17_091252) do
+ActiveRecord::Schema.define(version: 2019_12_17_102724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -416,7 +416,9 @@ ActiveRecord::Schema.define(version: 2019_12_17_091252) do
     t.datetime "updated_at", null: false
     t.bigint "perfil_usuario_id"
     t.bigint "sub_agente_id"
+    t.bigint "status_cliente_id"
     t.index ["perfil_usuario_id"], name: "index_usuarios_on_perfil_usuario_id"
+    t.index ["status_cliente_id"], name: "index_usuarios_on_status_cliente_id"
     t.index ["sub_agente_id"], name: "index_usuarios_on_sub_agente_id"
   end
 
@@ -459,6 +461,7 @@ ActiveRecord::Schema.define(version: 2019_12_17_091252) do
   add_foreign_key "sub_distribuidors", "provincia", column: "provincia_id"
   add_foreign_key "usuario_acessos", "usuarios"
   add_foreign_key "usuarios", "perfil_usuarios"
+  add_foreign_key "usuarios", "status_clientes"
   add_foreign_key "usuarios", "sub_agentes"
   add_foreign_key "vendas", "partners"
   add_foreign_key "vendas", "usuarios"

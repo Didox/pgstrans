@@ -15,6 +15,10 @@ class Usuario < ApplicationRecord
 	  0
   end
 
+  def self.ativo
+    Usuario.where(status_cliente_id: StatusCliente.where(nome: "Ativo"))
+  end
+
   def admin?
     self.perfil_usuario.admin
   rescue
