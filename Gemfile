@@ -24,6 +24,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 gem "httparty"
+gem "will_paginate"
 
 gem 'bootstrap-generators', '~> 3.3.4'
 

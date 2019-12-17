@@ -4,7 +4,13 @@ class VendasController < ApplicationController
   # GET /vendas
   # GET /vendas.json
   def index
-    @vendas = Venda.all
+    @vendas = Venda.all.reorder("updated_at desc")
+    @vendas = @vendas.where(status: params[:return_code]) if params[:return_code].present?
+    @vendas = @vendas.where("updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
+    @vendas = @vendas.where("updated_at <= ?", params[:data_fim].to_date.end_of_day) if params[:data_fim].present?
+    
+    options = {page: params[:page] || 1, per_page: 10}
+    @vendas = @vendas.paginate(options)
   end
 
   # GET /vendas/1
