@@ -6,6 +6,81 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
 
+  <div style="margin-top:10px">
+    <form action="" method="get" id="formApuracao">
+      <div class="row" style="padding:10px">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Nome</label>
+            <div>
+              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Parceiro</label>
+            <div>
+              <select name="parceiro_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Partner.all.each do |partner| %>
+                  <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Moeda</label>
+            <div>
+              <select name="moeda_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Moeda.all.each do |moeda| %>
+                  <option value="<%= moeda.id %>" <% if moeda.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= "#{moeda.id}/#{moeda.simbolo}" %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Status</label>
+            <div>
+              <select name="status_produto_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% StatusProduto.all.each do |status_produto| %>
+                  <option value="<%= status_produto.id %>" <% if status_produto.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= status_produto.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Margem Telemóvel</label>
+            <div>
+              <input type="text" name="margem_telemovel" value="<%= params[:margem_telemovel] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Margem site</label>
+            <div>
+              <input type="text" name="margem_site" value="<%= params[:margem_site] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit" class="btn btn-info" value="Buscar">
+        </div>
+      </div>
+    </form>
+  </div>
+
   <div class="container">
     <table class="table table-hover">
       <thead>

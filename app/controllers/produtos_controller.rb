@@ -6,6 +6,12 @@ class ProdutosController < ApplicationController
   def index
     @produtos = Produto.all.order(description: :asc)
     @produtos = @produtos.where(partner_id: params[:partner_id]) if params[:partner_id].present?
+    @produtos = @produtos.where("description ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @produtos = @produtos.where("partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
+    @produtos = @produtos.where("moeda_id = ?", params[:moeda_id]) if params[:moeda_id].present?
+    @produtos = @produtos.where("status_produto_id = ?", params[:status_produto_id]) if params[:status_produto_id].present?
+    @produtos = @produtos.where("margem_telemovel = ?", params[:margem_telemovel]) if params[:margem_telemovel].present?
+    @produtos = @produtos.where("margem_site = ?", params[:margem_site]) if params[:margem_site].present?
   end
 
   # GET /produtos/1
