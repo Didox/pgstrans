@@ -20,6 +20,15 @@
             <div><a class="text-muted" href="<%= edit_usuario_path(usuario_logado) %>"><span class="fa fa-user"></span> Perfil</a></div>
           </div>
         </div>
+        <script type="text/javascript">
+          $(".jsmenu a.jsdropdown").click(function(){
+            $(".jsmenu ." + $(this).attr("id")).show();
+          });
+
+          $("#content").click(function(){
+            $(".jsmenu .jsItensMenu").hide();
+          });
+        </script>
         <div style="display: inline-block;">
           <a class="text-muted" class="btn btn-sm btn-outline-secondary" href="<%= logout_path %>">Sair</a>
         </div>

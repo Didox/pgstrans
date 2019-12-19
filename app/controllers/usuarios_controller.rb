@@ -1,6 +1,6 @@
 class UsuariosController < ApplicationController
   before_action :set_usuario, only: [:show, :edit, :update, :destroy]
-
+  before_action :verifica_permissao, only: [:edit, :create, :update, :destroy]
   # GET /usuarios
   # GET /usuarios.json
   def index
@@ -68,6 +68,13 @@ class UsuariosController < ApplicationController
   end
 
   private
+    def verifica_permissao
+      unless usuario_logado.admin?
+        flash[:error] = "Área restrita. Digite o login e palavra-passe para entrar."
+        redirect_to root_path
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_usuario
       @usuario = Usuario.find(params[:id])

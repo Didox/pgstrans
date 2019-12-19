@@ -33,15 +33,21 @@ pgstrans.displayRecarga = (tipo) => {
   $(".recarga #tipo_ativo").val(tipo);
 }
 
+pgstrans.carregaProdutosPorParceiro = (self) => {
+  $.ajax({
+    type: "GET",
+    url: "/produtos.json?partner_id="+ self.value,
+    success: function(data){
+      $("#produto_id").html("<option value=\"\" selected=\"selected\">Todos</option>");
+      $(data).each(function(){
+        $("#produto_id").append("<option value=\"" + this.id + "\">" + this.description + "</option>")
+      });
+    }
+  });
+}
+
 $(function(){
-  $(".jsmenu a.jsdropdown").click(function(){
-    $(".jsmenu ." + $(this).attr("id")).show();
-  });
-
-  $("#content").click(function(){
-    $(".jsmenu .jsItensMenu").hide();
-  });
-
+  
   $(".recarga .rechargeType").change(function(){
     $(".recarga #rechargeValue").val(this.value.split("-")[1]);
     $(".recarga .talao" + $("#tipo_ativo").val() + "").show();

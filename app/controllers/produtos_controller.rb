@@ -5,6 +5,7 @@ class ProdutosController < ApplicationController
   # GET /produtos.json
   def index
     @produtos = Produto.all.order(description: :asc)
+    @produtos = @produtos.where(partner_id: params[:partner_id]) if params[:partner_id].present?
   end
 
   # GET /produtos/1
