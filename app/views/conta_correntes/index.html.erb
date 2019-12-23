@@ -6,6 +6,50 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
+  <div style="margin-top:10px">
+    <form action="" method="get" id="formApuracao">
+      <div class="row" style="padding:10px">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Data de Lançamento</label>
+            <div>
+              <input type="date" name="dala_lancamento" value="<%= params[:data_alegacao_pagamento] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Data da Última Atualização</label>
+            <div>
+              <input type="date" name="data_ultima_atualizacao_saldo" value="<%= params[:data_ultima_atualizacao_saldo] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Usuário</label>
+            <div>
+              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>IBAN</label>
+            <div>
+              <input type="text" name="iban" value="<%= params[:iban] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit">
+        </div>
+      </div>
+    </form>
+  </div>
+
   <div class="container">
     <table class="table table-hover">
       <thead>
@@ -48,6 +92,10 @@
         <% end %>
       </tbody>
     </table>
+
+    <div class="apple_pagination">
+      <%= will_paginate @usuarios, :container => false %>
+    </div>
 
     <%= link_to "Novo Registo", new_conta_corrente_path, class: 'btn btn-danger' %>
     <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
