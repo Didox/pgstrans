@@ -1,56 +1,53 @@
 namespace :soap_movicel do
   desc "Movicel SOAP API GET"
   task movicel_topup: :environment do
-
-    # private void button1_Click(object sender, EventArgs e)
-    # {
-    #     string message = string.Empty;
-    #     string text = this.txtAgentKey.Text;
-    #     message = !this.RdRU.Checked ? (!this.rdRUM.Checked ? (this.txtReqId.Text + this.txtUid.Text) : (this.txtReqId.Text + this.txtUid.Text + this.txtMSISDn.Text)) : (this.txtReqId.Text + this.txtUid.Text);
-    #     string str3 = Encryption.HashHMACHex(text, message);
-    #     this.txtFinalKey.Text = str3;
-    # }
-
-    # public static string HashHMACHex(string keyHex, string message) => 
-    # HashEncode(HashHMAC(HexDecode(keyHex), StringEncode(message)));
-
-    # private void button2_Click(object sender, EventArgs e)
-    # {
-    #     this.txtReqId.Text = DateTime.Now.ToString("ddMMyyyyhhmmss");
-    # }
-
-
-
     require 'openssl'
 
     agent_key = "5CF0AC45050B030B9E3A5FC14A5D7C8B609B2BDD40119B5C32539E1F3B6CEF7F"
     user_id = "TivTechno"
     msisdn = "244998524570"
-    # request_id = Time.now.strftime("%d%m%Y%H%M%S")
-    request_id = Time.parse("21/12/2019 07:45:12").strftime("%d%m%Y%H%M%S")
+    request_id = Time.now.strftime("%d%m%Y%H%M%S")
     valor = 100
+    pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/encripto`
 
-    # message = "#{request_id}#{user_id}#{msisdn}" # Like Ravindra code not checked
-    # message = "#{request_id}#{user_id}" # like Ravindra C# code
-    # message = "#{request_id}#{msisdn}" # Like documentation invertido - Ravindra
-    message = "#{msisdn}#{request_id}" # Like documentation
+    # request_id = "23122019084313"
+    # token = "874abbae73fb9c192dd3cfa1112202953d508d50641b0e1e44af9f24ae888370"
+    # puts = "============================="
+    # puts pass
+    # puts = "============================="
+    # puts token
+    # puts = "============================="
 
-    # digest = OpenSSL::Digest::SHA.new
-    # digest = OpenSSL::Digest::SHA1.new
-    # digest = OpenSSL::Digest::SHA224.new
-    digest = OpenSSL::Digest::SHA256.new
-    # digest = OpenSSL::Digest::SHA384.new
-    # digest = OpenSSL::Digest::SHA512.new
-    pass = OpenSSL::HMAC.hexdigest(digest, message, agent_key)
-    # pass = OpenSSL::HMAC.hexdigest(digest, agent_key, message)
+    pass = pass.strip
 
-    puts "=============================="
-    puts pass
-    puts "=============================="
-    puts "2842d851799b2d0374d5f55d66428b67ba35b651e02b1936663a3b2f58f05a87"
-    puts "=============================="
-
-    # pass = "2842d851799b2d0374d5f55d66428b67ba35b651e02b1936663a3b2f58f05a87"
+    body = "
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
+        <soapenv:Header>
+            <int:TopupReqHeader>
+               <mid:RequestId>#{request_id}</mid:RequestId>
+               <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
+               <!--Optional:-->
+               <mid:SourceSystem>TivTechno</mid:SourceSystem>
+               <mid:Credentials>
+                  <mid:User>#{user_id}</mid:User>
+                  <mid:Password>#{pass}</mid:Password>
+               </mid:Credentials>
+               <!--Optional:-->        
+            </int:TopupReqHeader>
+        </soapenv:Header>
+        <soapenv:Body>
+            <int:TopupReq>
+               <!--Optional:-->
+               <int:TopupReqBody>
+                  <mid1:Amount>#{valor}</mid1:Amount>
+                  <mid1:MSISDN>#{msisdn}</mid1:MSISDN>
+                  <!--Optional:-->
+                  <mid1:Type>Default</mid1:Type>
+               </int:TopupReqBody>
+            </int:TopupReq>
+        </soapenv:Body>
+      </soapenv:Envelope>
+    "
 
 
     url = "http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/"
@@ -65,36 +62,8 @@ namespace :soap_movicel do
         # 'Connection' => 'Keep-Alive',
         # 'User-Agent' => 'Apache-HttpClient/4.1.1 (java 1.5)',
       },
-      :body => "
-        <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
-          <soapenv:Header>
-              <int:TopupReqHeader>
-                 <mid:RequestId>#{request_id}</mid:RequestId>
-                 <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
-                 <!--Optional:-->
-                 <mid:SourceSystem>TivTechno</mid:SourceSystem>
-                 <mid:Credentials>
-                    <mid:User>#{user_id}</mid:User>
-                    <mid:Password>#{pass}</mid:Password>
-                 </mid:Credentials>
-                 <!--Optional:-->        
-              </int:TopupReqHeader>
-          </soapenv:Header>
-          <soapenv:Body>
-              <int:TopupReq>
-                 <!--Optional:-->
-                 <int:TopupReqBody>
-                    <mid1:Amount>#{valor}</mid1:Amount>
-                    <mid1:MSISDN>#{msisdn}</mid1:MSISDN>
-                    <!--Optional:-->
-                    <mid1:Type>Default</mid1:Type>
-                 </int:TopupReqBody>
-              </int:TopupReq>
-          </soapenv:Body>
-        </soapenv:Envelope>
-      "
-    )
-
+      :body => body)
+    
     if (200...300).include?(request.code.to_i)
       if request.body.present?
         puts "=========================================="
