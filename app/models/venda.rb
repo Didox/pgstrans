@@ -159,6 +159,8 @@ class Venda < ApplicationRecord
         venda.status = request.body.include?("Success") ? "0" : "3"
         venda.save!
 
+        raise "nao cai aqui"
+
         if venda.sucesso?
           ContaCorrente.create!(
             usuario: usuario,
