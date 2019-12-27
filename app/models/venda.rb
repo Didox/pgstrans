@@ -160,7 +160,7 @@ class Venda < ApplicationRecord
 
       venda.request_send = request_send
       venda.response_get = response_get
-      venda.status = last_request.downcase.include?("success") ? "0" : "3"
+      venda.status = last_request.scan(/ReturnCode.*?<\/ReturnCode/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue "3"
       venda.save!
 
       if venda.sucesso?
