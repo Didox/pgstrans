@@ -95,9 +95,9 @@ class Venda < ApplicationRecord
         :body => body
       )
 
-      response_get += "=========[Topup]========"
+      response_get += "=========[ValidateTopup]========"
       response_get += request.body
-      response_get += "=========[Topup]========"
+      response_get += "=========[ValidateTopup]========"
 
       if (200...300).include?(request.code.to_i)
 
