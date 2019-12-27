@@ -74,8 +74,8 @@ class Venda < ApplicationRecord
               <int:ValidateTopupReq>
                  <!--Optional:-->
                  <int:ValidateTopupReqBody>
-                    <mid1:Amount>100</mid1:Amount>
-                    <mid1:MSISDN>244998524570</mid1:MSISDN>
+                    <mid1:Amount>#{valor}</mid1:Amount>
+                    <mid1:MSISDN>#{msisdn}</mid1:MSISDN>
                  </int:ValidateTopupReqBody>
               </int:ValidateTopupReq>
           </soapenv:Body>
@@ -109,7 +109,7 @@ class Venda < ApplicationRecord
                    <mid:RequestId>#{request_id}</mid:RequestId>
                    <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
                    <!--Optional:-->
-                   <mid:SourceSystem>TivTechno</mid:SourceSystem>
+                   <mid:SourceSystem>#{user_id}</mid:SourceSystem>
                    <mid:Credentials>
                       <mid:User>#{user_id}</mid:User>
                       <mid:Password>#{pass}</mid:Password>

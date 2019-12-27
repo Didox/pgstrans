@@ -112,7 +112,7 @@ namespace :soap_movicel do
                  <!--Optional:-->
                  <int:ValidateTopupReqBody>
                     <mid1:Amount>100</mid1:Amount>
-                    <mid1:MSISDN>244998524570</mid1:MSISDN>
+                    <mid1:MSISDN>#{msisdn}</mid1:MSISDN>
                  </int:ValidateTopupReqBody>
               </int:ValidateTopupReq>
           </soapenv:Body>
