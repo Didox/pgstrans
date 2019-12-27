@@ -33,7 +33,7 @@
           <h1>Recargas</h1>
         </div>
         <div id="dialogRecharge" title="Recarga">
-          <input type="hidden" id="tipo_ativo">
+          <input type="hidden" id="tipo_ativo" name="tipo_venda">
           <div class="overlayLoading" id="recargas_RightMenuListItemOverlay"></div>
             <div class="dialogDiv" style="padding: 0px;margin-top: 15px;">
               <% Partner.where(status_parceiro_id: 1).each do |partner| %>

@@ -2,7 +2,7 @@ class RecargaController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def confirma
-    venda = Venda.fazer_venda(params, usuario_logado)
+    venda = Venda.fazer_venda(params, usuario_logado, params[:tipo_venda])
     begin
       if venda.sucesso?
         render json: {mensagem: "Recarga efetuada com sucesso!"}, status: 200
