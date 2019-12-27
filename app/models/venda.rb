@@ -52,6 +52,38 @@ class Venda < ApplicationRecord
       # pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/mac/encripto`
       pass = pass.strip
 
+      request_send = ""
+      response_get = ""
+
+      body = "
+        <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
+          <soapenv:Header>
+           <int:ValidateTopupReqHeader>
+              <mid:RequestId>#{request_id}</mid:RequestId>
+              <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
+              <mid:SourceSystem>#{user_id}</mid:SourceSystem>  
+              <mid:Credentials>
+                 <mid:User>#{user_id}</mid:User>
+                 <mid:Password>#{pass}</mid:Password>
+                 </mid:Credentials>
+                 <!--Optional:--> 
+              </int:ValidateTopupReqHeader>
+          </soapenv:Header>
+          <soapenv:Body>
+              <int:ValidateTopupReq>
+                 <!--Optional:-->
+                 <int:ValidateTopupReqBody>
+                    <mid1:Amount>100</mid1:Amount>
+                    <mid1:MSISDN>244998524570</mid1:MSISDN>
+                 </int:ValidateTopupReqBody>
+              </int:ValidateTopupReq>
+          </soapenv:Body>
+        </soapenv:Envelope>
+      "
+
+      request_send += "=========[ValidateTopup]========"
+      request_send += body
+      request_send += "=========[ValidateTopup]========"
 
       url = "http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/"
       uri = URI.parse(URI.escape(url))
@@ -60,32 +92,12 @@ class Venda < ApplicationRecord
           'Content-Type' => 'text/xml;charset=UTF-8',
           'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
         },
-        :body => "
-          <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
-            <soapenv:Header>
-             <int:ValidateTopupReqHeader>
-                <mid:RequestId>#{request_id}</mid:RequestId>
-                <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
-                <mid:SourceSystem>#{user_id}</mid:SourceSystem>  
-                <mid:Credentials>
-                   <mid:User>#{user_id}</mid:User>
-                   <mid:Password>#{pass}</mid:Password>
-                   </mid:Credentials>
-                   <!--Optional:--> 
-                </int:ValidateTopupReqHeader>
-            </soapenv:Header>
-            <soapenv:Body>
-                <int:ValidateTopupReq>
-                   <!--Optional:-->
-                   <int:ValidateTopupReqBody>
-                      <mid1:Amount>100</mid1:Amount>
-                      <mid1:MSISDN>244998524570</mid1:MSISDN>
-                   </int:ValidateTopupReqBody>
-                </int:ValidateTopupReq>
-            </soapenv:Body>
-          </soapenv:Envelope>
-        "
+        :body => body
       )
+
+      response_get += "=========[Topup]========"
+      response_get += request.body
+      response_get += "=========[Topup]========"
 
       if (200...300).include?(request.code.to_i)
 
@@ -118,6 +130,10 @@ class Venda < ApplicationRecord
           </soapenv:Envelope>
         "
 
+        request_send += "=========[Topup]========"
+        request_send += body
+        request_send += "=========[Topup]========"
+
         url = "http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/"
         uri = URI.parse(URI.escape(url))
         request = HTTParty.post(uri, 
@@ -128,14 +144,18 @@ class Venda < ApplicationRecord
           :body => body
         )
         
+        response_get += "=========[Topup]========"
+        response_get += request.body
+        response_get += "=========[Topup]========"
+
         venda = Venda.create(agent_id: AGENTE_ID, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
 
         venda.store_id = usuario.sub_agente.store_id_parceiro
         venda.seller_id = usuario.sub_agente.seller_id_parceiro
         venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
 
-        venda.request_send = body
-        venda.response_get = request.body
+        venda.request_send = request_send
+        venda.response_get = response_get
         venda.status = request.body.include?("Success") ? "0" : "3"
         venda.save!
 
