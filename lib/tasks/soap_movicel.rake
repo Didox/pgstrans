@@ -71,6 +71,21 @@ namespace :soap_movicel do
 
   desc "EXECUTA SOAP API TEST"
   task movicel_validate_topup: :environment do
+
+    agent_key = "5CF0AC45050B030B9E3A5FC14A5D7C8B609B2BDD40119B5C32539E1F3B6CEF7F"
+    user_id = "TivTechno"
+    msisdn = "244998524570"
+    request_id = Time.now.strftime("%d%m%Y%H%M%S")
+    valor = 100
+
+    #### MAC ####
+    pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/mac/encripto`
+    #### Ubuntu ####
+    # pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto`
+
+    pass = pass.strip
+
+
     url = "http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/"
     uri = URI.parse(URI.escape(url))
     request = HTTParty.post(uri, 
@@ -82,12 +97,12 @@ namespace :soap_movicel do
         <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
           <soapenv:Header>
            <int:ValidateTopupReqHeader>
-              <mid:RequestId>#{Time.zone.now.to_i}</mid:RequestId>
+              <mid:RequestId>#{request_id}</mid:RequestId>
               <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
-              <mid:SourceSystem>TivTechno</mid:SourceSystem>  
+              <mid:SourceSystem>#{user_id}</mid:SourceSystem>  
               <mid:Credentials>
-                 <mid:User>TivTechno</mid:User>
-                 <mid:Password>2f168e37b1dc8936605ba308d51098530569d8dc4048e1e21d8770a3abe04993</mid:Password>
+                 <mid:User>#{user_id}</mid:User>
+                 <mid:Password>#{pass}</mid:Password>
                  </mid:Credentials>
                  <!--Optional:--> 
               </int:ValidateTopupReqHeader>
