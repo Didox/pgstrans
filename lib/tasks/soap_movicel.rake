@@ -8,15 +8,11 @@ namespace :soap_movicel do
     msisdn = "244998524570"
     request_id = Time.now.strftime("%d%m%Y%H%M%S")
     valor = 100
-    pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/encripto`
 
-    # request_id = "23122019084313"
-    # token = "874abbae73fb9c192dd3cfa1112202953d508d50641b0e1e44af9f24ae888370"
-    # puts = "============================="
-    # puts pass
-    # puts = "============================="
-    # puts token
-    # puts = "============================="
+    #### MAC ####
+    #pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/encripto`
+    #### Ubuntu ####
+    pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto`
 
     pass = pass.strip
 
