@@ -54,6 +54,7 @@ class Venda < ApplicationRecord
 
       request_send = ""
       response_get = ""
+      last_request = ""
 
       body = "
         <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
@@ -148,33 +149,32 @@ class Venda < ApplicationRecord
         response_get += request.body
         response_get += "=========[Topup]========"
 
-        venda = Venda.create(agent_id: AGENTE_ID, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
-
-        venda.store_id = usuario.sub_agente.store_id_parceiro
-        venda.seller_id = usuario.sub_agente.seller_id_parceiro
-        venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
-
-        venda.request_send = request_send
-        venda.response_get = response_get
-        venda.status = request.body.include?("Success") ? "0" : "3"
-        venda.save!
-
-        raise "nao cai aqui"
-
-        if venda.sucesso?
-          ContaCorrente.create!(
-            usuario: usuario,
-            valor: "-#{valor}",
-            observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-            lancamento: Lancamento.where(nome: "Compra de crédito"),
-            banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
-            iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
-          )
-        end
-
-        return venda
+        last_request = request.body
       end
 
+      venda = Venda.create(agent_id: AGENTE_ID, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+
+      venda.store_id = usuario.sub_agente.store_id_parceiro
+      venda.seller_id = usuario.sub_agente.seller_id_parceiro
+      venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+
+      venda.request_send = request_send
+      venda.response_get = response_get
+      venda.status = last_request.downcase.include?("success") ? "0" : "3"
+      venda.save!
+
+      if venda.sucesso?
+        ContaCorrente.create!(
+          usuario: usuario,
+          valor: "-#{valor}",
+          observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+          lancamento: Lancamento.where(nome: "Compra de crédito"),
+          banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
+          iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
+        )
+      end
+
+      return venda
     end
   end
 
