@@ -100,7 +100,7 @@ class Venda < ApplicationRecord
       response_get += request.body
       response_get += "=========[ValidateTopup]========"
 
-      if (200...300).include?(request.code.to_i) && !request.body.include?("200</ReturnCode>")
+      if (200...300).include?(request.code.to_i) && request.body.include?("200</ReturnCode>")
 
         body = "
           <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
