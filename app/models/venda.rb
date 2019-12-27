@@ -30,18 +30,15 @@ class Venda < ApplicationRecord
 
   def self.venda_movicel(params, usuario)
     ActiveRecord::Base.transaction do
-      
       parceiro = Partner.where("lower(slug) = 'movicel'").first
       valor = params[:valor].to_i
 
       raise "Saldo insuficiente para recarga" if usuario.saldo < valor
       raise "Parceiro não localizado" if parceiro.blank?
-      raise "Produto não selecionado" if params[:movicel_produto_id].blank?
       raise "Selecione o valor" if params[:valor].blank?
       raise "Digite o telemovel" if params[:movicel_telefone].blank?
       raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
 
-      product_id = params[:movicel_produto_id].split("-").first
       telefone = params[:movicel_telefone]
 
       require 'openssl'
@@ -94,7 +91,7 @@ class Venda < ApplicationRecord
         :body => body
       )
       
-      venda = Venda.create(agent_id: AGENTE_ID, product_id: product_id, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+      venda = Venda.create(agent_id: AGENTE_ID, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
 
       venda.store_id = usuario.sub_agente.store_id_parceiro
       venda.seller_id = usuario.sub_agente.seller_id_parceiro
