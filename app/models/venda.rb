@@ -43,7 +43,15 @@ class Venda < ApplicationRecord
 
       require 'openssl'
 
-      agent_key = "5CF0AC45050B030B9E3A5FC14A5D7C8B609B2BDD40119B5C32539E1F3B6CEF7F"
+
+      #producao
+      agent_key = "3958CFE4F3A8DB09B76B9C0D26A19F6D69E1F6DC3BC5779EB84CB866DD939DF4"
+      url_service = "https://ws.movicel.co.ao:10073"
+
+      #homologacao
+      # agent_key = "5CF0AC45050B030B9E3A5FC14A5D7C8B609B2BDD40119B5C32539E1F3B6CEF7F"
+      # url_service = "http://wsqa.movicel.co.ao:10071"
+
       user_id = "TivTechno"
       msisdn = telefone
       request_id = Time.now.strftime("%d%m%Y%H%M%S")
@@ -86,7 +94,7 @@ class Venda < ApplicationRecord
       request_send += body
       request_send += "=========[ValidateTopup]========"
 
-      url = "http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/"
+      url = "#{url_service}/DirectTopupService/Topup/"
       uri = URI.parse(URI.escape(url))
       request = HTTParty.post(uri, 
         :headers => {
@@ -135,7 +143,7 @@ class Venda < ApplicationRecord
         request_send += body
         request_send += "=========[Topup]========"
 
-        url = "http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/"
+        url = "#{url_service}/DirectTopupService/Topup/"
         uri = URI.parse(URI.escape(url))
         request = HTTParty.post(uri, 
           :headers => {
