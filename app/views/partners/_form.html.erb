@@ -23,20 +23,25 @@
 		          </div>
 	        	<% end %>
 
-				<div class="form-input">
+				<div class="form-input col-sm-6">
 				<%= f.input :name, placeholder: "Nome do parceiro" %>
 				</div>
 
-				<div class="form-input">
+				<div class="form-input col-sm-6">
 				<%= f.input :slug, placeholder: "Slug (código para busca)" %>
 				</div>
 
-		        <div class="form-input">
+				<div class="form-input col-sm-6">
+	              <%= f.label :order, "Ordem" %>
+	              <%= f.select :order, (1..Partner.count).map{|i| [i, i]}, {}, required:true, class: "form-control" %>
+	            </div>
+
+		        <div class="form-input col-sm-6">
 		          <%= f.label :status_parceiro_id, "Status do Parceiro" %>
 		          <%= f.select :status_parceiro_id, StatusParceiro.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
 		        </div>
 
-				<div class="form-actions col-sm-12">
+				<div class="form-actions col-sm-12" style="margin-top: 20px;">
 					<%= f.button :button, class: 'btn btn-danger' do %>
 						<span class="glyphicon glyphicon-ok"></span>
 						Confirmar

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_17_102724) do
+ActiveRecord::Schema.define(version: 2019_12_27_094700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 2019_12_17_102724) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.bigint "status_parceiro_id"
+    t.integer "order"
     t.index ["status_parceiro_id"], name: "index_partners_on_status_parceiro_id"
   end
 
