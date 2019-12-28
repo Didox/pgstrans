@@ -10,8 +10,8 @@ class ProdutosController < ApplicationController
     @produtos = @produtos.where("partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
     @produtos = @produtos.where("moeda_id = ?", params[:moeda_id]) if params[:moeda_id].present?
     @produtos = @produtos.where("status_produto_id = ?", params[:status_produto_id]) if params[:status_produto_id].present?
-    @produtos = @produtos.where("margem_telemovel = ?", params[:margem_telemovel]) if params[:margem_telemovel].present?
-    @produtos = @produtos.where("margem_site = ?", params[:margem_site]) if params[:margem_site].present?
+    @produtos = @produtos.where("margem_telemovel = ?", params[:margem_telemovel].to_f) if params[:margem_telemovel].present?
+    @produtos = @produtos.where("margem_site = ?", params[:margem_site].to_f) if params[:margem_site].present?
   end
 
   # GET /produtos/1
