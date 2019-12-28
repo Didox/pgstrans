@@ -10,19 +10,8 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Nome</th>
-          <th scope="col">Marca</th>
-          <th scope="col">Modelo</th>
-          <th scope="col">Número Série</th>
-          <th scope="col">Macaddr</th>
-          <th scope="col">IMEI 1</th>
-          <th scope="col">IMEI 2</th>
-          <th scope="col">RATED / Potência</th>
-          <th scope="col">Tamanho de Ecrã</th>
-          <th scope="col">Sistema Operativo</th>
-          <th scope="col">RAM / ROM</th>
-          <th scope="col">Conectividade</th>
+          <th scope="col">Marca / Modelo</th>
+          <th scope="col">Características Técnicas</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -30,19 +19,23 @@
       <tbody>
         <% @dispositivos.each do |dispositivo| %>
         <tr>
-          <td><%= dispositivo.id %></td>
-          <td><%= dispositivo.nome %></td>
-          <td><%= dispositivo.marca %></td>
-          <td><%= dispositivo.modelo %></td>
-          <td><%= dispositivo.numero_serie %></td>
-          <td><%= dispositivo.macaddr %></td>
-          <td><%= dispositivo.imei %></td>
-          <td><%= dispositivo.imei2 %></td>
-          <td><%= dispositivo.rated %></td>
-          <td><%= dispositivo.screensize %></td>
-          <td><%= dispositivo.so %></td>
-          <td><%= dispositivo.ram_rom %></td>
-          <td><%= dispositivo.conectividade %></td>
+          <td style="width: 400px">
+            <b>ID:</b> <%= dispositivo.id %><br>
+            <b>Nome:</b> <%= dispositivo.nome %><br>
+            <b>Marca:</b> <%= dispositivo.marca %><br>
+            <b>Modelo:</b> <%= dispositivo.modelo %><br>
+            <b>Número de Série:</b> <%= dispositivo.numero_serie %><br>
+            <b>Tamanho de Ecrã:</b> <%= dispositivo.screensize %><br>
+            <b>Macaddr:</b> <%= dispositivo.macaddr %><br>
+          </td>
+          <td style="width: 400px">
+            <b>IMEI 1:</b> <%= dispositivo.imei %><br>
+            <b>IMEI 2:</b> <%= dispositivo.imei2 %><br> 
+            <b>RATED / Potência:</b> <%= dispositivo.rated %><br>
+            <b>Sistema Operativo:</b> <%= dispositivo.so %><br>
+            <b>Armazenamento RAM / ROM:</b> <%= dispositivo.ram_rom %><br>
+            <b>Conectividade:</b> <%= dispositivo.conectividade %><br>
+          </td>
           <td><%= link_to 'Mostrar', dispositivo %></td>
           <td><%= link_to 'Editar', edit_dispositivo_path(dispositivo) %></td>
           <td><%= link_to 'Apagar', dispositivo, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
