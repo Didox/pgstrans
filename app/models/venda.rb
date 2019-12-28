@@ -29,11 +29,11 @@ class Venda < ApplicationRecord
   end
 
   def request_id
-    self.response_get.scan(/RequestId.*?RequestId>/).first.scan(/\d/).join("") rescue ""
+    self.response_get.scan(/RequestId.*?RequestId>/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue ""
   end
 
   def status_movicel
-    return if self.partner.name.downcase != "movicel"
+    # return if self.partner.name.downcase != "movicel"
 
     require 'openssl'
 
@@ -97,8 +97,8 @@ class Venda < ApplicationRecord
 
     if (200...300).include?(request.code.to_i)
       # return request.body
-      # return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue nil
-      return "#{request_id} - #{Nokogiri::XML(request.body).children.children.children.children.children.text}" rescue nil
+      return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue nil
+      # return "#{request_id} - #{Nokogiri::XML(request.body).children.children.children.children.children.text}" rescue nil
     end
   end
 
