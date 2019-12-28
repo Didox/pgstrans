@@ -12,6 +12,7 @@
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Nome</th>
+          <th scope="col">Ordem Apres...</th>
           <th scope="col">Status</th>
           <th scope="col" colspan="3"></th>
         </tr>
@@ -22,6 +23,7 @@
           <tr>
             <td><%= partner.id %></td>
             <td><%= partner.name %></td>
+            <td align="center"><%= partner.order %></td>         
             <td><%= partner.status_parceiro.nome rescue "" %></td>
             <td><%= link_to 'Mostrar', partner %></td>
             <td><%= link_to 'Editar', edit_partner_path(partner) %></td>
