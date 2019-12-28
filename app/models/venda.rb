@@ -46,40 +46,40 @@ class Venda < ApplicationRecord
     user_id = "TivTechno"
     request_id = self.request_id
 
-    pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto`
-    # pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' REQUESTID='#{request_id}' ./chaves/movicell/mac/encripto`
+    # pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto`
+    pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' REQUESTID='#{request_id}' ./chaves/movicell/mac/encripto`
     pass = pass.strip
 
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
-       <soapenv:Header>
-          <int:QueryTransactionReqHeader>
-             <mid:RequestId>#{request_id}</mid:RequestId>
-             <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
-             <!--Optional:-->
-             <mid:SourceSystem>#{user_id}</mid:SourceSystem>
-             <mid:Credentials>
-                <mid:User>#{user_id}</mid:User>
-                <mid:Password>#{pass}</mid:Password>
-             </mid:Credentials>
-             <!--Optional:-->
-             <mid:Attributes>
-                <!--Zero or more repetitions:-->
-                <mid:Attribute>
-                   <mid:Name>?</mid:Name>
-                   <mid:Value>?</mid:Value>
-                </mid:Attribute>
-             </mid:Attributes>
-          </int:QueryTransactionReqHeader>
-       </soapenv:Header>
-       <soapenv:Body>
-          <int:QueryTransactionReq>
-             <!--Optional:-->
-             <int:QueryTransactionReqBody>
-                <mid1:TransactionNumber>?</mid1:TransactionNumber>
-             </int:QueryTransactionReqBody>
-          </int:QueryTransactionReq>
-       </soapenv:Body>
+         <soapenv:Header>
+            <int:QueryTransactionReqHeader>
+               <mid:RequestId>#{request_id}</mid:RequestId>
+               <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
+               <!--Optional:-->
+               <mid:SourceSystem>#{user_id}</mid:SourceSystem>
+               <mid:Credentials>
+                  <mid:User>#{user_id}</mid:User>
+                  <mid:Password>#{pass}</mid:Password>
+               </mid:Credentials>
+               <!--Optional:-->
+               <mid:Attributes>
+                  <!--Zero or more repetitions:-->
+                  <mid:Attribute>
+                     <mid:Name>?</mid:Name>
+                     <mid:Value>?</mid:Value>
+                  </mid:Attribute>
+               </mid:Attributes>
+            </int:QueryTransactionReqHeader>
+         </soapenv:Header>
+         <soapenv:Body>
+            <int:QueryTransactionReq>
+               <!--Optional:-->
+               <int:QueryTransactionReqBody>
+                  <mid1:TransactionNumber>?</mid1:TransactionNumber>
+               </int:QueryTransactionReqBody>
+            </int:QueryTransactionReq>
+         </soapenv:Body>
       </soapenv:Envelope>
     "
 
@@ -88,14 +88,14 @@ class Venda < ApplicationRecord
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',
-        'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryBalance',
+        'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryTransaction',
       },
       :body => body
     )
 
     if (200...300).include?(request.code.to_i)
-      return request.body
-      # return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue nil
+      # return request.body
+      return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue nil
     end
   end
 
