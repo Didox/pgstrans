@@ -33,7 +33,7 @@ class Venda < ApplicationRecord
   end
 
   def status_movicel
-    # return if self.partner.name.downcase != "movicel"
+    return if self.partner.name.downcase != "movicel"
 
     require 'openssl'
 
