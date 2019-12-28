@@ -83,10 +83,6 @@ class Venda < ApplicationRecord
       </soapenv:Envelope>
     "
 
-    request_send += "=========[QueryBalance]========"
-    request_send += body
-    request_send += "=========[QueryBalance]========"
-
     url = "#{url_service}/DirectTopupService/Topup/"
     uri = URI.parse(URI.escape(url))
     request = HTTParty.post(uri, 
