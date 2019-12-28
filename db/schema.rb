@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_27_094700) do
+ActiveRecord::Schema.define(version: 2019_12_28_135820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,12 @@ ActiveRecord::Schema.define(version: 2019_12_27_094700) do
     t.string "imei"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "imei2"
+    t.string "rated"
+    t.string "screensize"
+    t.string "so"
+    t.string "ram_rom"
+    t.string "conectividade"
   end
 
   create_table "industries", force: :cascade do |t|

@@ -69,6 +69,6 @@ class DispositivosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dispositivo_params
-      params.require(:dispositivo).permit(:nome, :marca, :modelo, :numero_serie, :macaddr, :imei)
+      params.require(:dispositivo).permit(:nome, :marca, :modelo, :numero_serie, :macaddr, :imei, :imei2, :rated, :screensize, :so, :ram_rom, :conectividade)
     end
 end

@@ -29,24 +29,48 @@
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :marca, placeholder: "Marca do dispositivo" %>
+          <%= f.input :marca, placeholder: "Marca" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :modelo, placeholder: "Modelo do dispositivo" %>
+          <%= f.input :modelo, placeholder: "Modelo" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :numero_serie, :label => "Número de Série", placeholder: "Número de série do dispositivo" %>
+          <%= f.input :numero_serie, :label => "Número de Série", placeholder: "Número de série" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :macaddr, placeholder: "MAC Address do dispositivo" %>
+          <%= f.input :macaddr, :label => "MAC Address", placeholder: "MAC Address do dispositivo" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :imei, :label => "IMEI", placeholder: "IMEI do dispositivo" %>
+          <%= f.input :imei, :label => "IMEI 1", placeholder: "IMEI 1" %>
         </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.input :imei2, :label => "IMEI 2", placeholder: "IMEI 2" %>
+        </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.input :rated, :label => "RATED Power", placeholder: "Potência" %>
+        </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.input :screensize, :label => "Tamanho de Ecrã", placeholder: "Tamanho de Ecrã" %>
+        </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.input :so, :label => "Sistema Operativo", placeholder: "Sistema Operativo" %>
+        </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.input :ram_rom, :label => "RAM / ROM", placeholder: "RAM / ROM" %>
+        </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.input :conectividade, :label => "Conectividade", placeholder: "Conectividade" %>
+        </div>        
 
         <div class="form-actions col-sm-12">
           <%= f.button :button, class: 'btn btn-danger' do %>
