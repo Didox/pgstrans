@@ -33,7 +33,7 @@
         </div>
  
         <div class="form-input col-sm-6">
-          <%= f.label :dispositivo_id, "Sub-Distribuidor" %>
+          <%= f.label :dispositivo_id, "Dispositivo" %>
           <%= f.select :dispositivo_id, Dispositivo.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>   
         </div>
   
