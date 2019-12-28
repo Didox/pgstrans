@@ -94,7 +94,8 @@ class Venda < ApplicationRecord
     )
 
     if (200...300).include?(request.code.to_i)
-      return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue nil
+      return request.body
+      # return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue nil
     end
   end
 
