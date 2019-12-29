@@ -37,6 +37,10 @@
       </tbody>
     </table>
 
+    <div class="apple_pagination">
+      <%= will_paginate @return_code_apis, :container => false %>
+    </div> 
+
     <%= link_to new_return_code_api_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registro

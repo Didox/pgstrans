@@ -4,7 +4,10 @@ class ReturnCodeApisController < ApplicationController
   # GET /return_code_apis
   # GET /return_code_apis.json
   def index
-    @return_code_apis = ReturnCodeApi.all
+    @return_code_apis = ReturnCodeApi.all.order(partner_id: :asc, return_code: :asc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @return_code_apis = @return_code_apis.paginate(options)
   end
 
   # GET /return_code_apis/1
