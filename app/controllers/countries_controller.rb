@@ -5,6 +5,9 @@ class CountriesController < ApplicationController
   # GET /countries.json
   def index
     @countries = Country.all.order(name_eng: :asc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @countries = @countries.paginate(options)
   end
 
   # GET /countries/1
