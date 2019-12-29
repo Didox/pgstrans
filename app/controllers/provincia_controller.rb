@@ -5,6 +5,9 @@ class ProvinciaController < ApplicationController
   # GET /provincia.json
   def index
     @provincia = Provincium.all.order(nome: :asc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @provincium = @provincia.paginate(options)
   end
 
   # GET /provincia/1
