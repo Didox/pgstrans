@@ -5,6 +5,9 @@ class IndustriesController < ApplicationController
   # GET /industries.json
   def index
     @industries = Industry.all.order(descricao_seccao: :asc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @industries = @industries.paginate(options)
   end
 
   # GET /industries/1
