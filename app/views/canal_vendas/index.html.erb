@@ -21,8 +21,8 @@
       <% @canal_vendas.each do |canal_venda| %>
       <tr>
         <td><%= canal_venda.id %></td>
-        <td><%= canal_venda.nome %></td>
-        <td><%= canal_venda.carregamento_minimo %></td>
+        <td style="width: 200px"><%= canal_venda.nome %></td>
+        <td style="width: 180px" align="right"><%= canal_venda.carregamento_minimo %></td>
         <td><%= canal_venda.dispositivo.nome %></td>
         <td><%= link_to 'Mostrar', canal_venda %></td>
         <td><%= link_to 'Editar', edit_canal_venda_path(canal_venda) %></td>

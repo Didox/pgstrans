@@ -28,8 +28,6 @@
       <dd><%= @venda.request_send %></dd>
       <dt>Response get:</dt>
       <dd><%= @venda.response_get %></dd>
-      <dt>Status do processamento na operadora:</dt>
-      <dd><%= @venda.status_movicel %></dd>
     </dl>
 
     <div class="page-header">
@@ -37,10 +35,11 @@
         <span class="glyphicon glyphicon-list-alt"></span>
         Voltar
       <% end %>
-      <%= link_to edit_venda_path(@venda), class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-pencil"></span>
+      <%#= link_to edit_venda_path(@venda), class: 'btn btn-danger' do %>
+        <!--span class="glyphicon glyphicon-pencil"></span>
         Editar
-      <% end %>
+      <%# end %>
+      <-->
     </div>
   </div>
 </div>

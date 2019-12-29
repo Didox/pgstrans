@@ -5,6 +5,10 @@ class MunicipiosController < ApplicationController
   # GET /municipios.json
   def index
     @municipios = Municipio.all.order(nome: :asc)
+    @municipios = @municipios.where("municipios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @municipios = @municipios.paginate(options)
   end
 
   # GET /municipios/1
