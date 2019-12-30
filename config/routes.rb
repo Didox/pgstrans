@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :status_parceiros
   resources :conta_correntes
+  get 'vendas/resumido', to: 'vendas#resumido', as: "vendas_resumido"
+  get 'vendas/:venda_id/resumido', to: 'vendas#mostrar_resumido', as: "vendas_mostrar_resumido"
   resources :vendas
   resources :moedas
   get 'backoffice/home'
