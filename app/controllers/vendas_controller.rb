@@ -17,6 +17,7 @@ class VendasController < ApplicationController
     @vendas = @vendas.where("vendas.seller_id = ?", params[:seller]) if params[:seller].present?
     @vendas = @vendas.where("vendas.value = ?", params[:valor]) if params[:valor].present?
     @vendas = @vendas.where("vendas.client_msisdn = ?", params[:client_msisdn]) if params[:client_msisdn].present?
+    @vendas = @vendas.where("vendas.request_id = '#{params[:log]}' or request_send ilike '%#{params[:log]}%' or response_get ilike '%#{params[:log]}%'") if params[:log].present?
 
     options = {page: params[:page] || 1, per_page: 10}
     @vendas = @vendas.paginate(options)
