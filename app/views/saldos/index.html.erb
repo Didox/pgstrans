@@ -6,7 +6,7 @@
     </nav>
   </div>
 
-  <div style="font-weight: bold;text-align: right;width: 100%;background: #ccc;padding: 20px;font-size: 30px;">
+  <div style="font-weight: bold;text-align: right;width: 100%;background: #ccc;padding: 20px;font-size: 20px;">
     Saldo Disponível: <%= number_to_currency(usuario_logado.saldo, :unit => "KZ") %>
   </div>
 
@@ -15,40 +15,24 @@
       <div class="row" style="padding:10px">
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Data de Lançamento</label>
+            <label>Data de movimentação inicio</label>
             <div>
-              <input type="date" name="dala_lancamento" value="<%= params[:data_alegacao_pagamento] %>" class="form-control">
+              <input type="date" name="data_alegacao_pagamento_inicio" value="<%= params[:data_alegacao_pagamento_inicio] %>" class="form-control">
             </div>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Data da Última Atualização</label>
+            <label>Data de movimentação fim</label>
             <div>
-              <input type="date" name="data_ultima_atualizacao_saldo" value="<%= params[:data_ultima_atualizacao_saldo] %>" class="form-control">
+              <input type="date" name="data_alegacao_pagamento_fim" value="<%= params[:data_alegacao_pagamento_fim] %>" class="form-control">
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-6" style="text-align: right;">
           <div class="form-group">
-            <label>Usuário</label>
-            <div>
-              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
-            </div>
+          	<input type="submit" value="Buscar" class="btn btn-info">
           </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>IBAN</label>
-            <div>
-              <input type="text" name="iban" value="<%= params[:iban] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div style="float: right;margin-right:10px">
-          <input type="submit" value="Buscar" class="btn btn-info">
         </div>
       </div>
     </form>
