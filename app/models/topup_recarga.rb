@@ -1,2 +1,0 @@
-class TopupRecarga < ApplicationRecord
-end

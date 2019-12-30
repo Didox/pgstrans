@@ -26,7 +26,6 @@ Rails.application.routes.draw do
   resources :sub_distribuidors
   resources :master_profiles
   resources :partners
-  resources :topup_recargas
   root 'welcome#index'
 
   get 'login', to: 'login#index'
@@ -36,9 +35,6 @@ Rails.application.routes.draw do
   post 'recarga/confirma', to: 'recarga#confirma', as: "recarga_confirma"
 
   resources :return_code_apis
-  resources :query_balances
-  resources :query_requests
-  resources :topup_validations
   resources :matrix_users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

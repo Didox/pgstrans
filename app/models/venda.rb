@@ -29,6 +29,10 @@ class Venda < ApplicationRecord
   end
 
   def request_id
+    if super.present?
+      return super
+    end
+
     self.response_get.scan(/RequestId.*?RequestId>/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue ""
   end
 
@@ -234,7 +238,7 @@ class Venda < ApplicationRecord
         last_request = request.body
       end
 
-      venda = Venda.create(agent_id: AGENTE_ID, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+      venda = Venda.create(agent_id: AGENTE_ID, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
 
       venda.store_id = usuario.sub_agente.store_id_parceiro
       venda.seller_id = usuario.sub_agente.seller_id_parceiro

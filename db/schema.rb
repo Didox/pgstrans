@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_28_135820) do
+ActiveRecord::Schema.define(version: 2019_12_30_092511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,66 +190,6 @@ ActiveRecord::Schema.define(version: 2019_12_28_135820) do
     t.index ["country_id"], name: "index_provincia_on_country_id"
   end
 
-  create_table "query_balances", force: :cascade do |t|
-    t.string "header_element"
-    t.string "query_balance_req_header"
-    t.string "header_request_id"
-    t.datetime "header_timestamp"
-    t.string "header_source_system"
-    t.string "credentials_element"
-    t.string "credentials_user"
-    t.string "credentials_password"
-    t.string "attributes_list"
-    t.string "attribute_element"
-    t.string "attribute_name"
-    t.string "attribute_value"
-    t.string "body_element"
-    t.string "body_query_balance_req_element"
-    t.string "body_query_balance_input_message"
-    t.string "od_header_element"
-    t.string "od_query_balance_input_message"
-    t.string "od_query_balance_request_id"
-    t.string "od_query_balance_return_code"
-    t.string "od_query_balance_return_message"
-    t.datetime "od_query_balance_timestamp"
-    t.string "od_query_balance_body_element"
-    t.string "od_query_balance_resp"
-    t.string "od_query_balance_output_message"
-    t.float "od_query_balance_balance"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "query_requests", force: :cascade do |t|
-    t.string "header_element"
-    t.string "query_request_req_header"
-    t.string "header_request_id"
-    t.datetime "header_timestamp"
-    t.string "header_source_system"
-    t.string "credentials_element"
-    t.string "credentials_user"
-    t.string "credentials_password"
-    t.string "attributes_list"
-    t.string "attribute_element"
-    t.string "attribute_name"
-    t.string "attribute_value"
-    t.string "body_element"
-    t.string "body_query_request_req_element"
-    t.string "body_query_request_input_message"
-    t.string "body_query_request_id"
-    t.string "od_header_element"
-    t.string "od_query_request_input_message"
-    t.string "od_query_request_request_id"
-    t.string "od_query_request_return_code"
-    t.string "od_query_request_return_message"
-    t.datetime "od_query_request_timestamp"
-    t.string "od_query_request_body_element"
-    t.string "od_query_request_output_message"
-    t.integer "od_query_request_status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "remuneracaos", force: :cascade do |t|
     t.bigint "usuario_id"
     t.bigint "produto_id"
@@ -340,67 +280,6 @@ ActiveRecord::Schema.define(version: 2019_12_28_135820) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "topup_recargas", force: :cascade do |t|
-    t.string "validation_id"
-    t.string "header_element"
-    t.string "topup_req_header"
-    t.string "request_id"
-    t.string "header_timestamp"
-    t.string "header_source_system"
-    t.string "credentials_element"
-    t.string "credentials_user"
-    t.string "credentials_password"
-    t.string "attributes_list"
-    t.string "attribute_element"
-    t.string "attribute_name"
-    t.string "attribute_value"
-    t.string "body_element"
-    t.string "body_req_element"
-    t.string "body_input_message"
-    t.integer "body_topup_req_body_type"
-    t.float "body_topup_req_body_amount"
-    t.string "body_topup_req_body_msisdn"
-    t.string "od_header_element"
-    t.string "od_topup_resp_input_message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "topup_validations", force: :cascade do |t|
-    t.string "spree_order_id"
-    t.string "spree_products_id"
-    t.string "header_element"
-    t.string "validate_topup_req_header_element"
-    t.string "request_id"
-    t.datetime "header_timestamp"
-    t.string "header_source_system"
-    t.string "credentials_element"
-    t.string "credentials_user"
-    t.string "credentials_password"
-    t.string "attributes_list"
-    t.string "attributes_element"
-    t.string "attribute_name"
-    t.string "attribute_value"
-    t.string "body_element"
-    t.string "validation_topup_req"
-    t.string "validate_topup_input_message"
-    t.integer "validate_topup_req_body_type"
-    t.float "validate_topup_req_body_amount"
-    t.string "validate_topup_req_body_msisdn"
-    t.string "op_header"
-    t.string "op_validate_topup_input_message"
-    t.string "op_request_id"
-    t.string "op_return_code"
-    t.string "op_return_message"
-    t.datetime "op_timestamp"
-    t.string "op_body_element"
-    t.string "op_body_validate_topup_resp"
-    t.string "op_body_validate_topup_output_message"
-    t.datetime "qtde_retry"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "uni_pessoal_empresas", force: :cascade do |t|
     t.string "nome"
     t.datetime "created_at", null: false
@@ -444,6 +323,7 @@ ActiveRecord::Schema.define(version: 2019_12_28_135820) do
     t.bigint "partner_id"
     t.bigint "usuario_id"
     t.string "status"
+    t.string "request_id"
     t.index ["partner_id"], name: "index_vendas_on_partner_id"
     t.index ["usuario_id"], name: "index_vendas_on_usuario_id"
   end
