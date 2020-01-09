@@ -1,42 +1,44 @@
 <div>
   <%= render :partial => 'shared/menu' %>
-  <div class="nav-scroller py-1 mb-2 ">
-    <nav class="nav d-flex justify-content-between navbar-dark bg-warning menu-nav">
-      <a href="#">VENDAS</a>
-    </nav>
-  </div>
 
-  <div class="container">
-    <dl class="dl-horizontal">
-      <dt>Product:</dt>
-      <dd><%= @venda.product_id %></dd>
-      <dt>Agent:</dt>
-      <dd><%= @venda.agent_id %></dd>
-      <dt>Store:</dt>
-      <dd><%= @venda.store_id %></dd>
-      <dt>Seller:</dt>
-      <dd><%= @venda.seller_id %></dd>
-      <dt>Terminal:</dt>
-      <dd><%= @venda.terminal_id %></dd>
-      <dt>Value:</dt>
-      <dd><%= @venda.value %></dd>
-      <dt>Client msisdn:</dt>
-      <dd><%= @venda.client_msisdn %></dd>
-      <dt>Status:</dt>
-      <dd><%= @venda.status %></dd>
-      <dt>Request send:</dt>
-      <dd><%= @venda.request_send %></dd>
-      <dt>Response get:</dt>
-      <dd><%= @venda.response_get %></dd>
-      <dt>Status do processamento na operadora:</dt>
-      <dd><%= @venda.status_movicel %></dd>
-    </dl>
+  <div class="card" style="margin-top: 5px;">
+    <div class="card-header" style="text-align: center;font-size: 20px;font-weight: bold;">
+      VENDAS
+    </div>
+    <div class="card-body recarga">
+      <div class="container" style="margin-top:10px">
+        <dl class="dl-horizontal">
+          <dt>Product:</dt>
+          <dd><%= @venda.product_id %></dd>
+          <dt>Agent:</dt>
+          <dd><%= @venda.agent_id %></dd>
+          <dt>Store:</dt>
+          <dd><%= @venda.store_id %></dd>
+          <dt>Seller:</dt>
+          <dd><%= @venda.seller_id %></dd>
+          <dt>Terminal:</dt>
+          <dd><%= @venda.terminal_id %></dd>
+          <dt>Value:</dt>
+          <dd><%= @venda.value %></dd>
+          <dt>Client msisdn:</dt>
+          <dd><%= @venda.client_msisdn %></dd>
+          <dt>Status:</dt>
+          <dd><%= @venda.status %></dd>
+          <dt>Request send:</dt>
+          <dd><%= @venda.request_send %></dd>
+          <dt>Response get:</dt>
+          <dd><%= @venda.response_get %></dd>
+          <dt>Status do processamento na operadora:</dt>
+          <dd><%= @venda.status_movicel %></dd>
+        </dl>
 
-    <div class="page-header">
-      <%= link_to vendas_resumido_path, class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-list-alt"></span>
-        Voltar
-      <% end %>
+        <div class="page-header">
+          <%= link_to vendas_resumido_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

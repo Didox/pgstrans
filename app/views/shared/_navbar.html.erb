@@ -1,25 +1,45 @@
   <header class="blog-header py-3">
     <div class="row flex-nowrap justify-content-between align-items-center">
-      <div class="col-4 pt-1">
+      <div class="col-3 pt-1">
         <a class="text-muted" href="<%= root_path %>">Home</a>
       </div>
-      <div class="col-4 text-center">
-        <img class="img-responsive" data-image="assets/images/PagaSo-Logo.png">
-          <%= link_to image_tag("PagaSo-Logo.png"), "https://www.pagaso.co.ao", target: "_blank" %>
-        </img>
+      <div class="col-5 text-center">
+        <%= link_to image_tag("PagaSo-Logo.png", class: "logo"), "https://www.pagaso.co.ao", target: "_blank" %>
       </div>
+
       <div class="col-4 d-flex justify-content-end align-items-center jsmenu">
-        <div style="display: inline-block;">
-          <a class="text-muted jsdropdown" id="jsItensMenu" style="margin-right: 20px;" href="javascript:;">
-            <span class="fa fa-user"></span>
-            <%= usuario_logado.nome.camelize %>
-            &#10549;
+        <div class="usuario_logado_mobile">
+          <a class="text-muted jsdropdown" id="jsItensMenu" href="javascript:;">
+            <span class="fa fa-user text-muted"> Menu</span>
           </a>
-          <div class="jsItensMenu" style="display: none; position: absolute;">
+
+          <div class="jsItensMenu mobile-menu" style="display: none; position: absolute;left: 0;">
             <div>Seu último acesso: <%= usuario_logado.ultimo_acesso.strftime("%d/%m/%Y %H:%M") rescue "" %></div>
             <div><a class="text-muted" href="<%= edit_usuario_path(usuario_logado) %>"><span class="fa fa-user"></span> Perfil</a></div>
+            <div style="display: inline-block;">
+              <a class="text-muted" class="btn btn-sm btn-outline-secondary" href="<%= logout_path %>">Sair</a>
+            </div>
           </div>
         </div>
+
+        <div class="usuario_logado_desktop">
+          <div style="display: inline-block;">
+            <a class="text-muted jsdropdown" id="jsItensMenu" style="margin-right: 20px;" href="javascript:;">
+              <span class="fa fa-user"></span>
+              <%= usuario_logado.nome.camelize %>
+              &#10549;
+            </a>
+            <div class="jsItensMenu" style="display: none; position: absolute;">
+              <div>Seu último acesso: <%= usuario_logado.ultimo_acesso.strftime("%d/%m/%Y %H:%M") rescue "" %></div>
+              <div><a class="text-muted" href="<%= edit_usuario_path(usuario_logado) %>"><span class="fa fa-user"></span> Perfil</a></div>
+            </div>
+          </div>
+          <div style="display: inline-block;">
+            <a class="text-muted" class="btn btn-sm btn-outline-secondary" href="<%= logout_path %>">Sair</a>
+          </div>
+        </div>
+
+
         <script type="text/javascript">
           $(".jsmenu a.jsdropdown").click(function(){
             $(".jsmenu ." + $(this).attr("id")).show();
@@ -29,9 +49,6 @@
             $(".jsmenu .jsItensMenu").hide();
           });
         </script>
-        <div style="display: inline-block;">
-          <a class="text-muted" class="btn btn-sm btn-outline-secondary" href="<%= logout_path %>">Sair</a>
-        </div>
       </div>
     </div>
   </header>

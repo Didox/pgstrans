@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" style="margin-top: 5px;">
   <div class="card-header">
     <div class="col-md-6">
       Escolha um Parceiro/Fornecedor
@@ -8,21 +8,23 @@
     </div>
   </div>
   <div class="card-body recarga">
-    <div class="col-md-12 row justify-content-center">
+    <div class="col-md-12 row justify-content-center mobile-container-icones">
       <% Partner.all.each_with_index do |partner, index| 
-        @partner_default = partner if index == 0 %>
+        if index == 0
+          @partner_default = partner
+          ativo = "menu-ativo"
+        end %>
         <% if partner.status_parceiro_id == 1 %>
           <!--<%= partner.slug %>-->
-          <div class="col-md-3" style="text-align: center;">
+          <div class="col-md-3 menu-icon" style="text-align: center;">
             <a href="javascript:;" onclick="pgstrans.displayRecarga('<%= partner.slug %>')">
-              <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive", style: "display: inline-block;") rescue "" %>
+              <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;") rescue "" %>
             </a>
-            <span class="seta-cima" id="seta<%= partner.slug %>" style="display: none"></span>
           </div>
         <% else %>
           <!--<%= partner.slug %>-->
-          <div class="col-md-3" style="text-align: center;">
-            <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive", style: "display: inline-block;") rescue "" %>
+          <div class="col-md-3 menu-icon" style="text-align: center;">
+            <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu img_#{partner.slug}", style: "display: inline-block;") rescue "" %>
           </div>
         <% end %>
       <% end %>
@@ -125,7 +127,7 @@
               </div>
             </div>
           </div>
-          <div class="saveCancelbts" style="padding-top: 25px">
+          <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;">
             <div style="float: right;">
               <input type="submit" class="btn btn-success" id="btSave" style="width: 210px; text-align: center;" value="SUBMETER PAGAMENTO">
             </div>

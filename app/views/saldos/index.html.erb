@@ -1,80 +1,78 @@
 <div>
   <%= render :partial => 'shared/menu' %>
-  <div class="nav-scroller py-1 mb-2 ">
-    <nav class="nav d-flex justify-content-between navbar-dark bg-warning menu-nav">
-      <a href="#">SALDO</a>
-    </nav>
-  </div>
 
-  <div style="font-weight: bold;text-align: right;width: 100%;background: #ccc;padding: 20px;font-size: 20px;">
-    Saldo Disponível: <%= number_to_currency(usuario_logado.saldo, :unit => "KZ") %>
-  </div>
-
-  <div style="margin-top:10px">
-    <form action="" method="get" id="formApuracao">
-      <div class="row" style="padding:10px">
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Data de movimentação inicio</label>
-            <div>
-              <input type="date" name="data_alegacao_pagamento_inicio" value="<%= params[:data_alegacao_pagamento_inicio] %>" class="form-control">
+  <div class="card" style="margin-top: 5px;">
+    <div class="card-header" style="text-align: right;font-size: 20px;font-weight: bold;">
+      Saldo Disponível: <%= number_to_currency(usuario_logado.saldo, :unit => "KZ") %>
+    </div>
+    <div class="card-body recarga">
+      <div class="container" style="margin-top:10px">
+        <form action="" method="get" id="formApuracao">
+          <div class="row" style="padding:10px">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Data de movimentação inicio</label>
+                <div>
+                  <input type="date" name="data_alegacao_pagamento_inicio" value="<%= params[:data_alegacao_pagamento_inicio] %>" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Data de movimentação fim</label>
+                <div>
+                  <input type="date" name="data_alegacao_pagamento_fim" value="<%= params[:data_alegacao_pagamento_fim] %>" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6" style="text-align: right;">
+              <div class="form-group">
+              	<input type="submit" value="Buscar" class="btn btn-info">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Data de movimentação fim</label>
-            <div>
-              <input type="date" name="data_alegacao_pagamento_fim" value="<%= params[:data_alegacao_pagamento_fim] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6" style="text-align: right;">
-          <div class="form-group">
-          	<input type="submit" value="Buscar" class="btn btn-info">
-          </div>
+        </form>
+      </div>
+
+      <div class="container">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Data movimentação</th>
+              <th scope="col">Tipo de movimentação</th>
+              <th scope="col">Valor movimentação</th>
+              <th scope="col">Saldo anterior</th>
+              <th scope="col">Saldo atual</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @conta_correntes.each do |conta_corrente| %>
+    	        <tr>
+    	          <td>
+    	            <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %>
+    	          </td>
+    	          <td>
+    	            <%= conta_corrente.lancamento.nome %>
+    	          </td>
+    	          <td>
+    	            <%= number_to_currency(conta_corrente.valor, :unit => "KZ") %>
+    	          </td>
+    	          <td>
+    	            <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %>
+    	          </td>
+    	          <td>
+    	            <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %>
+    	          </td>
+    	        </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <div class="apple_pagination">
+          <%= will_paginate @conta_correntes, :container => false %>
         </div>
       </div>
-    </form>
-  </div>
-
-  <div class="container">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Data movimentação</th>
-          <th scope="col">Tipo de movimentação</th>
-          <th scope="col">Valor movimentação</th>
-          <th scope="col">Saldo anterior</th>
-          <th scope="col">Saldo atual</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @conta_correntes.each do |conta_corrente| %>
-	        <tr>
-	          <td>
-	            <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %>
-	          </td>
-	          <td>
-	            <%= conta_corrente.lancamento.nome %>
-	          </td>
-	          <td>
-	            <%= number_to_currency(conta_corrente.valor, :unit => "KZ") %>
-	          </td>
-	          <td>
-	            <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %>
-	          </td>
-	          <td>
-	            <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %>
-	          </td>
-	        </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-    <div class="apple_pagination">
-      <%= will_paginate @conta_correntes, :container => false %>
     </div>
   </div>
 </div>

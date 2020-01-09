@@ -24,8 +24,9 @@
 const pgstrans = {};
 
 pgstrans.displayRecarga = (tipo) => {
-  $(".recarga .seta-cima, .campos").hide();
-  $(".recarga #seta" + tipo).show();
+  $(".icone-menu").removeClass("menu-ativo");
+  $(".recarga .img_" + tipo).addClass("menu-ativo");
+  $(".campos").hide();
   $(".recarga ." + tipo).show();
   $(".recarga #recarga").show();
   $(".recarga #rechargeValue").val("");
