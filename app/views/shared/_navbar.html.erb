@@ -10,7 +10,7 @@
       <div class="col-4 d-flex justify-content-end align-items-center jsmenu">
         <div class="usuario_logado_mobile">
           <a class="text-muted jsdropdown" id="jsItensMenu" href="javascript:;">
-            <span class="fa fa-user text-muted"> Menu</span>
+            <span class="fa fa-user text-muted"></span> <%= usuario_logado.nome.camelize.split(" ").first rescue usuario_logado.nome.camelize %>
           </a>
 
           <div class="jsItensMenu mobile-menu" style="display: none; position: absolute;left: 0;">
