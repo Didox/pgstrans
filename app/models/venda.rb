@@ -264,6 +264,141 @@ class Venda < ApplicationRecord
     end
   end
 
+  def status_dstv
+    return if self.partner.name.downcase != "dstv"
+    
+    #TODO fazer
+    return 0
+  end
+
+  def self.venda_dstv(params, usuario)
+    ActiveRecord::Base.transaction do
+      parceiro = Partner.where("lower(slug) = 'dstv'").first
+      valor = params[:valor].to_i
+
+      raise "Saldo insuficiente para recarga" if usuario.saldo < valor
+      raise "Parceiro não localizado" if parceiro.blank?
+      raise "Selecione o valor" if params[:valor].blank?
+      raise "Digite o Nº SmartCard" if params[:dstv_smart_card].blank?
+      raise "Talão p/SMS" if params[:talao_sms].blank?
+      raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
+
+      require 'openssl'
+
+      url_service = "http://uat.mcadigitalmedia.com"
+
+      data_source = "Angola"
+      payment_vendor_code = "RTPP_Angola_Pagaso"
+      vendor_code = "PagasoDStv"
+      agent_account = ""
+      currency = "AOA"
+      # mop = "CASH, MOBILE or ATM "
+      mop = "CASH"
+
+      request_send = ""
+      response_get = ""
+      last_request = ""
+
+
+      body = "
+        <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
+           <soapenv:Header/>
+           <soapenv:Body>
+              <sel:SubmitPaymentBySmartCard>
+                 <!--Optional:-->
+                 <sel:VendorCode>#{vendor_code}</sel:VendorCode>
+                 <!--Optional:-->
+                 <sel:DataSource>#{data_source}</sel:DataSource>
+                 <!--Optional:-->
+                 <sel:PaymentVendorCode>#{payment_vendor_code}</sel:PaymentVendorCode>
+                 <!--Optional:-->
+                 <sel:TransactionNumber>?</sel:TransactionNumber>
+                 <!--Optional:-->
+                 <sel:SmartCardNumber>#{params[:dstv_smart_card]}</sel:SmartCardNumber>
+                 <!--Optional:-->
+                 <sel:Amount>#{params[:valor]}</sel:Amount>
+                 <!--Optional:-->
+                 <sel:InvoicePeriod>?</sel:InvoicePeriod>
+                 <!--Optional:-->
+                 <sel:Currency>#{params[:valor]}</sel:Currency>
+                 <!--Optional:-->
+                 <sel:PaymentDescription>?</sel:PaymentDescription>
+                 <!--Optional:-->
+                 <sel:ProductCollection>
+                    <!--Zero or more repetitions:-->
+                    <sel1:PaymentProduct>
+                       <!--Optional:-->
+                       <sel1:ProductUserKey>?</sel1:ProductUserKey>
+                    </sel1:PaymentProduct>
+                 </sel:ProductCollection>
+                 <!--Optional:-->
+                 <sel:MethodOfPayment>#{mop}</sel:MethodOfPayment>
+                 <!--Optional:-->
+                 <sel:Language>PT-PT</sel:Language>
+                 <!--Optional:-->
+                 <sel:IpAddress>#{params[:ip]}</sel:IpAddress>
+                 <!--Optional:-->
+                 <sel:BusinessUnit>?</sel:BusinessUnit>
+              </sel:SubmitPaymentBySmartCard>
+           </soapenv:Body>
+        </soapenv:Envelope>
+      "
+
+      request_send += "=========[SubmitPaymentBySmartCard]========"
+      request_send += body
+      request_send += "=========[SubmitPaymentBySmartCard]========"
+
+      url = "#{url_service}/VendorSelfCare/SelfCareService.svc"
+      uri = URI.parse(URI.escape(url))
+      request = HTTParty.post(uri, 
+        :headers => {
+          'Content-Type' => 'text/xml;charset=UTF-8',
+          'SOAPAction' => "#{url_service}/VendorSelfCare/SelfCareService.svc",
+        },
+        :body => body
+      )
+      
+      response_get += "=========[SubmitPaymentBySmartCard]========"
+      response_get += request.body
+      response_get += "=========[SubmitPaymentBySmartCard]========"
+
+      last_request = request.body
+      
+
+
+
+
+
+
+
+
+
+      venda = Venda.create(agent_id: AGENTE_ID, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+
+      venda.store_id = usuario.sub_agente.store_id_parceiro
+      venda.seller_id = usuario.sub_agente.seller_id_parceiro
+      venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+
+      venda.request_send = request_send
+      venda.response_get = response_get
+      venda.status = last_request.scan(/ReturnCode.*?<\/ReturnCode/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue "3"
+      venda.save!
+
+      if venda.sucesso?
+        ContaCorrente.create!(
+          usuario: usuario,
+          valor: "-#{valor}",
+          observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+          lancamento: Lancamento.where(nome: "Compra de crédito"),
+          banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
+          iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
+        )
+      end
+
+      return venda
+    end
+  end
+
   def self.venda_unitel(params, usuario)
     ActiveRecord::Base.transaction do
       
