@@ -37,6 +37,10 @@
           <%= f.input :error_description_pt %>
         </div>
         <div class="form-input col-sm-6">
+          <%= f.label :sucesso, "Marque se o retorno é sucesso" %>
+          <%= f.check_box :sucesso %>
+        </div>
+        <div class="form-input col-sm-6">
           <%= f.label :partner_id, "Parceiro" %>
           <%= f.select :partner_id, Partner.all.collect{|p|[p.name, p.id]}, {}, {class: 'form-control is-valid'} %>
         </div>

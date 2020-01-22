@@ -33,6 +33,12 @@
 		  <%= @return_code_api.partner.name %>
 		</p>
 
+		<% if @return_code_api.sucesso %>
+		<p>
+		  <strong>Este é um retorno de sucesso</strong>
+		</p>
+		<% end %>
+
 	    <div class="page-header">
 	      <%= link_to return_code_apis_path, class: 'btn btn-danger' do %>
 	        <span class="glyphicon glyphicon-list-alt"></span>

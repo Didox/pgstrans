@@ -20,7 +20,7 @@ class Venda < ApplicationRecord
   end
 
   def sucesso?
-    self.status == "0"
+    ReturnCodeApi.where(return_code: self.status, sucesso: true).count > 0
   end
 
   def self.fazer_venda(params, usuario, slug_parceiro)
