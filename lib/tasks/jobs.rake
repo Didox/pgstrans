@@ -16,7 +16,7 @@ namespace :jobs do
         if produtos.count == 0
           produto = Produto.new
           produto.produto_id_parceiro = p_hash["code"]
-          produto.partner = partner
+          produto.partner_id = partner.id
         else
           produto = produtos.first
         end
@@ -29,7 +29,6 @@ namespace :jobs do
         # produto.name = p_hash["unit_pl"]
         produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{p_hash["currency"]}')").first.id
         produto.subtipo = p_hash["technology"]
-        produto.status_produto = StatusProduto.where(nome: "Ativo").first
         produto.status_produto = StatusProduto.where(nome: "Ativo").first
 
         produto.save
