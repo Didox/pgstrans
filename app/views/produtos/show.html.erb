@@ -76,6 +76,14 @@
         <dt>Mensagem cupom venda:</dt>
         <dd><%= @produto.mensagem_cupom_venda %></dd>
       </div>  
+      <div class="col-sm-12">
+        <dt>Data criação:</dt>
+        <dd><%= @produto.created_at.strftime("%d/%m/%Y") %></dd>
+      </div> 
+      <div class="col-sm-12">
+        <dt>Data atualização:</dt>
+        <dd><%= @produto.updated_at.strftime("%d/%m/%Y") %></dd>
+      </div> 
     </dl>
 
     <div class="col-sm-12 page-header">

@@ -85,7 +85,6 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <!--th scope="col">ID</th-->
           <th scope="col">Nome</th>
           <th scope="col">Partner</th>
           <th scope="col">Moeda</th>
@@ -93,6 +92,8 @@
           <th scope="col">Valor compra Telemóvel</th>
           <th scope="col">Margem Telemóvel</th>
           <th scope="col">Mensagem cupom venda</th>
+          <th scope="col">Data criação</th>
+          <th scope="col">Data atualização</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -100,7 +101,6 @@
       <tbody>
         <% @produtos.each do |produto| %>
         <tr>
-          <!--td><%= produto.id %></td-->
           <td><%= produto.description %></td>
           <td><%= produto.partner.name %></td>
           <td><%= "#{produto.moeda_id}/#{(produto.moeda.simbolo rescue "")}" %></td>       
@@ -108,6 +108,8 @@
           <td class="text-right"><%= produto.valor_compra_telemovel %></td>
           <td class="text-right"><%= produto.margem_telemovel %></td>
           <td><%= produto.mensagem_cupom_venda %></td>
+          <td><%= produto.created_at.strftime("%d/%m/%Y") %></td>
+          <td><%= produto.updated_at.strftime("%d/%m/%Y") %></td>
           <td><%= link_to 'Mostrar', produto %></td>
           <td><%= link_to 'Editar', edit_produto_path(produto) %></td>
           <td><%= link_to 'Apagar', produto, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
