@@ -78,11 +78,11 @@
       </div>  
       <div class="col-sm-12">
         <dt>Data criação:</dt>
-        <dd><%= @produto.created_at.strftime("%d/%m/%Y") %></dd>
+        <dd><%= @produto.created_at.strftime("%d/%m/%Y %H:%M:%S") %></dd>
       </div> 
       <div class="col-sm-12">
         <dt>Data atualização:</dt>
-        <dd><%= @produto.updated_at.strftime("%d/%m/%Y") %></dd>
+        <dd><%= @produto.updated_at.strftime("%d/%m/%Y %H:%M:%S") %></dd>
       </div> 
     </dl>
 

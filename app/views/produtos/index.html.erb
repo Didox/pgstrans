@@ -108,8 +108,8 @@
           <td class="text-right"><%= produto.valor_compra_telemovel %></td>
           <td class="text-right"><%= produto.margem_telemovel %></td>
           <td><%= produto.mensagem_cupom_venda %></td>
-          <td><%= produto.created_at.strftime("%d/%m/%Y") %></td>
-          <td><%= produto.updated_at.strftime("%d/%m/%Y") %></td>
+          <td><%= produto.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+          <td><%= produto.updated_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td><%= link_to 'Mostrar', produto %></td>
           <td><%= link_to 'Editar', edit_produto_path(produto) %></td>
           <td><%= link_to 'Apagar', produto, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
