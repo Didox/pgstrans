@@ -5,14 +5,14 @@ class RecargaController < ApplicationController
     venda = Venda.fazer_venda(params, usuario_logado, params[:tipo_venda])
     begin
       if venda.sucesso?
-        render json: {mensagem: "Recarga efetuada com sucesso!"}, status: 200
+        render json: {mensagem: venda.status_desc.error_description_pt}, status: 200
       else
-        render json: {mensagem: "Falha ao efetuar recarga", erro: venda.response_get}, status: 401
+        render json: {mensagem: venda.status_desc.error_description_pt, erro: venda.response_get}, status: 401
       end
     rescue Exception => erro
-      render json: {mensagem: "Falha ao efetuar recarga", erro: erro.message}, status: 401
+      render json: {mensagem: venda.status_desc.error_description_pt, erro: erro.message}, status: 401
     end
   rescue Exception => erro
-    render json: {mensagem: "Falha ao efetuar recarga", erro: erro.message}, status: 401
+    render json: {mensagem: venda.status_desc.error_description_pt, erro: erro.message}, status: 401
   end
 end

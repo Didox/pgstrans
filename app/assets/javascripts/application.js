@@ -91,10 +91,11 @@ $(function(){
               url: url,
               data: form.serialize(),
               success: function(data){
-                $.alert('confirmado!');
+                $.alert(data.mensagem);
               },
               error: function(xhr, ajaxOptions, thrownError){
-                $.alert('ERRO! ' + JSON.parse(xhr.responseText).erro);
+                var data = JSON.parse(xhr.responseText);
+                $.alert(data.mensagem + ' - ' + JSON.parse(xhr.responseText).erro);
               }
             });
           }
