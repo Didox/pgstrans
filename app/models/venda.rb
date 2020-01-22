@@ -20,7 +20,7 @@ class Venda < ApplicationRecord
   end
 
   def sucesso?
-    ReturnCodeApi.where(return_code: self.status, sucesso: true).count > 0
+    ReturnCodeApi.where(return_code: self.status, sucesso: true, partner_id: self.partner_id).count > 0
   end
 
   def self.fazer_venda(params, usuario, slug_parceiro)
@@ -250,13 +250,25 @@ class Venda < ApplicationRecord
       venda.save!
 
       if venda.sucesso?
+        cc = ContaCorrente.where(usuario_id: usuario.id).first
+        if cc.blank?
+          banco = Banco.first
+          iban = ""
+        else
+          iban = cc.iban
+          banco = cc.banco
+        end
+
+        lancamento = Lancamento.where(nome: "Compra de crédito").first
+        lancamento = Lancamento.first if lancamento.blank?
+
         ContaCorrente.create!(
           usuario: usuario,
           valor: "-#{valor}",
           observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-          lancamento: Lancamento.where(nome: "Compra de crédito"),
-          banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
-          iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
+          lancamento_id: lancamento.id,
+          banco_id: banco.id,
+          iban: iban
         )
       end
 
