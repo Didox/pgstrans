@@ -22,5 +22,4 @@ namespace :poc do
     x = ""
 
   end
-
 end
