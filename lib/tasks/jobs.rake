@@ -21,7 +21,7 @@ namespace :jobs do
           produto = produtos.first
         end
 
-        produto.name = p_hash["description"]
+        produto.description = p_hash["description"]
         produto.valor_compra_telemovel = p_hash["price"]
         # TODO ::: Verificar se um dia iremos utilizar :::
         # produto.name = p_hash["recomended_quantity"]
