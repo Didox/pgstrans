@@ -16,17 +16,21 @@ namespace :jobs do
         if produtos.count == 0
           produto = Produto.new
           produto.produto_id_parceiro = p_hash["code"]
+          produto.partner = partner
         else
           produto = produtos.first
         end
 
         produto.name = p_hash["description"]
         produto.valor_compra_telemovel = p_hash["price"]
+        # TODO ::: Verificar se um dia iremos utilizar :::
         # produto.name = p_hash["recomended_quantity"]
-        produto.name = p_hash["unit"]
-        produto.name = p_hash["unit_pl"]
-        produto.name = p_hash["currency"]
-        produto.name = p_hash["technology"]
+        # produto.name = p_hash["unit"]
+        # produto.name = p_hash["unit_pl"]
+        produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{p_hash["currency"]}')").first.id
+        produto.subtipo = p_hash["technology"]
+        produto.status_produto = StatusProduto.where(nome: "Ativo").first
+        produto.status_produto = StatusProduto.where(nome: "Ativo").first
 
         produto.save
       end
