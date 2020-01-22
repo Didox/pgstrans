@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_22_101559) do
+ActiveRecord::Schema.define(version: 2020_01_22_093723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,7 +173,6 @@ ActiveRecord::Schema.define(version: 2020_01_22_101559) do
     t.float "valor_unitario"
     t.string "tipo"
     t.string "subtipo"
-    t.string "code"
     t.index ["moeda_id"], name: "index_produtos_on_moeda_id"
     t.index ["partner_id"], name: "index_produtos_on_partner_id"
     t.index ["status_produto_id"], name: "index_produtos_on_status_produto_id"
