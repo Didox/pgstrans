@@ -4,7 +4,8 @@ namespace :poc do
     res = HTTParty.post(
       "http://10.151.59.196/ao/echarge/pagaso/dev/carregamento", 
       headers: {
-        apikey: "b65298a499c84224d442c6a680d14b8e"
+        "apikey" => "b65298a499c84224d442c6a680d14b8e",
+        "Content-Type" => "application/json"
       },
       :body => {
         :price => 995.0, 
