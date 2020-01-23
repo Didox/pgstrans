@@ -232,6 +232,8 @@ GEM
     selenium-webdriver (3.142.3)
       childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
+    shoulda-matchers (4.2.0)
+      activesupport (>= 4.2.0)
     simple_form (5.0.1)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -299,6 +301,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   savon (~> 2.12.0)
   selenium-webdriver
+  shoulda-matchers
   simple_form
   spring
   spring-watcher-listen (~> 2.0.0)
