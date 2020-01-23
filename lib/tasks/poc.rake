@@ -8,10 +8,10 @@ namespace :poc do
         "Content-Type" => "application/json"
       },
       :body => {
-        :price => 995.0, 
+        :price => 3595, 
         :product_code => 461, #produto importado zap
         :product_quantity => 1, 
-        :source_reference => "1234", #meu código 
+        :source_reference => "12345", #meu código 
         :zappi => '109105077292' #Iremos receber este numero
       }.to_json,
     )
