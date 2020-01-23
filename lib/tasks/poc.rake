@@ -10,7 +10,7 @@ namespace :poc do
         :price => 995.0, 
         :product_code => 461, #produto importado zap
         :product_quantity => 1, 
-        :source_reference => 123, #meu código 
+        :source_reference => "1234", #meu código 
         :zappi => '109105077292' #Iremos receber este numero
       }.to_json,
     )
