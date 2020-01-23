@@ -58,7 +58,7 @@ test:
   adapter:  postgresql
   host:     localhost
   encoding: unicode
-  database: pgstrans_test
+  database: pgstrans_development
   pool:     5
   username: <%= ENV['PGSTRANS_DATABASE_USER'] %>
   password: <%= ENV['PGSTRANS_DATABASE_PASSWORD'] %>
