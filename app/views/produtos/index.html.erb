@@ -85,13 +85,13 @@
     <table class="table table-hover">
       <thead>
         <tr>
+          <th scope="col">Código produto parceiro</th>
           <th scope="col">Nome</th>
           <th scope="col">Partner</th>
           <th scope="col">Moeda</th>
           <th scope="col">Status</th>
           <th scope="col">Valor compra Telemóvel</th>
           <th scope="col">Margem Telemóvel</th>
-          <th scope="col">Mensagem cupom venda</th>
           <th scope="col">Data criação</th>
           <th scope="col">Data atualização</th>
           <th colspan="3"></th>
@@ -101,13 +101,13 @@
       <tbody>
         <% @produtos.each do |produto| %>
         <tr>
+          <td class="text-right"><%= produto.produto_id_parceiro %></td>
           <td><%= produto.description %></td>
           <td><%= produto.partner.name %></td>
           <td><%= "#{produto.moeda_id}/#{(produto.moeda.simbolo rescue "")}" %></td>       
           <td><%= produto.status_produto.nome %></td>
           <td class="text-right"><%= produto.valor_compra_telemovel %></td>
           <td class="text-right"><%= produto.margem_telemovel %></td>
-          <td><%= produto.mensagem_cupom_venda %></td>
           <td><%= produto.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td><%= produto.updated_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td><%= link_to 'Mostrar', produto %></td>
