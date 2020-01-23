@@ -7,8 +7,8 @@ namespace :poc do
         apikey: "b65298a499c84224d442c6a680d14b8e"
       },
       :body => {
-        :price => 2000, 
-        :product_code => 1, #produto importado zap
+        :price => 995.0, 
+        :product_code => 461, #produto importado zap
         :product_quantity => 1, 
         :source_reference => 123, #meu código 
         :zappi => '109105077292' #Iremos receber este numero
