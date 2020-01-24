@@ -114,10 +114,10 @@ class Venda < ApplicationRecord
       raise "Saldo insuficiente para recarga" if usuario.saldo < valor
       raise "Parceiro não localizado" if parceiro.blank?
       raise "Selecione o valor" if params[:valor].blank?
-      raise "Digite o telemovel" if params[:zaptv_telefone].blank?
+      raise "Digite o telemovel" if params[:zaptv_cartao].blank?
       raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
 
-      telefone = params[:zaptv_telefone]
+      telefone = params[:zaptv_cartao]
       request_id = Time.now.strftime("%d%m%Y%H%M%S")
       host = "http://10.151.59.196"
 
@@ -129,7 +129,7 @@ class Venda < ApplicationRecord
         :product_code => product_id, #produto importado zap
         :product_quantity => 1, 
         :source_reference => request_id, #meu código 
-        :zappi => params[:zaptv_telefone] #Iremos receber este numero
+        :zappi => telefone #Iremos receber este numero
       }.to_json
 
       res = HTTParty.post(
