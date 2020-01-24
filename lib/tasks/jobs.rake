@@ -22,7 +22,7 @@ namespace :jobs do
         end
 
         produto.description = p_hash["description"]
-        produto.valor_compra_telemovel = p_hash["price"]
+        produto.valor_minimo_venda_site = p_hash["price"]
         # TODO ::: Verificar se um dia iremos utilizar :::
         # produto.name = p_hash["recomended_quantity"]
         # produto.name = p_hash["unit"]
