@@ -141,8 +141,6 @@ class Venda < ApplicationRecord
         :body => body_send,
       )
 
-      puts res.body
-
       venda = Venda.create(agent_id: AGENTE_ID, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
 
       venda.store_id = usuario.sub_agente.store_id_parceiro
