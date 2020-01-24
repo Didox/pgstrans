@@ -10,9 +10,9 @@ class RecargaController < ApplicationController
         render json: {mensagem: venda.status_desc.error_description_pt, erro: venda.response_get}, status: 401
       end
     rescue Exception => erro
-      render json: {mensagem: erro.message, erro: erro.message}, status: 401
+      render json: {mensagem: erro.message, erro: erro.backtrace}, status: 401
     end
   rescue Exception => erro
-    render json: {mensagem: erro.message, erro: erro.message}, status: 401
+    render json: {mensagem: erro.message, erro: erro.backtrace}, status: 401
   end
 end
