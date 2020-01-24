@@ -150,7 +150,10 @@ class Venda < ApplicationRecord
       venda.request_send = body_send
       venda.response_get = res.body
 
-      venda.status = res.code
+      begin
+        venda.status = JSON.parse(res.body)["status_code"]
+      rescue;end
+      venda.status ||= res.code
       venda.save!
 
       if venda.sucesso?
