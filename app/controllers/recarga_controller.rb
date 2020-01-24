@@ -10,9 +10,10 @@ class RecargaController < ApplicationController
         render json: {mensagem: venda.status_desc.error_description_pt, erro: venda.response_get}, status: 401
       end
     rescue Exception => erro
-      render json: {mensagem: venda.status_desc.error_description_pt, erro: erro.message}, status: 401
+      message = venda.status_desc.error_description_pt rescue ""
+      render json: {mensagem: "Erro ao fazer venda - #{message}", erro: erro.message}, status: 401
     end
   rescue Exception => erro
-    render json: {mensagem: venda.status_desc.error_description_pt, erro: erro.message}, status: 401
+    render json: {mensagem: "Erro ao fazer venda", erro: erro.message}, status: 401
   end
 end

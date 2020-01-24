@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_22_093723) do
+ActiveRecord::Schema.define(version: 2020_01_24_094358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,8 +53,10 @@ ActiveRecord::Schema.define(version: 2020_01_22_093723) do
     t.text "observacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "partner_id"
     t.index ["banco_id"], name: "index_conta_correntes_on_banco_id"
     t.index ["lancamento_id"], name: "index_conta_correntes_on_lancamento_id"
+    t.index ["partner_id"], name: "index_conta_correntes_on_partner_id"
     t.index ["usuario_id"], name: "index_conta_correntes_on_usuario_id"
   end
 
@@ -332,6 +334,7 @@ ActiveRecord::Schema.define(version: 2020_01_22_093723) do
   add_foreign_key "canal_vendas", "dispositivos"
   add_foreign_key "conta_correntes", "bancos"
   add_foreign_key "conta_correntes", "lancamentos"
+  add_foreign_key "conta_correntes", "partners"
   add_foreign_key "conta_correntes", "usuarios"
   add_foreign_key "matrix_users", "usuarios"
   add_foreign_key "moedas", "countries"

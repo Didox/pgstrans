@@ -106,6 +106,83 @@ class Venda < ApplicationRecord
     end
   end
 
+  def self.venda_zaptv(params, usuario)
+    ActiveRecord::Base.transaction do
+      parceiro = Partner.where("lower(slug) = 'zaptv'").first
+      valor = params[:valor].to_i
+
+      raise "Saldo insuficiente para recarga" if usuario.saldo < valor
+      raise "Parceiro não localizado" if parceiro.blank?
+      raise "Selecione o valor" if params[:valor].blank?
+      raise "Digite o telemovel" if params[:zaptv_telefone].blank?
+      raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
+
+      telefone = params[:zaptv_telefone]
+      request_id = Time.now.strftime("%d%m%Y%H%M%S")
+      host = "http://10.151.59.196"
+
+      raise "Produto não selecionado" if params[:zaptv_produto_id].blank?
+      product_id = params[:zaptv_produto_id].split("-").first
+
+      body_send = {
+        :price => params[:valor].to_f, 
+        :product_code => product_id, #produto importado zap
+        :product_quantity => 1, 
+        :source_reference => request_id, #meu código 
+        :zappi => params[:zaptv_telefone] #Iremos receber este numero
+      }.to_json
+
+      res = HTTParty.post(
+        "#{host}/ao/echarge/pagaso/dev/carregamento", 
+        headers: {
+          "apikey" => "b65298a499c84224d442c6a680d14b8e",
+          "Content-Type" => "application/json"
+        },
+        :body => body_send,
+      )
+
+      puts res.body
+
+      venda = Venda.create(agent_id: AGENTE_ID, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+
+      venda.store_id = usuario.sub_agente.store_id_parceiro
+      venda.seller_id = usuario.sub_agente.seller_id_parceiro
+      venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+
+      venda.request_send = body_send
+      venda.response_get = res.body
+
+      venda.status = res.code
+      venda.save!
+
+      if venda.sucesso?
+        cc = ContaCorrente.where(usuario_id: usuario.id).first
+        if cc.blank?
+          banco = Banco.first
+          iban = ""
+        else
+          iban = cc.iban
+          banco = cc.banco
+        end
+
+        lancamento = Lancamento.where(nome: "Compra de crédito").first
+        lancamento = Lancamento.first if lancamento.blank?
+
+        ContaCorrente.create!(
+          usuario: usuario,
+          valor: "-#{valor}",
+          observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+          lancamento_id: lancamento.id,
+          banco_id: banco.id,
+          partner_id: parceiro.id,
+          iban: iban
+        )
+      end
+
+      return venda
+    end
+  end
+
   def self.venda_movicel(params, usuario)
     ActiveRecord::Base.transaction do
       parceiro = Partner.where("lower(slug) = 'movicel'").first
@@ -268,6 +345,7 @@ class Venda < ApplicationRecord
           observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
           lancamento_id: lancamento.id,
           banco_id: banco.id,
+          partner_id: parceiro.id,
           iban: iban
         )
       end
@@ -378,13 +456,6 @@ class Venda < ApplicationRecord
       
 
 
-
-
-
-
-
-
-
       venda = Venda.create(agent_id: AGENTE_ID, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
 
       venda.store_id = usuario.sub_agente.store_id_parceiro
@@ -403,6 +474,7 @@ class Venda < ApplicationRecord
           observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
           lancamento: Lancamento.where(nome: "Compra de crédito"),
           banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
+          partner_id: parceiro.id,
           iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
         )
       end
@@ -444,6 +516,7 @@ class Venda < ApplicationRecord
           valor: "-#{valor}",
           observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
           lancamento: Lancamento.where(nome: "Compra de crédito"),
+          partner_id: parceiro.id,
           banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
           iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
         )
