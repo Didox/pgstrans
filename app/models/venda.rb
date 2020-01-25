@@ -108,6 +108,7 @@ class Venda < ApplicationRecord
 
   def reverter_venda_zaptv
     code = JSON.parse(self.response_get)["operation_code"] rescue ""
+    host = "http://10.151.59.196"
     if code.present?
       res = HTTParty.delete(
         "#{host}/ao/echarge/pagaso/dev/carregamento/#{code}", 
