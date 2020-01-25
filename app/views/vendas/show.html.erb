@@ -38,7 +38,7 @@
         Voltar
       <% end %>
 
-      <% if @venda.partner.slug.downcase == "zaptv" %>
+      <% if @venda.partner.slug.downcase == "zaptv" && @venda.status != "7000" %>
         <%= link_to venda_reverter_venda_zaptv_path(@venda), class: 'btn btn-danger', "data-confirm"=>"Tem Certeza?", "data-method"=>"delete" do %>
           Reverter
         <% end %>
