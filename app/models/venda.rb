@@ -106,6 +106,29 @@ class Venda < ApplicationRecord
     end
   end
 
+  def reverter_venda_zaptv
+    code = JSON.parse(self.response_get)["operation_code"] rescue ""
+    if code.present?
+      res = HTTParty.delete(
+        "#{host}/ao/echarge/pagaso/dev/carregamento/#{code}", 
+        headers: {
+          "apikey" => "b65298a499c84224d442c6a680d14b8e",
+          "Content-Type" => "application/json"
+        }
+      )
+
+      if (200..300).include?(res.code)
+        self.status = "7000"
+        self.save!
+        return "sucesso"
+      else
+        return res.body
+      end
+    end
+
+    return "Código de operação ZAPTV não encontrado"
+  end
+
   def self.venda_zaptv(params, usuario)
     ActiveRecord::Base.transaction do
       parceiro = Partner.where("lower(slug) = 'zaptv'").first

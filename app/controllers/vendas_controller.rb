@@ -15,6 +15,18 @@ class VendasController < ApplicationController
   def mostrar_resumido
   end
 
+  def reverter_venda_zaptv
+    @venda = Venda.find(params[:venda_id])
+    retorno = @venda.reverter_venda_zaptv
+    if retorno == "sucesso"
+      flash[:success] = "Venda revertida com sucesso"
+    else
+      flash[:error] = "Venda não revertida - #{retorno}"
+    end
+    
+    redirect_to @venda 
+  end
+
   # GET /vendas/new
   def new
     @venda = Venda.new

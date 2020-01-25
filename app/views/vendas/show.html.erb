@@ -37,11 +37,12 @@
         <span class="glyphicon glyphicon-list-alt"></span>
         Voltar
       <% end %>
-      <%#= link_to edit_venda_path(@venda), class: 'btn btn-danger' do %>
-        <!--span class="glyphicon glyphicon-pencil"></span>
-        Editar
-      <%# end %>
-      <-->
+
+      <% if @venda.partner.slug.downcase == "zaptv" %>
+        <%= link_to venda_reverter_venda_zaptv_path(@venda), class: 'btn btn-danger', "data-confirm"=>"Tem Certeza?", "data-method"=>"delete" do %>
+          Reverter
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

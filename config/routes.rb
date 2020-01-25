@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :conta_correntes
   get 'vendas/resumido', to: 'vendas#resumido', as: "vendas_resumido"
   get 'vendas/:venda_id/resumido', to: 'vendas#mostrar_resumido', as: "vendas_mostrar_resumido"
-  resources :vendas
+  resources :vendas do
+    delete '/reverter_venda_zaptv', to: 'vendas#reverter_venda_zaptv', as: "reverter_venda_zaptv"
+  end
   resources :moedas
   get 'backoffice/home'
   resources :bancos
