@@ -110,7 +110,7 @@ class Venda < ApplicationRecord
     host = "http://10.151.59.196"
     url = "#{host}/ao/echarge/pagaso/dev/carregamento/#{self.request_id}"
     begin
-      if code.present?
+      if self.request_id.present?
         res = HTTParty.delete(
           url, 
           headers: {
