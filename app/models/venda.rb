@@ -128,6 +128,8 @@ class Venda < ApplicationRecord
     end
 
     return "Código de operação ZAPTV não encontrado"
+  rescue Exception => err
+    return err.message
   end
 
   def self.venda_zaptv(params, usuario)
