@@ -109,27 +109,30 @@ class Venda < ApplicationRecord
   def reverter_venda_zaptv
     code = JSON.parse(self.response_get)["operation_code"] rescue ""
     host = "http://10.151.59.196"
-    if code.present?
-      res = HTTParty.delete(
-        "#{host}/ao/echarge/pagaso/dev/carregamento/#{code}", 
-        headers: {
-          "apikey" => "b65298a499c84224d442c6a680d14b8e",
-          "Content-Type" => "application/json"
-        }
-      )
+    url = "#{host}/ao/echarge/pagaso/dev/carregamento/#{code}"
+    begin
+      if code.present?
+        res = HTTParty.delete(
+          url, 
+          headers: {
+            "apikey" => "b65298a499c84224d442c6a680d14b8e",
+            "Content-Type" => "application/json"
+          }
+        )
 
-      if (200..300).include?(res.code)
-        self.status = "7000"
-        self.save!
-        return "sucesso"
-      else
-        return res.body
+        if (200..300).include?(res.code)
+          self.status = "7000"
+          self.save!
+          return "sucesso"
+        else
+          return res.body
+        end
       end
-    end
 
-    return "Código de operação ZAPTV não encontrado"
-  rescue Exception => err
-    return err.message
+      return "Código de operação ZAPTV não encontrado"
+    rescue Exception => err
+      return "Delete in (#{url}) - #{err.message}"
+    end
   end
 
   def self.venda_zaptv(params, usuario)
