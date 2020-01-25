@@ -125,7 +125,7 @@ class Venda < ApplicationRecord
           self.save!
           return "sucesso"
         else
-          return res.body
+          return "Delete in (#{url}) - #{res.body}"
         end
       end
 
