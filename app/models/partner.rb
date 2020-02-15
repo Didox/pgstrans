@@ -8,7 +8,7 @@ class Partner < ApplicationRecord
     if self.slug.downcase == "zaptv"
       store_id_parceiro = "115356"
       host = "http://10.151.59.196"
-      url = "#{host}/ao/echarge/pagaso/dev/carregamento/report/#{Time.zone.now.strftime("%Y/%m/%d")}"
+      url = "#{host}/ao/echarge/pagaso/dev/carregamento/report/#{Time.zone.now.strftime("%Y-%m-%d")}"
       res = HTTParty.get(
         url, 
         headers: {
