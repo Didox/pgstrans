@@ -67,6 +67,23 @@ class Partner < ApplicationRecord
       if (200...300).include?(request.code.to_i)
         return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue nil
       end
+    elsif self.name.downcase == "zaptv"
+      store_id_parceiro = "115356"
+      host = "http://10.151.59.196"
+      url = "#{host}/ao/echarge/pagaso/dev/saldo?code=#{store_id_parceiro}"
+      res = HTTParty.get(
+        url, 
+        headers: {
+          "apikey" => "b65298a499c84224d442c6a680d14b8e",
+          "Content-Type" => "application/json"
+        }
+      )
+
+      if (200..300).include?(res.code)
+        return JSON.parse(res.body)["saldo"]
+      else
+        return 0
+      end
     end
   end
 end

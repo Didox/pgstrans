@@ -106,24 +106,6 @@ class Venda < ApplicationRecord
     end
   end
 
-  def self.saldo_zaptv(usuario)
-    host = "http://10.151.59.196"
-    url = "#{host}/ao/echarge/pagaso/dev/saldo?code=#{usuario.sub_agente.store_id_parceiro}"
-    res = HTTParty.get(
-      url, 
-      headers: {
-        "apikey" => "b65298a499c84224d442c6a680d14b8e",
-        "Content-Type" => "application/json"
-      }
-    )
-
-    if (200..300).include?(res.code)
-      return JSON.parse(res.body)["saldo"]
-    else
-      return 0
-    end
-  end
-
   def carregamento_venda_zaptv
     host = "http://10.151.59.196"
     url = "#{host}/ao/echarge/pagaso/dev/carregamento/#{self.request_id}"
