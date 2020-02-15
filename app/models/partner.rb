@@ -5,7 +5,7 @@ class Partner < ApplicationRecord
   default_scope { order(order: :asc) }
 
   def saldo_atual
-    if self.name.downcase == "movicel"
+    if self.slug.downcase == "movicel"
       require 'openssl'
 
       #producao
@@ -67,7 +67,7 @@ class Partner < ApplicationRecord
       if (200...300).include?(request.code.to_i)
         return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue nil
       end
-    elsif self.name.downcase == "zaptv"
+    elsif self.slug.downcase == "zaptv"
       store_id_parceiro = "115356"
       host = "http://10.151.59.196"
       url = "#{host}/ao/echarge/pagaso/dev/saldo?code=#{store_id_parceiro}"
