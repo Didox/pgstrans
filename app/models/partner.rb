@@ -4,6 +4,29 @@ class Partner < ApplicationRecord
   belongs_to :status_parceiro
   default_scope { order(order: :asc) }
 
+  def relatorio_vendas_zaptv
+    if self.slug.downcase == "zaptv"
+      store_id_parceiro = "115356"
+      host = "http://10.151.59.196"
+      url = "#{host}/ao/echarge/pagaso/dev/carregamento/report/#{Time.zone.now.strftime("%Y/%m/%d")}?code=#{store_id_parceiro}"
+      res = HTTParty.get(
+        url, 
+        headers: {
+          "apikey" => "b65298a499c84224d442c6a680d14b8e",
+          "Content-Type" => "application/json"
+        }
+      )
+
+      if (200..300).include?(res.code)
+        debugger
+        return JSON.parse(res.body)
+      else
+        debugger
+        return 0
+      end
+    end
+  end
+
   def saldo_atual
     if self.slug.downcase == "movicel"
       require 'openssl'
