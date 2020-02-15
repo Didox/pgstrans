@@ -106,9 +106,9 @@ class Venda < ApplicationRecord
     end
   end
 
-  def saldo_zaptv
+  def self.saldo_zaptv(usuario)
     host = "http://10.151.59.196"
-    url = "#{host}/ao/echarge/pagaso/dev/saldo?code=115356"
+    url = "#{host}/ao/echarge/pagaso/dev/saldo?code=#{usuario.sub_agente.store_id_parceiro}"
     res = HTTParty.get(
       url, 
       headers: {
@@ -118,11 +118,9 @@ class Venda < ApplicationRecord
     )
 
     if (200..300).include?(res.code)
-      debugger
-      return "sucesso"
+      return JSON.parse(res.body)["saldo"]
     else
-      debugger
-      return "Delete in (#{url}) - #{res.body}"
+      return 0
     end
   end
 
