@@ -109,25 +109,20 @@ class Venda < ApplicationRecord
   def saldo_zaptv
     host = "http://10.151.59.196"
     url = "#{host}/ao/echarge/pagaso/dev/saldo?code=115356"
-        res = HTTParty.get(
-          url, 
-          headers: {
-            "apikey" => "b65298a499c84224d442c6a680d14b8e",
-            "Content-Type" => "application/json"
-          }
-        )
+    res = HTTParty.get(
+      url, 
+      headers: {
+        "apikey" => "b65298a499c84224d442c6a680d14b8e",
+        "Content-Type" => "application/json"
+      }
+    )
 
-        if (200..300).include?(res.code)
-          debugger
-          return "sucesso"
-        else
-          debugger
-          return "Delete in (#{url}) - #{res.body}"
-        end
-      end
-    rescue Exception => err
+    if (200..300).include?(res.code)
       debugger
-      return "GET in (#{url}) - #{err.message}"
+      return "sucesso"
+    else
+      debugger
+      return "Delete in (#{url}) - #{res.body}"
     end
   end
 
