@@ -66,6 +66,8 @@ namespace :jobs do
       if request.body.present?
         puts "=========================================="
         puts request.body
+
+        debugger
         puts "=========================================="
       end
     end
