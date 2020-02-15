@@ -66,8 +66,55 @@ namespace :jobs do
       if request.body.present?
         puts "=========================================="
         puts request.body
+        puts "=========================================="
 
-        debugger
+        partner = Partner.where(slug: "ZAPTv").first
+        
+        xml_doc = Nokogiri::XML(request.body)
+        itens = xml_doc.child.children[0].children[0].children[0].children
+        itens.each do |item|
+
+          produto_id_parceiro = 0
+          descricao = ""
+          item.children.each do |campo|
+            if campo.name == "Number"
+              produto_id_parceiro = campo.content
+            elsif campo.name == "ProductDescription"
+              descricao = campo.content
+            elsif campo.name == "ProductDescription"
+              descricao = campo.content
+            end
+          end
+
+          produtos = Produto.where(produto_id_parceiro: produto_id_parceiro, partner_id: partner.id)
+          if produtos.count == 0
+            produto = Produto.new
+            produto.produto_id_parceiro = produto_id_parceiro
+            produto.partner_id = partner.id
+          else
+            produto = produtos.first
+          end
+
+          produto.description = descricao
+
+          # TODO continuar daqui 15/02/2020
+
+          produto.valor_minimo_venda_site = p_hash["price"]
+          # TODO ::: Verificar se um dia iremos utilizar :::
+          # produto.name = p_hash["recomended_quantity"]
+          # produto.name = p_hash["unit"]
+          # produto.name = p_hash["unit_pl"]
+          produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{p_hash["currency"]}')").first.id
+          produto.subtipo = p_hash["technology"]
+          produto.status_produto = StatusProduto.where(nome: "Ativo").first
+
+          produto.save
+
+          
+          debugger
+          x = ""
+        end
+
         puts "=========================================="
       end
     end
