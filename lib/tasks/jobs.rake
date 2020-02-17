@@ -12,6 +12,8 @@ namespace :jobs do
       host = "http://10.151.59.196"
       url = "#{host}/ao/echarge/pagaso/dev/carregamento/report/#{day.strftime("%Y-%m-%d")}"
       
+      puts ":::: (#{url}) ::::"
+
       next if RelatorioConciliacaoZaptv.where(url: url).count > 0
 
       res = HTTParty.get(
