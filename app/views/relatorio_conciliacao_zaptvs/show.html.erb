@@ -1,0 +1,46 @@
+<div class="container">
+
+  <h4>Mostrar RelatorioConciliacaoZaptv</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Partner:</dt>
+      <dd><%= @relatorio_conciliacao_zaptv.partner %></dd>
+      <dt>Url:</dt>
+      <dd><%= @relatorio_conciliacao_zaptv.url %></dd>
+      <dt>Operation code:</dt>
+      <dd><%= @relatorio_conciliacao_zaptv.operation_code %></dd>
+      <dt>Source reference:</dt>
+      <dd><%= @relatorio_conciliacao_zaptv.source_reference %></dd>
+      <dt>Product code:</dt>
+      <dd><%= @relatorio_conciliacao_zaptv.product_code %></dd>
+      <dt>Quantity:</dt>
+      <dd><%= @relatorio_conciliacao_zaptv.quantity %></dd>
+      <dt>Date time:</dt>
+      <dd><%= @relatorio_conciliacao_zaptv.date_time %></dd>
+      <dt>Type:</dt>
+      <dd><%= @relatorio_conciliacao_zaptv.type %></dd>
+      <dt>Total price:</dt>
+      <dd><%= @relatorio_conciliacao_zaptv.total_price %></dd>
+      <dt>Status:</dt>
+      <dd><%= @relatorio_conciliacao_zaptv.status %></dd>
+      <dt>Unit price:</dt>
+      <dd><%= @relatorio_conciliacao_zaptv.unit_price %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to relatorio_conciliacao_zaptvs_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_relatorio_conciliacao_zaptv_path(@relatorio_conciliacao_zaptv), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>

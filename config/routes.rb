@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :relatorio_conciliacao_zaptvs
   resources :status_parceiros
   resources :conta_correntes
   get 'vendas/resumido', to: 'vendas#resumido', as: "vendas_resumido"

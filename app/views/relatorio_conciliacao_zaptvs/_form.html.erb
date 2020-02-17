@@ -1,0 +1,80 @@
+<div class="col-md-12" data-target="toggle.grid">
+  <div class="card border-simpleform box-shadow mb-4">
+    <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
+      <div>
+        <strong>Dados</strong><br />
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-bootstrap box-shadow mb-4">
+    <div class="card-header text-bootstrap align-items-center justify-content-between">
+      
+      <%= simple_form_for(@relatorio_conciliacao_zaptv, html: { class: "form-horizontal", role: "form" }) do |f| %>
+        <% if @relatorio_conciliacao_zaptv.errors.any? %>
+          <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4><%= pluralize(@relatorio_conciliacao_zaptv.errors.count, "erros") %> no relatorio_conciliacao_zaptv, confira abaixo:</h4>
+
+            <ul>
+            <% @relatorio_conciliacao_zaptv.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+                  <div class="form-input col-sm-6">
+            <%= f.label :partner, class: "col-sm-2 control-label" %>
+            <%= f.text_field :partner, class: "form-control" %>
+          </div>
+                  <div class="form-input col-sm-6">
+            <%= f.label :url, class: "col-sm-2 control-label" %>
+            <%= f.text_field :url, class: "form-control" %>
+          </div>
+                  <div class="form-input col-sm-6">
+            <%= f.label :operation_code, class: "col-sm-2 control-label" %>
+            <%= f.text_field :operation_code, class: "form-control" %>
+          </div>
+                  <div class="form-input col-sm-6">
+            <%= f.label :source_reference, class: "col-sm-2 control-label" %>
+            <%= f.text_field :source_reference, class: "form-control" %>
+          </div>
+                  <div class="form-input col-sm-6">
+            <%= f.label :product_code, class: "col-sm-2 control-label" %>
+            <%= f.text_field :product_code, class: "form-control" %>
+          </div>
+                  <div class="form-input col-sm-6">
+            <%= f.label :quantity, class: "col-sm-2 control-label" %>
+            <%= f.number_field :quantity, class: "form-control" %>
+          </div>
+                  <div class="form-input col-sm-6">
+            <%= f.label :date_time, class: "col-sm-2 control-label" %>
+            <%= f.datetime_select :date_time, class: "form-control" %>
+          </div>
+                  <div class="form-input col-sm-6">
+            <%= f.label :type, class: "col-sm-2 control-label" %>
+            <%= f.text_field :type, class: "form-control" %>
+          </div>
+                  <div class="form-input col-sm-6">
+            <%= f.label :total_price, class: "col-sm-2 control-label" %>
+            <%= f.text_field :total_price, class: "form-control" %>
+          </div>
+                  <div class="form-input col-sm-6">
+            <%= f.label :status, class: "col-sm-2 control-label" %>
+            <%= f.text_field :status, class: "form-control" %>
+          </div>
+                  <div class="form-input col-sm-6">
+            <%= f.label :unit_price, class: "col-sm-2 control-label" %>
+            <%= f.text_field :unit_price, class: "form-control" %>
+          </div>
+                <div class="form-actions col-sm-12">
+          <%= f.button :button, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-ok"></span>
+            Confirmar
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

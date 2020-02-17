@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_24_094358) do
+ActiveRecord::Schema.define(version: 2020_02_17_112919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -192,6 +192,23 @@ ActiveRecord::Schema.define(version: 2020_01_24_094358) do
     t.index ["country_id"], name: "index_provincia_on_country_id"
   end
 
+  create_table "relatorio_conciliacao_zaptvs", force: :cascade do |t|
+    t.bigint "partner_id"
+    t.string "url"
+    t.string "operation_code"
+    t.string "source_reference"
+    t.bigint "product_code"
+    t.integer "quantity"
+    t.datetime "date_time"
+    t.string "type"
+    t.float "total_price"
+    t.string "status"
+    t.float "unit_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["partner_id"], name: "index_relatorio_conciliacao_zaptvs_on_partner_id"
+  end
+
   create_table "remuneracaos", force: :cascade do |t|
     t.bigint "usuario_id"
     t.bigint "produto_id"
@@ -343,6 +360,7 @@ ActiveRecord::Schema.define(version: 2020_01_24_094358) do
   add_foreign_key "produtos", "partners"
   add_foreign_key "produtos", "status_produtos"
   add_foreign_key "provincia", "countries"
+  add_foreign_key "relatorio_conciliacao_zaptvs", "partners"
   add_foreign_key "remuneracaos", "produtos"
   add_foreign_key "remuneracaos", "usuarios"
   add_foreign_key "return_code_apis", "partners"

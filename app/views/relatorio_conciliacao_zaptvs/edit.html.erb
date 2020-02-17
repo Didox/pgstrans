@@ -1,0 +1,18 @@
+<div class="container"> 
+  <h4>Edição RelatorioConciliacaoZaptv</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <%= render 'form' %>
+
+  <%= link_to @relatorio_conciliacao_zaptv, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    Mostrar
+  <% end %>
+  <%= link_to relatorio_conciliacao_zaptvs_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+</div>

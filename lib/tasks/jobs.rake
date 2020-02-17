@@ -1,4 +1,50 @@
 namespace :jobs do
+  desc "Importa rel ZAPTv"
+  task importa_dados_zaptv: :environment do
+    partner = Partner.where(slug: "ZAPTv").first
+    ###### Entender se realmente não precisamos passar este id
+    # partner.store_id_parceiro # "115356"
+    ############################################################
+
+    day = Time.zone.now
+    (Time.zone.now.beginning_of_month.day .. Time.zone.now.end_of_month.day).each do
+      day = day.change(day: 1) 
+      host = "http://10.151.59.196"
+      url = "#{host}/ao/echarge/pagaso/dev/carregamento/report/#{day.strftime("%Y-%m-%d")}"
+      
+      next if RelatorioConciliacaoZaptv.where(url: url).count > 0
+
+      res = HTTParty.get(
+        url, 
+        headers: {
+          "apikey" => "b65298a499c84224d442c6a680d14b8e",
+          "Content-Type" => "application/json"
+        }
+      )
+
+      if (200..300).include?(res.code)
+        dados = JSON.parse(res.body)
+        dados.each do |dado|
+          RelatorioConciliacaoZaptv.create(
+            partner_id: partner.id,
+            url: url,
+            operation_code: dado.operation_code,
+            source_reference: dado.source_reference,
+            product_code: dado.product_code,
+            quantity: dado.quantity,
+            date_time: dado.datetime,
+            type: dado.type,
+            total_price: dado.total_price,
+            status: dado.status,
+            unit_price: dado.unit_price
+          )
+
+        end
+      end
+
+    end
+  end
+
   desc "EXECUTA REST API TEST"
   task importa_produtos_zap: :environment do
     res = HTTParty.get(
