@@ -9,7 +9,7 @@ RSpec.describe "relatorio_conciliacao_zaptvs/edit", type: :view do
       :source_reference => "MyString",
       :product_code => "",
       :quantity => 1,
-      :type => "",
+      :type_data => "MyString",
       :total_price => 1.5,
       :status => "MyString",
       :unit_price => 1.5
@@ -33,7 +33,7 @@ RSpec.describe "relatorio_conciliacao_zaptvs/edit", type: :view do
 
       assert_select "input[name=?]", "relatorio_conciliacao_zaptv[quantity]"
 
-      assert_select "input[name=?]", "relatorio_conciliacao_zaptv[type]"
+      assert_select "input[name=?]", "relatorio_conciliacao_zaptv[type_data]"
 
       assert_select "input[name=?]", "relatorio_conciliacao_zaptv[total_price]"
 

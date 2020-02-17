@@ -69,6 +69,6 @@ class RelatorioConciliacaoZaptvsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def relatorio_conciliacao_zaptv_params
-      params.require(:relatorio_conciliacao_zaptv).permit(:partner_id, :url, :operation_code, :source_reference, :product_code, :quantity, :date_time, :type, :total_price, :status, :unit_price)
+      params.require(:relatorio_conciliacao_zaptv).permit(:partner_id, :url, :operation_code, :source_reference, :product_code, :quantity, :date_time, :type_data, :total_price, :status, :unit_price)
     end
 end

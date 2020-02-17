@@ -10,7 +10,7 @@ RSpec.describe "relatorio_conciliacao_zaptvs/index", type: :view do
         :source_reference => "Source Reference",
         :product_code => "",
         :quantity => 2,
-        :type => "Type",
+        :type_data => "Type Data",
         :total_price => 3.5,
         :status => "Status",
         :unit_price => 4.5
@@ -22,7 +22,7 @@ RSpec.describe "relatorio_conciliacao_zaptvs/index", type: :view do
         :source_reference => "Source Reference",
         :product_code => "",
         :quantity => 2,
-        :type => "Type",
+        :type_data => "Type Data",
         :total_price => 3.5,
         :status => "Status",
         :unit_price => 4.5
@@ -38,7 +38,7 @@ RSpec.describe "relatorio_conciliacao_zaptvs/index", type: :view do
     assert_select "tr>td", :text => "Source Reference".to_s, :count => 2
     assert_select "tr>td", :text => "".to_s, :count => 2
     assert_select "tr>td", :text => 2.to_s, :count => 2
-    assert_select "tr>td", :text => "Type".to_s, :count => 2
+    assert_select "tr>td", :text => "Type Data".to_s, :count => 2
     assert_select "tr>td", :text => 3.5.to_s, :count => 2
     assert_select "tr>td", :text => "Status".to_s, :count => 2
     assert_select "tr>td", :text => 4.5.to_s, :count => 2

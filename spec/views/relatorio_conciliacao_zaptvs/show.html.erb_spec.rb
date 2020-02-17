@@ -9,7 +9,7 @@ RSpec.describe "relatorio_conciliacao_zaptvs/show", type: :view do
       :source_reference => "Source Reference",
       :product_code => "",
       :quantity => 2,
-      :type => "Type",
+      :type_data => "Type Data",
       :total_price => 3.5,
       :status => "Status",
       :unit_price => 4.5
@@ -24,7 +24,7 @@ RSpec.describe "relatorio_conciliacao_zaptvs/show", type: :view do
     expect(rendered).to match(/Source Reference/)
     expect(rendered).to match(//)
     expect(rendered).to match(/2/)
-    expect(rendered).to match(/Type/)
+    expect(rendered).to match(/Type Data/)
     expect(rendered).to match(/3.5/)
     expect(rendered).to match(/Status/)
     expect(rendered).to match(/4.5/)

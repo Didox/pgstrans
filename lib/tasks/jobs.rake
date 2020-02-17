@@ -36,7 +36,7 @@ namespace :jobs do
             product_code: dado["product_code"],
             quantity: dado["quantity"],
             date_time: dado["datetime"],
-            type: dado["type"],
+            type_data: dado["type"],
             total_price: dado["total_price"],
             status: dado["status"],
             unit_price: dado["unit_price"]
