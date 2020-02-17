@@ -27,6 +27,7 @@ namespace :jobs do
       if (200..300).include?(res.code)
         dados = JSON.parse(res.body)
         dados.each do |dado|
+          debugger
           rel = RelatorioConciliacaoZaptv.create(
             partner_id: partner.id,
             url: url,
