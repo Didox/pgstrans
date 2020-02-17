@@ -7,8 +7,8 @@ namespace :jobs do
     ############################################################
 
     day = Time.zone.now
-    (Time.zone.now.beginning_of_month.day .. Time.zone.now.day).each do
-      day = day.change(day: 1) 
+    (Time.zone.now.beginning_of_month.day .. Time.zone.now.day).each do |d|
+      day = day.change(day: d) 
       host = "http://10.151.59.196"
       url = "#{host}/ao/echarge/pagaso/dev/carregamento/report/#{day.strftime("%Y-%m-%d")}"
       
