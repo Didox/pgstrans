@@ -7,7 +7,7 @@ namespace :jobs do
     ############################################################
 
     day = Time.zone.now
-    (Time.zone.now.beginning_of_month.day .. Time.zone.now.end_of_month.day).each do
+    (Time.zone.now.beginning_of_month.day .. Time.zone.now.day).each do
       day = day.change(day: 1) 
       host = "http://10.151.59.196"
       url = "#{host}/ao/echarge/pagaso/dev/carregamento/report/#{day.strftime("%Y-%m-%d")}"
@@ -38,7 +38,6 @@ namespace :jobs do
             status: dado.status,
             unit_price: dado.unit_price
           )
-
         end
       end
 
