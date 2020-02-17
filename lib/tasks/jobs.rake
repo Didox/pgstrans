@@ -30,15 +30,15 @@ namespace :jobs do
           rel = RelatorioConciliacaoZaptv.create(
             partner_id: partner.id,
             url: url,
-            operation_code: dado.operation_code,
-            source_reference: dado.source_reference,
-            product_code: dado.product_code,
-            quantity: dado.quantity,
-            date_time: dado.datetime,
-            type: dado.type,
-            total_price: dado.total_price,
-            status: dado.status,
-            unit_price: dado.unit_price
+            operation_code: dado["operation_code"],
+            source_reference: dado["source_reference"],
+            product_code: dado["product_code"],
+            quantity: dado["quantity"],
+            date_time: dado["datetime"],
+            type: dado["type"],
+            total_price: dado["total_price"],
+            status: dado["status"],
+            unit_price: dado["unit_price"]
           )
 
           puts ":::: Rel criado (#{rel.id}) ::::"
