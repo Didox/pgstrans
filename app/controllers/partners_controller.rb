@@ -10,6 +10,7 @@ class PartnersController < ApplicationController
   # GET /partners/1
   # GET /partners/1.json
   def show
+    @relatorio_conciliacao_zaptvs = RelatorioConciliacaoZaptv.where(partner: @partner)
   end
 
   # GET /partners/new
