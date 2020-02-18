@@ -15,7 +15,7 @@ class PartnersController < ApplicationController
     if request.path_parameters[:format] == 'csv'
       relatorio_conciliacao_zaptvs = []
       @relatorio_conciliacao_zaptvs.each do |conciliacao|
-        pedidos << {
+        relatorio_conciliacao_zaptvs << {
           "Operation code" => conciliacao.operation_code,
           "Source reference" => conciliacao.source_reference,
           "Product code" => conciliacao.product_code,
