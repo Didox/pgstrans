@@ -4,6 +4,8 @@ class RelatorioConciliacaoZaptvsController < ApplicationController
   # GET /relatorio_conciliacao_zaptvs
   # GET /relatorio_conciliacao_zaptvs.json
   def index
+    redirect_to "/partners"
+    return
     @relatorio_conciliacao_zaptvs = RelatorioConciliacaoZaptv.all
   end
 
@@ -14,6 +16,8 @@ class RelatorioConciliacaoZaptvsController < ApplicationController
 
   # GET /relatorio_conciliacao_zaptvs/new
   def new
+    redirect_to "/partners"
+    return
     @relatorio_conciliacao_zaptv = RelatorioConciliacaoZaptv.new
   end
 
@@ -24,6 +28,8 @@ class RelatorioConciliacaoZaptvsController < ApplicationController
   # POST /relatorio_conciliacao_zaptvs
   # POST /relatorio_conciliacao_zaptvs.json
   def create
+    redirect_to "/partners"
+    return
     @relatorio_conciliacao_zaptv = RelatorioConciliacaoZaptv.new(relatorio_conciliacao_zaptv_params)
 
     respond_to do |format|
@@ -40,6 +46,8 @@ class RelatorioConciliacaoZaptvsController < ApplicationController
   # PATCH/PUT /relatorio_conciliacao_zaptvs/1
   # PATCH/PUT /relatorio_conciliacao_zaptvs/1.json
   def update
+    redirect_to "/partners"
+    return
     respond_to do |format|
       if @relatorio_conciliacao_zaptv.update(relatorio_conciliacao_zaptv_params)
         format.html { redirect_to @relatorio_conciliacao_zaptv, notice: 'Relatorio conciliacao zaptv was successfully updated.' }
@@ -54,6 +62,8 @@ class RelatorioConciliacaoZaptvsController < ApplicationController
   # DELETE /relatorio_conciliacao_zaptvs/1
   # DELETE /relatorio_conciliacao_zaptvs/1.json
   def destroy
+    redirect_to "/partners"
+    return
     @relatorio_conciliacao_zaptv.destroy
     respond_to do |format|
       format.html { redirect_to relatorio_conciliacao_zaptvs_url, notice: 'Relatorio conciliacao zaptv was successfully destroyed.' }
