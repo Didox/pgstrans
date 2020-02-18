@@ -51,14 +51,14 @@
   </div>
 </div>
 
-<h4>RelatorioConciliacaoZaptv</h4>
+<hr>
+
+<h1>Relatório conciliação ZAPTv</h1>
 
 <div class="container scroltable">
   <table class="table table-hover">
     <thead>
       <tr>
-        <th scope="col">Partner</th>
-        <th scope="col">Url</th>
         <th scope="col">Operation code</th>
         <th scope="col">Source reference</th>
         <th scope="col">Product code</th>
@@ -75,13 +75,11 @@
     <tbody>
       <% @relatorio_conciliacao_zaptvs.each do |relatorio_conciliacao_zaptv| %>
       <tr>
-        <td><%= relatorio_conciliacao_zaptv.partner %></td>
-        <td><%= relatorio_conciliacao_zaptv.url %></td>
         <td><%= relatorio_conciliacao_zaptv.operation_code %></td>
         <td><%= relatorio_conciliacao_zaptv.source_reference %></td>
         <td><%= relatorio_conciliacao_zaptv.product_code %></td>
         <td><%= relatorio_conciliacao_zaptv.quantity %></td>
-        <td><%= relatorio_conciliacao_zaptv.date_time %></td>
+        <td><%= relatorio_conciliacao_zaptv.date_time.strftime("%d/%m/%Y") %></td>
         <td><%= relatorio_conciliacao_zaptv.type_data %></td>
         <td><%= relatorio_conciliacao_zaptv.total_price %></td>
         <td><%= relatorio_conciliacao_zaptv.status %></td>
