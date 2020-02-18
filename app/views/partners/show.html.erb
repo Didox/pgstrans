@@ -83,7 +83,9 @@
         <td><%= relatorio_conciliacao_zaptv.type_data %></td>
         <td><%= relatorio_conciliacao_zaptv.total_price %></td>
         <td><%= relatorio_conciliacao_zaptv.status %></td>
-        <td><%= relatorio_conciliacao_zaptv.unit_price %></td>
+        <td>
+          KZ<%= number_to_currency(relatorio_conciliacao_zaptv.unit_price, :unit => "") %>
+        </td>
         <td><%= link_to 'Mostrar', relatorio_conciliacao_zaptv %></td>
       </tr>
       <% end %>
