@@ -11,6 +11,8 @@ class PartnersController < ApplicationController
   # GET /partners/1.json
   def show
     @relatorio_conciliacao_zaptvs = RelatorioConciliacaoZaptv.where(partner: @partner)
+    options = {page: params[:page] || 1, per_page: 10}
+    @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.paginate(options)
   end
 
   # GET /partners/new
