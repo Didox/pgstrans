@@ -23,6 +23,8 @@ class RelatorioConciliacaoZaptvsController < ApplicationController
 
   # GET /relatorio_conciliacao_zaptvs/1/edit
   def edit
+    redirect_to "/partners"
+    return
   end
 
   # POST /relatorio_conciliacao_zaptvs
