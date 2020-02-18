@@ -11,6 +11,27 @@ class PartnersController < ApplicationController
   # GET /partners/1.json
   def show
     @relatorio_conciliacao_zaptvs = RelatorioConciliacaoZaptv.where(partner: @partner)
+
+    if request.path_parameters[:format] == 'csv'
+      relatorio_conciliacao_zaptvs = []
+      @relatorio_conciliacao_zaptvs.each do |conciliacao|
+        pedidos << {
+          "Operation code" => conciliacao.operation_code,
+          "Source reference" => conciliacao.source_reference,
+          "Product code" => conciliacao.product_code,
+          "Quantity" => conciliacao.quantity,
+          "Date" => conciliacao.date_time.strftime("%d/%m/%Y %H:%M:%S"),
+          "Type" => conciliacao.type_data,
+          "Total price" => conciliacao.total_price,
+          "Status" => conciliacao.status,
+          "Unit price" => conciliacao.unit_price
+        }
+      end
+      filename = "relatorio_conciliacao_zaptvs-#{Time.now.strftime("%Y%m%d%H%M%S")}.csv"
+      send_data(relatorio_conciliacao_zaptvs.to_csv, :type => "text/csv; charset=utf-8; header=present", :filename => filename)
+      return
+    end
+
     options = {page: params[:page] || 1, per_page: 10}
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.paginate(options)
   end

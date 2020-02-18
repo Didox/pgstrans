@@ -64,8 +64,8 @@
             <th scope="col">Source reference</th>
             <th scope="col">Product code</th>
             <th scope="col">Quantity</th>
-            <th scope="col">Date time</th>
-            <th scope="col">Type data</th>
+            <th scope="col">Date</th>
+            <th scope="col">Type</th>
             <th scope="col">Total price</th>
             <th scope="col">Status</th>
             <th scope="col">Unit price</th>
@@ -79,7 +79,7 @@
             <td><%= relatorio_conciliacao_zaptv.source_reference %></td>
             <td><%= relatorio_conciliacao_zaptv.product_code %></td>
             <td><%= relatorio_conciliacao_zaptv.quantity %></td>
-            <td><%= relatorio_conciliacao_zaptv.date_time.strftime("%d/%m/%Y") %></td>
+            <td><%= relatorio_conciliacao_zaptv.date_time.strftime("%d/%m/%Y %H:%M:%S") %></td>
             <td><%= relatorio_conciliacao_zaptv.type_data %></td>
             <td><%= relatorio_conciliacao_zaptv.total_price %></td>
             <td><%= relatorio_conciliacao_zaptv.status %></td>
