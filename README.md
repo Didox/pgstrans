@@ -34,3 +34,17 @@ scp -P22 -r ~/Downloads/spgw_public.der pgsadmin@172.26.8.2:/home/pgsadmin/spgw_
 openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
 ## Convertendo em .der RSA
 openssl rsa -in key.pem -pubout -outform DER -out rsapagasopubkey.de
+
+RelatorioConciliacaoZaptv.create(
+  partner_id: 4,
+  url: "http://10.151.59.196/ao/echarge/pagaso/dev/carregamento/report/2020-02-15",
+  operation_code: "5144570",
+  source_reference: "15022020101420",
+  product_code: 441,
+  quantity: 1,
+  date_time: DateTime.parse("2020-02-15 09:14:24"),
+  type_data: "carregamento",
+  total_price: 3750.0,
+  status: "processado",
+  unit_price: 3440.0,
+)
