@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_26_102326) do
+ActiveRecord::Schema.define(version: 2020_02_26_104114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,6 +158,8 @@ ActiveRecord::Schema.define(version: 2020_02_26_102326) do
     t.string "mop_dstv_producao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "api_key_zaptv_desenvolvimento"
+    t.string "api_key_zaptv_producao"
     t.index ["partner_id"], name: "index_parametros_on_partner_id"
   end
 

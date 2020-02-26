@@ -166,16 +166,23 @@ class Venda < ApplicationRecord
     ActiveRecord::Base.transaction do
       parceiro = Partner.where("lower(slug) = 'zaptv'").first
       valor = params[:valor].to_i
+      parametro = Parametro.where(partner_id: parceiro.id).first
 
       raise "Saldo insuficiente para recarga" if usuario.saldo < valor
       raise "Parceiro não localizado" if parceiro.blank?
+      raise "Parâmetros não localizados" if parametro.blank?
       raise "Selecione o valor" if params[:valor].blank?
       raise "Digite o telemovel" if params[:zaptv_cartao].blank?
       raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
 
       telefone = params[:zaptv_cartao]
       request_id = Time.now.strftime("%d%m%Y%H%M%S")
-      host = "http://10.151.59.196"
+
+      if Rails.env == "development"
+        host = parametro.url_integracao_desenvolvimento
+      else
+        host = parametro.url_integracao_producao
+      end
 
       raise "Produto não selecionado" if params[:zaptv_produto_id].blank?
       product_id = params[:zaptv_produto_id].split("-").first
