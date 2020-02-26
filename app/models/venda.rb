@@ -573,7 +573,7 @@ class Venda < ApplicationRecord
       if sequence.blank?
         sequence_id = 1
       else
-        sequence_id += 1
+        sequence_id = sequence.sequence_id + 1
       end
       
 
