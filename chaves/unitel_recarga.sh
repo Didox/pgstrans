@@ -14,6 +14,7 @@ seller_id=$5
 terminal_id=$6
 value=$7
 client_msisdn=$8
+make_sale_endpoint=$9
 sale_timestamp=`date +%s%3N`
 
 ## A chave privada
@@ -29,7 +30,6 @@ public_key=/home/pgsadmin/PagasoAPP/pgstrans/chaves/rsapagasopubkey.der
 ## Parametros da ligação
 max_time=30
 connect_timeout=30
-make_sale_endpoint="https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale"
 # make_sale_endpoint="https://parceiros.unitel.co.ao:8444/spgw/V2/getStatus"
 
 ## Exemplo simples, de como criar um pedido de makeSale à API de parceiros

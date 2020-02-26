@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_26_092455) do
+ActiveRecord::Schema.define(version: 2020_02_26_102326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,33 @@ ActiveRecord::Schema.define(version: 2020_02_26_092455) do
     t.string "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "parametros", force: :cascade do |t|
+    t.string "url_integracao_desenvolvimento"
+    t.string "url_integracao_producao"
+    t.bigint "partner_id"
+    t.string "agent_key_movicel_desenvolvimento"
+    t.string "agent_key_movicel_producao"
+    t.string "user_id_movicel_desevolvimento"
+    t.string "user_id_movicel_producao"
+    t.string "data_source_dstv_desevolvimento"
+    t.string "data_source_dstv_producao"
+    t.string "payment_vendor_code_dstv_desenvolvimento"
+    t.string "payment_vendor_code_dstv_producao"
+    t.string "vendor_code_dstv_desenvolvimento"
+    t.string "vendor_code_dstv_producao"
+    t.string "agent_account_dstv_desenvolvimento"
+    t.string "agent_account_dstv_producao"
+    t.string "currency_dstv_desenvolvimento"
+    t.string "currency_dstv_producao"
+    t.string "product_user_key_dstv_desenvolvimento"
+    t.string "product_user_key_dstv_producao"
+    t.string "mop_dstv_desenvolvimento"
+    t.string "mop_dstv_producao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["partner_id"], name: "index_parametros_on_partner_id"
   end
 
   create_table "partners", force: :cascade do |t|
@@ -363,6 +390,7 @@ ActiveRecord::Schema.define(version: 2020_02_26_092455) do
   add_foreign_key "conta_correntes", "usuarios"
   add_foreign_key "matrix_users", "usuarios"
   add_foreign_key "moedas", "countries"
+  add_foreign_key "parametros", "partners"
   add_foreign_key "partners", "status_parceiros"
   add_foreign_key "produtos", "moedas"
   add_foreign_key "produtos", "partners"

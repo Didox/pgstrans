@@ -576,8 +576,9 @@ class Venda < ApplicationRecord
         sequence_id = sequence.sequence_id + 1
       end
       
+      make_sale_endpoint = "https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale"
 
-      retorno = `./chaves/unitel_recarga.sh #{sequence_id} #{venda.product_id} #{venda.agent_id} #{venda.store_id} #{venda.seller_id} #{venda.terminal_id} #{valor} #{venda.client_msisdn}`
+      retorno = `./chaves/unitel_recarga.sh #{sequence_id} #{venda.product_id} #{venda.agent_id} #{venda.store_id} #{venda.seller_id} #{venda.terminal_id} #{valor} #{venda.client_msisdn} #{make_sale_endpoint}`
       venda.request_send, venda.response_get = retorno.split(" --- ")
       venda.status = venda.response_get_parse["statusCode"] rescue "3"
       venda.save!

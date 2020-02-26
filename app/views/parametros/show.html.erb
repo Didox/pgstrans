@@ -1,0 +1,66 @@
+<div class="container">
+
+  <h4>Mostrar Parametro</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Url integracao desenvolvimento:</dt>
+      <dd><%= @parametro.url_integracao_desenvolvimento %></dd>
+      <dt>Url integracao producao:</dt>
+      <dd><%= @parametro.url_integracao_producao %></dd>
+      <dt>Partner:</dt>
+      <dd><%= @parametro.partner %></dd>
+      <dt>Agent key movicel desenvolvimento:</dt>
+      <dd><%= @parametro.agent_key_movicel_desenvolvimento %></dd>
+      <dt>Agent key movicel producao:</dt>
+      <dd><%= @parametro.agent_key_movicel_producao %></dd>
+      <dt>User id movicel desevolvimento:</dt>
+      <dd><%= @parametro.user_id_movicel_desevolvimento %></dd>
+      <dt>User id movicel producao:</dt>
+      <dd><%= @parametro.user_id_movicel_producao %></dd>
+      <dt>Data source dstv desevolvimento:</dt>
+      <dd><%= @parametro.data_source_dstv_desevolvimento %></dd>
+      <dt>Data source dstv producao:</dt>
+      <dd><%= @parametro.data_source_dstv_producao %></dd>
+      <dt>Payment vendor code dstv desenvolvimento:</dt>
+      <dd><%= @parametro.payment_vendor_code_dstv_desenvolvimento %></dd>
+      <dt>Payment vendor code dstv producao:</dt>
+      <dd><%= @parametro.payment_vendor_code_dstv_producao %></dd>
+      <dt>Vendor code dstv desenvolvimento:</dt>
+      <dd><%= @parametro.vendor_code_dstv_desenvolvimento %></dd>
+      <dt>Vendor code dstv producao:</dt>
+      <dd><%= @parametro.vendor_code_dstv_producao %></dd>
+      <dt>Agent account dstv desenvolvimento:</dt>
+      <dd><%= @parametro.agent_account_dstv_desenvolvimento %></dd>
+      <dt>Agent account dstv producao:</dt>
+      <dd><%= @parametro.agent_account_dstv_producao %></dd>
+      <dt>Currency dstv desenvolvimento:</dt>
+      <dd><%= @parametro.currency_dstv_desenvolvimento %></dd>
+      <dt>Currency dstv producao:</dt>
+      <dd><%= @parametro.currency_dstv_producao %></dd>
+      <dt>Product user key dstv desenvolvimento:</dt>
+      <dd><%= @parametro.product_user_key_dstv_desenvolvimento %></dd>
+      <dt>Product user key dstv producao:</dt>
+      <dd><%= @parametro.product_user_key_dstv_producao %></dd>
+      <dt>Mop dstv desenvolvimento:</dt>
+      <dd><%= @parametro.mop_dstv_desenvolvimento %></dd>
+      <dt>Mop dstv producao:</dt>
+      <dd><%= @parametro.mop_dstv_producao %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to parametros_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_parametro_path(@parametro), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>
