@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :unitel_sequences
   resources :relatorio_conciliacao_zaptvs
   resources :status_parceiros
   resources :conta_correntes
