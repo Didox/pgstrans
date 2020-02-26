@@ -23,8 +23,6 @@
           <td><%= unitel_sequence.sequence_id %></td>
           <td><a href="/vendas/<%= unitel_sequence.venda.id %>"><%= unitel_sequence.venda.id %></a></td>
           <td><%= link_to 'Mostrar', unitel_sequence %></td>
-          <td><%= link_to 'Editar', edit_unitel_sequence_path(unitel_sequence) %></td>
-          <td><%= link_to 'Apagar', unitel_sequence, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>
         <% end %>
       </tbody>
