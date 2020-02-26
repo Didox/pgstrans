@@ -11,56 +11,20 @@
     <table class="table table-hover">
       <thead>
         <tr>
-                    <th scope="col">Url integracao desenvolvimento</th>
-                    <th scope="col">Url integracao producao</th>
-                    <th scope="col">Partner</th>
-                    <th scope="col">Agent key movicel desenvolvimento</th>
-                    <th scope="col">Agent key movicel producao</th>
-                    <th scope="col">User id movicel desevolvimento</th>
-                    <th scope="col">User id movicel producao</th>
-                    <th scope="col">Data source dstv desevolvimento</th>
-                    <th scope="col">Data source dstv producao</th>
-                    <th scope="col">Payment vendor code dstv desenvolvimento</th>
-                    <th scope="col">Payment vendor code dstv producao</th>
-                    <th scope="col">Vendor code dstv desenvolvimento</th>
-                    <th scope="col">Vendor code dstv producao</th>
-                    <th scope="col">Agent account dstv desenvolvimento</th>
-                    <th scope="col">Agent account dstv producao</th>
-                    <th scope="col">Currency dstv desenvolvimento</th>
-                    <th scope="col">Currency dstv producao</th>
-                    <th scope="col">Product user key dstv desenvolvimento</th>
-                    <th scope="col">Product user key dstv producao</th>
-                    <th scope="col">Mop dstv desenvolvimento</th>
-                    <th scope="col">Mop dstv producao</th>
-                    <th colspan="3"></th>
+            <th scope="col">Url integracao desenvolvimento</th>
+            <th scope="col">Url integracao producao</th>
+            <th scope="col">Partner</th>
+            <th colspan="3"></th>
         </tr>
       </thead>
 
       <tbody>
         <% @parametros.each do |parametro| %>
         <tr>
-                    <td><%= parametro.url_integracao_desenvolvimento %></td>
-                    <td><%= parametro.url_integracao_producao %></td>
-                    <td><%= parametro.partner %></td>
-                    <td><%= parametro.agent_key_movicel_desenvolvimento %></td>
-                    <td><%= parametro.agent_key_movicel_producao %></td>
-                    <td><%= parametro.user_id_movicel_desevolvimento %></td>
-                    <td><%= parametro.user_id_movicel_producao %></td>
-                    <td><%= parametro.data_source_dstv_desevolvimento %></td>
-                    <td><%= parametro.data_source_dstv_producao %></td>
-                    <td><%= parametro.payment_vendor_code_dstv_desenvolvimento %></td>
-                    <td><%= parametro.payment_vendor_code_dstv_producao %></td>
-                    <td><%= parametro.vendor_code_dstv_desenvolvimento %></td>
-                    <td><%= parametro.vendor_code_dstv_producao %></td>
-                    <td><%= parametro.agent_account_dstv_desenvolvimento %></td>
-                    <td><%= parametro.agent_account_dstv_producao %></td>
-                    <td><%= parametro.currency_dstv_desenvolvimento %></td>
-                    <td><%= parametro.currency_dstv_producao %></td>
-                    <td><%= parametro.product_user_key_dstv_desenvolvimento %></td>
-                    <td><%= parametro.product_user_key_dstv_producao %></td>
-                    <td><%= parametro.mop_dstv_desenvolvimento %></td>
-                    <td><%= parametro.mop_dstv_producao %></td>
-                    <td><%= link_to 'Mostrar', parametro %></td>
+          <td><%= parametro.url_integracao_desenvolvimento %></td>
+          <td><%= parametro.url_integracao_producao %></td>
+          <td><%= parametro.partner.name %></td>
+          <td><%= link_to 'Mostrar', parametro %></td>
           <td><%= link_to 'Editar', edit_parametro_path(parametro) %></td>
           <td><%= link_to 'Apagar', parametro, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>
