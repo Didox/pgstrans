@@ -569,10 +569,20 @@ class Venda < ApplicationRecord
       venda.seller_id = usuario.sub_agente.seller_id_parceiro
       venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
 
-      retorno = `./chaves/unitel_recarga.sh #{venda.id} #{venda.product_id} #{venda.agent_id} #{venda.store_id} #{venda.seller_id} #{venda.terminal_id} #{valor} #{venda.client_msisdn}`
+      sequence = UnitelSequence.order("id desc").first
+      if sequence.blank?
+        sequence_id = 1
+      else
+        sequence_id += 1
+      end
+      
+
+      retorno = `./chaves/unitel_recarga.sh #{sequence_id} #{venda.product_id} #{venda.agent_id} #{venda.store_id} #{venda.seller_id} #{venda.terminal_id} #{valor} #{venda.client_msisdn}`
       venda.request_send, venda.response_get = retorno.split(" --- ")
       venda.status = venda.response_get_parse["statusCode"] rescue "3"
       venda.save!
+
+      UnitelSequence.create(sequence_id: sequence_id, venda_id: venda.id)
 
       if venda.sucesso?
         ContaCorrente.create!(
