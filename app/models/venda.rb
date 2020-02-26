@@ -180,8 +180,10 @@ class Venda < ApplicationRecord
 
       if Rails.env == "development"
         host = parametro.url_integracao_desenvolvimento
+        api_key = parametro.api_key_zaptv_desenvolvimento
       else
         host = parametro.url_integracao_producao
+        api_key = parametro.api_key_zaptv_producao
       end
 
       raise "Produto não selecionado" if params[:zaptv_produto_id].blank?
@@ -198,7 +200,7 @@ class Venda < ApplicationRecord
       res = HTTParty.post(
         "#{host}/ao/echarge/pagaso/dev/carregamento", 
         headers: {
-          "apikey" => "b65298a499c84224d442c6a680d14b8e",
+          "apikey" => api_key,
           "Content-Type" => "application/json"
         },
         :body => body_send,
@@ -251,7 +253,9 @@ class Venda < ApplicationRecord
     ActiveRecord::Base.transaction do
       parceiro = Partner.where("lower(slug) = 'movicel'").first
       valor = params[:valor].to_i
+      parametro = Parametro.where(partner_id: parceiro.id).first
 
+      raise "Parâmetros não localizados" if parametro.blank?
       raise "Saldo insuficiente para recarga" if usuario.saldo < valor
       raise "Parceiro não localizado" if parceiro.blank?
       raise "Selecione o valor" if params[:valor].blank?
@@ -262,16 +266,22 @@ class Venda < ApplicationRecord
 
       require 'openssl'
 
+      if Rails.env == "development"
+        url_service = parametro.url_integracao_desenvolvimento
+        agent_key = parametro.agent_key_movicel_desenvolvimento
+        user_id = parametro.user_id_movicel_desenvolvimento
+      else
+        url_service = parametro.url_integracao_producao
+        agent_key = parametro.agent_key_movicel_producao
+        user_id = parametro.user_id_movicel_producao
+      end
 
       #producao
-      agent_key = "3958CFE4F3A8DB09B76B9C0D26A19F6D69E1F6DC3BC5779EB84CB866DD939DF4"
-      url_service = "https://ws.movicel.co.ao:10073"
 
       #homologacao
       # agent_key = "5CF0AC45050B030B9E3A5FC14A5D7C8B609B2BDD40119B5C32539E1F3B6CEF7F"
       # url_service = "http://wsqa.movicel.co.ao:10071"
 
-      user_id = "TivTechno"
       msisdn = telefone
       request_id = Time.now.strftime("%d%m%Y%H%M%S")
 
@@ -429,35 +439,46 @@ class Venda < ApplicationRecord
     ActiveRecord::Base.transaction do
       parceiro = Partner.where("lower(slug) = 'dstv'").first
       valor = params[:valor].to_i
+      parametro = Parametro.where(partner_id: parceiro.id).first
 
+      raise "Parâmetros não localizados" if parametro.blank?
       raise "Saldo insuficiente para recarga" if usuario.saldo < valor
       raise "Parceiro não localizado" if parceiro.blank?
       raise "Selecione o valor" if params[:valor].blank?
       raise "Digite o Nº SmartCard" if params[:dstv_smart_card].blank?
       raise "Talão p/SMS" if params[:talao_sms].blank?
       raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
-
       raise "Produto não selecionado" if params[:dstv_produto_id].blank?
+
       product_id = params[:dstv_produto_id].split("-").first
 
       require 'openssl'
 
-      url_service = "http://uat.mcadigitalmedia.com"
-
       transaction_number = (Venda.order("id desc").first.id + 1)
-      data_source = "Angola"
-      payment_vendor_code = "RTPP_Angola_Pagaso"
-      vendor_code = "PagasoDStv"
-      agent_account = ""
-      currency = "AOA"
-      product_user_key = "PRWE36"
-      # mop = "CASH, MOBILE or ATM "
-      mop = "CASH"
+
+      if Rails.env == "development"
+        url_service = parametro.url_integracao_desenvolvimento
+        data_source = parametro.data_source_dstv_desenvolvimento
+        payment_vendor_code = parametro.payment_vendor_code_dstv_desenvolvimento
+        vendor_code = parametro.vendor_code_dstv_desenvolvimento
+        agent_account = parametro.agent_account_dstv_desenvolvimento
+        currency = parametro.currency_dstv_desenvolvimento
+        product_user_key = parametro.product_user_key_dstv_desenvolvimento
+        mop = parametro.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM "
+      else
+        url_service = parametro.url_integracao_producao
+        data_source = parametro.data_source_dstv_producao
+        payment_vendor_code = parametro.payment_vendor_code_dstv_producao
+        vendor_code = parametro.vendor_code_dstv_producao
+        agent_account = parametro.agent_account_dstv_producao
+        currency = parametro.currency_dstv_producao
+        product_user_key = parametro.product_user_key_dstv_producao
+        mop = parametro.mop_dstv_producao # mop = "CASH, MOBILE or ATM "
+      end
 
       request_send = ""
       response_get = ""
       last_request = ""
-
 
       body = "
         <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
@@ -508,8 +529,6 @@ class Venda < ApplicationRecord
 
       last_request = request.body
       
-
-
       venda = Venda.create(agent_id: AGENTE_ID, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
 
       venda.store_id = usuario.sub_agente.store_id_parceiro
@@ -556,10 +575,11 @@ class Venda < ApplicationRecord
 
   def self.venda_unitel(params, usuario)
     ActiveRecord::Base.transaction do
-      
       parceiro = Partner.where("lower(slug) = 'unitel'").first
       valor = params[:valor].to_i
+      parametro = Parametro.where(partner_id: parceiro.id).first
 
+      raise "Parâmetros não localizados" if parametro.blank?
       raise "Saldo insuficiente para recarga" if usuario.saldo < valor
       raise "Parceiro não localizado" if parceiro.blank?
       raise "Produto não selecionado" if params[:unitel_produto_id].blank?
@@ -583,7 +603,11 @@ class Venda < ApplicationRecord
         sequence_id = sequence.sequence_id + 1
       end
       
-      make_sale_endpoint = "https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale"
+      if Rails.env == "development"
+        make_sale_endpoint = "#{parametro.url_integracao_desenvolvimento}/spgw/V2/makeSale"
+      else
+        make_sale_endpoint = "#{parametro.url_integracao_producao}/spgw/V2/makeSale"
+      end
 
       retorno = `./chaves/unitel_recarga.sh #{sequence_id} #{venda.product_id} #{venda.agent_id} #{venda.store_id} #{venda.seller_id} #{venda.terminal_id} #{valor} #{venda.client_msisdn} #{make_sale_endpoint}`
       venda.request_send, venda.response_get = retorno.split(" --- ")
