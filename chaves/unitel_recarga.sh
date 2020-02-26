@@ -17,7 +17,7 @@ client_msisdn=$8
 make_sale_endpoint=$9
 sale_timestamp=`date +%s%3N`
 
-echo "============== $make_sale_endpoint =============="
+echo "============== $terminal_id =============="
 
 
 
