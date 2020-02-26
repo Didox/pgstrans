@@ -17,6 +17,9 @@ client_msisdn=$8
 make_sale_endpoint=$9
 sale_timestamp=`date +%s%3N`
 
+echo "============== $make_sale_endpoint =============="
+
+
 ## A chave privada
 private_key=/home/pgsadmin/PagasoAPP/pgstrans/chaves/rsapagasoprivkey.pem
 public_key=/home/pgsadmin/PagasoAPP/pgstrans/chaves/rsapagasopubkey.der
