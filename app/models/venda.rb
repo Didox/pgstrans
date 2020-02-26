@@ -609,7 +609,7 @@ class Venda < ApplicationRecord
         make_sale_endpoint = "#{parametro.url_integracao_producao}/spgw/V2/makeSale"
       end
 
-      raise "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+      # raise "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
 
       retorno = `./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'`
       venda.request_send, venda.response_get = retorno.split(" --- ")
