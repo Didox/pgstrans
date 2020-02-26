@@ -430,15 +430,20 @@ class Venda < ApplicationRecord
       raise "Talão p/SMS" if params[:talao_sms].blank?
       raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
 
+      raise "Produto não selecionado" if params[:dstv_produto_id].blank?
+      product_id = params[:dstv_produto_id].split("-").first
+
       require 'openssl'
 
       url_service = "http://uat.mcadigitalmedia.com"
 
+      transaction_number = (Venda.order("id desc").first.id + 1)
       data_source = "Angola"
       payment_vendor_code = "RTPP_Angola_Pagaso"
       vendor_code = "PagasoDStv"
       agent_account = ""
       currency = "AOA"
+      product_user_key = "PRWE36"
       # mop = "CASH, MOBILE or ATM "
       mop = "CASH"
 
@@ -449,46 +454,31 @@ class Venda < ApplicationRecord
 
       body = "
         <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
-           <soapenv:Header/>
-           <soapenv:Body>
-              <sel:SubmitPaymentBySmartCard>
-                 <!--Optional:-->
-                 <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-                 <!--Optional:-->
-                 <sel:DataSource>#{data_source}</sel:DataSource>
-                 <!--Optional:-->
-                 <sel:PaymentVendorCode>#{payment_vendor_code}</sel:PaymentVendorCode>
-                 <!--Optional:-->
-                 <sel:TransactionNumber>?</sel:TransactionNumber>
-                 <!--Optional:-->
-                 <sel:SmartCardNumber>#{params[:dstv_smart_card]}</sel:SmartCardNumber>
-                 <!--Optional:-->
-                 <sel:Amount>#{params[:valor]}</sel:Amount>
-                 <!--Optional:-->
-                 <sel:InvoicePeriod>?</sel:InvoicePeriod>
-                 <!--Optional:-->
-                 <sel:Currency>#{params[:valor]}</sel:Currency>
-                 <!--Optional:-->
-                 <sel:PaymentDescription>?</sel:PaymentDescription>
-                 <!--Optional:-->
-                 <sel:ProductCollection>
-                    <!--Zero or more repetitions:-->
-                    <sel1:PaymentProduct>
-                       <!--Optional:-->
-                       <sel1:ProductUserKey>?</sel1:ProductUserKey>
-                    </sel1:PaymentProduct>
-                 </sel:ProductCollection>
-                 <!--Optional:-->
-                 <sel:MethodOfPayment>#{mop}</sel:MethodOfPayment>
-                 <!--Optional:-->
-                 <sel:Language>PT-PT</sel:Language>
-                 <!--Optional:-->
-                 <sel:IpAddress>#{params[:ip]}</sel:IpAddress>
-                 <!--Optional:-->
-                 <sel:BusinessUnit>?</sel:BusinessUnit>
-              </sel:SubmitPaymentBySmartCard>
-           </soapenv:Body>
-        </soapenv:Envelope>
+         <soapenv:Header/>
+         <soapenv:Body>
+            <sel:AgentSubmitPayment>
+               <sel:agentPaymentRequest>
+                  <sel1:paymentVendorCode>#{vendor_code}</sel1:paymentVendorCode>
+                  <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
+                  <sel1:dataSource>#{data_source}</sel1:dataSource>
+                  <sel1:customerNumber>#{params[:dstv_smart_card]}</sel1:customerNumber>
+                  <sel1:amount>#{params[:valor]}</sel1:amount>
+                  <sel1:invoicePeriod>12</sel1:invoicePeriod>
+                  <sel1:currency>AOA</sel1:currency>
+                  <sel1:methodofPayment>CASH</sel1:methodofPayment>
+                  <sel1:agentNumber>#{params[:dstv_smart_card]}</sel1:agentNumber>
+                  <sel1:productCollection>
+                     <sel1:Product>
+                        <sel1:productUserkey>#{product_id}</sel1:productUserkey>
+                     </sel1:Product>
+                  </sel1:productCollection>
+                  <sel1:baskedId>0</sel1:baskedId>
+               </sel:agentPaymentRequest>
+               <sel:VendorCode>#{vendor_code}</sel:VendorCode>
+               <sel:language>PT</sel:language>
+            </sel:AgentSubmitPayment>
+         </soapenv:Body>
+      </soapenv:Envelope>
       "
 
       request_send += "=========[SubmitPaymentBySmartCard]========"
@@ -500,7 +490,7 @@ class Venda < ApplicationRecord
       request = HTTParty.post(uri, 
         :headers => {
           'Content-Type' => 'text/xml;charset=UTF-8',
-          'SOAPAction' => "#{url_service}/VendorSelfCare/SelfCareService.svc",
+          'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/AgentSubmitPayment",
         },
         :body => body
       )
@@ -521,7 +511,24 @@ class Venda < ApplicationRecord
 
       venda.request_send = request_send
       venda.response_get = response_get
-      venda.status = last_request.scan(/ReturnCode.*?<\/ReturnCode/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue "3"
+      venda.status = last_request.scan(/receiptNumber.*?<\/receiptNumber/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue "3"
+
+=begin
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+   <s:Body>
+      <AgentSubmitPaymentResponse xmlns="http://services.multichoice.co.za/SelfCare">
+         <AgentSubmitPaymentResult xmlns:a="http://datacontracts.multichoice.co.za/SelfCare" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+            <a:receiptNumber>3025716</a:receiptNumber>
+            <a:transactionNumber>2</a:transactionNumber>
+            <a:status>true</a:status>
+            <a:transactionDateTime>2020-02-21T11:32:24.7167378+00:00</a:transactionDateTime>
+            <a:errorMessage/>
+            <a:AuditReferenceNumber>cc1741df-3818-40c5-9fda-a9ebb14b7692</a:AuditReferenceNumber>
+         </AgentSubmitPaymentResult>
+      </AgentSubmitPaymentResponse>
+   </s:Body>
+</s:Envelope>
+=end
       venda.save!
 
       if venda.sucesso?
@@ -562,7 +569,7 @@ class Venda < ApplicationRecord
       venda.seller_id = usuario.sub_agente.seller_id_parceiro
       venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
 
-      retorno = `./chaves/exec.sh #{venda.id} #{venda.product_id} #{venda.agent_id} #{venda.store_id} #{venda.seller_id} #{venda.terminal_id} #{valor} #{venda.client_msisdn}`
+      retorno = `./chaves/unitel_recarga.sh #{venda.id} #{venda.product_id} #{venda.agent_id} #{venda.store_id} #{venda.seller_id} #{venda.terminal_id} #{valor} #{venda.client_msisdn}`
       venda.request_send, venda.response_get = retorno.split(" --- ")
       venda.status = venda.response_get_parse["statusCode"] rescue "3"
       venda.save!
