@@ -10,7 +10,7 @@
   <div class="card border-bootstrap box-shadow mb-4">
     <div class="card-header text-bootstrap align-items-center justify-content-between">
       
-      <%= simple_form_for(@parametro, html: { class: "form-horizontal", role: "form" }) do |f| %>
+      <%= simple_form_for(@parametro, html: { class: "form-vertical", role: "form" }) do |f| %>
         <% if @parametro.errors.any? %>
           <div class="alert alert-danger alert-dismissable" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -25,97 +25,98 @@
         <% end %>
         
         <div class="form-input col-sm-12">
-          <%= f.label :partner, class: "col-sm-2" %>
+          <%= f.label :partner, :label => "Parceiro" %>
           <%= f.select :partner_id, Partner.all.collect{|p|[p.name, p.id]}, {}, {class: 'form-control is-valid'} %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :url_integracao_desenvolvimento, class: "col-sm-12" %>
-          <%= f.text_field :url_integracao_desenvolvimento, class: "form-control" %>
+          <%= f.input :url_integracao_desenvolvimento, :label => "URL Integração em Desenvolvimento" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :url_integracao_producao, class: "col-sm-12" %>
-          <%= f.text_field :url_integracao_producao, class: "form-control" %>
+          <%= f.input :url_integracao_producao, :label => "URL Integração em Produção" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :api_key_zaptv_desenvolvimento, class: "col-sm-12" %>
-          <%= f.text_field :api_key_zaptv_desenvolvimento, class: "form-control" %>
+          <%= f.input :api_key_zaptv_desenvolvimento, :label => "API Key ZAPTV em Desenvolvimento" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :api_key_zaptv_producao, class: "col-sm-12" %>
-          <%= f.text_field :api_key_zaptv_producao, class: "form-control" %>
+          <%= f.input :api_key_zaptv_producao, :label => "API Key ZAPTV em Produção" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :agent_key_movicel_desenvolvimento, class: "col-sm-12" %>
-          <%= f.text_field :agent_key_movicel_desenvolvimento, class: "form-control" %>
+          <%= f.input :agent_key_movicel_desenvolvimento, :label => "Agent Key Movicel em Desenvolvimento" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :agent_key_movicel_producao, class: "col-sm-12" %>
-          <%= f.text_field :agent_key_movicel_producao, class: "form-control" %>
+          <%= f.input :agent_key_movicel_producao, :label => "Agent Key Movicel em Produção" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :user_id_movicel_desevolvimento, class: "col-sm-12" %>
-          <%= f.text_field :user_id_movicel_desevolvimento, class: "form-control" %>
+          <%= f.input :user_id_movicel_desenvolvimento, :label => "User ID Movicel em Desenvolvimento" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :user_id_movicel_producao, class: "col-sm-12" %>
-          <%= f.text_field :user_id_movicel_producao, class: "form-control" %>
+          <%= f.input :user_id_movicel_producao, :label => "User ID Movicel em Produção" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :data_source_dstv_desevolvimento, class: "col-sm-12" %>
-          <%= f.text_field :data_source_dstv_desevolvimento, class: "form-control" %>
+          <%= f.input :data_source_dstv_desenvolvimento, :label => "Data Source DSTV em Desenvolvimento" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :data_source_dstv_producao, class: "col-sm-12" %>
-          <%= f.text_field :data_source_dstv_producao, class: "form-control" %>
+          <%= f.input :data_source_dstv_producao, :label => "Data Source DSTV em Produção" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :payment_vendor_code_dstv_desenvolvimento, class: "col-sm-12" %>
-          <%= f.text_field :payment_vendor_code_dstv_desenvolvimento, class: "form-control" %>
+          <%= f.input :payment_vendor_code_dstv_desenvolvimento, :label => "Payment Vendor DSTV em Desenvolvimento" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :payment_vendor_code_dstv_producao, class: "col-sm-12" %>
-          <%= f.text_field :payment_vendor_code_dstv_producao, class: "form-control" %>
+          <%= f.input :payment_vendor_code_dstv_producao, :label => "Payment Vendor DSTV em Produção" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :vendor_code_dstv_desenvolvimento, class: "col-sm-12" %>
-          <%= f.text_field :vendor_code_dstv_desenvolvimento, class: "form-control" %>
+          <%= f.input :vendor_code_dstv_desenvolvimento, :label => "Vendor Code DSTV em Desenvolvimento" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :vendor_code_dstv_producao, class: "col-sm-12" %>
-          <%= f.text_field :vendor_code_dstv_producao, class: "form-control" %>
+          <%= f.input :vendor_code_dstv_producao, :label => "Vendor Code DSTV em Produção" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :agent_account_dstv_desenvolvimento, class: "col-sm-12" %>
-          <%= f.text_field :agent_account_dstv_desenvolvimento, class: "form-control" %>
+          <%= f.input :agent_account_dstv_desenvolvimento, :label => "Agent Account DSTV em Desenvolvimento" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :agent_account_dstv_producao, class: "col-sm-12" %>
-          <%= f.text_field :agent_account_dstv_producao, class: "form-control" %>
+          <%= f.input :agent_account_dstv_producao, :label => "Agent Account DSTV em Produção" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :currency_dstv_desenvolvimento, class: "col-sm-12" %>
-          <%= f.text_field :currency_dstv_desenvolvimento, class: "form-control" %>
+          <%= f.input :currency_dstv_desenvolvimento, :label => "Currency DSTV em Desenvolvimento" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :currency_dstv_producao, class: "col-sm-12" %>
-          <%= f.text_field :currency_dstv_producao, class: "form-control" %>
+          <%= f.input :currency_dstv_producao, :label => "Currency DSTV em Produção" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :product_user_key_dstv_desenvolvimento, class: "col-sm-12" %>
-          <%= f.text_field :product_user_key_dstv_desenvolvimento, class: "form-control" %>
+          <%= f.input :product_user_key_dstv_desenvolvimento, :label => "Product User Key DSTV em Desenvolvimento" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :product_user_key_dstv_producao, class: "col-sm-12" %>
-          <%= f.text_field :product_user_key_dstv_producao, class: "form-control" %>
+          <%= f.input :product_user_key_dstv_producao, :label => "Product User Key DSTV em Produção" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :mop_dstv_desenvolvimento, class: "col-sm-12" %>
-          <%= f.text_field :mop_dstv_desenvolvimento, class: "form-control" %>
+          <%= f.input :mop_dstv_desenvolvimento, :label => "MOP DSTV em Desenvolvimento" %>
         </div>
+
         <div class="form-input col-sm-12">
-          <%= f.label :mop_dstv_producao, class: "col-sm-12" %>
-          <%= f.text_field :mop_dstv_producao, class: "form-control" %>
+          <%= f.input :mop_dstv_producao, :label => "MOP DSTV em Produção" %>
         </div>
+
         <div class="form-actions col-sm-12" style="margin-top: 20px">
           <%= f.button :button, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-ok"></span>

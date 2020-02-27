@@ -1,61 +1,219 @@
 <div class="container">
 
-  <h4>Mostrar Parametro</h4>
+  <h4>Mostrar Parâmetros</h4>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
 
   <div class="container">
-    <dl class="dl-horizontal">
-      <dt>Partner:</dt>
-      <dd><%= @parametro.partner.name %></dd>
-      <dt>Url integracao desenvolvimento:</dt>
-      <dd><%= @parametro.url_integracao_desenvolvimento %></dd>
-      <dt>Url integracao producao:</dt>
-      <dd><%= @parametro.url_integracao_producao %></dd>
-      <dt>Api key zaptv desenvolvimento:</dt>
-      <dd><%= @parametro.api_key_zaptv_desenvolvimento %></dd>
-      <dt>Api key zaptv producao:</dt>
-      <dd><%= @parametro.api_key_zaptv_producao %></dd>
-      <dt>Agent key movicel desenvolvimento:</dt>
-      <dd><%= @parametro.agent_key_movicel_desenvolvimento %></dd>
-      <dt>Agent key movicel producao:</dt>
-      <dd><%= @parametro.agent_key_movicel_producao %></dd>
-      <dt>User id movicel desevolvimento:</dt>
-      <dd><%= @parametro.user_id_movicel_desevolvimento %></dd>
-      <dt>User id movicel producao:</dt>
-      <dd><%= @parametro.user_id_movicel_producao %></dd>
-      <dt>Data source dstv desevolvimento:</dt>
-      <dd><%= @parametro.data_source_dstv_desevolvimento %></dd>
-      <dt>Data source dstv producao:</dt>
-      <dd><%= @parametro.data_source_dstv_producao %></dd>
-      <dt>Payment vendor code dstv desenvolvimento:</dt>
-      <dd><%= @parametro.payment_vendor_code_dstv_desenvolvimento %></dd>
-      <dt>Payment vendor code dstv producao:</dt>
-      <dd><%= @parametro.payment_vendor_code_dstv_producao %></dd>
-      <dt>Vendor code dstv desenvolvimento:</dt>
-      <dd><%= @parametro.vendor_code_dstv_desenvolvimento %></dd>
-      <dt>Vendor code dstv producao:</dt>
-      <dd><%= @parametro.vendor_code_dstv_producao %></dd>
-      <dt>Agent account dstv desenvolvimento:</dt>
-      <dd><%= @parametro.agent_account_dstv_desenvolvimento %></dd>
-      <dt>Agent account dstv producao:</dt>
-      <dd><%= @parametro.agent_account_dstv_producao %></dd>
-      <dt>Currency dstv desenvolvimento:</dt>
-      <dd><%= @parametro.currency_dstv_desenvolvimento %></dd>
-      <dt>Currency dstv producao:</dt>
-      <dd><%= @parametro.currency_dstv_producao %></dd>
-      <dt>Product user key dstv desenvolvimento:</dt>
-      <dd><%= @parametro.product_user_key_dstv_desenvolvimento %></dd>
-      <dt>Product user key dstv producao:</dt>
-      <dd><%= @parametro.product_user_key_dstv_producao %></dd>
-      <dt>Mop dstv desenvolvimento:</dt>
-      <dd><%= @parametro.mop_dstv_desenvolvimento %></dd>
-      <dt>Mop dstv producao:</dt>
-      <dd><%= @parametro.mop_dstv_producao %></dd>
-    </dl>
+    <div class="row bg-light h-50 p-3">
+      <div class="col-md-4">
+          Parceiro
+      </div>
+      <div class="col-md-8">
+         <%= @parametro.partner.name %>
+      </div>
+    </div>
 
+    <div class="row h-50 p-3">
+      <div class="col-md-4">
+          URL integração desenvolvimento:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.url_integracao_desenvolvimento %>
+      </div>
+    </div>
+    
+    <div class="row bg-light h-50 p-3">
+      <div class="col-md-4">
+          URL integração produção:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.url_integracao_producao %>
+      </div>
+    </div>
+    
+    <div class="row h-50 p-3">
+      <div class="col-md-4">
+          Api key ZAPTV desenvolvimento:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.api_key_zaptv_desenvolvimento %>
+      </div>
+    </div>
+    
+    <div class="row bg-light h-50 p-3">
+      <div class="col-md-4">
+          Api key ZAPTV produção:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.api_key_zaptv_producao %>
+      </div>
+    </div>
+
+    <div class="row h-50 p-3">
+      <div class="col-md-4">
+          Agent key Movicel desenvolvimento:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.agent_key_movicel_desenvolvimento %>
+      </div>
+    </div>
+    
+    <div class="row bg-light h-50 p-3">
+      <div class="col-md-4">
+          Agent key Movicel produção:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.agent_key_movicel_producao %>
+      </div>
+    </div>
+    
+    <div class="row h-50 p-3">
+      <div class="col-md-4">
+          User id Movicel desenvolvimento:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.user_id_movicel_desenvolvimento %>
+      </div>
+    </div>
+    
+    <div class="row bg-light h-50 p-3">
+      <div class="col-md-4">
+          User id Movicel Produção:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.user_id_movicel_producao %>
+      </div>
+    </div>
+
+    <div class="row h-50 p-3">
+      <div class="col-md-4">
+          Data source DSTV desenvolvimento:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.data_source_dstv_desenvolvimento %>
+      </div>
+    </div>
+
+    <div class="row bg-light h-50 p-3">      
+      <div class="col-md-4">
+          Data source DSTV Produção:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.data_source_dstv_producao %>
+      </div>
+    </div>
+
+    <div class="row h-50 p-3">
+      <div class="col-md-4">
+          Payment vendor code DSTV desenvolvimento:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.payment_vendor_code_dstv_desenvolvimento %>
+      </div>
+    </div>
+
+    <div class="row bg-light h-50 p-3">
+      <div class="col-md-4">
+          Payment vendor code DSTV produção:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.payment_vendor_code_dstv_producao %>
+      </div>
+    </div>
+    
+    <div class="row h-50 p-3">
+      <div class="col-md-4">
+          Vendor code DSTV desenvolvimento:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.vendor_code_dstv_desenvolvimento %>
+      </div>
+    </div>
+     
+    <div class="row bg-light h-50 p-3">
+      <div class="col-md-4">
+          Vendor code DSTV produção:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.vendor_code_dstv_producao %>
+      </div>
+    </div>
+        
+    <div class="row h-50 p-3">
+      <div class="col-md-4">
+          Agent account DSTV desenvolvimento:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.agent_account_dstv_desenvolvimento %>
+      </div>
+    </div>
+
+    <div class="row bg-light h-50 p-3">      
+      <div class="col-md-4">
+          Agent account DSTV produção:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.agent_account_dstv_producao %>
+      </div>
+    </div>
+
+    <div class="row h-50 p-3">
+      <div class="col-md-4">
+          Currency DSTV desenvolvimento:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.currency_dstv_desenvolvimento %>
+      </div>
+    </div>
+    
+    <div class="row bg-light h-50 p-3">
+      <div class="col-md-4">
+          Currency DSTV produção:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.currency_dstv_producao %>
+      </div>
+    </div>
+
+    <div class="row h-50 p-3">
+      <div class="col-md-4">
+          Product user key DSTV desenvolvimento:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.product_user_key_dstv_desenvolvimento %>
+      </div>
+    </div>
+    
+    <div class="row bg-light h-50 p-3">
+      <div class="col-md-4">
+          Product user key DSTV produção:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.product_user_key_dstv_producao %>
+      </div>
+    </div>
+    
+    <div class="row h-50 p-3">
+      <div class="col-md-4">
+          Mop DSTV desenvolvimento:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.mop_dstv_desenvolvimento %>
+      </div>
+    </div>
+    
+    <div class="row bg-light h-50 p-3">    
+      <div class="col-md-4">
+          Mop DSTV produção:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.mop_dstv_producao %>
+      </div>
+    </div>
+ 
     <div class="page-header">
       <%= link_to parametros_path, class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
