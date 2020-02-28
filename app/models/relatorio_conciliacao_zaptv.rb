@@ -2,14 +2,20 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
   belongs_to :partner
 
   def self.to_csv
-    attributes = %w{operation_code source_reference product_code quantity date_time type_data total_price status unit_price}
+    attributes = %w{operation_code source_reference product_code quantity date_time type_data total_price status unit_price vendas}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
 
       all.each do |user|
-        csv << attributes.map{ |attr| user.send(attr) }
+        dados = attributes.map{ |attr| user.send(attr) }
+        dados << relatorio_conciliacao_zaptv.vendas.map { |venda| JSON.parse(venda.request_send)["zappi"] }.join(",") rescue ""
+        csv << dados
       end
     end
+  end
+
+  def vendas
+    Venda.where(partner_id: self.partner_id).where("response_get ilike '%\"operation_code\": #{self.operation_code}%' ")
   end
 end

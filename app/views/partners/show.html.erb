@@ -123,9 +123,9 @@
             <td>
               Vendas:
               <ul>
-                <% Venda.where(partner_id: relatorio_conciliacao_zaptv.partner_id).where("response_get ilike '%\"operation_code\": #{relatorio_conciliacao_zaptv.operation_code}%' ").each do |venda| %>
+                <% relatorio_conciliacao_zaptv.vendas.each do |venda| %>
                   <li>
-                    <a href="vendas/<%= venda.id %>">
+                    <a href="/vendas/<%= venda.id %>">
                       Zappi(Número cartão): <%= JSON.parse(venda.request_send)["zappi"] %>
                     </a>
                   </li>
