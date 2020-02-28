@@ -9,7 +9,6 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
 
       all.each do |user|
         dados = attributes.map{ |attr| user.send(attr) }
-        dados << relatorio_conciliacao_zaptv.vendas.map { |venda| JSON.parse(venda.request_send)["zappi"] }.join(",") rescue ""
         csv << dados
       end
     end
