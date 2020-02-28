@@ -610,7 +610,7 @@ class Venda < ApplicationRecord
       end
 
       # ./chaves/unitel_recarga.sh '7' '9' '114250' '' '' '' '500' '244998524570' 'https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale'
-      # raise "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+      raise "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
 
       retorno = `./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'`
       venda.request_send, venda.response_get = retorno.split(" --- ")
