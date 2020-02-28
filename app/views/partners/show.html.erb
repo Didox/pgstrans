@@ -126,6 +126,7 @@
                 <% Venda.where(partner_id: relatorio_conciliacao_zaptv.partner_id).each do |venda| %>
                   <li>
                     <%= venda.id %>
+                    <%= venda.response_get %>
                   </li>
                 <% end %>
               </ul>
