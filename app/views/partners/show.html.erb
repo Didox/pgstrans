@@ -126,7 +126,7 @@
                 <% Venda.where(partner_id: relatorio_conciliacao_zaptv.partner_id).where("response_get ilike '%\"operation_code\": #{relatorio_conciliacao_zaptv.operation_code}%' ").each do |venda| %>
                   <li>
                     <%= venda.id %>
-                    <%= venda.response_send %>
+                    <%= venda.request_send %>
                   </li>
                 <% end %>
               </ul>
