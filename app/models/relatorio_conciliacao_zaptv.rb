@@ -14,7 +14,7 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
   end
 
   def product_name
-    Produto.where(produto_id_parceiro: self.product_code, partner_id: self.partner_id).map{|p| p.nome}.join(" ")
+    Produto.where(produto_id_parceiro: self.product_code, partner_id: self.partner_id).map{|p| p.description}.join(" ")
   end
 
   def numero_cartao
