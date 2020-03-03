@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_26_112545) do
+ActiveRecord::Schema.define(version: 2020_03_03_090501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,7 +200,7 @@ ActiveRecord::Schema.define(version: 2020_02_26_112545) do
     t.datetime "updated_at", null: false
     t.float "margem_site"
     t.bigint "moeda_id"
-    t.bigint "produto_id_parceiro"
+    t.string "produto_id_parceiro"
     t.float "valor_unitario"
     t.string "tipo"
     t.string "subtipo"
