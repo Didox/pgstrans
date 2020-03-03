@@ -486,7 +486,7 @@ class Venda < ApplicationRecord
          <soapenv:Body>
             <sel:AgentSubmitPayment>
                <sel:agentPaymentRequest>
-                  <sel1:paymentVendorCode>#{vendor_code}</sel1:paymentVendorCode>
+                  <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
                   <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
                   <sel1:dataSource>#{data_source}</sel1:dataSource>
                   <sel1:customerNumber>#{params[:dstv_smart_card]}</sel1:customerNumber>
