@@ -2,7 +2,8 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
   belongs_to :partner
 
   def self.to_csv
-    attributes = %w{operation_code source_reference product_code product_name quantity date_time type_data total_price status unit_price card_number}
+    #attributes = %w{operation_code source_reference product_code product_name quantity date_time type_data total_price status unit_price card_number}
+    attributes = %w{product_code product_name unit_price total_price date_time source_reference operation_code card_number status}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes

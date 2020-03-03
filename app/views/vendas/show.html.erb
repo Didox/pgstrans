@@ -20,7 +20,7 @@
       <dd><%= @venda.terminal_id %></dd>
       <dt>Value:</dt>
       <dd><%= @venda.value %></dd>
-      <dt>Client msisdn:</dt>
+      <dt>Client MSISDN/Nro.Cartão:</dt>
       <dd><%= @venda.client_msisdn %></dd>
       <dt>Status:</dt>
       <dd><%= @venda.status %></dd>
@@ -33,7 +33,7 @@
     </dl>
 
     <div class="page-header">
-      <%= link_to vendas_path, class: 'btn btn-danger' do %>
+      <%= link_to :back, class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Voltar
       <% end %>
