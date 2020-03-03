@@ -529,7 +529,7 @@ class Venda < ApplicationRecord
 
       last_request = request.body
       
-      venda = Venda.create(agent_id: AGENTE_ID, value: valor, request_id: transaction_number, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+      venda = Venda.create(agent_id: AGENTE_ID, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
 
       venda.store_id = usuario.sub_agente.store_id_parceiro
       venda.seller_id = usuario.sub_agente.seller_id_parceiro
