@@ -482,31 +482,42 @@ class Venda < ApplicationRecord
 
       body = "
         <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
-         <soapenv:Header/>
-         <soapenv:Body>
-            <sel:AgentSubmitPayment>
-               <sel:agentPaymentRequest>
-                  <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
-                  <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
-                  <sel1:dataSource>#{data_source}</sel1:dataSource>
-                  <sel1:customerNumber>#{params[:dstv_smart_card]}</sel1:customerNumber>
-                  <sel1:amount>#{params[:valor]}</sel1:amount>
-                  <sel1:invoicePeriod>12</sel1:invoicePeriod>
-                  <sel1:currency>AOA</sel1:currency>
-                  <sel1:methodofPayment>CASH</sel1:methodofPayment>
-                  <sel1:agentNumber>#{params[:dstv_smart_card]}</sel1:agentNumber>
-                  <sel1:productCollection>
-                     <sel1:Product>
-                        <sel1:productUserkey>#{product_id}</sel1:productUserkey>
-                     </sel1:Product>
-                  </sel1:productCollection>
-                  <sel1:baskedId>0</sel1:baskedId>
-               </sel:agentPaymentRequest>
-               <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-               <sel:language>PT</sel:language>
-            </sel:AgentSubmitPayment>
-         </soapenv:Body>
-      </soapenv:Envelope>
+           <soapenv:Header/>
+           <soapenv:Body>
+              <sel:AgentSubmitPayment>
+                 <!--Optional:-->
+                 <sel:agentPaymentRequest>
+                    <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
+                    <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
+                    <sel1:dataSource>#{data_source}</sel1:dataSource>
+                    <sel1:customerNumber>#{params[:dstv_smart_card]}</sel1:customerNumber>
+                    <sel1:amount>#{params[:valor]}</sel1:amount>
+                    <sel1:invoicePeriod>12</sel1:invoicePeriod>
+                    <sel1:currency>AOA</sel1:currency>
+                    <sel1:paymentDescription>?</sel1:paymentDescription>
+                    <sel1:methodofPayment>CASH</sel1:methodofPayment>
+                    <sel1:agentNumber>300149245</sel1:agentNumber>
+                    <sel1:productCollection>
+                       <!--Zero or more repetitions:-->
+                       <sel1:Product>
+                          <!--Optional:-->
+                          <sel1:productUserkey>#{product_id}</sel1:productUserkey>
+                       </sel1:Product>
+                    </sel1:productCollection>
+                    <!--Optional:-->
+                    <sel1:baskedId>0</sel1:baskedId>
+                 </sel:agentPaymentRequest>
+                 <!--Optional:-->
+                 <sel:VendorCode>#{vendor_code}</sel:VendorCode>
+                 <!--Optional:-->
+                 <sel:language>PT</sel:language>
+                 <!--Optional:-->
+                 <sel:ipAddress>?</sel:ipAddress>
+                 <!--Optional:-->
+                 <sel:businessUnit>?</sel:businessUnit>
+              </sel:AgentSubmitPayment>
+           </soapenv:Body>
+        </soapenv:Envelope>
       "
 
       request_send += "=========[SubmitPaymentBySmartCard]========"
