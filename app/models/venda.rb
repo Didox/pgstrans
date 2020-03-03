@@ -496,7 +496,7 @@ class Venda < ApplicationRecord
                     <sel1:currency>AOA</sel1:currency>
                     <sel1:paymentDescription>?</sel1:paymentDescription>
                     <sel1:methodofPayment>CASH</sel1:methodofPayment>
-                    <sel1:agentNumber>300149245</sel1:agentNumber>
+                    <sel1:agentNumber>122434345</sel1:agentNumber>
                     <sel1:productCollection>
                        <!--Zero or more repetitions:-->
                        <sel1:Product>
