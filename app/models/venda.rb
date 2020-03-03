@@ -465,6 +465,7 @@ class Venda < ApplicationRecord
         currency = parametro.currency_dstv_desenvolvimento
         product_user_key = parametro.product_user_key_dstv_desenvolvimento
         mop = parametro.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM "
+        agent_number = parametro.agent_number_dstv_desenvolvimento #122434345
       else
         url_service = parametro.url_integracao_producao
         data_source = parametro.data_source_dstv_producao
@@ -474,6 +475,7 @@ class Venda < ApplicationRecord
         currency = parametro.currency_dstv_producao
         product_user_key = parametro.product_user_key_dstv_producao
         mop = parametro.mop_dstv_producao # mop = "CASH, MOBILE or ATM "
+        agent_number = parametro.agent_number_dstv_producao #122434345
       end
 
       request_send = ""
@@ -496,7 +498,7 @@ class Venda < ApplicationRecord
                     <sel1:currency>AOA</sel1:currency>
                     <sel1:paymentDescription>?</sel1:paymentDescription>
                     <sel1:methodofPayment>CASH</sel1:methodofPayment>
-                    <sel1:agentNumber>122434345</sel1:agentNumber>
+                    <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
                     <sel1:productCollection>
                        <!--Zero or more repetitions:-->
                        <sel1:Product>
