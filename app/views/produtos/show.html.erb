@@ -72,10 +72,26 @@
         <dt>Margem tef:</dt>
         <dd><%= @produto.margem_tef %></dd>
       </div>
+      <div class="col-sm-6">
+        <dt>ProductID Parceiro:</dt>
+        <dd><%= @produto.produto_id_parceiro %></dd>
+      </div>
+      <div class="col-sm-6">
+        <dt>Valor Unitário Parceiro:</dt>
+        <dd><%= @produto.valor_unitario %></dd>
+      </div>
+      <div class="col-sm-6">
+        <dt>Tipo Parceiro:</dt>
+        <dd><%= @produto.tipo %></dd>
+      </div>
+      <div class="col-sm-6">
+        <dt>Subtipo Parceiro:</dt>
+        <dd><%= @produto.subtipo %></dd>
+      </div>    
       <div class="col-sm-12">
         <dt>Mensagem cupom venda:</dt>
         <dd><%= @produto.mensagem_cupom_venda %></dd>
-      </div>  
+      </div>
       <div class="col-sm-12">
         <dt>Data criação:</dt>
         <dd><%= @produto.created_at.strftime("%d/%m/%Y %H:%M:%S") %></dd>
@@ -85,7 +101,6 @@
         <dd><%= @produto.updated_at.strftime("%d/%m/%Y %H:%M:%S") %></dd>
       </div> 
     </dl>
-
     <div class="col-sm-12 page-header">
       <%= link_to produtos_path, class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
