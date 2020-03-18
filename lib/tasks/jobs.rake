@@ -91,17 +91,26 @@ namespace :jobs do
   task importa_produtos_dstv: :environment do
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\">
-       <soapenv:Header/>
-       <soapenv:Body>
-          <sel:GetProducts>
-             <sel:dataSource>Angola</sel:dataSource>
-             <sel:customerNumber>122364781</sel:customerNumber>
-             <sel:VendorCode>PagasoDStv</sel:VendorCode>
-             <sel:language>PT</sel:language>
-             <sel:businessUnit>DStv</sel:businessUnit>
-          </sel:GetProducts>
-       </soapenv:Body>
-    </soapenv:Envelope>
+         <soapenv:Header/>
+         <soapenv:Body>
+            <sel:GetAvailableProducts>
+               <!--Optional:-->
+               <sel:dataSource>Angola</sel:dataSource>
+               <!--Optional:-->
+               <sel:customerNumber>122364781</sel:customerNumber>
+               <!--Optional:-->
+               <sel:BusinessUnit>DStv</sel:BusinessUnit>
+               <!--Optional:-->
+               <sel:VendorCode>PagasoDStv</sel:VendorCode>
+               <!--Optional:-->
+               <sel:language>?</sel:language>
+               <!--Optional:-->
+               <sel:ipAddress>?</sel:ipAddress>
+               <!--Optional:-->
+               <sel:interfaceType>?</sel:interfaceType>
+            </sel:GetAvailableProducts>
+         </soapenv:Body>
+      </soapenv:Envelope>
     "
 
     url = "http://uat.mcadigitalmedia.com/VendorSelfCare/SelfCareService.svc"
@@ -109,17 +118,16 @@ namespace :jobs do
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',
-        'SOAPAction' => 'http://services.multichoice.co.za/SelfCare/ISelfCareService/GetProducts',
+        'SOAPAction' => 'http://services.multichoice.co.za/SelfCare/ISelfCareService/GetAvailableProducts',
       },
       :body => body)
-    
     if (200...300).include?(request.code.to_i)
       if request.body.present?
         puts "=========================================="
         puts request.body
         puts "=========================================="
 
-        partner = Partner.where(slug: "ZAPTv").first
+        partner = Partner.where(slug: "DSTv").first
         
         xml_doc = Nokogiri::XML(request.body)
         itens = xml_doc.child.children[0].children[0].children[0].children
@@ -127,13 +135,17 @@ namespace :jobs do
 
           produto_id_parceiro = 0
           descricao = ""
+          price = 0
+          currency = ""
           item.children.each do |campo|
-            if campo.name == "Number"
+            if campo.name == "productCode"
               produto_id_parceiro = campo.content
-            elsif campo.name == "ProductDescription"
+            elsif campo.name == "currency"
+              currency = campo.content
+            elsif campo.name == "productDesc"
               descricao = campo.content
-            elsif campo.name == "ProductDescription"
-              descricao = campo.content
+            elsif campo.name == "productPrice"
+              price = campo.content.to_f
             end
           end
 
@@ -148,22 +160,20 @@ namespace :jobs do
 
           produto.description = descricao
 
-          # TODO continuar daqui 15/02/2020
+          produto.valor_compra_telemovel = price
+          produto.valor_compra_site = price
+          produto.valor_compra_pos = price
+          produto.valor_compra_tef = price
+          produto.valor_minimo_venda_telemovel = price
+          produto.valor_minimo_venda_site = price
+          produto.valor_minimo_venda_pos = price
+          produto.valor_minimo_venda_tef = price
 
-          produto.valor_minimo_venda_site = p_hash["price"]
-          # TODO ::: Verificar se um dia iremos utilizar :::
-          # produto.name = p_hash["recomended_quantity"]
-          # produto.name = p_hash["unit"]
-          # produto.name = p_hash["unit_pl"]
-          produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{p_hash["currency"]}')").first.id
-          produto.subtipo = p_hash["technology"]
+
+          produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id
           produto.status_produto = StatusProduto.where(nome: "Ativo").first
 
-          produto.save
-
-          
-          debugger
-          x = ""
+          produto.save!
         end
 
         puts "=========================================="

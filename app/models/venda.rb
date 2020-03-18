@@ -526,6 +526,7 @@ class Venda < ApplicationRecord
       request_send += body
       request_send += "=========[SubmitPaymentBySmartCard]========"
 
+      #http://uat.mcadigitalmedia.com/VendorSelfCare/SelfCareService.svc?wsdl
       url = "#{url_service}/VendorSelfCare/SelfCareService.svc"
       uri = URI.parse(URI.escape(url))
       request = HTTParty.post(uri, 
@@ -623,11 +624,11 @@ class Venda < ApplicationRecord
       end
 
       # ./chaves/unitel_recarga.sh '7' '9' '114250' '' '' '' '500' '244998524570' 'https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale'
-      dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+      # dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
 
       retorno = `./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'`
       venda.request_send, venda.response_get = retorno.split(" --- ")
-      venda.request_send = "#{venda.request_send} ========== #{dados_envio}"
+      # venda.request_send = "#{venda.request_send} ========== #{dados_envio}"
       venda.status = venda.response_get_parse["statusCode"] rescue "3"
       venda.save!
 
