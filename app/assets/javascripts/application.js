@@ -112,3 +112,10 @@ $(function(){
   });
 
 });
+
+$(document).ajaxStart(function() {
+  $(".modal_loader").show();
+});
+$(document).ajaxComplete(function() {
+  $(".modal_loader").hide();
+});
