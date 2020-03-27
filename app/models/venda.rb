@@ -206,7 +206,7 @@ class Venda < ApplicationRecord
         :body => body_send,
       )
 
-      venda = Venda.create(agent_id: AGENTE_ID, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+      venda = Venda.create(agent_id: parametro.zaptv_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
 
       venda.store_id = usuario.sub_agente.store_id_parceiro
       venda.seller_id = usuario.sub_agente.seller_id_parceiro
@@ -389,7 +389,7 @@ class Venda < ApplicationRecord
         last_request = request.body
       end
 
-      venda = Venda.create(agent_id: AGENTE_ID, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+      venda = Venda.create(agent_id: parametro.movicel_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
 
       venda.store_id = usuario.sub_agente.store_id_parceiro
       venda.seller_id = usuario.sub_agente.seller_id_parceiro
@@ -543,7 +543,7 @@ class Venda < ApplicationRecord
 
       last_request = request.body
       
-      venda = Venda.create(agent_id: AGENTE_ID, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
+      venda = Venda.create(agent_id: parametro.dstv_agente_id, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
 
       venda.store_id = usuario.sub_agente.store_id_parceiro
       venda.seller_id = usuario.sub_agente.seller_id_parceiro
@@ -604,7 +604,7 @@ class Venda < ApplicationRecord
       product_id = params[:unitel_produto_id].split("-").first
       telefone = params[:unitel_telefone]
 
-      venda = Venda.create(agent_id: AGENTE_ID, product_id: product_id, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+      venda = Venda.create(agent_id: parametro.unitel_agente_id, product_id: product_id, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
 
       venda.store_id = usuario.sub_agente.store_id_parceiro
       venda.seller_id = usuario.sub_agente.seller_id_parceiro
