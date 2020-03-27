@@ -196,7 +196,7 @@ class Venda < ApplicationRecord
       agent_key = parametro.agent_key_movicel_producao
       user_id = parametro.user_id_movicel_producao
     end
-    
+
     request_id = self.request_id
 
     pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto`
@@ -289,7 +289,8 @@ class Venda < ApplicationRecord
       msisdn = telefone
       request_id = Time.now.strftime("%d%m%Y%H%M%S")
 
-      pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto`
+      cripto = "AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto"
+      pass = `#{cripto}`
       # pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/mac/encripto`
       pass = pass.strip
 
@@ -324,6 +325,8 @@ class Venda < ApplicationRecord
       "
 
       request_send += "=========[ValidateTopup]========"
+      request_send += cripto
+      request_send += "=========[Cripto]========"
       request_send += body
       request_send += "=========[ValidateTopup]========"
 
