@@ -2,89 +2,13 @@ namespace :jobs do
   desc "Importa rel ZAPTv"
   task importa_dados_zaptv: :environment do
     partner = Partner.where(slug: "ZAPTv").first
-    ###### Entender se realmente não precisamos passar este id
-    # partner.store_id_parceiro # "115356"
-    ############################################################
-
-    day = Time.zone.now
-    (Time.zone.now.beginning_of_month.day .. Time.zone.now.day).each do |d|
-      day = day.change(day: d) 
-      host = "http://10.151.59.196"
-      url = "#{host}/ao/echarge/pagaso/dev/carregamento/report/#{day.strftime("%Y-%m-%d")}"
-      
-      puts ":::: (#{url}) ::::"
-
-      next if RelatorioConciliacaoZaptv.where(url: url).count > 0
-
-      res = HTTParty.get(
-        url, 
-        headers: {
-          "apikey" => "b65298a499c84224d442c6a680d14b8e",
-          "Content-Type" => "application/json"
-        }
-      )
-
-      if (200..300).include?(res.code)
-        dados = JSON.parse(res.body)
-        dados.each do |dado|
-          rel = RelatorioConciliacaoZaptv.create(
-            partner_id: partner.id,
-            url: url,
-            operation_code: dado["operation_code"],
-            source_reference: dado["source_reference"],
-            product_code: dado["product_code"],
-            quantity: dado["quantity"],
-            date_time: dado["datetime"],
-            type_data: dado["type"],
-            total_price: dado["total_price"],
-            status: dado["status"],
-            unit_price: dado["unit_price"]
-          )
-
-          puts ":::: Rel criado (#{rel.id}) ::::"
-        end
-      else
-        puts ":::: Não encontrado (#{res.body}) ::::"
-      end
-
-    end
+    partner.importa_dados!
   end
 
   desc "EXECUTA REST API TEST"
   task importa_produtos_zap: :environment do
-    res = HTTParty.get(
-      "http://10.151.59.196/ao/echarge/pagaso/dev/portfolio/menu", 
-      headers: {
-        apikey: "b65298a499c84224d442c6a680d14b8e"
-      }
-    )
-
-    if (200...300).include?(res.code)
-      partner = Partner.where(slug: "ZAPTv").first
-      dados = JSON.parse(res.body)
-      dados["Products"].each do |p_hash|
-        produtos = Produto.where(produto_id_parceiro: p_hash["code"], partner_id: partner.id)
-        if produtos.count == 0
-          produto = Produto.new
-          produto.produto_id_parceiro = p_hash["code"]
-          produto.partner_id = partner.id
-        else
-          produto = produtos.first
-        end
-
-        produto.description = p_hash["description"]
-        produto.valor_minimo_venda_site = p_hash["price"]
-        # TODO ::: Verificar se um dia iremos utilizar :::
-        # produto.name = p_hash["recomended_quantity"]
-        # produto.name = p_hash["unit"]
-        # produto.name = p_hash["unit_pl"]
-        produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{p_hash["currency"]}')").first.id
-        produto.subtipo = p_hash["technology"]
-        produto.status_produto = StatusProduto.where(nome: "Ativo").first
-
-        produto.save
-      end
-    end
+    partner = Partner.where(slug: "ZAPTv").first
+    partner.importa_produtos!
   end
 
   desc "EXECUTA SOAP API TEST DSTV"

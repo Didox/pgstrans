@@ -37,7 +37,10 @@ class Venda < ApplicationRecord
   end
 
   def carregamento_venda_zaptv
-    host = "http://10.151.59.196"
+    parceiro = Partner.where("lower(slug) = 'zaptv'").first
+    parametro = Parametro.where(partner_id: parceiro.id).first
+    host = Rails.env == "development" ? parametro.url_integracao_desenvolvimento : parametro.url_integracao_producao
+
     url = "#{host}/ao/echarge/pagaso/dev/carregamento/#{self.request_id}"
     begin
       if self.request_id.present?
@@ -65,7 +68,9 @@ class Venda < ApplicationRecord
   end
 
   def reverter_venda_zaptv
-    host = "http://10.151.59.196"
+    parceiro = Partner.where("lower(slug) = 'zaptv'").first
+    parametro = Parametro.where(partner_id: parceiro.id).first
+    host = Rails.env == "development" ? parametro.url_integracao_desenvolvimento : parametro.url_integracao_producao
     url = "#{host}/ao/echarge/pagaso/dev/carregamento/#{self.request_id}"
     begin
       if self.request_id.present?

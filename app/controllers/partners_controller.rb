@@ -1,10 +1,26 @@
 class PartnersController < ApplicationController
-  before_action :set_partner, only: [:show, :edit, :update, :destroy]
+  before_action :set_partner, only: [:show, :edit, :update, :destroy, :importa_produtos, :importa_dados]
 
   # GET /partners
   # GET /partners.json
   def index
     @partners = Partner.all.order(id: :asc)
+  end
+
+  def importa_dados
+    partner = Partner.where(slug: "ZAPTv").first
+    partner.importa_dados!
+
+    flash[:notice] = 'Dados importados com sucesso.'
+    redirect_to partner_url(partner)
+  end
+
+  def importa_produtos
+    partner = Partner.where(slug: "ZAPTv").first
+    partner.importa_produtos!
+
+    flash[:notice] = 'Produtos importados com sucesso.'
+    redirect_to partner_url(partner)
   end
 
   # GET /partners/1

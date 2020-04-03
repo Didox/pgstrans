@@ -32,7 +32,12 @@ Rails.application.routes.draw do
   resources :sub_agentes
   resources :sub_distribuidors
   resources :master_profiles
-  resources :partners
+
+  resources :partners do
+    get 'importa_dados', to: 'partners#importa_dados'
+    get 'importa_produtos', to: 'partners#importa_produtos'
+  end
+
   root 'welcome#index'
 
   get 'login', to: 'login#index'

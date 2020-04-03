@@ -51,6 +51,15 @@
   </div>
 
   <% if @partner.slug.downcase == "zaptv" %>
+
+    <%= link_to partner_importa_dados_path(@partner), class: 'btn btn-danger' do %>
+      Importar produtos
+    <% end %>
+
+    <%= link_to partner_importa_produtos_path(@partner), class: 'btn btn-danger' do %>
+      Importar dados de vendas
+    <% end %>
+
     <hr>
     <h1>Relatório Reconciliação ZAPTV</h1>
 
