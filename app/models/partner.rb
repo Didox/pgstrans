@@ -61,7 +61,7 @@ class Partner < ApplicationRecord
       day = day.change(day: d) 
       url = "#{host}/ao/echarge/pagaso/dev/carregamento/report/#{day.strftime("%Y-%m-%d")}"
       
-      puts ":::: (#{url}) ::::"
+      Rails.logger.info ":::: (#{url}) ::::"
 
       next if RelatorioConciliacaoZaptv.where(url: url).count > 0
 
@@ -90,10 +90,10 @@ class Partner < ApplicationRecord
             unit_price: dado["unit_price"]
           )
 
-          puts ":::: Rel criado (#{rel.id}) ::::"
+          Rails.logger.info ":::: Rel criado (#{rel.id}) ::::"
         end
       else
-        puts ":::: Não encontrado (#{res.body}) ::::"
+        Rails.logger.info ":::: Não encontrado (#{res.body}) ::::"
       end
     end
   end
@@ -184,6 +184,6 @@ class Partner < ApplicationRecord
     end
   
   rescue Exception => err
-    puts "::::#{err.message}::::"
+    Rails.logger.info "::::#{err.message}::::"
   end
 end
