@@ -70,8 +70,8 @@ class Partner < ApplicationRecord
 
       if (200..300).include?(res.code)
         dados = JSON.parse(res.body)
+        RelatorioConciliacaoZaptv.where(url: url).destroy_all if dados.length > 0
         dados.each do |dado|
-          RelatorioConciliacaoZaptv.where(url: url).destroy_all
           rel = RelatorioConciliacaoZaptv.new
 
           rel.partner_id = self.id
