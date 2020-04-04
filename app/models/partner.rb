@@ -71,12 +71,8 @@ class Partner < ApplicationRecord
       if (200..300).include?(res.code)
         dados = JSON.parse(res.body)
         dados.each do |dado|
-          rels = RelatorioConciliacaoZaptv.where(url: url)
-          if rels.count > 0
-            rel = rels.first
-          else
-            rel = RelatorioConciliacaoZaptv.new
-          end
+          RelatorioConciliacaoZaptv.where(url: url).destroy_all
+          rel = RelatorioConciliacaoZaptv.new
 
           rel.partner_id = self.id
           rel.url = url
