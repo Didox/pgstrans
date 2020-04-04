@@ -60,8 +60,6 @@ class Partner < ApplicationRecord
 
       Rails.logger.info ":::: (#{url}) ::::"
 
-      next if RelatorioConciliacaoZaptv.where(url: url).count > 0
-
       res = HTTParty.get(
         url, 
         headers: {
@@ -73,19 +71,25 @@ class Partner < ApplicationRecord
       if (200..300).include?(res.code)
         dados = JSON.parse(res.body)
         dados.each do |dado|
-          rel = RelatorioConciliacaoZaptv.create(
-            partner_id: self.id,
-            url: url,
-            operation_code: dado["operation_code"],
-            source_reference: dado["source_reference"],
-            product_code: dado["product_code"],
-            quantity: dado["quantity"],
-            date_time: dado["datetime"],
-            type_data: dado["type"],
-            total_price: dado["total_price"],
-            status: dado["status"],
-            unit_price: dado["unit_price"]
-          )
+          rels = RelatorioConciliacaoZaptv.where(url: url)
+          if rels.count > 0
+            rel = rels.first
+          else
+            rel = RelatorioConciliacaoZaptv.new
+          end
+
+          rel.partner_id = self.id
+          rel.url = url
+          rel.operation_code = dado["operation_code"]
+          rel.source_reference = dado["source_reference"]
+          rel.product_code = dado["product_code"]
+          rel.quantity = dado["quantity"]
+          rel.date_time = dado["datetime"]
+          rel.type_data = dado["type"]
+          rel.total_price = dado["total_price"]
+          rel.status = dado["status"]
+          rel.unit_price = dado["unit_price"]
+          rel.save
 
           Rails.logger.info ":::: Rel criado (#{rel.id}) ::::"
         end
