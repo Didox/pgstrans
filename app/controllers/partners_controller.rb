@@ -29,7 +29,7 @@ class PartnersController < ApplicationController
     @relatorio_conciliacao_zaptvs = RelatorioConciliacaoZaptv.where(partner: @partner)
 
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where("relatorio_conciliacao_zaptvs.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
-    @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where("relatorio_conciliacao_zaptvs.updated_at <= ?", params[:data_fim].to_date.end_of_day) if params[:data_fim].present?
+    @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where("relatorio_conciliacao_zaptvs.updated_at <= ?", params[:data_fim].to_datetime.end_of_day) if params[:data_fim].present?
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.reorder("date_time desc")
 
     if params[:csv].present?
