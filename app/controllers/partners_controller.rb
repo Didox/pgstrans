@@ -37,6 +37,8 @@ class PartnersController < ApplicationController
       return
     end
 
+    relatorio_conciliacao_zaptvs = relatorio_conciliacao_zaptvs.reorder("date_time desc")
+
     options = {page: params[:page] || 1, per_page: 10}
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.paginate(options)
   end
