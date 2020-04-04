@@ -3,6 +3,10 @@ class Venda < ApplicationRecord
   belongs_to :usuario
   belongs_to :partner
 
+  def product_nome
+    Produto.where(partner_id: self.partner_id, produto_id_parceiro: self.produto_id).description rescue ""
+  end
+
   def request_send_parse
     JSON.parse(self.request_send.gsub(/\n|\t/, ""))
   end
