@@ -56,10 +56,8 @@ class Partner < ApplicationRecord
     ###### Entender se realmente não precisamos passar este id
     # partner.store_id_parceiro # "115356"
     ############################################################
-    day = Time.zone.now
     ((Time.zone.now - 20.days) .. Time.zone.now.day).each do |d|
-      day = day.change(day: d) 
-      url = "#{host}/ao/echarge/pagaso/dev/carregamento/report/#{day.strftime("%Y-%m-%d")}"
+      url = "#{host}/ao/echarge/pagaso/dev/carregamento/report/#{d.strftime("%Y-%m-%d")}"
 
       Rails.logger.info ":::: (#{url}) ::::"
 
