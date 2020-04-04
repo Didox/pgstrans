@@ -7,8 +7,7 @@ class Partner < ApplicationRecord
   def importa_produtos!
     return if self.slug.downcase != "zaptv"
 
-    parceiro = Partner.where("lower(slug) = 'zaptv'").first
-    parametro = Parametro.where(partner_id: parceiro.id).first
+    parametro = Parametro.where(partner_id: self.id).first
     host = Rails.env == "development" ? parametro.url_integracao_desenvolvimento : parametro.url_integracao_producao
 
     res = HTTParty.get(
@@ -19,14 +18,13 @@ class Partner < ApplicationRecord
     )
 
     if (200...300).include?(res.code)
-      partner = Partner.where(slug: "ZAPTv").first
       dados = JSON.parse(res.body)
       dados["Products"].each do |p_hash|
-        produtos = Produto.where(produto_id_parceiro: p_hash["code"], partner_id: partner.id)
+        produtos = Produto.where(produto_id_parceiro: p_hash["code"], partner_id: self.id)
         if produtos.count == 0
           produto = Produto.new
           produto.produto_id_parceiro = p_hash["code"]
-          produto.partner_id = partner.id
+          produto.partner_id = self.id
         else
           produto = produtos.first
         end
@@ -49,8 +47,7 @@ class Partner < ApplicationRecord
   def importa_dados!
     return if self.slug.downcase != "zaptv"
 
-    parceiro = Partner.where("lower(slug) = 'zaptv'").first
-    parametro = Parametro.where(partner_id: parceiro.id).first
+    parametro = Parametro.where(partner_id: self.id).first
     host = Rails.env == "development" ? parametro.url_integracao_desenvolvimento : parametro.url_integracao_producao
 
     ###### Entender se realmente não precisamos passar este id
@@ -77,7 +74,7 @@ class Partner < ApplicationRecord
         dados = JSON.parse(res.body)
         dados.each do |dado|
           rel = RelatorioConciliacaoZaptv.create(
-            partner_id: partner.id,
+            partner_id: self.id,
             url: url,
             operation_code: dado["operation_code"],
             source_reference: dado["source_reference"],
