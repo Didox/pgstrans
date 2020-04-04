@@ -141,7 +141,7 @@ class Venda < ApplicationRecord
         :body => body_send,
       )
 
-      venda = Venda.create(agent_id: parametro.zaptv_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+      venda = Venda.create(product_id: product_id, agent_id: parametro.zaptv_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
 
       venda.store_id = usuario.sub_agente.store_id_parceiro
       venda.seller_id = usuario.sub_agente.seller_id_parceiro
@@ -273,6 +273,9 @@ class Venda < ApplicationRecord
 
       telefone = params[:movicel_telefone]
 
+      raise "Produto não selecionado" if params[:movicel_produto_id].blank?
+      product_id = params[:movicel_produto_id].split("-").first
+
       require 'openssl'
 
       if Rails.env == "development"
@@ -401,7 +404,7 @@ class Venda < ApplicationRecord
         last_request = request.body
       end
 
-      venda = Venda.create(agent_id: parametro.movicel_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+      venda = Venda.create(product_id:product_id, agent_id: parametro.movicel_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
 
       venda.store_id = usuario.sub_agente.store_id_parceiro
       venda.seller_id = usuario.sub_agente.seller_id_parceiro
@@ -555,7 +558,7 @@ class Venda < ApplicationRecord
 
       last_request = request.body
       
-      venda = Venda.create(agent_id: parametro.dstv_agente_id, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
+      venda = Venda.create(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
 
       venda.store_id = usuario.sub_agente.store_id_parceiro
       venda.seller_id = usuario.sub_agente.seller_id_parceiro
