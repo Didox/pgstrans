@@ -35,12 +35,12 @@
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.label :sub_distribuidor, "Sub-Distribuidor" %>
+          <%= f.label :sub_distribuidor, "Subdistribuidor" %>
           <%= f.select :sub_distribuidor, SubDistribuidor.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>   
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.label :sub_agente, "Sub-Agente" %>
+          <%= f.label :sub_agente, "Subagente" %>
           <%= f.select :sub_agente, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
 

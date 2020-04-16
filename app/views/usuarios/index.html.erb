@@ -13,6 +13,8 @@
           <th scope="col">Nome</th>
           <th scope="col">E-Mail</th>
           <th scope="col">Admin?</th>
+          <th scope="col">Perfil Usuário ID</th>
+          <th scope="col">Descrição Perfil Usuário</th>
           <th scope="col">Criado em</th>
           <th colspan="3"></th>
         </tr>
@@ -26,6 +28,7 @@
             <td><%= usuario.email %></td>
             <td><%= usuario.admin? ? "Sim": "Não" %></td>
             <td class="text-center"><%= usuario.perfil_usuario_id %></td>
+            <td class="text-center"><%= usuario.perfil_usuario.nome %></td>
             <td><%= usuario.created_at %></td>
             <td><%= link_to 'Editar', edit_usuario_path(usuario) %></td>
             <td><%= link_to 'Apagar', usuario, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
