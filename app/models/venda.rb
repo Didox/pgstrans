@@ -505,38 +505,26 @@ class Venda < ApplicationRecord
         <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
            <soapenv:Header/>
            <soapenv:Body>
-              <sel:AgentSubmitPayment>
-                 <!--Optional:-->
-                 <sel:agentPaymentRequest>
-                    <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
-                    <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
-                    <sel1:dataSource>#{data_source}</sel1:dataSource>
-                    <sel1:customerNumber>#{params[:dstv_smart_card]}</sel1:customerNumber>
-                    <sel1:amount>#{params[:valor]}</sel1:amount>
-                    <sel1:invoicePeriod>12</sel1:invoicePeriod>
-                    <sel1:currency>AOA</sel1:currency>
-                    <sel1:paymentDescription>?</sel1:paymentDescription>
-                    <sel1:methodofPayment>CASH</sel1:methodofPayment>
-                    <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
-                    <sel1:productCollection>
-                       <!--Zero or more repetitions:-->
-                       <sel1:Product>
-                          <!--Optional:-->
-                          <sel1:productUserkey>#{product_id}</sel1:productUserkey>
-                       </sel1:Product>
-                    </sel1:productCollection>
-                    <!--Optional:-->
-                    <sel1:baskedId>0</sel1:baskedId>
-                 </sel:agentPaymentRequest>
-                 <!--Optional:-->
-                 <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-                 <!--Optional:-->
-                 <sel:language>PT</sel:language>
-                 <!--Optional:-->
-                 <sel:ipAddress>?</sel:ipAddress>
-                 <!--Optional:-->
-                 <sel:businessUnit>?</sel:businessUnit>
-              </sel:AgentSubmitPayment>
+              <sel:SubmitPaymentBySmartCard>
+                <sel1:VendorCode>#{vendor_code}</sel1:VendorCode>
+                <sel1:DataSource>#{data_source}</sel1:DataSource>
+                <sel1:PaymentVendorCode>#{payment_vendor_code}</sel1:PaymentVendorCode>
+                <sel1:TransactionNumber>#{transaction_number}</sel1:TransactionNumber>
+                <sel:SmartCardNumber>#{params[:dstv_smart_card]}</sel:SmartCardNumber>
+                <sel1:Amount>#{params[:valor]}</sel1:Amount>
+                <sel1:InvoicePeriod>12</sel1:InvoicePeriod>
+                <sel1:Currency>AOA</sel1:Currency>
+                <sel1:PaymentDescription>?</sel1:PaymentDescription>
+                <sel1:ProductCollection>
+                   <sel1:PaymentProduct>
+                      <sel1:ProductUserKey>#{product_id}</sel1:ProductUserKey>
+                   </sel1:PaymentProduct>
+                </sel1:ProductCollection>
+                <sel1:MethodOfPayment>CASH</sel1:MethodOfPayment>
+                <sel:Language>PT</sel:Language>
+                <sel:IpAddress>?</sel:IpAddress>
+                <sel:BusinessUnit>?</sel:BusinessUnit>
+              </sel:SubmitPaymentBySmartCard>
            </soapenv:Body>
         </soapenv:Envelope>
       "
@@ -551,7 +539,7 @@ class Venda < ApplicationRecord
       request = HTTParty.post(uri, 
         :headers => {
           'Content-Type' => 'text/xml;charset=UTF-8',
-          'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/AgentSubmitPayment",
+          'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/SubmitPaymentBySmartCard",
         },
         :body => body
       )
