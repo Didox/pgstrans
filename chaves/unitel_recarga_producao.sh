@@ -19,8 +19,8 @@ sale_timestamp=`date +%s%3N`
 
 
 ## A chave privada
-private_key=/home/pgsadmin/PagasoAPP/pgstrans/chaves/unitel/producao/rsapagasoprivkey.pem
-public_key=/home/pgsadmin/PagasoAPP/pgstrans/chaves/unitel/producao/rsapagasopubkey.der
+private_key=/home/pgsadmin/PagasoAPP/pgstrans/chaves/unitel/producao/producao_rsapagasoprivkey.pem
+public_key=/home/pgsadmin/PagasoAPP/pgstrans/chaves/unitel/producao/producao_rsapagasopubkey.der
 
 ## Criar a chave privada RSA de 2048 bits
 # -> 
