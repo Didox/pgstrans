@@ -29,7 +29,7 @@ public_key=/home/pgsadmin/PagasoAPP/pgstrans/chaves/unitel/producao/producao_rsa
 #https://rietta.com/blog/openssl-generating-rsa-key-from-command/
 #generate .pem
 #private
-#$     openssl genrsa -des3 -out private.pem 2048
+#$     openssl genrsa -out private.pem 2048
 #public
 #$     openssl rsa -in private.pem -outform PEM -pubout -out public.pem
 #generate .der
