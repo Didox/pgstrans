@@ -23,14 +23,20 @@ private_key=/home/pgsadmin/PagasoAPP/pgstrans/chaves/unitel/producao/rsapagasopr
 public_key=/home/pgsadmin/PagasoAPP/pgstrans/chaves/unitel/producao/rsapagasopubkey.der
 
 ## Criar a chave privada RSA de 2048 bits
-# -> openssl genpkey -algorithm RSA -outform DER -out test_priv_rsa_key.der  -pkeyopt rsa_keygen_bits:2048
-# -> 06-04-2020 para a entrada em produção
-# -> openssl genpkey -algorithm RSA -outform DER -out rsapagasoprivkey.pem  -pkeyopt rsa_keygen_bits:2048
-
-## Extrair uma chave pública da chave privada criada anteriormente
-# -> openssl rsa -pubout -inform DER -in test_priv_rsa_key.der -outform DER -out test_pub_rsa_key.der
-# -> 06-04-2020 para a entrada em produção
-# -> openssl rsa -pubout -inform DER -in rsapagasoprivkey.pem -outform DER -out rsapagasopubkey.der
+# -> 
+#How to
+#https://stefanauwyang.com/convert-openssl-private-and-public-key-to-der/
+#https://rietta.com/blog/openssl-generating-rsa-key-from-command/
+#generate .pem
+#private
+#$     openssl genrsa -des3 -out private.pem 2048
+#public
+#$     openssl rsa -in private.pem -outform PEM -pubout -out public.pem
+#generate .der
+#private
+#$     openssl pkcs8 -topk8 -inform PEM -outform DER -in private.pem -out private.der -nocrypt
+#public
+#$     openssl rsa -in private.pem -pubout -outform DER -out public.der
 
 ## Parametros da ligação
 max_time=30
