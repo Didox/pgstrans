@@ -4,7 +4,7 @@ class Venda < ApplicationRecord
   belongs_to :partner
 
   def product_nome
-    Produto.where(partner_id: self.partner_id, produto_id_parceiro: self.product_id).first.description rescue ""
+    Produto.where(partner_id: self.partner_id).where("produto_id_parceiro = #{self.product_id} or id = #{self.product_id}").first.description rescue ""
   end
 
   def request_send_parse
