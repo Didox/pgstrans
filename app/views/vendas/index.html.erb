@@ -137,7 +137,7 @@
           <th scope="col">ID</th>
           <th scope="col">Usuário</th>
           <th scope="col">Parceiro</th>
-          <th scope="col">Data</th>
+          <th scope="col">Data da Venda</th>
           <th scope="col">Status</th>
           <th scope="col">Product</th>
           <th scope="col">Agent</th>
@@ -156,7 +156,8 @@
           <td><%= venda.id %></td>
           <td><%= venda.usuario.nome %></td>
           <td><%= venda.partner.name %></td>
-          <td><%= venda.updated_at.strftime("%d/%m/%Y %H:%M") %></td>
+          <td><%= venda.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+          <%#= venda.updated_at.strftime("%d/%m/%Y %H:%M") %>
           <td><%= venda.status_desc.error_description_pt %></td>
           <td>
             <%= venda.product_id %>
