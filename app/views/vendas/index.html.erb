@@ -134,6 +134,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
+          <th scope="col">ID</th>
           <th scope="col">Usuário</th>
           <th scope="col">Parceiro</th>
           <th scope="col">Data</th>
@@ -152,6 +153,7 @@
       <tbody>
         <% @vendas.each do |venda| %>
         <tr>
+          <td><%= venda.id %></td>
           <td><%= venda.usuario.nome %></td>
           <td><%= venda.partner.name %></td>
           <td><%= venda.updated_at.strftime("%d/%m/%Y %H:%M") %></td>
