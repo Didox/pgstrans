@@ -9,11 +9,12 @@ class Partner < ApplicationRecord
 
     parametro = Parametro.where(partner_id: self.id).first
     host = Rails.env == "development" ? parametro.url_integracao_desenvolvimento : parametro.url_integracao_producao
+    api_key = Rails.env == "development" ? parametro.api_key_zaptv_desenvolvimento : parametro.api_key_zaptv_producao
 
     res = HTTParty.get(
       "#{host}/ao/echarge/pagaso/dev/portfolio/menu", 
       headers: {
-        apikey: "b65298a499c84224d442c6a680d14b8e"
+        apikey: api_key
       }
     )
 
