@@ -1,5 +1,6 @@
 class Venda < ApplicationRecord
-  default_scope { order(updated_at: :desc) }
+  #default_scope { order(updated_at: :desc) }
+  default_scope { order(id: :desc) }
   belongs_to :usuario
   belongs_to :partner
 
