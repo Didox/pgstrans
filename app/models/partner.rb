@@ -15,8 +15,7 @@ class Partner < ApplicationRecord
       "#{host}/ao/echarge/pagaso/dev/portfolio/menu", 
       headers: {
         apikey: api_key
-      },
-      verify: false 
+      }
     )
 
     if (200...300).include?(res.code)
