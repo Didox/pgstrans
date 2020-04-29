@@ -145,14 +145,16 @@ class Venda < ApplicationRecord
         :zappi => telefone #Iremos receber este numero
       }.to_json
 
-      res = HTTParty.post(
+
+      hash_post = {
         host, 
         headers: {
           "apikey" => api_key,
           "Content-Type" => "application/json"
         },
         :body => body_send,
-      )
+      }
+      res = HTTParty.post(hash_post)
 
       venda = Venda.create(product_id: product_id, agent_id: parametro.zaptv_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
 
@@ -160,7 +162,7 @@ class Venda < ApplicationRecord
       venda.seller_id = usuario.sub_agente.seller_id_parceiro
       venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
 
-      venda.request_send = body_send
+      venda.request_send = hash_post.to_json
       venda.response_get = res.body
 
       begin
