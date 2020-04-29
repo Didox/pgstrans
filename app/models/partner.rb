@@ -13,7 +13,7 @@ class Partner < ApplicationRecord
       host = "#{parametro.url_integracao_desenvolvimento}/portfolio"
       api_key = parametro.api_key_zaptv_desenvolvimento
     else
-      "#{parametro.url_integracao_producao}/pertfolio"
+      host = "#{parametro.url_integracao_producao}/pertfolio"
       api_key = parametro.api_key_zaptv_producao
     end
 
