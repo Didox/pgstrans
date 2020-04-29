@@ -8,7 +8,7 @@ class Partner < ApplicationRecord
     return if self.slug.downcase != "zaptv"
 
     parametro = Parametro.where(partner_id: self.id).first
-    host = Rails.env == "development" ? "#{parametro.url_integracao_desenvolvimento}/ao/echarge/pagaso/dev/portfolio/menu" : "#{parametro.url_integracao_producao}/ao/echarge/pagaso/pertfolio/menu"
+    host = Rails.env == "development" ? "#{parametro.url_integracao_desenvolvimento}/portfolio/menu" : "#{parametro.url_integracao_producao}/pertfolio/menu"
     api_key = Rails.env == "development" ? parametro.api_key_zaptv_desenvolvimento : parametro.api_key_zaptv_producao
 
     res = HTTParty.get(
@@ -56,7 +56,7 @@ class Partner < ApplicationRecord
     ############################################################
     data = Time.zone.now - 20.days
     while data <= Time.zone.now
-      url = "#{host}/ao/echarge/pagaso/dev/carregamento/report/#{data.strftime("%Y-%m-%d")}"
+      url = "#{host}/carregamento/report/#{data.strftime("%Y-%m-%d")}"
       data = data + 1.day
 
       Rails.logger.info ":::: (#{url}) ::::"
@@ -165,7 +165,7 @@ class Partner < ApplicationRecord
       host = Rails.env == "development" ? parametro.url_integracao_desenvolvimento : parametro.url_integracao_producao
 
       store_id_parceiro = "115356"
-      url = "#{host}/ao/echarge/pagaso/dev/saldo?code=#{store_id_parceiro}"
+      url = "#{host}/saldo?code=#{store_id_parceiro}"
       res = HTTParty.get(
         url, 
         headers: {
