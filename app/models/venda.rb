@@ -46,8 +46,10 @@ class Venda < ApplicationRecord
     parametro = Parametro.where(partner_id: parceiro.id).first
     if Rails.env == "development"
       url = "#{parametro.url_integracao_desenvolvimento}/carregamento/#{self.request_id}"
+      api_key = parametro.api_key_zaptv_desenvolvimento
     else
       url = "#{parametro.url_integracao_producao}/carregamento/#{self.request_id}"
+      api_key = parametro.api_key_zaptv_producao
     end
 
     begin
@@ -55,7 +57,7 @@ class Venda < ApplicationRecord
         res = HTTParty.get(
           url, 
           headers: {
-            "apikey" => "b65298a499c84224d442c6a680d14b8e",
+            "apikey" => api_key,
             "Content-Type" => "application/json"
           }
         )
@@ -81,8 +83,10 @@ class Venda < ApplicationRecord
 
     if Rails.env == "development"
       url = "#{parametro.url_integracao_desenvolvimento}/carregamento/#{self.request_id}"
+      api_key = parametro.api_key_zaptv_desenvolvimento
     else
       url = "#{parametro.url_integracao_producao}/carregamento/#{self.request_id}"
+      api_key = parametro.api_key_zaptv_producao
     end
 
     begin
@@ -90,7 +94,7 @@ class Venda < ApplicationRecord
         res = HTTParty.delete(
           url, 
           headers: {
-            "apikey" => "b65298a499c84224d442c6a680d14b8e",
+            "apikey" => api_key,
             "Content-Type" => "application/json"
           }
         )
