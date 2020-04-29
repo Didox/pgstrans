@@ -44,9 +44,12 @@ class Venda < ApplicationRecord
   def carregamento_venda_zaptv
     parceiro = Partner.where("lower(slug) = 'zaptv'").first
     parametro = Parametro.where(partner_id: parceiro.id).first
-    host = Rails.env == "development" ? parametro.url_integracao_desenvolvimento : parametro.url_integracao_producao
+    if Rails.env == "development"
+      url = "#{parametro.url_integracao_desenvolvimento}/carregamento/#{self.request_id}"
+    else
+      url = "#{parametro.url_integracao_producao}/carregamento/#{self.request_id}"
+    end
 
-    url = "#{host}/ao/echarge/pagaso/dev/carregamento/#{self.request_id}"
     begin
       if self.request_id.present?
         res = HTTParty.get(
@@ -75,8 +78,13 @@ class Venda < ApplicationRecord
   def reverter_venda_zaptv
     parceiro = Partner.where("lower(slug) = 'zaptv'").first
     parametro = Parametro.where(partner_id: parceiro.id).first
-    host = Rails.env == "development" ? parametro.url_integracao_desenvolvimento : parametro.url_integracao_producao
-    url = "#{host}/ao/echarge/pagaso/dev/carregamento/#{self.request_id}"
+
+    if Rails.env == "development"
+      url = "#{parametro.url_integracao_desenvolvimento}/carregamento/#{self.request_id}"
+    else
+      url = "#{parametro.url_integracao_producao}/carregamento/#{self.request_id}"
+    end
+
     begin
       if self.request_id.present?
         res = HTTParty.delete(
@@ -119,10 +127,10 @@ class Venda < ApplicationRecord
       request_id = Time.now.strftime("%d%m%Y%H%M%S")
 
       if Rails.env == "development"
-        host = parametro.url_integracao_desenvolvimento
+        host = "#{parametro.url_integracao_desenvolvimento}/carregamento"
         api_key = parametro.api_key_zaptv_desenvolvimento
       else
-        host = parametro.url_integracao_producao
+        host = "#{parametro.url_integracao_producao}/carregamento"
         api_key = parametro.api_key_zaptv_producao
       end
 
@@ -138,7 +146,7 @@ class Venda < ApplicationRecord
       }.to_json
 
       res = HTTParty.post(
-        "#{host}/ao/echarge/pagaso/dev/carregamento", 
+        host, 
         headers: {
           "apikey" => api_key,
           "Content-Type" => "application/json"
