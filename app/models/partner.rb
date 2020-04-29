@@ -8,8 +8,14 @@ class Partner < ApplicationRecord
     return if self.slug.downcase != "zaptv"
 
     parametro = Parametro.where(partner_id: self.id).first
-    host = Rails.env == "development" ? "#{parametro.url_integracao_desenvolvimento}/portfolio" : "#{parametro.url_integracao_producao}/pertfolio"
-    api_key = Rails.env == "development" ? parametro.api_key_zaptv_desenvolvimento : parametro.api_key_zaptv_producao
+
+    if Rails.env == "development"
+      host = "#{parametro.url_integracao_desenvolvimento}/portfolio"
+      api_key = parametro.api_key_zaptv_desenvolvimento
+    else
+      "#{parametro.url_integracao_producao}/pertfolio"
+      api_key = parametro.api_key_zaptv_producao
+    end
 
     res = HTTParty.get(
       host, 
@@ -20,7 +26,7 @@ class Partner < ApplicationRecord
 
     if (200...300).include?(res.code)
       dados = JSON.parse(res.body)
-      dados["Products"].each do |p_hash|
+      dados.each do |p_hash|
         produtos = Produto.where(produto_id_parceiro: p_hash["code"], partner_id: self.id)
         if produtos.count == 0
           produto = Produto.new
