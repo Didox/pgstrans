@@ -8,7 +8,7 @@ class Partner < ApplicationRecord
     return if self.slug.downcase != "zaptv"
 
     parametro = Parametro.where(partner_id: self.id).first
-    host = Rails.env == "development" ? "#{parametro.url_integracao_desenvolvimento}/portfolio/menu" : "#{parametro.url_integracao_producao}/pertfolio/menu"
+    host = Rails.env == "development" ? "#{parametro.url_integracao_desenvolvimento}/portfolio" : "#{parametro.url_integracao_producao}/pertfolio"
     api_key = Rails.env == "development" ? parametro.api_key_zaptv_desenvolvimento : parametro.api_key_zaptv_producao
 
     res = HTTParty.get(
