@@ -54,7 +54,7 @@
     <hr>
 
     <%= link_to partner_importa_dados_path(@partner), class: 'btn btn-danger' do %>
-      Atualizar portfólio de produtos - <% UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M") rescue "" %>
+      Atualizar portfólio de produtos <%= " - #{UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
     <% end %>
 
     <%= link_to partner_importa_produtos_path(@partner), class: 'btn btn-danger' do %>
