@@ -48,7 +48,12 @@
                       <select class="rechargeType form-control validate v<%= partner.slug %>" name="<%= partner.slug.downcase %>_produto_id" data-message="Selecione um produto">
                         <option value="" >Escolher</option>
                         <% Produto.where(partner_id: Partner.where(slug: partner.slug)).reorder("description asc").each do |produto| %>
-                          <option value="<%= produto.produto_id_parceiro || produto.id %>-<%= produto.valor_minimo_venda_site %>"><%= produto.description %></option>
+                          <option value="<%= produto.produto_id_parceiro || produto.id %>-<%= produto.valor_minimo_venda_site %>">
+                            <%= produto.description %>
+                            <% if ["dstv", "zaptv"].include?(partner.slug.to_s.downcase) %>
+                               - <%= produto.valor_minimo_venda_site %>
+                            <% end %>
+                          </option>
                         <% end %>
                       </select>
                     </div>
