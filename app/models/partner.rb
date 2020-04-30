@@ -66,6 +66,7 @@ class Partner < ApplicationRecord
   def importa_dados!
     return if self.slug.downcase != "zaptv"
 
+    parametro = Parametro.where(partner_id: self.id).first
     if Rails.env == "development"
       host = "#{parametro.url_integracao_desenvolvimento}/portfolio"
       api_key = parametro.api_key_zaptv_desenvolvimento
