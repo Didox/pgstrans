@@ -53,13 +53,26 @@ class Partner < ApplicationRecord
         produto.save
       end
     end
+
+    item = UltimaAtualizacaoProduto.where(partner_id: partner.id).first
+    if item.present?
+      item.updated_at = Time.zone.now
+      item.save!
+    else
+      UltimaAtualizacaoProduto.create(partner_id: partner.id)
+    end
   end
 
   def importa_dados!
     return if self.slug.downcase != "zaptv"
 
-    parametro = Parametro.where(partner_id: self.id).first
-    host = Rails.env == "development" ? parametro.url_integracao_desenvolvimento : parametro.url_integracao_producao
+    if Rails.env == "development"
+      host = "#{parametro.url_integracao_desenvolvimento}/portfolio"
+      api_key = parametro.api_key_zaptv_desenvolvimento
+    else
+      host = "#{parametro.url_integracao_producao}/portfolio"
+      api_key = parametro.api_key_zaptv_producao
+    end
 
     ###### Entender se realmente não precisamos passar este id
     # partner.store_id_parceiro # "115356"
@@ -74,7 +87,7 @@ class Partner < ApplicationRecord
       res = HTTParty.get(
         url, 
         headers: {
-          "apikey" => "b65298a499c84224d442c6a680d14b8e",
+          "apikey" => api_key,
           "Content-Type" => "application/json"
         }
       )
@@ -103,6 +116,14 @@ class Partner < ApplicationRecord
       else
         Rails.logger.info ":::: Não encontrado (#{res.body}) ::::"
       end
+    end
+
+    item = UltimaAtualizacaoReconciliacao.where(partner_id: partner.id).first
+    if item.present?
+      item.updated_at = Time.zone.now
+      item.save!
+    else
+      UltimaAtualizacaoReconciliacao.create(partner_id: partner.id)
     end
   end
 
@@ -172,14 +193,21 @@ class Partner < ApplicationRecord
     elsif self.slug.downcase == "zaptv"
       parceiro = Partner.where("lower(slug) = 'zaptv'").first
       parametro = Parametro.where(partner_id: parceiro.id).first
-      host = Rails.env == "development" ? parametro.url_integracao_desenvolvimento : parametro.url_integracao_producao
+
+      if Rails.env == "development"
+        host = "#{parametro.url_integracao_desenvolvimento}/portfolio"
+        api_key = parametro.api_key_zaptv_desenvolvimento
+      else
+        host = "#{parametro.url_integracao_producao}/portfolio"
+        api_key = parametro.api_key_zaptv_producao
+      end
 
       store_id_parceiro = "115356"
       url = "#{host}/saldo?code=#{store_id_parceiro}"
       res = HTTParty.get(
         url, 
         headers: {
-          "apikey" => "b65298a499c84224d442c6a680d14b8e",
+          "apikey" => api_key,
           "Content-Type" => "application/json"
         }
       )

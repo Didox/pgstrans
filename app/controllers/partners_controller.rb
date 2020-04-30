@@ -11,14 +11,6 @@ class PartnersController < ApplicationController
     partner = Partner.where(slug: "ZAPTv").first
     partner.importa_dados!
 
-    item = UltimaAtualizacaoReconciliacao.where(partner_id: partner.id).first
-    if item.present?
-      item.updated_at = Time.zone.now
-      item.save!
-    else
-      UltimaAtualizacaoReconciliacao.create(partner_id: partner.id)
-    end
-
     flash[:notice] = 'Dados importados com sucesso.'
     redirect_to partner_url(partner)
   end
@@ -26,14 +18,6 @@ class PartnersController < ApplicationController
   def importa_produtos
     partner = Partner.where(slug: "ZAPTv").first
     partner.importa_produtos!
-
-    item = UltimaAtualizacaoProduto.where(partner_id: partner.id).first
-    if item.present?
-      item.updated_at = Time.zone.now
-      item.save!
-    else
-      UltimaAtualizacaoProduto.create(partner_id: partner.id)
-    end
 
     flash[:notice] = 'Produtos importados com sucesso.'
     redirect_to partner_url(partner)
