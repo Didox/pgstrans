@@ -51,7 +51,7 @@
                           <option value="<%= produto.produto_id_parceiro || produto.id %>-<%= produto.valor_minimo_venda_site %>">
                             <%= produto.description %>
                             <% if ["dstv", "zaptv"].include?(partner.slug.to_s.downcase) %>
-                               - <%= produto.valor_minimo_venda_site %>
+                               - <%= number_to_currency(produto.valor_minimo_venda_site, :unit => "KZ") %>
                             <% end %>
                           </option>
                         <% end %>
