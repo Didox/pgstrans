@@ -35,7 +35,8 @@
 
     <p>
       <strong>Saldo atual:</strong>
-      KZ<%= number_to_currency(@partner.saldo_atual, :unit => "") %>
+      KZ <%= number_to_currency(@partner.saldo_atual, :unit => "") %>
+      <%= " - Última atualização em: #{Time.zone.now.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
     </p>
 
     <%= link_to edit_partner_path(@partner), class: 'btn btn-danger' do %>
@@ -64,7 +65,7 @@
     <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoReconciliacao.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
 
     <br><br>
-    
+
     <h1>Relatório Reconciliação ZAPTV</h1>
 
     <div class="container" style="margin-top:10px">
