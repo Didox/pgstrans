@@ -36,7 +36,7 @@
     <p>
       <strong>Saldo atual:</strong>
       KZ <%= number_to_currency(@partner.saldo_atual, :unit => "") %>
-      <%= " - Última atualização em: #{Time.zone.now.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
+      <%= " - Última atualização em: #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}" %>
     </p>
 
     <%= link_to edit_partner_path(@partner), class: 'btn btn-danger' do %>
