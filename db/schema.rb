@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_30_102530) do
+ActiveRecord::Schema.define(version: 2020_04_30_103732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -342,6 +342,13 @@ ActiveRecord::Schema.define(version: 2020_04_30_102530) do
     t.index ["partner_id"], name: "index_ultima_atualizacao_produtos_on_partner_id"
   end
 
+  create_table "ultima_atualizacao_reconciliacaos", force: :cascade do |t|
+    t.bigint "partner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["partner_id"], name: "index_ultima_atualizacao_reconciliacaos_on_partner_id"
+  end
+
   create_table "uni_pessoal_empresas", force: :cascade do |t|
     t.string "nome"
     t.datetime "created_at", null: false
@@ -420,6 +427,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_102530) do
   add_foreign_key "sub_distribuidors", "municipios"
   add_foreign_key "sub_distribuidors", "provincia", column: "provincia_id"
   add_foreign_key "ultima_atualizacao_produtos", "partners"
+  add_foreign_key "ultima_atualizacao_reconciliacaos", "partners"
   add_foreign_key "unitel_sequences", "vendas"
   add_foreign_key "usuario_acessos", "usuarios"
   add_foreign_key "usuarios", "perfil_usuarios"

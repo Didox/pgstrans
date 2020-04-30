@@ -53,16 +53,19 @@
   <% if @partner.slug.downcase == "zaptv" %>
     <hr>
 
-    <%= link_to partner_importa_dados_path(@partner), class: 'btn btn-danger' do %>
+    <%= link_to partner_importa_produtos_path(@partner), class: 'btn btn-danger' do %>
       Atualizar portfólio de produtos
     <% end %>
     <br>
-    <%= " - Última atualização em: #{UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
-    <br>
+    <%= "Última atualização em: #{UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
+    <hr>
 
-    <%= link_to partner_importa_produtos_path(@partner), class: 'btn btn-danger' do %>
+    <%= link_to partner_importa_dados_path(@partner), class: 'btn btn-danger' do %>
       Importar dados para relatório de reconciliação
     <% end %>
+    <br>
+    <%= "Última atualização em: #{UltimaAtualizacaoReconciliacao.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
+    <hr>
 
     <hr>
     <h1>Relatório Reconciliação ZAPTV</h1>
