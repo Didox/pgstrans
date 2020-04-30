@@ -11,6 +11,8 @@ class PartnersController < ApplicationController
     partner = Partner.where(slug: "ZAPTv").first
     partner.importa_dados!
 
+    UltimaAtualizacaoProduto.update_or_create_by({partner_id: partner.id}, {updated_at: Time.zone.now})
+
     flash[:notice] = 'Dados importados com sucesso.'
     redirect_to partner_url(partner)
   end
