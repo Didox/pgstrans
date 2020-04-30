@@ -54,12 +54,12 @@ class Partner < ApplicationRecord
       end
     end
 
-    item = UltimaAtualizacaoProduto.where(partner_id: partner.id).first
+    item = UltimaAtualizacaoProduto.where(partner_id: self.id).first
     if item.present?
       item.updated_at = Time.zone.now
       item.save!
     else
-      UltimaAtualizacaoProduto.create(partner_id: partner.id)
+      UltimaAtualizacaoProduto.create(partner_id: self.id)
     end
   end
 
@@ -119,12 +119,12 @@ class Partner < ApplicationRecord
       end
     end
 
-    item = UltimaAtualizacaoReconciliacao.where(partner_id: partner.id).first
+    item = UltimaAtualizacaoReconciliacao.where(partner_id: self.id).first
     if item.present?
       item.updated_at = Time.zone.now
       item.save!
     else
-      UltimaAtualizacaoReconciliacao.create(partner_id: partner.id)
+      UltimaAtualizacaoReconciliacao.create(partner_id: self.id)
     end
   end
 
