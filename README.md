@@ -48,3 +48,109 @@ RelatorioConciliacaoZaptv.create(
   status: "processado",
   unit_price: 3440.0,
 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------
+
+
+
+venda = Venda.find(129)
+parceiro = Partner.where("lower(slug) = 'zaptv'").first
+parametro = Parametro.where(partner_id: parceiro.id).first
+
+if Rails.env == "development"
+  url = "#{parametro.url_integracao_desenvolvimento}/carregamento/#{venda.request_id}"
+  api_key = parametro.api_key_zaptv_desenvolvimento
+else
+  url = "#{parametro.url_integracao_producao}/carregamento/#{venda.request_id}"
+  api_key = parametro.api_key_zaptv_producao
+end
+
+res = HTTParty.get(
+  url, 
+  headers: {
+    "apikey" => api_key,
+    "Content-Type" => "application/json"
+  }
+)
+
+res.body
+
+
+
+
+
+
+
+--------------------------------------------------------
+
+
+part = Partner.where(slug: "ZAPTv").first
+
+parametro = Parametro.where(partner_id: part.id).first
+if Rails.env == "development"
+  host = "#{parametro.url_integracao_desenvolvimento}/portfolio"
+  api_key = parametro.api_key_zaptv_desenvolvimento
+else
+  host = "#{parametro.url_integracao_producao}/portfolio"
+  api_key = parametro.api_key_zaptv_producao
+end
+
+data = Time.zone.now - 1.days
+url = "#{host}/carregamento/report/#{data.strftime("%Y-%m-%d")}"
+data = data + 1.day
+
+
+res = HTTParty.get(
+  url, 
+  headers: {
+    "apikey" => api_key,
+    "Content-Type" => "application/json"
+  }
+)
+
+--------------------------------------------------------
+
+
+venda = Venda.find(129)
+
+parceiro = Partner.where("lower(slug) = 'zaptv'").first
+parametro = Parametro.where(partner_id: parceiro.id).first
+
+if Rails.env == "development"
+  url = "#{parametro.url_integracao_desenvolvimento}/carregamento/#{venda.request_id}"
+  api_key = parametro.api_key_zaptv_desenvolvimento
+else
+  url = "#{parametro.url_integracao_producao}/carregamento/#{venda.request_id}"
+  api_key = parametro.api_key_zaptv_producao
+end
+
+res = HTTParty.delete(
+  url, 
+  headers: {
+    "apikey" => api_key,
+    "Content-Type" => "application/json"
+  }
+)
+
+if (200..300).include?(res.code)
+  venda.status = "7000"
+  venda.save!
+  return "sucesso"
+else
+  return "Delete in (#{url}) - #{res.body}"
+end
+
+res.body
+
