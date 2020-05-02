@@ -135,7 +135,8 @@ class PerfilUsuariosController < ApplicationController
 
     def nome_amigavel_controller(controller)
       nomes = {
-        vendas: "Vendas"
+        vendas: "Vendas",
+        status_alegacao_pagamentos: "Situação de alegação de pagamentos"
       }
       nomes[controller.to_sym] || controller
     end
