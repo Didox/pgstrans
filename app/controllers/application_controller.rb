@@ -22,8 +22,6 @@ class ApplicationController < ActionController::Base
       end
 
       if administrador.present?
-        return true
-        
         return true if self.class.to_s == "WelcomeController"
 
         if administrador.acessos.blank?
