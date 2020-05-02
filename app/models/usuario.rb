@@ -15,6 +15,11 @@ class Usuario < ApplicationRecord
 	  0
   end
 
+  def acessos
+    return @acessos if @acessos.present?
+    @acessos = perfil_usuario.acessos_actions
+  end
+
   def self.ativo
     Usuario.where(status_cliente_id: StatusCliente.where(nome: "Ativo"))
   end
@@ -32,15 +37,15 @@ class Usuario < ApplicationRecord
 
   private
 
-  def verifica_tamanho_senha
-    if self.senha.length > 10
-      self.errors.add(:senha, "A senha não pode ser maior que 10 caracteres")
-    elsif self.senha.blank? && self.id.blank?
-      self.errors.add(:senha, "A senha não pode ficar em branco")
+    def verifica_tamanho_senha
+      if self.senha.length > 10
+        self.errors.add(:senha, "A senha não pode ser maior que 10 caracteres")
+      elsif self.senha.blank? && self.id.blank?
+        self.errors.add(:senha, "A senha não pode ficar em branco")
+      end
     end
-  end
 
-  def senha_sha1
-    self.senha = Digest::SHA1.hexdigest(self.senha) if self.senha.length <= 10
-  end
+    def senha_sha1
+      self.senha = Digest::SHA1.hexdigest(self.senha) if self.senha.length <= 10
+    end
 end

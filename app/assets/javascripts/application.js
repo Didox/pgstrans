@@ -19,6 +19,18 @@
 //= require_tree .
 
 
+var checkAcessos = function(){
+  $(".check-acessos").each(function(){
+    $(this).attr("checked", true);
+  });
+}
+
+var uncheckAcessos = function(){
+  $(".check-acessos").each(function(){
+    $(this).attr("checked", false);
+  });
+}
+
 const pgstrans = {};
 
 pgstrans.displayRecarga = (tipo) => {

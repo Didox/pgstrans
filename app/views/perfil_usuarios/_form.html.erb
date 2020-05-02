@@ -36,6 +36,84 @@
             <%= f.check_box :admin %>
           </div>
         </div>
+        
+
+        <div class="form-group">
+          <%= f.label :acessos, "Acessos", class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <input type="button" value="Selecionar todos" onclick="checkAcessos()" class="btn btn-primary">
+            <input type="button" value="Desmarcar todos" onclick="uncheckAcessos()" class="btn btn-primary">
+            <ul>
+              <% @controllers.each do |controller| %>
+                <li>
+                  <label><%= controller[:nome_amigavel] %></label>
+                  <ul>
+                    <% controller[:actions].each do |action| %>
+                      <li>
+                        <label><%= action[:nome_amigavel] %></label>
+                        <% 
+                        name = "#{controller[:nome]}::#{action[:nome]}"
+                        checked = @perfil_usuario.acessos_actions.include?(name) ? "checked='checked'" : "" 
+                        %>
+                        <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="<%= name %>">
+                        <ul>
+                          <% action[:views].each do |view| %>
+                            <li>
+                              <label><%= view %></label>
+                              <% 
+                              checked = @perfil_usuario.acessos_views.include?(view) ? "checked='checked'" : "" 
+                              %>
+                              <input type="checkbox" name="grupo_acesso[<%= "#{controller[:nome]}_#{action[:nome]}" %>][]" <%= checked %> class="check-acessos" value="<%= view %>">
+                            </li>
+                          <% end %>
+                        </ul>
+                      </li>
+                    <% end %>
+                  </ul>
+                </li>
+              <% end %>
+              <li>
+                <label>Construção do clube</label>
+                <ul>
+                  <li>
+                    <label>Mostrar cor Análise de desenvolvimeto</label>
+                    <% 
+                    checked = @perfil_usuario.acessos_actions.include?("Cor Análise de desenvolvimeto") ? "checked='checked'" : "" 
+                    %>
+                    <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Cor Análise de desenvolvimeto">
+                  </li>
+                  <li>
+                    <label>Mostrar cor Scouting</label>
+                    <% 
+                    checked = @perfil_usuario.acessos_actions.include?("Cor Scouting") ? "checked='checked'" : "" 
+                    %>
+                    <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Cor Scouting">
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <label>Home</label>
+                <ul>
+                  <li>
+                    <label>Ver lista dos últimos jogadores na home</label>
+                    <% 
+                    checked = @perfil_usuario.acessos_actions.include?("Ver lista dos últimos jogadores na home") ? "checked='checked'" : "" 
+                    %>
+                    <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Ver lista dos últimos jogadores na home">
+                  </li>
+                  <li>
+                    <label>Alterar recomendação do jogadores na home</label>
+                    <% 
+                    checked = @perfil_usuario.acessos_actions.include?("Alterar recomendação do jogadores na home") ? "checked='checked'" : "" 
+                    %>
+                    <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Alterar recomendação do jogadores na home">
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+
 
         <div class="form-actions col-sm-12">
           <%= f.button :button, class: 'btn btn-danger' do %>

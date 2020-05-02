@@ -15,16 +15,19 @@ class PerfilUsuariosController < ApplicationController
   # GET /perfil_usuarios/new
   def new
     @perfil_usuario = PerfilUsuario.new
+    load_access
   end
 
   # GET /perfil_usuarios/1/edit
   def edit
+    load_access
   end
 
   # POST /perfil_usuarios
   # POST /perfil_usuarios.json
   def create
     @perfil_usuario = PerfilUsuario.new(perfil_usuario_params)
+    @perfil_usuario.acessos = parseAcesso
 
     respond_to do |format|
       if @perfil_usuario.save
@@ -41,7 +44,9 @@ class PerfilUsuariosController < ApplicationController
   # PATCH/PUT /perfil_usuarios/1.json
   def update
     respond_to do |format|
-      if @perfil_usuario.update(perfil_usuario_params)
+      @perfil_usuario.update(perfil_usuario_params)
+      @perfil_usuario.acessos = parseAcesso
+      if @perfil_usuario.save
         format.html { redirect_to @perfil_usuario, notice: 'Perfil usuario foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @perfil_usuario }
       else
@@ -62,6 +67,79 @@ class PerfilUsuariosController < ApplicationController
   end
 
   private
+    def parseAcesso
+      acessos = []
+      params["grupo_acesso"]["actions"].each do |acesso|
+        views = params[:grupo_acesso][acesso.to_s.gsub("::", "_")]
+        views ||= []
+        acessos << {
+          acesso: acesso,
+          views: views
+        }
+      end
+
+      acessos.to_json
+    rescue
+      "[]"
+    end
+
+    def load_access
+      @controllers = []
+      controllers = Rails.application.routes.routes.map{|route|route.defaults[:controller]}.uniq
+      controllers.each do |controller|
+        begin
+          if !controller.include?("/") and !['login'].include?(controller)
+            nome_controller = "#{controller}_controller".camelize;
+            nome = nome_amigavel_controller(controller)
+            if nome.present?
+              actions = nome_controller.constantize.action_methods.collect{|a| a.to_s}
+              actions_traduzido = []
+
+              actions.each do |action|
+                views = []
+
+                nome_action = action_amigavel(action)
+                if nome_action.present?
+                  actions_traduzido << {
+                    nome: action,
+                    nome_amigavel: nome_action,
+                    views: views
+                  }
+                end
+              end
+
+              @controllers << {
+                nome_amigavel: nome,
+                nome: nome_controller,
+                actions: actions_traduzido
+              }
+            end
+          end
+        rescue;end
+      end
+    end
+
+    def action_amigavel(action)
+      nomes = {
+        new: "Mostrar tela de novo registro",
+        index: "Mostre tela inicial",
+        update: "Atualizar registro",
+        create: "Criar registro",
+        destroy: "Apagar registro",
+        show: "Mostrar registro",
+        edit: "Mostrar tela de edição",
+      }
+      return nil if ["usuario_logado", "administrador"].include?(action)
+      nomes[action.to_sym] || action
+    end
+
+    def nome_amigavel_controller(controller)
+      nomes = {
+        vendas: "Vendas"
+      }
+      nomes[controller.to_sym] || controller
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_perfil_usuario
       @perfil_usuario = PerfilUsuario.find(params[:id])

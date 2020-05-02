@@ -1,4 +1,6 @@
 <div>
-  <%= render :partial => 'shared/menu' %>
-  <%= render 'shared/jumbotron' %>
+  <% #if usuario_logado.acessos.include?("WelcomeController::index") %>
+    <%= render :partial => 'shared/menu' %>
+    <%= render 'shared/jumbotron' %>
+  <% #end %>
 </div>
