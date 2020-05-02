@@ -73,15 +73,13 @@
               </li>
             <% end %>
             <li>
-              <!--label>Construção do clube</label-->
-              <label>Reserva</label>
+              <label>Construção do clube</label>
+              <label>Construção do clube</label>
               <ul>
                 <li>
-                  <!--label>Mostrar cor Análise de desenvolvimeto</label-->
-                  <label>Reserva</label>
+                  <label>Mostrar cor Análise de desenvolvimeto</label>
                   <% 
-                  #checked = @perfil_usuario.acessos_actions.include?("Cor Análise de desenvolvimeto") ? "checked='checked'" : "" 
-                  checked = @perfil_usuario.acessos_actions.include?("Reserva") ? "checked='checked'" : "" 
+                  checked = @perfil_usuario.acessos_actions.include?("Cor Análise de desenvolvimeto") ? "checked='checked'" : "" 
                   %>
                   <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Cor Análise de desenvolvimeto">
                 </li>

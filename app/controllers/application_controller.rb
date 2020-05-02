@@ -25,12 +25,12 @@ class ApplicationController < ActionController::Base
         return true if self.class.to_s == "WelcomeController"
 
         if administrador.acessos.blank?
-          flash[:erro] = "Usuário sem permissão de acesso a essa página"
+          flash[:erro] = "Usuário sem permissão de acesso a página"
           redirect_to "/"
           return false
         else
           unless administrador.acessos.include? "#{self.class}::#{params[:action]}"
-            flash[:erro] = "Usuário sem permissão de acesso a essa página"
+            flash[:erro] = "Usuário sem permissão de acesso a página"
             redirect_to "/"
             return false
           end
