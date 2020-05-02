@@ -38,7 +38,7 @@ class ContaCorrentesController < ApplicationController
   # POST /conta_correntes.json
   def create
     unless usuario_logado.admin?
-      redirect_to conta_correntes_url, error: 'Somente administrador tem acesso a esta operação.'
+      redirect_to conta_correntes_url, error: 'Somente o Administrador tem acesso a essa operação.'
       return
     end
     
@@ -53,7 +53,7 @@ class ContaCorrentesController < ApplicationController
           @conta_corrente.usuario = usuario_logado
         end
       
-        format.html { redirect_to conta_correntes_url, notice: 'Conta corrente foi criado com sucesso.' }
+        format.html { redirect_to conta_correntes_url, notice: 'Conta corrente foi criada com sucesso.' }
         format.json { render :show, status: :created, location: @conta_corrente }
       else
         format.html { render :new }
@@ -66,13 +66,13 @@ class ContaCorrentesController < ApplicationController
   # PATCH/PUT /conta_correntes/1.json
   def update
     unless usuario_logado.admin?
-      redirect_to conta_correntes_url, error: 'Somente administrador tem acesso a esta operação.'
+      redirect_to conta_correntes_url, error: 'Somente o Administrador tem acesso a essa operação.'
       return
     end
 
     respond_to do |format|
       if @conta_corrente.update(conta_corrente_params)
-        format.html { redirect_to conta_correntes_url, notice: 'Conta corrente foi atualizado com sucesso.' }
+        format.html { redirect_to conta_correntes_url, notice: 'Conta corrente foi atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @conta_corrente }
       else
         format.html { render :edit }
@@ -85,7 +85,7 @@ class ContaCorrentesController < ApplicationController
   # DELETE /conta_correntes/1.json
   def destroy
     unless usuario_logado.admin?
-      redirect_to conta_correntes_url, error: 'Somente administrador tem acesso a esta operação.'
+      redirect_to conta_correntes_url, error: 'Somente o Administrador tem acesso a essa operação.'
       return
     end
 

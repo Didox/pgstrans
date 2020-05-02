@@ -112,7 +112,7 @@ class Partner < ApplicationRecord
           rel.unit_price = dado["unit_price"]
           rel.save
 
-          Rails.logger.info ":::: Rel criado (#{rel.id}) ::::"
+          Rails.logger.info ":::: Relatório criado (#{rel.id}) ::::"
         end
       else
         Rails.logger.info ":::: Não encontrado (#{res.body}) ::::"

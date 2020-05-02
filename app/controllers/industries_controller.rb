@@ -31,7 +31,7 @@ class IndustriesController < ApplicationController
 
     respond_to do |format|
       if @industry.save
-        format.html { redirect_to @industry, notice: 'Industry foi criado com sucesso.' }
+        format.html { redirect_to @industry, notice: 'ACTIVIDADE ECONÓMICA foi criada com sucesso.' }
         format.json { render :show, status: :created, location: @industry }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class IndustriesController < ApplicationController
   def update
     respond_to do |format|
       if @industry.update(industry_params)
-        format.html { redirect_to @industry, notice: 'Industry foi atualizado com sucesso.' }
+        format.html { redirect_to @industry, notice: 'ACTIVIDADE ECONÓMICA foi atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @industry }
       else
         format.html { render :edit }
@@ -59,7 +59,7 @@ class IndustriesController < ApplicationController
   def destroy
     @industry.destroy
     respond_to do |format|
-      format.html { redirect_to industries_url, notice: 'Industry foi apagado com sucesso.' }
+      format.html { redirect_to industries_url, notice: 'ACTIVIDADE ECONÓMICA foi apagada com sucesso.' }
       format.json { head :no_content }
     end
   end

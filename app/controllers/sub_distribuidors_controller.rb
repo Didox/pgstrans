@@ -28,7 +28,7 @@ class SubDistribuidorsController < ApplicationController
 
     respond_to do |format|
       if @sub_distribuidor.save
-        format.html { redirect_to @sub_distribuidor, notice: 'Sub distribuidor foi criado com sucesso.' }
+        format.html { redirect_to @sub_distribuidor, notice: 'Subdistribuidor foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @sub_distribuidor }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class SubDistribuidorsController < ApplicationController
   def update
     respond_to do |format|
       if @sub_distribuidor.update(sub_distribuidor_params)
-        format.html { redirect_to @sub_distribuidor, notice: 'Sub distribuidor foi atualizado com sucesso.' }
+        format.html { redirect_to @sub_distribuidor, notice: 'Subdistribuidor foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @sub_distribuidor }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class SubDistribuidorsController < ApplicationController
   def destroy
     @sub_distribuidor.destroy
     respond_to do |format|
-      format.html { redirect_to sub_distribuidors_url, notice: 'Sub distribuidor foi apagado com sucesso.' }
+      format.html { redirect_to sub_distribuidors_url, notice: 'Subdistribuidor foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

@@ -36,7 +36,7 @@ class RelatorioConciliacaoZaptvsController < ApplicationController
 
     respond_to do |format|
       if @relatorio_conciliacao_zaptv.save
-        format.html { redirect_to @relatorio_conciliacao_zaptv, notice: 'Relatorio conciliacao zaptv was successfully created.' }
+        format.html { redirect_to @relatorio_conciliacao_zaptv, notice: 'Relatório reconciliação ZAPTV criado com sucesso.' }
         format.json { render :show, status: :created, location: @relatorio_conciliacao_zaptv }
       else
         format.html { render :new }
@@ -52,7 +52,7 @@ class RelatorioConciliacaoZaptvsController < ApplicationController
     return
     respond_to do |format|
       if @relatorio_conciliacao_zaptv.update(relatorio_conciliacao_zaptv_params)
-        format.html { redirect_to @relatorio_conciliacao_zaptv, notice: 'Relatorio conciliacao zaptv was successfully updated.' }
+        format.html { redirect_to @relatorio_conciliacao_zaptv, notice: 'Relatório reconciliação ZAPTV alterado com sucesso.' }
         format.json { render :show, status: :ok, location: @relatorio_conciliacao_zaptv }
       else
         format.html { render :edit }
@@ -68,7 +68,7 @@ class RelatorioConciliacaoZaptvsController < ApplicationController
     return
     @relatorio_conciliacao_zaptv.destroy
     respond_to do |format|
-      format.html { redirect_to relatorio_conciliacao_zaptvs_url, notice: 'Relatorio conciliacao zaptv was successfully destroyed.' }
+      format.html { redirect_to relatorio_conciliacao_zaptvs_url, notice: 'Relatório reconciliação ZAPTV apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

@@ -28,7 +28,7 @@ class UsuariosController < ApplicationController
 
     respond_to do |format|
       if @usuario.save
-        format.html { redirect_to @usuario, notice: 'Usuario foi criado com sucesso.' }
+        format.html { redirect_to @usuario, notice: 'Usuário foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @usuario }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class UsuariosController < ApplicationController
   def update
     respond_to do |format|
       if @usuario.update(usuario_params)
-        format.html { redirect_to @usuario, notice: 'Usuario foi atualizado com sucesso.' }
+        format.html { redirect_to @usuario, notice: 'Usuário foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @usuario }
       else
         format.html { render :edit }
@@ -56,11 +56,11 @@ class UsuariosController < ApplicationController
   def destroy
     @usuario.destroy
     respond_to do |format|
-      format.html { redirect_to usuarios_url, notice: 'Usuario foi apagado com sucesso.' }
+      format.html { redirect_to usuarios_url, notice: 'Usuário foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   rescue ActiveRecord::InvalidForeignKey => erro
-    flash[:error] = "Usuário não pode ser excluido pois tem vinculos a ser apagado."
+    flash[:error] = "Usuário não pode ser excluído porque tem vínculos que precisam ser apagados ou desfeitos."
     respond_to do |format|
       format.html { redirect_to usuarios_url }
       format.json { head :no_content }

@@ -38,14 +38,16 @@ class Usuario < ApplicationRecord
   private
 
     def verifica_tamanho_senha
-      if self.senha.length > 10
-        self.errors.add(:senha, "A senha não pode ser maior que 10 caracteres")
+      #if self.senha.length > 10
+      if self.senha.length > 30
+        self.errors.add(:senha, "A senha não pode ser maior que 30 caracteres")
       elsif self.senha.blank? && self.id.blank?
         self.errors.add(:senha, "A senha não pode ficar em branco")
       end
     end
 
     def senha_sha1
-      self.senha = Digest::SHA1.hexdigest(self.senha) if self.senha.length <= 10
+      #self.senha = Digest::SHA1.hexdigest(self.senha) if self.senha.length <= 10
+      self.senha = Digest::SHA1.hexdigest(self.senha) if self.senha.length <= 30
     end
 end

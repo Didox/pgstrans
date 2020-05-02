@@ -28,7 +28,7 @@ class CanalVendasController < ApplicationController
 
     respond_to do |format|
       if @canal_venda.save
-        format.html { redirect_to @canal_venda, notice: 'Canal venda foi criado com sucesso.' }
+        format.html { redirect_to @canal_venda, notice: 'Canal de venda foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @canal_venda }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class CanalVendasController < ApplicationController
   def update
     respond_to do |format|
       if @canal_venda.update(canal_venda_params)
-        format.html { redirect_to @canal_venda, notice: 'Canal venda foi atualizado com sucesso.' }
+        format.html { redirect_to @canal_venda, notice: 'Canal de venda foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @canal_venda }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class CanalVendasController < ApplicationController
   def destroy
     @canal_venda.destroy
     respond_to do |format|
-      format.html { redirect_to canal_vendas_url, notice: 'Canal venda foi apagado com sucesso.' }
+      format.html { redirect_to canal_vendas_url, notice: 'Canal de venda foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

@@ -31,7 +31,7 @@ class CountriesController < ApplicationController
 
     respond_to do |format|
       if @country.save
-        format.html { redirect_to @country, notice: 'Country foi criado com sucesso.' }
+        format.html { redirect_to @country, notice: 'País foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @country }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class CountriesController < ApplicationController
   def update
     respond_to do |format|
       if @country.update(country_params)
-        format.html { redirect_to @country, notice: 'Country foi atualizado com sucesso.' }
+        format.html { redirect_to @country, notice: 'País foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @country }
       else
         format.html { render :edit }
@@ -59,7 +59,7 @@ class CountriesController < ApplicationController
   def destroy
     @country.destroy
     respond_to do |format|
-      format.html { redirect_to countries_url, notice: 'Country foi apagado com sucesso.' }
+      format.html { redirect_to countries_url, notice: 'País foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

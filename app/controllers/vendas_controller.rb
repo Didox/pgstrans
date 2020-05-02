@@ -19,7 +19,7 @@ class VendasController < ApplicationController
     @venda = Venda.find(params[:venda_id])
     retorno = @venda.reverter_venda_zaptv
     if retorno == "sucesso"
-      flash[:success] = "Venda revertida com sucesso"
+      flash[:success] = "Venda revertida com sucesso."
     else
       flash[:error] = "Venda não revertida - #{retorno}"
     end
@@ -48,7 +48,7 @@ class VendasController < ApplicationController
 
     respond_to do |format|
       if @venda.save
-        format.html { redirect_to @venda, notice: 'Venda foi criado com sucesso.' }
+        format.html { redirect_to @venda, notice: 'Venda foi criada com sucesso.' }
         format.json { render :show, status: :created, location: @venda }
       else
         format.html { render :new }
@@ -62,7 +62,7 @@ class VendasController < ApplicationController
   def update
     respond_to do |format|
       if @venda.update(venda_params)
-        format.html { redirect_to @venda, notice: 'Venda foi atualizado com sucesso.' }
+        format.html { redirect_to @venda, notice: 'Venda foi atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @venda }
       else
         format.html { render :edit }
@@ -76,7 +76,7 @@ class VendasController < ApplicationController
   def destroy
     @venda.destroy
     respond_to do |format|
-      format.html { redirect_to vendas_url, notice: 'Venda foi apagado com sucesso.' }
+      format.html { redirect_to vendas_url, notice: 'Venda foi apagada com sucesso.' }
       format.json { head :no_content }
     end
   end

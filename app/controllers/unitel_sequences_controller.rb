@@ -28,8 +28,7 @@ class UnitelSequencesController < ApplicationController
 
     respond_to do |format|
       if @unitel_sequence.save
-        format.html { redirect_to @unitel_sequence, notice: 'Unitel sequence was successfully created.' }
-        format.json { render :show, status: :created, location: @unitel_sequence }
+        format.html { redirect_to @unitel_sequence, notice: 'Código de sequência Unitel foi criado com sucesso.' }        format.json { render :show, status: :created, location: @unitel_sequence }
       else
         format.html { render :new }
         format.json { render json: @unitel_sequence.errors, status: :unprocessable_entity }
@@ -42,7 +41,7 @@ class UnitelSequencesController < ApplicationController
   def update
     respond_to do |format|
       if @unitel_sequence.update(unitel_sequence_params)
-        format.html { redirect_to @unitel_sequence, notice: 'Unitel sequence was successfully updated.' }
+        format.html { redirect_to @unitel_sequence, notice: 'Código de sequência Unitel foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @unitel_sequence }
       else
         format.html { render :edit }
@@ -56,7 +55,7 @@ class UnitelSequencesController < ApplicationController
   def destroy
     @unitel_sequence.destroy
     respond_to do |format|
-      format.html { redirect_to unitel_sequences_url, notice: 'Unitel sequence was successfully destroyed.' }
+      format.html { redirect_to unitel_sequences_url, notice: 'Código de sequência Unitel foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

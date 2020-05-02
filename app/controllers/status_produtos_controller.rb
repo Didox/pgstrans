@@ -28,7 +28,7 @@ class StatusProdutosController < ApplicationController
 
     respond_to do |format|
       if @status_produto.save
-        format.html { redirect_to @status_produto, notice: 'Status produto foi criado com sucesso.' }
+        format.html { redirect_to @status_produto, notice: 'Situação de produto foi criada com sucesso.' }
         format.json { render :show, status: :created, location: @status_produto }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class StatusProdutosController < ApplicationController
   def update
     respond_to do |format|
       if @status_produto.update(status_produto_params)
-        format.html { redirect_to @status_produto, notice: 'Status produto foi atualizado com sucesso.' }
+        format.html { redirect_to @status_produto, notice: 'Situação de produto foi atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @status_produto }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class StatusProdutosController < ApplicationController
   def destroy
     @status_produto.destroy
     respond_to do |format|
-      format.html { redirect_to status_produtos_url, notice: 'Status produto foi apagado com sucesso.' }
+      format.html { redirect_to status_produtos_url, notice: 'Situação de produto foi apagada com sucesso.' }
       format.json { head :no_content }
     end
   end

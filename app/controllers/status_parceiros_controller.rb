@@ -28,7 +28,7 @@ class StatusParceirosController < ApplicationController
 
     respond_to do |format|
       if @status_parceiro.save
-        format.html { redirect_to @status_parceiro, notice: 'Status parceiro was successfully created.' }
+        format.html { redirect_to @status_parceiro, notice: 'Situação de parceiro foi criada com sucesso.' }
         format.json { render :show, status: :created, location: @status_parceiro }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class StatusParceirosController < ApplicationController
   def update
     respond_to do |format|
       if @status_parceiro.update(status_parceiro_params)
-        format.html { redirect_to @status_parceiro, notice: 'Status parceiro was successfully updated.' }
+        format.html { redirect_to @status_parceiro, notice: 'Situação de parceiro foi alterada com sucesso.' }
         format.json { render :show, status: :ok, location: @status_parceiro }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class StatusParceirosController < ApplicationController
   def destroy
     @status_parceiro.destroy
     respond_to do |format|
-      format.html { redirect_to status_parceiros_url, notice: 'Status parceiro was successfully destroyed.' }
+      format.html { redirect_to status_parceiros_url, notice: 'Situação de parceiro foi apagada com sucesso.' }
       format.json { head :no_content }
     end
   end

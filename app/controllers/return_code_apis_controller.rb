@@ -31,7 +31,7 @@ class ReturnCodeApisController < ApplicationController
 
     respond_to do |format|
       if @return_code_api.save
-        format.html { redirect_to @return_code_api, notice: 'Return code api foi criado com sucesso.' }
+        format.html { redirect_to @return_code_api, notice: 'Código de Retorno da API foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @return_code_api }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class ReturnCodeApisController < ApplicationController
   def update
     respond_to do |format|
       if @return_code_api.update(return_code_api_params)
-        format.html { redirect_to @return_code_api, notice: 'Return code api foi atualizado com sucesso.' }
+        format.html { redirect_to @return_code_api, notice: 'Código de Retorno da API foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @return_code_api }
       else
         format.html { render :edit }
@@ -59,7 +59,7 @@ class ReturnCodeApisController < ApplicationController
   def destroy
     @return_code_api.destroy
     respond_to do |format|
-      format.html { redirect_to return_code_apis_url, notice: 'Return code api foi apagado com sucesso.' }
+      format.html { redirect_to return_code_apis_url, notice: 'Código de Retorno da API foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

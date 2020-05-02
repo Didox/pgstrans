@@ -286,8 +286,8 @@ class Venda < ApplicationRecord
       raise "Saldo insuficiente para recarga" if usuario.saldo < valor
       raise "Parceiro não localizado" if parceiro.blank?
       raise "Selecione o valor" if params[:valor].blank?
-      raise "Digite o telemovel" if params[:movicel_telefone].blank?
-      raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
+      raise "Digite o telemóvel" if params[:movicel_telefone].blank?
+      raise "Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador." if usuario.sub_agente.blank?
 
       telefone = params[:movicel_telefone]
 
@@ -480,7 +480,7 @@ class Venda < ApplicationRecord
       raise "Selecione o valor" if params[:valor].blank?
       raise "Digite o Nº SmartCard" if params[:dstv_smart_card].blank?
       raise "Talão p/SMS" if params[:talao_sms].blank?
-      raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
+      raise "Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador." if usuario.sub_agente.blank?
       raise "Produto não selecionado" if params[:dstv_produto_id].blank?
 
       product_id = params[:dstv_produto_id].split("-").first
@@ -741,8 +741,8 @@ class Venda < ApplicationRecord
       raise "Parceiro não localizado" if parceiro.blank?
       raise "Produto não selecionado" if params[:unitel_produto_id].blank?
       raise "Selecione o valor" if params[:valor].blank?
-      raise "Digite o telemovel" if params[:unitel_telefone].blank?
-      raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
+      raise "Digite o telemóvel" if params[:unitel_telefone].blank?
+      raise "Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador." if usuario.sub_agente.blank?
 
       product_id = params[:unitel_produto_id].split("-").first
       telefone = params[:unitel_telefone]

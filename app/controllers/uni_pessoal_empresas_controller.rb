@@ -28,7 +28,7 @@ class UniPessoalEmpresasController < ApplicationController
 
     respond_to do |format|
       if @uni_pessoal_empresa.save
-        format.html { redirect_to @uni_pessoal_empresa, notice: 'Uni pessoal empresa foi criado com sucesso.' }
+        format.html { redirect_to @uni_pessoal_empresa, notice: 'Perfil Unipessoal/Empresa foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @uni_pessoal_empresa }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class UniPessoalEmpresasController < ApplicationController
   def update
     respond_to do |format|
       if @uni_pessoal_empresa.update(uni_pessoal_empresa_params)
-        format.html { redirect_to @uni_pessoal_empresa, notice: 'Uni pessoal empresa foi atualizado com sucesso.' }
+        format.html { redirect_to @uni_pessoal_empresa, notice: 'Perfil Unipessoal/Empresa foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @uni_pessoal_empresa }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class UniPessoalEmpresasController < ApplicationController
   def destroy
     @uni_pessoal_empresa.destroy
     respond_to do |format|
-      format.html { redirect_to uni_pessoal_empresas_url, notice: 'Uni pessoal empresa foi apagado com sucesso.' }
+      format.html { redirect_to uni_pessoal_empresas_url, notice: 'Perfil Unipessoal/Empresa foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end
