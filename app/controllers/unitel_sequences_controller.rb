@@ -28,7 +28,8 @@ class UnitelSequencesController < ApplicationController
 
     respond_to do |format|
       if @unitel_sequence.save
-        format.html { redirect_to @unitel_sequence, notice: 'Código de sequência Unitel foi criado com sucesso.' }        format.json { render :show, status: :created, location: @unitel_sequence }
+        format.html { redirect_to @unitel_sequence, notice: 'Código de sequência Unitel foi criado com sucesso.' }
+        format.json { render :show, status: :created, location: @unitel_sequence }
       else
         format.html { render :new }
         format.json { render json: @unitel_sequence.errors, status: :unprocessable_entity }
