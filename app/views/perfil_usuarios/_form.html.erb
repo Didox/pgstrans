@@ -2,7 +2,7 @@
   <div class="card border-simpleform box-shadow mb-4">
     <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
       <div>
-        <strong>Dados do Usuário de Atribuição de Permissão de Acesso</strong><br />
+        <strong>Dados e Permissões de Acesso do Usuário</strong><br />
       </div>
     </div>
   </div>
@@ -37,8 +37,6 @@
           </div>
         </div>
       </div>
-
-        
 
       <div class="form-group col-sm-12">
         <%= f.label :acessos, "Acessos", class: "col-sm-2 control-label" %>
@@ -81,62 +79,52 @@
                 <li>
                   <!--label>Mostrar cor Análise de desenvolvimeto</label-->
                   <label>Reserva</label>
-                  <%
+                  <% 
                   #checked = @perfil_usuario.acessos_actions.include?("Cor Análise de desenvolvimeto") ? "checked='checked'" : "" 
-                  checked = @perfil_usuario.acessos_actions.include?("Reserva") ? "checked='checked'" : ""                   
-                  %>
-                  <!--input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Cor Análise de desenvolvimeto"-->
-                  <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Reserva">                  
-                </li>
-                <li>
-                  <!--label>Mostrar cor Scouting</label-->
-                  <label>Reserva</label>
-                  <%
-                  #checked = @perfil_usuario.acessos_actions.include?("Cor Scouting") ? "checked='checked'" : "" 
                   checked = @perfil_usuario.acessos_actions.include?("Reserva") ? "checked='checked'" : "" 
                   %>
-                  <!--input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Cor Scouting"-->
-                  <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Reserva">
+                  <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Cor Análise de desenvolvimeto">
+                </li>
+                <li>
+                  <label>Mostrar cor Scouting</label>
+                  <% 
+                  checked = @perfil_usuario.acessos_actions.include?("Cor Scouting") ? "checked='checked'" : "" 
+                  %>
+                  <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Cor Scouting">
                 </li>
               </ul>
-            </li-->
+            </li>
             <li>
-              <!--label>Home</label-->
-              <label>Reserva</label>
+              <label>Home</label>
               <ul>
                 <li>
-                  <!--label>Ver lista dos últimos jogadores na home</label-->
-                  <label>Reserva</label>
-                  <%
-                  #checked = @perfil_usuario.acessos_actions.include?("Ver lista dos últimos jogadores na home") ? "checked='checked'" : "" 
-                  checked = @perfil_usuario.acessos_actions.include?("Reserva") ? "checked='checked'" : "" 
+                  <label>Ver lista dos últimos jogadores na home</label>
+                  <% 
+                  checked = @perfil_usuario.acessos_actions.include?("Ver lista dos últimos jogadores na home") ? "checked='checked'" : "" 
                   %>
-                  <!--input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Ver lista dos últimos jogadores na home"-->
-                  <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Reserva">                  
+                  <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Ver lista dos últimos jogadores na home">
                 </li>
                 <li>
-                  <!--label>Alterar recomendação do jogadores na home</label-->
-                  <label>Reserva</label>
-                  <%
-                  #checked = @perfil_usuario.acessos_actions.include?("Alterar recomendação do jogadores na home") ? "checked='checked'" : "" 
-                  checked = @perfil_usuario.acessos_actions.include?("Reserva") ? "checked='checked'" : ""
+                  <label>Alterar recomendação do jogadores na home</label>
+                  <% 
+                  checked = @perfil_usuario.acessos_actions.include?("Alterar recomendação do jogadores na home") ? "checked='checked'" : "" 
                   %>
-                  <!--input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Alterar recomendação do jogadores na home"-->
-                  <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Reserva">
+                  <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Alterar recomendação do jogadores na home">
                 </li>
               </ul>
             </li>
           </ul>
-        </div-->
+        </div>
       </div>
 
-        <div class="form-actions col-sm-12">
-          <%= f.button :button, class: 'btn btn-danger' do %>
-            <span class="glyphicon glyphicon-ok"></span>
-            Confirmar
-          <% end %>
-        </div>
-      <% end %>
-    </div>
+
+      <div class="form-actions col-sm-12">
+        <%= f.button :button, class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-ok"></span>
+          Confirmar
+        <% end %>
+      </div>
+    <% end %>
   </div>
+</div>
 </div>
