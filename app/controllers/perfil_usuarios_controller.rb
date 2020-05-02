@@ -128,7 +128,7 @@ class PerfilUsuariosController < ApplicationController
         #destroy: "Apagar registro",
         #show: "Mostrar registro",
         #edit: "Mostrar tela de edição",
-        new: "Mostar a tela que permite a inclusão de novo registo",
+        new: "Mostrar a tela que permite a inclusão de novo registo",
         index: "Mostrar a lista de todos os registos",
         update: "Permitir a atualização de registo",
         create: "Pemitir a criação de novo registo",
