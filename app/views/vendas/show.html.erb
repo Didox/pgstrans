@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h4>Mostrar Venda</h4>
+  <h4>Detalhes da Venda</h4>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -10,21 +10,21 @@
     <dl class="dl-horizontal">
       <dt>ID:</dt>
       <dd><%= @venda.id %></dd>
-      <dt>Product:</dt>
+      <dt>Produto:</dt>
       <dd><%= @venda.product_id %></dd>
-      <dt>Agent:</dt>
+      <dt>Agente:</dt>
       <dd><%= @venda.agent_id %></dd>
-      <dt>Store:</dt>
+      <dt>Store/Loja:</dt>
       <dd><%= @venda.store_id %></dd>
-      <dt>Seller:</dt>
+      <dt>Seller/Vendedor:</dt>
       <dd><%= @venda.seller_id %></dd>
       <dt>Terminal:</dt>
       <dd><%= @venda.terminal_id %></dd>
-      <dt>Value:</dt>
+      <dt>Valor KZ:</dt>
       <dd><%= @venda.value %></dd>
       <dt>Client MSISDN/Nro.Cartão:</dt>
       <dd><%= @venda.client_msisdn %></dd>
-      <dt>Status:</dt>
+      <dt>Situação:</dt>
       <dd><%= @venda.status %></dd>
       <dt>Request send:</dt>
       <dd><%= @venda.request_send %></dd>
