@@ -11,7 +11,7 @@
           <div class="row" style="padding:10px">
             <div class="col-sm-3">
               <div class="form-group">
-                <label>Data de movimentação inicio</label>
+                <label>Data de Movimentação (Início)</label>
                 <div>
                   <input type="date" name="data_alegacao_pagamento_inicio" value="<%= params[:data_alegacao_pagamento_inicio] %>" class="form-control">
                 </div>
@@ -19,7 +19,7 @@
             </div>
             <div class="col-sm-3">
               <div class="form-group">
-                <label>Data de movimentação fim</label>
+                <label>Data de Movimentação (Fim)</label>
                 <div>
                   <input type="date" name="data_alegacao_pagamento_fim" value="<%= params[:data_alegacao_pagamento_fim] %>" class="form-control">
                 </div>
@@ -38,11 +38,11 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Data movimentação</th>
-              <th scope="col">Tipo de movimentação</th>
-              <th scope="col">Valor movimentação</th>
-              <th scope="col">Saldo anterior</th>
-              <th scope="col">Saldo atual</th>
+              <th scope="col">Data de Movimentação</th>
+              <th scope="col">Tipo de Movimentação</th>
+              <th scope="col">Valor da Movimentação</th>
+              <th scope="col">Saldo Anterior</th>
+              <th scope="col">Saldo Atual</th>
             </tr>
           </thead>
 
@@ -55,13 +55,13 @@
     	          <td>
     	            <%= conta_corrente.lancamento.nome %>
     	          </td>
-    	          <td>
+    	          <td align="right">
     	            <%= number_to_currency(conta_corrente.valor, :unit => "KZ") %>
     	          </td>
-    	          <td>
+    	          <td align="right">
     	            <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %>
     	          </td>
-    	          <td>
+    	          <td align="right">
     	            <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %>
     	          </td>
     	        </tr>
