@@ -19,8 +19,10 @@ class PerfilUsuario < ApplicationRecord
     []
   end
 
-  def self.tem_acesso?(controller, action)
-    return PerfilUsuario.nome_amigavel_controller(controller) && PerfilUsuario.action_amigavel(action)
+  def self.tem_acesso?(administrador, controller, action)
+    return administrador.acessos.include? "#{controller}::#{action}"
+  rescue
+    false
   end
 
   def self.action_amigavel(action)
