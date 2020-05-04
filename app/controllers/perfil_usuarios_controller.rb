@@ -137,7 +137,7 @@ class PerfilUsuariosController < ApplicationController
         edit: "Permitir mostrar tela de edição do registo",
        }
       return nil if ["usuario_logado", "administrador"].include?(action)
-      nomes[action.to_sym] || action
+      nomes[action.to_sym]
     end
 
     def nome_amigavel_controller(controller)
@@ -177,7 +177,7 @@ class PerfilUsuariosController < ApplicationController
         return_code_apis: "Tabela de Código de Retorno das APIs por Parceiro",
         matrix_users: "Matriz de Usuários - Composição das Permissões e Associações"
       }
-      nomes[controller.to_sym] || controller
+      nomes[controller.to_sym]
     end
 
     # Use callbacks to share common setup or constraints between actions.

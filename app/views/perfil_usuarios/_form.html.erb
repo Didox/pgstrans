@@ -75,50 +75,6 @@
                 </ul>
               </li>
             <% end %>
-            <li>
-              <!--label>Construção do clube</label-->
-              <label>Reserva</label>
-              <ul>
-                <li>
-                  <!--label>Mostrar cor Análise de desenvolvimeto</label-->
-                  <label>Opção 1</label>
-                  <% 
-                  checked = @perfil_usuario.acessos_actions.include?("Cor Análise de desenvolvimeto") ? "checked='checked'" : "" 
-                  %>
-                  <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Cor Análise de desenvolvimeto">
-                </li>
-                <li>
-                  <!--label>Mostrar cor Scouting</label-->
-                  <label>Opção 2</label>
-                  <% 
-                  checked = @perfil_usuario.acessos_actions.include?("Cor Scouting") ? "checked='checked'" : "" 
-                  %>
-                  <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Cor Scouting">
-                </li>
-              </ul>
-            </li>
-            <li>
-              <!--label>Home</label-->
-              <label>Reserva</label>
-              <ul>
-                <li>
-                  <!--label>Ver lista dos últimos jogadores na home</label-->
-                  <label>Opção 1</label>
-                  <% 
-                  checked = @perfil_usuario.acessos_actions.include?("Ver lista dos últimos jogadores na home") ? "checked='checked'" : "" 
-                  %>
-                  <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Ver lista dos últimos jogadores na home">
-                </li>
-                <li>
-                  <!--label>Alterar recomendação do jogadores na home</label-->
-                  <label>Opção 2</label>
-                  <% 
-                  checked = @perfil_usuario.acessos_actions.include?("Alterar recomendação do jogadores na home") ? "checked='checked'" : "" 
-                  %>
-                  <input type="checkbox" name="grupo_acesso[actions][]" <%= checked %> class="check-acessos" value="Alterar recomendação do jogadores na home">
-                </li>
-              </ul>
-            </li>
           </ul>
         </div>
       </div>
