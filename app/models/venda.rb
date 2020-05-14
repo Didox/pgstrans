@@ -778,7 +778,7 @@ class Venda < ApplicationRecord
     UnitelSequence.create(sequence_id: sequence_id, venda_id: venda.id)
 
     if venda.sucesso?
-      ContaCorrente.create!(
+      ContaCorrente.new(
         usuario: usuario,
         valor: "-#{valor}",
         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
@@ -786,7 +786,7 @@ class Venda < ApplicationRecord
         partner_id: parceiro.id,
         banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
         iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
-      )
+      ).save
     end
 
     return venda
