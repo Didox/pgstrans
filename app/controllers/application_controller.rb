@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
       end
 
       if administrador.present?
-        return true if self.class.to_s == "WelcomeController"
+	return true if self.class.to_s == "WelcomeController"
 
         if administrador.acessos.blank?
           flash[:erro] = "Usuário sem permissão de acesso a página"
