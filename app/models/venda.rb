@@ -187,7 +187,7 @@ class Venda < ApplicationRecord
       lancamento = Lancamento.first if lancamento.blank?
 
       ContaCorrente.create!(
-        usuario: usuario,
+        usuario_id: usuario.id,
         valor: "-#{valor}",
         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
         lancamento_id: lancamento.id,
@@ -444,7 +444,7 @@ class Venda < ApplicationRecord
       lancamento = Lancamento.first if lancamento.blank?
 
       ContaCorrente.create!(
-        usuario: usuario,
+        usuario_id: usuario.id,
         valor: "-#{valor}",
         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
         lancamento_id: lancamento.id,
@@ -585,7 +585,7 @@ class Venda < ApplicationRecord
 
     if venda.sucesso?
       ContaCorrente.create!(
-        usuario: usuario,
+        usuario_id: usuario.id,
         valor: "-#{valor}",
         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
         lancamento: Lancamento.where(nome: "Compra de crédito"),
@@ -710,7 +710,7 @@ class Venda < ApplicationRecord
 
   #     if venda.sucesso?
   #       ContaCorrente.create!(
-  #         usuario: usuario,
+  #         usuario_id: usuario.id,
   #         valor: "-#{valor}",
   #         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
   #         lancamento: Lancamento.where(nome: "Compra de crédito"),
@@ -778,15 +778,15 @@ class Venda < ApplicationRecord
     UnitelSequence.create(sequence_id: sequence_id, venda_id: venda.id)
 
     if venda.sucesso?
-      ContaCorrente.new(
-        usuario: usuario,
+      ContaCorrente.create!(
+        usuario_id: usuario.id,
         valor: "-#{valor}",
         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
         lancamento: Lancamento.where(nome: "Compra de crédito"),
         partner_id: parceiro.id,
         banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
         iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
-      ).save
+      )
     end
 
     return venda
