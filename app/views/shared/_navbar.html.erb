@@ -7,7 +7,7 @@
         <%= link_to image_tag("PagaSo-Logo.png", class: "logo"), "https://www.pagaso.co.ao", target: "_blank" %>
       </div>
 
-      <div class="col-4  - d-flex justify-content-end align-items-center jsmenu">
+      <div class="col-4 d-flex justify-content-end align-items-center jsmenu">
         <div class="usuario_logado_mobile">
           <a class="text-muted jsdropdown" id="jsItensMenu" href="javascript:;">
             <span class="fa fa-user text-muted"></span> <%= usuario_logado.nome.camelize.split(" ").first rescue usuario_logado.nome.camelize %>
@@ -17,7 +17,7 @@
             <div>Seu último acesso: <%= usuario_logado.ultimo_acesso.strftime("%d/%m/%Y %H:%M") rescue "" %></div>
             <div><a class="text-muted" href="<%= edit_usuario_path(usuario_logado) %>"><span class="fa fa-user"></span> Perfil</a></div>
             <div style="display: inline-block;">
-              <a class="text-muted" class="btn btn-sm btn-outline-secondary" href="<%= logout_path %>">Sair - </a>
+              <a class="text-muted" class="btn btn-sm btn-outline-secondary" href="<%= logout_path %>">Sair</a>
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@
             </div>
           </div>
           <div style="display: inline-block;">
-            <a class="text-muted" class="btn btn-sm btn-outline-secondary" href="<%= logout_path %>">Sair - </a>
+            <a class="text-muted" class="btn btn-sm btn-outline-secondary" href="<%= logout_path %>">Sair</a>
           </div>
         </div>
 
