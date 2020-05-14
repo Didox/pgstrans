@@ -115,91 +115,89 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_zaptv(params, usuario)
-    ActiveRecord::Base.transaction do
-      parceiro = Partner.where("lower(slug) = 'zaptv'").first
-      valor = params[:valor].to_i
-      parametro = Parametro.where(partner_id: parceiro.id).first
+    parceiro = Partner.where("lower(slug) = 'zaptv'").first
+    valor = params[:valor].to_i
+    parametro = Parametro.where(partner_id: parceiro.id).first
 
-      raise "Saldo insuficiente para recarga" if usuario.saldo < valor
-      raise "Parceiro não localizado" if parceiro.blank?
-      raise "Parâmetros não localizados" if parametro.blank?
-      raise "Selecione o valor" if params[:valor].blank?
-      raise "Digite o telemovel" if params[:zaptv_cartao].blank?
-      raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
+    raise "Saldo insuficiente para recarga" if usuario.saldo < valor
+    raise "Parceiro não localizado" if parceiro.blank?
+    raise "Parâmetros não localizados" if parametro.blank?
+    raise "Selecione o valor" if params[:valor].blank?
+    raise "Digite o telemovel" if params[:zaptv_cartao].blank?
+    raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
 
-      telefone = params[:zaptv_cartao]
-      request_id = Time.now.strftime("%d%m%Y%H%M%S")
+    telefone = params[:zaptv_cartao]
+    request_id = Time.now.strftime("%d%m%Y%H%M%S")
 
-      if Rails.env == "development"
-        host = "#{parametro.url_integracao_desenvolvimento}/carregamento"
-        api_key = parametro.api_key_zaptv_desenvolvimento
-      else
-        host = "#{parametro.url_integracao_producao}/carregamento"
-        api_key = parametro.api_key_zaptv_producao
-      end
-
-      raise "Produto não selecionado" if params[:zaptv_produto_id].blank?
-      product_id = params[:zaptv_produto_id].split("-").first
-
-      body_send = {
-        :price => params[:valor].to_f, 
-        :product_code => product_id, #produto importado zap
-        :product_quantity => 1, 
-        :source_reference => request_id, #meu código 
-        :zappi => telefone #Iremos receber este numero
-      }.to_json
-
-
-      res = HTTParty.post(
-        host, 
-        headers: {
-          "apikey" => api_key,
-          "Content-Type" => "application/json"
-        },
-        :body => body_send
-      )
-
-      venda = Venda.create(product_id: product_id, agent_id: parametro.zaptv_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
-
-      venda.store_id = usuario.sub_agente.store_id_parceiro
-      venda.seller_id = usuario.sub_agente.seller_id_parceiro
-      venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
-
-      venda.request_send = "#{host} ------ api_key=#{api_key} -------- body=#{body_send}"
-      venda.response_get = res.body
-
-      begin
-        venda.status = JSON.parse(res.body)["status_code"]
-      rescue;end
-      venda.status ||= res.code
-      venda.save!
-
-      if venda.sucesso?
-        cc = ContaCorrente.where(usuario_id: usuario.id).first
-        if cc.blank?
-          banco = Banco.first
-          iban = ""
-        else
-          iban = cc.iban
-          banco = cc.banco
-        end
-
-        lancamento = Lancamento.where(nome: "Compra de crédito").first
-        lancamento = Lancamento.first if lancamento.blank?
-
-        ContaCorrente.create!(
-          usuario: usuario,
-          valor: "-#{valor}",
-          observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-          lancamento_id: lancamento.id,
-          banco_id: banco.id,
-          partner_id: parceiro.id,
-          iban: iban
-        )
-      end
-
-      return venda
+    if Rails.env == "development"
+      host = "#{parametro.url_integracao_desenvolvimento}/carregamento"
+      api_key = parametro.api_key_zaptv_desenvolvimento
+    else
+      host = "#{parametro.url_integracao_producao}/carregamento"
+      api_key = parametro.api_key_zaptv_producao
     end
+
+    raise "Produto não selecionado" if params[:zaptv_produto_id].blank?
+    product_id = params[:zaptv_produto_id].split("-").first
+
+    body_send = {
+      :price => params[:valor].to_f, 
+      :product_code => product_id, #produto importado zap
+      :product_quantity => 1, 
+      :source_reference => request_id, #meu código 
+      :zappi => telefone #Iremos receber este numero
+    }.to_json
+
+
+    res = HTTParty.post(
+      host, 
+      headers: {
+        "apikey" => api_key,
+        "Content-Type" => "application/json"
+      },
+      :body => body_send
+    )
+
+    venda = Venda.create(product_id: product_id, agent_id: parametro.zaptv_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+
+    venda.store_id = usuario.sub_agente.store_id_parceiro
+    venda.seller_id = usuario.sub_agente.seller_id_parceiro
+    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+
+    venda.request_send = "#{host} ------ api_key=#{api_key} -------- body=#{body_send}"
+    venda.response_get = res.body
+
+    begin
+      venda.status = JSON.parse(res.body)["status_code"]
+    rescue;end
+    venda.status ||= res.code
+    venda.save!
+
+    if venda.sucesso?
+      cc = ContaCorrente.where(usuario_id: usuario.id).first
+      if cc.blank?
+        banco = Banco.first
+        iban = ""
+      else
+        iban = cc.iban
+        banco = cc.banco
+      end
+
+      lancamento = Lancamento.where(nome: "Compra de crédito").first
+      lancamento = Lancamento.first if lancamento.blank?
+
+      ContaCorrente.create!(
+        usuario: usuario,
+        valor: "-#{valor}",
+        observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+        lancamento_id: lancamento.id,
+        banco_id: banco.id,
+        partner_id: parceiro.id,
+        iban: iban
+      )
+    end
+
+    return venda
   end
 
    def status_movicel
@@ -277,188 +275,186 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_movicel(params, usuario)
-    ActiveRecord::Base.transaction do
-      parceiro = Partner.where("lower(slug) = 'movicel'").first
-      valor = params[:valor].to_i
-      parametro = Parametro.where(partner_id: parceiro.id).first
+    parceiro = Partner.where("lower(slug) = 'movicel'").first
+    valor = params[:valor].to_i
+    parametro = Parametro.where(partner_id: parceiro.id).first
 
-      raise "Parâmetros não localizados" if parametro.blank?
-      raise "Saldo insuficiente para recarga" if usuario.saldo < valor
-      raise "Parceiro não localizado" if parceiro.blank?
-      raise "Selecione o valor" if params[:valor].blank?
-      raise "Digite o telemóvel" if params[:movicel_telefone].blank?
-      raise "Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador." if usuario.sub_agente.blank?
+    raise "Parâmetros não localizados" if parametro.blank?
+    raise "Saldo insuficiente para recarga" if usuario.saldo < valor
+    raise "Parceiro não localizado" if parceiro.blank?
+    raise "Selecione o valor" if params[:valor].blank?
+    raise "Digite o telemóvel" if params[:movicel_telefone].blank?
+    raise "Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador." if usuario.sub_agente.blank?
 
-      telefone = params[:movicel_telefone]
+    telefone = params[:movicel_telefone]
 
-      raise "Produto não selecionado" if params[:movicel_produto_id].blank?
-      product_id = params[:movicel_produto_id].split("-").first
+    raise "Produto não selecionado" if params[:movicel_produto_id].blank?
+    product_id = params[:movicel_produto_id].split("-").first
 
-      require 'openssl'
+    require 'openssl'
 
-      if Rails.env == "development"
-        url_service = parametro.url_integracao_desenvolvimento
-        agent_key = parametro.agent_key_movicel_desenvolvimento
-        user_id = parametro.user_id_movicel_desenvolvimento
-      else
-        url_service = parametro.url_integracao_producao
-        agent_key = parametro.agent_key_movicel_producao
-        user_id = parametro.user_id_movicel_producao
-      end
+    if Rails.env == "development"
+      url_service = parametro.url_integracao_desenvolvimento
+      agent_key = parametro.agent_key_movicel_desenvolvimento
+      user_id = parametro.user_id_movicel_desenvolvimento
+    else
+      url_service = parametro.url_integracao_producao
+      agent_key = parametro.agent_key_movicel_producao
+      user_id = parametro.user_id_movicel_producao
+    end
 
-      #producao
+    #producao
 
-      #homologacao
-      # agent_key = "5CF0AC45050B030B9E3A5FC14A5D7C8B609B2BDD40119B5C32539E1F3B6CEF7F"
-      # url_service = "http://wsqa.movicel.co.ao:10071"
+    #homologacao
+    # agent_key = "5CF0AC45050B030B9E3A5FC14A5D7C8B609B2BDD40119B5C32539E1F3B6CEF7F"
+    # url_service = "http://wsqa.movicel.co.ao:10071"
 
-      msisdn = telefone
-      request_id = Time.now.strftime("%d%m%Y%H%M%S")
+    msisdn = telefone
+    request_id = Time.now.strftime("%d%m%Y%H%M%S")
 
-      cripto = "AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto"
-      pass = `#{cripto}`
-      # pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/mac/encripto`
-      pass = pass.strip
+    cripto = "AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto"
+    pass = `#{cripto}`
+    # pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/mac/encripto`
+    pass = pass.strip
 
-      request_send = ""
-      response_get = ""
-      last_request = ""
+    request_send = ""
+    response_get = ""
+    last_request = ""
+
+    body = "
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
+        <soapenv:Header>
+         <int:ValidateTopupReqHeader>
+            <mid:RequestId>#{request_id}</mid:RequestId>
+            <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
+            <mid:SourceSystem>#{user_id}</mid:SourceSystem>  
+            <mid:Credentials>
+               <mid:User>#{user_id}</mid:User>
+               <mid:Password>#{pass}</mid:Password>
+               </mid:Credentials>
+               <!--Optional:--> 
+            </int:ValidateTopupReqHeader>
+        </soapenv:Header>
+        <soapenv:Body>
+            <int:ValidateTopupReq>
+               <!--Optional:-->
+               <int:ValidateTopupReqBody>
+                  <mid1:Amount>#{valor}</mid1:Amount>
+                  <mid1:MSISDN>#{msisdn}</mid1:MSISDN>
+               </int:ValidateTopupReqBody>
+            </int:ValidateTopupReq>
+        </soapenv:Body>
+      </soapenv:Envelope>
+    "
+
+    request_send += "=========[ValidateTopup]========"
+    request_send += cripto
+    request_send += "=========[Cripto]========"
+    request_send += body
+    request_send += "=========[ValidateTopup]========"
+
+    url = "#{url_service}/DirectTopupService/Topup/"
+    uri = URI.parse(URI.escape(url))
+    request = HTTParty.post(uri, 
+      :headers => {
+        'Content-Type' => 'text/xml;charset=UTF-8',
+        'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
+      },
+      :body => body
+    )
+
+    response_get += "=========[ValidateTopup]========"
+    response_get += request.body
+    response_get += "=========[ValidateTopup]========"
+
+    if (200...300).include?(request.code.to_i) && request.body.include?("200</ReturnCode>")
 
       body = "
         <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
           <soapenv:Header>
-           <int:ValidateTopupReqHeader>
-              <mid:RequestId>#{request_id}</mid:RequestId>
-              <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
-              <mid:SourceSystem>#{user_id}</mid:SourceSystem>  
-              <mid:Credentials>
-                 <mid:User>#{user_id}</mid:User>
-                 <mid:Password>#{pass}</mid:Password>
+              <int:TopupReqHeader>
+                 <mid:RequestId>#{request_id}</mid:RequestId>
+                 <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
+                 <!--Optional:-->
+                 <mid:SourceSystem>#{user_id}</mid:SourceSystem>
+                 <mid:Credentials>
+                    <mid:User>#{user_id}</mid:User>
+                    <mid:Password>#{pass}</mid:Password>
                  </mid:Credentials>
-                 <!--Optional:--> 
-              </int:ValidateTopupReqHeader>
+                 <!--Optional:-->        
+              </int:TopupReqHeader>
           </soapenv:Header>
           <soapenv:Body>
-              <int:ValidateTopupReq>
+              <int:TopupReq>
                  <!--Optional:-->
-                 <int:ValidateTopupReqBody>
+                 <int:TopupReqBody>
                     <mid1:Amount>#{valor}</mid1:Amount>
                     <mid1:MSISDN>#{msisdn}</mid1:MSISDN>
-                 </int:ValidateTopupReqBody>
-              </int:ValidateTopupReq>
+                    <!--Optional:-->
+                    <mid1:Type>Default</mid1:Type>
+                 </int:TopupReqBody>
+              </int:TopupReq>
           </soapenv:Body>
         </soapenv:Envelope>
       "
 
-      request_send += "=========[ValidateTopup]========"
-      request_send += cripto
-      request_send += "=========[Cripto]========"
+      request_send += "=========[Topup]========"
       request_send += body
-      request_send += "=========[ValidateTopup]========"
+      request_send += "=========[Topup]========"
 
       url = "#{url_service}/DirectTopupService/Topup/"
       uri = URI.parse(URI.escape(url))
       request = HTTParty.post(uri, 
         :headers => {
           'Content-Type' => 'text/xml;charset=UTF-8',
-          'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
+          'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
         },
         :body => body
       )
-
-      response_get += "=========[ValidateTopup]========"
+      
+      response_get += "=========[Topup]========"
       response_get += request.body
-      response_get += "=========[ValidateTopup]========"
+      response_get += "=========[Topup]========"
 
-      if (200...300).include?(request.code.to_i) && request.body.include?("200</ReturnCode>")
-
-        body = "
-          <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
-            <soapenv:Header>
-                <int:TopupReqHeader>
-                   <mid:RequestId>#{request_id}</mid:RequestId>
-                   <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
-                   <!--Optional:-->
-                   <mid:SourceSystem>#{user_id}</mid:SourceSystem>
-                   <mid:Credentials>
-                      <mid:User>#{user_id}</mid:User>
-                      <mid:Password>#{pass}</mid:Password>
-                   </mid:Credentials>
-                   <!--Optional:-->        
-                </int:TopupReqHeader>
-            </soapenv:Header>
-            <soapenv:Body>
-                <int:TopupReq>
-                   <!--Optional:-->
-                   <int:TopupReqBody>
-                      <mid1:Amount>#{valor}</mid1:Amount>
-                      <mid1:MSISDN>#{msisdn}</mid1:MSISDN>
-                      <!--Optional:-->
-                      <mid1:Type>Default</mid1:Type>
-                   </int:TopupReqBody>
-                </int:TopupReq>
-            </soapenv:Body>
-          </soapenv:Envelope>
-        "
-
-        request_send += "=========[Topup]========"
-        request_send += body
-        request_send += "=========[Topup]========"
-
-        url = "#{url_service}/DirectTopupService/Topup/"
-        uri = URI.parse(URI.escape(url))
-        request = HTTParty.post(uri, 
-          :headers => {
-            'Content-Type' => 'text/xml;charset=UTF-8',
-            'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
-          },
-          :body => body
-        )
-        
-        response_get += "=========[Topup]========"
-        response_get += request.body
-        response_get += "=========[Topup]========"
-
-        last_request = request.body
-      end
-
-      venda = Venda.create(product_id:product_id, agent_id: parametro.movicel_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
-
-      venda.store_id = usuario.sub_agente.store_id_parceiro
-      venda.seller_id = usuario.sub_agente.seller_id_parceiro
-      venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
-
-      venda.request_send = request_send
-      venda.response_get = response_get
-      venda.status = last_request.scan(/ReturnCode.*?<\/ReturnCode/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue "3"
-      venda.save!
-
-      if venda.sucesso?
-        cc = ContaCorrente.where(usuario_id: usuario.id).first
-        if cc.blank?
-          banco = Banco.first
-          iban = ""
-        else
-          iban = cc.iban
-          banco = cc.banco
-        end
-
-        lancamento = Lancamento.where(nome: "Compra de crédito").first
-        lancamento = Lancamento.first if lancamento.blank?
-
-        ContaCorrente.create!(
-          usuario: usuario,
-          valor: "-#{valor}",
-          observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-          lancamento_id: lancamento.id,
-          banco_id: banco.id,
-          partner_id: parceiro.id,
-          iban: iban
-        )
-      end
-
-      return venda
+      last_request = request.body
     end
+
+    venda = Venda.create(product_id:product_id, agent_id: parametro.movicel_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+
+    venda.store_id = usuario.sub_agente.store_id_parceiro
+    venda.seller_id = usuario.sub_agente.seller_id_parceiro
+    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+
+    venda.request_send = request_send
+    venda.response_get = response_get
+    venda.status = last_request.scan(/ReturnCode.*?<\/ReturnCode/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue "3"
+    venda.save!
+
+    if venda.sucesso?
+      cc = ContaCorrente.where(usuario_id: usuario.id).first
+      if cc.blank?
+        banco = Banco.first
+        iban = ""
+      else
+        iban = cc.iban
+        banco = cc.banco
+      end
+
+      lancamento = Lancamento.where(nome: "Compra de crédito").first
+      lancamento = Lancamento.first if lancamento.blank?
+
+      ContaCorrente.create!(
+        usuario: usuario,
+        valor: "-#{valor}",
+        observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+        lancamento_id: lancamento.id,
+        banco_id: banco.id,
+        partner_id: parceiro.id,
+        iban: iban
+      )
+    end
+
+    return venda
   end
 
   def status_dstv
@@ -469,139 +465,137 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_dstv(params, usuario)
-    ActiveRecord::Base.transaction do
-      parceiro = Partner.where("lower(slug) = 'dstv'").first
-      valor = params[:valor].to_i
-      parametro = Parametro.where(partner_id: parceiro.id).first
+    parceiro = Partner.where("lower(slug) = 'dstv'").first
+    valor = params[:valor].to_i
+    parametro = Parametro.where(partner_id: parceiro.id).first
 
-      raise "Parâmetros não localizados" if parametro.blank?
-      raise "Saldo insuficiente para recarga" if usuario.saldo < valor
-      raise "Parceiro não localizado" if parceiro.blank?
-      raise "Selecione o valor" if params[:valor].blank?
-      raise "Digite o Nº SmartCard" if params[:dstv_smart_card].blank?
-      raise "Talão p/SMS" if params[:talao_sms].blank?
-      raise "Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador." if usuario.sub_agente.blank?
-      raise "Produto não selecionado" if params[:dstv_produto_id].blank?
+    raise "Parâmetros não localizados" if parametro.blank?
+    raise "Saldo insuficiente para recarga" if usuario.saldo < valor
+    raise "Parceiro não localizado" if parceiro.blank?
+    raise "Selecione o valor" if params[:valor].blank?
+    raise "Digite o Nº SmartCard" if params[:dstv_smart_card].blank?
+    raise "Talão p/SMS" if params[:talao_sms].blank?
+    raise "Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador." if usuario.sub_agente.blank?
+    raise "Produto não selecionado" if params[:dstv_produto_id].blank?
 
-      product_id = params[:dstv_produto_id].split("-").first
+    product_id = params[:dstv_produto_id].split("-").first
 
-      require 'openssl'
+    require 'openssl'
 
-      transaction_number = (Venda.order("id desc").first.id + 1)
+    transaction_number = (Venda.order("id desc").first.id + 1)
 
-      if Rails.env == "development"
-        url_service = parametro.url_integracao_desenvolvimento
-        data_source = parametro.data_source_dstv_desenvolvimento
-        payment_vendor_code = parametro.payment_vendor_code_dstv_desenvolvimento
-        vendor_code = parametro.vendor_code_dstv_desenvolvimento
-        agent_account = parametro.agent_account_dstv_desenvolvimento
-        currency = parametro.currency_dstv_desenvolvimento
-        product_user_key = parametro.product_user_key_dstv_desenvolvimento
-        mop = parametro.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM "
-        agent_number = parametro.agent_number_dstv_desenvolvimento #122434345
-      else
-        url_service = parametro.url_integracao_producao
-        data_source = parametro.data_source_dstv_producao
-        payment_vendor_code = parametro.payment_vendor_code_dstv_producao
-        vendor_code = parametro.vendor_code_dstv_producao
-        agent_account = parametro.agent_account_dstv_producao
-        currency = parametro.currency_dstv_producao
-        product_user_key = parametro.product_user_key_dstv_producao
-        mop = parametro.mop_dstv_producao # mop = "CASH, MOBILE or ATM "
-        agent_number = parametro.agent_number_dstv_producao #122434345
-      end
-
-      request_send = ""
-      response_get = ""
-      last_request = ""
-
-      body = "
-        <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
-           <soapenv:Header/>
-           <soapenv:Body>
-              <sel:AgentSubmitPayment>
-                 <!--Optional:-->
-                 <sel:agentPaymentRequest>
-                    <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
-                    <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
-                    <sel1:dataSource>#{data_source}</sel1:dataSource>
-                    <sel1:customerNumber>#{params[:dstv_smart_card]}</sel1:customerNumber>
-                    <sel1:amount>#{params[:valor]}</sel1:amount>
-                    <sel1:invoicePeriod>12</sel1:invoicePeriod>
-                    <sel1:currency>AOA</sel1:currency>
-                    <sel1:paymentDescription>?</sel1:paymentDescription>
-                    <sel1:methodofPayment>CASH</sel1:methodofPayment>
-                    <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
-                    <sel1:productCollection>
-                       <!--Zero or more repetitions:-->
-                       <sel1:Product>
-                          <!--Optional:-->
-                          <sel1:productUserkey>#{product_id}</sel1:productUserkey>
-                       </sel1:Product>
-                    </sel1:productCollection>
-                    <!--Optional:-->
-                    <sel1:baskedId>0</sel1:baskedId>
-                 </sel:agentPaymentRequest>
-                 <!--Optional:-->
-                 <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-                 <!--Optional:-->
-                 <sel:language>PT</sel:language>
-                 <!--Optional:-->
-                 <sel:ipAddress>?</sel:ipAddress>
-                 <!--Optional:-->
-                 <sel:businessUnit>?</sel:businessUnit>
-              </sel:AgentSubmitPayment>
-           </soapenv:Body>
-        </soapenv:Envelope>
-      "
-
-      request_send += "=========[SubmitPaymentBySmartCard]========"
-      request_send += body
-      request_send += "=========[SubmitPaymentBySmartCard]========"
-
-      #http://uat.mcadigitalmedia.com/VendorSelfCare/SelfCareService.svc?wsdl
-      url = "#{url_service}/VendorSelfCare/SelfCareService.svc"
-      uri = URI.parse(URI.escape(url))
-      request = HTTParty.post(uri, 
-        :headers => {
-          'Content-Type' => 'text/xml;charset=UTF-8',
-          'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/AgentSubmitPayment",
-        },
-        :body => body
-      )
-      
-      response_get += "=========[SubmitPaymentBySmartCard]========"
-      response_get += request.body
-      response_get += "=========[SubmitPaymentBySmartCard]========"
-
-      last_request = request.body
-      
-      venda = Venda.create(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
-
-      venda.store_id = usuario.sub_agente.store_id_parceiro
-      venda.seller_id = usuario.sub_agente.seller_id_parceiro
-      venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
-
-      venda.request_send = request_send
-      venda.response_get = response_get
-      venda.status = last_request.scan(/receiptNumber.*?<\/receiptNumber/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue "3"
-
-      venda.save!
-
-      if venda.sucesso?
-        ContaCorrente.create!(
-          usuario: usuario,
-          valor: "-#{valor}",
-          observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-          lancamento: Lancamento.where(nome: "Compra de crédito"),
-          banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
-          partner_id: parceiro.id,
-          iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
-        )
-      end
-
-      return venda
+    if Rails.env == "development"
+      url_service = parametro.url_integracao_desenvolvimento
+      data_source = parametro.data_source_dstv_desenvolvimento
+      payment_vendor_code = parametro.payment_vendor_code_dstv_desenvolvimento
+      vendor_code = parametro.vendor_code_dstv_desenvolvimento
+      agent_account = parametro.agent_account_dstv_desenvolvimento
+      currency = parametro.currency_dstv_desenvolvimento
+      product_user_key = parametro.product_user_key_dstv_desenvolvimento
+      mop = parametro.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM "
+      agent_number = parametro.agent_number_dstv_desenvolvimento #122434345
+    else
+      url_service = parametro.url_integracao_producao
+      data_source = parametro.data_source_dstv_producao
+      payment_vendor_code = parametro.payment_vendor_code_dstv_producao
+      vendor_code = parametro.vendor_code_dstv_producao
+      agent_account = parametro.agent_account_dstv_producao
+      currency = parametro.currency_dstv_producao
+      product_user_key = parametro.product_user_key_dstv_producao
+      mop = parametro.mop_dstv_producao # mop = "CASH, MOBILE or ATM "
+      agent_number = parametro.agent_number_dstv_producao #122434345
     end
+
+    request_send = ""
+    response_get = ""
+    last_request = ""
+
+    body = "
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
+         <soapenv:Header/>
+         <soapenv:Body>
+            <sel:AgentSubmitPayment>
+               <!--Optional:-->
+               <sel:agentPaymentRequest>
+                  <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
+                  <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
+                  <sel1:dataSource>#{data_source}</sel1:dataSource>
+                  <sel1:customerNumber>#{params[:dstv_smart_card]}</sel1:customerNumber>
+                  <sel1:amount>#{params[:valor]}</sel1:amount>
+                  <sel1:invoicePeriod>12</sel1:invoicePeriod>
+                  <sel1:currency>AOA</sel1:currency>
+                  <sel1:paymentDescription>?</sel1:paymentDescription>
+                  <sel1:methodofPayment>CASH</sel1:methodofPayment>
+                  <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
+                  <sel1:productCollection>
+                     <!--Zero or more repetitions:-->
+                     <sel1:Product>
+                        <!--Optional:-->
+                        <sel1:productUserkey>#{product_id}</sel1:productUserkey>
+                     </sel1:Product>
+                  </sel1:productCollection>
+                  <!--Optional:-->
+                  <sel1:baskedId>0</sel1:baskedId>
+               </sel:agentPaymentRequest>
+               <!--Optional:-->
+               <sel:VendorCode>#{vendor_code}</sel:VendorCode>
+               <!--Optional:-->
+               <sel:language>PT</sel:language>
+               <!--Optional:-->
+               <sel:ipAddress>?</sel:ipAddress>
+               <!--Optional:-->
+               <sel:businessUnit>?</sel:businessUnit>
+            </sel:AgentSubmitPayment>
+         </soapenv:Body>
+      </soapenv:Envelope>
+    "
+
+    request_send += "=========[SubmitPaymentBySmartCard]========"
+    request_send += body
+    request_send += "=========[SubmitPaymentBySmartCard]========"
+
+    #http://uat.mcadigitalmedia.com/VendorSelfCare/SelfCareService.svc?wsdl
+    url = "#{url_service}/VendorSelfCare/SelfCareService.svc"
+    uri = URI.parse(URI.escape(url))
+    request = HTTParty.post(uri, 
+      :headers => {
+        'Content-Type' => 'text/xml;charset=UTF-8',
+        'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/AgentSubmitPayment",
+      },
+      :body => body
+    )
+    
+    response_get += "=========[SubmitPaymentBySmartCard]========"
+    response_get += request.body
+    response_get += "=========[SubmitPaymentBySmartCard]========"
+
+    last_request = request.body
+    
+    venda = Venda.create(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
+
+    venda.store_id = usuario.sub_agente.store_id_parceiro
+    venda.seller_id = usuario.sub_agente.seller_id_parceiro
+    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+
+    venda.request_send = request_send
+    venda.response_get = response_get
+    venda.status = last_request.scan(/receiptNumber.*?<\/receiptNumber/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue "3"
+
+    venda.save!
+
+    if venda.sucesso?
+      ContaCorrente.create!(
+        usuario: usuario,
+        valor: "-#{valor}",
+        observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+        lancamento: Lancamento.where(nome: "Compra de crédito"),
+        banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
+        partner_id: parceiro.id,
+        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
+      )
+    end
+
+    return venda
   end
 
 
@@ -731,72 +725,70 @@ class Venda < ApplicationRecord
   # end
 
   def self.venda_unitel(params, usuario)
-    ActiveRecord::Base.transaction do
-      parceiro = Partner.where("lower(slug) = 'unitel'").first
-      valor = params[:valor].to_i
-      parametro = Parametro.where(partner_id: parceiro.id).first
+    parceiro = Partner.where("lower(slug) = 'unitel'").first
+    valor = params[:valor].to_i
+    parametro = Parametro.where(partner_id: parceiro.id).first
 
-      raise "Parâmetros não localizados" if parametro.blank?
-      raise "Saldo insuficiente para recarga" if usuario.saldo < valor
-      raise "Parceiro não localizado" if parceiro.blank?
-      raise "Produto não selecionado" if params[:unitel_produto_id].blank?
-      raise "Selecione o valor" if params[:valor].blank?
-      raise "Digite o telemóvel" if params[:unitel_telefone].blank?
-      raise "Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador." if usuario.sub_agente.blank?
+    raise "Parâmetros não localizados" if parametro.blank?
+    raise "Saldo insuficiente para recarga" if usuario.saldo < valor
+    raise "Parceiro não localizado" if parceiro.blank?
+    raise "Produto não selecionado" if params[:unitel_produto_id].blank?
+    raise "Selecione o valor" if params[:valor].blank?
+    raise "Digite o telemóvel" if params[:unitel_telefone].blank?
+    raise "Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador." if usuario.sub_agente.blank?
 
-      product_id = params[:unitel_produto_id].split("-").first
-      telefone = params[:unitel_telefone]
+    product_id = params[:unitel_produto_id].split("-").first
+    telefone = params[:unitel_telefone]
 
-      venda = Venda.create(agent_id: parametro.unitel_agente_id, product_id: product_id, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.create(agent_id: parametro.unitel_agente_id, product_id: product_id, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
 
-      venda.store_id = usuario.sub_agente.store_id_parceiro
-      venda.seller_id = usuario.sub_agente.seller_id_parceiro
-      venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+    venda.store_id = usuario.sub_agente.store_id_parceiro
+    venda.seller_id = usuario.sub_agente.seller_id_parceiro
+    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
 
-      sequence = UnitelSequence.order("id desc").first
-      if sequence.blank?
-        sequence_id = 1
-      else
-        sequence_id = sequence.sequence_id + 1
-      end
-      
-      if Rails.env == "development"
-        make_sale_endpoint = "#{parametro.url_integracao_desenvolvimento}/spgw/V2/makeSale"
-      else
-        make_sale_endpoint = "#{parametro.url_integracao_producao}/spgw/V2/makeSale"
-      end
-
-      # ./chaves/unitel_recarga.sh '7' '9' '114250' '' '' '' '500' '244998524570' 'https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale'
-      
-      if Rails.env == "development"
-        dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
-      else
-        dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
-      end
-
-      retorno = `#{dados_envio}`
-      venda.request_send, venda.response_get = retorno.split(" --- ")
-
-      venda.request_send = "#{venda.request_send} ========== #{dados_envio}"
-
-      venda.status = venda.response_get_parse["statusCode"] rescue "3"
-      venda.save!
-
-      UnitelSequence.create(sequence_id: sequence_id, venda_id: venda.id)
-
-      if venda.sucesso?
-        ContaCorrente.create!(
-          usuario: usuario,
-          valor: "-#{valor}",
-          observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-          lancamento: Lancamento.where(nome: "Compra de crédito"),
-          partner_id: parceiro.id,
-          banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
-          iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
-        )
-      end
-
-      return venda
+    sequence = UnitelSequence.order("id desc").first
+    if sequence.blank?
+      sequence_id = 1
+    else
+      sequence_id = sequence.sequence_id + 1
     end
+    
+    if Rails.env == "development"
+      make_sale_endpoint = "#{parametro.url_integracao_desenvolvimento}/spgw/V2/makeSale"
+    else
+      make_sale_endpoint = "#{parametro.url_integracao_producao}/spgw/V2/makeSale"
+    end
+
+    # ./chaves/unitel_recarga.sh '7' '9' '114250' '' '' '' '500' '244998524570' 'https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale'
+    
+    if Rails.env == "development"
+      dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+    else
+      dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+    end
+
+    retorno = `#{dados_envio}`
+    venda.request_send, venda.response_get = retorno.split(" --- ")
+
+    venda.request_send = "#{venda.request_send} ========== #{dados_envio}"
+
+    venda.status = venda.response_get_parse["statusCode"] rescue "3"
+    venda.save!
+
+    UnitelSequence.create(sequence_id: sequence_id, venda_id: venda.id)
+
+    if venda.sucesso?
+      ContaCorrente.create!(
+        usuario: usuario,
+        valor: "-#{valor}",
+        observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+        lancamento: Lancamento.where(nome: "Compra de crédito"),
+        partner_id: parceiro.id,
+        banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
+        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
+      )
+    end
+
+    return venda
   end
 end
