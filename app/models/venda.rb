@@ -183,7 +183,7 @@ class Venda < ApplicationRecord
         banco = cc.banco
       end
 
-      lancamento = Lancamento.where(nome: "Compra de crédito").first
+      lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
       lancamento = Lancamento.first if lancamento.blank?
 
       ContaCorrente.create!(
@@ -440,7 +440,7 @@ class Venda < ApplicationRecord
         banco = cc.banco
       end
 
-      lancamento = Lancamento.where(nome: "Compra de crédito").first
+      lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
       lancamento = Lancamento.first if lancamento.blank?
 
       ContaCorrente.create!(
@@ -588,8 +588,8 @@ class Venda < ApplicationRecord
         usuario_id: usuario.id,
         valor: "-#{valor}",
         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-        lancamento_id: Lancamento.where(nome: "Compra de crédito").first.id,
-        banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
+        lancamento_id: Lancamento.where(nome: "Compra de crédito ou recarga").first.id,
+        banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
         partner_id: parceiro.id,
         iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
       )
@@ -713,8 +713,8 @@ class Venda < ApplicationRecord
   #         usuario_id: usuario.id,
   #         valor: "-#{valor}",
   #         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-  #         lancamento_id: Lancamento.where(nome: "Compra de crédito").first.id,
-  #         banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
+  #         lancamento_id: Lancamento.where(nome: "Compra de crédito ou recarga").first.id,
+  #         banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
   #         partner_id: parceiro.id,
   #         iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
   #       )
@@ -782,9 +782,9 @@ class Venda < ApplicationRecord
         usuario_id: usuario.id,
         valor: "-#{valor}",
         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-        lancamento_id: Lancamento.where(nome: "Compra de crédito").first.id,
+        lancamento_id: Lancamento.where(nome: "Compra de crédito ou recarga").first.id,
         partner_id: parceiro.id,
-        banco: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
+        banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
         iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
       )
     end

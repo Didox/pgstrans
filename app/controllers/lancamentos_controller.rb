@@ -26,6 +26,12 @@ class LancamentosController < ApplicationController
   def create
     @lancamento = Lancamento.new(lancamento_params)
 
+    if @lancamento.nome != "Compra de crédito ou recarga"
+      flash[:error] = "Este status é de uso interno não pode ser alterado"
+      redirect_to "/lancamentos"
+      return
+    end
+
     respond_to do |format|
       if @lancamento.save
         format.html { redirect_to @lancamento, notice: 'Lancamento foi criado com sucesso.' }
@@ -40,6 +46,12 @@ class LancamentosController < ApplicationController
   # PATCH/PUT /lancamentos/1
   # PATCH/PUT /lancamentos/1.json
   def update
+    if @lancamento.nome != "Compra de crédito ou recarga"
+      flash[:error] = "Este status é de uso interno não pode ser alterado"
+      redirect_to "/lancamentos"
+      return
+    end
+
     respond_to do |format|
       if @lancamento.update(lancamento_params)
         format.html { redirect_to @lancamento, notice: 'Lancamento foi atualizado com sucesso.' }
@@ -54,6 +66,12 @@ class LancamentosController < ApplicationController
   # DELETE /lancamentos/1
   # DELETE /lancamentos/1.json
   def destroy
+    if @lancamento.nome != "Compra de crédito ou recarga"
+      flash[:error] = "Este status é de uso interno não pode ser alterado"
+      redirect_to "/lancamentos"
+      return
+    end
+    
     @lancamento.destroy
     respond_to do |format|
       format.html { redirect_to lancamentos_url, notice: 'Lancamento foi apagado com sucesso.' }
