@@ -195,8 +195,10 @@ class Partner < ApplicationRecord
     )
 
     if (200...300).include?(request.code.to_i)
-      return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue nil
+      return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue 0
     end
+
+    return 0
   end
 
   def saldo_atual_zaptv
@@ -230,6 +232,6 @@ class Partner < ApplicationRecord
   def saldo_atual
     return this.send("saldo_atual_#{self.slug.downcase}")
   rescue Exception => err
-    Rails.logger.info "::::#{err.message}::::"
+    return err.message
   end
 end
