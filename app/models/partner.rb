@@ -230,7 +230,7 @@ class Partner < ApplicationRecord
   end
 
   def saldo_atual
-    return this.send("saldo_atual_#{self.slug.downcase}")
+    return self.send("saldo_atual_#{self.slug.downcase}")
   rescue Exception => err
     return err.message
   end
