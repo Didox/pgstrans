@@ -4,6 +4,8 @@ class Partner < ApplicationRecord
   belongs_to :status_parceiro
   default_scope { order(order: :asc) }
 
+  STORE_ID_ZAP_PARCEIRO = "115356"
+
   def importa_produtos!
     return if self.slug.downcase != "zaptv"
 
@@ -209,7 +211,6 @@ class Partner < ApplicationRecord
       api_key = parametro.api_key_zaptv_producao
     end
 
-    STORE_ID_ZAP_PARCEIRO = "115356"
     url = "#{host}/saldo?code=#{STORE_ID_ZAP_PARCEIRO}"
     res = HTTParty.get(
       url, 
