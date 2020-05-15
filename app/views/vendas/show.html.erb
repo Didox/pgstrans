@@ -35,7 +35,7 @@
       <dt>Data criação:</dt>
       <dd><%= @venda.created_at.strftime("%d/%m/%Y %H:%M") %></dd>
       <dt>Data atualizaçao:</dt>
-      <dd><%= @venda.update_at.strftime("%d/%m/%Y %H:%M") %></dd>
+      <dd><%= @venda.updated_at.strftime("%d/%m/%Y %H:%M") %></dd>
 
       <% if @venda.partner.slug.to_s.downcase == "unitel" %>
         <hr>
