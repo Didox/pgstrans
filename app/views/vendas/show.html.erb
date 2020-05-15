@@ -40,7 +40,7 @@
       <% if venda.partner.slug.to_s.downcase == "unitel" %>
         <hr>
         <dt>Id transação Unitel:</dt>
-        <dd><%= @venda.response_get_parse["idTransaction"] %></dd>
+        <dd><%= @venda.response_get_parse["idTransaction"] rescue "" %></dd>
       <% end %>
     </dl>
 
