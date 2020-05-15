@@ -41,7 +41,7 @@
  KZ <%= number_to_currency(@partner.saldo_atual, :unit => "") %> 
 <%
 =end%>
-      KZ <%= @partner.saldo_atual %>
+      KZ <%= raw @partner.saldo_atual %>
       <%= " - Última atualização em: #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}" %>
     </p>
     <% end %>

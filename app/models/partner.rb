@@ -225,13 +225,13 @@ class Partner < ApplicationRecord
     if (200..300).include?(res.code)
       return JSON.parse(res.body)["saldo"]
     else
-      return "Api Retorno #{res.code} - #{res.body}"
+      return "0 <!-- Api Retorno code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key} -->"
     end
   end
 
   def saldo_atual
     return self.send("saldo_atual_#{self.slug.downcase}")
   rescue Exception => err
-    return err.message
+    return "0 <!--#{err.message} -->"
   end
 end
