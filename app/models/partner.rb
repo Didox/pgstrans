@@ -225,7 +225,7 @@ class Partner < ApplicationRecord
     if (200..300).include?(res.code)
       return JSON.parse(res.body)["saldo"]
     else
-      return 0
+      return "Api Retorno #{res.code} - #{res.body}"
     end
   end
 
