@@ -32,6 +32,16 @@
       <dd><%= @venda.response_get %></dd>
       <dt>Status do processamento na operadora:</dt>
       <dd><%= @venda.status_movicel %></dd>
+      <dt>Data criação:</dt>
+      <dd><%= @venda.created_at.strftime("%d/%m/%Y %H:%M") %></dd>
+      <dt>Data atualizaçao:</dt>
+      <dd><%= @venda.update_at.strftime("%d/%m/%Y %H:%M") %></dd>
+
+      <% if venda.partner.slug.to_s.downcase == "unitel" %>
+        <hr>
+        <dt>Id transação Unitel:</dt>
+        <dd><%= @venda.response_get_parse["idTransaction"] %></dd>
+      <% end %>
     </dl>
 
     <div class="page-header">
