@@ -37,7 +37,7 @@
       <p>
         <strong>Saldo atual:</strong>
         KZ <%= @partner.ultimo_saldo.saldo %>
-        <%= " - Última atualização em: #{@partner.ultimo_saldo.updated_at.strftime("%d/%m/%Y %H:%M")}" %>
+        <%= " - Última atualização em: #{@partner.ultimo_saldo.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
         <hr>
         <%= @partner.ultimo_saldo.log %>
       </p>
@@ -47,7 +47,7 @@
         Atualizar saldo
       <% end %>
     <% end %>
-    
+
     <hr>
 
     <%= link_to edit_partner_path(@partner), class: 'btn btn-danger' do %>
