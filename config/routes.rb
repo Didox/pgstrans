@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   resources :partners do
     get 'importa_dados', to: 'partners#importa_dados'
     get 'importa_produtos', to: 'partners#importa_produtos'
+    get 'atualiza_saldo', to: 'partners#atualiza_saldo'
   end
 
   root 'welcome#index'

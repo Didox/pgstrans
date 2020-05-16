@@ -195,10 +195,20 @@ class Partner < ApplicationRecord
     )
 
     if (200...300).include?(request.code.to_i)
-      return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue 0
+      saldo = Nokogiri::XML(request.body).children.children.children.children.children.children.text
+      SaldoParceiro.create(saldo: saldo, partner_id: self.id, "Saldo atualizado - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
+    else
+      SaldoParceiro.create(saldo: 0, partner_id: self.id, "Erro ao atualizar saldo - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
     end
+  rescue Exception => e
+    SaldoParceiro.create(saldo: 0, partner_id: self.id, "Erro ao atualizar saldo - #{e.message} - #{e.backtrace} - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
+  end
 
-    return 0
+  def ultimo_saldo
+    return SaldoParceiro.where(partner_id: self.id).reorder("id desc").limit(1).first if SaldoParceiro.where(partner_id: self.id).count > 0
+    SaldoParceiro.new
+  rescue
+    SaldoParceiro.new
   end
 
   def saldo_atual_zaptv
@@ -223,13 +233,15 @@ class Partner < ApplicationRecord
     )
 
     if (200..300).include?(res.code)
-      return JSON.parse(res.body)["saldo"]
+      SaldoParceiro.create(saldo: JSON.parse(res.body)["saldo"], partner_id: self.id, "Saldo atualizado - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
     else
-      return "0 <!-- Api Retorno code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key} -->"
+      SaldoParceiro.create(saldo: 0, partner_id: self.id, "Erro ao atualizar saldo - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
     end
+  rescue Exception => e
+    SaldoParceiro.create(saldo: 0, partner_id: self.id, "Erro ao atualizar saldo - #{e.message} - #{e.backtrace} - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
   end
 
-  def saldo_atual
+  def atualiza_saldo!
     return self.send("saldo_atual_#{self.slug.downcase}")
   rescue Exception => err
     return "0 <!--#{err.message} -->"

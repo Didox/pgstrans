@@ -23,6 +23,15 @@ class PartnersController < ApplicationController
     redirect_to partner_url(partner)
   end
 
+  def atualiza_saldo
+    partner = Partner.where(slug: "ZAPTv").first
+    partner.atualiza_saldo!
+
+    flash[:notice] = 'Saldo atualizado com sucesso.'
+    redirect_to partner_url(partner)
+  end
+  
+
   # GET /partners/1
   # GET /partners/1.json
   def show
