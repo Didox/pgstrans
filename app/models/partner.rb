@@ -204,7 +204,7 @@ class Partner < ApplicationRecord
       SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
     end
   rescue Exception => e
-    SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - #{e.message} - #{e.backtrace} - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
+    SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - #{e.message} - #{e.backtrace}")
   end
 
   def ultimo_saldo
@@ -243,7 +243,7 @@ class Partner < ApplicationRecord
       SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
     end
   rescue Exception => e
-    SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - #{e.message} - #{e.backtrace} - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
+    SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - #{e.message} - #{e.backtrace} ")
   end
 
   def atualiza_saldo!
