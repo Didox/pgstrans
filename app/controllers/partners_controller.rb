@@ -1,5 +1,5 @@
 class PartnersController < ApplicationController
-  before_action :set_partner, only: [:show, :edit, :update, :destroy, :importa_produtos, :importa_dados]
+  before_action :set_partner, only: [:show, :edit, :update, :destroy, :atualiza_saldo, :importa_produtos, :importa_dados]
 
   # GET /partners
   # GET /partners.json
@@ -24,8 +24,7 @@ class PartnersController < ApplicationController
   end
 
   def atualiza_saldo
-    partner = Partner.where(slug: "ZAPTv").first
-    partner.atualiza_saldo!
+    @partner.atualiza_saldo!
 
     flash[:notice] = 'Saldo atualizado com sucesso.'
     redirect_to partner_url(partner)
