@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
   resources :moedas
   get 'backoffice/home'
+  get 'backoffice/index'
   resources :bancos
   resources :lancamentos
   resources :status_alegacao_pagamentos
