@@ -199,9 +199,9 @@ class Partner < ApplicationRecord
 
     if (200...300).include?(request.code.to_i)
       saldo = Nokogiri::XML(request.body).children.children.children.children.children.children.text
-      SaldoParceiro.create!(saldo: saldo, partner_id: self.id, log: "Saldo atualizado - code=#{request.code} - body=#{request.body} - host=#{host} - api_key=#{api_key}")
+      SaldoParceiro.create!(saldo: saldo, partner_id: self.id, log: "Saldo atualizado - code=#{request.code} - body=#{request.body} - host=#{host}")
     else
-      SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - code=#{request.code} - body=#{request.body} - host=#{host} - api_key=#{api_key}")
+      SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - code=#{request.code} - body=#{request.body} - host=#{host}")
     end
   rescue Exception => e
     SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - #{e.message} - #{e.backtrace}")

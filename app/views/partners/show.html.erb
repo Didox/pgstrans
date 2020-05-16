@@ -39,7 +39,9 @@
         KZ <%= @partner.ultimo_saldo.saldo %>
         <%= " - Última atualização em: #{@partner.ultimo_saldo.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
         <hr>
-        <%= @partner.ultimo_saldo.log %>
+        <% usuario_logado.admin? %>
+          <%= @partner.ultimo_saldo.log %>
+        <% end %>
       </p>
       
       <%= link_to partner_atualiza_saldo_path(@partner), class: 'btn btn-danger' do %>
