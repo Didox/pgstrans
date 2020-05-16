@@ -199,9 +199,9 @@ class Partner < ApplicationRecord
 
     if (200...300).include?(request.code.to_i)
       saldo = Nokogiri::XML(request.body).children.children.children.children.children.children.text
-      SaldoParceiro.create!(saldo: saldo, partner_id: self.id, log: "Saldo atualizado - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
+      SaldoParceiro.create!(saldo: saldo, partner_id: self.id, log: "Saldo atualizado - code=#{request.code} - body=#{request.body} - host=#{host} - api_key=#{api_key}")
     else
-      SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
+      SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - code=#{request.code} - body=#{request.body} - host=#{host} - api_key=#{api_key}")
     end
   rescue Exception => e
     SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - #{e.message} - #{e.backtrace}")
@@ -228,7 +228,7 @@ class Partner < ApplicationRecord
 
     Rails.logger.info "========[Enviando consulta de saldo operadora Zap]=========="
     url = "#{host}/saldo?code=#{STORE_ID_ZAP_PARCEIRO}"
-    res = HTTParty.get(
+    request = HTTParty.get(
       url, 
       headers: {
         "apikey" => api_key,
@@ -237,10 +237,10 @@ class Partner < ApplicationRecord
     )
     Rails.logger.info "========[Consulta de saldo operadora Zap enviada]=========="
 
-    if (200..300).include?(res.code)
-      SaldoParceiro.create!(saldo: JSON.parse(res.body)["saldo"], partner_id: self.id, log: "Saldo atualizado - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
+    if (200..300).include?(request.code)
+      SaldoParceiro.create!(saldo: JSON.parse(request.body)["saldo"], partner_id: self.id, log: "Saldo atualizado - code=#{request.code} - body=#{request.body} - host=#{host} - api_key=#{api_key}")
     else
-      SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
+      SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - code=#{request.code} - body=#{request.body} - host=#{host} - api_key=#{api_key}")
     end
   rescue Exception => e
     SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - #{e.message} - #{e.backtrace} ")
