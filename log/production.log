@@ -1,0 +1,272 @@
+I, [2019-11-01T21:44:08.377677 #29636]  INFO -- : [39db13fc-1199-494d-b9cd-57c1808187aa] Started GET "/" for 10.212.134.200 at 2019-11-01 21:44:08 -0300
+I, [2019-11-01T21:44:08.379062 #29636]  INFO -- : [39db13fc-1199-494d-b9cd-57c1808187aa] Processing by WelcomeController#index as HTML
+I, [2019-11-01T21:44:08.394651 #29636]  INFO -- : [39db13fc-1199-494d-b9cd-57c1808187aa]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-01T21:44:08.407277 #29636]  INFO -- : [39db13fc-1199-494d-b9cd-57c1808187aa]   Rendered welcome/index.html.erb within layouts/application (12.4ms)
+I, [2019-11-01T21:44:08.409112 #29636]  INFO -- : [39db13fc-1199-494d-b9cd-57c1808187aa] Completed 200 OK in 30ms (Views: 16.2ms)
+I, [2019-11-01T21:44:11.505409 #29636]  INFO -- : [59bfe34e-b055-4813-b49a-20227a2cf56f] Started GET "/topup_validations" for 10.212.134.200 at 2019-11-01 21:44:11 -0300
+I, [2019-11-01T21:44:11.507337 #29636]  INFO -- : [59bfe34e-b055-4813-b49a-20227a2cf56f] Processing by TopupValidationsController#index as HTML
+I, [2019-11-01T21:44:11.513369 #29636]  INFO -- : [59bfe34e-b055-4813-b49a-20227a2cf56f]   Rendering topup_validations/index.html.erb within layouts/application
+I, [2019-11-01T21:44:11.537770 #29636]  INFO -- : [59bfe34e-b055-4813-b49a-20227a2cf56f]   Rendered topup_validations/index.html.erb within layouts/application (24.1ms)
+I, [2019-11-01T21:44:11.538293 #29636]  INFO -- : [59bfe34e-b055-4813-b49a-20227a2cf56f] Completed 500 Internal Server Error in 31ms
+F, [2019-11-01T21:44:11.540077 #29636] FATAL -- : [59bfe34e-b055-4813-b49a-20227a2cf56f]   
+F, [2019-11-01T21:44:11.540200 #29636] FATAL -- : [59bfe34e-b055-4813-b49a-20227a2cf56f] ActionView::Template::Error (FATAL:  database "pgstrans_production" does not exist
+):
+F, [2019-11-01T21:44:11.540567 #29636] FATAL -- : [59bfe34e-b055-4813-b49a-20227a2cf56f]     40:   </thead>
+[59bfe34e-b055-4813-b49a-20227a2cf56f]     41: 
+[59bfe34e-b055-4813-b49a-20227a2cf56f]     42:   <tbody>
+[59bfe34e-b055-4813-b49a-20227a2cf56f]     43:     <% @topup_validations.each do |topup_validation| %>
+[59bfe34e-b055-4813-b49a-20227a2cf56f]     44:       <tr>
+[59bfe34e-b055-4813-b49a-20227a2cf56f]     45:         <td><%= topup_validation.spree_order_id %></td>
+[59bfe34e-b055-4813-b49a-20227a2cf56f]     46:         <td><%= topup_validation.spree_products_id %></td>
+F, [2019-11-01T21:44:11.540648 #29636] FATAL -- : [59bfe34e-b055-4813-b49a-20227a2cf56f]   
+F, [2019-11-01T21:44:11.540837 #29636] FATAL -- : [59bfe34e-b055-4813-b49a-20227a2cf56f] app/views/topup_validations/index.html.erb:43:in `_app_views_topup_validations_index_html_erb__2229427732433150943_47388406290500'
+I, [2019-11-01T21:44:15.335972 #29636]  INFO -- : [141abd44-c4b3-43db-863d-21a9199a3234] Started GET "/" for 10.212.134.200 at 2019-11-01 21:44:15 -0300
+I, [2019-11-01T21:44:15.338781 #29636]  INFO -- : [141abd44-c4b3-43db-863d-21a9199a3234] Processing by WelcomeController#index as HTML
+I, [2019-11-01T21:44:15.341640 #29636]  INFO -- : [141abd44-c4b3-43db-863d-21a9199a3234]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-01T21:44:15.343583 #29636]  INFO -- : [141abd44-c4b3-43db-863d-21a9199a3234]   Rendered welcome/index.html.erb within layouts/application (1.6ms)
+I, [2019-11-01T21:44:15.345349 #29636]  INFO -- : [141abd44-c4b3-43db-863d-21a9199a3234] Completed 200 OK in 6ms (Views: 4.5ms)
+I, [2019-11-01T21:44:16.478864 #29636]  INFO -- : [04366299-4dc3-42c0-8bd8-90ebe7ac84e3] Started GET "/topup_recargas" for 10.212.134.200 at 2019-11-01 21:44:16 -0300
+I, [2019-11-01T21:44:16.480752 #29636]  INFO -- : [04366299-4dc3-42c0-8bd8-90ebe7ac84e3] Processing by TopupRecargasController#index as HTML
+I, [2019-11-01T21:44:16.487187 #29636]  INFO -- : [04366299-4dc3-42c0-8bd8-90ebe7ac84e3]   Rendering topup_recargas/index.html.erb within layouts/application
+I, [2019-11-01T21:44:16.515650 #29636]  INFO -- : [04366299-4dc3-42c0-8bd8-90ebe7ac84e3]   Rendered topup_recargas/index.html.erb within layouts/application (28.1ms)
+I, [2019-11-01T21:44:16.516385 #29636]  INFO -- : [04366299-4dc3-42c0-8bd8-90ebe7ac84e3] Completed 500 Internal Server Error in 35ms
+F, [2019-11-01T21:44:16.520044 #29636] FATAL -- : [04366299-4dc3-42c0-8bd8-90ebe7ac84e3]   
+F, [2019-11-01T21:44:16.520205 #29636] FATAL -- : [04366299-4dc3-42c0-8bd8-90ebe7ac84e3] ActionView::Template::Error (FATAL:  database "pgstrans_production" does not exist
+):
+F, [2019-11-01T21:44:16.520645 #29636] FATAL -- : [04366299-4dc3-42c0-8bd8-90ebe7ac84e3]     31:   </thead>
+[04366299-4dc3-42c0-8bd8-90ebe7ac84e3]     32: 
+[04366299-4dc3-42c0-8bd8-90ebe7ac84e3]     33:   <tbody>
+[04366299-4dc3-42c0-8bd8-90ebe7ac84e3]     34:     <% @topup_recargas.each do |topup_recarga| %>
+[04366299-4dc3-42c0-8bd8-90ebe7ac84e3]     35:       <tr>
+[04366299-4dc3-42c0-8bd8-90ebe7ac84e3]     36:         <td><%= topup_recarga.validation_id %></td>
+[04366299-4dc3-42c0-8bd8-90ebe7ac84e3]     37:         <td><%= topup_recarga.header_element %></td>
+F, [2019-11-01T21:44:16.520773 #29636] FATAL -- : [04366299-4dc3-42c0-8bd8-90ebe7ac84e3]   
+F, [2019-11-01T21:44:16.520936 #29636] FATAL -- : [04366299-4dc3-42c0-8bd8-90ebe7ac84e3] app/views/topup_recargas/index.html.erb:34:in `_app_views_topup_recargas_index_html_erb___3996308505256528740_47388413307340'
+I, [2019-11-01T21:44:18.005065 #29636]  INFO -- : [c87dfc53-2e0f-46b0-be29-bda0fd52faec] Started GET "/" for 10.212.134.200 at 2019-11-01 21:44:18 -0300
+I, [2019-11-01T21:44:18.006945 #29636]  INFO -- : [c87dfc53-2e0f-46b0-be29-bda0fd52faec] Processing by WelcomeController#index as HTML
+I, [2019-11-01T21:44:18.009381 #29636]  INFO -- : [c87dfc53-2e0f-46b0-be29-bda0fd52faec]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-01T21:44:18.010929 #29636]  INFO -- : [c87dfc53-2e0f-46b0-be29-bda0fd52faec]   Rendered welcome/index.html.erb within layouts/application (1.3ms)
+I, [2019-11-01T21:44:18.012503 #29636]  INFO -- : [c87dfc53-2e0f-46b0-be29-bda0fd52faec] Completed 200 OK in 5ms (Views: 3.7ms)
+I, [2019-11-01T21:44:19.294112 #29636]  INFO -- : [b0a6db80-89a9-4c04-b6d7-b18c575adcfb] Started GET "/query_requests" for 10.212.134.200 at 2019-11-01 21:44:19 -0300
+I, [2019-11-01T21:44:19.295120 #29636]  INFO -- : [b0a6db80-89a9-4c04-b6d7-b18c575adcfb] Processing by QueryRequestsController#index as HTML
+I, [2019-11-01T21:44:19.297985 #29636]  INFO -- : [b0a6db80-89a9-4c04-b6d7-b18c575adcfb]   Rendering query_requests/index.html.erb within layouts/application
+I, [2019-11-01T21:44:19.309031 #29636]  INFO -- : [b0a6db80-89a9-4c04-b6d7-b18c575adcfb]   Rendered query_requests/index.html.erb within layouts/application (10.8ms)
+I, [2019-11-01T21:44:19.309405 #29636]  INFO -- : [b0a6db80-89a9-4c04-b6d7-b18c575adcfb] Completed 500 Internal Server Error in 14ms
+F, [2019-11-01T21:44:19.311115 #29636] FATAL -- : [b0a6db80-89a9-4c04-b6d7-b18c575adcfb]   
+F, [2019-11-01T21:44:19.311201 #29636] FATAL -- : [b0a6db80-89a9-4c04-b6d7-b18c575adcfb] ActionView::Template::Error (FATAL:  database "pgstrans_production" does not exist
+):
+F, [2019-11-01T21:44:19.311456 #29636] FATAL -- : [b0a6db80-89a9-4c04-b6d7-b18c575adcfb]     36:   </thead>
+[b0a6db80-89a9-4c04-b6d7-b18c575adcfb]     37: 
+[b0a6db80-89a9-4c04-b6d7-b18c575adcfb]     38:   <tbody>
+[b0a6db80-89a9-4c04-b6d7-b18c575adcfb]     39:     <% @query_requests.each do |query_request| %>
+[b0a6db80-89a9-4c04-b6d7-b18c575adcfb]     40:       <tr>
+[b0a6db80-89a9-4c04-b6d7-b18c575adcfb]     41:         <td><%= query_request.header_element %></td>
+[b0a6db80-89a9-4c04-b6d7-b18c575adcfb]     42:         <td><%= query_request.query_request_req_header %></td>
+F, [2019-11-01T21:44:19.311526 #29636] FATAL -- : [b0a6db80-89a9-4c04-b6d7-b18c575adcfb]   
+F, [2019-11-01T21:44:19.311603 #29636] FATAL -- : [b0a6db80-89a9-4c04-b6d7-b18c575adcfb] app/views/query_requests/index.html.erb:39:in `_app_views_query_requests_index_html_erb___4008046101457363946_47388416505780'
+I, [2019-11-01T21:44:21.362910 #29636]  INFO -- : [78ee3a3d-8465-42ce-ac57-9e52c99a9159] Started GET "/" for 10.212.134.200 at 2019-11-01 21:44:21 -0300
+I, [2019-11-01T21:44:21.364736 #29636]  INFO -- : [78ee3a3d-8465-42ce-ac57-9e52c99a9159] Processing by WelcomeController#index as HTML
+I, [2019-11-01T21:44:21.367380 #29636]  INFO -- : [78ee3a3d-8465-42ce-ac57-9e52c99a9159]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-01T21:44:21.368922 #29636]  INFO -- : [78ee3a3d-8465-42ce-ac57-9e52c99a9159]   Rendered welcome/index.html.erb within layouts/application (1.3ms)
+I, [2019-11-01T21:44:21.370760 #29636]  INFO -- : [78ee3a3d-8465-42ce-ac57-9e52c99a9159] Completed 200 OK in 6ms (Views: 3.9ms)
+I, [2019-11-01T21:44:23.396748 #29636]  INFO -- : [fb93e9f6-280d-4650-bb9f-6396d7a8b720] Started GET "/query_balances" for 10.212.134.200 at 2019-11-01 21:44:23 -0300
+I, [2019-11-01T21:44:23.399181 #29636]  INFO -- : [fb93e9f6-280d-4650-bb9f-6396d7a8b720] Processing by QueryBalancesController#index as HTML
+I, [2019-11-01T21:44:23.404556 #29636]  INFO -- : [fb93e9f6-280d-4650-bb9f-6396d7a8b720]   Rendering query_balances/index.html.erb within layouts/application
+I, [2019-11-01T21:44:23.424107 #29636]  INFO -- : [fb93e9f6-280d-4650-bb9f-6396d7a8b720]   Rendered query_balances/index.html.erb within layouts/application (19.3ms)
+I, [2019-11-01T21:44:23.424603 #29636]  INFO -- : [fb93e9f6-280d-4650-bb9f-6396d7a8b720] Completed 500 Internal Server Error in 25ms
+F, [2019-11-01T21:44:23.427582 #29636] FATAL -- : [fb93e9f6-280d-4650-bb9f-6396d7a8b720]   
+F, [2019-11-01T21:44:23.427734 #29636] FATAL -- : [fb93e9f6-280d-4650-bb9f-6396d7a8b720] ActionView::Template::Error (FATAL:  database "pgstrans_production" does not exist
+):
+F, [2019-11-01T21:44:23.428161 #29636] FATAL -- : [fb93e9f6-280d-4650-bb9f-6396d7a8b720]     36:   </thead>
+[fb93e9f6-280d-4650-bb9f-6396d7a8b720]     37: 
+[fb93e9f6-280d-4650-bb9f-6396d7a8b720]     38:   <tbody>
+[fb93e9f6-280d-4650-bb9f-6396d7a8b720]     39:     <% @query_balances.each do |query_balance| %>
+[fb93e9f6-280d-4650-bb9f-6396d7a8b720]     40:       <tr>
+[fb93e9f6-280d-4650-bb9f-6396d7a8b720]     41:         <td><%= query_balance.header_element %></td>
+[fb93e9f6-280d-4650-bb9f-6396d7a8b720]     42:         <td><%= query_balance.query_balance_req_header %></td>
+F, [2019-11-01T21:44:23.428277 #29636] FATAL -- : [fb93e9f6-280d-4650-bb9f-6396d7a8b720]   
+F, [2019-11-01T21:44:23.428419 #29636] FATAL -- : [fb93e9f6-280d-4650-bb9f-6396d7a8b720] app/views/query_balances/index.html.erb:39:in `_app_views_query_balances_index_html_erb__2447464113831036722_47388417506660'
+I, [2019-11-01T21:44:27.467159 #29636]  INFO -- : [c343fba1-f726-4ae1-a07c-d54910a6b63a] Started GET "/" for 10.212.134.200 at 2019-11-01 21:44:27 -0300
+I, [2019-11-01T21:44:27.468429 #29636]  INFO -- : [c343fba1-f726-4ae1-a07c-d54910a6b63a] Processing by WelcomeController#index as HTML
+I, [2019-11-01T21:44:27.469876 #29636]  INFO -- : [c343fba1-f726-4ae1-a07c-d54910a6b63a]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-01T21:44:27.470637 #29636]  INFO -- : [c343fba1-f726-4ae1-a07c-d54910a6b63a]   Rendered welcome/index.html.erb within layouts/application (0.7ms)
+I, [2019-11-01T21:44:27.471634 #29636]  INFO -- : [c343fba1-f726-4ae1-a07c-d54910a6b63a] Completed 200 OK in 3ms (Views: 2.0ms)
+I, [2019-11-01T21:44:28.765557 #29636]  INFO -- : [a9733d85-f5e4-42a5-a67d-511c61680f1e] Started GET "/return_code_apis" for 10.212.134.200 at 2019-11-01 21:44:28 -0300
+I, [2019-11-01T21:44:28.766726 #29636]  INFO -- : [a9733d85-f5e4-42a5-a67d-511c61680f1e] Processing by ReturnCodeApisController#index as HTML
+I, [2019-11-01T21:44:28.770484 #29636]  INFO -- : [a9733d85-f5e4-42a5-a67d-511c61680f1e]   Rendering return_code_apis/index.html.erb within layouts/application
+I, [2019-11-01T21:44:28.781924 #29636]  INFO -- : [a9733d85-f5e4-42a5-a67d-511c61680f1e]   Rendered return_code_apis/index.html.erb within layouts/application (11.3ms)
+I, [2019-11-01T21:44:28.782252 #29636]  INFO -- : [a9733d85-f5e4-42a5-a67d-511c61680f1e] Completed 500 Internal Server Error in 15ms
+F, [2019-11-01T21:44:28.783227 #29636] FATAL -- : [a9733d85-f5e4-42a5-a67d-511c61680f1e]   
+F, [2019-11-01T21:44:28.783281 #29636] FATAL -- : [a9733d85-f5e4-42a5-a67d-511c61680f1e] ActionView::Template::Error (FATAL:  database "pgstrans_production" does not exist
+):
+F, [2019-11-01T21:44:28.783458 #29636] FATAL -- : [a9733d85-f5e4-42a5-a67d-511c61680f1e]     14:   </thead>
+[a9733d85-f5e4-42a5-a67d-511c61680f1e]     15: 
+[a9733d85-f5e4-42a5-a67d-511c61680f1e]     16:   <tbody>
+[a9733d85-f5e4-42a5-a67d-511c61680f1e]     17:     <% @return_code_apis.each do |return_code_api| %>
+[a9733d85-f5e4-42a5-a67d-511c61680f1e]     18:       <tr>
+[a9733d85-f5e4-42a5-a67d-511c61680f1e]     19:         <td><%= return_code_api.return_code %></td>
+[a9733d85-f5e4-42a5-a67d-511c61680f1e]     20:         <td><%= return_code_api.return_description %></td>
+F, [2019-11-01T21:44:28.783508 #29636] FATAL -- : [a9733d85-f5e4-42a5-a67d-511c61680f1e]   
+F, [2019-11-01T21:44:28.783553 #29636] FATAL -- : [a9733d85-f5e4-42a5-a67d-511c61680f1e] app/views/return_code_apis/index.html.erb:17:in `_app_views_return_code_apis_index_html_erb__3991495439999907470_47388418530540'
+I, [2019-11-01T21:44:30.341409 #29636]  INFO -- : [b31c2e44-ba93-4157-af10-36fa44b8fc5b] Started GET "/" for 10.212.134.200 at 2019-11-01 21:44:30 -0300
+I, [2019-11-01T21:44:30.344213 #29636]  INFO -- : [b31c2e44-ba93-4157-af10-36fa44b8fc5b] Processing by WelcomeController#index as HTML
+I, [2019-11-01T21:44:30.347410 #29636]  INFO -- : [b31c2e44-ba93-4157-af10-36fa44b8fc5b]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-01T21:44:30.349377 #29636]  INFO -- : [b31c2e44-ba93-4157-af10-36fa44b8fc5b]   Rendered welcome/index.html.erb within layouts/application (1.7ms)
+I, [2019-11-01T21:44:30.350817 #29636]  INFO -- : [b31c2e44-ba93-4157-af10-36fa44b8fc5b] Completed 200 OK in 6ms (Views: 4.2ms)
+I, [2019-11-01T21:46:14.277817 #29802]  INFO -- : [90eac762-83a8-4573-90d8-6acadfb54e62] Started GET "/" for 10.212.134.200 at 2019-11-01 21:46:14 -0300
+I, [2019-11-01T21:46:14.280312 #29802]  INFO -- : [90eac762-83a8-4573-90d8-6acadfb54e62] Processing by WelcomeController#index as HTML
+I, [2019-11-01T21:46:14.303320 #29802]  INFO -- : [90eac762-83a8-4573-90d8-6acadfb54e62]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-01T21:46:14.306461 #29802]  INFO -- : [90eac762-83a8-4573-90d8-6acadfb54e62]   Rendered welcome/index.html.erb within layouts/application (2.8ms)
+I, [2019-11-01T21:46:14.308714 #29802]  INFO -- : [90eac762-83a8-4573-90d8-6acadfb54e62] Completed 200 OK in 28ms (Views: 8.1ms)
+I, [2019-11-01T22:34:27.709288 #29802]  INFO -- : [8594ecd9-993b-4118-89ac-ea6bb75a644a] Started GET "/" for 10.212.134.200 at 2019-11-01 22:34:27 -0300
+I, [2019-11-01T22:34:27.714386 #29802]  INFO -- : [8594ecd9-993b-4118-89ac-ea6bb75a644a] Processing by WelcomeController#index as HTML
+I, [2019-11-01T22:34:27.719854 #29802]  INFO -- : [8594ecd9-993b-4118-89ac-ea6bb75a644a]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-01T22:34:27.722178 #29802]  INFO -- : [8594ecd9-993b-4118-89ac-ea6bb75a644a]   Rendered welcome/index.html.erb within layouts/application (2.0ms)
+I, [2019-11-01T22:34:27.724447 #29802]  INFO -- : [8594ecd9-993b-4118-89ac-ea6bb75a644a] Completed 200 OK in 9ms (Views: 5.6ms)
+I, [2019-11-01T22:34:31.469523 #29802]  INFO -- : [5a67028c-3977-4498-b9d9-f2278fc85288] Started GET "/topup_validations" for 10.212.134.200 at 2019-11-01 22:34:31 -0300
+I, [2019-11-01T22:34:31.472096 #29802]  INFO -- : [5a67028c-3977-4498-b9d9-f2278fc85288] Processing by TopupValidationsController#index as HTML
+I, [2019-11-01T22:34:31.477917 #29802]  INFO -- : [5a67028c-3977-4498-b9d9-f2278fc85288]   Rendering topup_validations/index.html.erb within layouts/application
+I, [2019-11-01T22:34:31.503142 #29802]  INFO -- : [5a67028c-3977-4498-b9d9-f2278fc85288]   Rendered topup_validations/index.html.erb within layouts/application (25.0ms)
+I, [2019-11-01T22:34:31.503569 #29802]  INFO -- : [5a67028c-3977-4498-b9d9-f2278fc85288] Completed 500 Internal Server Error in 31ms
+F, [2019-11-01T22:34:31.505262 #29802] FATAL -- : [5a67028c-3977-4498-b9d9-f2278fc85288]   
+F, [2019-11-01T22:34:31.505358 #29802] FATAL -- : [5a67028c-3977-4498-b9d9-f2278fc85288] ActionView::Template::Error (FATAL:  database "pgstrans_production" does not exist
+):
+F, [2019-11-01T22:34:31.505641 #29802] FATAL -- : [5a67028c-3977-4498-b9d9-f2278fc85288]     40:   </thead>
+[5a67028c-3977-4498-b9d9-f2278fc85288]     41: 
+[5a67028c-3977-4498-b9d9-f2278fc85288]     42:   <tbody>
+[5a67028c-3977-4498-b9d9-f2278fc85288]     43:     <% @topup_validations.each do |topup_validation| %>
+[5a67028c-3977-4498-b9d9-f2278fc85288]     44:       <tr>
+[5a67028c-3977-4498-b9d9-f2278fc85288]     45:         <td><%= topup_validation.spree_order_id %></td>
+[5a67028c-3977-4498-b9d9-f2278fc85288]     46:         <td><%= topup_validation.spree_products_id %></td>
+F, [2019-11-01T22:34:31.505713 #29802] FATAL -- : [5a67028c-3977-4498-b9d9-f2278fc85288]   
+F, [2019-11-01T22:34:31.505791 #29802] FATAL -- : [5a67028c-3977-4498-b9d9-f2278fc85288] app/views/topup_validations/index.html.erb:43:in `_app_views_topup_validations_index_html_erb___2240800955435008695_47096296963660'
+I, [2019-11-01T22:34:33.190952 #29802]  INFO -- : [14575ea3-1972-4b10-9ad6-c40cc234abaa] Started GET "/" for 10.212.134.200 at 2019-11-01 22:34:33 -0300
+I, [2019-11-01T22:34:33.191832 #29802]  INFO -- : [14575ea3-1972-4b10-9ad6-c40cc234abaa] Processing by WelcomeController#index as HTML
+I, [2019-11-01T22:34:33.192813 #29802]  INFO -- : [14575ea3-1972-4b10-9ad6-c40cc234abaa]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-01T22:34:33.193461 #29802]  INFO -- : [14575ea3-1972-4b10-9ad6-c40cc234abaa]   Rendered welcome/index.html.erb within layouts/application (0.5ms)
+I, [2019-11-01T22:34:33.194091 #29802]  INFO -- : [14575ea3-1972-4b10-9ad6-c40cc234abaa] Completed 200 OK in 2ms (Views: 1.5ms)
+I, [2019-11-01T22:34:42.686636 #29802]  INFO -- : [021cb349-b7c5-4818-815c-b80e388bd26c] Started GET "/topup_validations" for 10.212.134.200 at 2019-11-01 22:34:42 -0300
+I, [2019-11-01T22:34:42.688030 #29802]  INFO -- : [021cb349-b7c5-4818-815c-b80e388bd26c] Processing by TopupValidationsController#index as HTML
+I, [2019-11-01T22:34:42.689844 #29802]  INFO -- : [021cb349-b7c5-4818-815c-b80e388bd26c]   Rendering topup_validations/index.html.erb within layouts/application
+I, [2019-11-01T22:34:42.699003 #29802]  INFO -- : [021cb349-b7c5-4818-815c-b80e388bd26c]   Rendered topup_validations/index.html.erb within layouts/application (9.1ms)
+I, [2019-11-01T22:34:42.699173 #29802]  INFO -- : [021cb349-b7c5-4818-815c-b80e388bd26c] Completed 500 Internal Server Error in 11ms
+F, [2019-11-01T22:34:42.700094 #29802] FATAL -- : [021cb349-b7c5-4818-815c-b80e388bd26c]   
+F, [2019-11-01T22:34:42.700146 #29802] FATAL -- : [021cb349-b7c5-4818-815c-b80e388bd26c] ActionView::Template::Error (FATAL:  database "pgstrans_production" does not exist
+):
+F, [2019-11-01T22:34:42.700298 #29802] FATAL -- : [021cb349-b7c5-4818-815c-b80e388bd26c]     40:   </thead>
+[021cb349-b7c5-4818-815c-b80e388bd26c]     41: 
+[021cb349-b7c5-4818-815c-b80e388bd26c]     42:   <tbody>
+[021cb349-b7c5-4818-815c-b80e388bd26c]     43:     <% @topup_validations.each do |topup_validation| %>
+[021cb349-b7c5-4818-815c-b80e388bd26c]     44:       <tr>
+[021cb349-b7c5-4818-815c-b80e388bd26c]     45:         <td><%= topup_validation.spree_order_id %></td>
+[021cb349-b7c5-4818-815c-b80e388bd26c]     46:         <td><%= topup_validation.spree_products_id %></td>
+F, [2019-11-01T22:34:42.700340 #29802] FATAL -- : [021cb349-b7c5-4818-815c-b80e388bd26c]   
+F, [2019-11-01T22:34:42.700389 #29802] FATAL -- : [021cb349-b7c5-4818-815c-b80e388bd26c] app/views/topup_validations/index.html.erb:43:in `_app_views_topup_validations_index_html_erb___2240800955435008695_47096296963660'
+I, [2019-11-01T22:34:44.731444 #29802]  INFO -- : [14c7cd01-6750-4cb8-9f68-4d044189df8a] Started GET "/" for 10.212.134.200 at 2019-11-01 22:34:44 -0300
+I, [2019-11-01T22:34:44.732820 #29802]  INFO -- : [14c7cd01-6750-4cb8-9f68-4d044189df8a] Processing by WelcomeController#index as HTML
+I, [2019-11-01T22:34:44.734848 #29802]  INFO -- : [14c7cd01-6750-4cb8-9f68-4d044189df8a]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-01T22:34:44.735896 #29802]  INFO -- : [14c7cd01-6750-4cb8-9f68-4d044189df8a]   Rendered welcome/index.html.erb within layouts/application (0.8ms)
+I, [2019-11-01T22:34:44.737225 #29802]  INFO -- : [14c7cd01-6750-4cb8-9f68-4d044189df8a] Completed 200 OK in 4ms (Views: 2.7ms)
+I, [2019-11-01T22:42:07.726865 #29802]  INFO -- : [7b12f6b3-01a3-4f13-a1cf-2d40a58cc9c2] Started GET "/" for 10.212.134.200 at 2019-11-01 22:42:07 -0300
+I, [2019-11-01T22:42:07.728354 #29802]  INFO -- : [7b12f6b3-01a3-4f13-a1cf-2d40a58cc9c2] Processing by WelcomeController#index as HTML
+I, [2019-11-01T22:42:07.729849 #29802]  INFO -- : [7b12f6b3-01a3-4f13-a1cf-2d40a58cc9c2]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-01T22:42:07.730642 #29802]  INFO -- : [7b12f6b3-01a3-4f13-a1cf-2d40a58cc9c2]   Rendered welcome/index.html.erb within layouts/application (0.7ms)
+I, [2019-11-01T22:42:07.731549 #29802]  INFO -- : [7b12f6b3-01a3-4f13-a1cf-2d40a58cc9c2] Completed 200 OK in 3ms (Views: 2.0ms)
+I, [2019-11-01T22:42:09.656570 #29802]  INFO -- : [5de83b28-39d3-4ee4-989e-ab39bc57fb99] Started GET "/topup_validations" for 10.212.134.200 at 2019-11-01 22:42:09 -0300
+I, [2019-11-01T22:42:09.657705 #29802]  INFO -- : [5de83b28-39d3-4ee4-989e-ab39bc57fb99] Processing by TopupValidationsController#index as HTML
+I, [2019-11-01T22:42:09.659133 #29802]  INFO -- : [5de83b28-39d3-4ee4-989e-ab39bc57fb99]   Rendering topup_validations/index.html.erb within layouts/application
+I, [2019-11-01T22:42:09.670775 #29802]  INFO -- : [5de83b28-39d3-4ee4-989e-ab39bc57fb99]   Rendered topup_validations/index.html.erb within layouts/application (11.5ms)
+I, [2019-11-01T22:42:09.671063 #29802]  INFO -- : [5de83b28-39d3-4ee4-989e-ab39bc57fb99] Completed 500 Internal Server Error in 13ms
+F, [2019-11-01T22:42:09.672724 #29802] FATAL -- : [5de83b28-39d3-4ee4-989e-ab39bc57fb99]   
+F, [2019-11-01T22:42:09.672792 #29802] FATAL -- : [5de83b28-39d3-4ee4-989e-ab39bc57fb99] ActionView::Template::Error (FATAL:  database "pgstrans_production" does not exist
+):
+F, [2019-11-01T22:42:09.673007 #29802] FATAL -- : [5de83b28-39d3-4ee4-989e-ab39bc57fb99]     40:   </thead>
+[5de83b28-39d3-4ee4-989e-ab39bc57fb99]     41: 
+[5de83b28-39d3-4ee4-989e-ab39bc57fb99]     42:   <tbody>
+[5de83b28-39d3-4ee4-989e-ab39bc57fb99]     43:     <% @topup_validations.each do |topup_validation| %>
+[5de83b28-39d3-4ee4-989e-ab39bc57fb99]     44:       <tr>
+[5de83b28-39d3-4ee4-989e-ab39bc57fb99]     45:         <td><%= topup_validation.spree_order_id %></td>
+[5de83b28-39d3-4ee4-989e-ab39bc57fb99]     46:         <td><%= topup_validation.spree_products_id %></td>
+F, [2019-11-01T22:42:09.673103 #29802] FATAL -- : [5de83b28-39d3-4ee4-989e-ab39bc57fb99]   
+F, [2019-11-01T22:42:09.673185 #29802] FATAL -- : [5de83b28-39d3-4ee4-989e-ab39bc57fb99] app/views/topup_validations/index.html.erb:43:in `_app_views_topup_validations_index_html_erb___2240800955435008695_47096296963660'
+I, [2019-11-01T22:42:11.480769 #29802]  INFO -- : [6c55f822-16b8-4778-9f15-5eb283f2129f] Started GET "/" for 10.212.134.200 at 2019-11-01 22:42:11 -0300
+I, [2019-11-01T22:42:11.481740 #29802]  INFO -- : [6c55f822-16b8-4778-9f15-5eb283f2129f] Processing by WelcomeController#index as HTML
+I, [2019-11-01T22:42:11.482892 #29802]  INFO -- : [6c55f822-16b8-4778-9f15-5eb283f2129f]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-01T22:42:11.483588 #29802]  INFO -- : [6c55f822-16b8-4778-9f15-5eb283f2129f]   Rendered welcome/index.html.erb within layouts/application (0.6ms)
+I, [2019-11-01T22:42:11.484383 #29802]  INFO -- : [6c55f822-16b8-4778-9f15-5eb283f2129f] Completed 200 OK in 3ms (Views: 1.8ms)
+I, [2019-11-01T22:42:26.449627 #29802]  INFO -- : [61f9dbc9-14a9-4eea-a3fd-0b0c7f7b6767] Started GET "/" for 10.212.134.200 at 2019-11-01 22:42:26 -0300
+I, [2019-11-01T22:42:26.450629 #29802]  INFO -- : [61f9dbc9-14a9-4eea-a3fd-0b0c7f7b6767] Processing by WelcomeController#index as HTML
+I, [2019-11-01T22:42:26.451891 #29802]  INFO -- : [61f9dbc9-14a9-4eea-a3fd-0b0c7f7b6767]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-01T22:42:26.452665 #29802]  INFO -- : [61f9dbc9-14a9-4eea-a3fd-0b0c7f7b6767]   Rendered welcome/index.html.erb within layouts/application (0.7ms)
+I, [2019-11-01T22:42:26.453350 #29802]  INFO -- : [61f9dbc9-14a9-4eea-a3fd-0b0c7f7b6767] Completed 200 OK in 3ms (Views: 1.8ms)
+I, [2019-11-01T22:42:29.627055 #29802]  INFO -- : [751ddfa3-060f-4aa8-b053-c8b72339c1c9] Started GET "/" for 10.212.134.200 at 2019-11-01 22:42:29 -0300
+I, [2019-11-01T22:42:29.627989 #29802]  INFO -- : [751ddfa3-060f-4aa8-b053-c8b72339c1c9] Processing by WelcomeController#index as HTML
+I, [2019-11-01T22:42:29.629096 #29802]  INFO -- : [751ddfa3-060f-4aa8-b053-c8b72339c1c9]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-01T22:42:29.629854 #29802]  INFO -- : [751ddfa3-060f-4aa8-b053-c8b72339c1c9]   Rendered welcome/index.html.erb within layouts/application (0.6ms)
+I, [2019-11-01T22:42:29.630640 #29802]  INFO -- : [751ddfa3-060f-4aa8-b053-c8b72339c1c9] Completed 200 OK in 3ms (Views: 1.8ms)
+I, [2019-11-01T22:42:31.500410 #29802]  INFO -- : [6ae29697-e266-4ea9-b9e9-20981f7cee0a] Started GET "/topup_recargas" for 10.212.134.200 at 2019-11-01 22:42:31 -0300
+I, [2019-11-01T22:42:31.501444 #29802]  INFO -- : [6ae29697-e266-4ea9-b9e9-20981f7cee0a] Processing by TopupRecargasController#index as HTML
+I, [2019-11-01T22:42:31.504559 #29802]  INFO -- : [6ae29697-e266-4ea9-b9e9-20981f7cee0a]   Rendering topup_recargas/index.html.erb within layouts/application
+I, [2019-11-01T22:42:31.515815 #29802]  INFO -- : [6ae29697-e266-4ea9-b9e9-20981f7cee0a]   Rendered topup_recargas/index.html.erb within layouts/application (11.1ms)
+I, [2019-11-01T22:42:31.516045 #29802]  INFO -- : [6ae29697-e266-4ea9-b9e9-20981f7cee0a] Completed 500 Internal Server Error in 14ms
+F, [2019-11-01T22:42:31.516966 #29802] FATAL -- : [6ae29697-e266-4ea9-b9e9-20981f7cee0a]   
+F, [2019-11-01T22:42:31.517020 #29802] FATAL -- : [6ae29697-e266-4ea9-b9e9-20981f7cee0a] ActionView::Template::Error (FATAL:  database "pgstrans_production" does not exist
+):
+F, [2019-11-01T22:42:31.517188 #29802] FATAL -- : [6ae29697-e266-4ea9-b9e9-20981f7cee0a]     31:   </thead>
+[6ae29697-e266-4ea9-b9e9-20981f7cee0a]     32: 
+[6ae29697-e266-4ea9-b9e9-20981f7cee0a]     33:   <tbody>
+[6ae29697-e266-4ea9-b9e9-20981f7cee0a]     34:     <% @topup_recargas.each do |topup_recarga| %>
+[6ae29697-e266-4ea9-b9e9-20981f7cee0a]     35:       <tr>
+[6ae29697-e266-4ea9-b9e9-20981f7cee0a]     36:         <td><%= topup_recarga.validation_id %></td>
+[6ae29697-e266-4ea9-b9e9-20981f7cee0a]     37:         <td><%= topup_recarga.header_element %></td>
+F, [2019-11-01T22:42:31.517237 #29802] FATAL -- : [6ae29697-e266-4ea9-b9e9-20981f7cee0a]   
+F, [2019-11-01T22:42:31.517281 #29802] FATAL -- : [6ae29697-e266-4ea9-b9e9-20981f7cee0a] app/views/topup_recargas/index.html.erb:34:in `_app_views_topup_recargas_index_html_erb__2542311264094889115_47096303232100'
+I, [2019-11-02T16:25:53.678876 #7282]  INFO -- : [48c7be01-b874-4a85-908d-0d23a63acff7] Started GET "/" for 10.212.134.200 at 2019-11-02 16:25:53 -0300
+I, [2019-11-02T16:25:53.681413 #7282]  INFO -- : [48c7be01-b874-4a85-908d-0d23a63acff7] Processing by WelcomeController#index as HTML
+I, [2019-11-02T16:25:53.698207 #7282]  INFO -- : [48c7be01-b874-4a85-908d-0d23a63acff7]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-02T16:25:53.700663 #7282]  INFO -- : [48c7be01-b874-4a85-908d-0d23a63acff7]   Rendered welcome/index.html.erb within layouts/application (2.2ms)
+I, [2019-11-02T16:25:53.702711 #7282]  INFO -- : [48c7be01-b874-4a85-908d-0d23a63acff7] Completed 200 OK in 21ms (Views: 6.7ms)
+I, [2019-11-02T16:26:03.493217 #7282]  INFO -- : [60774d9c-5407-46f2-ba24-f5da9a7c05a4] Started GET "/topup_validations" for 10.212.134.200 at 2019-11-02 16:26:03 -0300
+I, [2019-11-02T16:26:03.504472 #7282]  INFO -- : [60774d9c-5407-46f2-ba24-f5da9a7c05a4] Processing by TopupValidationsController#index as HTML
+I, [2019-11-02T16:26:03.509693 #7282]  INFO -- : [60774d9c-5407-46f2-ba24-f5da9a7c05a4]   Rendering topup_validations/index.html.erb within layouts/application
+I, [2019-11-02T16:26:03.541823 #7282]  INFO -- : [60774d9c-5407-46f2-ba24-f5da9a7c05a4]   Rendered topup_validations/index.html.erb within layouts/application (31.9ms)
+I, [2019-11-02T16:26:03.542215 #7282]  INFO -- : [60774d9c-5407-46f2-ba24-f5da9a7c05a4] Completed 500 Internal Server Error in 37ms
+F, [2019-11-02T16:26:03.543982 #7282] FATAL -- : [60774d9c-5407-46f2-ba24-f5da9a7c05a4]   
+F, [2019-11-02T16:26:03.544059 #7282] FATAL -- : [60774d9c-5407-46f2-ba24-f5da9a7c05a4] ActionView::Template::Error (FATAL:  database "pgstrans_production" does not exist
+):
+F, [2019-11-02T16:26:03.544329 #7282] FATAL -- : [60774d9c-5407-46f2-ba24-f5da9a7c05a4]     41:     </thead>
+[60774d9c-5407-46f2-ba24-f5da9a7c05a4]     42: 
+[60774d9c-5407-46f2-ba24-f5da9a7c05a4]     43:     <tbody>
+[60774d9c-5407-46f2-ba24-f5da9a7c05a4]     44:       <% @topup_validations.each do |topup_validation| %>
+[60774d9c-5407-46f2-ba24-f5da9a7c05a4]     45:         <tr>
+[60774d9c-5407-46f2-ba24-f5da9a7c05a4]     46:           <td><%= topup_validation.spree_order_id %></td>
+[60774d9c-5407-46f2-ba24-f5da9a7c05a4]     47:           <td><%= topup_validation.spree_products_id %></td>
+F, [2019-11-02T16:26:03.544397 #7282] FATAL -- : [60774d9c-5407-46f2-ba24-f5da9a7c05a4]   
+F, [2019-11-02T16:26:03.544459 #7282] FATAL -- : [60774d9c-5407-46f2-ba24-f5da9a7c05a4] app/views/topup_validations/index.html.erb:44:in `_app_views_topup_validations_index_html_erb__3123559338432225947_70297810130360'
+I, [2019-11-03T17:05:06.292229 #24147]  INFO -- : [93f32798-1687-4d16-a892-5a8493ffd1db] Started GET "/" for 10.212.134.200 at 2019-11-03 17:05:06 -0200
+I, [2019-11-03T17:05:06.293406 #24147]  INFO -- : [93f32798-1687-4d16-a892-5a8493ffd1db] Processing by WelcomeController#index as HTML
+I, [2019-11-03T17:05:06.304495 #24147]  INFO -- : [93f32798-1687-4d16-a892-5a8493ffd1db]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-03T17:05:06.305869 #24147]  INFO -- : [93f32798-1687-4d16-a892-5a8493ffd1db]   Rendered welcome/index.html.erb within layouts/application (1.3ms)
+I, [2019-11-03T17:05:06.307066 #24147]  INFO -- : [93f32798-1687-4d16-a892-5a8493ffd1db] Completed 200 OK in 13ms (Views: 3.7ms)
+I, [2019-11-03T17:05:10.237470 #24147]  INFO -- : [835997ff-b144-4c9d-8ab6-05998b080e49] Started GET "/query_balances" for 10.212.134.200 at 2019-11-03 17:05:10 -0200
+I, [2019-11-03T17:05:10.238464 #24147]  INFO -- : [835997ff-b144-4c9d-8ab6-05998b080e49] Processing by QueryBalancesController#index as HTML
+I, [2019-11-03T17:05:10.248895 #24147]  INFO -- : [835997ff-b144-4c9d-8ab6-05998b080e49]   Rendering query_balances/index.html.erb within layouts/application
+I, [2019-11-03T17:05:10.262016 #24147]  INFO -- : [835997ff-b144-4c9d-8ab6-05998b080e49]   Rendered query_balances/index.html.erb within layouts/application (13.0ms)
+I, [2019-11-03T17:05:10.262270 #24147]  INFO -- : [835997ff-b144-4c9d-8ab6-05998b080e49] Completed 500 Internal Server Error in 24ms
+F, [2019-11-03T17:05:10.263285 #24147] FATAL -- : [835997ff-b144-4c9d-8ab6-05998b080e49]   
+F, [2019-11-03T17:05:10.263348 #24147] FATAL -- : [835997ff-b144-4c9d-8ab6-05998b080e49] ActionView::Template::Error (FATAL:  database "pgstrans_production" does not exist
+):
+F, [2019-11-03T17:05:10.263519 #24147] FATAL -- : [835997ff-b144-4c9d-8ab6-05998b080e49]     37:     </thead>
+[835997ff-b144-4c9d-8ab6-05998b080e49]     38: 
+[835997ff-b144-4c9d-8ab6-05998b080e49]     39:     <tbody>
+[835997ff-b144-4c9d-8ab6-05998b080e49]     40:       <% @query_balances.each do |query_balance| %>
+[835997ff-b144-4c9d-8ab6-05998b080e49]     41:         <tr>
+[835997ff-b144-4c9d-8ab6-05998b080e49]     42:           <td><%= query_balance.header_element %></td>
+[835997ff-b144-4c9d-8ab6-05998b080e49]     43:           <td><%= query_balance.query_balance_req_header %></td>
+F, [2019-11-03T17:05:10.263562 #24147] FATAL -- : [835997ff-b144-4c9d-8ab6-05998b080e49]   
+F, [2019-11-03T17:05:10.263605 #24147] FATAL -- : [835997ff-b144-4c9d-8ab6-05998b080e49] app/views/query_balances/index.html.erb:40:in `_app_views_query_balances_index_html_erb__4076191824811536509_46944668384900'
+I, [2019-11-03T17:05:12.140998 #24147]  INFO -- : [688c41bb-ce44-4f52-882a-fa2e836d1c40] Started GET "/" for 10.212.134.200 at 2019-11-03 17:05:12 -0200
+I, [2019-11-03T17:05:12.141815 #24147]  INFO -- : [688c41bb-ce44-4f52-882a-fa2e836d1c40] Processing by WelcomeController#index as HTML
+I, [2019-11-03T17:05:12.143018 #24147]  INFO -- : [688c41bb-ce44-4f52-882a-fa2e836d1c40]   Rendering welcome/index.html.erb within layouts/application
+I, [2019-11-03T17:05:12.143741 #24147]  INFO -- : [688c41bb-ce44-4f52-882a-fa2e836d1c40]   Rendered welcome/index.html.erb within layouts/application (0.6ms)
+I, [2019-11-03T17:05:12.144446 #24147]  INFO -- : [688c41bb-ce44-4f52-882a-fa2e836d1c40] Completed 200 OK in 3ms (Views: 1.7ms)
