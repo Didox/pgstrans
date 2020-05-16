@@ -248,7 +248,5 @@ class Partner < ApplicationRecord
 
   def atualiza_saldo!
     return self.send("saldo_atual_#{self.slug.downcase}")
-  rescue Exception => err
-    return "0 <!--#{err.message} -->"
   end
 end
