@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_02_111017) do
+ActiveRecord::Schema.define(version: 2020_05_16_095048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -272,6 +272,15 @@ ActiveRecord::Schema.define(version: 2020_05_02_111017) do
     t.index ["partner_id"], name: "index_return_code_apis_on_partner_id"
   end
 
+  create_table "saldo_parceiros", force: :cascade do |t|
+    t.bigint "partner_id"
+    t.float "saldo"
+    t.text "log"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["partner_id"], name: "index_saldo_parceiros_on_partner_id"
+  end
+
   create_table "status_alegacao_pagamentos", force: :cascade do |t|
     t.string "nome"
     t.datetime "created_at", null: false
@@ -423,6 +432,7 @@ ActiveRecord::Schema.define(version: 2020_05_02_111017) do
   add_foreign_key "remuneracaos", "produtos"
   add_foreign_key "remuneracaos", "usuarios"
   add_foreign_key "return_code_apis", "partners"
+  add_foreign_key "saldo_parceiros", "partners"
   add_foreign_key "sub_agentes", "industries"
   add_foreign_key "sub_agentes", "provincia", column: "provincia_id"
   add_foreign_key "sub_distribuidors", "municipios"
