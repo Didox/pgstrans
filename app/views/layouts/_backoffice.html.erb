@@ -22,12 +22,12 @@
                 <div class="panel-heading">
                      <h3 class="panel-title"><span class="label label-danger">Usuários / Clientes</span></h3>
                 </div>
-                <% if PerfilUsuario.tem_acesso?(usuario_logado, :MatrixUsersController, :index) %>
-                    <div class="panel-body">
-                        <span><%= link_to 'Matriz de Usuários', matrix_users_path %></span>
-                    </div>
-                <% end %>
                 <ul class="list-group">
+                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :MatrixUsersController, :index) %>
+                        <li class="list-group-item">
+                            <%= link_to 'Matriz de Usuários', matrix_users_path %>
+                        </li>
+                    <% end %>
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :MasterProfilesController, :index) %>
                         <li class="list-group-item">
                             <%= link_to 'Perfil Master', master_profiles_path %>
@@ -63,7 +63,6 @@
                             <%= link_to 'Unipessoal / Empresa', uni_pessoal_empresas_path %>
                         </li>
                     <% end %>
-                    <li class="list-group-item">&nbsp;</li>
                 </ul>
             </div>
         </div>
@@ -72,12 +71,12 @@
                 <div class="panel-heading">
                     <h3 class="panel-title"><span class="label label-danger">Parceiros / Produtos</span></h3>
                 </div>
-                <% if PerfilUsuario.tem_acesso?(usuario_logado, :PartnersController, :index) %>
-                    <div class="panel-body">
-                        <span><%= link_to 'Parceiros', partners_path %></span>
-                    </div>
-                <% end %>
                 <ul class="list-group">
+                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :PartnersController, :index) %>
+                        <li class="list-group-item">
+                            <%= link_to 'Parceiros', partners_path %>
+                        </li>
+                    <% end %>
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :ProdutosController, :index) %>
                         <li class="list-group-item">
                             <%= link_to 'Produtos', produtos_path %>
@@ -96,11 +95,14 @@
                 <div class="panel-heading">
                     <h3 class="panel-title"><span class="label label-danger">Remuneração / Margem</span></h3>
                 </div>
-                <% if PerfilUsuario.tem_acesso?(usuario_logado, :RemuneracaosController, :index) %>
-                    <div class="panel-body">
-                        <span><%= link_to 'Remuneração Clientes', remuneracaos_path %></span>
-                    </div>
-                <% end %>
+                
+                <ul class="list-group">
+                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :RemuneracaosController, :index) %>
+                        <li class="list-group-item">
+                            <%= link_to 'Remuneração Clientes', remuneracaos_path %>
+                        </li>
+                    <% end %>
+                </ul>
             </div>
         </div>
     </div>
@@ -113,12 +115,12 @@
                 <div class="panel-heading">
                      <h3 class="panel-title"><span class="label label-success">Transações</span></h3>
                 </div>
-                <% if PerfilUsuario.tem_acesso?(usuario_logado, :TipoTransacaosController, :index) %>
-                    <div class="panel-body">
-                        <span><%= link_to 'Tipos de Transações', tipo_transacaos_path %></span>
-                    </div>
-                <% end %>
                 <ul class="list-group">
+                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :TipoTransacaosController, :index) %>
+                        <li class="list-group-item">
+                            <%= link_to 'Tipos de Transações', tipo_transacaos_path %>
+                        </li>
+                    <% end %>
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :VendasController, :index) %>
                         <li class="list-group-item">
                             <%= link_to 'Vendas', vendas_path %>
@@ -150,12 +152,13 @@
                 <div class="panel-heading">
                     <h3 class="panel-title"><span class="label label-success">Conta Corrente</span></h3>
                 </div>
-                <% if PerfilUsuario.tem_acesso?(usuario_logado, :ContaCorrentesController, :index) %>
-                    <div class="panel-body">
-                        <span><%= link_to 'Conta Corrente', conta_correntes_path %></span>
-                    </div>
-                <% end %>
                 <ul class="list-group">
+                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :ContaCorrentesController, :index) %>
+                        <li class="list-group-item">
+                            <%= link_to 'Conta Corrente', conta_correntes_path %>
+                        </li>
+                    <% end %>
+
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :BancosController, :index) %>
                         <li class="list-group-item">
                             <%= link_to 'Lista de Bancos', bancos_path %>
@@ -179,12 +182,12 @@
                 <div class="panel-heading">
                     <h3 class="panel-title"><span class="label label-success">Tabelas Auxiliares</span></h3>
                 </div>
-                <% if PerfilUsuario.tem_acesso?(usuario_logado, :IndustriesController, :index) %>
-                    <div class="panel-body">
-                        <span><%= link_to 'Ramos de Atividade', industries_path %></span>
-                    </div>
-                <% end %>
                 <ul class="list-group">
+                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :IndustriesController, :index) %>
+                        <li class="list-group-item">
+                            <%= link_to 'Ramos de Atividade', industries_path %>
+                        </li>
+                    <% end %>
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :DispositivosController, :index) %>
                         <li class="list-group-item">
                             <%= link_to 'Dispositivos', dispositivos_path %>
