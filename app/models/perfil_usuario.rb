@@ -34,6 +34,7 @@ class PerfilUsuario < ApplicationRecord
       destroy: "Permitir apagar registo",
       show: "Permitir mostrar detalhes do registo",
       edit: "Permitir mostrar tela de edição do registo",
+      atualiza_saldo: "Fazer consulta de saldo no parceiro"
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
