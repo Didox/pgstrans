@@ -353,6 +353,8 @@ class Venda < ApplicationRecord
     request_send += body
     request_send += "=========[ValidateTopup]========"
 
+    Rails.logger.info "========[Enviando para operadora Movicel]=========="
+
     url = "#{url_service}/DirectTopupService/Topup/"
     uri = URI.parse(URI.escape(url))
     request = HTTParty.post(uri, 
@@ -362,6 +364,9 @@ class Venda < ApplicationRecord
       },
       :body => body
     )
+
+    Rails.logger.info "========[Dados enviados para operadora Movicel]=========="
+
 
     response_get += "=========[ValidateTopup]========"
     response_get += request.body
@@ -402,6 +407,8 @@ class Venda < ApplicationRecord
       request_send += body
       request_send += "=========[Topup]========"
 
+      Rails.logger.info "========[Enviando confirmação para operadora Movicel]=========="
+
       url = "#{url_service}/DirectTopupService/Topup/"
       uri = URI.parse(URI.escape(url))
       request = HTTParty.post(uri, 
@@ -415,6 +422,8 @@ class Venda < ApplicationRecord
       response_get += "=========[Topup]========"
       response_get += request.body
       response_get += "=========[Topup]========"
+
+      Rails.logger.info "========[Confirmação enviada para operadora Movicel]=========="
 
       last_request = request.body
     end
