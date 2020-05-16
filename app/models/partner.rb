@@ -184,6 +184,8 @@ class Partner < ApplicationRecord
       </soapenv:Envelope>
     "
 
+    Rails.logger.info "========[Enviando consulta de saldo operadora Movicel]=========="
+    
     url = "#{url_service}/DirectTopupService/Topup/"
     uri = URI.parse(URI.escape(url))
     request = HTTParty.post(uri, 
@@ -193,6 +195,7 @@ class Partner < ApplicationRecord
       },
       :body => body
     )
+    Rails.logger.info "========[Consulta de saldo operadora Movicel enviado]=========="
 
     if (200...300).include?(request.code.to_i)
       saldo = Nokogiri::XML(request.body).children.children.children.children.children.children.text
@@ -223,6 +226,7 @@ class Partner < ApplicationRecord
       api_key = parametro.api_key_zaptv_producao
     end
 
+    Rails.logger.info "========[Enviando consulta de saldo operadora Zap]=========="
     url = "#{host}/saldo?code=#{STORE_ID_ZAP_PARCEIRO}"
     res = HTTParty.get(
       url, 
@@ -231,6 +235,7 @@ class Partner < ApplicationRecord
         "Content-Type" => "application/json"
       }
     )
+    Rails.logger.info "========[Consulta de saldo operadora Zap enviada]=========="
 
     if (200..300).include?(res.code)
       SaldoParceiro.create(saldo: JSON.parse(res.body)["saldo"], partner_id: self.id, log: "Saldo atualizado - code=#{res.code} - body=#{res.body} - host=#{host} - api_key=#{api_key}")
