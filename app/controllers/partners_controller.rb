@@ -27,7 +27,7 @@ class PartnersController < ApplicationController
     @partner.atualiza_saldo!
 
     flash[:notice] = 'Saldo atualizado com sucesso.'
-    redirect_to partner_url(partner)
+    redirect_to partner_url(@partner)
   end
   
 
