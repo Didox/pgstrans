@@ -5,6 +5,9 @@ class RemuneracaosController < ApplicationController
   # GET /remuneracaos.json
   def index
     @remuneracaos = Remuneracao.all.order(usuario_id: :asc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @remuneracaos = @remuneracaos.paginate(options)
   end
 
   # GET /remuneracaos/1

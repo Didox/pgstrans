@@ -29,7 +29,14 @@
       </tbody>
     </table>
 
-    <%= link_to "Novo Registo", new_status_parceiro_path, class: 'btn btn-danger' %>
-    <%= link_to 'Voltar', backoffice_index_path, class: 'btn btn-danger' %>
+    <%= link_to new_status_parceiro_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      Novo Registro
+    <% end %>    
+
+    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>
   </div>
 </div>

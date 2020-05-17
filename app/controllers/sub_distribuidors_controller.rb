@@ -5,6 +5,9 @@ class SubDistribuidorsController < ApplicationController
   # GET /sub_distribuidors.json
   def index
     @sub_distribuidors = SubDistribuidor.all.order(nome: :asc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @sub_distribuidors = @sub_distribuidors.paginate(options)
   end
 
   # GET /sub_distribuidors/1

@@ -28,6 +28,14 @@
       </tbody>
     </table>
 
-    <%= link_to 'Voltar', backoffice_index_path, class: 'btn btn-danger' %>
+    <div class="apple_pagination">
+      <%= will_paginate @unitel_sequences, :container => false %>
+    </div> 
+
+    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %> 
+
   </div>
 </div>

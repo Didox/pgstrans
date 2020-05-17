@@ -5,6 +5,9 @@ class UsuariosController < ApplicationController
   # GET /usuarios.json
   def index
     @usuarios = Usuario.all.order(id: :asc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @usuarios = @usuarios.paginate(options)
   end
 
   # GET /usuarios/1

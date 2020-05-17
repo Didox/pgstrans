@@ -5,6 +5,9 @@ class DispositivosController < ApplicationController
   # GET /dispositivos.json
   def index
     @dispositivos = Dispositivo.all.order(nome: :asc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @dispositivos = @dispositivos.paginate(options)
   end
 
   # GET /dispositivos/1

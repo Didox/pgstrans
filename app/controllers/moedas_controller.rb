@@ -5,6 +5,9 @@ class MoedasController < ApplicationController
   # GET /moedas.json
   def index
     @moedas = Moeda.all.order(nome: :asc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @moedas = @moedas.paginate(options) 
   end
 
   # GET /moedas/1

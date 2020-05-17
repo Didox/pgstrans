@@ -5,6 +5,9 @@ class SubAgentesController < ApplicationController
   # GET /sub_agentes.json
   def index
     @sub_agentes = SubAgente.all.order(razao_social: :asc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @sub_agentes = @sub_agentes.paginate(options)
   end
 
   # GET /sub_agentes/1

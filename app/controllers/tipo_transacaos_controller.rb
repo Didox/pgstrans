@@ -5,6 +5,9 @@ class TipoTransacaosController < ApplicationController
   # GET /tipo_transacaos.json
   def index
     @tipo_transacaos = TipoTransacao.all.order(nome: :asc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @tipo_transacaos = @tipo_transacaos.paginate(options)
   end
 
   # GET /tipo_transacaos/1

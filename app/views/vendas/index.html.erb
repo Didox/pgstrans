@@ -125,6 +125,10 @@
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-success">
+          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>
         </div>
       </div>
     </form>
@@ -180,7 +184,9 @@
       <%= will_paginate @usuarios, :container => false %>
     </div>
 
-    <%#= link_to "Novo Registo", new_venda_path, class: 'btn btn-danger' %>
-    <%= link_to 'Voltar', backoffice_index_path, class: 'btn btn-danger' %>
+    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>
   </div>
 </div>

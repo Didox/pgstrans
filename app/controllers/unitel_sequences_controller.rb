@@ -4,7 +4,10 @@ class UnitelSequencesController < ApplicationController
   # GET /unitel_sequences
   # GET /unitel_sequences.json
   def index
-    @unitel_sequences = UnitelSequence.all
+    @unitel_sequences = UnitelSequence.all.order(id: :desc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @unitel_sequences = @unitel_sequences.paginate(options)
   end
 
   # GET /unitel_sequences/1

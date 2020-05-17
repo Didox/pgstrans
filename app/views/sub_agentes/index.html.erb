@@ -47,6 +47,10 @@
       </tbody>
     </table>
 
+    <div class="apple_pagination">
+      <%= will_paginate @sub_agentes, :container => false %>
+    </div> 
+
     <%= link_to new_sub_agente_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registro

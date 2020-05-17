@@ -45,6 +45,12 @@
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-info">
+
+          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>
+          
         </div>
       </div>
     </form>
@@ -97,7 +103,14 @@
       <%= will_paginate @conta_correntes, :container => false %>
     </div>
 
-    <%= link_to "Novo Registo", new_conta_corrente_path, class: 'btn btn-danger' %>
-    <%= link_to 'Voltar', backoffice_index_path, class: 'btn btn-danger' %>
+    <%= link_to new_conta_corrente_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      Novo Registro
+    <% end %>    
+
+    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>    
   </div>
 </div>
