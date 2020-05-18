@@ -14,6 +14,13 @@
 @import "bootstrap";
 @import "tether";
 
+.btn-backoffice{
+  float: right;
+  margin-right: 10px;
+  background: #302f6d;
+  color: #fff;
+}
+
 // btn-space - espaço entre botões
 .menu_recarga{
   display: inline-block;
