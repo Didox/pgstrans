@@ -31,6 +31,7 @@ class UsuariosController < ApplicationController
 
     respond_to do |format|
       if @usuario.save
+        salvar_grupos
         format.html { redirect_to @usuario, notice: 'Usuário foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @usuario }
       else
@@ -45,6 +46,7 @@ class UsuariosController < ApplicationController
   def update
     respond_to do |format|
       if @usuario.update(usuario_params)
+        salvar_grupos
         format.html { redirect_to @usuario, notice: 'Usuário foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @usuario }
       else
@@ -71,6 +73,13 @@ class UsuariosController < ApplicationController
   end
 
   private
+    def salvar_grupos
+      GrupoUsuario.where(usuario_id: @usuario.id).destroy_all
+      params[:grupos].each do |grupo|
+        GrupoUsuario.create(usuario_id: @usuario.id, grupo_id: grupo)
+      end
+    end
+
     def verifica_permissao
       unless usuario_logado.admin?
         flash[:error] = "Área restrita. Digite o login e palavra-passe para entrar."

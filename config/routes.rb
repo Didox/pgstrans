@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :grupos
   resources :parametros
   resources :unitel_sequences
   resources :relatorio_conciliacao_zaptvs

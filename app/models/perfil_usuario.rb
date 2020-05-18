@@ -76,7 +76,8 @@ class PerfilUsuario < ApplicationRecord
       welcome: "Tela de Abertura",
       recarga: "Efectuar Recargas",
       return_code_apis: "Tabela de Código de Retorno das APIs por Parceiro",
-      matrix_users: "Matriz de Usuários - Composição das Permissões e Associações"
+      matrix_users: "Matriz de Usuários - Composição das Permissões e Associações",
+      grupos: "Grupos de acesso - Acessos aos registros do sistema"
     }
     nomes[controller.to_sym]
   end

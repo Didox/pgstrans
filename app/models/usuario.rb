@@ -1,5 +1,7 @@
 class Usuario < ApplicationRecord
   has_many :matrix_users
+  has_many :grupo_usuarios
+
   belongs_to :perfil_usuario
   belongs_to :sub_agente
   

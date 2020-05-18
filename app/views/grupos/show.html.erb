@@ -1,0 +1,28 @@
+<div class="container">
+
+  <h4>Mostrar Grupo</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Nome:</dt>
+      <dd><%= @grupo.nome %></dd>
+      <dt>Descricao:</dt>
+      <dd><%= @grupo.descricao %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to grupos_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_grupo_path(@grupo), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>

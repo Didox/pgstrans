@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_16_095048) do
+ActiveRecord::Schema.define(version: 2020_05_18_101215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,31 @@ ActiveRecord::Schema.define(version: 2020_05_16_095048) do
     t.string "so"
     t.string "ram_rom"
     t.string "conectividade"
+  end
+
+  create_table "grupo_registros", force: :cascade do |t|
+    t.string "modelo"
+    t.bigint "modelo_id"
+    t.bigint "grupo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grupo_id"], name: "index_grupo_registros_on_grupo_id"
+  end
+
+  create_table "grupo_usuarios", force: :cascade do |t|
+    t.bigint "usuario_id"
+    t.bigint "grupo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grupo_id"], name: "index_grupo_usuarios_on_grupo_id"
+    t.index ["usuario_id"], name: "index_grupo_usuarios_on_usuario_id"
+  end
+
+  create_table "grupos", force: :cascade do |t|
+    t.string "nome"
+    t.text "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "industries", force: :cascade do |t|
@@ -420,6 +445,9 @@ ActiveRecord::Schema.define(version: 2020_05_16_095048) do
   add_foreign_key "conta_correntes", "lancamentos"
   add_foreign_key "conta_correntes", "partners"
   add_foreign_key "conta_correntes", "usuarios"
+  add_foreign_key "grupo_registros", "grupos"
+  add_foreign_key "grupo_usuarios", "grupos"
+  add_foreign_key "grupo_usuarios", "usuarios"
   add_foreign_key "matrix_users", "usuarios"
   add_foreign_key "moedas", "countries"
   add_foreign_key "parametros", "partners"

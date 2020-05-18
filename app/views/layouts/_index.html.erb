@@ -23,6 +23,11 @@
                      <h3 class="panel-title"><span class="label label-success">Usuários / Clientes</span></h3>
                 </div>
                 <ul class="list-group">
+                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :GruposController, :index) %>
+                        <li class="list-group-item">
+                            <%= link_to 'Grupos de acesso', grupos_path %>
+                        </li>
+                    <% end %>
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :MatrixUsersController, :index) %>
                         <li class="list-group-item">
                             <%= link_to 'Matriz de Usuários', matrix_users_path %>
