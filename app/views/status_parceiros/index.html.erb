@@ -29,6 +29,10 @@
       </tbody>
     </table>
 
+    <div class="apple_pagination">
+      <%= will_paginate @status_parceiros, :container => false %>
+    </div>
+
     <%= link_to new_status_parceiro_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registro

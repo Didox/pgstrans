@@ -5,6 +5,9 @@ class ParametrosController < ApplicationController
   # GET /parametros.json
   def index
     @parametros = Parametro.all
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @parametros = @parametros.paginate(options)    
   end
 
   # GET /parametros/1

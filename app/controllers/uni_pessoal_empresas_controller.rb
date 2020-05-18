@@ -5,6 +5,9 @@ class UniPessoalEmpresasController < ApplicationController
   # GET /uni_pessoal_empresas.json
   def index
     @uni_pessoal_empresas = UniPessoalEmpresa.all.order(nome: :asc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @uni_pessoal_empresas = @uni_pessoal_empresas.paginate(options) 
   end
 
   # GET /uni_pessoal_empresas/1

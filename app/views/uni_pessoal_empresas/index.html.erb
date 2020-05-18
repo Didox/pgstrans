@@ -28,6 +28,10 @@
       </tbody>
     </table>
 
+    <div class="apple_pagination">
+      <%= will_paginate @uni_pessoal_empresas, :container => false %>
+    </div>
+
     <%= link_to new_uni_pessoal_empresa_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registro
