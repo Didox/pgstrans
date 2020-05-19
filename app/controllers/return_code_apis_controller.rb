@@ -6,6 +6,12 @@ class ReturnCodeApisController < ApplicationController
   def index
     @return_code_apis = ReturnCodeApi.all.order(partner_id: :asc, return_code: :asc)
 
+    @return_code_apis = @return_code_apis.where(partner_id: params[:partner_id]) if params[:partner_id].present?
+    @return_code_apis = @return_code_apis.where("return_code ilike '%#{params[:return_code]}%'") if params[:return_code].present?
+    @return_code_apis = @return_code_apis.where("return_description ilike '%#{params[:return_description]}%'") if params[:return_description].present?
+    @return_code_apis = @return_code_apis.where("error_description_pt ilike '%#{params[:error_description_pt]}%'") if params[:error_description_pt].present?
+    @return_code_apis = @return_code_apis.where("partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
+
     options = {page: params[:page] || 1, per_page: 10}
     @return_code_apis = @return_code_apis.paginate(options)
   end
