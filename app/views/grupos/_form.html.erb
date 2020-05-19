@@ -28,6 +28,10 @@
           <%= f.label :descricao, "Descrição", class: "col-sm-2", style: "margin-top: 10px" %>
           <%= f.text_area :descricao, class: "form-control", style: "height: 200px!important" %>
         </div>
+        <div class="form-input col-sm-6">
+          <%= f.label :grupo_id, "Grupo pai" %>
+          <%= f.select :grupo_id, Grupo.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, class: "form-control" %>   
+        </div>
         <div class="form-actions col-sm-12">
           <hr>
           <%= f.button :button, class: 'btn btn-danger' do %>

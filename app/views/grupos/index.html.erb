@@ -11,7 +11,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Nome</th>
+          <th scope="col">Hierarquia</th>
           <th scope="col">Descrição</th>
           <th colspan="3"></th>
         </tr>
@@ -20,7 +20,12 @@
       <tbody>
         <% @grupos.each do |grupo| %>
         <tr>
-          <td><%= grupo.nome %></td>
+          <td>
+            <b><%= grupo.nome %></b>
+            <% grupo.hierarquia.each_with_index do |g, i| %>
+              <div><%= raw "#{(0..i).map{|i| "&nbsp; "}.join("")} - #{g.nome}" %></div>
+            <% end %>
+          </td>
           <td><%= grupo.descricao %></td>
           <td><%= link_to 'Mostrar', grupo %></td>
           <td><%= link_to 'Editar', edit_grupo_path(grupo) %></td>

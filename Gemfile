@@ -47,6 +47,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rb-readline'
 end
 
 group :development do

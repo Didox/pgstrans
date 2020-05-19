@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h4>Mostrar Grupo</h4>
+  <h4>Detalhes do grupo</h4>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -8,9 +8,14 @@
 
   <div class="container">
     <dl class="dl-horizontal">
-      <dt>Nome:</dt>
-      <dd><%= @grupo.nome %></dd>
-      <dt>Descricao:</dt>
+      <dt>Hierarquia:</dt>
+      <dd>
+        <b><%= @grupo.nome %></b>
+        <% @grupo.hierarquia.each_with_index do |grupo, i| %>
+          <div><%= raw "#{(0..i).map{|i| "&nbsp; "}.join("")} - #{grupo.nome}" %></div>
+        <% end %>
+      </dd>
+      <dt>Descrição:</dt>
       <dd><%= @grupo.descricao %></dd>
     </dl>
 
