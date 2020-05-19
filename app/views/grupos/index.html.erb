@@ -1,7 +1,7 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <h4>Grupo</h4>
+  <h4>Grupos de Usuários</h4>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -27,7 +27,7 @@
             <% end %>
           </td>
           <td><%= grupo.descricao %></td>
-          <td><%= link_to 'Usuarios', grupo_usuarios_path(grupo) %></td>
+          <td><%= link_to 'Usuários', grupo_usuarios_path(grupo) %></td>
           <td><%= link_to 'Mostrar', grupo %></td>
           <td><%= link_to 'Editar', edit_grupo_path(grupo) %></td>
           <td><%= link_to 'Apagar', grupo, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
