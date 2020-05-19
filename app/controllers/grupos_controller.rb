@@ -55,6 +55,10 @@ class GruposController < ApplicationController
     end
   end
 
+  def usuarios
+    
+  end
+
   # DELETE /grupos/1
   # DELETE /grupos/1.json
   def destroy

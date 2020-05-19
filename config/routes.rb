@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :grupos
+  resources :grupos do
+    get 'usuarios', to: 'grupos#usuarios'
+  end
   resources :parametros
   resources :unitel_sequences
   resources :relatorio_conciliacao_zaptvs
