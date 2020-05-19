@@ -25,6 +25,9 @@ tmp/*
 /public/assets
 .byebug_history
 
+log/development.log
+log/production.log
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
