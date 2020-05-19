@@ -4,7 +4,11 @@ class GruposController < ApplicationController
   # GET /grupos
   # GET /grupos.json
   def index
-    @grupos = Grupo.all
+    @grupos = Grupo.all.order(nome: :asc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @grupos = @grupos.paginate(options)
+
   end
 
   # GET /grupos/1
