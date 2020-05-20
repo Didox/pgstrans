@@ -43,6 +43,10 @@ class Usuario < ApplicationRecord
     acesso.created_at if acesso.present?
   end
 
+  def self.com_acesso
+    #TODO
+  end
+
   private
 
     def verifica_tamanho_senha
