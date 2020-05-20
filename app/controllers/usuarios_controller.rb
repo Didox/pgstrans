@@ -28,7 +28,7 @@ class UsuariosController < ApplicationController
   # POST /usuarios.json
   def create
     @usuario = Usuario.new(usuario_params)
-
+    @usuario.responsavel = usuario_logado
     respond_to do |format|
       if @usuario.save
         salvar_grupos
@@ -75,8 +75,10 @@ class UsuariosController < ApplicationController
   private
     def salvar_grupos
       GrupoUsuario.where(usuario_id: @usuario.id).destroy_all
-      params[:grupos].each do |grupo|
-        GrupoUsuario.create(usuario_id: @usuario.id, grupo_id: grupo)
+      if params[:grupos].present?
+        params[:grupos].each do |grupo|
+          GrupoUsuario.create(usuario_id: @usuario.id, grupo_id: grupo)
+        end
       end
     end
 
@@ -90,6 +92,7 @@ class UsuariosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_usuario
       @usuario = Usuario.find(params[:id])
+      @usuario.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

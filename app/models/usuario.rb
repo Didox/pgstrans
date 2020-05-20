@@ -1,4 +1,6 @@
 class Usuario < ApplicationRecord
+  attr_accessor :responsavel
+
   has_many :matrix_users
   has_many :grupo_usuarios
 
@@ -8,8 +10,8 @@ class Usuario < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :nome, :email, presence: true
 
-  validate :verifica_tamanho_senha
-  after_validation :senha_sha1
+  validate :verifica_tamanho_senha, :verifica_responsavel
+  after_validation :senha_sha1, :salvar_responsavel
 
   def saldo
     ContaCorrente.where(usuario_id: self.id).order("data_ultima_atualizacao_saldo desc").first.saldo_atual
@@ -20,6 +22,10 @@ class Usuario < ApplicationRecord
   def acessos
     return @acessos if @acessos.present?
     @acessos = perfil_usuario.acessos_actions
+  end
+
+  def grupos
+    grupo_usuarios.map{|g| g.grupo}
   end
 
   def self.ativo
@@ -51,5 +57,18 @@ class Usuario < ApplicationRecord
     def senha_sha1
       #self.senha = Digest::SHA1.hexdigest(self.senha) if self.senha.length <= 10
       self.senha = Digest::SHA1.hexdigest(self.senha) if self.senha.length <= 30
+    end
+
+    def verifica_responsavel
+      self.errors.add(:responsavel, "Responsável não definido") if responsavel.blank?
+    end
+
+    def salvar_responsavel
+      raise "Responsável não definido" if responsavel.blank?
+      
+      responsavel.grupo_usuarios.each do |gu|
+        grs = GrupoRegistro.where(grupo_id: gu.grupo_id, modelo: self.class.to_s, modelo_id: self.id)
+        GrupoRegistro.create(grupo_id: gu.grupo_id, modelo: self.class.to_s, modelo_id: self.id) if grs.count == 0
+      end
     end
 end
