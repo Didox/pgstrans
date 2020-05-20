@@ -2,7 +2,7 @@
   <div class="card border-simpleform box-shadow mb-4">
     <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
       <div>
-        <strong>Cadastro de Grupos de Usuários</strong><br />
+        <strong>Cadastro de Grupo de Usuários</strong><br />
       </div>
     </div>
   </div>
@@ -29,11 +29,11 @@
           <%= f.text_area :descricao, class: "form-control", style: "height: 200px!important" %>
         </div>
         <div class="form-input col-sm-12">
-          <%= f.label :pai, "Inicio da hierarquia", class: "col-sm-12", style: "margin-top: 10px" %>
+          <%= f.label :pai, "Início da Hierarquia - marcar esse campo em se tratando de início de hierarquia de grupo", class: "col-sm-12", style: "margin-top: 10px" %>
           <%= f.check_box :pai, class: "form-control" %>
         </div>
         <div class="form-input col-sm-6">
-          <%= f.label :grupo_id, "Grupo pai" %>
+          <%= f.label :grupo_id, "Grupo Pai" %>
           <%= f.select :grupo_id, grupos.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, class: "form-control" %>   
         </div>
         <div class="form-actions col-sm-12">
