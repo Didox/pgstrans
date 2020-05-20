@@ -1,6 +1,6 @@
 class GruposController < ApplicationController
-  before_action :set_grupo, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_grupo, only: [:show, :edit, :update, :destroy, :usuarios, :apaga_acesso_usuario, :cria_acesso_usuario, :novo_acesso_usuario]
+  
   # GET /grupos
   # GET /grupos.json
   def index
@@ -56,7 +56,32 @@ class GruposController < ApplicationController
   end
 
   def usuarios
+    @usuarios = Usuario.joins(:grupo_usuarios).where("grupo_id=#{@grupo.id}").distinct
+    options = {page: params[:page] || 1, per_page: 10}
+    @usuarios = @usuarios.paginate(options)
+  end
 
+  def apaga_acesso_usuario
+    GrupoUsuario.where(usuario_id: params[:usuario_id], grupo_id: @grupo.id).destroy_all
+    flash[:success] = "Acesso do usuário apagado com sucesso"
+    redirect_to "/grupos/1/usuarios"
+  end
+
+  def cria_acesso_usuario
+    @grupo_usuario = GrupoUsuario.new
+    @grupo_usuario.usuario_id = params[:grupo_usuario][:usuario_id]
+    @grupo_usuario.grupo_id = @grupo.id
+    if !@grupo_usuario.save
+      render :novo_acesso_usuario
+      return
+    end
+
+    flash[:success] = "Acesso do usuário apagado com sucesso"
+    redirect_to "/grupos/1/usuarios"
+  end
+
+  def novo_acesso_usuario
+    @grupo_usuario = GrupoUsuario.new
   end
 
   # DELETE /grupos/1
@@ -72,7 +97,7 @@ class GruposController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_grupo
-      @grupo = Grupo.find(params[:id])
+      @grupo = Grupo.find(params[:id] || params[:grupo_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

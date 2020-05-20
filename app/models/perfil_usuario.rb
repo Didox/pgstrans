@@ -36,7 +36,10 @@ class PerfilUsuario < ApplicationRecord
       edit: "Permitir mostrar tela de edição do registo",
       atualiza_saldo: "Fazer consulta de saldo no parceiro",
       confirma: "Confirmar envio recarga",
-      usuarios: "Usuários"
+      usuarios: "Usuários",
+      apaga_acesso_usuario: "Apaga acesso do usuário",
+      cria_acesso_usuario: "Cria acesso do usuário",
+      novo_acesso_usuario: "Tela de novo acesso do usuário"
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]

@@ -1,0 +1,53 @@
+<div class="container">
+
+	<h4>Novo acesso do usuário no grupo</h4>
+
+	<!-- Page Heading/Breadcrumbs -->
+  	<%= render :partial => 'shared/header_backoffice' %>
+  	<!-- /.row -->
+
+	<div class="col-md-12" data-target="toggle.grid">
+		<div class="card border-simpleform box-shadow mb-4">
+			<div class="card-header text-simpleform d-flex align-items-center justify-content-between">
+				<div>
+					<strong>Cadastro de acesso ao usuário no grupo</strong><br />
+				</div>
+			</div>
+		</div>
+		<div class="card border-bootstrap box-shadow mb-4">
+			<div class="card-header text-bootstrap align-items-center justify-content-between">
+				<%= simple_form_for(@grupo_usuario, html: { class: "form-horizontal", role: "form" }) do |f| %>
+					<% if @grupo_usuario.errors.any? %>
+						<div class="alert alert-danger alert-dismissable" role="alert">
+							<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+							<h4><%= pluralize(@grupo_usuario.errors.count, "erros") %> no grupo, confira abaixo:</h4>
+							<ul>
+							<% @grupo_usuario.errors.full_messages.each do |msg| %>
+								<li><%= msg %></li>
+							<% end %>
+							</ul>
+						</div>
+					<% end %>
+					<div class="form-input col-sm-12">
+						<%= f.label :usuario_id, "Usuário" %>
+						<%= f.select :usuario_id, usuarios_sem_grupo.collect{|d| [d.nome, d.id]}, {}, class: "form-control" %>   
+					</div>
+					<div class="form-actions col-sm-12">
+						<hr>
+						<%= f.button :button, class: 'btn btn-danger' do %>
+							<span class="glyphicon glyphicon-ok"></span>
+							Confirmar
+						<% end %>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+
+	<%= link_to "/grupos/#{@grupo.id}/usuarios", class: 'btn btn-danger' do %>
+		<span class="glyphicon glyphicon-list-alt"></span>
+		Voltar
+	<% end %>
+
+</div>

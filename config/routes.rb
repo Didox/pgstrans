@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :grupos do
     get 'usuarios', to: 'grupos#usuarios'
+    delete 'usuarios/:usuario_id', to: 'grupos#apaga_acesso_usuario'
+    post 'usuarios', to: 'grupos#cria_acesso_usuario'
+    get 'usuarios/new', to: 'grupos#novo_acesso_usuario'
   end
   resources :parametros
   resources :unitel_sequences
