@@ -34,7 +34,7 @@
         </div>
         <div class="form-input col-sm-6">
           <%= f.label :grupo_id, "Grupo pai" %>
-          <%= f.select :grupo_id, Grupo.where(pai: false).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, class: "form-control" %>   
+          <%= f.select :grupo_id, grupos.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, class: "form-control" %>   
         </div>
         <div class="form-actions col-sm-12">
           <hr>
