@@ -1,6 +1,15 @@
 # README
 
 
+  include PermissionamentoDados
+
+  com_acesso(usuario_logado)
+
+  @usuario.responsavel = usuario_logado
+
+
+
+
 ::::::::: Backup Database ::::::::: 
 pg_dump -h localhost -U "pgsdba" "pgstrans_development" -Fc > dump/pgstrans_development.bkp
 
