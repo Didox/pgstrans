@@ -28,6 +28,10 @@ class Usuario < ApplicationRecord
     grupo_usuarios.map{|g| g.grupo}
   end
 
+  def grupos_id
+    grupo_usuarios.map{|g| g.grupo_id}
+  end
+
   def self.ativo
     Usuario.where(status_cliente_id: StatusCliente.where(nome: "Ativo"))
   end
@@ -43,8 +47,13 @@ class Usuario < ApplicationRecord
     acesso.created_at if acesso.present?
   end
 
-  def self.com_acesso
-    #TODO
+  def self.com_acesso(usuario)
+    Usuario.joins("
+    inner join grupo_registros on 
+      grupo_registros.modelo = 'Usuario' and 
+      grupo_registros.modelo_id = usuarios.id and 
+      grupo_registros.grupo_id in (#{usuario.grupos_id.join(",")}) 
+    ").distinct
   end
 
   private
