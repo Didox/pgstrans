@@ -1,10 +1,14 @@
 # README
 
 
+  ### adicionar no modelo
   include PermissionamentoDados
 
+  ### adicionar no controller na acao index trocar a palavra .all ou se tiver classe como NomeDoModel.where NomeDoModel.com_acesso(usuario_logado).where 
   com_acesso(usuario_logado)
 
+  # incluir no create depois de criar a instancia
+  # incluir no set_[model] depois de criar a instancia
   @usuario.responsavel = usuario_logado
 
 
