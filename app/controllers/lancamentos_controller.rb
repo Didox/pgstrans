@@ -5,6 +5,7 @@ class LancamentosController < ApplicationController
   # GET /lancamentos.json
   def index
     @lancamentos = Lancamento.all.order(nome: :asc)
+    # @lancamentos = Lancamento.com_acesso(usuario_logado).order(nome: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
     @lancamentos = @lancamentos.paginate(options)
@@ -28,6 +29,7 @@ class LancamentosController < ApplicationController
   # POST /lancamentos.json
   def create
     @lancamento = Lancamento.new(lancamento_params)
+    @lancamento.responsavel = usuario_logado
 
     if @lancamento.nome != "Compra de crédito ou recarga"
       flash[:error] = "Este status é de uso interno - não pode ser alterado"
@@ -86,6 +88,7 @@ class LancamentosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_lancamento
       @lancamento = Lancamento.find(params[:id])
+      @lancamento.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
