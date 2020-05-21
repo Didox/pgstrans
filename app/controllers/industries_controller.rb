@@ -5,6 +5,7 @@ class IndustriesController < ApplicationController
   # GET /industries.json
   def index
     @industries = Industry.all.order(descricao_seccao: :asc)
+    # @industries = Industry.com_acesso(usuario_logado).order(descricao_seccao: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
     @industries = @industries.paginate(options)
@@ -28,6 +29,7 @@ class IndustriesController < ApplicationController
   # POST /industries.json
   def create
     @industry = Industry.new(industry_params)
+    @industry.responsavel = usuario_logado
 
     respond_to do |format|
       if @industry.save
@@ -68,6 +70,7 @@ class IndustriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_industry
       @industry = Industry.find(params[:id])
+      @industry.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

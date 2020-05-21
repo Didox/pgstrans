@@ -4,6 +4,7 @@ class StatusClientesController < ApplicationController
   # GET /status_clientes
   # GET /status_clientes.json
   def index
+    # @status_clientes = StatusCliente.com_acesso(usuario_logado).order(nome: :asc)
     @status_clientes = StatusCliente.all.order(nome: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
@@ -28,6 +29,7 @@ class StatusClientesController < ApplicationController
   # POST /status_clientes.json
   def create
     @status_cliente = StatusCliente.new(status_cliente_params)
+    @status_cliente.responsavel = usuario_logado
 
     respond_to do |format|
       if @status_cliente.save
@@ -68,6 +70,7 @@ class StatusClientesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_status_cliente
       @status_cliente = StatusCliente.find(params[:id])
+      @status_cliente.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

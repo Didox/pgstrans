@@ -4,6 +4,7 @@ class PartnersController < ApplicationController
   # GET /partners
   # GET /partners.json
   def index
+    # @partners = Partner.com_acesso(usuario_logado).order(id: :asc)
     @partners = Partner.all.order(id: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
@@ -67,6 +68,7 @@ class PartnersController < ApplicationController
   # POST /partners.json
   def create
     @partner = Partner.new(partner_params)
+    @partner.responsavel = usuario_logado
 
     respond_to do |format|
       if @partner.save
@@ -107,6 +109,7 @@ class PartnersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_partner
       @partner = Partner.find(params[:id] || params[:partner_id])
+      @partner.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

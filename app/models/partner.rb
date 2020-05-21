@@ -1,4 +1,6 @@
 class Partner < ApplicationRecord
+  include PermissionamentoDados
+
   has_many :return_code_api
   validates :name, presence: true, uniqueness: true
   belongs_to :status_parceiro

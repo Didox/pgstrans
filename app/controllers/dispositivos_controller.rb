@@ -5,6 +5,7 @@ class DispositivosController < ApplicationController
   # GET /dispositivos.json
   def index
     @dispositivos = Dispositivo.all.order(nome: :asc)
+    # @dispositivos = Dispositivo.com_acesso(usuario_logado).order(nome: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
     @dispositivos = @dispositivos.paginate(options)
@@ -28,6 +29,7 @@ class DispositivosController < ApplicationController
   # POST /dispositivos.json
   def create
     @dispositivo = Dispositivo.new(dispositivo_params)
+    @dispositivo.responsavel = usuario_logado
 
     respond_to do |format|
       if @dispositivo.save
@@ -68,6 +70,7 @@ class DispositivosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_dispositivo
       @dispositivo = Dispositivo.find(params[:id])
+      @dispositivo.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

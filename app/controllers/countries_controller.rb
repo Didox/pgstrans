@@ -5,6 +5,7 @@ class CountriesController < ApplicationController
   # GET /countries.json
   def index
     @countries = Country.all.order(name_eng: :asc)
+    # @countries = Country.com_acesso(usuario_logado).order(name_eng: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
     @countries = @countries.paginate(options)
@@ -28,6 +29,7 @@ class CountriesController < ApplicationController
   # POST /countries.json
   def create
     @country = Country.new(country_params)
+    @country.responsavel = usuario_logado
 
     respond_to do |format|
       if @country.save
@@ -68,6 +70,7 @@ class CountriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_country
       @country = Country.find(params[:id])
+      @country.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

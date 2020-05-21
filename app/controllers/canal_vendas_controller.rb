@@ -4,6 +4,7 @@ class CanalVendasController < ApplicationController
   # GET /canal_vendas
   # GET /canal_vendas.json
   def index
+    # @canal_vendas = CanalVenda.com_acesso(usuario_logado).order(nome: :asc)
     @canal_vendas = CanalVenda.all.order(nome: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
@@ -28,6 +29,7 @@ class CanalVendasController < ApplicationController
   # POST /canal_vendas.json
   def create
     @canal_venda = CanalVenda.new(canal_venda_params)
+    @canal_venda.responsavel = usuario_logado
 
     respond_to do |format|
       if @canal_venda.save
@@ -68,6 +70,7 @@ class CanalVendasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_canal_venda
       @canal_venda = CanalVenda.find(params[:id])
+      @canal_venda.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

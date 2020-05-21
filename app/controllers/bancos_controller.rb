@@ -5,6 +5,7 @@ class BancosController < ApplicationController
   # GET /bancos.json
   def index
     @bancos = Banco.all
+    # @bancos = Banco.com_acesso(usuario_logado)
 
     options = {page: params[:page] || 1, per_page: 10}
     @bancos = @bancos.paginate(options) 
@@ -28,6 +29,7 @@ class BancosController < ApplicationController
   # POST /bancos.json
   def create
     @banco = Banco.new(banco_params)
+    @banco.responsavel = usuario_logado
 
     respond_to do |format|
       if @banco.save
@@ -68,6 +70,7 @@ class BancosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_banco
       @banco = Banco.find(params[:id])
+      @banco.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
