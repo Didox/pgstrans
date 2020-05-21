@@ -25,7 +25,7 @@
                 <ul class="list-group">
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :GruposController, :index) %>
                         <li class="list-group-item">
-                            <%= link_to 'Grupos de acesso', grupos_path %>
+                            <%= link_to 'Grupos de Acesso', grupos_path %>
                         </li>
                     <% end %>
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :MatrixUsersController, :index) %>
@@ -50,7 +50,7 @@
                     <% end %>
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :PerfilUsuariosController, :index) %>
                         <li class="list-group-item">
-                            <%= link_to 'Perfis de Usuários', perfil_usuarios_path %>
+                            <%= link_to 'Perfil de Usuário', perfil_usuarios_path %>
                         </li>
                     <% end %>
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :UsuariosController, :index) %>
@@ -134,7 +134,7 @@
 
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :ReturnCodeApisController, :index) %>
                         <li class="list-group-item">
-                            <%= link_to 'Return Codes', return_code_apis_path %>
+                            <%= link_to 'Return Codes - Código de Retorno das APIs', return_code_apis_path %>
                         </li>
                     <% end %>
 
@@ -190,7 +190,7 @@
                 <ul class="list-group">
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :IndustriesController, :index) %>
                         <li class="list-group-item">
-                            <%= link_to 'Ramos de Atividade', industries_path %>
+                            <%= link_to 'Actividades Economicas', industries_path %>
                         </li>
                     <% end %>
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :DispositivosController, :index) %>
