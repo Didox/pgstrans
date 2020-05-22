@@ -4,8 +4,8 @@ class ReturnCodeApisController < ApplicationController
   # GET /return_code_apis
   # GET /return_code_apis.json
   def index
-    @return_code_apis = ReturnCodeApi.all.order(partner_id: :asc, return_code: :asc)
-    #@return_code_apis = ReturnCodeApi.com_acesso(usuario_logado).order(partner_id: :asc, return_code: :asc)  
+    #@return_code_apis = ReturnCodeApi.all.order(partner_id: :asc, return_code: :asc)
+    @return_code_apis = ReturnCodeApi.com_acesso(usuario_logado).order(partner_id: :asc, return_code: :asc)  
 
     @return_code_apis = @return_code_apis.where(partner_id: params[:partner_id]) if params[:partner_id].present?
     @return_code_apis = @return_code_apis.where("return_code ilike '%#{params[:return_code]}%'") if params[:return_code].present?

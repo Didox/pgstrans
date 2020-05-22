@@ -4,8 +4,8 @@ class BancosController < ApplicationController
   # GET /bancos
   # GET /bancos.json
   def index
-    @bancos = Banco.all
-    # @bancos = Banco.com_acesso(usuario_logado)
+    #@bancos = Banco.all
+    @bancos = Banco.com_acesso(usuario_logado)
 
     options = {page: params[:page] || 1, per_page: 10}
     @bancos = @bancos.paginate(options) 

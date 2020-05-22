@@ -4,8 +4,8 @@ class MatrixUsersController < ApplicationController
   # GET /matrix_users
   # GET /matrix_users.json
   def index
-    @matrix_users = MatrixUser.all.order(usuario_id: :asc)
-    #@matrix_users = MatrixUser.com_acesso(usuario_logado).order(usuario_id: :asc)  
+    #@matrix_users = MatrixUser.all.order(usuario_id: :asc)
+    @matrix_users = MatrixUser.com_acesso(usuario_logado).order(usuario_id: :asc)  
 
     options = {page: params[:page] || 1, per_page: 10}
     @matrix_users = @matrix_users.paginate(options)

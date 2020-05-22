@@ -4,8 +4,8 @@ class CanalVendasController < ApplicationController
   # GET /canal_vendas
   # GET /canal_vendas.json
   def index
-    @canal_vendas = CanalVenda.all.order(nome: :asc)
-    #@canal_vendas = CanalVenda.com_acesso(usuario_logado).order(nome: :asc)
+    #@canal_vendas = CanalVenda.all.order(nome: :asc)
+    @canal_vendas = CanalVenda.com_acesso(usuario_logado).order(nome: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
     @canal_vendas = @canal_vendas.paginate(options)   

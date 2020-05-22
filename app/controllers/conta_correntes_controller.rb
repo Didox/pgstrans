@@ -5,8 +5,8 @@ class ContaCorrentesController < ApplicationController
   # GET /conta_correntes.json
   def index
     if usuario_logado.admin?
-      @conta_correntes = ContaCorrente.all
-      #@conta_correntes = ContaCorrente.com_acesso(usuario_logado)
+      #@conta_correntes = ContaCorrente.all
+      @conta_correntes = ContaCorrente.com_acesso(usuario_logado)
       
       @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
       @conta_correntes = @conta_correntes.reorder("updated_at desc")

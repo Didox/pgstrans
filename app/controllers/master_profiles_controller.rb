@@ -4,8 +4,8 @@ class MasterProfilesController < ApplicationController
   # GET /master_profiles
   # GET /master_profiles.json
   def index
-    @master_profiles = MasterProfile.all.order(description: :asc)
-    #@master_profiles = MasterProfile.com_acesso(usuario_logado).order(description: :asc)
+    #@master_profiles = MasterProfile.all.order(description: :asc)
+    @master_profiles = MasterProfile.com_acesso(usuario_logado).order(description: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
     @master_profiles = @master_profiles.paginate(options)

@@ -4,8 +4,8 @@ class PartnersController < ApplicationController
   # GET /partners
   # GET /partners.json
   def index
-    @partners = Partner.all.order(id: :asc)
-    #@partners = Partner.com_acesso(usuario_logado).order(id: :asc)
+    #@partners = Partner.all.order(id: :asc)
+    @partners = Partner.com_acesso(usuario_logado).order(id: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
     @partners = @partners.paginate(options)    

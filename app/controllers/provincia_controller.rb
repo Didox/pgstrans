@@ -4,8 +4,8 @@ class ProvinciaController < ApplicationController
   # GET /provincia
   # GET /provincia.json
   def index
-    @provincia = Provincium.all.order(nome: :asc)
-    #@provincia = Provincium.com_acesso(usuario_logado).order(nome: :asc)
+    #@provincia = Provincium.all.order(nome: :asc)
+    @provincia = Provincium.com_acesso(usuario_logado).order(nome: :asc)
     
     options = {page: params[:page] || 1, per_page: 10}
     @provincium = @provincia.paginate(options)

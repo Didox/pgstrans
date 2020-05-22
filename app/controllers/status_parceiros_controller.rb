@@ -4,8 +4,8 @@ class StatusParceirosController < ApplicationController
   # GET /status_parceiros
   # GET /status_parceiros.json
   def index
-    @status_parceiros = StatusParceiro.all
-    #@status_parceiros = StatusParceiro.com_acesso(usuario_logado)  
+    #@status_parceiros = StatusParceiro.all
+    @status_parceiros = StatusParceiro.com_acesso(usuario_logado)  
  
     options = {page: params[:page] || 1, per_page: 10}
     @status_parceiros = @status_parceiros.paginate(options)

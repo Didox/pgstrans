@@ -4,8 +4,8 @@ class TipoTransacaosController < ApplicationController
   # GET /tipo_transacaos
   # GET /tipo_transacaos.json
   def index
-    @tipo_transacaos = TipoTransacao.all.order(nome: :asc)
-    #@tipo_transacaos = TipoTransacao.com_acesso(usuario_logado).order(nome: :asc)  
+    #@tipo_transacaos = TipoTransacao.all.order(nome: :asc)
+    @tipo_transacaos = TipoTransacao.com_acesso(usuario_logado).order(nome: :asc)  
 
     options = {page: params[:page] || 1, per_page: 10}
     @tipo_transacaos = @tipo_transacaos.paginate(options)
