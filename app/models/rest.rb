@@ -1,4 +1,5 @@
 class Rest
+  include PermissionamentoDados
   def self.all(url, aluno_id=nil, query={})
     uri = URI.parse(URI.escape(url))
     request = HTTParty.get(uri, :query => query)

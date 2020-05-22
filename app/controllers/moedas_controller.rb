@@ -5,6 +5,7 @@ class MoedasController < ApplicationController
   # GET /moedas.json
   def index
     @moedas = Moeda.all.order(nome: :asc)
+    #@moedas = Moeda.com_acesso(usuario_logado).order(nome: :asc)  
 
     options = {page: params[:page] || 1, per_page: 10}
     @moedas = @moedas.paginate(options) 
@@ -28,6 +29,7 @@ class MoedasController < ApplicationController
   # POST /moedas.json
   def create
     @moeda = Moeda.new(moeda_params)
+    @moeda.responsavel = usuario_logado
 
     respond_to do |format|
       if @moeda.save
@@ -68,6 +70,7 @@ class MoedasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_moeda
       @moeda = Moeda.find(params[:id])
+      @moeda.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -5,6 +5,7 @@ class UniPessoalEmpresasController < ApplicationController
   # GET /uni_pessoal_empresas.json
   def index
     @uni_pessoal_empresas = UniPessoalEmpresa.all.order(nome: :asc)
+    #@uni_pessoal_empresas = UniPessoalEmpresa.com_acesso(usuario_logado).order(nome: :asc)  
 
     options = {page: params[:page] || 1, per_page: 10}
     @uni_pessoal_empresas = @uni_pessoal_empresas.paginate(options) 
@@ -28,6 +29,7 @@ class UniPessoalEmpresasController < ApplicationController
   # POST /uni_pessoal_empresas.json
   def create
     @uni_pessoal_empresa = UniPessoalEmpresa.new(uni_pessoal_empresa_params)
+    @uni_pessoal_empresa.responsavel = usuario_logado
 
     respond_to do |format|
       if @uni_pessoal_empresa.save
@@ -68,6 +70,7 @@ class UniPessoalEmpresasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_uni_pessoal_empresa
       @uni_pessoal_empresa = UniPessoalEmpresa.find(params[:id])
+      @uni_pessoal_empresa.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

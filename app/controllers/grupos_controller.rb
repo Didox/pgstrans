@@ -8,7 +8,6 @@ class GruposController < ApplicationController
 
     options = {page: params[:page] || 1, per_page: 10}
     @grupos = @grupos.paginate(options)
-
   end
 
   # GET /grupos/1

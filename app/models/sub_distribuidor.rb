@@ -1,4 +1,5 @@
 class SubDistribuidor < ApplicationRecord
+	include PermissionamentoDados
 	validates :nome, presence: true, uniqueness: true
 	validates :bi, :morada, presence: true
 

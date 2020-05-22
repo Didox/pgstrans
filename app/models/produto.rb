@@ -1,4 +1,5 @@
 class Produto < ApplicationRecord
+  include PermissionamentoDados
   belongs_to :partner
   belongs_to :status_produto
   belongs_to :moeda

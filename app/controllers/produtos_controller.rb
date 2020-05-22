@@ -5,6 +5,8 @@ class ProdutosController < ApplicationController
   # GET /produtos.json
   def index
     @produtos = Produto.all.order(description: :asc)
+    #@produtos = Produto.com_acesso(usuario_logado).order(description: :asc)  
+
     @produtos = @produtos.where(partner_id: params[:partner_id]) if params[:partner_id].present?
     @produtos = @produtos.where("description ilike '%#{params[:nome]}%'") if params[:nome].present?
     @produtos = @produtos.where("partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
@@ -36,6 +38,7 @@ class ProdutosController < ApplicationController
   # POST /produtos.json
   def create
     @produto = Produto.new(produto_params)
+    @produto.responsavel = usuario_logado
 
     respond_to do |format|
       if @produto.save
@@ -76,6 +79,7 @@ class ProdutosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_produto
       @produto = Produto.find(params[:id])
+      @produto.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

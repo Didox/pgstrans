@@ -5,6 +5,7 @@ class StatusAlegacaoPagamentosController < ApplicationController
   # GET /status_alegacao_pagamentos.json
   def index
     @status_alegacao_pagamentos = StatusAlegacaoPagamento.all.order(nome: :asc)
+    #@status_alegacao_pagamentos = StatusAlegacaoPagamento.com_acesso(usuario_logado).order(nome: :asc)  
 
     options = {page: params[:page] || 1, per_page: 10}
     @status_alegacao_pagamentos = @status_alegacao_pagamentos.paginate(options)   
@@ -28,6 +29,7 @@ class StatusAlegacaoPagamentosController < ApplicationController
   # POST /status_alegacao_pagamentos.json
   def create
     @status_alegacao_pagamento = StatusAlegacaoPagamento.new(status_alegacao_pagamento_params)
+    @status_alegacao_pagamento.responsavel = usuario_logado
 
     respond_to do |format|
       if @status_alegacao_pagamento.save
@@ -68,6 +70,7 @@ class StatusAlegacaoPagamentosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_status_alegacao_pagamento
       @status_alegacao_pagamento = StatusAlegacaoPagamento.find(params[:id])
+      @status_alegacao_pagamento.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

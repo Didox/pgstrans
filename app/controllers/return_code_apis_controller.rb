@@ -5,6 +5,7 @@ class ReturnCodeApisController < ApplicationController
   # GET /return_code_apis.json
   def index
     @return_code_apis = ReturnCodeApi.all.order(partner_id: :asc, return_code: :asc)
+    #@return_code_apis = ReturnCodeApi.com_acesso(usuario_logado).order(partner_id: :asc, return_code: :asc)  
 
     @return_code_apis = @return_code_apis.where(partner_id: params[:partner_id]) if params[:partner_id].present?
     @return_code_apis = @return_code_apis.where("return_code ilike '%#{params[:return_code]}%'") if params[:return_code].present?
@@ -34,6 +35,7 @@ class ReturnCodeApisController < ApplicationController
   # POST /return_code_apis.json
   def create
     @return_code_api = ReturnCodeApi.new(return_code_api_params)
+    @return_code_api.responsavel = usuario_logado
 
     respond_to do |format|
       if @return_code_api.save
@@ -74,6 +76,7 @@ class ReturnCodeApisController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_return_code_api
       @return_code_api = ReturnCodeApi.find(params[:id])
+      @return_code_api.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

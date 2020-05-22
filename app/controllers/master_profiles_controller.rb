@@ -5,6 +5,7 @@ class MasterProfilesController < ApplicationController
   # GET /master_profiles.json
   def index
     @master_profiles = MasterProfile.all.order(description: :asc)
+    #@master_profiles = MasterProfile.com_acesso(usuario_logado).order(description: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
     @master_profiles = @master_profiles.paginate(options)
@@ -28,6 +29,7 @@ class MasterProfilesController < ApplicationController
   # POST /master_profiles.json
   def create
     @master_profile = MasterProfile.new(master_profile_params)
+    @master_profile.responsavel = usuario_logado
 
     respond_to do |format|
       if @master_profile.save
@@ -69,6 +71,7 @@ class MasterProfilesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_master_profile
       @master_profile = MasterProfile.find(params[:id])
+      @master_profile.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

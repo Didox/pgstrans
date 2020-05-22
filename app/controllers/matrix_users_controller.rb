@@ -5,6 +5,7 @@ class MatrixUsersController < ApplicationController
   # GET /matrix_users.json
   def index
     @matrix_users = MatrixUser.all.order(usuario_id: :asc)
+    #@matrix_users = MatrixUser.com_acesso(usuario_logado).order(usuario_id: :asc)  
 
     options = {page: params[:page] || 1, per_page: 10}
     @matrix_users = @matrix_users.paginate(options)
@@ -28,6 +29,7 @@ class MatrixUsersController < ApplicationController
   # POST /matrix_users.json
   def create
     @matrix_user = MatrixUser.new(matrix_user_params)
+    @matrix_user.responsavel = usuario_logado
 
     respond_to do |format|
       if @matrix_user.save
@@ -68,6 +70,7 @@ class MatrixUsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_matrix_user
       @matrix_user = MatrixUser.find(params[:id])
+      @matrix_user.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

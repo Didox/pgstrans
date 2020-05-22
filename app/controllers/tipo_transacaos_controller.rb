@@ -5,6 +5,7 @@ class TipoTransacaosController < ApplicationController
   # GET /tipo_transacaos.json
   def index
     @tipo_transacaos = TipoTransacao.all.order(nome: :asc)
+    #@tipo_transacaos = TipoTransacao.com_acesso(usuario_logado).order(nome: :asc)  
 
     options = {page: params[:page] || 1, per_page: 10}
     @tipo_transacaos = @tipo_transacaos.paginate(options)
@@ -28,6 +29,7 @@ class TipoTransacaosController < ApplicationController
   # POST /tipo_transacaos.json
   def create
     @tipo_transacao = TipoTransacao.new(tipo_transacao_params)
+    @tipo_transacao.responsavel = usuario_logado
 
     respond_to do |format|
       if @tipo_transacao.save
@@ -68,6 +70,7 @@ class TipoTransacaosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_tipo_transacao
       @tipo_transacao = TipoTransacao.find(params[:id])
+      @tipo_transacao.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

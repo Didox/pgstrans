@@ -5,7 +5,7 @@ class LancamentosController < ApplicationController
   # GET /lancamentos.json
   def index
     @lancamentos = Lancamento.all.order(nome: :asc)
-    # @lancamentos = Lancamento.com_acesso(usuario_logado).order(nome: :asc)
+    #@lancamentos = Lancamento.com_acesso(usuario_logado).order(nome: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
     @lancamentos = @lancamentos.paginate(options)

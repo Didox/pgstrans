@@ -5,7 +5,8 @@ class ProvinciaController < ApplicationController
   # GET /provincia.json
   def index
     @provincia = Provincium.all.order(nome: :asc)
-
+    #@provincia = Provincium.com_acesso(usuario_logado).order(nome: :asc)
+    
     options = {page: params[:page] || 1, per_page: 10}
     @provincium = @provincia.paginate(options)
   end
@@ -28,6 +29,7 @@ class ProvinciaController < ApplicationController
   # POST /provincia.json
   def create
     @provincium = Provincium.new(provincium_params)
+    @provincium.responsavel = usuario_logado
 
     respond_to do |format|
       if @provincium.save
@@ -68,6 +70,7 @@ class ProvinciaController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_provincium
       @provincium = Provincium.find(params[:id])
+      @provincium.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

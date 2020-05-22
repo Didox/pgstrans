@@ -5,6 +5,7 @@ class UnitelSequencesController < ApplicationController
   # GET /unitel_sequences.json
   def index
     @unitel_sequences = UnitelSequence.all.order(id: :desc)
+    #@unitel_sequences = UnitelSequence.com_acesso(usuario_logado).order(id: :desc)  
 
     options = {page: params[:page] || 1, per_page: 10}
     @unitel_sequences = @unitel_sequences.paginate(options)
@@ -28,6 +29,7 @@ class UnitelSequencesController < ApplicationController
   # POST /unitel_sequences.json
   def create
     @unitel_sequence = UnitelSequence.new(unitel_sequence_params)
+    @unitel_sequence.responsavel = usuario_logado
 
     respond_to do |format|
       if @unitel_sequence.save
@@ -68,6 +70,7 @@ class UnitelSequencesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_unitel_sequence
       @unitel_sequence = UnitelSequence.find(params[:id])
+      @unitel_sequence.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

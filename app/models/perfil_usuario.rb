@@ -1,4 +1,5 @@
 class PerfilUsuario < ApplicationRecord
+  include PermissionamentoDados
   validates :nome, presence: true, uniqueness: true
 
   def acessos_parse

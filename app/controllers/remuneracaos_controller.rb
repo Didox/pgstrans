@@ -5,6 +5,7 @@ class RemuneracaosController < ApplicationController
   # GET /remuneracaos.json
   def index
     @remuneracaos = Remuneracao.all.order(usuario_id: :asc)
+    #@remuneracaos = Remuneracao.com_acesso(usuario_logado).order(usuario_id: :asc) 
 
     options = {page: params[:page] || 1, per_page: 10}
     @remuneracaos = @remuneracaos.paginate(options)
@@ -28,7 +29,8 @@ class RemuneracaosController < ApplicationController
   # POST /remuneracaos.json
   def create
     @remuneracao = Remuneracao.new(remuneracao_params)
-
+    @remuneracao.responsavel = usuario_logado
+    
     respond_to do |format|
       if @remuneracao.save
         format.html { redirect_to @remuneracao, notice: 'Remuneração foi criada com sucesso.' }
@@ -68,6 +70,7 @@ class RemuneracaosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_remuneracao
       @remuneracao = Remuneracao.find(params[:id])
+      @remuneracao.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

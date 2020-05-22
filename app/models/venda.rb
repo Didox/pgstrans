@@ -1,4 +1,5 @@
 class Venda < ApplicationRecord
+  include PermissionamentoDados
   #default_scope { order(updated_at: :desc) }
   default_scope { order(id: :desc) }
   belongs_to :usuario

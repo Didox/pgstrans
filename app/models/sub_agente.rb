@@ -1,4 +1,5 @@
 class SubAgente < ApplicationRecord
+	include PermissionamentoDados
 	validates :razao_social, presence: true, uniqueness: true
 	validates :nome_fantasia, :bi, :morada, presence: true
 

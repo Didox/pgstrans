@@ -5,6 +5,8 @@ class MunicipiosController < ApplicationController
   # GET /municipios.json
   def index
     @municipios = Municipio.all.order(nome: :asc)
+    #@municipios = Municipio.com_acesso(usuario_logado).order(nome: :asc)  
+    
     @municipios = @municipios.where("municipios.nome ilike '%#{params[:municipio_nome]}%'") if params[:municipio_nome].present?
 
     options = {page: params[:page] || 1, per_page: 10}
@@ -29,6 +31,7 @@ class MunicipiosController < ApplicationController
   # POST /municipios.json
   def create
     @municipio = Municipio.new(municipio_params)
+    @municipio.responsavel = usuario_logado
 
     respond_to do |format|
       if @municipio.save
@@ -69,6 +72,7 @@ class MunicipiosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_municipio
       @municipio = Municipio.find(params[:id])
+      @municipio.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

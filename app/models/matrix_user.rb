@@ -1,4 +1,5 @@
 class MatrixUser < ApplicationRecord
+  include PermissionamentoDados
   belongs_to :usuario
   validates :usuario_id, :master_profile, :sub_distribuidor, :sub_agente, :filial, :pdv, presence: true
   # validates :usuario_id, uniqueness: true

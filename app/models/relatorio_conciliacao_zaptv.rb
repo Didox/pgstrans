@@ -1,4 +1,5 @@
 class RelatorioConciliacaoZaptv < ApplicationRecord
+  include PermissionamentoDados
   belongs_to :partner
 
   def self.to_csv

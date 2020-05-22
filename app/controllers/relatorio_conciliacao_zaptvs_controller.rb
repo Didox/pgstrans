@@ -33,6 +33,7 @@ class RelatorioConciliacaoZaptvsController < ApplicationController
     redirect_to "/partners"
     return
     @relatorio_conciliacao_zaptv = RelatorioConciliacaoZaptv.new(relatorio_conciliacao_zaptv_params)
+    @relatorio_conciliacao_zaptv.responsavel = usuario_logado
 
     respond_to do |format|
       if @relatorio_conciliacao_zaptv.save
@@ -77,6 +78,7 @@ class RelatorioConciliacaoZaptvsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_relatorio_conciliacao_zaptv
       @relatorio_conciliacao_zaptv = RelatorioConciliacaoZaptv.find(params[:id])
+      @relatorio_conciliacao_zaptv.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

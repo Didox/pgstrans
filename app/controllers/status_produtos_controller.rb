@@ -5,6 +5,7 @@ class StatusProdutosController < ApplicationController
   # GET /status_produtos.json
   def index
     @status_produtos = StatusProduto.all.order(nome: :asc)
+    #@status_produtos = StatusProduto.com_acesso(usuario_logado).order(nome: :asc)
   end
 
   # GET /status_produtos/1
@@ -25,6 +26,7 @@ class StatusProdutosController < ApplicationController
   # POST /status_produtos.json
   def create
     @status_produto = StatusProduto.new(status_produto_params)
+    @status_produto.responsavel = usuario_logado
 
     respond_to do |format|
       if @status_produto.save
@@ -65,6 +67,7 @@ class StatusProdutosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_status_produto
       @status_produto = StatusProduto.find(params[:id])
+      @status_produto.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

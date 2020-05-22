@@ -5,6 +5,7 @@ class SubAgentesController < ApplicationController
   # GET /sub_agentes.json
   def index
     @sub_agentes = SubAgente.all.order(razao_social: :asc)
+    #@sub_agentes = SubAgente.com_acesso(usuario_logado).order(razao_social: :asc) 
 
     options = {page: params[:page] || 1, per_page: 10}
     @sub_agentes = @sub_agentes.paginate(options)
@@ -28,6 +29,7 @@ class SubAgentesController < ApplicationController
   # POST /sub_agentes.json
   def create
     @sub_agente = SubAgente.new(sub_agente_params)
+    @sub_agente.responsavel = usuario_logado
 
     respond_to do |format|
       if @sub_agente.save
@@ -68,6 +70,7 @@ class SubAgentesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_sub_agente
       @sub_agente = SubAgente.find(params[:id])
+      @sub_agente.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

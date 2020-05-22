@@ -5,7 +5,8 @@ class StatusParceirosController < ApplicationController
   # GET /status_parceiros.json
   def index
     @status_parceiros = StatusParceiro.all
-
+    #@status_parceiros = StatusParceiro.com_acesso(usuario_logado)  
+ 
     options = {page: params[:page] || 1, per_page: 10}
     @status_parceiros = @status_parceiros.paginate(options)
   end
@@ -28,6 +29,7 @@ class StatusParceirosController < ApplicationController
   # POST /status_parceiros.json
   def create
     @status_parceiro = StatusParceiro.new(status_parceiro_params)
+    @status_parceiro.responsavel = usuario_logado
 
     respond_to do |format|
       if @status_parceiro.save
@@ -68,6 +70,7 @@ class StatusParceirosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_status_parceiro
       @status_parceiro = StatusParceiro.find(params[:id])
+      @status_parceiro.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

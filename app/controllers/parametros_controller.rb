@@ -5,6 +5,7 @@ class ParametrosController < ApplicationController
   # GET /parametros.json
   def index
     @parametros = Parametro.all
+    #@parametros = Parametro.com_acesso(usuario_logado)
 
     options = {page: params[:page] || 1, per_page: 10}
     @parametros = @parametros.paginate(options)    
@@ -28,6 +29,7 @@ class ParametrosController < ApplicationController
   # POST /parametros.json
   def create
     @parametro = Parametro.new(parametro_params)
+    @parametro.responsavel = usuario_logado
 
     respond_to do |format|
       if @parametro.save
@@ -68,6 +70,7 @@ class ParametrosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_parametro
       @parametro = Parametro.find(params[:id])
+      @parametro.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
