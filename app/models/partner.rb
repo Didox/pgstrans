@@ -8,7 +8,7 @@ class Partner < ApplicationRecord
 
   STORE_ID_ZAP_PARCEIRO = "115356"
 
-  def importa_produtos!
+  def importa_produtos!(usuario_logado = nil)
     return if self.slug.downcase != "zaptv"
 
     parametro = Parametro.where(partner_id: self.id).first
@@ -40,7 +40,7 @@ class Partner < ApplicationRecord
           produto = produtos.first
         end
 
-        produto.responsavel = Usuario.adm
+        produto.responsavel = usuario_logado || Usuario.adm
         produto.description = p_hash["description"]
         produto.valor_minimo_venda_site = p_hash["price"]
         produto.valor_compra_site = p_hash["price"]
@@ -68,7 +68,7 @@ class Partner < ApplicationRecord
     end
   end
 
-  def importa_dados!
+  def importa_dados!()
     return if self.slug.downcase != "zaptv"
 
     parametro = Parametro.where(partner_id: self.id).first
