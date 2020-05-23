@@ -4,8 +4,7 @@ class PerfilUsuariosController < ApplicationController
   # GET /perfil_usuarios
   # GET /perfil_usuarios.json
   def index
-    #@perfil_usuarios = PerfilUsuario.all.order(nome: :asc)
-    @perfil_usuarios = PerfilUsuario.com_acesso(usuario_logado).order(nome: :asc)  
+    @perfil_usuarios = PerfilUsuario.all.order(nome: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
     @perfil_usuarios = @perfil_usuarios.paginate(options)
@@ -32,7 +31,6 @@ class PerfilUsuariosController < ApplicationController
   def create
     @perfil_usuario = PerfilUsuario.new(perfil_usuario_params)
     @perfil_usuario.acessos = parseAcesso
-    #@perfil_usuario.responsavel = usuario_logado
 
     respond_to do |format|
       if @perfil_usuario.save
@@ -127,7 +125,6 @@ class PerfilUsuariosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_perfil_usuario
       @perfil_usuario = PerfilUsuario.find(params[:id])
-      @perfil_usuario.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

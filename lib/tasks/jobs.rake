@@ -82,6 +82,7 @@ namespace :jobs do
             produto = produtos.first
           end
 
+          produto.responsavel = Usuario.adm
           produto.description = descricao
 
           produto.valor_compra_telemovel = price

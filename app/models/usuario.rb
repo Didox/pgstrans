@@ -36,6 +36,16 @@ class Usuario < ApplicationRecord
     Usuario.where(status_cliente_id: StatusCliente.where(nome: "Ativo"))
   end
 
+  def adm
+    self.adms.limit(1).first
+  end
+
+  def adms
+    usuarios = Usuario.joins("inner join perfil_usuarios on usuarios.id = perfil_usuarios.usuario_id")
+    usuarios = usuarios.where("usuarios.admin = true")
+    usuarios
+  end
+
   def admin?
     self.perfil_usuario.admin
   rescue

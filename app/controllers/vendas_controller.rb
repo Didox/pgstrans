@@ -45,6 +45,7 @@ class VendasController < ApplicationController
   # POST /vendas.json
   def create
     @venda = Venda.new(venda_params)
+    @venda.responsavel = usuario_logado
 
     respond_to do |format|
       if @venda.save
@@ -84,6 +85,7 @@ class VendasController < ApplicationController
   private
     def vendas_busca
       @vendas = Venda.all.reorder("id desc")
+      #@vendas = Venda.com_acesso(usuario_logado).order(id: :asc)
       @vendas = @vendas.joins(:usuario)
       @vendas = @vendas.where("vendas.status = ?", params[:return_code]) if params[:return_code].present?
       @vendas = @vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
@@ -104,6 +106,7 @@ class VendasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_venda
       @venda = Venda.find(params[:id] || params[:venda_id])
+      @venda.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

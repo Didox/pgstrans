@@ -40,6 +40,7 @@ class Partner < ApplicationRecord
           produto = produtos.first
         end
 
+        produto.responsavel = Usuario.adm
         produto.description = p_hash["description"]
         produto.valor_minimo_venda_site = p_hash["price"]
         produto.valor_compra_site = p_hash["price"]

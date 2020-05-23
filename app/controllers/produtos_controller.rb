@@ -4,8 +4,8 @@ class ProdutosController < ApplicationController
   # GET /produtos
   # GET /produtos.json
   def index
-    #@produtos = Produto.all.order(description: :asc)
-    @produtos = Produto.com_acesso(usuario_logado).order(description: :asc)  
+    @produtos = Produto.all.order(description: :asc)
+    #@produtos = Produto.com_acesso(usuario_logado).order(description: :asc)  
 
     @produtos = @produtos.where(partner_id: params[:partner_id]) if params[:partner_id].present?
     @produtos = @produtos.where("description ilike '%#{params[:nome]}%'") if params[:nome].present?

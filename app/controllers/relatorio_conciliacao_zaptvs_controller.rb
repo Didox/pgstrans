@@ -1,6 +1,8 @@
 class RelatorioConciliacaoZaptvsController < ApplicationController
   before_action :set_relatorio_conciliacao_zaptv, only: [:show, :edit, :update, :destroy]
 
+  #TODO realmente precisamos deste controller ?????
+
   # GET /relatorio_conciliacao_zaptvs
   # GET /relatorio_conciliacao_zaptvs.json
   def index

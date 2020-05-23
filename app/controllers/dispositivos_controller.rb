@@ -4,8 +4,8 @@ class DispositivosController < ApplicationController
   # GET /dispositivos
   # GET /dispositivos.json
   def index
-    #@dispositivos = Dispositivo.all.order(nome: :asc)
-    @dispositivos = Dispositivo.com_acesso(usuario_logado).order(nome: :asc)
+    @dispositivos = Dispositivo.all.order(nome: :asc)
+    #@dispositivos = Dispositivo.com_acesso(usuario_logado).order(nome: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
     @dispositivos = @dispositivos.paginate(options)
