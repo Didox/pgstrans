@@ -159,8 +159,10 @@ class Venda < ApplicationRecord
       :body => body_send
     )
 
-    venda = Venda.create(product_id: product_id, agent_id: parametro.zaptv_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
-
+    venda = Venda.new(product_id: product_id, agent_id: parametro.zaptv_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda.responsavel = usuario
+    venda.save!
+    
     venda.store_id = usuario.sub_agente.store_id_parceiro
     venda.seller_id = usuario.sub_agente.seller_id_parceiro
     venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
@@ -429,7 +431,9 @@ class Venda < ApplicationRecord
       last_request = request.body
     end
 
-    venda = Venda.create(product_id:product_id, agent_id: parametro.movicel_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(product_id:product_id, agent_id: parametro.movicel_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda.responsavel = usuario
+    venda.save!
 
     venda.store_id = usuario.sub_agente.store_id_parceiro
     venda.seller_id = usuario.sub_agente.seller_id_parceiro
@@ -581,7 +585,9 @@ class Venda < ApplicationRecord
 
     last_request = request.body
     
-    venda = Venda.create(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
+    venda.responsavel = usuario
+    venda.save!
 
     venda.store_id = usuario.sub_agente.store_id_parceiro
     venda.seller_id = usuario.sub_agente.seller_id_parceiro
@@ -706,8 +712,9 @@ class Venda < ApplicationRecord
 
   #     last_request = request.body
       
-  #     venda = Venda.create(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
-
+  #     venda = Venda.new(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
+        # venda.responsavel = usuario
+        # venda.save!
   #     venda.store_id = usuario.sub_agente.store_id_parceiro
   #     venda.seller_id = usuario.sub_agente.seller_id_parceiro
   #     venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
@@ -750,7 +757,9 @@ class Venda < ApplicationRecord
     product_id = params[:unitel_produto_id].split("-").first
     telefone = params[:unitel_telefone]
 
-    venda = Venda.create(agent_id: parametro.unitel_agente_id, product_id: product_id, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(agent_id: parametro.unitel_agente_id, product_id: product_id, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda.responsavel = usuario
+    venda.save!
 
     venda.store_id = usuario.sub_agente.store_id_parceiro
     venda.seller_id = usuario.sub_agente.seller_id_parceiro
