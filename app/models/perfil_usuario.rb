@@ -41,7 +41,8 @@ class PerfilUsuario < ApplicationRecord
       cria_acesso_usuario: "Cria acesso do usuário",
       novo_acesso_usuario: "Tela de novo acesso do usuário",
       resumido: "Tela de vendas resumidas por usuário",
-        
+      importa_produtos: "Importa produtos",
+      importa_dados: "Importa produtos",
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
