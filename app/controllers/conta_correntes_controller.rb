@@ -5,7 +5,7 @@ class ContaCorrentesController < ApplicationController
   # GET /conta_correntes.json
   def index
     if usuario_logado.admin?
-      @conta_correntes = ContaCorrente.com_acesso(usuario_logado)
+      @conta_correntes = ContaCorrente.all
       
       @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
       @conta_correntes = @conta_correntes.reorder("updated_at desc")
@@ -48,7 +48,6 @@ class ContaCorrentesController < ApplicationController
     unless usuario_logado.admin?
       @conta_corrente.usuario = usuario_logado
     end
-    @conta_corrente.responsavel = usuario_logado
 
     respond_to do |format|
       if @conta_corrente.save
@@ -103,7 +102,6 @@ class ContaCorrentesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_conta_corrente
       @conta_corrente = ContaCorrente.find(params[:id])
-      @conta_corrente.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

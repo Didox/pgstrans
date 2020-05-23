@@ -1,5 +1,4 @@
 class ContaCorrente < ApplicationRecord
-  include PermissionamentoDados
   belongs_to :usuario
   belongs_to :lancamento
   belongs_to :banco
