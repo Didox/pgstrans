@@ -4,8 +4,7 @@ class StatusClientesController < ApplicationController
   # GET /status_clientes
   # GET /status_clientes.json
   def index
-    @status_clientes = StatusCliente.all.order(nome: :asc)
-    #@status_clientes = StatusCliente.com_acesso(usuario_logado).order(nome: :asc)
+    @status_clientes = StatusCliente.com_acesso(usuario_logado).order(nome: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
     @status_clientes = @status_clientes.paginate(options)    

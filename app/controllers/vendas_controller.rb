@@ -84,8 +84,7 @@ class VendasController < ApplicationController
 
   private
     def vendas_busca
-      @vendas = Venda.all.reorder("id desc")
-      #@vendas = Venda.com_acesso(usuario_logado).order(id: :asc)
+      @vendas = Venda.com_acesso(usuario_logado).order(id: :asc)
       @vendas = @vendas.joins(:usuario)
       @vendas = @vendas.where("vendas.status = ?", params[:return_code]) if params[:return_code].present?
       @vendas = @vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?

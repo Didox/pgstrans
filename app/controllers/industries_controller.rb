@@ -4,8 +4,7 @@ class IndustriesController < ApplicationController
   # GET /industries
   # GET /industries.json
   def index
-    @industries = Industry.all.order(descricao_seccao: :asc)
-    #@industries = Industry.com_acesso(usuario_logado).order(descricao_seccao: :asc)
+    @industries = Industry.com_acesso(usuario_logado).order(descricao_seccao: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
     @industries = @industries.paginate(options)

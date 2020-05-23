@@ -4,8 +4,7 @@ class MunicipiosController < ApplicationController
   # GET /municipios
   # GET /municipios.json
   def index
-    @municipios = Municipio.all.order(nome: :asc)
-    #@municipios = Municipio.com_acesso(usuario_logado).order(nome: :asc)  
+    @municipios = Municipio.com_acesso(usuario_logado).order(nome: :asc)  
     
     @municipios = @municipios.where("municipios.nome ilike '%#{params[:municipio_nome]}%'") if params[:municipio_nome].present?
 

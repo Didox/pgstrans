@@ -4,8 +4,7 @@ class MoedasController < ApplicationController
   # GET /moedas
   # GET /moedas.json
   def index
-    @moedas = Moeda.all.order(nome: :asc)
-    #@moedas = Moeda.com_acesso(usuario_logado).order(nome: :asc)  
+    @moedas = Moeda.com_acesso(usuario_logado).order(nome: :asc)  
 
     options = {page: params[:page] || 1, per_page: 10}
     @moedas = @moedas.paginate(options) 

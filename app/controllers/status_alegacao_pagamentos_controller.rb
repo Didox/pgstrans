@@ -4,8 +4,7 @@ class StatusAlegacaoPagamentosController < ApplicationController
   # GET /status_alegacao_pagamentos
   # GET /status_alegacao_pagamentos.json
   def index
-    @status_alegacao_pagamentos = StatusAlegacaoPagamento.all.order(nome: :asc)
-    #@status_alegacao_pagamentos = StatusAlegacaoPagamento.com_acesso(usuario_logado).order(nome: :asc)  
+    @status_alegacao_pagamentos = StatusAlegacaoPagamento.com_acesso(usuario_logado).order(nome: :asc)  
 
     options = {page: params[:page] || 1, per_page: 10}
     @status_alegacao_pagamentos = @status_alegacao_pagamentos.paginate(options)   

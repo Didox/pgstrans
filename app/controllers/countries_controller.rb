@@ -4,8 +4,7 @@ class CountriesController < ApplicationController
   # GET /countries
   # GET /countries.json
   def index
-    @countries = Country.all.order(name_eng: :asc)
-    #@countries = Country.com_acesso(usuario_logado).order(name_eng: :asc)
+    @countries = Country.com_acesso(usuario_logado).order(name_eng: :asc)
 
     options = {page: params[:page] || 1, per_page: 10}
     @countries = @countries.paginate(options)
