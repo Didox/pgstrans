@@ -108,8 +108,8 @@ $(function(){
               error: function(xhr, ajaxOptions, thrownError){
                 var data = JSON.parse(xhr.responseText);
                 var erroObject = JSON.parse(xhr.responseText)
-                var stackthrow = (erroObject && erroObject.erro ? erroObject.erro : "")
-                $.alert(data.mensagem + ' - ' + stackthrow);
+                var stackthrow = (erroObject && erroObject.erro ? ' - ' + erroObject.erro : "")
+                $.alert(data.mensagem + stackthrow);
               }
             });
           }
