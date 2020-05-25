@@ -34,15 +34,15 @@ class PerfilUsuario < ApplicationRecord
       destroy: "Permitir apagar registo",
       show: "Permitir mostrar detalhes do registo",
       edit: "Permitir mostrar tela de edição do registo",
-      atualiza_saldo: "Fazer consulta de saldo no parceiro",
-      confirma: "Confirmar envio recarga",
+      atualiza_saldo: "Fazer consulta de saldo no parceiro, caso o parceiro oferece esse serviço",
+      confirma: "Confirmar envio recarga / submissão de pagamento",
       usuarios: "Usuários",
-      apaga_acesso_usuario: "Apaga acesso do usuário",
-      cria_acesso_usuario: "Cria acesso do usuário",
-      novo_acesso_usuario: "Tela de novo acesso do usuário",
-      resumido: "Tela de vendas resumidas por usuário",
-      importa_produtos: "Importa produtos",
-      importa_dados: "Importa produtos",
+      apaga_acesso_usuario: "Apaga grupo de acesso de usuário",
+      cria_acesso_usuario: "Cria grupo de acesso de usuário",
+      novo_acesso_usuario: "Tela de criação de novo acesso do usuário",
+      resumido: "Tela de vendas resumidas por usuário / Vendas do perfil",
+      importa_produtos: "Acesso ao botão 'Atualizar portfólio de produtos ZAP'",
+      importa_dados: "Acesso ao botão 'Importar dados para relatório de conciliação ZAP'"
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
@@ -50,11 +50,11 @@ class PerfilUsuario < ApplicationRecord
 
   def self.nome_amigavel_controller(controller)
     nomes = {
-      vendas: "Relatórios de Vendas",
+      vendas: "Relatórios de Vendas Menu Backoffice",
       status_alegacao_pagamentos: "Situação de Alegação de Pagamento",
       parametros: "Parâmetros de Integração",
       unitel_sequences: "Controle de Sequência de Vendas da Unitel",
-      relatorio_conciliacao_zaptvs: "Relatório de Reconciliação ZAP TV",
+      relatorio_conciliacao_zaptvs: "Relatório de Reconciliação ZAPTV",
       status_parceiros: "Situação de Parceiros",
       conta_correntes: "Conta Corrente",
       moedas: "Tabela de Moedas",
@@ -80,8 +80,8 @@ class PerfilUsuario < ApplicationRecord
       sub_distribuidors: "Tabela de Subdistribuidores",
       master_profiles: "Tabela de Perfil Master de Usuários",
       partners: "Parceiros",
-      welcome: "Tela de Abertura",
-      recarga: "Efectuar Recargas",
+      welcome: "Tela de Abertura do Backoffice",
+      recarga: "Acesso ao menu de vendas para efectuar recargas / submeter pagamento",
       return_code_apis: "Tabela de Código de Retorno das APIs por Parceiro",
       matrix_users: "Matriz de Usuários - Composição das Permissões e Associações",
       grupos: "Grupos de acesso - Acessos aos registros do sistema"
