@@ -129,6 +129,6 @@ class PerfilUsuariosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def perfil_usuario_params
-      params.require(:perfil_usuario).permit(:nome, :admin)
+      params.require(:perfil_usuario).permit(:nome, :admin, :operador)
     end
 end

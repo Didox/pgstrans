@@ -13,6 +13,7 @@
           <th scope="col">ID</th>
           <th scope="col">Nome</th>
           <th scope="col">Admin</th>
+          <th scope="col">Operador</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -23,6 +24,7 @@
           <td><%= perfil_usuario.id %></td>
           <td><%= perfil_usuario.nome %></td>
           <td><%= perfil_usuario.admin %></td>
+          <td><%= perfil_usuario.operador %></td>
           <td><%= link_to 'Mostrar', perfil_usuario %></td>
           <td><%= link_to 'Editar', edit_perfil_usuario_path(perfil_usuario) %></td>
           <td><%= link_to 'Apagar', perfil_usuario, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
