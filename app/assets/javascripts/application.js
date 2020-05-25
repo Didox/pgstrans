@@ -107,7 +107,9 @@ $(function(){
               },
               error: function(xhr, ajaxOptions, thrownError){
                 var data = JSON.parse(xhr.responseText);
-                $.alert(data.mensagem + ' - ' + JSON.parse(xhr.responseText).erro);
+                var erroObject = JSON.parse(xhr.responseText)
+                var stackthrow = (erroObject ? erroObject.erro : "")
+                $.alert(data.mensagem + ' - ' + stackthrow);
               }
             });
           }
