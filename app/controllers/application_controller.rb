@@ -18,6 +18,12 @@ class ApplicationController < ActionController::Base
     def validate_login
       if cookies[:usuario_pgstrans_oauth].blank?
         flash[:error] = "Área restrita. Digite o login e palavra-passe para entrar."
+
+        if self.class.to_s == "RecargaController"
+          render json: {mensagem: "Área restrita. Digite o login e palavra-passe para entrar."}, status: 401
+          return
+        end
+
         redirect_to login_path
       end
 
@@ -26,11 +32,23 @@ class ApplicationController < ActionController::Base
 
         if administrador.acessos.blank?
           flash[:erro] = "Usuário sem permissão de acesso a página"
+
+          if self.class.to_s == "RecargaController"
+            render json: {mensagem: "Usuário sem permissão de acesso a página"}, status: 401
+            return
+          end
+
           redirect_to "/"
           return false
         else
           unless administrador.acessos.include? "#{self.class}::#{params[:action]}"
             flash[:erro] = "Usuário sem permissão de acesso a página"
+
+            if self.class.to_s == "RecargaController"
+              render json: {mensagem: "Usuário sem permissão de acesso a página"}, status: 401
+              return
+            end
+            
             redirect_to "/"
             return false
           end
