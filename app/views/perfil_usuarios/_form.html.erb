@@ -30,10 +30,21 @@
 
         <div class="form-input col-sm-2">
           <div>
+            <%= f.label :admin, :label => "Operador?" %>
+          </div>
+          <div class="text-center">
+            <%= f.check_box :operador %>
+          </div>
+        </div>
+        <div class="form-input col-sm-2">
+          <div>
             <%= f.label :admin, :label => "Administrador?" %>
           </div>
           <div class="text-center">
             <%= f.check_box :admin %>
+          </div>
+          <div>
+            <%= f.label :admin, :label => "Administrador?" %>
           </div>
           <div class="text-center">
             <%= f.check_box :operador %>
