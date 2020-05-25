@@ -55,7 +55,7 @@ class PerfilUsuario < ApplicationRecord
       parametros: "Backoffice - Transações - Parâmetros de Integração",
       unitel_sequences: "Backoffice - Transações - Controle de Sequência de Vendas da Unitel",
       relatorio_conciliacao_zaptvs: "Backoffice - Parceiros - Relatório de Reconciliação ZAPTV",
-      status_parceiros: "Backoffice - Parceiros / Produtos - Situação de Parceiros",
+      status_parceiros: "Backoffice - Parceiros/Produtos - Situação de Parceiros",
       conta_correntes: "Backoffice - Conta Corrente - Conta Corrente",
       moedas: "Backoffice - Tabelas Auxiliares - Moedas",
       backoffice: "Menu Principal de Serviços do Backoffice",
@@ -83,7 +83,7 @@ class PerfilUsuario < ApplicationRecord
       welcome: "Tela de Abertura do Backoffice",
       recarga: "Acesso ao menu de vendas para efectuar recargas / submeter pagamento (fazer venda)",
       return_code_apis: "Backoffice - Transações - Código de Retorno das APIs por Parceiro",
-      matrix_users: "Backoffoce - Usuarios/Clientes - Matriz de Usuários",
+      matrix_users: "Backoffice - Usuários/Clientes - Matriz de Usuários",
       grupos: "Grupos de acesso e Acessos aos registros do sistema"
     }
     nomes[controller.to_sym]
