@@ -7,7 +7,7 @@ module PermissionamentoDados
       after_validation :salvar_responsavel
 
       def self.com_acesso(usuario)
-        if(usuario.admin || usuario.operador)
+        if(usuario.admin? || usuario.operador?)
           self.all
         else
           self.joins("
@@ -26,14 +26,13 @@ module PermissionamentoDados
 
       private 
         def verifica_responsavel
-          return if usuario.admin || usuario.operador
-          self.errors.add(:responsavel, "Responsável não definido") if responsavel.blank?
+          self.errors.add(:responsavel, "Responsável não definido") if self.responsavel.blank?
         end
 
         def salvar_responsavel
-          return if usuario.admin || usuario.operador
+          raise "Responsável não definido" if self.responsavel.blank?
 
-          raise "Responsável não definido" if responsavel.blank?
+          return if self.responsavel.admin? || self.responsavel.operador?
           
           responsavel.grupo_usuarios.each do |gu|
             if gu.escrita
