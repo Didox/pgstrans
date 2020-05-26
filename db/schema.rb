@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_25_102757) do
+ActiveRecord::Schema.define(version: 2020_05_26_101715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 2020_05_25_102757) do
     t.bigint "grupo_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "escrita", default: false
     t.index ["grupo_id"], name: "index_grupo_usuarios_on_grupo_id"
     t.index ["usuario_id"], name: "index_grupo_usuarios_on_usuario_id"
   end

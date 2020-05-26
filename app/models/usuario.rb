@@ -52,6 +52,12 @@ class Usuario < ApplicationRecord
     false
   end
 
+  def operador?
+    self.perfil_usuario.operador
+  rescue
+    false
+  end
+
   def ultimo_acesso
     acesso = UsuarioAcesso.where(usuario_id: self.id).reorder("created_at desc").first
     acesso.created_at if acesso.present?

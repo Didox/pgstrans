@@ -69,6 +69,7 @@ class GruposController < ApplicationController
   def cria_acesso_usuario
     @grupo_usuario = GrupoUsuario.new
     @grupo_usuario.usuario_id = params[:grupo_usuario][:usuario_id]
+    @grupo_usuario.escrita = params[:grupo_usuario][:escrita] ? true : false
     @grupo_usuario.grupo_id = @grupo.id
     if !@grupo_usuario.save
       render :novo_acesso_usuario
