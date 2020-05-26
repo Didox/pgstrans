@@ -32,9 +32,9 @@
 						<%= f.label :usuario_id, "Usuário" %>
 						<%= f.select :usuario_id, usuarios_sem_grupo.collect{|d| [d.nome, d.id]}, {}, class: "form-control" %>   
 					</div>
-					<div class="form-input col-sm-12">
+					<div class="form-input col-sm-12" style="margin-top:20px">
+          	<%= f.check_box :escrita %>
 						<%= f.label :escrita, "Se marcar esta opção irá inserir este grupo em todo registro que alterar ou incluir" %>
-          	<%= f.check_box :escrita, class: "form-control" %>
 					</div>
 					<div class="form-actions col-sm-12">
 						<hr>
