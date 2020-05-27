@@ -20,7 +20,7 @@ class GruposController < ApplicationController
     @grupo = Grupo.new
   end
 
-  # GET /grupos/1/edit
+  # GET /grupos/#{@grupo.id}/edit
   def edit
   end
 
@@ -63,7 +63,7 @@ class GruposController < ApplicationController
   def apaga_acesso_usuario
     GrupoUsuario.where(usuario_id: params[:usuario_id], grupo_id: @grupo.id).destroy_all
     flash[:success] = "Acesso do usuário apagado com sucesso"
-    redirect_to "/grupos/1/usuarios"
+    redirect_to "/grupos/#{@grupo.id}/usuarios"
   end
 
   def cria_acesso_usuario
@@ -77,7 +77,7 @@ class GruposController < ApplicationController
     end
 
     flash[:success] = "Acesso do usuário apagado com sucesso"
-    redirect_to "/grupos/1/usuarios"
+    redirect_to "/grupos/#{@grupo.id}/usuarios"
   end
 
   def novo_acesso_usuario
