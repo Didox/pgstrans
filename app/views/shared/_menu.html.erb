@@ -7,6 +7,8 @@
 <a href="<%= vendas_resumido_path %>">
   <h1 class="btn btn-sucess <% if params[:controller] == "vendas" && (params[:action] == "resumido" || params[:action] == "mostrar_resumido") %>active_menu<% end %> menu_recarga">Vendas</h1>
 </a>
+<% if PerfilUsuario.tem_acesso?(usuario_logado, :BackofficeController, :index) %>
 <a href="<%= backoffice_index_path %>">
-  	<h1 class="btn btn-sucess <% if params[:controller] == "index" %>active_menu<% end %> menu_recarga btn-backoffice">Backoffice</h1>
+  	<h1 class="btn btn-sucess <% if params[:controller] == "backoffice" && params[:action] == "index" %>active_menu<% end %> menu_recarga btn-backoffice">Backoffice</h1>
 </a>
+<% end %>
