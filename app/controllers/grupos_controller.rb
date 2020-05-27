@@ -55,9 +55,9 @@ class GruposController < ApplicationController
   end
 
   def usuarios
-    @usuarios = Usuario.joins(:grupo_usuarios).where("grupo_id=#{@grupo.id}").distinct
+    @grupo_usuarios = GrupoUsuario.where(grupo_id: @grupo.id)
     options = {page: params[:page] || 1, per_page: 10}
-    @usuarios = @usuarios.paginate(options)
+    @grupo_usuarios = @grupo_usuarios.paginate(options)
   end
 
   def apaga_acesso_usuario
