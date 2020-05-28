@@ -33,6 +33,11 @@ var uncheckAcessos = function(){
 
 const pgstrans = {};
 
+pgstrans.displayRecargaDstv = (tipo) => {
+  $(".recarga #DSTVMenu").hide();
+  $(".recarga #recarga").show();
+}
+
 pgstrans.displayRecarga = (tipo) => {
   $(".icone-menu").removeClass("menu-ativo");
   $(".recarga .img_" + tipo).addClass("menu-ativo");
@@ -42,6 +47,15 @@ pgstrans.displayRecarga = (tipo) => {
   $(".recarga #rechargeValue").val("");
   $(".recarga .rechargeType").val("");
   $(".recarga #tipo_ativo").val(tipo);
+
+  if(tipo == "DSTv"){
+    $(".recarga #DSTVMenu").show();
+    $(".recarga #recarga").hide();
+  }
+  else{
+    $("#DSTVMenu").hide();
+    $(".recarga #recarga").show();
+  }
 }
 
 pgstrans.carregaProdutosPorParceiro = (self) => {

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'dstv/validacao_cliente', to: 'dstv#validacao_cliente'
+  get 'dstv/alteracao_pacote', to: 'dstv#alteracao_pacote'
+  get 'dstv/alteracao_plano', to: 'dstv#alteracao_plano'
+
   resources :grupos do
     get 'usuarios', to: 'grupos#usuarios'
     delete 'usuarios/:usuario_id', to: 'grupos#apaga_acesso_usuario'

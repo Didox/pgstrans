@@ -30,6 +30,37 @@
       <% end %>
     </div>
     <form action="<%= recarga_confirma_path %>" id="recargaForm" method="post">
+
+      <div class="col-md-12" id="DSTVMenu" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
+        <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
+          <h1>O que você deseja fazer ?</h1>
+        </div>
+        <div class="menuDSTV" style="padding: 20px">
+          <ul>
+            <li>
+              <a href="/dstv/validacao_cliente">
+                Validação de cliente e verificação de valor e data de vencimento
+              </a>
+            </li>
+            <li>
+              <a href="/dstv/alteracao_pacote">
+                Alteração de pacote de produtos
+              </a>
+            </li>
+            <li>
+              <a href="/dstv/alteracao_plano">
+                Alteração de plano de cobrança alternando entre mensal e anual
+              </a>
+            </li>
+            <li>
+              <a href="javascript:pgstrans.displayRecargaDstv()">
+                Recarga ou pagamento
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <div class="col-md-12" id="recarga" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
         <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
           <h1>Recargas</h1>
@@ -138,13 +169,14 @@
             </div>
           </div>
         </div>
-      </form>
-      <% if @partner_default.present? %>
-        <script type="text/javascript">
-          pgstrans.displayRecarga('<%= @partner_default.slug %>')
-        </script>
-      <% end %>
-    </div>
+      </div>
+      
+    </form>
+    <% if @partner_default.present? %>
+      <script type="text/javascript">
+        pgstrans.displayRecarga('<%= @partner_default.slug %>')
+      </script>
+    <% end %>
   </div>
 </div>
 <!-- para melhor controle de perfil de usuário optamos por separar o menu do backoffice

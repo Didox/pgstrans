@@ -42,7 +42,10 @@ class PerfilUsuario < ApplicationRecord
       novo_acesso_usuario: "Tela de criação de novo acesso do usuário",
       resumido: "Tela de vendas resumidas por usuário / Vendas do perfil",
       importa_produtos: "Acesso ao botão 'Atualizar portfólio de produtos ZAP'",
-      importa_dados: "Acesso ao botão 'Importar dados para relatório de conciliação ZAP'"
+      importa_dados: "Acesso ao botão 'Importar dados para relatório de conciliação ZAP'",
+      validacao_cliente: "Validação de cliente e verificação de valor e data de vencimento",
+      alteracao_pacote: "Alteração de pacote de produtos",
+      alteracao_plano: "Alteração de plano de cobrança alternando entre mensal e anual",
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
@@ -84,7 +87,8 @@ class PerfilUsuario < ApplicationRecord
       recarga: "Acesso ao menu de vendas para efectuar recargas / submeter pagamento (fazer venda)",
       return_code_apis: "Backoffice - Transações - Código de Retorno das APIs por Parceiro",
       matrix_users: "Backoffice - Usuários/Clientes - Matriz de Usuários",
-      grupos: "Grupos de acesso e Acessos aos registros do sistema"
+      grupos: "Grupos de acesso e Acessos aos registros do sistema",
+      dstv: "DSTV ações"
     }
     nomes[controller.to_sym]
   end
