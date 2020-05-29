@@ -4,7 +4,32 @@
   <!-- /.row -->
 
   <div class="container">
-    <h1>Validação de cliente e verificação de valor e data de vencimento</h1>
     
+    <div class="card" style="margin-top: 5px;">
+      <div class="card-header">
+        <div class="col-md-6">
+          Validação de cliente e verificação de valor e data de vencimento
+        </div>
+      </div>
+      <div class="card-body">
+        <% if params[:smartcard].blank? %>
+        <form action="/dstv/validacao_cliente" method="get">
+
+          <div class="col-md-12">
+            <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
+              <h3>Digite abaixo o seu smartcard</h3>
+              <input type="text" class="form-control" name="smartcard" placeholder="Digite o smartcard">
+            </div>
+            <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;">
+              <div style="float: right;">
+                <input type="submit" class="btn btn-success" style="width: 210px; text-align: center;" value="PRÓXIMO">
+              </div>
+            </div>
+          </div>
+        </form>
+        <% end %>
+      </div>
+    </div>
+
   </div>
 </div>
