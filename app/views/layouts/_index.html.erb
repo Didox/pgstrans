@@ -92,6 +92,11 @@
                             <%= link_to 'Situação de Parceiros', status_parceiros_path %>
                         </li>
                     <% end %>
+                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :StatusProdutosController, :index) %>
+                        <li class="list-group-item">
+                            <%= link_to 'Situação de Produtos', status_produtos_path %>
+                        </li>
+                    <% end %>
                 </ul>
             </div>
         </div>
