@@ -88,7 +88,7 @@
           </td>
 
           <td><%= link_to 'Mostrar', conta_corrente %></td>
-          <% if usuario_logado.admin? %>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
             <td><%= link_to 'Editar', edit_conta_corrente_path(conta_corrente) %></td>
             <td><%= link_to 'Apagar', conta_corrente, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
           <% else %>

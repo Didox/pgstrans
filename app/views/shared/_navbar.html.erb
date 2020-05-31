@@ -15,7 +15,7 @@
 
           <div class="jsItensMenu mobile-menu" style="display: none; position: absolute;left: 0;">
             <div>Seu último acesso: <%= usuario_logado.ultimo_acesso.strftime("%d/%m/%Y %H:%M") rescue "" %></div>
-            <% if usuario_logado.admin? %>
+            <% if usuario_logado.admin? || usuario_logado.operador? %>
               <div><a class="text-muted" href="<%= edit_usuario_path(usuario_logado) %>"><span class="fa fa-user"></span> Perfil</a></div>
             <% end %>
             <div style="display: inline-block;">
@@ -33,7 +33,7 @@
             </a>
             <div class="jsItensMenu" style="display: none; position: absolute;">
               <div>Seu último acesso: <%= usuario_logado.ultimo_acesso.strftime("%d/%m/%Y %H:%M") rescue "" %></div>
-              <% if usuario_logado.admin? %>
+              <% if usuario_logado.admin? || usuario_logado.operador? %>
                 <div><a class="text-muted" href="<%= edit_usuario_path(usuario_logado) %>"><span class="fa fa-user"></span> Perfil</a></div>
               <% end %>
             </div>

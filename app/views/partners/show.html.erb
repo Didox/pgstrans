@@ -39,7 +39,7 @@
         KZ <%= @partner.ultimo_saldo.saldo %>
         <%= " - Última atualização em: #{@partner.ultimo_saldo.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
         <hr>
-        <% if usuario_logado.admin? %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
           <%= @partner.ultimo_saldo.log %>
         <% end %>
       </p>

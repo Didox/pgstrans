@@ -4,7 +4,7 @@ class ContaCorrentesController < ApplicationController
   # GET /conta_correntes
   # GET /conta_correntes.json
   def index
-    if usuario_logado.admin?
+    if usuario_logado.admin? || usuario_logado.operador?
       @conta_correntes = ContaCorrente.all
       
       @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")

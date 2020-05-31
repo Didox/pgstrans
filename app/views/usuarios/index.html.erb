@@ -13,6 +13,7 @@
           <th scope="col">Nome</th>
           <th scope="col">E-Mail</th>
           <th scope="col">Admin?</th>
+          <th scope="col">Operador?</th>
           <th scope="col">Descrição Perfil Usuário</th>
           <th scope="col">Criado em</th>
           <th colspan="3"></th>
@@ -26,6 +27,7 @@
             <td><%= usuario.nome %></td>
             <td><%= usuario.email %></td>
             <td><%= usuario.admin? ? "Sim": "Não" %></td>
+            <td><%= usuario.operador? ? "Sim": "Não" %></td>
             <td class="text-center">
               <a href="/perfil_usuarios/<%= usuario.perfil_usuario.id %>">
                 <%= usuario.perfil_usuario.nome %>
