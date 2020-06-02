@@ -7,26 +7,174 @@
     
     <div class="card" style="margin-top: 5px;">
       <div class="card-header">
-        <div class="col-md-6">
+        <div class="col-md-12">
           Validação de cliente e verificação de valor e data de vencimento
+        </div>
+        <div class="col-md-12">
+          <div> customer_detail </div>
+          <div>
+            <% @info[:customer_detail].each do |key, val| %>
+              <ul>
+                <% if val.present? %>
+                  <li>
+                    <b><%= key %></b>: <%= val %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div> accounts </div>
+          <div>
+            <ul>
+              <div class="container scroltable">
+                <table class="table" style="display:none">
+                  <tr>
+                    <% @info[:accounts].first.each do |key, val| %>
+                      <th>
+                        <%= key %>
+                      </th>
+                    <% end %>
+                    <th></th>
+                  </tr>
+                  <% @info[:accounts].each do |account| %>
+                    <tr>
+                      <% account.each do |key, val| %>
+                        <td>
+                          <%= val %>
+                        </td>
+                      <% end %>
+                      <td>
+                        <button class="btn btn-primary">Pagar</button>
+                      </td>
+                    </tr>
+                  <% end %>
+                </table>
+                <table class="table">
+                  <tr>
+                    <th>
+                      currency
+                    </th>
+                    <th>
+                      currentAmount
+                    </th>
+                    <th>
+                      defaultCurrencytotalBalance
+                    </th>
+                    <th>
+                      defaultCuurencyCode
+                    </th>
+                    <th>
+                      invoicePeriod
+                    </th>
+                    <th>
+                      isPrimary
+                    </th>
+                    <th>
+                      lastInvoiceAmount
+                    </th>
+                    <th>
+                      lastInvoiceDate
+                    </th>
+                    <th>
+                      methodOfPayment
+                    </th>
+                    <th>
+                      number
+                    </th>
+                    <th>
+                      paymentDueDate
+                    </th>
+                    <th>
+                      segmentation
+                    </th>
+                    <th>
+                      status
+                    </th>
+                    <th>
+                      totalBalance
+                    </th>
+                    <th>
+                      type
+                    </th>
+                    <th></th>
+                  </tr>
+                  <% @info[:accounts].each do |account| %>
+                    <tr>
+                      <td>
+                        <%= account["currency"] %>
+                      </td>
+                      <td>
+                        KZ<%= number_to_currency(account["currentAmount"].to_f, :unit => "") %>
+                      </td>
+                      <td>
+                        KZ<%= number_to_currency(account["defaultCurrencytotalBalance"].to_f, :unit => "") %>
+                      </td>
+                      <td>
+                        <%= account["defaultCuurencyCode"] %>
+                      </td>
+                      <td>
+                        <%= account["invoicePeriod"] %>
+                      </td>
+                      <td>
+                        <%= account["isPrimary"] %>
+                      </td>
+                      <td>
+                        KZ<%= number_to_currency(account["lastInvoiceAmount"].to_f, :unit => "") %>
+                      </td>
+                      <td>
+                        <%= account["lastInvoiceDate"].to_datetime.strftime("%d/%m/%Y") rescue account["lastInvoiceDate"] %>
+                      </td>
+                      <td>
+                        <%= account["methodOfPayment"] %>
+                      </td>
+                      <td>
+                        <%= account["number"] %>
+                      </td>
+                      <td>
+                        <%= account["paymentDueDate"].to_datetime.strftime("%d/%m/%Y") rescue account["paymentDueDate"] %>
+                      </td>
+                      <td>
+                        <%= account["segmentation"] %>
+                      </td>
+                      <td>
+                        <%= account["status"] %>
+                      </td>
+                      <td>
+                        KZ<%= number_to_currency(account["totalBalance"].to_f, :unit => "") %>
+                      </td>
+                      <td>
+                        <%= account["type"] %>
+                      </td>
+                      <td>
+                        <button class="btn btn-primary">Pagar</button>
+                      </td>
+                    </tr>
+                  <% end %>
+                </table>
+              </div>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="card-body">
         <% if params[:smartcard].blank? %>
-        <form action="/dstv/validacao_cliente" method="get">
+          <form action="/dstv/validacao_cliente" method="get">
 
-          <div class="col-md-12">
-            <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
-              <h3>Digite abaixo o seu smartcard</h3>
-              <input type="text" class="form-control" name="smartcard" placeholder="Digite o smartcard">
-            </div>
-            <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;">
-              <div style="float: right;">
-                <input type="submit" class="btn btn-success" style="width: 210px; text-align: center;" value="PRÓXIMO">
+            <div class="col-md-12">
+              <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
+                <h3>Digite abaixo o seu smartcard</h3>
+                <input type="text" class="form-control" name="smartcard" placeholder="Digite o smartcard">
+              </div>
+              <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;">
+                <div style="float: right;">
+                  <input type="submit" class="btn btn-success" style="width: 210px; text-align: center;" value="PRÓXIMO">
+                </div>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
         <% end %>
       </div>
     </div>

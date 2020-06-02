@@ -2,7 +2,7 @@ class DstvController < ApplicationController
   def validacao_cliente
 
     if params[:smartcard].present?
-      info = Dstv.informacoes(params[:smartcard])
+      @info = Dstv.informacoes(params[:smartcard])
     end
   end
   

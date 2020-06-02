@@ -165,11 +165,11 @@ class Dstv
 
     xml_doc = Nokogiri::XML(request.body)
 
-    customerDetailsHash = {}
+    customer_detail_hash = {}
     customerDetails = xml_doc.child.child.child.child.children.select{|child| child.name == "customerDetails"}.first rescue nil
     if customerDetails
       customerDetails.children.each do |detail|
-        customerDetailsHash["#{detail.name}"] = detail.text
+        customer_detail_hash["#{detail.name}"] = detail.text
       end
     end
 
@@ -187,7 +187,7 @@ class Dstv
     end
 
     return {
-      customerDetail: customerDetailsHash,
+      customer_detail: customer_detail_hash,
       accounts: accounts
     }
   end
