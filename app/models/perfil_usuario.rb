@@ -46,7 +46,7 @@ class PerfilUsuario < ApplicationRecord
       validacao_cliente: "Validação de cliente e verificação de valor e data de vencimento",
       alteracao_pacote: "Alteração de pacote de produtos",
       alteracao_plano: "Alteração de plano de cobrança alternando entre mensal e anual",
-      validacao_cliente_produtos: "Listagem de produtos em validação de pagamento DSTV",
+      alteracao_cliente_produtos: "Listagem de produtos em validação de pagamento DSTV",
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]

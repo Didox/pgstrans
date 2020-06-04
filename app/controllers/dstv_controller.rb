@@ -1,20 +1,18 @@
 class DstvController < ApplicationController
   def validacao_cliente
-
     if params[:smartcard].present?
       @info = Dstv.informacoes(params[:smartcard])
     end
   end
 
-  def validacao_cliente_produtos
+  def alteracao_cliente_produtos
     @produtos = Dstv.produtos
   end
 
-  def validacao_cliente_produtos
-    @produtos = Dstv.produtos
-  end
-  
   def alteracao_pacote
+    if params[:smartcard].present?
+      @info = Dstv.informacoes(params[:smartcard])
+    end
   end
 
   def alteracao_plano
