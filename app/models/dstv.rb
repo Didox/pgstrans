@@ -1,6 +1,11 @@
 class Dstv
   require 'openssl'
 
+  def self.produtos
+    partner = Partner.where(slug: "DSTv").first
+    Produto.where(partner_id: partner.id)
+  end
+
   def self.importa_produtos
     # TODO - POC talvez se transformar em algo válido
     body = "

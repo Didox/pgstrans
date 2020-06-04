@@ -150,7 +150,13 @@
                           <%= account["type"] %>
                         </td>
                         <td>
-                          <button class="btn btn-primary">Pagar</button>
+                          <% if params[:upgrade] %>
+                            <a href="/dstv/validacao-cliente-produtos?smartcard=<%= params[:smartcard] %>" class="btn btn-primary">
+                              Upgrade/Downgrade
+                            </a>
+                          <% else %>
+                            <button class="btn btn-primary">Pagar</button>
+                          <% end %>
                         </td>
                       </tr>
                     <% end %>
@@ -163,7 +169,7 @@
       </div>
       <div class="card-body">
         <% if params[:smartcard].blank? %>
-          <form action="/dstv/validacao_cliente" method="get">
+          <form action="/dstv/validacao-cliente" method="get">
 
             <div class="col-md-12">
               <div style="background-color: #F2F3F4;padding: 10px;color: #000;">

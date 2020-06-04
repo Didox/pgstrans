@@ -1,0 +1,136 @@
+<div class="container scroltable">
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="container">
+    
+    <div class="card" style="margin-top: 5px;">
+      <div class="card-header">
+        <div class="col-md-12">
+          Selecione o produto
+        </div>
+        <div class="container scroltable">
+          <table class="table">
+            <tr>
+              <th>
+                description
+              </th>
+              <th>
+                valor_compra_telemovel
+              </th>
+              <th>
+                valor_compra_site
+              </th>
+              <th>
+                valor_compra_pos
+              </th>
+              <th>
+                valor_compra_tef
+              </th>
+              <th>
+                valor_minimo_venda_telemovel
+              </th>
+              <th>
+                valor_minimo_venda_site
+              </th>
+              <th>
+                valor_minimo_venda_pos
+              </th>
+              <th>
+                valor_minimo_venda_tef
+              </th>
+              <th>
+                margem_telemovel
+              </th>
+              <th>
+                margem_pos
+              </th>
+              <th>
+                margem_tef
+              </th>
+              <th>
+                mensagem_cupom_venda
+              </th>
+              <th>
+                margem_site
+              </th>
+              <th>
+                valor_unitario
+              </th>
+              <th>
+                tipo
+              </th>
+              <th>
+                subtipo
+              </th>
+              <th></th>
+            </tr>
+            <% @produtos.each do |produto| %>
+              <tr>
+                <td>
+                  <%= produto.description %>
+                </td>
+                <td>
+                  <%= produto.valor_compra_telemovel %>
+                </td>
+                <td>
+                  <%= produto.valor_compra_site %>
+                </td>
+                <td>
+                  <%= produto.valor_compra_pos %>
+                </td>
+                <td>
+                  <%= produto.valor_compra_tef %>
+                </td>
+                <td>
+                  <%= produto.valor_minimo_venda_telemovel %>
+                </td>
+                <td>
+                  <%= produto.valor_minimo_venda_site %>
+                </td>
+                <td>
+                  <%= produto.valor_minimo_venda_pos %>
+                </td>
+                <td>
+                  <%= produto.valor_minimo_venda_tef %>
+                </td>
+                <td>
+                  <%= produto.margem_telemovel %>
+                </td>
+                <td>
+                  <%= produto.margem_pos %>
+                </td>
+                <td>
+                  <%= produto.margem_tef %>
+                </td>
+                <td>
+                  <%= produto.mensagem_cupom_venda %>
+                </td>
+                <td>
+                  <%= produto.margem_site %>
+                </td>
+                <td>
+                  <%= produto.valor_unitario %>
+                </td>
+                <td>
+                  <%= produto.tipo %>
+                </td>
+                <td>
+                  <%= produto.subtipo %>
+                </td>
+                <td>
+                  <a href="/dstv/validacao-cliente-produtos?smartcard=<%= params[:smartcard] %>" class="btn btn-primary">
+                    Upgrade/Downgrade
+                  </a>
+                  <button class="btn btn-primary">Selecionar</button>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
