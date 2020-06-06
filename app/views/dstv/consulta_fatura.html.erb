@@ -8,18 +8,41 @@
     <div class="card" style="margin-top: 5px;">
       <div class="card-header">
         <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold;font-size: 20px;">
-          Validação e consulta da situação do cliente
+          Consulta valor e data do vencimento da fatura
         </div>
         <% if @info.blank? %>
           <div class="card-body">
-            <form action="/dstv/validacao-cliente" method="get">
+            <style type="text/css">
+              .obrigatorio{
+                border: 1px red solid
+              }
+            </style>
+            <script>
+              var validaInformacoesConsulta = function(form) {
+                var validado = true
+                $(form).find("input").each(function() {
+                  $(this).val($(this).val().trim())
+                  $(this).removeClass("obrigatorio")
+                  $(this).attr("placeholder", "")
+                  
+                  if($(this).val() == ""){
+                    $(this).addClass("obrigatorio")
+                    $(this).attr("placeholder", "Campo obrigatório")
+                    validado = false
+                  }
+                })
+
+                return validado
+              }
+            </script>
+            <form action="/dstv/validacao-cliente" onsubmit="return validaInformacoesConsulta(this)" method="get">
 
               <div class="col-md-12">
                 <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
-                  <h3>Informe o</h3>
+                  <h3>Informe </h3>
                   <div style="margin-left: 30px;">Smartcard/Device Number</div>
                   <input type="text" class="form-control" name="smartcard" placeholder="Smartcard/Device Number" style="margin-left: 30px;width: 300px;">
-                  <h3>ou</h3>
+                  <br>
                   <div style="margin-left: 30px;">Número do cliente/Custumer Number</div>
                   <input type="text" class="form-control" name="numero_cliente" placeholder="Número do cliente/Custumer Number" style="margin-left: 30px;width: 300px;">
                 </div>

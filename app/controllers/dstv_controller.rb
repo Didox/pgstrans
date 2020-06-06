@@ -5,6 +5,10 @@ class DstvController < ApplicationController
     end
   end
 
+  def consulta_fatura
+   
+  end
+
   def alteracao_cliente_produtos
     @produtos = Dstv.produtos
   end
