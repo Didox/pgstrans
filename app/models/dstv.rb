@@ -101,7 +101,7 @@ class Dstv
     end
   end
 
-  def self.informacoes(smartcard)
+  def self.informacoes_device_number(smartcard, ip)
     parceiro = Partner.where("lower(slug) = 'dstv'").first
     parametro = Parametro.where(partner_id: parceiro.id).first
 
@@ -149,7 +149,7 @@ class Dstv
               <!--Optional:-->
               <sel:language>PT</sel:language>
               <!--Optional:-->
-              <sel:ipAddress>IP 1</sel:ipAddress>
+              <sel:ipAddress>#{ip}</sel:ipAddress>
               <!--Optional:-->
               <sel:interfaceType>?</sel:interfaceType>
             </sel:GetCustomerDetailsByDeviceNumber>
@@ -168,18 +168,98 @@ class Dstv
       :body => body
     )
 
-    xml_doc = Nokogiri::XML(request.body)
+    return informacoes_parse(request.body)
+  end
+
+  def self.informacoes_customer_number(smartcard, ip)
+    parceiro = Partner.where("lower(slug) = 'dstv'").first
+    parametro = Parametro.where(partner_id: parceiro.id).first
+
+    raise "Parâmetros não localizados" if parametro.blank?
+    raise "Parceiro não localizado" if parceiro.blank?
+    raise "Por favor digite o smartcard" if smartcard.blank?
+
+    if Rails.env == "development"
+      url_service = parametro.url_integracao_desenvolvimento
+      data_source = parametro.data_source_dstv_desenvolvimento
+      payment_vendor_code = parametro.payment_vendor_code_dstv_desenvolvimento
+      vendor_code = parametro.vendor_code_dstv_desenvolvimento
+      agent_account = parametro.agent_account_dstv_desenvolvimento
+      currency = parametro.currency_dstv_desenvolvimento
+      product_user_key = parametro.product_user_key_dstv_desenvolvimento
+      mop = parametro.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM "
+      agent_number = parametro.agent_number_dstv_desenvolvimento #122434345
+    else
+      url_service = parametro.url_integracao_producao
+      data_source = parametro.data_source_dstv_producao
+      payment_vendor_code = parametro.payment_vendor_code_dstv_producao
+      vendor_code = parametro.vendor_code_dstv_producao
+      agent_account = parametro.agent_account_dstv_producao
+      currency = parametro.currency_dstv_producao
+      product_user_key = parametro.product_user_key_dstv_producao
+      mop = parametro.mop_dstv_producao # mop = "CASH, MOBILE or ATM "
+      agent_number = parametro.agent_number_dstv_producao #122434345
+    end
+
+    body = "
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\">
+        <soapenv:Header/>
+        <soapenv:Body>
+            <sel:GetCustomerDetailsByCustomerNumber>
+              <!--Optional:-->
+              <sel:dataSource>#{data_source}</sel:dataSource>
+              <!--Optional:-->
+              <sel:customerNumber>#{smartcard}</sel:customerNumber>
+              <!--Optional:-->
+              <sel:currencyCode>AOA</sel:currencyCode>
+              <!--Optional:-->
+              <sel:BusinessUnit>DStv</sel:BusinessUnit>
+              <!--Optional:-->
+              <sel:VendorCode>#{vendor_code}</sel:VendorCode>
+              <!--Optional:-->
+              <sel:language>PT</sel:language>
+              <!--Optional:-->
+              <sel:ipAddress>#{ip}</sel:ipAddress>
+              <!--Optional:-->
+              <sel:interfaceType>?</sel:interfaceType>
+            </sel:GetCustomerDetailsByCustomerNumber>
+        </soapenv:Body>
+      </soapenv:Envelope>
+    "
+
+    #http://uat.mcadigitalmedia.com/VendorSelfCare/SelfCareService.svc?wsdl
+    url = "#{url_service}/VendorSelfCare/SelfCareService.svc"
+    uri = URI.parse(URI.escape(url))
+    request = HTTParty.post(uri, 
+      :headers => {
+        'Content-Type' => 'text/xml;charset=UTF-8',
+        'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/GetCustomerDetailsByCustomerNumber",
+      },
+      :body => body
+    )
+
+    return informacoes_parse(request.body)
+  end
+
+  def self.informacoes_parse(body)
+    xml_doc = Nokogiri::XML(body)
 
     customer_detail_hash = {}
-    customerDetails = xml_doc.child.child.child.child.children.select{|child| child.name == "customerDetails"}.first rescue nil
-    if customerDetails
-      customerDetails.children.each do |detail|
+    customer_details = xml_doc.child.child.child.child.children.select{|child| child.name == "customerDetails"}.first rescue nil
+    accounts_xml = xml_doc.child.child.child.child.children.select{|child| child.name == "accounts"}.first rescue nil
+
+    if customer_details.blank? || accounts_xml.blank?
+      mensagem = body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "")
+      raise mensagem if mensagem.present?
+    end
+
+    if customer_details
+      customer_details.children.each do |detail|
         customer_detail_hash["#{detail.name}"] = detail.text
       end
     end
 
     accounts = []
-    accounts_xml = xml_doc.child.child.child.child.children.select{|child| child.name == "accounts"}.first rescue nil
     if accounts_xml
       accounts_xml.children.each do |account_xml|
         account = {}
