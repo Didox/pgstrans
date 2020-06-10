@@ -21,7 +21,7 @@
                   <input type="text" class="form-control" value="<%= params[:smartcard] %>" name="smartcard" placeholder="Smartcard/Device Number" style="margin-left: 30px;width: 300px;">
                   <h3>ou</h3>
                   <div style="margin-left: 30px;">Número do cliente/Custumer Number</div>
-                  <input type="text" class="form-control" value="<%= params[:numero_cliente] %>" name="numero_cliente" placeholder="Número do cliente/Custumer Number" style="margin-left: 30px;width: 300px;">
+                  <input type="text" class="form-control" value="<%= params[:customer_number] %>" name="customer_number" placeholder="Número do cliente/Custumer Number" style="margin-left: 30px;width: 300px;">
                 </div>
                 <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;">
                   <div style="float: right;">
@@ -33,13 +33,23 @@
           </div>
         <% else %>
           <div class="col-md-12">
+            <div style="margin-bottom:20px;border-bottom: 1px solid #ccc;">
+              <% if params[:smartcard].present? %>
+                <div style="font-weight: bold;font-size: 18px;"> Device Number: <%= params[:smartcard] %> </div>
+                <% traduz = {"number" => "Device Number"} %>
+              <% else %>
+                <div style="font-weight: bold;font-size: 18px;"> Custumer Number: <%= params[:customer_number] %> </div>
+                <% traduz = {"number" => "Customer Number"} %>
+              <% end %>
+            </div>
+
             <div style="font-weight: bold;font-size: 18px;"> Customer Detail </div>
             <div>
               <ul>
                 <% @info[:customer_detail].each do |key, val| %>
                   <% if val.present? %>
                     <li style="margin-bottom: 10px">
-                      <b><%= key %></b>: <%= val %>
+                      <b><%= traduz[key] || key %></b>: <%= val %>
                     </li>
                   <% end %>
                 <% end %>

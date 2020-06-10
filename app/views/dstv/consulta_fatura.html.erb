@@ -35,7 +35,7 @@
                 return validado
               }
             </script>
-            <form action="/dstv/validacao-cliente" onsubmit="return validaInformacoesConsulta(this)" method="get">
+            <form action="/dstv/consulta-fatura" onsubmit="return validaInformacoesConsulta(this)" method="get">
 
               <div class="col-md-12">
                 <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
@@ -44,7 +44,7 @@
                   <input type="text" class="form-control" value="3001492459" name="smartcard" placeholder="Smartcard/Device Number" style="margin-left: 30px;width: 300px;">
                   <br>
                   <div style="margin-left: 30px;">Número do cliente/Custumer Number</div>
-                  <input type="text" class="form-control" value="122364781" name="numero_cliente" placeholder="Número do cliente/Custumer Number" style="margin-left: 30px;width: 300px;">
+                  <input type="text" class="form-control" value="122364781" name="customer_number" placeholder="Número do cliente/Custumer Number" style="margin-left: 30px;width: 300px;">
                 </div>
                 <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;">
                   <div style="float: right;">
@@ -59,7 +59,7 @@
             <div style="font-weight: bold;font-size: 18px;"> Customer Detail </div>
             <div>
               <ul>
-                <% @info[:customer_detail].each do |key, val| %>
+                <% @info.each do |key, val| %>
                   <% if val.present? %>
                     <li style="margin-bottom: 10px">
                       <b><%= key %></b>: <%= val %>
@@ -69,25 +69,6 @@
               </ul>
             </div>
           </div>
-
-          <div class="col-md-12">
-            <div style="font-weight: bold;font-size: 18px;">Accounts</div>
-            <% @info[:accounts].each do |account| %>
-              <div>
-                <ul>
-                  <% account.each do |key, val| %>
-                    <% if val.present? %>
-                      <li style="margin-bottom: 10px">
-                        <b><%= key %></b>: <%= val %>
-                      </li>
-                    <% end %>
-                  <% end %>
-                </ul>
-              </div>
-              <hr>
-            <% end %>
-          </div>
-
           <br>
           <br>
           <br>

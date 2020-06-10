@@ -7,39 +7,28 @@ class Dstv
   end
 
   def self.importa_produtos
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
+    
     # TODO - POC talvez se transformar em algo válido
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\">
          <soapenv:Header/>
          <soapenv:Body>
             <sel:GetAvailableProducts>
-               <!--Optional:-->
                <sel:dataSource>Angola</sel:dataSource>
-               <!--Optional:-->
                <sel:customerNumber>122364781</sel:customerNumber>
-               <!--Optional:-->
                <sel:BusinessUnit>DStv</sel:BusinessUnit>
-               <!--Optional:-->
                <sel:VendorCode>PagasoDStv</sel:VendorCode>
-               <!--Optional:-->
                <sel:language>?</sel:language>
-               <!--Optional:-->
                <sel:ipAddress>?</sel:ipAddress>
-               <!--Optional:-->
                <sel:interfaceType>?</sel:interfaceType>
             </sel:GetAvailableProducts>
          </soapenv:Body>
       </soapenv:Envelope>
     "
 
-    url = "http://uat.mcadigitalmedia.com/VendorSelfCare/SelfCareService.svc"
-    uri = URI.parse(URI.escape(url))
-    request = HTTParty.post(uri, 
-      :headers => {
-        'Content-Type' => 'text/xml;charset=UTF-8',
-        'SOAPAction' => 'http://services.multichoice.co.za/SelfCare/ISelfCareService/GetAvailableProducts',
-      },
-      :body => body)
+    request = fazer_request(url_service, body, "GetAvailableProducts")
+
     if (200...300).include?(request.code.to_i)
       if request.body.present?
         puts "=========================================="
@@ -102,82 +91,109 @@ class Dstv
   end
 
   def self.informacoes_device_number(smartcard, ip)
-    parceiro = Partner.where("lower(slug) = 'dstv'").first
-    parametro = Parametro.where(partner_id: parceiro.id).first
-
-    raise "Parâmetros não localizados" if parametro.blank?
-    raise "Parceiro não localizado" if parceiro.blank?
     raise "Por favor digite o smartcard" if smartcard.blank?
 
-    if Rails.env == "development"
-      url_service = parametro.url_integracao_desenvolvimento
-      data_source = parametro.data_source_dstv_desenvolvimento
-      payment_vendor_code = parametro.payment_vendor_code_dstv_desenvolvimento
-      vendor_code = parametro.vendor_code_dstv_desenvolvimento
-      agent_account = parametro.agent_account_dstv_desenvolvimento
-      currency = parametro.currency_dstv_desenvolvimento
-      product_user_key = parametro.product_user_key_dstv_desenvolvimento
-      mop = parametro.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM "
-      agent_number = parametro.agent_number_dstv_desenvolvimento #122434345
-    else
-      url_service = parametro.url_integracao_producao
-      data_source = parametro.data_source_dstv_producao
-      payment_vendor_code = parametro.payment_vendor_code_dstv_producao
-      vendor_code = parametro.vendor_code_dstv_producao
-      agent_account = parametro.agent_account_dstv_producao
-      currency = parametro.currency_dstv_producao
-      product_user_key = parametro.product_user_key_dstv_producao
-      mop = parametro.mop_dstv_producao # mop = "CASH, MOBILE or ATM "
-      agent_number = parametro.agent_number_dstv_producao #122434345
-    end
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
 
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\">
         <soapenv:Header/>
         <soapenv:Body>
             <sel:GetCustomerDetailsByDeviceNumber>
-              <!--Optional:-->
               <sel:dataSource>#{data_source}</sel:dataSource>
-              <!--Optional:-->
               <sel:deviceNumber>#{smartcard}</sel:deviceNumber>
-              <!--Optional:-->
               <sel:currencyCode>AOA</sel:currencyCode>
-              <!--Optional:-->
               <sel:BusinessUnit>DStv</sel:BusinessUnit>
-              <!--Optional:-->
               <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-              <!--Optional:-->
               <sel:language>PT</sel:language>
-              <!--Optional:-->
               <sel:ipAddress>#{ip}</sel:ipAddress>
-              <!--Optional:-->
               <sel:interfaceType>?</sel:interfaceType>
             </sel:GetCustomerDetailsByDeviceNumber>
         </soapenv:Body>
       </soapenv:Envelope>
     "
 
-    #http://uat.mcadigitalmedia.com/VendorSelfCare/SelfCareService.svc?wsdl
-    url = "#{url_service}/VendorSelfCare/SelfCareService.svc"
-    uri = URI.parse(URI.escape(url))
-    request = HTTParty.post(uri, 
-      :headers => {
-        'Content-Type' => 'text/xml;charset=UTF-8',
-        'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/GetCustomerDetailsByDeviceNumber",
-      },
-      :body => body
-    )
-
+    request = fazer_request(url_service, body, "GetCustomerDetailsByDeviceNumber")
     return informacoes_parse(request.body)
   end
 
-  def self.informacoes_customer_number(smartcard, ip)
+  def self.informacoes_customer_number(customer_number, ip)
+    raise "Por favor digite o customer number" if customer_number.blank?
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
+
+    body = "
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\">
+        <soapenv:Header/>
+        <soapenv:Body>
+            <sel:GetCustomerDetailsByCustomerNumber>
+              <sel:dataSource>#{data_source}</sel:dataSource>
+              <sel:customerNumber>#{customer_number}</sel:customerNumber>
+              <sel:currencyCode>AOA</sel:currencyCode>
+              <sel:BusinessUnit>DStv</sel:BusinessUnit>
+              <sel:VendorCode>#{vendor_code}</sel:VendorCode>
+              <sel:language>PT</sel:language>
+              <sel:ipAddress>#{ip}</sel:ipAddress>
+              <sel:interfaceType>?</sel:interfaceType>
+            </sel:GetCustomerDetailsByCustomerNumber>
+        </soapenv:Body>
+      </soapenv:Envelope>
+    "
+
+    request = fazer_request(url_service, body, "GetCustomerDetailsByCustomerNumber")
+    return informacoes_parse(request.body)
+  end
+
+  def self.consulta_fatura(smartcard, customer_number, ip)
+    raise "Por favor digite o smartcard" if smartcard.blank?
+    raise "Por favor digite o customer_number" if customer_number.blank?
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
+
+    body = "
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\">
+        <soapenv:Header/>
+        <soapenv:Body>
+          <sel:GetDueAmountandDate>
+            <sel:dataSource>#{data_source}</sel:dataSource>
+            <sel:customerNumber>#{customer_number}</sel:customerNumber>
+            <sel:SCNumber>#{smartcard}</sel:SCNumber>
+            <sel:BusinessUnit>DStv</sel:BusinessUnit>
+            <sel:VendorCode>#{vendor_code}</sel:VendorCode>
+            <sel:language>Portuguese</sel:language>
+            <sel:ipAddress>#{ip}</sel:ipAddress>
+            <sel:interfaceType>?</sel:interfaceType>
+          </sel:GetDueAmountandDate>
+        </soapenv:Body>
+      </soapenv:Envelope>
+    "
+    request = fazer_request(url_service, body, "GetDueAmountandDate")
+
+
+    xml_doc = Nokogiri::XML(request.body)
+
+    get_due_amountand_date = xml_doc.child.child.child.children rescue nil
+    if get_due_amountand_date.blank?
+      mensagem = body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
+      raise mensagem if mensagem.present?
+    end
+
+    detail_hash = {}
+
+    detail_hash["AuditReferenceNumber"] = get_due_amountand_date.children.select{|child| child.name == "AuditReferenceNumber"}.first.text
+    detail_hash["currency"] = get_due_amountand_date.children.select{|child| child.name == "currency"}.first.text
+    detail_hash["defaultCurrencyDueAmount"] = get_due_amountand_date.children.select{|child| child.name == "defaultCurrencyDueAmount"}.first.text
+    detail_hash["defaultCuurencyCode"] = get_due_amountand_date.children.select{|child| child.name == "defaultCuurencyCode"}.first.text
+    detail_hash["dueAmount"] = get_due_amountand_date.children.select{|child| child.name == "dueAmount"}.first.text
+    detail_hash["dueDate"] = get_due_amountand_date.children.select{|child| child.name == "dueDate"}.first.text
+
+    return detail_hash
+  end
+
+  def self.parametros
     parceiro = Partner.where("lower(slug) = 'dstv'").first
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     raise "Parâmetros não localizados" if parametro.blank?
     raise "Parceiro não localizado" if parceiro.blank?
-    raise "Por favor digite o smartcard" if smartcard.blank?
 
     if Rails.env == "development"
       url_service = parametro.url_integracao_desenvolvimento
@@ -201,44 +217,20 @@ class Dstv
       agent_number = parametro.agent_number_dstv_producao #122434345
     end
 
-    body = "
-      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\">
-        <soapenv:Header/>
-        <soapenv:Body>
-            <sel:GetCustomerDetailsByCustomerNumber>
-              <!--Optional:-->
-              <sel:dataSource>#{data_source}</sel:dataSource>
-              <!--Optional:-->
-              <sel:customerNumber>#{smartcard}</sel:customerNumber>
-              <!--Optional:-->
-              <sel:currencyCode>AOA</sel:currencyCode>
-              <!--Optional:-->
-              <sel:BusinessUnit>DStv</sel:BusinessUnit>
-              <!--Optional:-->
-              <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-              <!--Optional:-->
-              <sel:language>PT</sel:language>
-              <!--Optional:-->
-              <sel:ipAddress>#{ip}</sel:ipAddress>
-              <!--Optional:-->
-              <sel:interfaceType>?</sel:interfaceType>
-            </sel:GetCustomerDetailsByCustomerNumber>
-        </soapenv:Body>
-      </soapenv:Envelope>
-    "
+    [parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number]
+  end
 
+  def self.fazer_request(url_service, body, resource)
     #http://uat.mcadigitalmedia.com/VendorSelfCare/SelfCareService.svc?wsdl
     url = "#{url_service}/VendorSelfCare/SelfCareService.svc"
     uri = URI.parse(URI.escape(url))
-    request = HTTParty.post(uri, 
+    return HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',
-        'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/GetCustomerDetailsByCustomerNumber",
+        'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/#{resource}",
       },
       :body => body
     )
-
-    return informacoes_parse(request.body)
   end
 
   def self.informacoes_parse(body)
@@ -249,7 +241,7 @@ class Dstv
     accounts_xml = xml_doc.child.child.child.child.children.select{|child| child.name == "accounts"}.first rescue nil
 
     if customer_details.blank? || accounts_xml.blank?
-      mensagem = body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "")
+      mensagem = body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
       raise mensagem if mensagem.present?
     end
 
