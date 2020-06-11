@@ -4,7 +4,10 @@ class SequencialDstvsController < ApplicationController
   # GET /sequencial_dstvs
   # GET /sequencial_dstvs.json
   def index
-    @sequencial_dstvs = SequencialDstv.all
+    @sequencial_dstvs = SequencialDstv.all.order(id: :desc)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @sequencial_dstvs = @sequencial_dstvs.paginate(options)
   end
 
   # GET /sequencial_dstvs/1

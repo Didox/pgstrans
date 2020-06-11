@@ -145,9 +145,15 @@
 
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :UnitelSequencesController, :index) %>
                         <li class="list-group-item">
-                            <%= link_to 'Sequência de Vendas Unitel', unitel_sequences_path %>
+                            <%= link_to 'Sequêncial de Vendas Unitel', unitel_sequences_path %>
                         </li>
                     <% end %>
+
+                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :SequencialDstvsController, :index) %>
+                        <li class="list-group-item">
+                            <%= link_to 'Sequêncial de Transações DSTV', sequencial_dstvs_path %>
+                        </li>
+                    <% end %>                    
 
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :ParametrosController, :index) %>
                         <li class="list-group-item">

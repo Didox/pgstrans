@@ -24,15 +24,17 @@
           </div>
         <% end %>
 
-                  <div class="form-input col-sm-6">
+          <div class="form-input col-sm-6">
             <%= f.label :sequence_id, class: "col-sm-2 control-label" %>
             <%= f.number_field :sequence_id, class: "form-control" %>
           </div>
-                  <div class="form-input col-sm-6">
+          
+          <div class="form-input col-sm-6">
             <%= f.label :venda, class: "col-sm-2 control-label" %>
             <%= f.text_field :venda, class: "form-control" %>
           </div>
-                <div class="form-actions col-sm-12">
+          
+          <div class="form-actions col-sm-12">
           <%= f.button :button, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-ok"></span>
             Confirmar

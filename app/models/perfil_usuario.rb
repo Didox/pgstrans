@@ -48,9 +48,6 @@ class PerfilUsuario < ApplicationRecord
       alteracao_pacote: "Alteração de pacote de produtos",
       alteracao_plano: "Alteração de plano de cobrança alternando entre mensal e anual",
       alteracao_cliente_produtos: "Listagem de produtos em validação de pagamento DSTV",
-      pagar_fatura: "Pagamento de fatura DSTV",
-      sequencial_dstv: "Sequencial de Transações DSTV",
-
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
@@ -94,7 +91,7 @@ class PerfilUsuario < ApplicationRecord
       matrix_users: "Backoffice - Usuários/Clientes - Matriz de Usuários",
       grupos: "Grupos de acesso e Acessos aos registros do sistema",
       dstv: "DSTV ações",
-      sequencial_dstv: "Sequencial de Transações DSTV",
+      sequencial_dstvs: "Backoffice - Transações - Controle de Sequência de Vendas da DSTV",
     }
     nomes[controller.to_sym]
   end
