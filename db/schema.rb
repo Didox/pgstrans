@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_26_101715) do
+ActiveRecord::Schema.define(version: 2020_06_11_105745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -308,6 +308,12 @@ ActiveRecord::Schema.define(version: 2020_05_26_101715) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["partner_id"], name: "index_saldo_parceiros_on_partner_id"
+  end
+
+  create_table "sequencial_dstvs", force: :cascade do |t|
+    t.integer "numero"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "status_alegacao_pagamentos", force: :cascade do |t|

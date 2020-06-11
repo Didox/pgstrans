@@ -1,0 +1,34 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h4>SequencialDstv</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="container scroltable">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+                    <th scope="col">Numero</th>
+                    <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @sequencial_dstvs.each do |sequencial_dstv| %>
+        <tr>
+                    <td><%= sequencial_dstv.numero %></td>
+                    <td><%= link_to 'Mostrar', sequencial_dstv %></td>
+          <td><%= link_to 'Editar', edit_sequencial_dstv_path(sequencial_dstv) %></td>
+          <td><%= link_to 'Apagar', sequencial_dstv, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to "Novo Registo", new_sequencial_dstv_path, class: 'btn btn-danger' %>
+    <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
+  </div>
+</div>

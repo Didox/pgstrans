@@ -1,0 +1,2 @@
+class SequencialDstv < ApplicationRecord
+end

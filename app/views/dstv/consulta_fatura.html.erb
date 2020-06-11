@@ -54,18 +54,20 @@
               </div>
             </form>
           </div>
-        <% else %>
+        <% elsif @info["dueAmount"].present? %>
           <div class="col-md-12">
-            <div style="font-weight: bold;font-size: 18px;"> Customer Detail </div>
+            <div style="font-weight: bold;font-size: 18px;"> Dados da fatura </div>
             <div>
               <ul>
-                <% @info.each do |key, val| %>
-                  <% if val.present? %>
-                    <li style="margin-bottom: 10px">
-                      <b><%= key %></b>: <%= val %>
-                    </li>
-                  <% end %>
-                <% end %>
+                <li style="margin-bottom: 10px">
+                  <b>Moeda</b>: <%= @info["currency"] %>
+                </li>
+                <li style="margin-bottom: 10px">
+                  <b>Valor</b>: <%= number_to_currency(@info["dueAmount"], :unit => "KZ") %>
+                </li>
+                <li style="margin-bottom: 10px">
+                  <b>Data de vencimento</b>: <%= @info["dueDate"].to_date.strftime("%d/%m/%Y") rescue @info["dueDate"] %>
+                </li>
               </ul>
             </div>
           </div>
@@ -73,7 +75,13 @@
           <br>
           <br>
           <div class="card-body">
-            <a href="/" class="btn btn-danger">Voltar</a>
+            <form action="/dstv/pagar-fatura">
+              <input type="hidden" name="valor" value="<%= @info["dueAmount"] %>">
+              <input type="hidden" name="customer_number" value="<%= params["customer_number"] %>">
+              <input type="hidden" name="dueDate" value="<%= params["dueDate"] %>">
+              <a href="/" class="btn btn-success">Voltar</a>
+              <button type="submit" class="btn btn-danger">Pagar</button>
+            </form>
           </div>
         <% end %>
       </div>

@@ -1,0 +1,51 @@
+<div class="container scroltable">
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="container">
+    
+    <div class="card" style="margin-top: 5px;">
+      <div class="card-header">
+        <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold;font-size: 20px;">
+          Pagasó Payment System
+        </div>
+        <% if @info.present? %>
+          <div class="col-md-12">
+            <div style="font-weight: bold;font-size: 18px;"> Pagamento efetuado com sucesso! </div>
+            <div>
+              <ul>
+                <li style="margin-bottom: 10px">
+                  <b>Número do Cliente/Custumer Number</b>: <%= params["customer_number"] %>
+                </li>
+                <li style="margin-bottom: 10px">
+                  <b>Valor</b>: <%= number_to_currency(params["valor"], :unit => "KZ") %>
+                </li>
+                <li style="margin-bottom: 10px">
+                  <b>Data de vencimento</b>: <%= params["dueDate"].to_date.strftime("%d/%m/%Y") rescue params["dueDate"] %>
+                </li>
+                <li style="margin-bottom: 10px">
+                  <b>Número do recibo</b>: <%= @info["receiptNumber"] %>
+                </li>
+                <li style="margin-bottom: 10px">
+                  <b>Número da transação</b>: <%= @info["transactionNumber"] %>
+                </li>
+                <li style="margin-bottom: 10px">
+                  <b>Data e hora da transação</b>: <%= @info["transactionDateTime"].to_datetime.strftime("%d/%m/%Y %H:%M") rescue @info["transactionDateTime"] %>
+                </li>
+                <li style="margin-bottom: 10px">
+                  <b>AuditReferenceNumber</b>: <%= @info["AuditReferenceNumber"] %>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <br>
+          <br>
+          <br>
+          <a href="/" class="btn btn-danger">Voltar</a>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
