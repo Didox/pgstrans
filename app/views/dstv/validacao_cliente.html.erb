@@ -78,9 +78,12 @@
           <br>
           <br>
           <br>
-          <div class="card-body">
-            <a href="/" class="btn btn-danger">Voltar</a>
-          </div>
+
+          <%= link_to root_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>
+
         <% end %>
       </div>
     </div>
