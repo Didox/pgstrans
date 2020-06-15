@@ -431,7 +431,12 @@ class Venda < ApplicationRecord
 
       last_request = request.body
     else
-      raise "Erro no envio do pedido ou resposta da operadora"
+      return_message = request.body.scan(/<ReturnMessage.*?ReturnMessage>/)
+      if return_message.present?
+        return_message = return_message.first.gsub(/<[^>]*>/, "") rescue return_message
+        raise "Erro no envio do pedido ou resposta da  - (#{return_message})"
+      end
+      raise "Erro no envio do pedido ou resposta da operadora - Timeout"
     end
 
     venda = Venda.new(product_id:product_id, agent_id: parametro.movicel_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
