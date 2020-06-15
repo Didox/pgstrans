@@ -136,6 +136,12 @@
                             <%= link_to 'Vendas', vendas_path %>
                         </li>
                     <% end %>
+                    
+                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :LogVendasController, :index) %>
+                        <li class="list-group-item">
+                            <%= link_to 'Log tentativa de venda com erro', log_vendas_path %>
+                        </li>
+                    <% end %>
 
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :ReturnCodeApisController, :index) %>
                         <li class="list-group-item">

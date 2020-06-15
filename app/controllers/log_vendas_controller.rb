@@ -5,25 +5,34 @@ class LogVendasController < ApplicationController
   # GET /log_vendas.json
   def index
     @log_vendas = LogVenda.all
+    options = {page: params[:page] || 1, per_page: 10}
+    @log_vendas = @log_vendas.paginate(options)
   end
 
   # GET /log_vendas/1
   # GET /log_vendas/1.json
   def show
+    redirect_to "/log_vendas"
   end
 
   # GET /log_vendas/new
   def new
+    redirect_to "/log_vendas"
+    return
     @log_venda = LogVenda.new
   end
 
   # GET /log_vendas/1/edit
   def edit
+    redirect_to "/log_vendas"
+    return
   end
 
   # POST /log_vendas
   # POST /log_vendas.json
   def create
+    redirect_to "/log_vendas"
+    return
     @log_venda = LogVenda.new(log_venda_params)
 
     respond_to do |format|
@@ -40,6 +49,8 @@ class LogVendasController < ApplicationController
   # PATCH/PUT /log_vendas/1
   # PATCH/PUT /log_vendas/1.json
   def update
+    redirect_to "/log_vendas"
+    return
     respond_to do |format|
       if @log_venda.update(log_venda_params)
         format.html { redirect_to @log_venda, notice: 'Log venda was successfully updated.' }
@@ -54,6 +65,8 @@ class LogVendasController < ApplicationController
   # DELETE /log_vendas/1
   # DELETE /log_vendas/1.json
   def destroy
+    redirect_to "/log_vendas"
+    return
     @log_venda.destroy
     respond_to do |format|
       format.html { redirect_to log_vendas_url, notice: 'Log venda was successfully destroyed.' }

@@ -92,6 +92,7 @@ class PerfilUsuario < ApplicationRecord
       grupos: "Grupos de acesso e Acessos aos registros do sistema",
       dstv: "DSTV ações",
       sequencial_dstvs: "Backoffice - Transações - Controle de Sequência de Vendas da DSTV",
+      log_vendas: "Log de vendas não realizadas",
     }
     nomes[controller.to_sym]
   end
