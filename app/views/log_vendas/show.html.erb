@@ -1,0 +1,28 @@
+<div class="container">
+
+  <h4>Mostrar LogVenda</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Titulo:</dt>
+      <dd><%= @log_venda.titulo %></dd>
+      <dt>Log:</dt>
+      <dd><%= @log_venda.log %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to log_vendas_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_log_venda_path(@log_venda), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>

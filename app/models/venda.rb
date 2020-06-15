@@ -365,6 +365,7 @@ class Venda < ApplicationRecord
         'Content-Type' => 'text/xml;charset=UTF-8',
         'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
       },
+      timeout: 20,
       :body => body
     )
 
@@ -429,6 +430,8 @@ class Venda < ApplicationRecord
       Rails.logger.info "========[Confirmação enviada para operadora Movicel]=========="
 
       last_request = request.body
+    else
+      raise "Erro no envio do pedido ou resposta da operadora"
     end
 
     venda = Venda.new(product_id:product_id, agent_id: parametro.movicel_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)

@@ -167,6 +167,8 @@ class Dstv
     "
     request = fazer_request(url_service, body, "GetDueAmountandDate")
 
+    debugger
+    
     xml_doc = Nokogiri::XML(request.body)
 
     get_due_amountand_date = xml_doc.child.child.child.children rescue nil

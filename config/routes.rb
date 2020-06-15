@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :log_vendas
   resources :sequencial_dstvs
   get 'dstv/validacao-cliente', to: 'dstv#validacao_cliente'
   get 'dstv/consulta-fatura', to: 'dstv#consulta_fatura'
