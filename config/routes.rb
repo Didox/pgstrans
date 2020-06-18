@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'dstv/pagar-fatura', to: 'dstv#pagar_fatura'
   get 'dstv/alteracao-pacote', to: 'dstv#alteracao_pacote'
   get 'dstv/alteracao-cliente-produtos', to: 'dstv#alteracao_cliente_produtos'
-  get 'dstv/alteracao-plano', to: 'dstv#alteracao_plano'
+  get 'dstv/alteracao-cliente-produtos/upgrade-downgrade', to: 'dstv#alteracao_plano'
 
   resources :grupos do
     get 'usuarios', to: 'grupos#usuarios'

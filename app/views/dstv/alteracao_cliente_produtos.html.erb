@@ -11,120 +11,53 @@
           Selecione o produto
         </div>
         <div class="container scroltable">
-          <table class="table">
-            <tr>
-              <th>
-                description
-              </th>
-              <th>
-                valor_compra_telemovel
-              </th>
-              <th>
-                valor_compra_site
-              </th>
-              <th>
-                valor_compra_pos
-              </th>
-              <th>
-                valor_compra_tef
-              </th>
-              <th>
-                valor_minimo_venda_telemovel
-              </th>
-              <th>
-                valor_minimo_venda_site
-              </th>
-              <th>
-                valor_minimo_venda_pos
-              </th>
-              <th>
-                valor_minimo_venda_tef
-              </th>
-              <th>
-                margem_telemovel
-              </th>
-              <th>
-                margem_pos
-              </th>
-              <th>
-                margem_tef
-              </th>
-              <th>
-                mensagem_cupom_venda
-              </th>
-              <th>
-                margem_site
-              </th>
-              <th>
-                valor_unitario
-              </th>
-              <th>
-                tipo
-              </th>
-              <th>
-                subtipo
-              </th>
-              <th></th>
-            </tr>
-            <% @produtos.each do |produto| %>
-              <tr>
-                <td>
-                  <%= produto.description %>
-                </td>
-                <td>
-                  <%= produto.valor_compra_telemovel %>
-                </td>
-                <td>
-                  <%= produto.valor_compra_site %>
-                </td>
-                <td>
-                  <%= produto.valor_compra_pos %>
-                </td>
-                <td>
-                  <%= produto.valor_compra_tef %>
-                </td>
-                <td>
-                  <%= produto.valor_minimo_venda_telemovel %>
-                </td>
-                <td>
-                  <%= produto.valor_minimo_venda_site %>
-                </td>
-                <td>
-                  <%= produto.valor_minimo_venda_pos %>
-                </td>
-                <td>
-                  <%= produto.valor_minimo_venda_tef %>
-                </td>
-                <td>
-                  <%= produto.margem_telemovel %>
-                </td>
-                <td>
-                  <%= produto.margem_pos %>
-                </td>
-                <td>
-                  <%= produto.margem_tef %>
-                </td>
-                <td>
-                  <%= produto.mensagem_cupom_venda %>
-                </td>
-                <td>
-                  <%= produto.margem_site %>
-                </td>
-                <td>
-                  <%= produto.valor_unitario %>
-                </td>
-                <td>
-                  <%= produto.tipo %>
-                </td>
-                <td>
-                  <%= produto.subtipo %>
-                </td>
-                <td>
-                  <button class="btn btn-primary">Selecionar</button>
-                </td>
-              </tr>
-            <% end %>
-          </table>
+          <form action="/dstv/alteracao-cliente-produtos/upgrade-downgrade" onsubmit="return validaInformacoesConsulta(this)" method="get">
+
+            <div>
+              <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
+                <table class="table">
+                  <tr>
+                    <th>#</th>
+                    <th>
+                      Codigo
+                    </th>
+                    <th>
+                      Descrição
+                    </th>
+                    <th>
+                      Valor
+                    </th>
+                  </tr>
+                  <% @produtos.each do |produto| %>
+                    <tr>
+                      <td>
+                        <input type="checkbox" name="produtos[]" value="<%= produto.id %>">
+                      </td>
+                      <td>
+                        <%= produto.produto_id_parceiro %>
+                      </td>
+                      <td>
+                        <%= produto.description %>
+                      </td>
+                      <td>
+                        <%= number_to_currency(produto.valor_compra_telemovel, :unit => "KZ") %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </table>
+              </div>
+              <div>
+                <div style="float: right;">
+                  <input type="hidden" value="<%= params[:smartcard] %>" name="smartcard">
+                  <input type="hidden" value="<%= params[:customer_number] %>" name="customer_number">
+                  <input type="submit" class="btn btn-success" style="width: 210px; text-align: center;" value="PRÓXIMO">
+                  <a href="/" class="btn btn-danger" style="width: 100px; text-align: center;">VOLTAR</a>
+                </div>
+              </div>
+            </div>
+            
+          </form>
+
         </div>
       </div>
     </div>

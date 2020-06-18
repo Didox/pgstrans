@@ -5,5 +5,55 @@
 
   <div class="container">
     <h1>Lista DSTV alteração de plano de cobrança alternando entre mensal e anual</h1>
+
+    <% if @info.present? %>
+      <div class="col-md-12">
+        <div style="font-weight: bold;font-size: 18px;"> Pagamento efetuado com sucesso! </div>
+        <div>
+          <ul>
+            <li style="margin-bottom: 10px">
+              <b>Número do Cliente/Custumer Number</b>: <%= params["customer_number"] %>
+            </li>
+            <li style="margin-bottom: 10px">
+              <b>Produto</b>: <%= @info["produto"] %>
+            </li>
+            <li style="margin-bottom: 10px">
+              <b>Codigo</b>: <%= @info["codigo"] %>
+            </li>
+            <li style="margin-bottom: 10px">
+              <b>Valor</b>: <%= number_to_currency(@info["valor"], :unit => "KZ") %>
+            </li>
+            <li style="margin-bottom: 10px">
+              <b>Número do recibo</b>: <%= @info["receiptNumber"] %>
+            </li>
+            <li style="margin-bottom: 10px">
+              <b>Número da transação</b>: <%= @info["transactionNumber"] %>
+            </li>
+            <li style="margin-bottom: 10px">
+              <b>Data e hora da transação</b>: <%= @info["transactionDateTime"].to_datetime.strftime("%d/%m/%Y %H:%M") rescue @info["transactionDateTime"] %>
+            </li>
+            <li style="margin-bottom: 10px">
+              <b>AuditReferenceNumber</b>: <%= @info["AuditReferenceNumber"] %>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
+      <a href="/" class="btn btn-danger">Voltar</a>
+    <% elsif flash[:mensagem_erro_fatura].present? %>
+      <div style="color:red;margin-left: 17px;margin-bottom: 20px;font-size: 16px;">
+        <%= flash[:mensagem_erro_fatura] %>
+      </div>
+
+      <%= link_to "/dstv/consulta-fatura", class: 'btn btn-success' do %>
+        Fazer nova consulta
+      <% end %>
+      <%= link_to root_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+    <% end %>
   </div>
 </div>

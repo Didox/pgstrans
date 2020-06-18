@@ -66,7 +66,6 @@ class Dstv
             produto = produtos.first
           end
 
-          produto.responsavel = Usuario.adm
           produto.description = descricao
 
           produto.valor_compra_telemovel = price
@@ -77,9 +76,7 @@ class Dstv
           produto.valor_minimo_venda_site = price
           produto.valor_minimo_venda_pos = price
           produto.valor_minimo_venda_tef = price
-
-
-          produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id
+          produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id rescue Moeda.first.id
           produto.status_produto = StatusProduto.where(nome: "Ativo").first
 
           produto.save!
@@ -88,6 +85,79 @@ class Dstv
         puts "=========================================="
       end
     end
+  end
+
+  def self.altera_plano(customer_number, smartcard, produtos, ip, usuario_logado)
+
+    raise "Selecione pelo menos um produto" if produtos.blank?
+    raise "Customer number não pode ser vazio" if customer_number.blank?
+    raise "Smartcard não pode ser vazio" if smartcard.blank?
+
+    produto = Produto.find(produtos[0])
+
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
+
+    sequencial = SequencialDstv.order("id desc").last || SequencialDstv.new
+    sequencial.numero ||= 1
+    body = "
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"  xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
+      <soapenv:Header/>
+      <soapenv:Body>
+        <sel:AgentSubmitPayment>
+          <sel:agentPaymentRequest>
+            <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
+            <sel1:transactionNumber>#{sequencial.numero}</sel1:transactionNumber>
+            <sel1:dataSource>#{data_source}</sel1:dataSource>
+            <sel1:customerNumber>#{customer_number}</sel1:customerNumber>
+            <sel1:amount>#{produto.valor_compra_telemovel}</sel1:amount>
+            <sel1:invoicePeriod>1</sel1:invoicePeriod>
+            <sel1:currency>#{currency}</sel1:currency>
+            <sel1:paymentDescription>Pagaso payment system #{usuario_logado.id} - (#{usuario_logado.nome} - #{usuario_logado.id})</sel1:paymentDescription>
+            <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
+            <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
+            <sel1:productCollection>
+              <sel1:Product>
+                <sel1:productUserkey>#{produto.produto_id_parceiro}</sel1:productUserkey>
+              </sel1:Product>
+            </sel1:productCollection>
+            <sel1:baskedId>0</sel1:baskedId>
+          </sel:agentPaymentRequest>
+          <sel:VendorCode>#{vendor_code}</sel:VendorCode>
+          <sel:language>Portuguese</sel:language>
+          <sel:ipAddress>#{ip}</sel:ipAddress>
+          <sel:businessUnit>DStv</sel:businessUnit>
+        </sel:AgentSubmitPayment>
+        </soapenv:Body>
+      </soapenv:Envelope>
+    "
+    request = fazer_request(url_service, body, "AgentSubmitPayment")
+    sequencial.numero += 1
+    sequencial.save
+    
+    xml_doc = Nokogiri::XML(request.body)
+
+    mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
+    raise mensagem if mensagem.present?
+
+    agent_submit_payment = xml_doc.child.child.child.children rescue nil
+    raise "Pagamento não processado" if agent_submit_payment.blank?
+
+    agent_submit_payment_hash = {
+      "produto" => produto.description,
+      "codigo" => produto.produto_id_parceiro,
+      "valor" => produto.valor_compra_telemovel,
+    }
+
+    agent_submit_payment_hash["receiptNumber"] = agent_submit_payment.children.select{|child| child.name == "receiptNumber"}.first.text
+    agent_submit_payment_hash["transactionNumber"] = agent_submit_payment.children.select{|child| child.name == "transactionNumber"}.first.text
+    agent_submit_payment_hash["status"] = agent_submit_payment.children.select{|child| child.name == "status"}.first.text
+    agent_submit_payment_hash["transactionDateTime"] = agent_submit_payment.children.select{|child| child.name == "transactionDateTime"}.first.text
+    agent_submit_payment_hash["errorMessage"] = agent_submit_payment.children.select{|child| child.name == "errorMessage"}.first.text
+    agent_submit_payment_hash["AuditReferenceNumber"] = agent_submit_payment.children.select{|child| child.name == "AuditReferenceNumber"}.first.text
+
+    raise agent_submit_payment_hash["errorMessage"] if agent_submit_payment_hash["errorMessage"].present?
+
+    return agent_submit_payment_hash
   end
 
   def self.informacoes_device_number(smartcard, ip)
