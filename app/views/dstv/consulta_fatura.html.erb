@@ -41,10 +41,10 @@
                 <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
                   <h3>Informe </h3>
                   <div style="margin-left: 30px;">Smartcard/Device Number</div>
-                  <input type="text" class="form-control" value="3001492459" name="smartcard" placeholder="Smartcard/Device Number" style="margin-left: 30px;width: 300px;">
+                  <input type="text" class="form-control" value="" name="smartcard" placeholder="Smartcard/Device Number" style="margin-left: 30px;width: 300px;">
                   <br>
                   <div style="margin-left: 30px;">Número do cliente/Custumer Number</div>
-                  <input type="text" class="form-control" value="122364781" name="customer_number" placeholder="Número do cliente/Custumer Number" style="margin-left: 30px;width: 300px;">
+                  <input type="text" class="form-control" value="" name="customer_number" placeholder="Número do cliente/Custumer Number" style="margin-left: 30px;width: 300px;">
                 </div>
                 <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;">
                   <div style="float: right;">
@@ -78,7 +78,7 @@
             <form action="/dstv/pagar-fatura">
               <input type="hidden" name="valor" value="<%= @info["dueAmount"] %>">
               <input type="hidden" name="customer_number" value="<%= params["customer_number"] %>">
-              <input type="hidden" name="dueDate" value="<%= params["dueDate"] %>">
+              <input type="hidden" name="dueDate" value="<%= @info["dueDate"].to_date.strftime("%d/%m/%Y") %>">
 
               <%= link_to root_path, class: 'btn btn-danger' do %>
                 <span class="glyphicon glyphicon-list-alt"></span>

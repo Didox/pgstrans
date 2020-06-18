@@ -48,6 +48,7 @@ class PerfilUsuario < ApplicationRecord
       alteracao_pacote: "Alteração de pacote de produtos",
       alteracao_plano: "Alteração de plano de cobrança alternando entre mensal e anual",
       alteracao_cliente_produtos: "Listagem de produtos em validação de pagamento DSTV",
+      pagar_fatura: "Pagar fatura DSTV",
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]

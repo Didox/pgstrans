@@ -14,7 +14,7 @@ class DstvController < ApplicationController
       @info = Dstv.consulta_fatura(params[:smartcard], params[:customer_number], request.remote_ip)
     end
   rescue Exception => e
-    flash[:error] = e.message
+    flash[:mensagem_erro_fatura] = e.message
   end
 
   def pagar_fatura
@@ -23,7 +23,7 @@ class DstvController < ApplicationController
     
     @info = Dstv.pagar_fatura(params[:customer_number], params[:valor], request.remote_ip, usuario_logado)
   rescue Exception => e
-    flash[:error] = e.message
+    flash[:mensagem_erro_fatura] = e.message
   end
 
   def alteracao_cliente_produtos

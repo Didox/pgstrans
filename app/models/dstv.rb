@@ -167,8 +167,6 @@ class Dstv
     "
     request = fazer_request(url_service, body, "GetDueAmountandDate")
 
-    debugger
-    
     xml_doc = Nokogiri::XML(request.body)
 
     get_due_amountand_date = xml_doc.child.child.child.children rescue nil
@@ -211,7 +209,7 @@ class Dstv
             <sel1:currency>#{currency}</sel1:currency>
             <sel1:paymentDescription>Pagaso payment system #{usuario_logado.id} - (#{usuario_logado.nome} - #{usuario_logado.id})</sel1:paymentDescription>
             <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
-            <sel1:agentNumber>#{agent_account}</sel1:agentNumber>
+            <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>
               <sel1:Product>
                 <sel1:productUserkey></sel1:productUserkey>
@@ -232,8 +230,6 @@ class Dstv
     sequencial.save
     
     xml_doc = Nokogiri::XML(request.body)
-    
-    debugger
 
     mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
     raise mensagem if mensagem.present?
