@@ -59,9 +59,14 @@ class Dstv
 
           produtos = Produto.where(produto_id_parceiro: produto_id_parceiro, partner_id: partner.id)
           if produtos.count == 0
-            produto = Produto.new
-            produto.produto_id_parceiro = produto_id_parceiro
-            produto.partner_id = partner.id
+            produtos = Produto.where(description: descricao, partner_id: partner.id)
+            if produtos.count == 0
+              produto = Produto.new
+              produto.produto_id_parceiro = produto_id_parceiro
+              produto.partner_id = partner.id
+            else
+              produto = produtos.first
+            end
           else
             produto = produtos.first
           end
@@ -97,8 +102,14 @@ class Dstv
 
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
 
-    sequencial = SequencialDstv.order("id desc").last || SequencialDstv.new
-    sequencial.numero ||= 1
+    sequencial = SequencialDstv.order("id desc").last
+    if sequencial.blank?
+      sequencial = SequencialDstv.new
+      sequencial.numero = 1
+    else
+      sequencial.numero += 1
+    end
+    
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"  xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
       <soapenv:Header/>
@@ -131,8 +142,7 @@ class Dstv
       </soapenv:Envelope>
     "
     request = fazer_request(url_service, body, "AgentSubmitPayment")
-    sequencial.numero += 1
-    sequencial.save
+    SequencialDstv.create(numero: sequencial.numero, request_body: request.body, response_body: body)
     
     xml_doc = Nokogiri::XML(request.body)
 

@@ -12,6 +12,16 @@
       <dd><%= @sequencial_dstv.numero %></dd>
     </dl>
 
+    <dl class="dl-horizontal">
+      <dt>Request body:</dt>
+      <dd><%= @sequencial_dstv.request_body %></dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+      <dt>Response body:</dt>
+      <dd><%= @sequencial_dstv.response_body %></dd>
+    </dl>
+
     <div class="page-header">
       <%= link_to sequencial_dstvs_path, class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
