@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_19_101959) do
+ActiveRecord::Schema.define(version: 2020_06_19_113622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "alteracoes_planos_dstvs", force: :cascade do |t|
+    t.text "request_body"
+    t.text "response_body"
+    t.text "customer_number"
+    t.text "smartcard"
+    t.string "produto"
+    t.bigint "administrador_id"
+    t.string "codigo"
+    t.float "valor"
+    t.string "receipt_number"
+    t.string "transaction_number"
+    t.string "status"
+    t.string "transaction_date_time"
+    t.string "error_message"
+    t.string "audit_reference_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "bancos", force: :cascade do |t|
     t.string "nome"
@@ -165,6 +184,22 @@ ActiveRecord::Schema.define(version: 2020_06_19_101959) do
 
   create_table "municipios", force: :cascade do |t|
     t.string "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pagamentos_faturas_dstvs", force: :cascade do |t|
+    t.text "request_body"
+    t.text "response_body"
+    t.string "customer_number"
+    t.float "valor"
+    t.string "smartcard"
+    t.bigint "administrador_id"
+    t.string "receipt_number"
+    t.string "transaction_number"
+    t.string "status"
+    t.string "transaction_date_time"
+    t.string "audit_reference_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

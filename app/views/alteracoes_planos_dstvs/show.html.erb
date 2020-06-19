@@ -1,0 +1,54 @@
+<div class="container">
+
+  <h4>Mostrar AlteracoesPlanosDstv</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Request body:</dt>
+      <dd><%= @alteracoes_planos_dstv.request_body %></dd>
+      <dt>Response body:</dt>
+      <dd><%= @alteracoes_planos_dstv.response_body %></dd>
+      <dt>Customer number:</dt>
+      <dd><%= @alteracoes_planos_dstv.customer_number %></dd>
+      <dt>Smartcard:</dt>
+      <dd><%= @alteracoes_planos_dstv.smartcard %></dd>
+      <dt>Produto:</dt>
+      <dd><%= @alteracoes_planos_dstv.produto %></dd>
+      <dt>Administrador:</dt>
+      <dd><%= @alteracoes_planos_dstv.administrador %></dd>
+      <dt>Produto:</dt>
+      <dd><%= @alteracoes_planos_dstv.produto %></dd>
+      <dt>Codigo:</dt>
+      <dd><%= @alteracoes_planos_dstv.codigo %></dd>
+      <dt>Valor:</dt>
+      <dd><%= @alteracoes_planos_dstv.valor %></dd>
+      <dt>Receipt number:</dt>
+      <dd><%= @alteracoes_planos_dstv.receipt_number %></dd>
+      <dt>Transaction number:</dt>
+      <dd><%= @alteracoes_planos_dstv.transaction_number %></dd>
+      <dt>Status:</dt>
+      <dd><%= @alteracoes_planos_dstv.status %></dd>
+      <dt>Transaction date time:</dt>
+      <dd><%= @alteracoes_planos_dstv.transaction_date_time %></dd>
+      <dt>Error message:</dt>
+      <dd><%= @alteracoes_planos_dstv.error_message %></dd>
+      <dt>Audit reference number:</dt>
+      <dd><%= @alteracoes_planos_dstv.audit_reference_number %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to alteracoes_planos_dstvs_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_alteracoes_planos_dstv_path(@alteracoes_planos_dstv), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>

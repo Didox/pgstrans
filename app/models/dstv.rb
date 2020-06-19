@@ -167,6 +167,22 @@ class Dstv
 
     raise agent_submit_payment_hash["errorMessage"] if agent_submit_payment_hash["errorMessage"].present?
 
+    alteracoes_planos_dstv = AlteracoesPlanosDstv.new
+    alteracoes_planos_dstv.request_body = request.body
+    alteracoes_planos_dstv.response_body = body
+    alteracoes_planos_dstv.customer_number = customer_number
+    alteracoes_planos_dstv.smartcard = smartcard
+    alteracoes_planos_dstv.administrador_id = usuario_logado.id
+    alteracoes_planos_dstv.produto = agent_submit_payment_hash["produto"]
+    alteracoes_planos_dstv.codigo = agent_submit_payment_hash["codigo"]
+    alteracoes_planos_dstv.valor = agent_submit_payment_hash["valor"]
+    alteracoes_planos_dstv.receipt_number = agent_submit_payment_hash["receiptNumber"]
+    alteracoes_planos_dstv.transaction_number = agent_submit_payment_hash["transactionNumber"]
+    alteracoes_planos_dstv.status = agent_submit_payment_hash["status"]
+    alteracoes_planos_dstv.transaction_date_time = agent_submit_payment_hash["transactionDateTime"]
+    alteracoes_planos_dstv.audit_reference_number = agent_submit_payment_hash["AuditReferenceNumber"]
+    alteracoes_planos_dstv.save!
+
     return agent_submit_payment_hash
   end
 
@@ -329,6 +345,20 @@ class Dstv
     agent_submit_payment_hash["transactionDateTime"] = agent_submit_payment.children.select{|child| child.name == "transactionDateTime"}.first.text
     agent_submit_payment_hash["errorMessage"] = agent_submit_payment.children.select{|child| child.name == "errorMessage"}.first.text
     agent_submit_payment_hash["AuditReferenceNumber"] = agent_submit_payment.children.select{|child| child.name == "AuditReferenceNumber"}.first.text
+
+    pagamentos_faturas_dstv = PagamentosFaturasDstv.new
+    pagamentos_faturas_dstv.request_body = request.body
+    pagamentos_faturas_dstv.response_body = body
+    pagamentos_faturas_dstv.customer_number = customer_number
+    pagamentos_faturas_dstv.valor = valor
+    pagamentos_faturas_dstv.smartcard = smartcard
+    pagamentos_faturas_dstv.administrador_id = usuario_logado.id
+    pagamentos_faturas_dstv.receipt_number = agent_submit_payment_hash["receiptNumber"]
+    pagamentos_faturas_dstv.transaction_number = agent_submit_payment_hash["transactionNumber"]
+    pagamentos_faturas_dstv.status = agent_submit_payment_hash["status"]
+    pagamentos_faturas_dstv.transaction_date_time = agent_submit_payment_hash["transactionDateTime"]
+    pagamentos_faturas_dstv.audit_reference_number = agent_submit_payment_hash["AuditReferenceNumber"]
+    pagamentos_faturas_dstv.save!
 
     raise agent_submit_payment_hash["errorMessage"] if agent_submit_payment_hash["errorMessage"].present?
 

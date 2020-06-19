@@ -1,0 +1,46 @@
+<div class="container">
+
+  <h4>Mostrar PagamentosFaturasDstv</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Request body:</dt>
+      <dd><%= @pagamentos_faturas_dstv.request_body %></dd>
+      <dt>Response body:</dt>
+      <dd><%= @pagamentos_faturas_dstv.response_body %></dd>
+      <dt>Customer number:</dt>
+      <dd><%= @pagamentos_faturas_dstv.customer_number %></dd>
+      <dt>Valor:</dt>
+      <dd><%= @pagamentos_faturas_dstv.valor %></dd>
+      <dt>Smartcard:</dt>
+      <dd><%= @pagamentos_faturas_dstv.smartcard %></dd>
+      <dt>Administrador:</dt>
+      <dd><%= @pagamentos_faturas_dstv.administrador %></dd>
+      <dt>Receipt number:</dt>
+      <dd><%= @pagamentos_faturas_dstv.receipt_number %></dd>
+      <dt>Transaction number:</dt>
+      <dd><%= @pagamentos_faturas_dstv.transaction_number %></dd>
+      <dt>Status:</dt>
+      <dd><%= @pagamentos_faturas_dstv.status %></dd>
+      <dt>Transaction date time:</dt>
+      <dd><%= @pagamentos_faturas_dstv.transaction_date_time %></dd>
+      <dt>Audit reference number:</dt>
+      <dd><%= @pagamentos_faturas_dstv.audit_reference_number %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to pagamentos_faturas_dstvs_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_pagamentos_faturas_dstv_path(@pagamentos_faturas_dstv), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>

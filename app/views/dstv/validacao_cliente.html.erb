@@ -34,13 +34,8 @@
         <% else %>
           <div class="col-md-12">
             <div style="margin-bottom:20px;border-bottom: 1px solid #ccc;">
-              <% if params[:smartcard].present? %>
-                <div style="font-weight: bold;font-size: 18px;"> Device Number: <%= params[:smartcard] %> </div>
-                <% traduz = {"number" => "Device Number"} %>
-              <% else %>
-                <div style="font-weight: bold;font-size: 18px;"> Custumer Number: <%= params[:customer_number] %> </div>
-                <% traduz = {"number" => "Customer Number"} %>
-              <% end %>
+              <div style="font-weight: bold;font-size: 18px;"> Custumer Number: <%= params[:smartcard] || params[:customer_number] %> </div>
+              <% traduz = {"number" => "Customer Number"} %>
             </div>
 
             <div style="font-weight: bold;font-size: 18px;"> Customer Detail </div>
