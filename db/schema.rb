@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_15_112359) do
+ActiveRecord::Schema.define(version: 2020_06_19_101959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -321,6 +321,8 @@ ActiveRecord::Schema.define(version: 2020_06_15_112359) do
     t.integer "numero"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "request_body"
+    t.text "response_body"
   end
 
   create_table "status_alegacao_pagamentos", force: :cascade do |t|
