@@ -93,16 +93,18 @@ class Dstv
   end
 
   def self.altera_plano(customer_number, smartcard, produtos, ip, usuario_logado)
-
     raise "Selecione pelo menos um produto" if produtos.blank?
     raise "Customer number não pode ser vazio" if customer_number.blank?
     raise "Smartcard não pode ser vazio" if smartcard.blank?
 
     valor_total = 0
     produtos_api = ""
+    produtos_enviados = []
     produtos.each do |produto_id|
-      produto = Produto.find(produtos)
+      produto = Produto.find(produto_id)
       valor_total += produto.valor_compra_telemovel
+
+      produtos_enviados << produto
 
       produtos_api += "<sel1:Product>";
       produtos_api += "<sel1:productUserkey>#{produto.produto_id_parceiro}</sel1:productUserkey>";
@@ -160,9 +162,9 @@ class Dstv
     raise "Pagamento não processado" if agent_submit_payment.blank?
 
     agent_submit_payment_hash = {
-      "produto" => produto.description,
-      "codigo" => produto.produto_id_parceiro,
-      "valor" => produto.valor_compra_telemovel,
+      "produto" => produtos_enviados.map{|produto| produto.description}.join(", "),
+      "codigo" => produtos_enviados.map{|produto| produto.produto_id_parceiro}.join(", "),
+      "valor" => valor_total,
     }
 
     agent_submit_payment_hash["receiptNumber"] = agent_submit_payment.children.select{|child| child.name == "receiptNumber"}.first.text

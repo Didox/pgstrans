@@ -4,7 +4,7 @@ class PagamentosFaturasDstvsController < ApplicationController
   # GET /pagamentos_faturas_dstvs
   # GET /pagamentos_faturas_dstvs.json
   def index
-    @pagamentos_faturas_dstvs = PagamentosFaturasDstv.all
+    @pagamentos_faturas_dstvs = PagamentosFaturasDstv.all.order("id desc")
     options = {page: params[:page] || 1, per_page: 10}
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.paginate(options)
   end

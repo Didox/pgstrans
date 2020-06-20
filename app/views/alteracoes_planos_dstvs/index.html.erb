@@ -40,11 +40,11 @@
         <% end %>
       </tbody>
     </table>
-
-    <div class="apple_pagination">
-      <%= will_paginate @alteracoes_planos_dstvs, :container => false %>
-    </div> 
-
-    <%= link_to 'Voltar', "/backoffice/index", class: 'btn btn-danger' %>
   </div>
+
+  <div class="apple_pagination">
+    <%= will_paginate @alteracoes_planos_dstvs, :container => false %>
+  </div> 
+
+  <%= link_to 'Voltar', "/backoffice/index", class: 'btn btn-danger' %>
 </div>

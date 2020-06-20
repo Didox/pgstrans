@@ -4,7 +4,7 @@ class AlteracoesPlanosDstvsController < ApplicationController
   # GET /alteracoes_planos_dstvs
   # GET /alteracoes_planos_dstvs.json
   def index
-    @alteracoes_planos_dstvs = AlteracoesPlanosDstv.all
+    @alteracoes_planos_dstvs = AlteracoesPlanosDstv.all.order("id desc")
     options = {page: params[:page] || 1, per_page: 10}
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.paginate(options)
   end

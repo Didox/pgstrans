@@ -37,7 +37,6 @@ class DstvController < ApplicationController
     return flash[:error] = "Selecione pelo menos um produto" if params[:produtos].blank?
     return flash[:error] = "Customer number não pode ser vazio" if params[:customer_number].blank?
     return flash[:error] = "Smartcard não pode ser vazio" if params[:smartcard].blank?
-
     @info = Dstv.altera_plano(params[:customer_number], params[:smartcard], params[:produtos], request.remote_ip, usuario_logado)
   rescue Exception => e
     # flash[:mensagem_erro_fatura] = e.message
