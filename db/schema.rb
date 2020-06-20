@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_19_113622) do
+ActiveRecord::Schema.define(version: 2020_06_20_104137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 2020_06_19_113622) do
     t.text "customer_number"
     t.text "smartcard"
     t.string "produto"
-    t.bigint "administrador_id"
     t.string "codigo"
     t.float "valor"
     t.string "receipt_number"
@@ -32,6 +31,7 @@ ActiveRecord::Schema.define(version: 2020_06_19_113622) do
     t.string "audit_reference_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "usuario_id"
   end
 
   create_table "bancos", force: :cascade do |t|
@@ -194,7 +194,6 @@ ActiveRecord::Schema.define(version: 2020_06_19_113622) do
     t.string "customer_number"
     t.float "valor"
     t.string "smartcard"
-    t.bigint "administrador_id"
     t.string "receipt_number"
     t.string "transaction_number"
     t.string "status"
@@ -202,6 +201,7 @@ ActiveRecord::Schema.define(version: 2020_06_19_113622) do
     t.string "audit_reference_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "usuario_id"
   end
 
   create_table "parametros", force: :cascade do |t|
