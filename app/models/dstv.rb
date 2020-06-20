@@ -141,8 +141,8 @@ class Dstv
         </soapenv:Body>
       </soapenv:Envelope>
     "
-    SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
     request = fazer_request(url_service, body, "AgentSubmitPayment")
+    SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
     
     xml_doc = Nokogiri::XML(request.body)
 
@@ -326,8 +326,8 @@ class Dstv
         </soapenv:Body>
       </soapenv:Envelope>
     "
-    SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
     request = fazer_request(url_service, body, "AgentSubmitPayment")
+    SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
     
     xml_doc = Nokogiri::XML(request.body)
 
