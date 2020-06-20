@@ -94,6 +94,8 @@ class PerfilUsuario < ApplicationRecord
       dstv: "DSTV ações",
       sequencial_dstvs: "Backoffice - Transações - Controle de Sequência de Vendas da DSTV",
       log_vendas: "Log de vendas não realizadas",
+      pagamentos_faturas_dstvs: "Pagamentos de fatura DSTV",
+      alteracoes_planos_dstvs: "Alteração de planos DSTV",
     }
     nomes[controller.to_sym]
   end
