@@ -142,7 +142,7 @@ class Dstv
       </soapenv:Envelope>
     "
     request = fazer_request(url_service, body, "AgentSubmitPayment")
-    SequencialDstv.create!(numero: sequencial.numero + 1, request_body: request.body, response_body: body)
+    SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
     
     xml_doc = Nokogiri::XML(request.body)
 
@@ -327,7 +327,7 @@ class Dstv
       </soapenv:Envelope>
     "
     request = fazer_request(url_service, body, "AgentSubmitPayment")
-    SequencialDstv.create!(numero: sequencial.numero + 1, request_body: request.body, response_body: body)
+    SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
     
     xml_doc = Nokogiri::XML(request.body)
 
@@ -351,7 +351,6 @@ class Dstv
     pagamentos_faturas_dstv.response_body = body
     pagamentos_faturas_dstv.customer_number = customer_number
     pagamentos_faturas_dstv.valor = valor
-    pagamentos_faturas_dstv.smartcard = smartcard
     pagamentos_faturas_dstv.administrador_id = usuario_logado.id
     pagamentos_faturas_dstv.receipt_number = agent_submit_payment_hash["receiptNumber"]
     pagamentos_faturas_dstv.transaction_number = agent_submit_payment_hash["transactionNumber"]
