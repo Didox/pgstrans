@@ -102,7 +102,7 @@ class Dstv
 
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
 
-    sequencial = SequencialDstv.order("id desc").last
+    sequencial = SequencialDstv.order("id desc").first
     if sequencial.blank?
       sequencial = SequencialDstv.new
       sequencial.numero = 1
@@ -123,7 +123,7 @@ class Dstv
             <sel1:amount>#{produto.valor_compra_telemovel}</sel1:amount>
             <sel1:invoicePeriod>1</sel1:invoicePeriod>
             <sel1:currency>#{currency}</sel1:currency>
-            <sel1:paymentDescription>Pagaso payment system #{usuario_logado.id} - (#{usuario_logado.nome} - #{usuario_logado.id})</sel1:paymentDescription>
+            <sel1:paymentDescription>Pagaso payment system (#{usuario_logado.nome})</sel1:paymentDescription>
             <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
             <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>
@@ -288,7 +288,7 @@ class Dstv
     raise "Por favor digite o valor" if valor.blank?
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
 
-    sequencial = SequencialDstv.order("id desc").last
+    sequencial = SequencialDstv.order("id desc").first
     if sequencial.blank?
       sequencial = SequencialDstv.new
       sequencial.numero = 1
@@ -308,7 +308,7 @@ class Dstv
             <sel1:amount>#{valor}</sel1:amount>
             <sel1:invoicePeriod>1</sel1:invoicePeriod>
             <sel1:currency>#{currency}</sel1:currency>
-            <sel1:paymentDescription>Pagaso payment system #{usuario_logado.id} - (#{usuario_logado.nome} - #{usuario_logado.id})</sel1:paymentDescription>
+            <sel1:paymentDescription>Pagaso payment system (#{usuario_logado.nome})</sel1:paymentDescription>
             <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
             <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>

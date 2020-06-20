@@ -13,8 +13,8 @@
         <tr>
           <th scope="col">Número da Transação</th>
           <th scope="col">Data/Hora</th>
-          <th scope="col">Request Body</th>
           <th scope="col">Response Body</th>
+          <th scope="col">Request Body</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -24,8 +24,8 @@
         <tr>
           <td><%= sequencial_dstv.numero %></td>
           <td><%= sequencial_dstv.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
-          <td><%= sequencial_dstv.request_body %></td>
           <td><%= sequencial_dstv.response_body %></td>
+          <td><%= sequencial_dstv.request_body %></td>
           <td><%= link_to 'Mostrar', sequencial_dstv %></td>
         </tr>
         <% end %>
