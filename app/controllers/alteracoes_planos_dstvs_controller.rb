@@ -5,6 +5,8 @@ class AlteracoesPlanosDstvsController < ApplicationController
   # GET /alteracoes_planos_dstvs.json
   def index
     @alteracoes_planos_dstvs = AlteracoesPlanosDstv.all
+    options = {page: params[:page] || 1, per_page: 10}
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.paginate(options)
   end
 
   # GET /alteracoes_planos_dstvs/1
@@ -14,16 +16,22 @@ class AlteracoesPlanosDstvsController < ApplicationController
 
   # GET /alteracoes_planos_dstvs/new
   def new
+    redirect_to "/alteracoes_planos_dstvs"
+    return
     @alteracoes_planos_dstv = AlteracoesPlanosDstv.new
   end
 
   # GET /alteracoes_planos_dstvs/1/edit
   def edit
+    redirect_to "/alteracoes_planos_dstvs"
+    return
   end
 
   # POST /alteracoes_planos_dstvs
   # POST /alteracoes_planos_dstvs.json
   def create
+    redirect_to "/alteracoes_planos_dstvs"
+    return
     @alteracoes_planos_dstv = AlteracoesPlanosDstv.new(alteracoes_planos_dstv_params)
 
     respond_to do |format|
@@ -40,6 +48,8 @@ class AlteracoesPlanosDstvsController < ApplicationController
   # PATCH/PUT /alteracoes_planos_dstvs/1
   # PATCH/PUT /alteracoes_planos_dstvs/1.json
   def update
+    redirect_to "/alteracoes_planos_dstvs"
+    return
     respond_to do |format|
       if @alteracoes_planos_dstv.update(alteracoes_planos_dstv_params)
         format.html { redirect_to @alteracoes_planos_dstv, notice: 'Alteracoes planos dstv was successfully updated.' }
@@ -54,6 +64,8 @@ class AlteracoesPlanosDstvsController < ApplicationController
   # DELETE /alteracoes_planos_dstvs/1
   # DELETE /alteracoes_planos_dstvs/1.json
   def destroy
+    redirect_to "/alteracoes_planos_dstvs"
+    return
     @alteracoes_planos_dstv.destroy
     respond_to do |format|
       format.html { redirect_to alteracoes_planos_dstvs_url, notice: 'Alteracoes planos dstv was successfully destroyed.' }

@@ -98,7 +98,16 @@ class Dstv
     raise "Customer number não pode ser vazio" if customer_number.blank?
     raise "Smartcard não pode ser vazio" if smartcard.blank?
 
-    produto = Produto.find(produtos[0])
+    valor_total = 0
+    produtos_api = ""
+    produtos.each do |produto_id|
+      produto = Produto.find(produtos)
+      valor_total += produto.valor_compra_telemovel
+
+      produtos_api += "<sel1:Product>";
+      produtos_api += "<sel1:productUserkey>#{produto.produto_id_parceiro}</sel1:productUserkey>";
+      produtos_api += "</sel1:Product>";
+    end
 
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
 
@@ -120,16 +129,14 @@ class Dstv
             <sel1:transactionNumber>#{sequencial.numero}</sel1:transactionNumber>
             <sel1:dataSource>#{data_source}</sel1:dataSource>
             <sel1:customerNumber>#{customer_number}</sel1:customerNumber>
-            <sel1:amount>#{produto.valor_compra_telemovel}</sel1:amount>
+            <sel1:amount>#{valor_total}</sel1:amount>
             <sel1:invoicePeriod>1</sel1:invoicePeriod>
             <sel1:currency>#{currency}</sel1:currency>
             <sel1:paymentDescription>Pagaso payment system (#{usuario_logado.nome})</sel1:paymentDescription>
             <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
             <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>
-              <sel1:Product>
-                <sel1:productUserkey>#{produto.produto_id_parceiro}</sel1:productUserkey>
-              </sel1:Product>
+              #{produtos_api}
             </sel1:productCollection>
             <sel1:baskedId>0</sel1:baskedId>
           </sel:agentPaymentRequest>

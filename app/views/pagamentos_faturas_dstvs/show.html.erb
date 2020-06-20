@@ -19,7 +19,7 @@
       <dt>Smartcard:</dt>
       <dd><%= @pagamentos_faturas_dstv.smartcard %></dd>
       <dt>Administrador:</dt>
-      <dd><%= @pagamentos_faturas_dstv.administrador %></dd>
+      <dd><%= @pagamentos_faturas_dstv.usuario.nome rescue "" %></dd>
       <dt>Receipt number:</dt>
       <dd><%= @pagamentos_faturas_dstv.receipt_number %></dd>
       <dt>Transaction number:</dt>

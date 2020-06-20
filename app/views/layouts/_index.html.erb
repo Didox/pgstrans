@@ -136,6 +136,16 @@
                             <%= link_to 'Vendas', vendas_path %>
                         </li>
                     <% end %>
+                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :PagamentosFaturasDstvsController, :index) %>
+                        <li class="list-group-item">
+                            <%= link_to 'Pagamentos de fatura DSTV', "/pagamentos_faturas_dstvs" %>
+                        </li>
+                    <% end %>
+                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :AlteracoesPlanosDstvsController, :index) %>
+                        <li class="list-group-item">
+                            <%= link_to 'Alterações de planos DSTV', "/alteracoes_planos_dstvs" %>
+                        </li>
+                    <% end %>
                     
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :LogVendasController, :index) %>
                         <li class="list-group-item">

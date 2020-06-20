@@ -1,7 +1,7 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <h4>AlteracoesPlanosDstv</h4>
+  <h4>Alterações de planos DSTV</h4>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -11,52 +11,40 @@
     <table class="table table-hover">
       <thead>
         <tr>
-                    <th scope="col">Request body</th>
-                    <th scope="col">Response body</th>
-                    <th scope="col">Customer number</th>
-                    <th scope="col">Smartcard</th>
-                    <th scope="col">Produto</th>
-                    <th scope="col">Administrador</th>
-                    <th scope="col">Produto</th>
-                    <th scope="col">Codigo</th>
-                    <th scope="col">Valor</th>
-                    <th scope="col">Receipt number</th>
-                    <th scope="col">Transaction number</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Transaction date time</th>
-                    <th scope="col">Error message</th>
-                    <th scope="col">Audit reference number</th>
-                    <th colspan="3"></th>
+          <th scope="col">Dados</th>
+          <th scope="col">Response body</th>
+          <th scope="col">Request body</th>
         </tr>
       </thead>
 
       <tbody>
         <% @alteracoes_planos_dstvs.each do |alteracoes_planos_dstv| %>
         <tr>
-                    <td><%= alteracoes_planos_dstv.request_body %></td>
-                    <td><%= alteracoes_planos_dstv.response_body %></td>
-                    <td><%= alteracoes_planos_dstv.customer_number %></td>
-                    <td><%= alteracoes_planos_dstv.smartcard %></td>
-                    <td><%= alteracoes_planos_dstv.produto %></td>
-                    <td><%= alteracoes_planos_dstv.administrador %></td>
-                    <td><%= alteracoes_planos_dstv.produto %></td>
-                    <td><%= alteracoes_planos_dstv.codigo %></td>
-                    <td><%= alteracoes_planos_dstv.valor %></td>
-                    <td><%= alteracoes_planos_dstv.receipt_number %></td>
-                    <td><%= alteracoes_planos_dstv.transaction_number %></td>
-                    <td><%= alteracoes_planos_dstv.status %></td>
-                    <td><%= alteracoes_planos_dstv.transaction_date_time %></td>
-                    <td><%= alteracoes_planos_dstv.error_message %></td>
-                    <td><%= alteracoes_planos_dstv.audit_reference_number %></td>
-                    <td><%= link_to 'Mostrar', alteracoes_planos_dstv %></td>
-          <td><%= link_to 'Editar', edit_alteracoes_planos_dstv_path(alteracoes_planos_dstv) %></td>
-          <td><%= link_to 'Apagar', alteracoes_planos_dstv, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+          <td>
+            <b>Customer number</b>: <%= alteracoes_planos_dstv.customer_number %><br>
+            <b>Smartcard</b>: <%= alteracoes_planos_dstv.smartcard %><br>
+            <b>Produto</b>: <%= alteracoes_planos_dstv.produto %><br>
+            <b>Usuário</b>: <%= alteracoes_planos_dstv.usuario.nome rescue "" %><br>
+            <b>Codigo</b>: <%= alteracoes_planos_dstv.codigo %><br>
+            <b>Valor</b>: <%= alteracoes_planos_dstv.valor %><br>
+            <b>Receipt number</b>: <%= alteracoes_planos_dstv.receipt_number %><br>
+            <b>Transaction number</b>: <%= alteracoes_planos_dstv.transaction_number %><br>
+            <b>Status</b>: <%= alteracoes_planos_dstv.status %><br>
+            <b>Transaction date time</b>: <%= alteracoes_planos_dstv.transaction_date_time %><br>
+            <b>Audit reference number</b>: <%= alteracoes_planos_dstv.audit_reference_number %><br>
+          </td>
+          <td></td>
+          <td><%= alteracoes_planos_dstv.response_body %></td>
+          <td><%= alteracoes_planos_dstv.request_body %></td>
         </tr>
         <% end %>
       </tbody>
     </table>
 
-    <%= link_to "Novo Registo", new_alteracoes_planos_dstv_path, class: 'btn btn-danger' %>
-    <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
+    <div class="apple_pagination">
+      <%= will_paginate @alteracoes_planos_dstvs, :container => false %>
+    </div> 
+
+    <%= link_to 'Voltar', "/backoffice/index", class: 'btn btn-danger' %>
   </div>
 </div>

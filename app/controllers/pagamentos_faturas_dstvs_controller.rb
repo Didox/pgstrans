@@ -5,6 +5,8 @@ class PagamentosFaturasDstvsController < ApplicationController
   # GET /pagamentos_faturas_dstvs.json
   def index
     @pagamentos_faturas_dstvs = PagamentosFaturasDstv.all
+    options = {page: params[:page] || 1, per_page: 10}
+    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.paginate(options)
   end
 
   # GET /pagamentos_faturas_dstvs/1
@@ -14,16 +16,22 @@ class PagamentosFaturasDstvsController < ApplicationController
 
   # GET /pagamentos_faturas_dstvs/new
   def new
+    redirect_to "/pagamentos_faturas_dstvs"
+    return
     @pagamentos_faturas_dstv = PagamentosFaturasDstv.new
   end
 
   # GET /pagamentos_faturas_dstvs/1/edit
   def edit
+    redirect_to "/pagamentos_faturas_dstvs"
+    return
   end
 
   # POST /pagamentos_faturas_dstvs
   # POST /pagamentos_faturas_dstvs.json
   def create
+    redirect_to "/pagamentos_faturas_dstvs"
+    return
     @pagamentos_faturas_dstv = PagamentosFaturasDstv.new(pagamentos_faturas_dstv_params)
 
     respond_to do |format|
@@ -40,6 +48,8 @@ class PagamentosFaturasDstvsController < ApplicationController
   # PATCH/PUT /pagamentos_faturas_dstvs/1
   # PATCH/PUT /pagamentos_faturas_dstvs/1.json
   def update
+    redirect_to "/pagamentos_faturas_dstvs"
+    return
     respond_to do |format|
       if @pagamentos_faturas_dstv.update(pagamentos_faturas_dstv_params)
         format.html { redirect_to @pagamentos_faturas_dstv, notice: 'Pagamentos faturas dstv was successfully updated.' }
@@ -54,6 +64,8 @@ class PagamentosFaturasDstvsController < ApplicationController
   # DELETE /pagamentos_faturas_dstvs/1
   # DELETE /pagamentos_faturas_dstvs/1.json
   def destroy
+    redirect_to "/pagamentos_faturas_dstvs"
+    return
     @pagamentos_faturas_dstv.destroy
     respond_to do |format|
       format.html { redirect_to pagamentos_faturas_dstvs_url, notice: 'Pagamentos faturas dstv was successfully destroyed.' }
