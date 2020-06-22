@@ -37,7 +37,13 @@
         <% else %>
           <div class="col-md-12">
             <div style="margin-bottom:20px;border-bottom: 1px solid #ccc;">
-              <div style="font-weight: bold;font-size: 18px;"> Custumer Number: <%= params[:smartcard] || params[:customer_number] %> </div>
+              <% 
+              number = params[:smartcard]
+              number = params[:customer_number] if number.blank?
+              %>
+              
+              <div style="font-weight: bold;font-size: 18px;"> Custumer Number: <%= number %> </div>
+
               <% traduz = {"number" => "Customer Number"} %>
             </div>
 

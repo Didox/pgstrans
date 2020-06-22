@@ -28,7 +28,7 @@ class DstvController < ApplicationController
 
   def alteracao_cliente_produtos
     Dstv.importa_produtos
-    @produtos = Dstv.produtos
+    @produtos = Dstv.produtos.where("valor_compra_telemovel > 0 and produto_id_parceiro is not null and produto_id_parceiro <> ''").reorder("valor_compra_telemovel asc")
   end
 
   def alteracao_pacote;end
