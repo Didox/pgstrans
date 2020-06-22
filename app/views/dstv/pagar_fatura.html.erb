@@ -12,8 +12,9 @@
         </div>
         <% if @info.present? %>
           <div class="col-md-12">
-            <div style="font-weight: bold;font-size: 18px;"> Pagamento efetuado com sucesso! </div>
+            <div style="font-weight: bold;font-size: 18px;">Pagamento efetuado com sucesso! </div>
             <div>
+              <hr>
               <ul>
                 <li style="margin-bottom: 10px">
                   <b>Número do Cliente/Custumer Number</b>: <%= params["customer_number"] %>
@@ -34,9 +35,10 @@
                   <b>Data e hora da transação</b>: <%= @info["transactionDateTime"].to_datetime.strftime("%d/%m/%Y %H:%M") rescue @info["transactionDateTime"] %>
                 </li>
                 <li style="margin-bottom: 10px">
-                  <b>AuditReferenceNumber</b>: <%= @info["AuditReferenceNumber"] %>
+                  <b>Audit Reference Number da DSTV</b>: <%= @info["AuditReferenceNumber"] %>
                 </li>
               </ul>
+              <hr>
             </div>
           </div>
           <br>
@@ -49,7 +51,7 @@
           </div>
 
           <%= link_to "/dstv/consulta-fatura", class: 'btn btn-success' do %>
-            Fazer nova consulta
+            Fazer Nova Consulta
           <% end %>
           <%= link_to root_path, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
