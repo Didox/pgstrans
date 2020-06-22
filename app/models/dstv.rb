@@ -31,9 +31,9 @@ class Dstv
 
     if (200...300).include?(request.code.to_i)
       if request.body.present?
-        puts "=========================================="
-        puts request.body
-        puts "=========================================="
+        Rails.logger.info "=========================================="
+        Rails.logger.info request.body
+        Rails.logger.info "=========================================="
 
         partner = Partner.where(slug: "DSTv").first
         
@@ -87,7 +87,7 @@ class Dstv
           produto.save!
         end
 
-        puts "=========================================="
+        Rails.logger.info "=========================================="
       end
     end
   end
