@@ -4,7 +4,11 @@ class LogVendasController < ApplicationController
   # GET /log_vendas
   # GET /log_vendas.json
   def index
-    @log_vendas = LogVenda.all
+    @log_vendas = LogVenda.all.order(updated_at: :desc, titulo: :desc)
+
+    @log_vendas = @log_vendas.where("titulo ilike '%#{params[:titulo]}%'") if params[:titulo].present?
+    @log_vendas = @log_vendas.where("log ilike '%#{params[:log]}%'") if params[:log].present?
+
     options = {page: params[:page] || 1, per_page: 10}
     @log_vendas = @log_vendas.paginate(options)
   end

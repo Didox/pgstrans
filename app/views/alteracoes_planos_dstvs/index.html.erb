@@ -1,11 +1,62 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <h4>Alterações de planos DSTV</h4>
+  <h4>Alterações de Planos DSTV</h4>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
+
+  <div style="margin-top:10px">
+    <form action="" method="get" id="formApuracao">
+      <div class="row" style="padding:10px">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Customer Number/Número do Cliente</label>
+            <div>
+              <input type="text" name="customer_number" value="<%= params[:customer_number] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Smartcard/Device Number</label>
+            <div>
+              <input type="text" name="smartcard" value="<%= params[:smartcard] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Receipt Number DSTV</label>
+            <div>
+              <input type="text" name="receipt_number" value="<%= params[:receipt_number] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Data da Transação</label>
+            <div>
+              <input type="date" name="transaction_date_time" value="<%= params[:transaction_date_time] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit" value="Buscar" class="btn btn-info">
+
+          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>
+          
+        </div>
+      </div>
+    </form>
+  </div>
 
   <div class="container scroltable">
     <table class="table table-hover">
@@ -33,7 +84,6 @@
             <b>Transaction date time</b>: <%= alteracoes_planos_dstv.transaction_date_time %><br>
             <b>Audit reference number</b>: <%= alteracoes_planos_dstv.audit_reference_number %><br>
           </td>
-          <td></td>
           <td><%= alteracoes_planos_dstv.response_body %></td>
           <td><%= alteracoes_planos_dstv.request_body %></td>
         </tr>

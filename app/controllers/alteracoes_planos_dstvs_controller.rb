@@ -5,6 +5,12 @@ class AlteracoesPlanosDstvsController < ApplicationController
   # GET /alteracoes_planos_dstvs.json
   def index
     @alteracoes_planos_dstvs = AlteracoesPlanosDstv.all.order("id desc")
+
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("customer_number ilike '%#{params[:customer_number]}%'") if params[:customer_number].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("smartcard ilike '%#{params[:smartcard]}%'") if params[:smartcard].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("receipt_number ilike '%#{params[:receipt_number]}%'") if params[:receipt_number].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time]}%'") if params[:transaction_date_time].present?
+    
     options = {page: params[:page] || 1, per_page: 10}
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.paginate(options)
   end

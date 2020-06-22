@@ -15,7 +15,7 @@
       <dt>Área km2:</dt>
       <dd><%= @provincium.area_km2 %></dd>
       <dt>População:</dt>
-      <dd><%= @provincium.population %></dd>
+      <dd><%= number_with_delimiter(@provincium.population, delimiter: ".") %></dd>
       <dt>Mapa:</dt>
       <dd><%= @provincium.image_map %></dd>
       <dt>País:</dt>

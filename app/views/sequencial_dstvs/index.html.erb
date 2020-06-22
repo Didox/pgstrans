@@ -7,6 +7,57 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
+  <div style="margin-top:10px">
+    <form action="" method="get" id="formApuracao">
+      <div class="row" style="padding:10px">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Número da Transação Pagasó</label>
+            <div>
+              <input type="text" name="numero" value="<%= params[:numero] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Data da Transação</label>
+            <div>
+              <input type="date" name="created_at" value="<%= params[:created_at] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Request Body</label>
+            <div>
+              <input type="text" name="request_body" value="<%= params[:request_body] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Response Body</label>
+            <div>
+              <input type="text" name="response_body" value="<%= params[:response_body] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit" value="Buscar" class="btn btn-info">
+
+          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>
+          
+        </div>
+      </div>
+    </form>
+  </div>
+
   <div class="container scroltable">
     <table class="table table-hover">
       <thead>

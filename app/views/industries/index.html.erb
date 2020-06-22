@@ -1,6 +1,6 @@
 <div class="container scroltable">
 
-  <h3>Ramos de Atividade</h3>
+  <h3>Lista de Actividades Económicas</h3>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -10,7 +10,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Descrição Seccao</th>
+          <th scope="col">Descrição Secção</th>
           <th scope="col">Descrição Divisão</th>
           <th scope="col">Descrição Grupo</th>
           <th colspan="3"></th>
@@ -20,9 +20,9 @@
       <tbody>
         <% @industries.each do |industry| %>
           <tr>
-            <td><%= industry.descricao_seccao %></td>
-            <td><%= industry.descricao_divisao %></td>
-            <td><%= industry.descricao_grupo %></td>
+            <td style="width: 300px;"><%= industry.descricao_seccao %></td>
+            <td style="width: 300px;"><%= industry.descricao_divisao %></td>
+            <td style="width: 300px;"><%= industry.descricao_grupo %></td>
             <td><%= link_to 'Mostrar', industry %></td>
             <td><%= link_to 'Editar', edit_industry_path(industry) %></td>
             <td><%= link_to 'Apagar', industry, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>

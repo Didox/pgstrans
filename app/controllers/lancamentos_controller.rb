@@ -38,7 +38,7 @@ class LancamentosController < ApplicationController
 
     respond_to do |format|
       if @lancamento.save
-        format.html { redirect_to @lancamento, notice: 'Lancamento foi criado com sucesso.' }
+        format.html { redirect_to @lancamento, notice: 'Lançamento foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @lancamento }
       else
         format.html { render :new }
@@ -58,7 +58,7 @@ class LancamentosController < ApplicationController
 
     respond_to do |format|
       if @lancamento.update(lancamento_params)
-        format.html { redirect_to @lancamento, notice: 'Lancamento foi atualizado com sucesso.' }
+        format.html { redirect_to @lancamento, notice: 'Lançamento foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @lancamento }
       else
         format.html { render :edit }
@@ -78,7 +78,7 @@ class LancamentosController < ApplicationController
     
     @lancamento.destroy
     respond_to do |format|
-      format.html { redirect_to lancamentos_url, notice: 'Lancamento foi apagado com sucesso.' }
+      format.html { redirect_to lancamentos_url, notice: 'Lançamento foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

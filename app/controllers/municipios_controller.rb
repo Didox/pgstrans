@@ -6,7 +6,7 @@ class MunicipiosController < ApplicationController
   def index
     @municipios = Municipio.com_acesso(usuario_logado).order(nome: :asc)  
     
-    @municipios = @municipios.where("municipios.nome ilike '%#{params[:municipio_nome]}%'") if params[:municipio_nome].present?
+    @municipios = @municipios.where("municipios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
 
     options = {page: params[:page] || 1, per_page: 10}
     @municipios = @municipios.paginate(options)

@@ -56,6 +56,14 @@
         <input type="button" value="SELECIONAR TODOS" onclick="checkAcessos()" class="btn btn-success">
         <input type="button" value="DESMARCAR TODOS" onclick="uncheckAcessos()" class="btn btn-warning">
         <label>Ou selecionar os itens individualmente para definir as permissões do perfil</label> 
+        
+        <div style="float: right;">
+          <%= f.button :button, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-ok"></span>
+            Confirmar
+          <% end %>
+        </div>
+
         <br><hr>
         <div class="col-sm-10">
           <ul>
@@ -90,8 +98,6 @@
           </ul>
         </div>
       </div>
-
-
       <div class="form-actions col-sm-12">
         <%= f.button :button, class: 'btn btn-danger' do %>
           <span class="glyphicon glyphicon-ok"></span>

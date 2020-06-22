@@ -40,8 +40,8 @@
             <tr>
               <th scope="col">Data da Movimentação</th>
               <th scope="col">Tipo de Movimentação</th>
-              <th scope="col" align="right">Valor da Movimentação</th>
               <th scope="col" align="right">Saldo Anterior</th>
+              <th scope="col" align="right">Valor da Movimentação</th>
               <th scope="col" align="right">Saldo Atual</th>
             </tr>
           </thead>
@@ -55,14 +55,14 @@
     	          <td>
     	            <%= conta_corrente.lancamento.nome %>
     	          </td>
-    	          <td align="right">
-    	            <%= number_to_currency(conta_corrente.valor, :unit => "KZ") %>
+    	          <td style="width:150px" align="right">
+    	            <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "Kz") %>
     	          </td>
-    	          <td align="right">
-    	            <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %>
-    	          </td>
-    	          <td align="right">
-    	            <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %>
+                <td style="width:170px" align="right">
+                  <%= number_to_currency(conta_corrente.valor, :unit => "Kz") %>
+                </td>
+    	          <td style="width:150px" align="right">
+    	            <%= number_to_currency(conta_corrente.saldo_atual, :unit => "Kz") %>
     	          </td>
     	        </tr>
             <% end %>

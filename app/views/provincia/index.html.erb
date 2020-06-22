@@ -6,6 +6,57 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
 
+  <div style="margin-top:10px">
+    <form action="" method="get" id="formApuracao">
+      <div class="row" style="padding:10px">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Nome da Província</label>
+            <div>
+              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Capital da Província</label>
+            <div>
+              <input type="text" name="capital" value="<%= params[:capital] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Área em KM2</label>
+            <div>
+              <input type="text" name="area_km2" value="<%= params[:area_km2] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>População</label>
+            <div>
+              <input type="text" name="population" value="<%= params[:population] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit" value="Buscar" class="btn btn-info">
+
+          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>
+          
+        </div>
+      </div>
+    </form>
+  </div>
+
   <div class="container scroltable">
     <table class="table table-hover">
       <thead>
@@ -15,7 +66,6 @@
           <th scope="col">Capital</th>
           <th scope="col">Área em km2</th>
           <th scope="col">População</th>
-          <th scope="col">Mapa da Região</th>
           <th scope="col">País</th>
           <th colspan="3"></th>
         </tr>
@@ -29,7 +79,6 @@
           <td><%= provincium.capital %></td>
           <td align="right"><%= number_with_delimiter(provincium.area_km2, delimiter: ".") %></td>
           <td align="right"><%= number_with_delimiter(provincium.population, delimiter: ".") %></td>          
-          <td><%= provincium.image_map %></td>
           <td><%= provincium.country.name_pt %></td>
           <td><%= link_to 'Mostrar', provincium %></td>
           <td><%= link_to 'Editar', edit_provincium_path(provincium) %></td>

@@ -20,8 +20,8 @@
       <dd><%= @venda.seller_id %></dd>
       <dt>Terminal:</dt>
       <dd><%= @venda.terminal_id %></dd>
-      <dt>Valor KZ:</dt>
-      <dd><%= @venda.value %></dd>
+      <dt>Valor:</dt>
+      <dd><%= number_to_currency(@venda.value) %></dd>
       <dt>Client MSISDN/Nro.Cartão:</dt>
       <dd><%= @venda.client_msisdn %></dd>
       <dt>Situação:</dt>

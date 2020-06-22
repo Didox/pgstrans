@@ -156,13 +156,13 @@
               <td><%= venda.partner.name %></td>
               <td><%= venda.updated_at.strftime("%d/%m/%Y %H:%M") %></td>
               <td><%= venda.status_desc.error_description_pt %></td>
-              <td><%= venda.product_id %></td>
-              <td><%= venda.agent_id %></td>
-              <td><%= venda.store_id %></td>
-              <td><%= venda.seller_id %></td>
-              <td><%= venda.terminal_id %></td>
-              <td><%= venda.value %></td>
-              <td><%= venda.client_msisdn %></td>
+              <td align="right"><%= venda.product_id %></td>
+              <td align="right"><%= venda.agent_id %></td>
+              <td align="right"><%= venda.store_id %></td>
+              <td align="right"><%= venda.seller_id %></td>
+              <td align="right"><%= venda.terminal_id %></td>
+              <td style="width:110px" align="right"><%= number_to_currency(venda.value) %></td>              
+              <td align="right"><%= venda.client_msisdn %></td>
             </tr>
             <% end %>
           </tbody>

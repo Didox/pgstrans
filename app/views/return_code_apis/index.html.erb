@@ -12,7 +12,7 @@
       <div class="row" style="padding:10px">
         <div class="col-sm-2">
           <div class="form-group">
-            <label><strong>Código de Retorno</strong></label>
+            <label>Código de Retorno</label>
             <div>
               <input type="text" name="return_code" value="<%= params[:return_code] %>" class="form-control">
             </div>
@@ -20,7 +20,7 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label><strong>Descrição do Retorno</strong></label>
+            <label>Descrição do Retorno</label>
             <div>
               <input type="text" name="return_description" value="<%= params[:return_description] %>" class="form-control">
             </div>
@@ -28,7 +28,7 @@
         </div>
         <div class="col-sm-4">
           <div class="form-group">
-            <label><strong>Descrição do Erro em Português</strong></label>
+            <label>Descrição do Erro em Português</label>
             <div>
               <input type="text" name="error_description_pt" value="<%= params[:error_description_pt] %>" class="form-control">
             </div>
@@ -36,7 +36,7 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label><strong>Parceiro</strong></label>
+            <label>Parceiro</label>
             <div>
               <select name="parceiro_id" onchange="pgstrans.carregaProdutosPorParceiro(this)" class="form-control">
                 <option value="" selected="'selected'">Todos</option>

@@ -10,6 +10,7 @@
         <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold;font-size: 20px;">
           Consulta valor e data do vencimento da fatura
         </div>
+        <br>
         <% if @info.blank? %>
           <div class="card-body">
             <style type="text/css">
@@ -85,14 +86,16 @@
               <input type="hidden" name="valor" value="<%= @info["dueAmount"] %>">
               <input type="hidden" name="customer_number" value="<%= params["customer_number"] %>">
               <input type="hidden" name="dueDate" value="<%= @info["dueDate"].to_date.strftime("%d/%m/%Y") %>">
-
-              <%= link_to root_path, class: 'btn btn-danger' do %>
+              <br>
+              <%= link_to root_path, class: "btn btn-danger", style: "width: 150px; text-align: center;" do %>
                 <span class="glyphicon glyphicon-list-alt"></span>
                 Voltar
               <% end %>
               
-              <button type="submit" class="btn btn-success">Pagar</button>
-
+              <button type="submit" class="btn btn-success" style="width: 150px; text-align: center;">
+                <span class="glyphicon glyphicon-ok"></span>
+                Pagar
+              </button>
             </form>
           </div>
         <% end %>

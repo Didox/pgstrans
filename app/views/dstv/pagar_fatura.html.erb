@@ -50,10 +50,11 @@
             <%= flash[:mensagem_erro_fatura] %>
           </div>
 
-          <%= link_to "/dstv/consulta-fatura", class: 'btn btn-success' do %>
+          <%= link_to "/dstv/consulta-fatura", class: 'btn btn-success', style: "width: 150px; text-align: center;" do %>
+            <span class="glyphicon glyphicon-repeat"></span>
             Fazer Nova Consulta
           <% end %>
-          <%= link_to root_path, class: 'btn btn-danger' do %>
+          <%= link_to root_path, class: 'btn btn-danger', style: "width: 150px; text-align: center;" do %>
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
           <% end %>

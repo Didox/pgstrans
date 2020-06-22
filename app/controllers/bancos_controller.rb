@@ -6,6 +6,9 @@ class BancosController < ApplicationController
   def index
     @bancos = Banco.com_acesso(usuario_logado)
 
+    @bancos = @bancos.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @bancos = @bancos.where("sigla ilike '%#{params[:sigla]}%'") if params[:sigla].present?
+
     options = {page: params[:page] || 1, per_page: 10}
     @bancos = @bancos.paginate(options) 
   end
