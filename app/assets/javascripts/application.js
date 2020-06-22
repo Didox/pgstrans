@@ -76,6 +76,12 @@ $(function(){
   $(".recarga .rechargeType").change(function(){
     $(".recarga #rechargeValue").val(this.value.split("-")[1]);
     $(".recarga .talao" + $("#tipo_ativo").val() + "").show();
+
+    $("#rechargeValue").attr("readonly", "readonly")
+
+    if($(".rechargeType.vDSTv").length > 0 && $(".rechargeType.vDSTv").val() && $(".rechargeType.vDSTv").val().toLowerCase().indexOf("boxoffice") !== -1){
+      $("#rechargeValue").removeAttr("readonly")
+    }
   })
 
   $(".recarga #recargaForm").submit(function(e) {

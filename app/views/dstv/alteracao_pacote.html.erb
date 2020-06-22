@@ -50,7 +50,10 @@
                   <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="PRÓXIMO">
                 </div>
                   <div style="float: right;">
-                    <input type="submit" class="btn btn-space btn-danger" style="width: 150px; text-align: center;" value="VOLTAR">
+                    <%= link_to root_path, class: 'btn btn-space btn-danger', style: "width: 150px; text-align: center;" do %>
+                      <span class="glyphicon glyphicon-list-alt"></span>
+                      VOLTAR
+                    <% end %>
                   </div>
                 </div>
             </div>

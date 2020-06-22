@@ -46,7 +46,9 @@ class PerfilUsuario < ApplicationRecord
       validacao_cliente: "Validação e consulta da situação do cliente",
       consulta_fatura: "Consulta valor e data do vencimento da fatura",
       alteracao_pacote: "Alteração de pacote de produtos",
-      alteracao_plano: "Alteração de plano de cobrança alternando entre mensal e anual",
+      alteracao_plano: "Alteração de plano",
+      alteracao_plano_mensal_anual: "Alteração de plano de cobrança alternando entre mensal e anual",
+      alteracao_plano_mensal_anual_efetivar: "Alteração de plano de cobrança alternando entre mensal e anual (Efetivar)",
       alteracao_cliente_produtos: "Listagem de produtos em validação de pagamento DSTV",
       pagar_fatura: "Pagar fatura DSTV",
      }

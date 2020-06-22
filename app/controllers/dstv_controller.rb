@@ -28,11 +28,10 @@ class DstvController < ApplicationController
 
   def alteracao_cliente_produtos
     Dstv.importa_produtos
-    @produtos = Dstv.produtos.where("valor_compra_telemovel > 0 and produto_id_parceiro is not null and produto_id_parceiro <> ''").reorder("valor_compra_telemovel asc")
+    @produtos = Dstv.produtos_ativos
   end
 
   def alteracao_pacote;end
-
   def alteracao_plano
     return flash[:error] = "Selecione pelo menos um produto" if params[:produtos].blank?
     return flash[:error] = "Customer number não pode ser vazio" if params[:customer_number].blank?
@@ -42,4 +41,16 @@ class DstvController < ApplicationController
     # flash[:mensagem_erro_fatura] = e.message
     flash[:error] = e.message
   end
+
+  def alteracao_plano_mensal_anual;end
+  def alteracao_plano_mensal_anual_efetivar
+    return flash[:error] = "Selecione o produto" if params[:produto_id_parceiro].blank?
+    return flash[:error] = "Customer number não pode ser vazio" if params[:customer_number].blank?
+    return flash[:error] = "Tipo de plano não pode ser vazio" if params[:tipo_plano].blank?
+    @info = Dstv.alteracao_plano_mensal_anual(params[:produto_id_parceiro], params[:customer_number], params[:tipo_plano], request.remote_ip, usuario_logado)
+  rescue Exception => e
+    # flash[:mensagem_erro_fatura] = e.message
+    flash[:error] = e.message
+  end
+  
 end

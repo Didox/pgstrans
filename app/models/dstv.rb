@@ -6,6 +6,20 @@ class Dstv
     Produto.where(partner_id: partner.id)
   end
 
+  def self.produtos_ativos
+    partner = Partner.where(slug: "DSTv").first
+    produtos = Produto.where(partner_id: partner.id)
+    produtos = produtos.where("valor_compra_telemovel > 0 and produto_id_parceiro is not null and produto_id_parceiro <> ''").reorder("valor_compra_telemovel asc")
+    produtos
+  end
+
+  def self.produtos_ativos_box_office
+    partner = Partner.where(slug: "DSTv").first
+    produtos = Produto.where(partner_id: partner.id)
+    produtos = produtos.where("(valor_compra_telemovel > 0 or produto_id_parceiro = 'BOXOFFICE') and produto_id_parceiro is not null and produto_id_parceiro <> ''").reorder("valor_compra_telemovel asc")
+    produtos
+  end
+
   def self.importa_produtos
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
     
@@ -92,6 +106,105 @@ class Dstv
     end
   end
 
+  def self.alteracao_plano_mensal_anual(produto_id_parceiro, customer_number, tipo_plano, ip, usuario_logado)
+    raise "Selecione o produto" if produto_id_parceiro.blank?
+    raise "Customer number não pode ser vazio" if customer_number.blank?
+    raise "Tipo de plano não pode ser vazio" if tipo_plano.blank?
+    produto = Produto.where(produto_id_parceiro: produto_id_parceiro).first
+    raise "Selecione um produto válido" if produto.blank?
+
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
+
+    sequencial = SequencialDstv.order("id desc").first
+    if sequencial.blank?
+      sequencial = SequencialDstv.new
+      sequencial.numero = 1
+    else
+      sequencial.numero += 1
+    end
+
+    
+    body = "
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"  xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
+      <soapenv:Header/>
+      <soapenv:Body>
+        <sel:AgentSubmitPayment>
+          <sel:agentPaymentRequest>
+            <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
+            <sel1:transactionNumber>#{sequencial.numero}</sel1:transactionNumber>
+            <sel1:dataSource>#{data_source}</sel1:dataSource>
+            <sel1:customerNumber>#{customer_number}</sel1:customerNumber>
+            <sel1:amount>#{produto.valor_compra_telemovel}</sel1:amount>
+            <sel1:invoicePeriod>#{tipo_plano == "mensal" ? "1" : "12"}</sel1:invoicePeriod>
+            <sel1:currency>#{currency}</sel1:currency>
+            <sel1:paymentDescription>Pagaso payment system (#{usuario_logado.nome})</sel1:paymentDescription>
+            <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
+            <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
+            <sel1:productCollection>
+              <sel1:Product>
+              <sel1:productUserkey>#{produto.produto_id_parceiro}</sel1:productUserkey>
+              </sel1:Product>
+            </sel1:productCollection>
+            <sel1:baskedId>0</sel1:baskedId>
+          </sel:agentPaymentRequest>
+          <sel:VendorCode>#{vendor_code}</sel:VendorCode>
+          <sel:language>Portuguese</sel:language>
+          <sel:ipAddress>#{ip}</sel:ipAddress>
+          <sel:businessUnit>DStv</sel:businessUnit>
+        </sel:AgentSubmitPayment>
+        </soapenv:Body>
+      </soapenv:Envelope>
+    "
+    request = fazer_request(url_service, body, "AgentSubmitPayment")
+    SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
+    
+    xml_doc = Nokogiri::XML(request.body)
+
+    mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
+    raise mensagem if mensagem.present?
+
+    agent_submit_payment = xml_doc.child.child.child.children rescue nil
+    raise "Pagamento não processado" if agent_submit_payment.blank?
+
+    return agent_submit_payment_hash_parse(produto.description, produto.produto_id_parceiro, produto.valor_compra_telemovel, agent_submit_payment, request, body, customer_number, usuario_logado, nil, tipo_plano)
+  end
+
+  def self.agent_submit_payment_hash_parse(produtos, codigos, valor_total, agent_submit_payment, request, body, customer_number, usuario_logado, smartcard=nil, tipo_plano=nil)
+    agent_submit_payment_hash = {
+      "produto" => produtos,
+      "codigo" => codigos,
+      "valor" => valor_total,
+      "tipo_plano" => tipo_plano
+    }
+
+    agent_submit_payment_hash["receiptNumber"] = agent_submit_payment.children.select{|child| child.name == "receiptNumber"}.first.text
+    agent_submit_payment_hash["transactionNumber"] = agent_submit_payment.children.select{|child| child.name == "transactionNumber"}.first.text
+    agent_submit_payment_hash["status"] = agent_submit_payment.children.select{|child| child.name == "status"}.first.text
+    agent_submit_payment_hash["transactionDateTime"] = agent_submit_payment.children.select{|child| child.name == "transactionDateTime"}.first.text
+    agent_submit_payment_hash["errorMessage"] = agent_submit_payment.children.select{|child| child.name == "errorMessage"}.first.text
+    agent_submit_payment_hash["AuditReferenceNumber"] = agent_submit_payment.children.select{|child| child.name == "AuditReferenceNumber"}.first.text
+
+    raise agent_submit_payment_hash["errorMessage"] if agent_submit_payment_hash["errorMessage"].present?
+
+    alteracoes_planos_dstv = AlteracoesPlanosDstv.new
+    alteracoes_planos_dstv.request_body = request.body
+    alteracoes_planos_dstv.response_body = body
+    alteracoes_planos_dstv.customer_number = customer_number
+    alteracoes_planos_dstv.smartcard = smartcard
+    alteracoes_planos_dstv.usuario_id = usuario_logado.id
+    alteracoes_planos_dstv.produto = agent_submit_payment_hash["produto"]
+    alteracoes_planos_dstv.codigo = agent_submit_payment_hash["codigo"]
+    alteracoes_planos_dstv.valor = agent_submit_payment_hash["valor"]
+    alteracoes_planos_dstv.receipt_number = agent_submit_payment_hash["receiptNumber"]
+    alteracoes_planos_dstv.transaction_number = agent_submit_payment_hash["transactionNumber"]
+    alteracoes_planos_dstv.status = agent_submit_payment_hash["status"]
+    alteracoes_planos_dstv.transaction_date_time = agent_submit_payment_hash["transactionDateTime"]
+    alteracoes_planos_dstv.audit_reference_number = agent_submit_payment_hash["AuditReferenceNumber"]
+    alteracoes_planos_dstv.save!
+
+    return agent_submit_payment_hash
+  end
+
   def self.altera_plano(customer_number, smartcard, produtos, ip, usuario_logado)
     raise "Selecione pelo menos um produto" if produtos.blank?
     raise "Customer number não pode ser vazio" if customer_number.blank?
@@ -161,38 +274,7 @@ class Dstv
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
     raise "Pagamento não processado" if agent_submit_payment.blank?
 
-    agent_submit_payment_hash = {
-      "produto" => produtos_enviados.map{|produto| produto.description}.join(", "),
-      "codigo" => produtos_enviados.map{|produto| produto.produto_id_parceiro}.join(", "),
-      "valor" => valor_total,
-    }
-
-    agent_submit_payment_hash["receiptNumber"] = agent_submit_payment.children.select{|child| child.name == "receiptNumber"}.first.text
-    agent_submit_payment_hash["transactionNumber"] = agent_submit_payment.children.select{|child| child.name == "transactionNumber"}.first.text
-    agent_submit_payment_hash["status"] = agent_submit_payment.children.select{|child| child.name == "status"}.first.text
-    agent_submit_payment_hash["transactionDateTime"] = agent_submit_payment.children.select{|child| child.name == "transactionDateTime"}.first.text
-    agent_submit_payment_hash["errorMessage"] = agent_submit_payment.children.select{|child| child.name == "errorMessage"}.first.text
-    agent_submit_payment_hash["AuditReferenceNumber"] = agent_submit_payment.children.select{|child| child.name == "AuditReferenceNumber"}.first.text
-
-    raise agent_submit_payment_hash["errorMessage"] if agent_submit_payment_hash["errorMessage"].present?
-
-    alteracoes_planos_dstv = AlteracoesPlanosDstv.new
-    alteracoes_planos_dstv.request_body = request.body
-    alteracoes_planos_dstv.response_body = body
-    alteracoes_planos_dstv.customer_number = customer_number
-    alteracoes_planos_dstv.smartcard = smartcard
-    alteracoes_planos_dstv.usuario_id = usuario_logado.id
-    alteracoes_planos_dstv.produto = agent_submit_payment_hash["produto"]
-    alteracoes_planos_dstv.codigo = agent_submit_payment_hash["codigo"]
-    alteracoes_planos_dstv.valor = agent_submit_payment_hash["valor"]
-    alteracoes_planos_dstv.receipt_number = agent_submit_payment_hash["receiptNumber"]
-    alteracoes_planos_dstv.transaction_number = agent_submit_payment_hash["transactionNumber"]
-    alteracoes_planos_dstv.status = agent_submit_payment_hash["status"]
-    alteracoes_planos_dstv.transaction_date_time = agent_submit_payment_hash["transactionDateTime"]
-    alteracoes_planos_dstv.audit_reference_number = agent_submit_payment_hash["AuditReferenceNumber"]
-    alteracoes_planos_dstv.save!
-
-    return agent_submit_payment_hash
+    return agent_submit_payment_hash_parse(produtos_enviados.map{|produto| produto.description}.join(", "), produtos_enviados.map{|produto| produto.produto_id_parceiro}.join(", "), valor_total, agent_submit_payment, customer_number, usuario_logado, smartcard)
   end
 
   def self.informacoes_device_number(smartcard, ip)

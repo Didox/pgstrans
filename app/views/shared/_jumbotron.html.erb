@@ -53,7 +53,7 @@
               </a>
             </li>
             <li>
-              <a href="/dstv/alteracao-plano">
+              <a href="/dstv/alteracao-plano-mensal-anual">
                 Alteração de plano de cobrança alternando entre mensal e anual
               </a>
             </li>
@@ -82,9 +82,18 @@
                     </div>
                     <div>
                       <select class="rechargeType form-control validate v<%= partner.slug %>" name="<%= partner.slug.downcase %>_produto_id" data-message="Selecione um produto">
-                        <option value="" >Escolher</option>
-                        <% Produto.where(partner_id: Partner.where(slug: partner.slug)).reorder("description asc").each do |produto| %>
+                        <option value="">Escolher</option>
+                        <% if "dstv" == partner.slug.to_s.downcase %>
+                          <% produtos = Dstv.produtos_ativos_box_office %>
+                        <% else %>
+                          <% produtos = Produto.where(partner_id: Partner.where(slug: partner.slug)).reorder("description asc") %>
+                        <% end %>
+  
+                        <% produtos.each do |produto| %>
                           <option value="<%= produto.produto_id_parceiro || produto.id %>-<%= produto.valor_minimo_venda_site %>">
+                            <% if ["dstv", "zaptv"].include?(partner.slug.to_s.downcase) %>
+                               <%= produto.produto_id_parceiro %> - 
+                            <% end %>
                             <%= produto.description %>
                             <% if ["dstv", "zaptv"].include?(partner.slug.to_s.downcase) %>
                                - <%= number_to_currency(produto.valor_minimo_venda_site, :unit => "KZ") %>
