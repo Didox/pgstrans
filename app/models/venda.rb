@@ -29,9 +29,9 @@ class Venda < ApplicationRecord
     ReturnCodeApi.where(return_code: self.status, sucesso: true, partner_id: self.partner_id).count > 0
   end
 
-  def self.fazer_venda(params, usuario, slug_parceiro)
+  def self.fazer_venda(params, usuario, slug_parceiro, ip)
     slug_parceiro = slug_parceiro.downcase.strip
-    self.send("venda_#{slug_parceiro}", params, usuario)
+    self.send("venda_#{slug_parceiro}", params, usuario, ip)
   end
 
   def request_id
@@ -115,7 +115,7 @@ class Venda < ApplicationRecord
     end
   end
 
-  def self.venda_zaptv(params, usuario)
+  def self.venda_zaptv(params, usuario, ip)
     parceiro = Partner.where("lower(slug) = 'zaptv'").first
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
@@ -233,15 +233,12 @@ class Venda < ApplicationRecord
             <int:QueryTransactionReqHeader>
                <mid:RequestId>#{request_id}</mid:RequestId>
                <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
-               <!--Optional:-->
                <mid:SourceSystem>#{user_id}</mid:SourceSystem>
                <mid:Credentials>
                   <mid:User>#{user_id}</mid:User>
                   <mid:Password>#{pass}</mid:Password>
                </mid:Credentials>
-               <!--Optional:-->
                <mid:Attributes>
-                  <!--Zero or more repetitions:-->
                   <mid:Attribute>
                      <mid:Name>?</mid:Name>
                      <mid:Value>?</mid:Value>
@@ -251,7 +248,6 @@ class Venda < ApplicationRecord
          </soapenv:Header>
          <soapenv:Body>
             <int:QueryTransactionReq>
-               <!--Optional:-->
                <int:QueryTransactionReqBody>
                   <mid1:TransactionNumber>?</mid1:TransactionNumber>
                </int:QueryTransactionReqBody>
@@ -277,7 +273,7 @@ class Venda < ApplicationRecord
     end
   end
 
-  def self.venda_movicel(params, usuario)
+  def self.venda_movicel(params, usuario, ip)
     parceiro = Partner.where("lower(slug) = 'movicel'").first
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
@@ -335,12 +331,10 @@ class Venda < ApplicationRecord
                <mid:User>#{user_id}</mid:User>
                <mid:Password>#{pass}</mid:Password>
                </mid:Credentials>
-               <!--Optional:--> 
             </int:ValidateTopupReqHeader>
         </soapenv:Header>
         <soapenv:Body>
             <int:ValidateTopupReq>
-               <!--Optional:-->
                <int:ValidateTopupReqBody>
                   <mid1:Amount>#{valor}</mid1:Amount>
                   <mid1:MSISDN>#{msisdn}</mid1:MSISDN>
@@ -384,22 +378,18 @@ class Venda < ApplicationRecord
               <int:TopupReqHeader>
                  <mid:RequestId>#{request_id}</mid:RequestId>
                  <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
-                 <!--Optional:-->
                  <mid:SourceSystem>#{user_id}</mid:SourceSystem>
                  <mid:Credentials>
                     <mid:User>#{user_id}</mid:User>
                     <mid:Password>#{pass}</mid:Password>
                  </mid:Credentials>
-                 <!--Optional:-->        
               </int:TopupReqHeader>
           </soapenv:Header>
           <soapenv:Body>
               <int:TopupReq>
-                 <!--Optional:-->
                  <int:TopupReqBody>
                     <mid1:Amount>#{valor}</mid1:Amount>
                     <mid1:MSISDN>#{msisdn}</mid1:MSISDN>
-                    <!--Optional:-->
                     <mid1:Type>Default</mid1:Type>
                  </int:TopupReqBody>
               </int:TopupReq>
@@ -486,7 +476,7 @@ class Venda < ApplicationRecord
     return 0
   end
 
-  def self.venda_dstv(params, usuario)
+  def self.venda_dstv(params, usuario, ip)
     parceiro = Partner.where("lower(slug) = 'dstv'").first
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
@@ -534,41 +524,33 @@ class Venda < ApplicationRecord
 
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
-         <soapenv:Header/>
-         <soapenv:Body>
-            <sel:AgentSubmitPayment>
-               <!--Optional:-->
-               <sel:agentPaymentRequest>
-                  <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
-                  <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
-                  <sel1:dataSource>#{data_source}</sel1:dataSource>
-                  <sel1:customerNumber>#{params[:dstv_smart_card]}</sel1:customerNumber>
-                  <sel1:amount>#{params[:valor]}</sel1:amount>
-                  <sel1:invoicePeriod>12</sel1:invoicePeriod>
-                  <sel1:currency>AOA</sel1:currency>
-                  <sel1:paymentDescription>?</sel1:paymentDescription>
-                  <sel1:methodofPayment>CASH</sel1:methodofPayment>
-                  <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
-                  <sel1:productCollection>
-                     <!--Zero or more repetitions:-->
-                     <sel1:Product>
-                        <!--Optional:-->
-                        <sel1:productUserkey>#{product_id}</sel1:productUserkey>
-                     </sel1:Product>
-                  </sel1:productCollection>
-                  <!--Optional:-->
-                  <sel1:baskedId>0</sel1:baskedId>
-               </sel:agentPaymentRequest>
-               <!--Optional:-->
-               <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-               <!--Optional:-->
-               <sel:language>PT</sel:language>
-               <!--Optional:-->
-               <sel:ipAddress>?</sel:ipAddress>
-               <!--Optional:-->
-               <sel:businessUnit>?</sel:businessUnit>
-            </sel:AgentSubmitPayment>
-         </soapenv:Body>
+        <soapenv:Header/>
+        <soapenv:Body>
+        <sel:AgentSubmitPayment>
+          <sel:agentPaymentRequest>
+            <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
+            <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
+            <sel1:dataSource>#{data_source}</sel1:dataSource>
+            <sel1:customerNumber>#{params[:dstv_smart_card]}</sel1:customerNumber>
+            <sel1:amount>#{params[:valor]}</sel1:amount>
+            <sel1:invoicePeriod>1</sel1:invoicePeriod>
+            <sel1:currency>AOA</sel1:currency>
+            <sel1:paymentDescription>Pagasó Payment System</sel1:paymentDescription>
+            <sel1:methodofPayment>CASH</sel1:methodofPayment>
+            <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
+            <sel1:productCollection>
+              <sel1:Product>
+                <sel1:productUserkey>#{product_id}</sel1:productUserkey>
+              </sel1:Product>
+            </sel1:productCollection>
+            <sel1:baskedId>0</sel1:baskedId>
+          </sel:agentPaymentRequest>
+          <sel:VendorCode>#{vendor_code}</sel:VendorCode>
+          <sel:language>Portuguese</sel:language>
+          <sel:ipAddress>#{ip}</sel:ipAddress>
+          <sel:businessUnit>DStv</sel:businessUnit>
+        </sel:AgentSubmitPayment>
+        </soapenv:Body>
       </soapenv:Envelope>
     "
 
@@ -603,7 +585,13 @@ class Venda < ApplicationRecord
 
     venda.request_send = request_send
     venda.response_get = response_get
-    venda.status = last_request.scan(/receiptNumber.*?<\/receiptNumber/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue "3"
+    erro_message = last_request.scan(/faultstring.*?<\/faultstring/).first.scan(/>.*?</).first rescue ""
+    if erro_message.present? && erro_message.include?("must be greater than zero")
+      venda.status = "33"
+    else 
+      status = last_request.scan(/status.*?<\/a\:status/).first.gsub(/status|\>|\<|a|\:|\//, "") rescue "false"
+      venda.status = (status == "true" ? "1" : "3")
+    end
 
     venda.save!
 
@@ -624,7 +612,7 @@ class Venda < ApplicationRecord
 
 
   ######### Implementação SubmitPaymentBySmartCard em validação #########
-  # def self.venda_dstv(params, usuario)
+  # def self.venda_dstv(params, usuario, ip)
   #   ActiveRecord::Base.transaction do
   #     parceiro = Partner.where("lower(slug) = 'dstv'").first
   #     valor = params[:valor].to_i
@@ -692,7 +680,7 @@ class Venda < ApplicationRecord
   #               </sel1:ProductCollection>
   #               <sel1:MethodOfPayment>CASH</sel1:MethodOfPayment>
   #               <sel:Language>PT</sel:Language>
-  #               <sel:IpAddress>?</sel:IpAddress>
+  #               <sel:IpAddress>#{ip}</sel:IpAddress>
   #               <sel:BusinessUnit>?</sel:BusinessUnit>
   #             </sel:SubmitPaymentBySmartCard>
   #          </soapenv:Body>
@@ -749,7 +737,7 @@ class Venda < ApplicationRecord
   #   end
   # end
 
-  def self.venda_unitel(params, usuario)
+  def self.venda_unitel(params, usuario, ip)
     parceiro = Partner.where("lower(slug) = 'unitel'").first
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
