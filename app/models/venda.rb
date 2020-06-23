@@ -596,11 +596,14 @@ class Venda < ApplicationRecord
     venda.save!
 
     if venda.sucesso?
+      lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
+      lancamento = Lancamento.first if lancamento.blank?
+
       ContaCorrente.create!(
         usuario_id: usuario.id,
         valor: "-#{valor}",
         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-        lancamento_id: Lancamento.where(nome: "Compra de crédito ou recarga").first.id,
+        lancamento_id: lancamento.id,
         banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
         partner_id: parceiro.id,
         iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
@@ -722,11 +725,12 @@ class Venda < ApplicationRecord
   #     venda.save!
 
   #     if venda.sucesso?
+  
   #       ContaCorrente.create!(
   #         usuario_id: usuario.id,
   #         valor: "-#{valor}",
   #         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-  #         lancamento_id: Lancamento.where(nome: "Compra de crédito ou recarga").first.id,
+  #         lancamento_id: Lancamento.where(nome: "Compra de crédito ou recarga").first.id rescue Lancamento.first.id,
   #         banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
   #         partner_id: parceiro.id,
   #         iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
@@ -793,11 +797,14 @@ class Venda < ApplicationRecord
     UnitelSequence.create(sequence_id: sequence_id, venda_id: venda.id)
 
     if venda.sucesso?
+      lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
+      lancamento = Lancamento.first if lancamento.blank?
+
       ContaCorrente.create!(
         usuario_id: usuario.id,
         valor: "-#{valor}",
         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-        lancamento_id: Lancamento.where(nome: "Compra de crédito ou recarga").first.id,
+        lancamento_id: lancamento.id,
         partner_id: parceiro.id,
         banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
         iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
