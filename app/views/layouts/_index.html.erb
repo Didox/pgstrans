@@ -150,18 +150,6 @@
                         </li>
                     <% end %>
 
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :AlteracoesPlanosDstvsController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Alteração de Pacote de Produtos (Upgrade/Downgrade) DSTV' %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :AlteracoesPlanosDstvsController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Alteração de Plano de Cobrança Alternando entre Mensal e Anual DSTV' %>
-                        </li>
-                    <% end %>
-
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :SequencialDstvsController, :index) %>
                         <li class="list-group-item">
                             <%= link_to 'Sequencial de Transações DSTV', sequencial_dstvs_path %>

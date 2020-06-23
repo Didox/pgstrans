@@ -20,6 +20,24 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
+            <label>Tipo de plano</label>
+            <div>
+              <select name="tipo_plano" id="tipo_plano" class="form-control" style="margin-left: 30px;width100%;max-width: 500px;">
+                <option value="" <% if params[:tipo_plano].blank? %> selected="selected" <% end %>>
+                  Todos
+                </option>
+                <option value="mensal" <% if params[:tipo_plano] == "mensal" %> selected="selected" <% end %>>
+                  Mensal
+                </option>
+                <option value="anual" <% if params[:tipo_plano] == "anual" %> selected="selected" <% end %>>
+                  Anual
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
             <label>Smartcard/Device Number</label>
             <div>
               <input type="text" name="smartcard" value="<%= params[:smartcard] %>" class="form-control">
@@ -83,6 +101,7 @@
             <b>Status</b>: <%= alteracoes_planos_dstv.status %><br>
             <b>Transaction date time</b>: <%= alteracoes_planos_dstv.transaction_date_time %><br>
             <b>Audit reference number</b>: <%= alteracoes_planos_dstv.audit_reference_number %><br>
+            <b>Tipo de plano</b>: <%= alteracoes_planos_dstv.tipo_plano %><br>
           </td>
           <td><%= alteracoes_planos_dstv.response_body %></td>
           <td><%= alteracoes_planos_dstv.request_body %></td>
