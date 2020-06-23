@@ -169,7 +169,7 @@ class Dstv
     return agent_submit_payment_hash_parse(produto.description, produto.produto_id_parceiro, produto.valor_compra_telemovel, agent_submit_payment, request, body, customer_number, usuario_logado, nil, tipo_plano)
   end
 
-  def self.agent_submit_payment_hash_parse(produtos, codigos, valor_total, agent_submit_payment, request, body, customer_number, usuario_logado, smartcard=nil, tipo_plano=nil)
+  def self.agent_submit_payment_hash_parse(produtos, codigos, valor_total, agent_submit_payment, request, body, customer_number, usuario_logado, smartcard=nil, tipo_plano="mensal")
     agent_submit_payment_hash = {
       "produto" => produtos,
       "codigo" => codigos,
@@ -189,6 +189,7 @@ class Dstv
     alteracoes_planos_dstv = AlteracoesPlanosDstv.new
     alteracoes_planos_dstv.request_body = request.body
     alteracoes_planos_dstv.response_body = body
+    alteracoes_planos_dstv.tipo_plano = tipo_plano
     alteracoes_planos_dstv.customer_number = customer_number
     alteracoes_planos_dstv.smartcard = smartcard
     alteracoes_planos_dstv.usuario_id = usuario_logado.id
