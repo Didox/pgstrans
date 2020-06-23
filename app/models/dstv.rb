@@ -274,7 +274,7 @@ class Dstv
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
     raise "Pagamento não processado" if agent_submit_payment.blank?
 
-    return agent_submit_payment_hash_parse(produtos_enviados.map{|produto| produto.description}.join(", "), produtos_enviados.map{|produto| produto.produto_id_parceiro}.join(", "), valor_total, agent_submit_payment, customer_number, usuario_logado, smartcard)
+    return agent_submit_payment_hash_parse(produtos_enviados.map{|produto| produto.description}.join(", "), produtos_enviados.map{|produto| produto.produto_id_parceiro}.join(", "), valor_total, agent_submit_payment, request, body, customer_number, usuario_logado, smartcard)
   end
 
   def self.informacoes_device_number(smartcard, ip)
