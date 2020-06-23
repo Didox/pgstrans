@@ -485,7 +485,7 @@ class Venda < ApplicationRecord
     raise "Saldo insuficiente para recarga" if usuario.saldo < valor
     raise "Parceiro não localizado" if parceiro.blank?
     raise "Selecione o valor" if params[:valor].blank?
-    raise "Digite o Nº SmartCard" if params[:dstv_smart_card].blank?
+    raise "Digite o número do cliente/customer number" if params[:dstv_customer_number].blank?
     raise "Talão p/SMS" if params[:talao_sms].blank?
     raise "Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador." if usuario.sub_agente.blank?
     raise "Produto não selecionado" if params[:dstv_produto_id].blank?
@@ -531,7 +531,7 @@ class Venda < ApplicationRecord
             <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
             <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
             <sel1:dataSource>#{data_source}</sel1:dataSource>
-            <sel1:customerNumber>#{params[:dstv_smart_card]}</sel1:customerNumber>
+            <sel1:customerNumber>#{params[:dstv_customer_number]}</sel1:customerNumber>
             <sel1:amount>#{params[:valor]}</sel1:amount>
             <sel1:invoicePeriod>1</sel1:invoicePeriod>
             <sel1:currency>AOA</sel1:currency>
@@ -622,7 +622,7 @@ class Venda < ApplicationRecord
   #     raise "Saldo insuficiente para recarga" if usuario.saldo < valor
   #     raise "Parceiro não localizado" if parceiro.blank?
   #     raise "Selecione o valor" if params[:valor].blank?
-  #     raise "Digite o Nº SmartCard" if params[:dstv_smart_card].blank?
+  #     raise "Digite o Nº SmartCard" if params[:dstv_customer_number].blank?
   #     raise "Talão p/SMS" if params[:talao_sms].blank?
   #     raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
   #     raise "Produto não selecionado" if params[:dstv_produto_id].blank?
@@ -668,7 +668,7 @@ class Venda < ApplicationRecord
   #               <sel1:DataSource>#{data_source}</sel1:DataSource>
   #               <sel1:PaymentVendorCode>#{payment_vendor_code}</sel1:PaymentVendorCode>
   #               <sel1:TransactionNumber>#{transaction_number}</sel1:TransactionNumber>
-  #               <sel:SmartCardNumber>#{params[:dstv_smart_card]}</sel:SmartCardNumber>
+  #               <sel:SmartCardNumber>#{params[:dstv_customer_number]}</sel:SmartCardNumber>
   #               <sel1:Amount>#{params[:valor]}</sel1:Amount>
   #               <sel1:InvoicePeriod>12</sel1:InvoicePeriod>
   #               <sel1:Currency>AOA</sel1:Currency>

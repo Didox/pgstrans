@@ -49,11 +49,6 @@ namespace :jobs do
     partner.importa_produtos!
   end
 
-  desc "EXECUTA SOAP API TEST DSTV"
-  task importa_produtos_dstv: :environment do
-    Dstv.importa_produtos
-  end
-
   desc "Consulta número"
   task consulta_numero_dstv: :environment do
     info = Dstv.informacoes("3001492459")

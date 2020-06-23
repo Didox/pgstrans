@@ -20,7 +20,7 @@ class Dstv
     produtos
   end
 
-  def self.importa_produtos
+  def self.importa_produtos(customer_number = "122364781", ip="?")
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
     
     # TODO - POC talvez se transformar em algo válido
@@ -29,12 +29,12 @@ class Dstv
          <soapenv:Header/>
          <soapenv:Body>
             <sel:GetAvailableProducts>
-               <sel:dataSource>Angola</sel:dataSource>
-               <sel:customerNumber>122364781</sel:customerNumber>
+               <sel:dataSource>#{data_source}</sel:dataSource>
+               <sel:customerNumber>#{customer_number}</sel:customerNumber>
                <sel:BusinessUnit>DStv</sel:BusinessUnit>
-               <sel:VendorCode>PagasoDStv</sel:VendorCode>
-               <sel:language>?</sel:language>
-               <sel:ipAddress>?</sel:ipAddress>
+               <sel:VendorCode>#{payment_vendor_code}</sel:VendorCode>
+               <sel:language>Portuguese</sel:language>
+               <sel:ipAddress>#{ip}</sel:ipAddress>
                <sel:interfaceType>?</sel:interfaceType>
             </sel:GetAvailableProducts>
          </soapenv:Body>

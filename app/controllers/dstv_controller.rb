@@ -27,7 +27,7 @@ class DstvController < ApplicationController
   end
 
   def alteracao_cliente_produtos
-    Dstv.importa_produtos
+    Dstv.importa_produtos(params[:customer_number], request.remote_ip)
     @produtos = Dstv.produtos_ativos
   end
 
@@ -38,8 +38,7 @@ class DstvController < ApplicationController
     return flash[:error] = "Smartcard não pode ser vazio" if params[:smartcard].blank?
     @info = Dstv.altera_plano(params[:customer_number], params[:smartcard], params[:produtos], request.remote_ip, usuario_logado)
   rescue Exception => e
-    # flash[:mensagem_erro_fatura] = e.message
-    flash[:error] = e.message
+    flash[:mensagem_erro_fatura] = e.message
   end
 
   def alteracao_plano_mensal_anual;end
@@ -49,8 +48,7 @@ class DstvController < ApplicationController
     return flash[:error] = "Tipo de plano não pode ser vazio" if params[:tipo_plano].blank?
     @info = Dstv.alteracao_plano_mensal_anual(params[:produto_id_parceiro], params[:customer_number], params[:tipo_plano], request.remote_ip, usuario_logado)
   rescue Exception => e
-    # flash[:mensagem_erro_fatura] = e.message
-    flash[:error] = e.message
+    flash[:mensagem_erro_fatura] = e.message
   end
   
 end
