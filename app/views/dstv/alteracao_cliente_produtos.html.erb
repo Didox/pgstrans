@@ -8,7 +8,7 @@
     <div class="card" style="margin-top: 5px;">
       <div class="card-header">
         <div class="col-md-12">
-          Selecione o Produto
+          Selecione o Produto (no máximo 2)
         </div>
         <div class="container scroltable">
           <form action="/dstv/alteracao-cliente-produtos/upgrade-downgrade" onsubmit="return validaInformacoesConsulta(this)" method="get">
@@ -31,7 +31,7 @@
                   <% @produtos.each do |produto| %>
                     <tr>
                       <td>
-                        <input type="checkbox" name="produtos[]" value="<%= produto.id %>">
+                        <input type="checkbox" class="produtojs" name="produtos[]" onclick="selecionaMaximoDoisProdutos(this)" value="<%= produto.id %>">
                       </td>
                       <td>
                         <%= produto.produto_id_parceiro %>
@@ -63,4 +63,11 @@
       </div>
     </div>
   </div>
+  <<script>
+    var selecionaMaximoDoisProdutos = function(elen) {
+      if($(".produtojs:checked").length > 2){
+        $(elen).prop( "checked", false );
+      }
+    }
+  </script>>
 </div>

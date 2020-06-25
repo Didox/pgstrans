@@ -575,7 +575,7 @@ class Venda < ApplicationRecord
 
     last_request = request.body
     
-    venda = Venda.new(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_customer_number], usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -586,9 +586,21 @@ class Venda < ApplicationRecord
     venda.request_send = request_send
     venda.response_get = response_get
     erro_message = last_request.scan(/faultstring.*?<\/faultstring/).first.scan(/>.*?</).first rescue ""
-    if erro_message.present? && erro_message.include?("must be greater than zero")
-      venda.status = "33"
-    else 
+
+    if erro_message.present? 
+      erro_message = erro_message.downcase
+      if erro_message.include?("duplicate transaction")
+        venda.status = "31"
+      elsif erro_message.include?("incorrect customernumber")
+        venda.status = "32"
+      elsif erro_message.include?("must be greater than zero")
+        venda.status = "33"
+      elsif erro_message.include?("insufficient agent funds. payment amount is greater")
+        venda.status = "34"
+      elsif erro_message.include?("customers who have not been active on any principal package")
+        venda.status = "35"
+      end
+    else
       status = last_request.scan(/status.*?<\/a\:status/).first.gsub(/status|\>|\<|a|\:|\//, "") rescue "false"
       venda.status = (status == "true" ? "1" : "3")
     end
