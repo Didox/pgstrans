@@ -491,7 +491,7 @@ class Dstv
     #http://uat.mcadigitalmedia.com/VendorSelfCare/SelfCareService.svc?wsdl
     url = "#{url_service}/VendorSelfCare/SelfCareService.svc"
     uri = URI.parse(URI.escape(url))
-    return HTTParty.post(uri, 
+    request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',
         'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/#{resource}",
@@ -504,6 +504,8 @@ class Dstv
     Rails.logger.info "=========================================="
     Rails.logger.info request.body
     Rails.logger.info "=========================================="
+
+    return request
   end
 
   def self.informacoes_parse(body)
