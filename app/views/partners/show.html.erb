@@ -36,7 +36,7 @@
     <% if !["unitel", "dstv"].include?(@partner.slug.downcase)  %>
       <p>
         <strong>Saldo atual:</strong>
-        KZ <%= @partner.ultimo_saldo.saldo %>
+        <%= number_to_currency(@partner.ultimo_saldo.saldo, :unit => "KZ") %>
         <%= " - Última atualização em: #{@partner.ultimo_saldo.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
         <hr>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
