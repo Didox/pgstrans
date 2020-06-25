@@ -36,6 +36,7 @@ const pgstrans = {};
 pgstrans.displayRecargaDstv = (tipo) => {
   $(".recarga #DSTVMenu").hide();
   $(".recarga #recarga").show();
+  $(".clearFieldjs").val("")
 }
 
 pgstrans.displayRecarga = (tipo) => {
@@ -56,6 +57,8 @@ pgstrans.displayRecarga = (tipo) => {
     $("#DSTVMenu").hide();
     $(".recarga #recarga").show();
   }
+  
+  $(".clearFieldjs").val("")
 }
 
 pgstrans.carregaProdutosPorParceiro = (self) => {
@@ -124,6 +127,7 @@ $(function(){
               data: form.serialize(),
               success: function(data){
                 $.alert(data.mensagem);
+                $(".clearFieldjs").val("")
               },
               error: function(xhr, ajaxOptions, thrownError){
                 var data = JSON.parse(xhr.responseText);
