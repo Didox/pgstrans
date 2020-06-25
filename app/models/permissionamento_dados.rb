@@ -37,7 +37,9 @@ module PermissionamentoDados
           responsavel.grupo_usuarios.each do |gu|
             if gu.escrita
               grs = GrupoRegistro.where(grupo_id: gu.grupo_id, modelo: self.class.to_s, modelo_id: self.id)
-              GrupoRegistro.create(grupo_id: gu.grupo_id, modelo: self.class.to_s, modelo_id: self.id) if grs.count == 0
+              if grs.count == 0
+                GrupoRegistro.create(grupo_id: gu.grupo_id, modelo: self.class.to_s, modelo_id: self.id)
+              end
             end
           end
         end
