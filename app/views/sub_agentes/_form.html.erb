@@ -79,8 +79,8 @@
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.label :unipessoal_empresa_id, "Cliente Unipessoal / Empresa" %>
-          <%= f.select :unipessoal_empresa_id, UniPessoalEmpresa.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
+          <%= f.label :uni_pessoal_empresas_id, "Cliente Unipessoal / Empresa" %>
+          <%= f.select :uni_pessoal_empresas_id, UniPessoalEmpresa.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
 
         <div class="form-actions col-sm-12">

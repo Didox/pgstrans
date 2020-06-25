@@ -1,5 +1,5 @@
 class UniPessoalEmpresaSubagente < ActiveRecord::Migration[5.2]
   def change
-  	add_column :sub_agentes, :unipessoal_empresa_id, :bigint
+  	add_reference :sub_agentes, :uni_pessoal_empresas, foreign_key: true
   end
 end
