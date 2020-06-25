@@ -43,11 +43,12 @@ class Dstv
 
     request = fazer_request(url_service, body, "GetAvailableProducts")
 
+    Rails.logger.info "=========================================="
+    Rails.logger.info request.body
+    Rails.logger.info "=========================================="
+
     if (200...300).include?(request.code.to_i)
       if request.body.present?
-        Rails.logger.info "=========================================="
-        Rails.logger.info request.body
-        Rails.logger.info "=========================================="
 
         partner = Partner.where(slug: "DSTv").first
         
@@ -100,8 +101,6 @@ class Dstv
 
           produto.save!
         end
-
-        Rails.logger.info "=========================================="
       end
     end
   end
@@ -499,6 +498,12 @@ class Dstv
       },
       :body => body
     )
+
+    Rails.logger.info "=========================================="
+    Rails.logger.info body
+    Rails.logger.info "=========================================="
+    Rails.logger.info request.body
+    Rails.logger.info "=========================================="
   end
 
   def self.informacoes_parse(body)
