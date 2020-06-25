@@ -78,6 +78,11 @@
           <%= f.input :terminal_id_parceiro, :label => "terminal_id_parceiro", placeholder: "Identificação do Terminal na Unitel" %>
         </div>
 
+        <div class="form-input col-sm-6">
+          <%= f.label :unipessoal_empresa_id, "Cliente Unipessoal / Empresa" %>
+          <%= f.select :unipessoal_empresa_id, UniPessoalEmpresa.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
+        </div>
+
         <div class="form-actions col-sm-12">
           <%= f.button :button, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-ok"></span>
