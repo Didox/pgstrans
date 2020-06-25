@@ -222,16 +222,15 @@ class Partner < ApplicationRecord
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"
-      host = "#{parametro.url_integracao_desenvolvimento}/saldo"
+      host = "#{parametro.url_integracao_desenvolvimento}"
       api_key = parametro.api_key_zaptv_desenvolvimento
     else
-      host = "#{parametro.url_integracao_producao}/saldo"
+      host = "#{parametro.url_integracao_producao}"
       api_key = parametro.api_key_zaptv_producao
     end
 
-    url = "#{host}/saldo"
+    url = "#{host}/saldo?code=#{STORE_ID_ZAP_PARCEIRO}"
     Rails.logger.info "========[Enviando consulta de saldo operadora Zap #{url}]=========="
-    # url = "#{host}/saldo?code=#{STORE_ID_ZAP_PARCEIRO}"
     request = HTTParty.get(
       url, 
       headers: {
