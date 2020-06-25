@@ -230,7 +230,8 @@ class Partner < ApplicationRecord
     end
 
     Rails.logger.info "========[Enviando consulta de saldo operadora Zap]=========="
-    url = "#{host}/saldo?code=#{STORE_ID_ZAP_PARCEIRO}"
+    # url = "#{host}/saldo?code=#{STORE_ID_ZAP_PARCEIRO}"
+    url = "#{host}/saldo"
     request = HTTParty.get(
       url, 
       headers: {

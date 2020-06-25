@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_25_010109) do
+ActiveRecord::Schema.define(version: 2020_06_25_104739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -402,10 +402,10 @@ ActiveRecord::Schema.define(version: 2020_06_25_010109) do
     t.string "agent_id_parceiro"
     t.string "terminal_id_parceiro"
     t.bigint "seller_id_parceiro"
-    t.bigint "uni_pessoal_empresas_id"
+    t.bigint "uni_pessoal_empresa_id"
     t.index ["industry_id"], name: "index_sub_agentes_on_industry_id"
     t.index ["provincia_id"], name: "index_sub_agentes_on_provincia_id"
-    t.index ["uni_pessoal_empresas_id"], name: "index_sub_agentes_on_uni_pessoal_empresas_id"
+    t.index ["uni_pessoal_empresa_id"], name: "index_sub_agentes_on_uni_pessoal_empresa_id"
   end
 
   create_table "sub_distribuidors", force: :cascade do |t|
@@ -520,7 +520,7 @@ ActiveRecord::Schema.define(version: 2020_06_25_010109) do
   add_foreign_key "saldo_parceiros", "partners"
   add_foreign_key "sub_agentes", "industries"
   add_foreign_key "sub_agentes", "provincia", column: "provincia_id"
-  add_foreign_key "sub_agentes", "uni_pessoal_empresas", column: "uni_pessoal_empresas_id"
+  add_foreign_key "sub_agentes", "uni_pessoal_empresas"
   add_foreign_key "sub_distribuidors", "municipios"
   add_foreign_key "sub_distribuidors", "provincia", column: "provincia_id"
   add_foreign_key "ultima_atualizacao_produtos", "partners"
