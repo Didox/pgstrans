@@ -32,7 +32,7 @@ class Dstv
                <sel:dataSource>#{data_source}</sel:dataSource>
                <sel:customerNumber>#{customer_number}</sel:customerNumber>
                <sel:BusinessUnit>DStv</sel:BusinessUnit>
-               <sel:VendorCode>#{payment_vendor_code}</sel:VendorCode>
+               <sel:VendorCode>#{vendor_code}</sel:VendorCode>
                <sel:language>Portuguese</sel:language>
                <sel:ipAddress>#{ip}</sel:ipAddress>
                <sel:interfaceType>?</sel:interfaceType>
