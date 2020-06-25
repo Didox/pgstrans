@@ -1,4 +1,4 @@
-<div class="col-md-12" data-target="toggle.grid">
+'<div class="col-md-12" data-target="toggle.grid">
   <div class="card border-simpleform box-shadow mb-4">
     <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
       <div>
@@ -88,7 +88,17 @@
             <span class="glyphicon glyphicon-ok"></span>
             Confirmar
           <% end %>
-        </div>
+
+          <%= link_to @sub_agente, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-info-sign"></span>
+            Mostrar
+          <% end %>
+
+          <%= link_to sub_agentes_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>
+        </div>  
       <% end %>
     </div>
   </div>

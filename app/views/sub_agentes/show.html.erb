@@ -8,7 +8,7 @@
 
   <div class="container">
     <p>
-      <strong>Razao Social:</strong>
+      <strong>Razão Social:</strong>
       <%= @sub_agente.razao_social %>
     </p>
 
@@ -23,7 +23,12 @@
     </p>
 
     <p>
-      <strong>Ramo de Atividade:</strong>
+      <strong>Subagente:</strong>
+      <%= @sub_agente.uni_pessoal_empresa.nome rescue ""%>
+    </p>
+
+    <p>
+      <strong>Actividade Económica:</strong>
       <%= @sub_agente.industry.descricao_grupo %>
     </p>
 

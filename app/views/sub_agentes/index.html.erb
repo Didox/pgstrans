@@ -14,6 +14,7 @@
           <th scope="col">Razao Social</th>
           <th scope="col">Nome Fantasia</th>
           <th scope="col">BI</th>
+          <th scope="col">Tipo</th>
 <!--          <th scope="col">Ramo de Atividade</th>
           <th scope="col">Morada</th>
           <th scope="col">Bairro</th>
@@ -32,6 +33,7 @@
             <td><%= sub_agente.razao_social %></td>
             <td><%= sub_agente.nome_fantasia %></td>
             <td><%= sub_agente.bi %></td>
+            <td><%= sub_agente.uni_pessoal_empresa.nome rescue ""%></td> 
 <!--           <td><%= sub_agente.industry.descricao_seccao %></td>
             <td><%= sub_agente.morada %></td>
             <td><%= sub_agente.bairro %></td>
