@@ -229,9 +229,9 @@ class Partner < ApplicationRecord
       api_key = parametro.api_key_zaptv_producao
     end
 
-    Rails.logger.info "========[Enviando consulta de saldo operadora Zap]=========="
-    # url = "#{host}/saldo?code=#{STORE_ID_ZAP_PARCEIRO}"
     url = "#{host}/saldo"
+    Rails.logger.info "========[Enviando consulta de saldo operadora Zap #{url}]=========="
+    # url = "#{host}/saldo?code=#{STORE_ID_ZAP_PARCEIRO}"
     request = HTTParty.get(
       url, 
       headers: {
@@ -239,7 +239,7 @@ class Partner < ApplicationRecord
         "Content-Type" => "application/json"
       }
     )
-    Rails.logger.info "========[Consulta de saldo operadora Zap enviada]=========="
+    Rails.logger.info "========[Consulta de saldo operadora Zap enviada #{url}]=========="
 
     if (200..300).include?(request.code)
       SaldoParceiro.create!(saldo: JSON.parse(request.body)["saldo"], partner_id: self.id, log: "Saldo atualizado - code=#{request.code} - body=#{request.body} - host=#{host} - api_key=#{api_key}")
