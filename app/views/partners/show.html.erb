@@ -33,7 +33,7 @@
       <%= @partner.status_parceiro.nome rescue "" %>
     </p>
 
-    <% if @partner.slug.downcase != "unitel" %>
+    <% if !["unitel", "dstv"].include?(@partner.slug.downcase)  %>
       <p>
         <strong>Saldo atual:</strong>
         KZ <%= @partner.ultimo_saldo.saldo %>
