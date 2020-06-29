@@ -20,7 +20,7 @@ class PartnersController < ApplicationController
 
   def importa_produtos
     partner = Partner.where(slug: "ZAPTv").first
-    partner.importa_produtos!(usuario_logado)
+    partner.importa_produtos!
 
     flash[:notice] = 'Produtos importados com sucesso.'
     redirect_to partner_url(partner)
