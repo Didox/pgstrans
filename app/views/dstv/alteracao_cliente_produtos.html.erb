@@ -11,7 +11,16 @@
           Selecione o Produto (no máximo 2)
         </div>
         <div class="container scroltable">
-          <form action="/dstv/alteracao-cliente-produtos/upgrade-downgrade" onsubmit="return validaInformacoesConsulta(this)" method="get">
+          <script>
+            var validaSelecionaProdutos = function(form) {
+              if($(form).find(".produtojs:checked").length == 0){
+                alert("Selecione o Produto (no máximo 2)")
+                return false
+              }
+              return true
+            }
+          </script>
+          <form action="/dstv/alteracao-cliente-produtos/upgrade-downgrade" onsubmit="return validaSelecionaProdutos(this)" method="get">
 
             <div>
               <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
