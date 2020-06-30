@@ -289,10 +289,10 @@ class Dstv
             <sel:GetCustomerDetailsByDeviceNumber>
               <sel:dataSource>#{data_source}</sel:dataSource>
               <sel:deviceNumber>#{smartcard}</sel:deviceNumber>
-              <sel:currencyCode>AOA</sel:currencyCode>
+              <sel:currencyCode>#{currency}</sel:currencyCode>
               <sel:BusinessUnit>#{business_unit}</sel:BusinessUnit>
               <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-              <sel:language>PT</sel:language>
+              <sel:language>#{language}</sel:language>
               <sel:ipAddress>#{ip}</sel:ipAddress>
               <sel:interfaceType>?</sel:interfaceType>
             </sel:GetCustomerDetailsByDeviceNumber>
@@ -315,10 +315,10 @@ class Dstv
             <sel:GetCustomerDetailsByCustomerNumber>
               <sel:dataSource>#{data_source}</sel:dataSource>
               <sel:customerNumber>#{customer_number}</sel:customerNumber>
-              <sel:currencyCode>AOA</sel:currencyCode>
+              <sel:currencyCode>#{currency}</sel:currencyCode>
               <sel:BusinessUnit>#{business_unit}</sel:BusinessUnit>
               <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-              <sel:language>PT</sel:language>
+              <sel:language>#{language}</sel:language>
               <sel:ipAddress>#{ip}</sel:ipAddress>
               <sel:interfaceType>?</sel:interfaceType>
             </sel:GetCustomerDetailsByCustomerNumber>
