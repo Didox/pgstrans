@@ -21,7 +21,7 @@ class Dstv
   end
 
   def self.importa_produtos(customer_number = "122364781", ip="?")
-    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
     
     # TODO - POC talvez se transformar em algo válido
     body = "
@@ -31,9 +31,9 @@ class Dstv
             <sel:GetAvailableProducts>
                <sel:dataSource>#{data_source}</sel:dataSource>
                <sel:customerNumber>#{customer_number}</sel:customerNumber>
-               <sel:BusinessUnit>DStv</sel:BusinessUnit>
+               <sel:BusinessUnit>#{business_unit}</sel:BusinessUnit>
                <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-               <sel:language>Portuguese</sel:language>
+               <sel:language>#{language}</sel:language>
                <sel:ipAddress>#{ip}</sel:ipAddress>
                <sel:interfaceType>?</sel:interfaceType>
             </sel:GetAvailableProducts>
@@ -112,7 +112,7 @@ class Dstv
     produto = Produto.where(produto_id_parceiro: produto_id_parceiro).first
     raise "Selecione um produto válido" if produto.blank?
 
-    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
     sequencial = SequencialDstv.order("id desc").first
     if sequencial.blank?
@@ -147,9 +147,9 @@ class Dstv
             <sel1:baskedId>0</sel1:baskedId>
           </sel:agentPaymentRequest>
           <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-          <sel:language>Portuguese</sel:language>
+          <sel:language>#{language}</sel:language>
           <sel:ipAddress>#{ip}</sel:ipAddress>
-          <sel:businessUnit>DStv</sel:businessUnit>
+          <sel:BusinessUnit>#{business_unit}</sel:BusinessUnit>
         </sel:AgentSubmitPayment>
         </soapenv:Body>
       </soapenv:Envelope>
@@ -224,7 +224,7 @@ class Dstv
       produtos_api += "</sel1:Product>";
     end
 
-    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
     sequencial = SequencialDstv.order("id desc").first
     if sequencial.blank?
@@ -256,9 +256,9 @@ class Dstv
             <sel1:baskedId>0</sel1:baskedId>
           </sel:agentPaymentRequest>
           <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-          <sel:language>Portuguese</sel:language>
+          <sel:language>#{language}</sel:language>
           <sel:ipAddress>#{ip}</sel:ipAddress>
-          <sel:businessUnit>DStv</sel:businessUnit>
+          <sel:BusinessUnit>#{business_unit}</sel:BusinessUnit>
         </sel:AgentSubmitPayment>
         </soapenv:Body>
       </soapenv:Envelope>
@@ -280,7 +280,7 @@ class Dstv
   def self.informacoes_device_number(smartcard, ip)
     raise "Por favor digite o smartcard" if smartcard.blank?
 
-    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\">
@@ -289,10 +289,10 @@ class Dstv
             <sel:GetCustomerDetailsByDeviceNumber>
               <sel:dataSource>#{data_source}</sel:dataSource>
               <sel:deviceNumber>#{smartcard}</sel:deviceNumber>
-              <sel:currencyCode>AOA</sel:currencyCode>
-              <sel:BusinessUnit>DStv</sel:BusinessUnit>
+              <sel:currencyCode>#{currency}</sel:currencyCode>
+              <sel:BusinessUnit>#{business_unit}</sel:BusinessUnit>
               <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-              <sel:language>PT</sel:language>
+              <sel:language>#{language}</sel:language>
               <sel:ipAddress>#{ip}</sel:ipAddress>
               <sel:interfaceType>?</sel:interfaceType>
             </sel:GetCustomerDetailsByDeviceNumber>
@@ -306,7 +306,7 @@ class Dstv
 
   def self.informacoes_customer_number(customer_number, ip)
     raise "Por favor digite o customer number" if customer_number.blank?
-    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\">
@@ -315,10 +315,10 @@ class Dstv
             <sel:GetCustomerDetailsByCustomerNumber>
               <sel:dataSource>#{data_source}</sel:dataSource>
               <sel:customerNumber>#{customer_number}</sel:customerNumber>
-              <sel:currencyCode>AOA</sel:currencyCode>
-              <sel:BusinessUnit>DStv</sel:BusinessUnit>
+              <sel:currencyCode>#{currency}</sel:currencyCode>
+              <sel:BusinessUnit>#{business_unit}</sel:BusinessUnit>
               <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-              <sel:language>PT</sel:language>
+              <sel:language>#{language}</sel:language>
               <sel:ipAddress>#{ip}</sel:ipAddress>
               <sel:interfaceType>?</sel:interfaceType>
             </sel:GetCustomerDetailsByCustomerNumber>
@@ -333,7 +333,7 @@ class Dstv
   def self.consulta_fatura(smartcard, customer_number, ip)
     raise "Por favor digite o smartcard" if smartcard.blank?
     raise "Por favor digite o customer_number" if customer_number.blank?
-    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\">
@@ -343,9 +343,9 @@ class Dstv
             <sel:dataSource>#{data_source}</sel:dataSource>
             <sel:customerNumber>#{customer_number}</sel:customerNumber>
             <sel:SCNumber>#{smartcard}</sel:SCNumber>
-            <sel:BusinessUnit>DStv</sel:BusinessUnit>
+            <sel:BusinessUnit>#{business_unit}</sel:BusinessUnit>
             <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-            <sel:language>Portuguese</sel:language>
+            <sel:language>#{language}</sel:language>
             <sel:ipAddress>#{ip}</sel:ipAddress>
             <sel:interfaceType>?</sel:interfaceType>
           </sel:GetDueAmountandDate>
@@ -377,7 +377,7 @@ class Dstv
   def self.pagar_fatura(customer_number, valor, ip, usuario_logado)
     raise "Por favor digite o customer_number" if customer_number.blank?
     raise "Por favor digite o valor" if valor.blank?
-    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number = parametros
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
     sequencial = SequencialDstv.order("id desc").first
     if sequencial.blank?
@@ -410,9 +410,9 @@ class Dstv
             <sel1:baskedId>0</sel1:baskedId>
           </sel:agentPaymentRequest>
           <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-          <sel:language>Portuguese</sel:language>
+          <sel:language>#{language}</sel:language>
           <sel:ipAddress>#{ip}</sel:ipAddress>
-          <sel:businessUnit>DStv</sel:businessUnit>
+          <sel:BusinessUnit>#{business_unit}</sel:BusinessUnit>
         </sel:AgentSubmitPayment>
         </soapenv:Body>
       </soapenv:Envelope>
@@ -472,6 +472,8 @@ class Dstv
       product_user_key = parametro.product_user_key_dstv_desenvolvimento
       mop = parametro.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM "
       agent_number = parametro.agent_number_dstv_desenvolvimento #122434345
+      business_unit = parametro.business_unit_desenvolvimento
+      language = parametro.language_desenvolvimento
     else
       url_service = parametro.url_integracao_producao
       data_source = parametro.data_source_dstv_producao
@@ -482,9 +484,11 @@ class Dstv
       product_user_key = parametro.product_user_key_dstv_producao
       mop = parametro.mop_dstv_producao # mop = "CASH, MOBILE or ATM "
       agent_number = parametro.agent_number_dstv_producao #122434345
+      business_unit = parametro.business_unit_producao
+      language = parametro.language_producao
     end
 
-    [parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number]
+    [parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language]
   end
 
   def self.fazer_request(url_service, body, resource)

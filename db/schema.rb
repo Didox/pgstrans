@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_25_104739) do
+ActiveRecord::Schema.define(version: 2020_06_30_092415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -237,6 +237,10 @@ ActiveRecord::Schema.define(version: 2020_06_25_104739) do
     t.string "zaptv_agente_id"
     t.string "movicel_agente_id"
     t.string "dstv_agente_id"
+    t.string "business_unit_desenvolvimento"
+    t.string "business_unit_producao"
+    t.string "language_desenvolvimento"
+    t.string "language_producao"
     t.index ["partner_id"], name: "index_parametros_on_partner_id"
   end
 
