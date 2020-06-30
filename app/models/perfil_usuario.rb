@@ -51,6 +51,7 @@ class PerfilUsuario < ApplicationRecord
       alteracao_plano_mensal_anual_efetivar: "Alteração de plano de cobrança alternando entre mensal e anual (Efetivar)",
       alteracao_cliente_produtos: "Listagem de produtos em validação de pagamento DSTV",
       pagar_fatura: "Pagar fatura DSTV",
+      reverter_venda_zaptv: "Reverter Vendas DSTV",
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
@@ -98,7 +99,6 @@ class PerfilUsuario < ApplicationRecord
       log_vendas: "Log de vendas não realizadas",
       pagamentos_faturas_dstvs: "Pagamentos de fatura DSTV",
       alteracoes_planos_dstvs: "Alteração de planos DSTV",
-      reverter_venda_zaptv: "Reverter Vendas DSTV",
     }
     nomes[controller.to_sym]
   end
