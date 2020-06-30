@@ -472,6 +472,8 @@ class Dstv
       product_user_key = parametro.product_user_key_dstv_desenvolvimento
       mop = parametro.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM "
       agent_number = parametro.agent_number_dstv_desenvolvimento #122434345
+      business_unit = parametro.business_unit_desenvolvimento
+      language = parametro.language_desenvolvimento
     else
       url_service = parametro.url_integracao_producao
       data_source = parametro.data_source_dstv_producao
@@ -482,6 +484,8 @@ class Dstv
       product_user_key = parametro.product_user_key_dstv_producao
       mop = parametro.mop_dstv_producao # mop = "CASH, MOBILE or ATM "
       agent_number = parametro.agent_number_dstv_producao #122434345
+      business_unit = parametro.business_unit_producao
+      language = parametro.language_producao
     end
 
     [parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number]
