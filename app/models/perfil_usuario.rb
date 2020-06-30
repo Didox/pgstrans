@@ -98,6 +98,7 @@ class PerfilUsuario < ApplicationRecord
       log_vendas: "Log de vendas não realizadas",
       pagamentos_faturas_dstvs: "Pagamentos de fatura DSTV",
       alteracoes_planos_dstvs: "Alteração de planos DSTV",
+      reverter_venda_zaptv: "Reverter Vendas DSTV",
     }
     nomes[controller.to_sym]
   end
