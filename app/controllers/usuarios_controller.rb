@@ -7,6 +7,9 @@ class UsuariosController < ApplicationController
     #@usuarios = Usuario.all.order(nome: :asc)
     @usuarios = Usuario.com_acesso(usuario_logado).order(nome: :asc)
 
+    @usuarios = @usuarios.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @usuarios = @usuarios.where("email ilike '%#{params[:email]}%'") if params[:email].present?
+
     options = {page: params[:page] || 1, per_page: 10}
     @usuarios = @usuarios.paginate(options)
   end
