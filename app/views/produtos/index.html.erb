@@ -113,8 +113,8 @@
           <td><%= produto.partner.name %></td>
           <td><%= "#{produto.moeda_id}/#{(produto.moeda.simbolo rescue "")}" %></td>       
           <td><%= produto.status_produto.nome %></td>
-          <td><%= produto.valor_unitario %></td>
-          <td class="text-right"><%= produto.valor_compra_telemovel %></td>
+          <td style="width:110px" align="right"><%= number_to_currency(produto.valor_unitario) %></td>
+          <td style="width:110px" align="right"><%= number_to_currency(produto.valor_compra_telemovel) %></td>
           <td class="text-right"><%= produto.margem_telemovel %></td>
           <td><%= produto.tipo %></td>
           <td><%= produto.subtipo %></td>
@@ -132,10 +132,6 @@
       <%= will_paginate @produtos, :container => false %>
     </div> 
 
-    <%= link_to new_produto_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-plus"></span>
-      Novo Registro
-    <% end %>    
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar
