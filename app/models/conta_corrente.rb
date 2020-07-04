@@ -9,6 +9,15 @@ class ContaCorrente < ApplicationRecord
 
   after_save :atualiza_saldo
 
+
+  def responsavel_aprovacao
+    return nil if self.responsavel_aprovacao_id.blank? 
+    
+    Usuario.find(self.responsavel_aprovacao_id)
+  rescue
+    nil
+  end
+  
   private
 
   def preenche_padrao

@@ -35,9 +35,10 @@
 
     <% if !["unitel", "dstv"].include?(@partner.slug.downcase)  %>
       <p>
-        <strong>Saldo atual:</strong>
-        <%= number_to_currency(@partner.ultimo_saldo.saldo, :unit => "KZ") %>
-        <%= " - Última atualização em: #{@partner.ultimo_saldo.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
+        <strong>Saldo atual:</strong><br>
+        <%= number_to_currency(@partner.ultimo_saldo.saldo, :unit => "PTS") %><br>
+        <%= number_to_currency((@partner.ultimo_saldo.saldo * 24), :unit => "KZ") %><br>
+        <%= "Última atualização em: #{@partner.ultimo_saldo.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
         <hr>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
           <%= @partner.ultimo_saldo.log %>
@@ -146,7 +147,7 @@
             <td><%= relatorio_conciliacao_zaptv.total_price %></td>
             <td><%= relatorio_conciliacao_zaptv.status %></td>
             <td>
-              KZ<%= number_to_currency(relatorio_conciliacao_zaptv.unit_price, :unit => "") %>
+              KZ<%= number_to_currency((relatorio_conciliacao_zaptv.unit_price * 24), :unit => "") %>
             </td>
             <td>
               Vendas:

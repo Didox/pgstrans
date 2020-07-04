@@ -9,7 +9,7 @@
   <div style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Data de Lançamento</label>
             <div>
@@ -17,19 +17,27 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="form-group">
-            <label>Data da Última Atualização</label>
+            <label>Última Atualização</label>
             <div>
               <input type="date" name="data_ultima_atualizacao_saldo" value="<%= params[:data_ultima_atualizacao_saldo] %>" class="form-control">
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Usuário</label>
             <div>
               <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Responsável</label>
+            <div>
+              <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
             </div>
           </div>
         </div>
@@ -75,7 +83,10 @@
             <b>Lançamento:</b> <%= conta_corrente.lancamento.nome %><br>
             <b>Banco:</b> <%= conta_corrente.banco.nome %><br>
             <b>IBAN:</b> <%= conta_corrente.iban %><br>
-            <b>Observação:</b> <%= conta_corrente.observacao %>
+            <b>Observação:</b> <%= conta_corrente.observacao %><br>
+            <% if conta_corrente.responsavel_aprovacao.present? %>
+              <b>Responsavel aprovação:</b> <%= conta_corrente.responsavel_aprovacao.nome %>
+            <% end %>
           </td>
           <td style="width: 300px">
             <b>Valor do lançamento:</b> <%= number_to_currency(conta_corrente.valor, :unit => "KZ") %><br>
@@ -86,7 +97,6 @@
             <b>Data do Lançamento:</b> <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %><br>
             <b>Última Atualização:</b> <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %><br>
           </td>
-
           <td><%= link_to 'Mostrar', conta_corrente %></td>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
             <td><%= link_to 'Editar', edit_conta_corrente_path(conta_corrente) %></td>
