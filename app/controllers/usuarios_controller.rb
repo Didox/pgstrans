@@ -7,8 +7,12 @@ class UsuariosController < ApplicationController
     #@usuarios = Usuario.all.order(nome: :asc)
     @usuarios = Usuario.com_acesso(usuario_logado).order(nome: :asc)
 
-    @usuarios = @usuarios.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
-    @usuarios = @usuarios.where("email ilike '%#{params[:email]}%'") if params[:email].present?
+    @usuarios = @usuarios.joins(:perfil_usuario)
+    @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @usuarios = @usuarios.where("usuarios.email ilike '%#{params[:email]}%'") if params[:email].present?
+    @usuarios = @usuarios.where("perfil_usuarios.admin = ?", params[:perfil_admin]) if params[:perfil_admin].present?
+    @usuarios = @usuarios.where("perfil_usuarios.operador = ?", params[:perfil_operador]) if params[:perfil_operador].present?
+
     @usuarios = @usuarios.where("perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
 
     options = {page: params[:page] || 1, per_page: 10}

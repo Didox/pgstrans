@@ -8,7 +8,7 @@
   <div style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
           <div class="form-group">
             <label>Nome do Usuário</label>
             <div>
@@ -16,11 +16,47 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
           <div class="form-group">
             <label>E-mail do Usuário</label>
             <div>
               <input type="text" name="email" value="<%= params[:email] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Administrador</label>
+            <div>
+              <select name="perfil_admin" id="perfil_admin" class="form-control" style="width100%;max-width: 500px;">
+                <option value="" <% if params[:perfil_admin].blank? %> selected="selected" <% end %>>
+                  Todos
+                </option>
+                <option value="true" <% if params[:perfil_admin] == "true" %> selected="selected" <% end %>>
+                  Somente Adminstrador
+                </option>
+                <option value="false" <% if params[:perfil_admin] == "false" %> selected="selected" <% end %>>
+                  Outros Perfis
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Operador</label>
+            <div>
+              <select name="perfil_operador" id="perfil_operador" class="form-control" style="width100%;max-width: 500px;">
+                <option value="" <% if params[:perfil_operador].blank? %> selected="selected" <% end %>>
+                  Todos
+                </option>
+                <option value="true" <% if params[:perfil_operador] == "true" %> selected="selected" <% end %>>
+                  Somente Operador
+                </option>
+                <option value="false" <% if params[:perfil_operador] == "false" %> selected="selected" <% end %>>
+                  Outros Perfis
+                </option>
+              </select>
             </div>
           </div>
         </div>
