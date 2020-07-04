@@ -8,7 +8,7 @@
   <div style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Nome do Usuário</label>
             <div>
@@ -16,7 +16,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>E-mail do Usuário</label>
             <div>
@@ -24,7 +24,20 @@
             </div>
           </div>
         </div>
-      </div>   
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Perfil do Usuário</label>
+            <div>
+              <select name="perfil_usuario_id" onchange="pgstrans.carregaPerfilUsuario(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% PerfilUsuario.all.each do |perfil_usuario| %>
+                  <option value="<%= perfil_usuario.id %>" <% if perfil_usuario.id.to_s == params[:perfil_usuario_id] %> selected="selected" <% end %> ><%= perfil_usuario.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-info">

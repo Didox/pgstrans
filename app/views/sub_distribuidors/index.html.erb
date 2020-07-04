@@ -6,6 +6,63 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
+  <div style="margin-top:10px">
+    <form action="" method="get" id="formApuracao">
+      <div class="row" style="padding:10px">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Nome do Subdistruidor</label>
+            <div>
+              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Morada</label>
+            <div>
+              <input type="text" name="morada" value="<%= params[:morada] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Município</label>
+            <div>
+              <select name="municipio_id" onchange="pgstrans.carregaMunicipio(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Municipio.all.each do |municipio| %>
+                  <option value="<%= municipio.id %>" <% if municipio.id.to_s == params[:municipio_id] %> selected="selected" <% end %> ><%= municipio.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Província</label>
+            <div>
+              <select name="provincia_id" onchange="pgstrans.carregaProvincia(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Provincium.all.each do |provincia| %>
+                  <option value="<%= provincia.id %>" <% if provincia.id.to_s == params[:provincia_id] %> selected="selected" <% end %> ><%= provincia.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit" value="Buscar" class="btn btn-info">
+          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>        
+        </div>
+    </form>
+  </div>  
+
   <div class="container scroltable">
     <table class="table table-hover">
       <thead>

@@ -4,7 +4,12 @@ class SubDistribuidorsController < ApplicationController
   # GET /sub_distribuidors
   # GET /sub_distribuidors.json
   def index
-    @sub_distribuidors = SubDistribuidor.com_acesso(usuario_logado).order(nome: :asc)  
+    @sub_distribuidors = SubDistribuidor.com_acesso(usuario_logado).order(nome: :asc)
+
+    @sub_distribuidors = @sub_distribuidors.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @sub_distribuidors = @sub_distribuidors.where("morada ilike '%#{params[:morada]}%'") if params[:morada].present?
+    @sub_distribuidors = @sub_distribuidors.where("municipio_id = ?", params[:municipio_id]) if params[:municipio_id].present?
+    @sub_distribuidors = @sub_distribuidors.where("provincia_id = ?", params[:provincia_id]) if params[:provincia_id].present?
 
     options = {page: params[:page] || 1, per_page: 10}
     @sub_distribuidors = @sub_distribuidors.paginate(options)
