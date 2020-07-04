@@ -6,6 +6,10 @@ class PerfilUsuariosController < ApplicationController
   def index
     @perfil_usuarios = PerfilUsuario.all.order(nome: :asc)
 
+    @perfil_usuarios = @perfil_usuarios.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @perfil_usuarios = @perfil_usuarios.where("admin = ?", params[:perfil_admin]) if params[:perfil_admin].present?
+    @perfil_usuarios = @perfil_usuarios.where("operador = ?", params[:perfil_operador]) if params[:perfil_operador].present?
+
     options = {page: params[:page] || 1, per_page: 10}
     @perfil_usuarios = @perfil_usuarios.paginate(options)
   end
