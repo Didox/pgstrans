@@ -6,6 +6,12 @@ class MatrixUsersController < ApplicationController
   def index
     @matrix_users = MatrixUser.com_acesso(usuario_logado).order(usuario_id: :asc)  
 
+    @matrix_users = @matrix_users.joins(:usuario)
+    @matrix_users = @matrix_users.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @matrix_users = @matrix_users.where("matrix_users.master_profile = ?", params[:master_profile_id]) if params[:master_profile_id].present?
+    @matrix_users = @matrix_users.where("matrix_users.sub_distribuidor = ?", params[:sub_distribuidor_id]) if params[:sub_distribuidor_id].present?
+    @matrix_users = @matrix_users.where("matrix_users.sub_agente = ?", params[:sub_agente_id]) if params[:sub_agente_id].present?
+
     options = {page: params[:page] || 1, per_page: 10}
     @matrix_users = @matrix_users.paginate(options)
   end
