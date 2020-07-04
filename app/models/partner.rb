@@ -8,6 +8,10 @@ class Partner < ApplicationRecord
 
   STORE_ID_ZAP_PARCEIRO = "115356"
 
+  def total_vendas
+    Venda.where(partner_id: self.id, status: ReturnCodeApi.where(sucesso: true, partner_id: self.id).map{|r| r.return_code } ).sum(:value)
+  end
+
   def importa_produtos!
     return if self.slug.downcase != "zaptv"
 

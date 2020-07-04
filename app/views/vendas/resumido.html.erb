@@ -123,6 +123,31 @@
         </div>
       </form>
 
+      <% if Venda.total > 0 %>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+          google.charts.load("current", {packages:["corechart"]});
+          google.charts.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Operadora', 'Vendas'],
+              <% Partner.where(status_parceiro_id: 1).each do |partner| %>
+                ['<%= partner.name %>',  <%= partner.total_vendas %>],
+              <% end %>
+            ]);
+
+            var options = {
+              title: 'Volume de vendas',
+              is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('grafico_vendas'));
+            chart.draw(data, options);
+          }
+        </script>
+        <div id="grafico_vendas" style="width: 100%; height: 500px;"></div>
+      <% end %>
+
       <div class="container scroltable" style="width: 100%;overflow: scroll;">
         <table class="table table-hover">
           <thead>
@@ -136,12 +161,13 @@
               <th scope="col">ID da Loja</th>
               <th scope="col">ID do Vendedor</th>
               <th scope="col">Terminal</th>
-              <th scope="col">Valor</th>
               <th scope="col">Customer Number/MSISDN</th>
+              <th scope="col">Valor</th>
             </tr>
           </thead>
 
           <tbody>
+            <% valor_total = 0 %>
             <% @vendas.each do |venda| %>
             <tr>
               <td><%= venda.usuario.nome %></td>
@@ -153,12 +179,34 @@
               <td align="right"><%= venda.store_id %></td>
               <td align="right"><%= venda.seller_id %></td>
               <td align="right"><%= venda.terminal_id %></td>
-              <td style="width:110px" align="right"><%= number_to_currency(venda.value) %></td>              
               <td align="right"><%= venda.client_msisdn %></td>
+              <td style="width:110px" align="right"><%= number_to_currency(venda.value) %></td>              
+              <% valor_total += venda.value %>
             </tr>
             <% end %>
           </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td align="right"></td>
+              <td align="right"></td>
+              <td align="right"></td>
+              <td align="right"></td>
+              <td align="right"></td>
+              <td align="right"><b>Total:</b></td>
+              <td style="width:110px" align="right">
+                <b><%= number_to_currency(valor_total) %></b>
+              </td>              
+            </tr>
+          </tfoot>
         </table>
+
+        <h2>
+          Total de vendas com sucesso: <%= number_to_currency(Venda.total, :unit => "KZ") %>
+        </h2>
 
         <div class="apple_pagination">
           <%= will_paginate @usuarios, :container => false %>
