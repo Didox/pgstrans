@@ -6,6 +6,8 @@ class StatusClientesController < ApplicationController
   def index
     @status_clientes = StatusCliente.com_acesso(usuario_logado).order(nome: :asc)
 
+    @status_clientes = @status_clientes.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+
     options = {page: params[:page] || 1, per_page: 10}
     @status_clientes = @status_clientes.paginate(options)    
   end
