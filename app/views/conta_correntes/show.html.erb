@@ -26,6 +26,10 @@
       <dd><%= @conta_corrente.saldo_atual %></dd>
       <dt>Data da Última Atualização de Saldo:</dt>
       <dd><%= @conta_corrente.data_ultima_atualizacao_saldo %></dd>
+      <% if @conta_corrente.responsavel_aprovacao.present? %>
+         <dt>Responsável aprovação:</dt> 
+         <dd><%= @conta_corrente.responsavel_aprovacao.nome %></dd>
+      <% end %>
       <dt>Observação:</dt>
       <dd><%= @conta_corrente.observacao %></dd>
     </dl>

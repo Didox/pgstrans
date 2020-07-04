@@ -13,7 +13,7 @@
           <div class="form-group">
             <label>Data de Lançamento</label>
             <div>
-              <input type="date" name="dala_lancamento" value="<%= params[:dala_lancamento] %>" class="form-control">
+              <input type="date" name="data_alegacao_pagamento" value="<%= params[:data_alegacao_pagamento] %>" class="form-control">
             </div>
           </div>
         </div>
@@ -27,7 +27,7 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Usuário</label>
+            <label>Usuário/Cliente</label>
             <div>
               <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
             </div>
@@ -35,7 +35,7 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Responsável</label>
+            <label>Responsável pela Aprovação</label>
             <div>
               <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
             </div>
@@ -85,7 +85,7 @@
             <b>IBAN:</b> <%= conta_corrente.iban %><br>
             <b>Observação:</b> <%= conta_corrente.observacao %><br>
             <% if conta_corrente.responsavel_aprovacao.present? %>
-              <b>Responsavel aprovação:</b> <%= conta_corrente.responsavel_aprovacao.nome %>
+              <b>Responsável aprovação:</b> <%= conta_corrente.responsavel_aprovacao.nome %>
             <% end %>
           </td>
           <td style="width: 300px">
@@ -94,7 +94,7 @@
             <b>Saldo Anterior:</b> <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %><br>
           </td>
           <td style="width: 350px">
-            <b>Data do Lançamento:</b> <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %><br>
+            <b>Data de Lançamento:</b> <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %><br>
             <b>Última Atualização:</b> <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %><br>
           </td>
           <td><%= link_to 'Mostrar', conta_corrente %></td>
