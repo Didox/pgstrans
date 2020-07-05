@@ -6,6 +6,9 @@ class PartnersController < ApplicationController
   def index
     @partners = Partner.com_acesso(usuario_logado).order(id: :asc)
 
+    @partners = @partners.where(id: params[:parceiro_id]) if params[:parceiro_id].present?
+    @partners = @partners.where(status_parceiro_id: params[:status_parceiro_id]) if params[:status_parceiro_id].present?
+
     options = {page: params[:page] || 1, per_page: 10}
     @partners = @partners.paginate(options)    
   end

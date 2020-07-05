@@ -13,7 +13,7 @@
           <div class="form-group">
             <label>Parceiro</label>
             <div>
-              <select name="parceiro_id" onchange="pgstrans.carregaProdutosPorParceiro(this)" class="form-control">
+              <select name="parceiro_id" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
                 <% Partner.all.each do |partner| %>
                   <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
