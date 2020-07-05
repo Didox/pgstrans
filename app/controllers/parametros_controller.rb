@@ -77,11 +77,11 @@ class ParametrosController < ApplicationController
       params.require(:parametro).permit(
         :url_integracao_desenvolvimento, :unitel_agente_id, :zaptv_agente_id, :movicel_agente_id, :dstv_agente_id, 
         :url_integracao_producao, :partner_id, :api_key_zaptv_desenvolvimento, :api_key_zaptv_producao, :agent_key_movicel_desenvolvimento, 
-        :agent_key_movicel_producao, :user_id_movicel_desenvolvimento, :user_id_movicel_producao, :data_source_dstv_desevolvimento, 
+        :agent_key_movicel_producao, :user_id_movicel_desenvolvimento, :user_id_movicel_producao, :data_source_dstv_desenvolvimento, 
         :data_source_dstv_producao, :payment_vendor_code_dstv_desenvolvimento, :payment_vendor_code_dstv_producao, :vendor_code_dstv_desenvolvimento, 
         :vendor_code_dstv_producao, :agent_account_dstv_desenvolvimento, :agent_account_dstv_producao, :currency_dstv_desenvolvimento, 
         :currency_dstv_producao, :product_user_key_dstv_desenvolvimento, :product_user_key_dstv_producao, :mop_dstv_desenvolvimento, 
-        :mop_dstv_producao, :agent_number_dstv_desenvolvimento, :agent_number_dstv_producao, 
+        :mop_dstv_producao, :agent_number_dstv_desenvolvimento, :agent_number_dstv_producao,
         :business_unit_desenvolvimento, :business_unit_producao, :language_desenvolvimento, :language_producao
       )
     end
