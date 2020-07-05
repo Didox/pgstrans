@@ -56,7 +56,7 @@
         <tr>
           <td style="width:300px"><%= log_venda.titulo %></td>
           <td><%= log_venda.log %></td>
-          <td><%= log_venda.usuario.nome raise "" %></td>
+          <td><%= log_venda.usuario.nome rescue "" %></td>
         </tr>
         <% end %>
       </tbody>
