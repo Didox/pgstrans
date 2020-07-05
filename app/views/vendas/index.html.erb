@@ -225,6 +225,10 @@
       </tbody>
     </table>
 
+    <h2>
+      Total de vendas ou recargas efetuadas com sucesso: <%= number_to_currency(Venda.total_acesso(@adm), :unit => "KZ") %>
+    </h2>
+
     <div class="apple_pagination">
       <%= will_paginate @usuarios, :container => false %>
     </div>
