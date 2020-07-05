@@ -6,9 +6,7 @@ class StatusParceirosController < ApplicationController
   def index
     @status_parceiros = StatusParceiro.com_acesso(usuario_logado)  
 
-    @status_parceiros = @status_parceiros.joins(:partner)
-    @status_parceiros = @status_parceiros.where("partners.partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
-    @status_parceiros = @status_parceiros.where("status_parceiro_id = ?", params[:status_parceiro_id]) if params[:status_parceiro_id].present?
+    @status_parceiros = @status_parceiros.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
 
     options = {page: params[:page] || 1, per_page: 10}
     @status_parceiros = @status_parceiros.paginate(options)
