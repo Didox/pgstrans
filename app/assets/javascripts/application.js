@@ -85,6 +85,10 @@ $(function(){
     if($(".rechargeType.vDSTv").length > 0 && $(".rechargeType.vDSTv").val() && $(".rechargeType.vDSTv").val().toLowerCase().indexOf("boxoffice") !== -1){
       $("#rechargeValue").removeAttr("readonly")
     }
+
+    if($(".rechargeType.vUnitel").length > 0 && $(".rechargeType.vUnitel").val() && $(".rechargeType.vUnitel option:selected").html().toLowerCase().indexOf("variável") !== -1){
+      $("#rechargeValue").removeAttr("readonly")
+    }
   })
 
   $(".recarga #recargaForm").submit(function(e) {
