@@ -46,6 +46,7 @@
         <tr>
           <th scope="col">Título</th>
           <th scope="col">Log Completo</th>
+          <th scope="col">Usuário</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -55,6 +56,7 @@
         <tr>
           <td style="width:300px"><%= log_venda.titulo %></td>
           <td><%= log_venda.log %></td>
+          <td><%= log_venda.usuario.nome raise "" %></td>
         </tr>
         <% end %>
       </tbody>
