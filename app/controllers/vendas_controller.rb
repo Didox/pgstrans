@@ -38,7 +38,7 @@ class VendasController < ApplicationController
   end
 
   def resumido
-    @vendas = Vendas.where(usuario_id: usuario_logado.id)
+    @vendas = Venda.where(usuario_id: usuario_logado.id)
     vendas_busca
   end
 
