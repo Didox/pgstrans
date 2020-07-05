@@ -25,8 +25,10 @@ class Venda < ApplicationRecord
     ReturnCodeApi.new(error_description_pt: "Status não localizado")
   end
 
-  def self.total
-    Venda.where(status: ReturnCodeApi.where(sucesso: true).map{|r| r.return_code } ).sum(:value)
+  def self.total(usuario_logado = nil)
+    venda = Venda.where(status: ReturnCodeApi.where(sucesso: true).map{|r| r.return_code } )
+    venda = venda.where(usuario_id: usuario_logado.id) if usuario_logado.present?
+    venda.sum(:value)
   end
 
   def sucesso?
