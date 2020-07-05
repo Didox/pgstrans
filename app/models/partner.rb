@@ -8,9 +8,14 @@ class Partner < ApplicationRecord
 
   STORE_ID_ZAP_PARCEIRO = "115356"
 
-  def total_vendas(usuario_logado=nil)
+  def total_vendas(usuario_logado)
     venda = Venda.where(partner_id: self.id, status: ReturnCodeApi.where(sucesso: true, partner_id: self.id).map{|r| r.return_code } )
-    venda = venda.where(usuario_id: usuario_logado.id) if usuario_logado.present?
+    venda = venda.where(usuario_id: usuario_logado.id)
+    venda.sum(:value)
+  end
+
+  def total_vendas_acesso(usuario_logado)
+    venda = Venda.com_acesso(usuario_logado).where(partner_id: self.id, status: ReturnCodeApi.where(sucesso: true, partner_id: self.id).map{|r| r.return_code } )
     venda.sum(:value)
   end
 
