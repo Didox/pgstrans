@@ -4,6 +4,7 @@ class VendasController < ApplicationController
   # GET /vendas
   # GET /vendas.json
   def index
+    @vendas = Venda.com_acesso(usuario_logado).order(id: :asc)
     vendas_busca
   end
 
@@ -37,8 +38,8 @@ class VendasController < ApplicationController
   end
 
   def resumido
+    @vendas = Vendas.where(usuario_id: usuario_logado.id)
     vendas_busca
-    @vendas = @vendas.where(usuario_id: usuario_logado.id)
   end
 
   # POST /vendas
@@ -84,7 +85,6 @@ class VendasController < ApplicationController
 
   private
     def vendas_busca
-      @vendas = Venda.com_acesso(usuario_logado).order(id: :asc)
       @vendas = @vendas.joins(:usuario)
       @vendas = @vendas.where("vendas.status = ?", params[:return_code]) if params[:return_code].present?
       @vendas = @vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
