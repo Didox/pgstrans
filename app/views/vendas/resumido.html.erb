@@ -95,13 +95,16 @@
           </div>
           <div class="form-group">
             <div style="float: right;margin-right:10px">
+              <label>
+                Exportar CSV <input type="checkbox" name="csv"> 
+              </label>
               <input type="submit" value="Buscar" class="btn btn-success">
             </div>
           </div>
         </div>
       </form>
 
-      <% if Venda.total(@adm) > 0 %>
+      <% if Venda.total(@adm, @vendas_graficos) > 0 %>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
           google.charts.load("current", {packages:["corechart"]});
@@ -110,12 +113,12 @@
             var data = google.visualization.arrayToDataTable([
               ['Operadora', 'Vendas'],
               <% Partner.where(status_parceiro_id: 1).each do |partner| %>
-                ['<%= partner.name %>',  <%= partner.total_vendas(@adm) %>],
+                ['<%= partner.name %>',  <%= partner.total_vendas(@adm, @vendas_graficos) %>],
               <% end %>
             ]);
 
             var options = {
-              title: 'Total de vendas ou recargas efetuadas com sucesso',
+              title: 'Total de vendas ou recargas',
               is3D: true,
             };
 
@@ -183,7 +186,7 @@
         </table>
 
         <h2>
-          Total de vendas ou recargas efetuadas com sucesso: <%= number_to_currency(Venda.total(@adm), :unit => "KZ") %>
+          Total de vendas ou recargas: <%= number_to_currency(Venda.total(@adm, @vendas_graficos), :unit => "KZ") %>
         </h2>
 
         <div class="apple_pagination">

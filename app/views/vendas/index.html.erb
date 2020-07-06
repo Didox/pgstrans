@@ -22,8 +22,13 @@
             <div>
               <select name="return_code" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
-                <% ReturnCodeApi.all.each do |ret| %>
-                  <option value="<%= ret.return_code %>" <% if ret.return_code == params[:return_code] %> selected="selected" <% end %> ><%= ret.error_description_pt %></option>
+                <option value="sucesso" <% if params[:return_code] == "sucesso" %> selected="selected" <% end %>>Todos com sucesso</option>
+                <% Partner.where(status_parceiro_id: 1).each do |partner| %>
+                  <optgroup label="<%= partner.name %>">
+                    <% ReturnCodeApi.where(partner_id: partner.id).each do |ret| %>
+                      <option value="<%= ret.return_code %>" <% if ret.return_code == params[:return_code] %> selected="selected" <% end %> ><%= ret.sucesso ? "[SUCESSO] - " : "" %><%= ret.error_description_pt %></option>
+                    <% end %>
+                  </optgroup>
                 <% end %>
               </select>
             </div>
@@ -124,6 +129,9 @@
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
+          <label>
+            Exportar CSV <input type="checkbox" name="csv"> 
+          </label>
           <input type="submit" value="Buscar" class="btn btn-success">
           <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
@@ -134,7 +142,7 @@
     </form>
   </div>
 
-  <% if Venda.total_acesso(@adm) > 0 %>
+  <% if Venda.total_acesso(@adm, @vendas_graficos) > 0 %>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
@@ -143,12 +151,12 @@
         var data = google.visualization.arrayToDataTable([
           ['Operadora', 'Vendas'],
           <% Partner.where(status_parceiro_id: 1).each do |partner| %>
-            ['<%= partner.name %>',  <%= partner.total_vendas_acesso(@adm) %>],
+            ['<%= partner.name %>',  <%= partner.total_vendas_acesso(@adm, @vendas_graficos) %>],
           <% end %>
         ]);
 
         var options = {
-          title: 'Total de vendas ou recargas efetuadas com sucesso',
+          title: 'Total de vendas ou recargas',
           is3D: true,
         };
 
@@ -226,7 +234,7 @@
     </table>
 
     <h2>
-      Total de vendas ou recargas efetuadas com sucesso: <%= number_to_currency(Venda.total_acesso(@adm), :unit => "KZ") %>
+      Total de vendas ou recargas: <%= number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %>
     </h2>
 
     <div class="apple_pagination">

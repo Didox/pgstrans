@@ -8,15 +8,25 @@ class Partner < ApplicationRecord
 
   STORE_ID_ZAP_PARCEIRO = "115356"
 
-  def total_vendas(usuario_logado)
-    venda = Venda.where(partner_id: self.id, status: ReturnCodeApi.where(sucesso: true, partner_id: self.id).map{|r| r.return_code } )
-    venda = venda.where(usuario_id: usuario_logado.id)
-    venda.sum(:value)
+  def total_vendas(usuario_logado, vendas_filtrada=nil)
+    unless vendas_filtrada.nil?
+      vendas = vendas_filtrada.clone
+    else
+      vendas = Venda.all
+    end
+    vendas = vendas.where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id).map{|r| r.return_code } )
+    vendas = vendas.where(usuario_id: usuario_logado.id)
+    vendas.sum(:value)
   end
 
-  def total_vendas_acesso(usuario_logado)
-    venda = Venda.com_acesso(usuario_logado).where(partner_id: self.id, status: ReturnCodeApi.where(sucesso: true, partner_id: self.id).map{|r| r.return_code } )
-    venda.sum(:value)
+  def total_vendas_acesso(usuario_logado, vendas_filtrada=nil)
+    unless vendas_filtrada.nil?
+      vendas = vendas_filtrada.clone
+    else
+      vendas = Venda.com_acesso(usuario_logado)
+    end
+    vendas = vendas.where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id).map{|r| r.return_code } )
+    vendas.sum(:value)
   end
 
   def importa_produtos!

@@ -5,6 +5,18 @@ class Venda < ApplicationRecord
   belongs_to :usuario
   belongs_to :partner
 
+  def self.to_csv
+    attributes = %w{product_id agent_id seller_id terminal_id value client_msisdn created_at updated_at partner_id usuario_id status request_id }
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |venda|
+        csv << attributes.map{ |attr| venda.send(attr) }
+      end
+    end
+  end
+
   def product_nome
     Produto.where(partner_id: self.partner_id).where("produto_id_parceiro = '#{self.product_id}' or id = '#{self.product_id}'").first.description rescue ""
   end
@@ -25,15 +37,25 @@ class Venda < ApplicationRecord
     ReturnCodeApi.new(error_description_pt: "Status não localizado")
   end
 
-  def self.total(usuario_logado)
-    venda = Venda.where(status: ReturnCodeApi.where(sucesso: true).map{|r| r.return_code } )
-    venda = venda.where(usuario_id: usuario_logado.id)
-    venda.sum(:value)
+  def self.total(usuario_logado, vendas_filtrada=nil)
+    unless vendas_filtrada.nil?
+      vendas = vendas_filtrada.clone
+    else
+      vendas = Venda.all
+    end
+    vendas = vendas.where(status: ReturnCodeApi.all.map{|r| r.return_code } )
+    vendas = vendas.where(usuario_id: usuario_logado.id)
+    vendas.sum(:value)
   end
 
-  def self.total_acesso(usuario_logado)
-    venda = Venda.com_acesso(usuario_logado).where(status: ReturnCodeApi.where(sucesso: true).map{|r| r.return_code } )
-    venda.sum(:value)
+  def self.total_acesso(usuario_logado, vendas_filtrada=nil)
+    unless vendas_filtrada.nil?
+      vendas = vendas_filtrada.clone
+    else
+      vendas = Venda.com_acesso(usuario_logado)
+    end
+    vendas = vendas.where(status: ReturnCodeApi.all.map{|r| r.return_code } )
+    vendas.sum(:value)
   end
 
   def sucesso?

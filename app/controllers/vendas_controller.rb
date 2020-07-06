@@ -86,7 +86,15 @@ class VendasController < ApplicationController
   private
     def vendas_busca
       @vendas = @vendas.joins(:usuario)
-      @vendas = @vendas.where("vendas.status = ?", params[:return_code]) if params[:return_code].present?
+
+      if params[:return_code].present?
+        if params[:return_code] == "sucesso"
+          @vendas = @vendas.where("vendas.status in (?)", ReturnCodeApi.where(sucesso: true).map{|r| r.return_code })
+        else
+          @vendas = @vendas.where("vendas.status = ?", params[:return_code])
+        end
+      end
+
       @vendas = @vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
       @vendas = @vendas.where("vendas.updated_at <= ?", params[:data_fim].to_date.end_of_day) if params[:data_fim].present?
       @vendas = @vendas.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
@@ -99,6 +107,14 @@ class VendasController < ApplicationController
       @vendas = @vendas.where("vendas.client_msisdn = ?", params[:client_msisdn]) if params[:client_msisdn].present?
       @vendas = @vendas.where("vendas.request_id = '#{params[:log]}' or request_send ilike '%#{params[:log]}%' or response_get ilike '%#{params[:log]}%'") if params[:log].present?
 
+      @vendas_graficos = @vendas.clone
+
+      if params[:csv].present?
+        filename = "relatorio_vendas-#{Time.now.strftime("%Y%m%d%H%M%S")}.csv"
+        send_data(@vendas.to_csv, :type => "text/csv; charset=utf-8; header=present", :filename => filename)
+        return
+      end
+      
       options = {page: params[:page] || 1, per_page: 10}
       @vendas = @vendas.paginate(options)
     end
