@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_05_125008) do
+ActiveRecord::Schema.define(version: 2020_07_06_115632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2020_07_05_125008) do
     t.string "website"
     t.string "email"
     t.string "logomarca"
+    t.string "iban"
+    t.string "conta_bancaria"
   end
 
   create_table "canal_vendas", force: :cascade do |t|
