@@ -6,13 +6,26 @@ class Venda < ApplicationRecord
   belongs_to :partner
 
   def self.to_csv
-    attributes = %w{product_id agent_id seller_id terminal_id value client_msisdn created_at updated_at partner_id usuario_id status request_id }
+    attributes = "Usuário,Parceiro,Data da Venda,Status,Product,Agent,Store,ID do Vendedor,Terminal,Customer Number / MSIDN,Value".split(",")
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
 
       all.each do |venda|
-        csv << attributes.map{ |attr| venda.send(attr) }
+        csv << [
+          venda.usuario.nome,
+          venda.partner.name,
+          venda.created_at.strftime("%d/%m/%Y %H:%M"),
+          venda.status_desc.error_description_pt,
+          venda.product_id,
+          venda.product_nome,
+          venda.agent_id,
+          venda.store_id,
+          venda.seller_id,
+          venda.terminal_id,
+          venda.client_msisdn,
+          venda.value
+        ]
       end
     end
   end
