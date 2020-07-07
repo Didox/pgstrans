@@ -26,7 +26,7 @@
                 <% Partner.where(status_parceiro_id: 1).each do |partner| %>
                   <optgroup label="<%= partner.name %>">
                     <% ReturnCodeApi.where(partner_id: partner.id).each do |ret| %>
-                      <option value="<%= ret.return_code %>" <% if ret.return_code == params[:return_code] %> selected="selected" <% end %> ><%= ret.sucesso ? "[SUCESSO] - " : "" %><%= ret.error_description_pt %></option>
+                      <option value="<%= ret.id %>" <% if ret.id.to_s == params[:return_code] %> selected="selected" <% end %> ><%= ret.partner.name %> - <%= ret.sucesso ? "[SUCESSO] - " : "" %><%= ret.error_description_pt %></option>
                     <% end %>
                   </optgroup>
                 <% end %>

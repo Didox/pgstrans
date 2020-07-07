@@ -91,7 +91,7 @@ class VendasController < ApplicationController
         if params[:return_code] == "sucesso"
           @vendas = @vendas.where("vendas.status in (?)", ReturnCodeApi.where(sucesso: true).map{|r| r.return_code })
         else
-          @vendas = @vendas.where("vendas.status = ?", params[:return_code])
+          @vendas = @vendas.where("vendas.status = ?", ReturnCodeApi.find(params[:return_code]).return_code)
         end
       end
 
