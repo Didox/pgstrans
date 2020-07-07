@@ -31,9 +31,14 @@ class ContaCorrentesController < ApplicationController
   end
 
   def index_morada_saldo
-    @conta_correntes = ContaCorrente.all.limit(10)
+    @conta_correntes = ContaCorrente.all
     options = {page: params[:page] || 1, per_page: 10}
     @conta_correntes = @conta_correntes.paginate(options)
+
+    @conta_correntes = @conta_correntes.joins(:usuario)
+    @conta_correntes = @conta_correntes.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @conta_correntes = @conta_correntes.where("usuarios.morada ilike '%#{params[:morada]}%'") if params[:morada].present?
+    @conta_correntes = @conta_correntes.where("usuarios.bairro ilike '%#{params[:bairro]}%'") if params[:bairro].present?
   end
 
   # GET /conta_correntes/new

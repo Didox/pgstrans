@@ -173,7 +173,13 @@
                 <ul class="list-group">
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :ContaCorrentesController, :index) %>
                         <li class="list-group-item">
-                            <%= link_to 'Conta Corrente', conta_correntes_path %>
+                            <%= link_to 'Creditar Conta Corrente', conta_correntes_path %>
+                        </li>
+                    <% end %>
+
+                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :ContaCorrentesController, :index) %>
+                        <li class="list-group-item">
+                            <%= link_to 'Consultar Saldo de Usuário', index_morada_saldo_path %>
                         </li>
                     <% end %>
 

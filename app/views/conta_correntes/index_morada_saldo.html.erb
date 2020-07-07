@@ -1,6 +1,6 @@
 <div class="container scroltable">
 
-  <h4>Usuário / Morada / Saldo</h4>
+  <h4>Relatório de Saldo de Usuário</h4>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -9,27 +9,56 @@
   <div style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="form-group">
-            <label>Usuário/Cliente</label>
+            <label>Usuário</label>
             <div>
               <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Morada</label>
             <div>
-              <input type="text" name="morada" value="<%= params[:morada] %>" class="form-control">
+              <input type="text" name="morada" value="<%= params[:morada] %>" class="form-control" disabled="true">
             </div>
           </div>
-        </div>     
-        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Bairro</label>
+            <div>
+              <input type="text" name="morada" value="<%= params[:morada] %>" class="form-control" disabled="true">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Município</label>
+            <div>
+              <select name="municipio_id" onchange="pgstrans.carregaMunicipio(this)" class="form-control" disabled="true">
+                <option value="" selected="'selected'">Todos</option>
+                <% Municipio.all.each do |municipio| %>
+                  <option value="<%= municipio.id %>" <% if municipio.id.to_s == params[:municipio_id] %> selected="selected" <% end %> ><%= municipio.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>      
+        <div class="col-sm-4">
           <div class="form-group">
             <label>IBAN</label>
             <div>
-              <input type="text" name="iban" value="<%= params[:iban] %>" class="form-control">
+              <input type="text" name="iban" value="<%= params[:iban] %>" class="form-control" disabled="true">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Valor</label>
+            <div>
+              <input type="text" name="valor" value="<%= params[:valor] %>" class="form-control" disabled="true">
             </div>
           </div>
         </div>
@@ -37,12 +66,10 @@
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-info">
-
           <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
-          <% end %>
-          
+          <% end %>        
         </div>
       </div>
     </form>
@@ -52,34 +79,23 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Nome</th>
+          <th scope="col">Nome do Usuário</th>
           <th scope="col">Morada</th>
           <th scope="col">Bairro</th>
-          <th scope="col">Município</th>
+          <!--th scope="col">Municipio</th-->
           <th scope="col">IBAN</th>
-          <th scope="col">Saldo</th>
-          <th colspan="3">Ações</th>
+          <th scope="col" align="right">Saldo</th>
         </tr>
       </thead>
 
       <tbody>
         <% @conta_correntes.each do |conta_corrente| %>
         <tr>
-          <td style="width: 250px"><%= conta_corrente.usuario.nome %></td>
-          <td style="width: 250px"><%= conta_corrente.usuario.morada %></td>
-          <td style="width: 250px"><%= conta_corrente.usuario.bairro %></td>
-          
-          <td style="width: 250px"><%= conta_corrente.iban %></td>
-          <td style="width: 250px"><%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %></td>
-          <td>
-            <%= link_to 'Mostrar', conta_corrente %>
-          </td>
-          <% if usuario_logado.admin? || usuario_logado.operador? %>
-            <td><%= link_to 'Editar', edit_conta_corrente_path(conta_corrente) %></td>
-            <td><%= link_to 'Apagar', conta_corrente, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
-          <% else %>
-            <td colspan="2"></td>
-          <% end %>
+          <td style="width: 300px"><%= conta_corrente.usuario.nome %></td>
+          <td style="width: 300px"><%= conta_corrente.usuario.morada %></td>
+          <td style="width: 150px"><%= conta_corrente.usuario.bairro %></td>
+          <td style="width: 100px"><%= conta_corrente.iban %></td>
+          <td style="width: 100px" align="right"><%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %></td>
         </tr>
         <% end %>
       </tbody>
@@ -88,11 +104,6 @@
     <div class="apple_pagination">
       <%= will_paginate @conta_correntes, :container => false %>
     </div>
-
-    <%= link_to new_conta_corrente_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-plus"></span>
-      Novo Registro
-    <% end %>    
 
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
