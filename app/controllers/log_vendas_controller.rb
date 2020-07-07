@@ -6,8 +6,11 @@ class LogVendasController < ApplicationController
   def index
     @log_vendas = LogVenda.all.order(updated_at: :desc, titulo: :desc)
 
-    #@log_vendas = @log_vendas.joins(:usuario)
-    #@log_vendas = @log_vendas.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    if params[:nome].present?
+      @log_vendas = @log_vendas.joins(:usuario)
+      @log_vendas = @log_vendas.where("usuarios.nome ilike '%#{params[:nome]}%'")
+    end
+    
     @log_vendas = @log_vendas.where("titulo ilike '%#{params[:titulo]}%'") if params[:titulo].present?
     @log_vendas = @log_vendas.where("log ilike '%#{params[:log]}%'") if params[:log].present?
 
