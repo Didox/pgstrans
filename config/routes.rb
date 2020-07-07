@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :relatorio_conciliacao_zaptvs
   resources :status_parceiros
   resources :conta_correntes
+  get 'conta_correntes/index_morada_saldo', to: 'conta_correntes#index_morada_saldo', as: "index_morada_saldo"
   get 'vendas/resumido', to: 'vendas#resumido', as: "vendas_resumido"
   get 'vendas/:venda_id/resumido', to: 'vendas#mostrar_resumido', as: "vendas_mostrar_resumido"
   resources :vendas do
