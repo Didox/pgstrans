@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_05_125008) do
+ActiveRecord::Schema.define(version: 2020_07_06_134734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2020_07_05_125008) do
     t.string "website"
     t.string "email"
     t.string "logomarca"
+    t.string "iban"
+    t.string "conta_bancaria"
   end
 
   create_table "canal_vendas", force: :cascade do |t|
@@ -478,9 +480,19 @@ ActiveRecord::Schema.define(version: 2020_07_05_125008) do
     t.bigint "perfil_usuario_id"
     t.bigint "sub_agente_id"
     t.bigint "status_cliente_id"
+    t.string "morada"
+    t.string "bairro"
+    t.bigint "municipio_id"
+    t.bigint "provincia_id"
+    t.bigint "industry_id"
+    t.bigint "uni_pessoal_empresa_id"
+    t.index ["industry_id"], name: "index_usuarios_on_industry_id"
+    t.index ["municipio_id"], name: "index_usuarios_on_municipio_id"
     t.index ["perfil_usuario_id"], name: "index_usuarios_on_perfil_usuario_id"
+    t.index ["provincia_id"], name: "index_usuarios_on_provincia_id"
     t.index ["status_cliente_id"], name: "index_usuarios_on_status_cliente_id"
     t.index ["sub_agente_id"], name: "index_usuarios_on_sub_agente_id"
+    t.index ["uni_pessoal_empresa_id"], name: "index_usuarios_on_uni_pessoal_empresa_id"
   end
 
   create_table "vendas", force: :cascade do |t|
@@ -533,9 +545,13 @@ ActiveRecord::Schema.define(version: 2020_07_05_125008) do
   add_foreign_key "ultima_atualizacao_reconciliacaos", "partners"
   add_foreign_key "unitel_sequences", "vendas"
   add_foreign_key "usuario_acessos", "usuarios"
+  add_foreign_key "usuarios", "industries"
+  add_foreign_key "usuarios", "municipios"
   add_foreign_key "usuarios", "perfil_usuarios"
+  add_foreign_key "usuarios", "provincia", column: "provincia_id"
   add_foreign_key "usuarios", "status_clientes"
   add_foreign_key "usuarios", "sub_agentes"
+  add_foreign_key "usuarios", "uni_pessoal_empresas"
   add_foreign_key "vendas", "partners"
   add_foreign_key "vendas", "usuarios"
 end

@@ -8,6 +8,8 @@ class BancosController < ApplicationController
 
     @bancos = @bancos.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
     @bancos = @bancos.where("sigla ilike '%#{params[:sigla]}%'") if params[:sigla].present?
+    @bancos = @bancos.where("iban ilike '%#{params[:iban]}%'") if params[:iban].present?
+    @bancos = @bancos.where("conta_bancaria ilike '%#{params[:conta_bancaria]}%'") if params[:conta_bancaria].present?
 
     options = {page: params[:page] || 1, per_page: 10}
     @bancos = @bancos.paginate(options) 
@@ -77,6 +79,6 @@ class BancosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def banco_params
-      params.require(:banco).permit(:nome, :sigla, :morada_sede, :telefone_sede, :fax_sede, :morada_escritorio, :telefone_escritorio, :fax_escritorio, :website, :email, :logomarca)
+      params.require(:banco).permit(:nome, :sigla, :morada_sede, :telefone_sede, :fax_sede, :morada_escritorio, :telefone_escritorio, :fax_escritorio, :website, :email, :logomarca, :iban, :conta_bancaria)
     end
 end

@@ -12,8 +12,8 @@ class UsuariosController < ApplicationController
     @usuarios = @usuarios.where("usuarios.email ilike '%#{params[:email]}%'") if params[:email].present?
     @usuarios = @usuarios.where("perfil_usuarios.admin = ?", params[:perfil_admin]) if params[:perfil_admin].present?
     @usuarios = @usuarios.where("perfil_usuarios.operador = ?", params[:perfil_operador]) if params[:perfil_operador].present?
-
     @usuarios = @usuarios.where("perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
+    @usuarios = @usuarios.where(sub_agente_id: params[:sub_agente_id]) if params[:sub_agente_id].present?
 
     options = {page: params[:page] || 1, per_page: 10}
     @usuarios = @usuarios.paginate(options)
@@ -107,6 +107,6 @@ class UsuariosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def usuario_params
-      params.require(:usuario).permit(:nome, :email, :senha, :perfil_usuario_id, :sub_agente_id, :status_cliente_id)
+      params.require(:usuario).permit(:nome, :email, :senha, :perfil_usuario_id, :sub_agente_id, :status_cliente_id, :morada, :bairro, :municipio_id, :provincia_id, :industry_id, :uni_pessoal_empresa_id)
     end
 end
