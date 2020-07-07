@@ -52,6 +52,7 @@ class PerfilUsuario < ApplicationRecord
       alteracao_cliente_produtos: "Listagem de produtos em validação de pagamento DSTV",
       pagar_fatura: "Pagar fatura DSTV",
       reverter_venda_zaptv: "Reverter Vendas DSTV",
+      index_morada_saldo: "Conta corrente Morada Saldo"
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]

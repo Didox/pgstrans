@@ -30,6 +30,12 @@ class ContaCorrentesController < ApplicationController
   def show
   end
 
+  def index_morada_saldo
+    @conta_correntes = ContaCorrente.all.limit(10)
+    options = {page: params[:page] || 1, per_page: 10}
+    @conta_correntes = @conta_correntes.paginate(options)
+  end
+
   # GET /conta_correntes/new
   def new
     @conta_corrente = ContaCorrente.new

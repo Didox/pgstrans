@@ -65,11 +65,11 @@
       <tbody>
         <% @conta_correntes.each do |conta_corrente| %>
         <tr>
-          <td style="width: 250px"><%= usuario.nome %></td>
-          <td style="width: 250px"><%= usuario.morada %></td>
-          <td style="width: 250px"><%= usuario.bairro %></td>
+          <td style="width: 250px"><%= conta_corrente.usuario.nome %></td>
+          <td style="width: 250px"><%= conta_corrente.usuario.morada %></td>
+          <td style="width: 250px"><%= conta_corrente.usuario.bairro %></td>
           
-          <td style="width: 250px"><%= conta_corrente.usuario.IBAN %></td>
+          <td style="width: 250px"><%= conta_corrente.iban %></td>
           <td style="width: 250px"><%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %></td>
           <td>
             <%= link_to 'Mostrar', conta_corrente %>
