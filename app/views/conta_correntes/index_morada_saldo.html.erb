@@ -21,7 +21,7 @@
           <div class="form-group">
             <label>Morada</label>
             <div>
-              <input type="text" name="morada" value="<%= params[:morada] %>" class="form-control" disabled="true">
+              <input type="text" name="morada" value="<%= params[:morada] %>" class="form-control">
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
           <div class="form-group">
             <label>Bairro</label>
             <div>
-              <input type="text" name="morada" value="<%= params[:morada] %>" class="form-control" disabled="true">
+              <input type="text" name="morada" value="<%= params[:morada] %>" class="form-control">
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@
           <div class="form-group">
             <label>Município</label>
             <div>
-              <select name="municipio_id" onchange="pgstrans.carregaMunicipio(this)" class="form-control" disabled="true">
+              <select name="municipio_id" onchange="pgstrans.carregaMunicipio(this)" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
                 <% Municipio.all.each do |municipio| %>
                   <option value="<%= municipio.id %>" <% if municipio.id.to_s == params[:municipio_id] %> selected="selected" <% end %> ><%= municipio.nome %></option>
@@ -45,20 +45,20 @@
               </select>
             </div>
           </div>
-        </div>      
+        </div>
         <div class="col-sm-4">
           <div class="form-group">
-            <label>IBAN</label>
+            <label>Valor (maior ou igual a)</label>
             <div>
-              <input type="text" name="iban" value="<%= params[:iban] %>" class="form-control" disabled="true">
+              <input type="text" name="valor" value="<%= params[:valor] %>" class="form-control">
             </div>
           </div>
         </div>
         <div class="col-sm-4">
           <div class="form-group">
-            <label>Valor</label>
+            <label>Valor (menor ou igual a)</label>
             <div>
-              <input type="text" name="valor" value="<%= params[:valor] %>" class="form-control" disabled="true">
+              <input type="text" name="valor" value="<%= params[:valor] %>" class="form-control">
             </div>
           </div>
         </div>
@@ -79,11 +79,11 @@
     <table class="table table-hover">
       <thead>
         <tr>
+          <th scope="col">Identificador</th>
           <th scope="col">Nome do Usuário</th>
           <th scope="col">Morada</th>
           <th scope="col">Bairro</th>
-          <!--th scope="col">Municipio</th-->
-          <th scope="col">IBAN</th>
+          <th scope="col">Municipio</th-->
           <th scope="col" align="right">Saldo</th>
         </tr>
       </thead>
@@ -91,10 +91,11 @@
       <tbody>
         <% @conta_correntes.each do |conta_corrente| %>
         <tr>
-          <td style="width: 300px"><%= conta_corrente.usuario.nome %></td>
+          <td style="width: 50px" align="right"><%= conta_corrente.usuario.id %></td>
+          <td style="width: 200px"><%= conta_corrente.usuario.nome %></td>
           <td style="width: 300px"><%= conta_corrente.usuario.morada %></td>
           <td style="width: 150px"><%= conta_corrente.usuario.bairro %></td>
-          <td style="width: 100px"><%= conta_corrente.iban %></td>
+          <td style="width: 150px"><%= conta_corrente.usuario.municipio_id %></td>
           <td style="width: 100px" align="right"><%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %></td>
         </tr>
         <% end %>
