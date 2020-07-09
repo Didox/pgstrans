@@ -9,56 +9,11 @@
   <div style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-4">
+        <div class="col-sm-12">
           <div class="form-group">
             <label>Usuário</label>
             <div>
               <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Morada</label>
-            <div>
-              <input type="text" name="morada" value="<%= params[:morada] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Bairro</label>
-            <div>
-              <input type="text" name="morada" value="<%= params[:morada] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Município</label>
-            <div>
-              <select name="municipio_id" onchange="pgstrans.carregaMunicipio(this)" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% Municipio.all.each do |municipio| %>
-                  <option value="<%= municipio.id %>" <% if municipio.id.to_s == params[:municipio_id] %> selected="selected" <% end %> ><%= municipio.nome %></option>
-                <% end %>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Valor (maior ou igual a)</label>
-            <div>
-              <input type="text" name="valor" value="<%= params[:valor] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Valor (menor ou igual a)</label>
-            <div>
-              <input type="text" name="valor" value="<%= params[:valor] %>" class="form-control">
             </div>
           </div>
         </div>
@@ -74,7 +29,6 @@
       </div>
     </form>
   </div>
-
   <div class="container">
     <table class="table table-hover">
       <thead>

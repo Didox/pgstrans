@@ -11,36 +11,36 @@
     <table class="table table-hover">
       <thead>
         <tr>
-                    <th scope="col">Partner</th>
-                    <th scope="col">URL</th>
-                    <th scope="col">Operation Code</th>
-                    <th scope="col">Source Reference</th>
-                    <th scope="col">Product code</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Date time</th>
-                    <th scope="col">Type data</th>
-                    <th scope="col">Total price</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Unit price</th>
-                    <th colspan="3"></th>
+          <th scope="col">Partner</th>
+          <th scope="col">URL</th>
+          <th scope="col">Operation Code</th>
+          <th scope="col">Source Reference</th>
+          <th scope="col">Product code</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Date time</th>
+          <th scope="col">Type data</th>
+          <th scope="col">Total price</th>
+          <th scope="col">Status</th>
+          <th scope="col">Unit price</th>
+          <th colspan="3">Ações</th>
         </tr>
       </thead>
 
       <tbody>
         <% @relatorio_conciliacao_zaptvs.each do |relatorio_conciliacao_zaptv| %>
         <tr>
-                    <td><%= relatorio_conciliacao_zaptv.partner %></td>
-                    <td><%= relatorio_conciliacao_zaptv.url %></td>
-                    <td><%= relatorio_conciliacao_zaptv.operation_code %></td>
-                    <td><%= relatorio_conciliacao_zaptv.source_reference %></td>
-                    <td><%= relatorio_conciliacao_zaptv.product_code %></td>
-                    <td><%= relatorio_conciliacao_zaptv.quantity %></td>
-                    <td><%= relatorio_conciliacao_zaptv.date_time %></td>
-                    <td><%= relatorio_conciliacao_zaptv.type_data %></td>
-                    <td><%= relatorio_conciliacao_zaptv.total_price %></td>
-                    <td><%= relatorio_conciliacao_zaptv.status %></td>
-                    <td><%= relatorio_conciliacao_zaptv.unit_price %></td>
-                    <td><%= link_to 'Mostrar', relatorio_conciliacao_zaptv %></td>
+          <td><%= relatorio_conciliacao_zaptv.partner %></td>
+          <td><%= relatorio_conciliacao_zaptv.url %></td>
+          <td><%= relatorio_conciliacao_zaptv.operation_code %></td>
+          <td><%= relatorio_conciliacao_zaptv.source_reference %></td>
+          <td><%= relatorio_conciliacao_zaptv.product_code %></td>
+          <td><%= relatorio_conciliacao_zaptv.quantity %></td>
+          <td><%= relatorio_conciliacao_zaptv.date_time %></td>
+          <td><%= relatorio_conciliacao_zaptv.type_data %></td>
+          <td><%= relatorio_conciliacao_zaptv.total_price %></td>
+          <td><%= relatorio_conciliacao_zaptv.status %></td>
+          <td><%= relatorio_conciliacao_zaptv.unit_price %></td>
+          <td><%= link_to 'Mostrar', relatorio_conciliacao_zaptv %></td>
           <td><%= link_to 'Editar', edit_relatorio_conciliacao_zaptv_path(relatorio_conciliacao_zaptv) %></td>
           <td><%= link_to 'Apagar', relatorio_conciliacao_zaptv, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>

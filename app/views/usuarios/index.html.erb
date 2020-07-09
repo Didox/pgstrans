@@ -134,7 +134,7 @@
             <td><%= link_to 'Editar', edit_usuario_path(usuario) %></td>
             <td>
               <% if usuario.logado %>
-                <%= link_to 'Forçar logout ', "/usuarios/#{usuario.id}/forcar-logout", data: { confirm: 'Confirma?' } %>
+                <%= link_to 'Forçar Logout ', "/usuarios/#{usuario.id}/forcar-logout", data: { confirm: 'Confirma?' } %>
               <% end %>
             </td>
             <td><%= link_to 'Apagar', usuario, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
