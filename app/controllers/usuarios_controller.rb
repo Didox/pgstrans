@@ -19,6 +19,19 @@ class UsuariosController < ApplicationController
     @usuarios = @usuarios.paginate(options)
   end
 
+  def forcar_logout
+    usuarios = Usuario.where(id: params[:usuario_id])
+    if(usuarios.count > 0)
+      flash[:success] = "Forçar logout do usuário #{usuarios.first.nome} executado com sucesso !"
+      usuarios.update_all(logado: false)
+      redirect_to usuarios_path
+      return
+    end
+
+    flash[:error] = "Usuário não localizado"
+    redirect_to usuarios_path
+  end
+
   # GET /usuarios/1
   # GET /usuarios/1.json
   def show
@@ -57,6 +70,12 @@ class UsuariosController < ApplicationController
     respond_to do |format|
       if @usuario.update(usuario_params)
         salvar_grupos
+
+        if usuario_params[:senha].present?
+          usuarios = Usuario.where(id: @usuario.id)
+          usuarios.update_all(logado: false)
+        end
+
         format.html { redirect_to @usuario, notice: 'Usuário foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @usuario }
       else

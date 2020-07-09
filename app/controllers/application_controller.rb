@@ -9,6 +9,12 @@ class ApplicationController < ActionController::Base
     if cookies[:usuario_pgstrans_oauth].present?
       return @adm if @adm.present?
       @adm = Usuario.find(JSON.parse(cookies[:usuario_pgstrans_oauth])["id"])
+      unless @adm.logado
+        cookies[:usuario_pgstrans_oauth] = nil
+        @adm = nil
+        redirect_to login_path
+        return
+      end
       return @adm
     end
   end

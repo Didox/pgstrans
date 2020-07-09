@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'dstv/alteracao-plano-mensal-anual/alterar', to: 'dstv#alteracao_plano_mensal_anual_efetivar'
 
   resources :grupos do
-    get 'usuarios', to: 'grupos#usuarios'
+    get 'usuarios', tox: 'grupos#usuarios'
     delete 'usuarios/:usuario_id', to: 'grupos#apaga_acesso_usuario'
     post 'usuarios', to: 'grupos#cria_acesso_usuario'
     get 'usuarios/new', to: 'grupos#novo_acesso_usuario'
@@ -49,7 +49,9 @@ Rails.application.routes.draw do
   resources :status_produtos
   resources :municipios
   resources :industries
-  resources :usuarios
+  resources :usuarios do
+    get 'forcar-logout', tox: 'usuarios#forcar_logout'
+  end
   resources :sub_agentes
   resources :sub_distribuidors
   resources :master_profiles
