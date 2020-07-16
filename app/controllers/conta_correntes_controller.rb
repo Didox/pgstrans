@@ -36,8 +36,6 @@ class ContaCorrentesController < ApplicationController
     @usuarios = @usuarios.paginate(options)
     @usuarios = @usuarios.reorder("nome asc")
     @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
-    @usuarios = @usuarios.where("usuarios.morada ilike '%#{params[:morada]}%'") if params[:morada].present?
-    @usuarios = @usuarios.where("usuarios.bairro ilike '%#{params[:bairro]}%'") if params[:bairro].present?
   end
 
   # GET /conta_correntes/new

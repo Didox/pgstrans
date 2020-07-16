@@ -5,6 +5,11 @@ class StatusProdutosController < ApplicationController
   # GET /status_produtos.json
   def index
     @status_produtos = StatusProduto.com_acesso(usuario_logado).order(nome: :asc)
+
+    @status_produtos = @status_produtos.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @status_produtos = @status_produtos.paginate(options)
   end
 
   # GET /status_produtos/1

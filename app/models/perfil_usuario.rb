@@ -53,7 +53,7 @@ class PerfilUsuario < ApplicationRecord
       pagar_fatura: "Pagar fatura DSTV",
       reverter_venda_zaptv: "Reverter Vendas DSTV",
       index_morada_saldo: "Ver relatório Conta corrente - Usuário Morada Saldo",
-      forcar_logout: "Habilitar permissão para deslogar usuário"
+      forcar_logout: "Habilitar permissão para deslogar usuário (forçar logout após troca de senha)"
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
