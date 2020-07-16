@@ -29,9 +29,12 @@
 						</div>
 					<% end %>
 					<div class="form-input col-sm-12">
-						<%= f.label :usuario_id, "Usuário" %>
-						<%= f.select :usuario_id, usuarios_sem_grupo.collect{|d| [d.nome, d.id]}, {}, class: "form-control" %>   
-					</div>
+            <%= f.label :usuario_id, "Buscar ou selecionar usuário" %>
+            <div style="display:flex">
+              <input type="text" id="usuario" class="form-control autocomplete" style="width:30%">
+              <%= f.select :usuario_id, Usuario.all.limit(100).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%" %>
+            </div>
+          </div>
 					<div class="form-input col-sm-12" style="margin-top:20px">
           	<%= f.check_box :escrita %>
 						<%= f.label :escrita, "Se marcar esta opção irá inserir este grupo em todo registro que alterar ou incluir" %>

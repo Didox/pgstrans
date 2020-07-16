@@ -24,12 +24,15 @@
           </div>
         <% end %>
 
-        <div class="form-input col-sm-6">
-          <%= f.label :usuario_id, "Usuário" %>
-          <%= f.select :usuario_id, Usuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+        <div class="form-input col-sm-12">
+          <%= f.label :usuario_id, "Buscar ou selecionar usuário" %>
+          <div style="display:flex">
+            <input type="text" id="usuario" class="form-control autocomplete" style="width:30%">
+            <%= f.select :usuario_id, Usuario.all.limit(100).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%" %>
+          </div>
         </div>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-12">
           <%= f.label :master_profile, "Perfil Principal" %>
           <%= f.select :master_profile, MasterProfile.all.collect{|d| [d.description, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>

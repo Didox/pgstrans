@@ -75,6 +75,23 @@ pgstrans.carregaProdutosPorParceiro = (self) => {
 }
 
 $(function(){
+  $( ".autocomplete" ).autocomplete({
+    source: function( request, response ) {
+      $.ajax({
+        url: "/usuarios.json",
+        dataType: "json",
+        data: {
+          nome: $( ".autocomplete" ).val()
+        },
+        success: function( usuarios ) {
+          $(".options-autocomplete").html("<option value=''>[Selecione]</option>")
+          for(var usuario of usuarios){
+            $(".options-autocomplete").append("<option value='" + usuario.id + "'>" + usuario.nome + "</option>")
+          }
+        }
+      });
+    },
+  });
   
   $(".recarga .rechargeType").change(function(){
     $(".recarga #rechargeValue").val(this.value.split("-")[1]);
