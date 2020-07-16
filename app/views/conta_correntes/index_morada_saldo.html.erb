@@ -51,7 +51,7 @@
           <td style="width: 300px"><%= usuario.morada %></td>
           <td style="width: 150px"><%= usuario.bairro %></td>
           <td style="width: 150px"><%= usuario.municipio.nome rescue "" %></td>
-          <td style="width: 100px" align="right"><%= number_to_currency(usuario.saldo, :unit => "KZ") %></td>
+          <td style="width: 100px" align="right"><%= number_to_currency(usuario.saldo, :unit => "KZ", :precision => 2) %></td>
         </tr>
           <% valor_total += usuario.saldo %>
         <% end %>
