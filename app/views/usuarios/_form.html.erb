@@ -37,12 +37,14 @@
           <%= f.password_field :senha, class: "form-control" %>
         </div>
 
-        <% if @adm.admin? %>
         <div class="form-input col-sm-6">
           <%= f.label :perfil_usuario_id, "Perfil do Usuário" %>
-          <%= f.select :perfil_usuario_id, PerfilUsuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <% if @adm.admin? %>
+            <%= f.select :perfil_usuario_id, PerfilUsuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <% else %>
+            <%= f.select :perfil_usuario_id, PerfilUsuario.where(admin: false).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <% end %>
         </div>
-        <% end %>
   
         <div class="form-input col-sm-6">
           <%= f.label :sub_agente_id %>
