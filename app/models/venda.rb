@@ -469,64 +469,64 @@ class Venda < ApplicationRecord
           Rails.logger.info "========[Confirmação enviada para operadora Movicel]=========="
 
           last_request = request.body
-        else
-          return_message = request.body.scan(/<ReturnMessage.*?ReturnMessage>/)
-          if return_message.present?
-            return_message = return_message.first.gsub(/<[^>]*>/, "") rescue return_message
-            raise "Erro no envio do pedido ou resposta da  - (#{return_message})"
+
+          venda = Venda.new(product_id:product_id, agent_id: parametro.movicel_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+          venda.responsavel = usuario
+          venda.save!
+
+          venda.store_id = usuario.sub_agente.store_id_parceiro
+          venda.seller_id = usuario.sub_agente.seller_id_parceiro
+          venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+
+          venda.request_send = request_send
+          venda.response_get = response_get
+          venda.status = last_request.scan(/ReturnCode.*?<\/ReturnCode/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue "3"
+          venda.save!
+
+          if venda.sucesso?
+            cc = ContaCorrente.where(usuario_id: usuario.id).first
+            if cc.blank?
+              banco = Banco.first
+              iban = ""
+            else
+              iban = cc.iban
+              banco = cc.banco
+            end
+
+            lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
+            lancamento = Lancamento.first if lancamento.blank?
+
+            ContaCorrente.create!(
+              usuario_id: usuario.id,
+              valor: "-#{valor}",
+              observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+              lancamento_id: lancamento.id,
+              banco_id: banco.id,
+              partner_id: parceiro.id,
+              iban: iban
+            )
           end
-          raise "Erro no envio do pedido ou resposta da operadora - Timeout"
+
+          return venda
+        rescue Exception => err
+          url = "#{url_service}/DirectTopupService/Topup/"
+          payload = {
+            headers: {
+              'Content-Type' => 'text/xml;charset=UTF-8',
+              'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
+            },
+            timeout: 100,
+            body: body
+          }
+          raise "Erro ao enviar dados para api - URL = #{url} - payload = #{payload.to_json} - Erro = #{err.message} - backtrace = #{err.backtrace}"
         end
-
-        venda = Venda.new(product_id:product_id, agent_id: parametro.movicel_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
-        venda.responsavel = usuario
-        venda.save!
-
-        venda.store_id = usuario.sub_agente.store_id_parceiro
-        venda.seller_id = usuario.sub_agente.seller_id_parceiro
-        venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
-
-        venda.request_send = request_send
-        venda.response_get = response_get
-        venda.status = last_request.scan(/ReturnCode.*?<\/ReturnCode/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue "3"
-        venda.save!
-
-        if venda.sucesso?
-          cc = ContaCorrente.where(usuario_id: usuario.id).first
-          if cc.blank?
-            banco = Banco.first
-            iban = ""
-          else
-            iban = cc.iban
-            banco = cc.banco
-          end
-
-          lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
-          lancamento = Lancamento.first if lancamento.blank?
-
-          ContaCorrente.create!(
-            usuario_id: usuario.id,
-            valor: "-#{valor}",
-            observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-            lancamento_id: lancamento.id,
-            banco_id: banco.id,
-            partner_id: parceiro.id,
-            iban: iban
-          )
+      else
+        return_message = request.body.scan(/<ReturnMessage.*?ReturnMessage>/)
+        if return_message.present?
+          return_message = return_message.first.gsub(/<[^>]*>/, "") rescue return_message
+          raise "Erro no envio do pedido ou resposta da  - (#{return_message})"
         end
-
-        return venda
-      rescue Exception => err
-        url = "#{url_service}/DirectTopupService/Topup/"
-        payload = {
-          headers: {
-            'Content-Type' => 'text/xml;charset=UTF-8',
-            'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
-          },
-          timeout: 100,
-          body: body
-        }
-        raise "Erro ao enviar dados para api - URL = #{url} - payload = #{payload.to_json} - Erro = #{err.message} - backtrace = #{err.backtrace}"
+        raise "Erro no envio do pedido ou resposta da operadora - Timeout"
       end
     rescue Exception => err
       url = "#{url_service}/DirectTopupService/Topup/"
