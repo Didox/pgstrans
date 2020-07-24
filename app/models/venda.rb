@@ -518,7 +518,7 @@ class Venda < ApplicationRecord
             timeout: 100,
             body: body
           }
-          raise "Erro ao enviar dados para api - URL = #{url} - payload = #{payload.to_json} - Erro = #{err.message} - backtrace = #{err.backtrace}"
+          raise "Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - Erro = #{err.message} - backtrace = #{err.backtrace}"
         end
       else
         return_message = request.body.scan(/<ReturnMessage.*?ReturnMessage>/)
@@ -538,7 +538,7 @@ class Venda < ApplicationRecord
         timeout: 100,
         body: body
       }
-      raise "Erro ao enviar dados para api - URL = #{url} - payload = #{payload.to_json} - Erro = #{err.message} - backtrace = #{err.backtrace}"
+      raise "Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - Erro = #{err.message} - backtrace = #{err.backtrace}"
     end
   end
 
