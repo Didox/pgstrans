@@ -155,7 +155,8 @@ $(function(){
                 var erroObject = JSON.parse(xhr.responseText)
                 var stackthrow = (erroObject && erroObject.erro ? ' - ' + erroObject.erro : "")
                 $.alert(data.mensagem + stackthrow);
-              }
+              },
+              timeout: 60000
             });
           }
         },
