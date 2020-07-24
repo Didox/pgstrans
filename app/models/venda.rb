@@ -402,12 +402,12 @@ class Venda < ApplicationRecord
     uri = URI.parse(URI.escape(url))
     begin
       request = HTTParty.post(uri, 
-        :headers => {
+        headers: {
           'Content-Type' => 'text/xml;charset=UTF-8',
           'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
         },
         timeout: 100,
-        :body => body
+        body: body
       )
 
       Rails.logger.info "========[Dados enviados para operadora Movicel]=========="
@@ -454,12 +454,12 @@ class Venda < ApplicationRecord
         uri = URI.parse(URI.escape(url))
         begin
           request = HTTParty.post(uri, 
-            :headers => {
+            headers: {
               'Content-Type' => 'text/xml;charset=UTF-8',
               'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
             },
             timeout: 100,
-            :body => body
+            body: body
           )
           
           response_get += "=========[Topup]========"
@@ -519,24 +519,24 @@ class Venda < ApplicationRecord
       rescue Exception => err
         url = "#{url_service}/DirectTopupService/Topup/"
         payload = {
-          :headers => {
+          headers: {
             'Content-Type' => 'text/xml;charset=UTF-8',
             'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
           },
           timeout: 100,
-          :body => body
+          body: body
         }
         raise "Erro ao enviar dados para api - URL = #{url} - payload = #{payload.to_json} - Erro = #{err.message} - backtrace = #{err.backtrace}"
       end
     rescue Exception => err
       url = "#{url_service}/DirectTopupService/Topup/"
       payload = {
-        :headers => {
+        headers: {
           'Content-Type' => 'text/xml;charset=UTF-8',
           'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
         },
         timeout: 100,
-        :body => body
+        body: body
       }
       raise "Erro ao enviar dados para api - URL = #{url} - payload = #{payload.to_json} - Erro = #{err.message} - backtrace = #{err.backtrace}"
     end
