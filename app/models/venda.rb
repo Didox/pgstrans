@@ -400,119 +400,146 @@ class Venda < ApplicationRecord
 
     url = "#{url_service}/DirectTopupService/Topup/"
     uri = URI.parse(URI.escape(url))
-    request = HTTParty.post(uri, 
-      :headers => {
-        'Content-Type' => 'text/xml;charset=UTF-8',
-        'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
-      },
-      timeout: 20,
-      :body => body
-    )
-
-    Rails.logger.info "========[Dados enviados para operadora Movicel]=========="
-
-
-    response_get += "=========[ValidateTopup]========"
-    response_get += request.body
-    response_get += "=========[ValidateTopup]========"
-
-    if (200...300).include?(request.code.to_i) && request.body.include?("200</ReturnCode>")
-
-      body = "
-        <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
-          <soapenv:Header>
-              <int:TopupReqHeader>
-                 <mid:RequestId>#{request_id}</mid:RequestId>
-                 <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
-                 <mid:SourceSystem>#{user_id}</mid:SourceSystem>
-                 <mid:Credentials>
-                    <mid:User>#{user_id}</mid:User>
-                    <mid:Password>#{pass}</mid:Password>
-                 </mid:Credentials>
-              </int:TopupReqHeader>
-          </soapenv:Header>
-          <soapenv:Body>
-              <int:TopupReq>
-                 <int:TopupReqBody>
-                    <mid1:Amount>#{valor}</mid1:Amount>
-                    <mid1:MSISDN>#{msisdn}</mid1:MSISDN>
-                    <mid1:Type>Default</mid1:Type>
-                 </int:TopupReqBody>
-              </int:TopupReq>
-          </soapenv:Body>
-        </soapenv:Envelope>
-      "
-
-      request_send += "=========[Topup]========"
-      request_send += body
-      request_send += "=========[Topup]========"
-
-      Rails.logger.info "========[Enviando confirmação para operadora Movicel]=========="
-
-      url = "#{url_service}/DirectTopupService/Topup/"
-      uri = URI.parse(URI.escape(url))
+    begin
       request = HTTParty.post(uri, 
         :headers => {
           'Content-Type' => 'text/xml;charset=UTF-8',
-          'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
+          'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
         },
+        timeout: 100,
         :body => body
       )
-      
-      response_get += "=========[Topup]========"
+
+      Rails.logger.info "========[Dados enviados para operadora Movicel]=========="
+
+
+      response_get += "=========[ValidateTopup]========"
       response_get += request.body
-      response_get += "=========[Topup]========"
+      response_get += "=========[ValidateTopup]========"
 
-      Rails.logger.info "========[Confirmação enviada para operadora Movicel]=========="
+      if (200...300).include?(request.code.to_i) && request.body.include?("200</ReturnCode>")
 
-      last_request = request.body
-    else
-      return_message = request.body.scan(/<ReturnMessage.*?ReturnMessage>/)
-      if return_message.present?
-        return_message = return_message.first.gsub(/<[^>]*>/, "") rescue return_message
-        raise "Erro no envio do pedido ou resposta da  - (#{return_message})"
+        body = "
+          <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
+            <soapenv:Header>
+                <int:TopupReqHeader>
+                  <mid:RequestId>#{request_id}</mid:RequestId>
+                  <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
+                  <mid:SourceSystem>#{user_id}</mid:SourceSystem>
+                  <mid:Credentials>
+                      <mid:User>#{user_id}</mid:User>
+                      <mid:Password>#{pass}</mid:Password>
+                  </mid:Credentials>
+                </int:TopupReqHeader>
+            </soapenv:Header>
+            <soapenv:Body>
+                <int:TopupReq>
+                  <int:TopupReqBody>
+                      <mid1:Amount>#{valor}</mid1:Amount>
+                      <mid1:MSISDN>#{msisdn}</mid1:MSISDN>
+                      <mid1:Type>Default</mid1:Type>
+                  </int:TopupReqBody>
+                </int:TopupReq>
+            </soapenv:Body>
+          </soapenv:Envelope>
+        "
+
+        request_send += "=========[Topup]========"
+        request_send += body
+        request_send += "=========[Topup]========"
+
+        Rails.logger.info "========[Enviando confirmação para operadora Movicel]=========="
+
+        url = "#{url_service}/DirectTopupService/Topup/"
+        uri = URI.parse(URI.escape(url))
+        begin
+          request = HTTParty.post(uri, 
+            :headers => {
+              'Content-Type' => 'text/xml;charset=UTF-8',
+              'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
+            },
+            timeout: 100,
+            :body => body
+          )
+          
+          response_get += "=========[Topup]========"
+          response_get += request.body
+          response_get += "=========[Topup]========"
+
+          Rails.logger.info "========[Confirmação enviada para operadora Movicel]=========="
+
+          last_request = request.body
+        else
+          return_message = request.body.scan(/<ReturnMessage.*?ReturnMessage>/)
+          if return_message.present?
+            return_message = return_message.first.gsub(/<[^>]*>/, "") rescue return_message
+            raise "Erro no envio do pedido ou resposta da  - (#{return_message})"
+          end
+          raise "Erro no envio do pedido ou resposta da operadora - Timeout"
+        end
+
+        venda = Venda.new(product_id:product_id, agent_id: parametro.movicel_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+        venda.responsavel = usuario
+        venda.save!
+
+        venda.store_id = usuario.sub_agente.store_id_parceiro
+        venda.seller_id = usuario.sub_agente.seller_id_parceiro
+        venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+
+        venda.request_send = request_send
+        venda.response_get = response_get
+        venda.status = last_request.scan(/ReturnCode.*?<\/ReturnCode/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue "3"
+        venda.save!
+
+        if venda.sucesso?
+          cc = ContaCorrente.where(usuario_id: usuario.id).first
+          if cc.blank?
+            banco = Banco.first
+            iban = ""
+          else
+            iban = cc.iban
+            banco = cc.banco
+          end
+
+          lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
+          lancamento = Lancamento.first if lancamento.blank?
+
+          ContaCorrente.create!(
+            usuario_id: usuario.id,
+            valor: "-#{valor}",
+            observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+            lancamento_id: lancamento.id,
+            banco_id: banco.id,
+            partner_id: parceiro.id,
+            iban: iban
+          )
+        end
+
+        return venda
+      rescue Exception => err
+        url = "#{url_service}/DirectTopupService/Topup/"
+        payload = {
+          :headers => {
+            'Content-Type' => 'text/xml;charset=UTF-8',
+            'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
+          },
+          timeout: 100,
+          :body => body
+        }
+        raise "Erro ao enviar dados para api - URL = #{url} - payload = #{payload.to_json} - Erro = #{err.message} - backtrace = #{err.backtrace}"
       end
-      raise "Erro no envio do pedido ou resposta da operadora - Timeout"
+    rescue Exception => err
+      url = "#{url_service}/DirectTopupService/Topup/"
+      payload = {
+        :headers => {
+          'Content-Type' => 'text/xml;charset=UTF-8',
+          'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
+        },
+        timeout: 100,
+        :body => body
+      }
+      raise "Erro ao enviar dados para api - URL = #{url} - payload = #{payload.to_json} - Erro = #{err.message} - backtrace = #{err.backtrace}"
     end
-
-    venda = Venda.new(product_id:product_id, agent_id: parametro.movicel_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
-    venda.responsavel = usuario
-    venda.save!
-
-    venda.store_id = usuario.sub_agente.store_id_parceiro
-    venda.seller_id = usuario.sub_agente.seller_id_parceiro
-    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
-
-    venda.request_send = request_send
-    venda.response_get = response_get
-    venda.status = last_request.scan(/ReturnCode.*?<\/ReturnCode/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue "3"
-    venda.save!
-
-    if venda.sucesso?
-      cc = ContaCorrente.where(usuario_id: usuario.id).first
-      if cc.blank?
-        banco = Banco.first
-        iban = ""
-      else
-        iban = cc.iban
-        banco = cc.banco
-      end
-
-      lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
-      lancamento = Lancamento.first if lancamento.blank?
-
-      ContaCorrente.create!(
-        usuario_id: usuario.id,
-        valor: "-#{valor}",
-        observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-        lancamento_id: lancamento.id,
-        banco_id: banco.id,
-        partner_id: parceiro.id,
-        iban: iban
-      )
-    end
-
-    return venda
   end
 
   def status_dstv
