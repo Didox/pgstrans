@@ -20,7 +20,7 @@
         <div class="col-md-12">
             <div class="panel panel-info text-center">
                 <div class="panel-heading">
-                     <h3 class="panel-title"><span class="label label-warning">Usuários / Clientes</span></h3>
+                     <h3 class="panel-title"><span class="label label-warning">Usuários</span></h3>
                 </div>
                 <ul class="list-group">
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :GruposController, :index) %>
@@ -60,12 +60,7 @@
                     <% end %>
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :StatusClientesController, :index) %>
                         <li class="list-group-item">
-                            <%= link_to 'Situação de Clientes / Usuários', status_clientes_path %>
-                        </li>
-                    <% end %>
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :UniPessoalEmpresasController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Unipessoal / Empresa', uni_pessoal_empresas_path %>
+                            <%= link_to 'Situação de Usuários', status_clientes_path %>
                         </li>
                     <% end %>
                 </ul>
@@ -74,7 +69,7 @@
         <div class="col-md-12">
             <div class="panel panel-info text-center">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><span class="label label-warning">Parceiros / Produtos</span></h3>
+                    <h3 class="panel-title"><span class="label label-warning">Parceiros e                                                                  Produtos</span></h3>
                 </div>
                 <ul class="list-group">
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :PartnersController, :index) %>
@@ -103,7 +98,7 @@
         <div class="col-md-12">
             <div class="panel panel-info text-center">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><span class="label label-warning">Remuneração / Margem</span></h3>
+                    <h3 class="panel-title"><span class="label label-warning">Desconto / Remuneração / Margem</span></h3>
                 </div>
                 
                 <ul class="list-group">
@@ -113,6 +108,7 @@
                         </li>
                     <% end %>
                 </ul>
+
             </div>
         </div>
     </div>
@@ -266,6 +262,13 @@
                             <%= link_to 'Moedas', moedas_path %>
                         </li>
                     <% end %>
+
+                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :UniPessoalEmpresasController, :index) %>
+                        <li class="list-group-item">
+                            <%= link_to 'Tipo de Usuário Unipessoal / Empresa', uni_pessoal_empresas_path %>
+                        </li>
+                    <% end %>
+
                 </ul>
             </div>
         </div>

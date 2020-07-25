@@ -156,7 +156,7 @@ $(function(){
                 var stackthrow = (erroObject && erroObject.erro ? ' - ' + erroObject.erro : "")
                 $.alert(data.mensagem + stackthrow);
               },
-              timeout: 60000
+              timeout: 60000 // sets timeout to 60 seconds
             });
           }
         },
