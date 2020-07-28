@@ -107,6 +107,7 @@
           <th scope="col">E-Mail</th>
           <th scope="col">Admin?</th>
           <th scope="col">Operador?</th>
+          <th scope="col">Agente?</th>
           <th scope="col">Perfil</th>
           <th scope="col">Subagente</th>
           <th scope="col">Criado em</th>
@@ -122,6 +123,7 @@
             <td><%= usuario.email %></td>
             <td class="text-center"><%= usuario.admin? ? "Sim": "Não" %></td>
             <td class="text-center"><%= usuario.operador? ? "Sim": "Não" %></td>
+            <td class="text-center"><%= usuario.agente? ? "Sim": "Não" %></td>
             <td class="text-left">
               <a href="/perfil_usuarios/<%= usuario.perfil_usuario.id %>">
                 <%= usuario.perfil_usuario.nome %>

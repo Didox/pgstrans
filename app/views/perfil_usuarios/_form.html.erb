@@ -24,16 +24,24 @@
           </div>
         <% end %>
 
-        <div class="form-input col-sm-8">
+        <div class="form-input col-sm-6">
           <%= f.input :nome, placeholder: "Perfil" %>
         </div>
 
         <div class="form-input col-sm-2">
           <div>
-            <%= f.label :admin, :label => "Operador?" %>
+            <%= f.label :operador, :label => "Operador?" %>
           </div>
           <div class="text-center">
             <%= f.check_box :operador %>
+          </div>
+        </div>
+        <div class="form-input col-sm-2">
+          <div>
+            <%= f.label :agente, :label => "Agente?" %>
+          </div>
+          <div class="text-center">
+            <%= f.check_box :agente %>
           </div>
         </div>
         <div class="form-input col-sm-2">

@@ -24,7 +24,7 @@
           </div>
         <% end %>
 
-        <% if usuario_logado.admin? || usuario_logado.operador? %>
+        <% if usuario_logado.admin? || usuario_logado.operador? || usuario_logado.agente? %>
           <div class="form-input col-sm-12">
             <%= f.label :usuario_id, "Buscar ou selecionar usuário" %>
             <div style="display:flex">

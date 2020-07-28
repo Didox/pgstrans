@@ -22,6 +22,8 @@ class ApplicationController < ActionController::Base
   private
 
     def validate_login
+      return if request.path_parameters[:format] == 'json'
+
       if cookies[:usuario_pgstrans_oauth].blank?
         flash[:error] = "Área restrita. Digite o login e palavra-passe para entrar."
 
