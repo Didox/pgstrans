@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     delete 'usuarios/:usuario_id', to: 'grupos#apaga_acesso_usuario'
     post 'usuarios', to: 'grupos#cria_acesso_usuario'
     get 'usuarios/new', to: 'grupos#novo_acesso_usuario'
+    get 'controle-acessos', to: 'grupos#controle_acessos'
   end
   resources :parametros
   resources :unitel_sequences

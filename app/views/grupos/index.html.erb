@@ -29,6 +29,7 @@
             <% end %>
           </td>
           <td><%= grupo.descricao %></td>
+          <td><%= link_to 'Console Acessos', "/grupos/#{grupo.id}/controle-acessos" %></td>
           <td><%= link_to 'Usuários', grupo_usuarios_path(grupo) %></td>
           <td><%= link_to 'Mostrar', grupo %></td>
           <td><%= link_to 'Editar', edit_grupo_path(grupo) %></td>

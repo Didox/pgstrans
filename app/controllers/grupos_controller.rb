@@ -1,5 +1,5 @@
 class GruposController < ApplicationController
-  before_action :set_grupo, only: [:show, :edit, :update, :destroy, :usuarios, :apaga_acesso_usuario, :cria_acesso_usuario, :novo_acesso_usuario]
+  before_action :set_grupo, only: [:show, :edit, :update, :destroy, :usuarios, :apaga_acesso_usuario, :cria_acesso_usuario, :novo_acesso_usuario, :controle_acessos]
   
   # GET /grupos
   # GET /grupos.json
@@ -22,6 +22,18 @@ class GruposController < ApplicationController
 
   # GET /grupos/#{@grupo.id}/edit
   def edit
+  end
+
+  def controle_acessos
+    @grupo_registros = GrupoRegistro.where(grupo_id: @grupo.id)
+
+    if params[:modelo].present?
+      @grupo_registros = @grupo_registros.where(modelo: params[:modelo])
+    end
+
+    @grupo_registros = @grupo_registros.order('created_at DESC')
+    options = {page: params[:page] || 1, per_page: 10}
+    @grupo_registros = @grupo_registros.paginate(options)
   end
 
   # POST /grupos
