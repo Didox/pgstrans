@@ -1,6 +1,7 @@
 class GruposController < ApplicationController
-  before_action :set_grupo, only: [:show, :edit, :update, :destroy, :usuarios, :apaga_acesso_usuario, :cria_acesso_usuario, :novo_acesso_usuario, :controle_acessos]
-  
+  before_action :set_grupo, only: [:show, :edit, :update, :destroy, :usuarios, :apaga_acesso_usuario, :cria_acesso_usuario, :novo_acesso_usuario, :controle_acessos, :controle_acessos_edit, :controle_acessos_salvar]
+  skip_before_action :verify_authenticity_token, only: [:controle_acessos_salvar]
+
   # GET /grupos
   # GET /grupos.json
   def index
@@ -34,6 +35,19 @@ class GruposController < ApplicationController
     @grupo_registros = @grupo_registros.order('created_at DESC')
     options = {page: params[:page] || 1, per_page: 10}
     @grupo_registros = @grupo_registros.paginate(options)
+  end
+
+  def controle_acessos_edit
+    @grupo_registro = GrupoRegistro.find(params[:grupo_registro_id])
+  end
+
+  def controle_acessos_salvar
+    @grupo_registro = GrupoRegistro.find(params[:grupo_registro_id])
+    @grupo_registro.grupo_id = params[:grupo_id_alterar]
+    @grupo_registro.save!
+
+    flash[:success] = "Registro alterado com sucesso"
+    redirect_to "/grupos/#{@grupo_registro.grupo_id}/controle-acessos"
   end
 
   # POST /grupos

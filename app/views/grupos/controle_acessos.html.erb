@@ -41,20 +41,26 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col">Grupo</th>
           <th scope="col">Modelo</th>
-          <th scope="col">modelo_id</th>
-          <th colspan="3">Ações</th>
         </tr>
       </thead>
 
       <tbody>
         <% @grupo_registros.each do |grupo_registro| %>
         <tr>
-          <td><%= grupo_registro.id %></td>
-          <td><%= grupo_registro.modelo %></td>
-          <td><%= grupo_registro.modelo_id %></td>
-          <td><%= link_to 'Apagar', "/grupos/#{@grupo.id}/controle-acessos/#{grupo_registro.id}", method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+          <td style="width:150px;overflow:scroll">
+            <%= grupo_registro.grupo.nome %><br><br>
+            <%= link_to 'Editar', "/grupos/#{@grupo.id}/controle-acessos/#{grupo_registro.id}/edit", class: "btn btn-primary" %>
+            <%= link_to 'Apagar', "/grupos/#{@grupo.id}/controle-acessos/#{grupo_registro.id}", method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-danger" %>
+          </td>
+          <td>
+            <ul>
+              <% grupo_registro.registro.attributes.each do |key, value| %>
+                <li><b><%= key %>:</b> <%= value %></li>
+              <% end %>
+            </ul>
+          </td>
         </tr>
         <% end %>
       </tbody>

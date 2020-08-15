@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     post 'usuarios', to: 'grupos#cria_acesso_usuario'
     get 'usuarios/new', to: 'grupos#novo_acesso_usuario'
     get 'controle-acessos', to: 'grupos#controle_acessos'
+    get 'controle-acessos/:grupo_registro_id/edit', to: 'grupos#controle_acessos_edit'
+    post 'controle-acessos/:grupo_registro_id/alterar', to: 'grupos#controle_acessos_salvar'
   end
   resources :parametros
   resources :unitel_sequences
