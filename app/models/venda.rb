@@ -5,6 +5,11 @@ class Venda < ApplicationRecord
   belongs_to :usuario
   belongs_to :partner
 
+  def grupos_id
+    #TODO - Verificar como pegar os grupos de acesso de um registro
+    [].map{|g| g.id}.join(",")
+  end
+
   def self.to_csv
     attributes = "Usuário,Parceiro,Data da Venda,Status,Product,Agent,Store,ID do Vendedor,Terminal,Customer Number / MSIDN,Value".split(",")
 

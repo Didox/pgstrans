@@ -13,4 +13,35 @@ module GruposHelper
       )
     ")
   end
+
+  def traduzir_controle_acesso(data)
+    return {
+      "Industry" => "Negócio",
+      "Parametro" => "Parametro",
+      "StatusParceiro" => "StatusParceiro",
+      "Provincium" => "Provincium",
+      "CanalVenda" => "CanalVenda",
+      "ReturnCodeApi" => "ReturnCodeApi",
+      "StatusCliente" => "StatusCliente",
+      "Remuneracao" => "Remuneracao",
+      "Dispositivo" => "Dispositivo",
+      "StatusAlegacaoPagamento" => "StatusAlegacaoPagamento",
+      "Usuario" => "Usuario",
+      "Lancamento" => "Lancamento",
+      "StatusProduto" => "StatusProduto",
+      "Partner" => "Partner",
+      "Banco" => "Banco",
+      "SubAgente" => "SubAgente",
+      "SubDistribuidor" => "SubDistribuidor",
+      "Moeda" => "Moeda",
+      "TipoTransacao" => "TipoTransacao",
+      "ContaCorrente" => "ContaCorrente",
+      "Produto" => "Produto",
+      "MasterProfile" => "MasterProfile",
+      "MatrixUser" => "MatrixUser",
+      "UniPessoalEmpresa" => "UniPessoalEmpresa",
+      "Venda" => "Venda",
+      "Country" => "Country",
+    }[data]
+  end
 end

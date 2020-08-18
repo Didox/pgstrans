@@ -32,6 +32,9 @@ class GruposController < ApplicationController
       @grupo_registros = @grupo_registros.where(modelo: params[:modelo])
     end
 
+    @grupo_registros = @grupo_registros.where("created_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
+    @grupo_registros = @grupo_registros.where("created_at <= ?", params[:data_fim].to_datetime.end_of_day) if params[:data_fim].present?
+    
     @grupo_registros = @grupo_registros.order('created_at DESC')
     options = {page: params[:page] || 1, per_page: 10}
     @grupo_registros = @grupo_registros.paginate(options)
