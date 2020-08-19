@@ -38,7 +38,7 @@ module PermissionamentoDados
             if gu.escrita
               grs = GrupoRegistro.where(grupo_id: gu.grupo_id, modelo: self.class.to_s, modelo_id: self.id)
               if grs.count == 0
-                GrupoRegistro.create(grupo_id: gu.grupo_id, modelo: self.class.to_s, modelo_id: self.id)
+                GrupoRegistro.create(grupo_id: gu.grupo_id, modelo: self.class.to_s, modelo_id: self.id, created_at: self.created_at, updated_at: self.updated_at)
               end
             end
           end

@@ -6,26 +6,11 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div style="margin-top:10px">
+  <!--div style="margin-top:10px">
     <div style="margin-left:9px">Listar e alterar o controle de acesso para associar um registro a um novo grupo de usuário:</div>
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-12">
-          <div class="form-group">
-            <label>Modelos:</label>
-            <div>
-              <select name="modelo" id="modelo" class="form-control">
-                <option value="">Todos</option>
-                <% GrupoRegistro.where(grupo_id: @grupo.id).reorder("modelo asc").distinct.pluck(:modelo).each do |modelo| %>
-                  <option value="<%= modelo %>" <% if params[:modelo] == modelo %> selected="selected" <% end %>>
-                    <%= traduzir_controle_acesso(modelo) %>
-                  </option>
-                <% end %>
-              </select>
-            </div>
-          </div>
-        </div>
-        <!--div class="col-sm-3">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Data de criação inicial</label>
             <div>
@@ -40,7 +25,7 @@
               <input type="date" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
             </div>
           </div>
-        </div-->
+        </div>
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
@@ -52,7 +37,7 @@
         </div>
       </div>
     </form>
-  </div>  
+  </div-->  
 
   <div class="container">
     <div style="margin-left:9px">
@@ -71,8 +56,8 @@
         <tr>
           <td>
             <%= grupo_registro.grupo.nome %><br><br>
-            <%= link_to 'Editar', "/grupos/#{@grupo.id}/controle-acessos/#{grupo_registro.id}/edit", class: "btn btn-primary" %>
-            <%= link_to 'Apagar', "/grupos/#{@grupo.id}/controle-acessos/#{grupo_registro.id}", method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-danger" %>
+            <%#= link_to 'Editar', "/controle-acessos/#{params[:modelo_id]}/grupos/#{grupo_registro.id}/edit", class: "btn btn-primary" %>
+            <%= link_to 'Apagar vinculo entre registro e grupo', "/controle-acessos/#{params[:modelo_id]}/grupos/#{grupo_registro.id}", method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-danger" %>
           </td>
           <td>
             <ul>

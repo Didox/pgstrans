@@ -209,7 +209,7 @@
           <td style="width:110px" align="right"><%= number_to_currency(venda.value) %></td>
           <td>
             <%= link_to 'Mostrar', venda %><br>
-            <%= link_to 'Acesso', "/controle-acessos/#{venda.id}/grupos?grupo_ids=#{venda.grupos_id}" %>
+            <%= link_to 'Acesso', "/controle-acessos/#{venda.id}/grupos" %>
           </td>
           <% valor_total += venda.value %>
         </tr>

@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get 'dstv/alteracao-plano-mensal-anual', to: 'dstv#alteracao_plano_mensal_anual'
   get 'dstv/alteracao-plano-mensal-anual/alterar', to: 'dstv#alteracao_plano_mensal_anual_efetivar'
 
+  get '/controle-acessos/:modelo_id/grupos', to: 'grupos#controle_acessos_modelo'
+  
+
   resources :grupos do
     get 'usuarios', tox: 'grupos#usuarios'
     delete 'usuarios/:usuario_id', to: 'grupos#apaga_acesso_usuario'
