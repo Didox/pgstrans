@@ -1,0 +1,63 @@
+<div class="container"> 
+  <h4>Edição Grupo</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="col-md-12" data-target="toggle.grid">
+    <div class="card border-simpleform box-shadow mb-4">
+      <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
+        <div>
+          <strong>Editar controle de acesso</strong><br />
+        </div>
+      </div>
+    </div>
+    <div class="card border-bootstrap box-shadow mb-4">
+      <div class="card-header text-bootstrap align-items-center justify-content-between">
+
+        <form class="simple_form new_master_profile" id="new_master_profile" novalidate="novalidate" action="/controle-acessos/<%= params[:modelo] %>/<%= params[:modelo_id] %>/grupos/salvar" accept-charset="UTF-8" method="post">
+          
+          <div class="form-input">
+            <div class="form-group string required master_profile_description">
+              <label class="string required" for="master_profile_description"><b>Grupo:</b></label>
+              <select name="grupo_id" id="grupo_id" class="form-control" style="width100%;">
+                <% grupos = Grupo.all.each do |grupo| %>
+                  <option value="<%= grupo.id %>">
+                    <%= grupo.nome %>
+                  </option>
+                <% end %>
+                
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-input">
+            <div class="form-group string required master_profile_description">
+              <label class="string required" for="master_profile_description"><b>Registo:</b></label>
+              <ul>
+                <% @registro.attributes.each do |key, value| %>
+                  <li><b><%= key %>:</b> <%= value %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <input type="submit" value="Salvar" class="btn btn-danger">
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <%= link_to @grupo, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    Mostrar
+  <% end %>
+  <%= link_to grupos_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+</div>

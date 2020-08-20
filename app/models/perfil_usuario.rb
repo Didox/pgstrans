@@ -58,6 +58,8 @@ class PerfilUsuario < ApplicationRecord
       controle_acessos_edit: "Controle acessos editar",
       controle_acessos_salvar: "Controle acessos salvar",
       controle_acessos_modelo: "Controle acessos modelos",
+      controle_acessos_modelo_novo: "Controle acessos modelos novo",
+      controle_acessos_modelo_salvar: "Controle acessos modelos salvar",
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]

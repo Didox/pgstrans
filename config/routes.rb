@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   get 'dstv/alteracao-plano-mensal-anual', to: 'dstv#alteracao_plano_mensal_anual'
   get 'dstv/alteracao-plano-mensal-anual/alterar', to: 'dstv#alteracao_plano_mensal_anual_efetivar'
 
-  get '/controle-acessos/:modelo_id/grupos', to: 'grupos#controle_acessos_modelo'
+  get '/controle-acessos/:modelo/:modelo_id/grupos', to: 'grupos#controle_acessos_modelo'
+  get '/controle-acessos/:modelo/:modelo_id/grupos/novo', to: 'grupos#controle_acessos_modelo_novo'
+  post '/controle-acessos/:modelo/:modelo_id/grupos/salvar', to: 'grupos#controle_acessos_modelo_salvar'
   
 
   resources :grupos do
