@@ -56,8 +56,7 @@
         <tr>
           <td>
             <%= grupo_registro.grupo.nome %><br><br>
-            <%#= link_to 'Editar', "/controle-acessos/#{params[:modelo_id]}/grupos/#{grupo_registro.id}/edit", class: "btn btn-primary" %>
-            <%= link_to 'Apagar vinculo entre registro e grupo', "/controle-acessos/#{params[:modelo_id]}/grupos/#{grupo_registro.id}", method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-danger" %>
+            <%= link_to 'Apagar vinculo entre registro e grupo', "/controle-acessos/#{params[:modelo]}/#{params[:modelo_id]}/grupos/#{grupo_registro.id}/delete", method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-danger" %>
           </td>
           <td>
             <ul>

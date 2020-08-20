@@ -61,6 +61,12 @@ class GruposController < ApplicationController
     redirect_to "/controle-acessos/#{params[:modelo]}/#{params[:modelo_id]}/grupos"
   end
 
+  def controle_acessos_modelo_delete
+    GrupoRegistro.where(id: params[:grupo_registro_id]).destroy_all
+    flash[:success] = "Registro apagado com sucesso"
+    redirect_to "/controle-acessos/#{params[:modelo]}/#{params[:modelo_id]}/grupos"
+  end
+
   def controle_acessos_edit
     @grupo_registro = GrupoRegistro.find(params[:grupo_registro_id])
   end
