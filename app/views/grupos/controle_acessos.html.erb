@@ -76,9 +76,11 @@
           </td>
           <td>
             <ul>
-              <% grupo_registro.registro.attributes.each do |key, value| %>
-                <% if value.present? %>
-                  <li><b><%= key %>:</b> <%= value.to_s.truncate(50, separator: '...') %></li>
+              <% if grupo_registro.registro.present? %>
+                <% grupo_registro.registro.attributes.each do |key, value| %>
+                  <% if value.present? %>
+                    <li><b><%= key %>:</b> <%= value.to_s.truncate(50, separator: '...') %></li>
+                  <% end %>
                 <% end %>
               <% end %>
             </ul>

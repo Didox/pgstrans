@@ -22,7 +22,7 @@ class PartnersController < ApplicationController
   end
 
   def importa_produtos
-    partner = Partner.where(slug: "ZAPTv").first
+    partner = Partner.find(params[:partner_id])
     partner.importa_produtos!
 
     flash[:notice] = 'Produtos importados com sucesso.'

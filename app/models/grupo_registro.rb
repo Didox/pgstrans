@@ -3,5 +3,7 @@ class GrupoRegistro < ApplicationRecord
 
   def registro
     self.modelo.constantize.find(self.modelo_id)
+  rescue
+    nil
   end
 end
