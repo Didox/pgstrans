@@ -42,6 +42,14 @@ class Dstv
       </soapenv:Envelope>
     "
 
+    Rails.logger.info "=========================================="
+    Rails.logger.info url_service
+    Rails.logger.info "=========================================="
+    Rails.logger.info body
+    Rails.logger.info "=========================================="
+    Rails.logger.info "GetAvailableProducts"
+    Rails.logger.info "=========================================="
+
     request = fazer_request(url_service, body, "GetAvailableProducts")
 
     Rails.logger.info "=========================================="
