@@ -82,7 +82,8 @@ class ParametrosController < ApplicationController
         :vendor_code_dstv_producao, :agent_account_dstv_desenvolvimento, :agent_account_dstv_producao, :currency_dstv_desenvolvimento, 
         :currency_dstv_producao, :product_user_key_dstv_desenvolvimento, :product_user_key_dstv_producao, :mop_dstv_desenvolvimento, 
         :mop_dstv_producao, :agent_number_dstv_desenvolvimento, :agent_number_dstv_producao,
-        :business_unit_desenvolvimento, :business_unit_producao, :language_desenvolvimento, :language_producao
+        :business_unit_desenvolvimento, :business_unit_producao, :language_desenvolvimento, :language_producao,
+        :customer_number_desenvolvimento, :customer_number_producao
       )
     end
 end
