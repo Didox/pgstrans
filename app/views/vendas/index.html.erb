@@ -208,8 +208,8 @@
           <td align="right"><%= venda.client_msisdn %></td>
           <td style="width:110px" align="right"><%= number_to_currency(venda.value) %></td>
           <td>
-            <%= link_to 'Mostrar', venda, class: "btn btn-primary", style:"width:100px" %><br><br>
-            <%= link_to 'Acesso', "/controle-acessos/#{venda.class}/#{venda.id}/grupos", class: "btn btn-primary", style:"width:100px" %>
+            <%= link_to 'Detalhes', venda, class: "btn btn-warning", style:"width:100px" %><br><br>
+            <%= link_to 'Grupo Acesso', "/controle-acessos/#{venda.class}/#{venda.id}/grupos", class: "btn btn-warning", style:"width:100px" %>
           </td>
           <% valor_total += venda.value %>
         </tr>

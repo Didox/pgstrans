@@ -54,13 +54,13 @@ class PerfilUsuario < ApplicationRecord
       reverter_venda_zaptv: "Reverter Vendas ZAPTV",
       index_morada_saldo: "Ver relatório de Conta corrente - Usuário Morada Saldo",
       forcar_logout: "Habilitar permissão para deslogar usuário (forçar logout após troca de senha)",
-      controle_acessos: "Controle de acessos",
-      controle_acessos_edit: "Controle acessos editar",
-      controle_acessos_salvar: "Controle acessos salvar",
-      controle_acessos_modelo: "Controle acessos modelos",
-      controle_acessos_modelo_novo: "Controle acessos modelos novo",
-      controle_acessos_modelo_salvar: "Controle acessos modelos salvar",
-      controle_acessos_modelo_delete: "Controle acessos modelos excluir",
+      controle_acessos: "Controle de Acesso",
+      controle_acessos_edit: "Controle de Acesso EDITAR",
+      controle_acessos_salvar: "Controle de Acesso SALVAR",
+      controle_acessos_modelo: "Controle de Acesso MODELOS",
+      controle_acessos_modelo_novo: "Controle de Acesso MODELOS (NOVO)",
+      controle_acessos_modelo_salvar: "Controle de Acesso MODELOS (SALVAR)",
+      controle_acessos_modelo_delete: "Controle de Acesso MODELOS (EXCLUIR)",
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
