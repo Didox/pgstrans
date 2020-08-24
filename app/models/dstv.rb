@@ -20,9 +20,9 @@ class Dstv
     produtos
   end
 
-  def self.importa_produtos(customer_number = "", ip="?")
-
-    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
+  def self.importa_produtos(customer_number = nil, ip="?")
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language,customer_number_default = parametros
+    customer_number = customer_number || customer_number_default
     
     # TODO - POC talvez se transformar em algo válido
     body = "
@@ -475,6 +475,7 @@ class Dstv
       agent_number = parametro.agent_number_dstv_desenvolvimento #122434345
       business_unit = parametro.business_unit_desenvolvimento
       language = parametro.language_desenvolvimento
+      customer_number_default = parametro.customer_number_desenvolvimento
     else
       url_service = parametro.url_integracao_producao
       data_source = parametro.data_source_dstv_producao
@@ -487,9 +488,10 @@ class Dstv
       agent_number = parametro.agent_number_dstv_producao #122434345
       business_unit = parametro.business_unit_producao
       language = parametro.language_producao
+      customer_number_default = parametro.customer_number_producao
     end
 
-    [parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language]
+    [parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language,customer_number_default]
   end
 
   def self.fazer_request(url_service, body, resource)
