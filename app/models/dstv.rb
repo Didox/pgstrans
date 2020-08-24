@@ -20,7 +20,8 @@ class Dstv
     produtos
   end
 
-  def self.importa_produtos(customer_number = "122364781", ip="?")
+  def self.importa_produtos(customer_number = "", ip="?")
+
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
     
     # TODO - POC talvez se transformar em algo válido
