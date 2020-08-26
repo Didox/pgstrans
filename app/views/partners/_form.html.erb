@@ -10,18 +10,18 @@
 	<div class="card border-bootstrap box-shadow mb-4">
 	    <div class="card-header text-bootstrap align-items-center justify-content-between">
 			<%= simple_form_for(@partner, html: { class: "form-vertical", role: "form" }) do |f| %>
-		        <% if @partner.errors.any? %>
-		          <div class="alert alert-danger alert-dismissable" role="alert">
-		            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		            <h4><%= pluralize(@partner.errors.count, "erros") %> no parceiro, confira abaixo:</h4>
+				<% if @partner.errors.any? %>
+					<div class="alert alert-danger alert-dismissable" role="alert">
+						<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4><%= pluralize(@partner.errors.count, "erros") %> no parceiro, confira abaixo:</h4>
 
-		            <ul>
-		            <% @partner.errors.full_messages.each do |msg| %>
-		              <li><%= msg %></li>
-		            <% end %>
-		            </ul>
-		          </div>
-	        	<% end %>
+						<ul>
+						<% @partner.errors.full_messages.each do |msg| %>
+							<li><%= msg %></li>
+						<% end %>
+						</ul>
+					</div>
+				<% end %>
 
 				<div class="form-input col-sm-6">
 				<%= f.input :name, placeholder: "Nome do parceiro" %>

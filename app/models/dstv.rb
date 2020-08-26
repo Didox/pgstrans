@@ -23,8 +23,8 @@ class Dstv
   def self.importa_produtos(customer_number = nil, ip="?")
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language,customer_number_default = parametros
     customer_number = customer_number || customer_number_default
-    
-    # TODO - POC talvez se transformar em algo válido
+    partner = Partner.where(slug: "DSTv").first
+   
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\">
          <soapenv:Header/>
@@ -59,8 +59,6 @@ class Dstv
     if (200...300).include?(request.code.to_i)
       if request.body.present?
 
-        partner = Partner.where(slug: "DSTv").first
-        
         xml_doc = Nokogiri::XML(request.body)
         itens = xml_doc.child.children[0].children[0].children[0].children
         itens.each do |item|
@@ -111,6 +109,14 @@ class Dstv
           produto.save!
         end
       end
+    end
+
+    item = UltimaAtualizacaoProduto.where(partner_id: partner.id).first
+    if item.present?
+      item.updated_at = Time.zone.now
+      item.save!
+    else
+      UltimaAtualizacaoProduto.create(partner_id: partner.id)
     end
   end
 
