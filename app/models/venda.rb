@@ -364,9 +364,9 @@ class Venda < ApplicationRecord
 
     # debugger
     cripto = "AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto"
-    Rails.logger.info += "=========[cripto]========"
+    Rails.logger.info "=========[cripto]========"
     pass = `#{cripto}`
-    Rails.logger.info += "=========[cripto]========"
+    Rails.logger.info "=========[cripto]========"
 
     # cripto = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/mac/encripto`
     # Rails.logger.info += "=========[cripto]========"
