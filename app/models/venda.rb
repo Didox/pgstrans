@@ -362,9 +362,17 @@ class Venda < ApplicationRecord
     msisdn = telefone
     request_id = Time.now.strftime("%d%m%Y%H%M%S")
 
+    # debugger
     cripto = "AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto"
+    request_send += "=========[cripto]========"
     pass = `#{cripto}`
-    # pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/mac/encripto`
+    request_send += "=========[cripto]========"
+
+    # cripto = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/mac/encripto`
+    # request_send += "=========[cripto]========"
+    # pass = `#{cripto}`
+    # request_send += "=========[cripto]========"
+
     pass = pass.strip
 
     request_send = ""
@@ -395,13 +403,16 @@ class Venda < ApplicationRecord
       </soapenv:Envelope>
     "
 
-    request_send += "=========[ValidateTopup]========"
+    data_envio = Time.zone.now
+
+    request_send += "=========[ValidateTopup - #{data_envio.to_s}]========"
     request_send += cripto
     request_send += "=========[Cripto]========"
     request_send += body
     request_send += "=========[ValidateTopup]========"
 
-    Rails.logger.info "========[Enviando para operadora Movicel]=========="
+    Rails.logger.info request_send
+    Rails.logger.info "========[Enviando para operadora Movicel - #{data_envio.to_s}]=========="
 
     url = "#{url_service}/DirectTopupService/Topup/"
     uri = URI.parse(URI.escape(url))
@@ -417,10 +428,10 @@ class Venda < ApplicationRecord
 
       Rails.logger.info "========[Dados enviados para operadora Movicel]=========="
 
-
-      response_get += "=========[ValidateTopup]========"
+      response_get += "=========[ValidateTopup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio} ]========"
       response_get += request.body
       response_get += "=========[ValidateTopup]========"
+      Rails.logger.info response_get
 
       if (200...300).include?(request.code.to_i) && request.body.include?("200</ReturnCode>")
 
@@ -449,9 +460,11 @@ class Venda < ApplicationRecord
           </soapenv:Envelope>
         "
 
-        request_send += "=========[Topup]========"
+        data_envio = Time.zone.now
+        request_send += "=========[Topup - #{data_envio.to_s}]========"
         request_send += body
         request_send += "=========[Topup]========"
+        Rails.logger.info request_send
 
         Rails.logger.info "========[Enviando confirmação para operadora Movicel]=========="
 
@@ -467,9 +480,10 @@ class Venda < ApplicationRecord
             body: body
           )
           
-          response_get += "=========[Topup]========"
+          response_get += "=========[Topup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio}]========"
           response_get += request.body
           response_get += "=========[Topup]========"
+          Rails.logger.info response_get
 
           Rails.logger.info "========[Confirmação enviada para operadora Movicel]=========="
 
