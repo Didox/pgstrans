@@ -2,7 +2,7 @@
 	<div class="card border-simpleform box-shadow mb-4">
 		<div class="card-header text-simpleform d-flex align-items-center justify-content-between">
 		  <div>
-		    <strong>Parceiros</strong><br />
+		    <strong>Parceiros</strong><br/>
 		  </div>
 		</div>
 	</div>
@@ -14,7 +14,6 @@
 					<div class="alert alert-danger alert-dismissable" role="alert">
 						<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 						<h4><%= pluralize(@partner.errors.count, "erros") %> no parceiro, confira abaixo:</h4>
-
 						<ul>
 						<% @partner.errors.full_messages.each do |msg| %>
 							<li><%= msg %></li>
@@ -32,14 +31,18 @@
 				</div>
 
 				<div class="form-input col-sm-6">
-	              <%= f.label :order, "Ordem" %>
-	              <%= f.select :order, (1..Partner.count).map{|i| [i, i]}, {}, required:true, class: "form-control" %>
-	            </div>
+					<%= f.label :order, "Ordem" %>
+					<%= f.select :order, (1..Partner.count).map{|i| [i, i]}, {}, required:true, class: "form-control" %>
+				</div>
 
-		        <div class="form-input col-sm-6">
-		          <%= f.label :status_parceiro_id, "Status do Parceiro" %>
-		          <%= f.select :status_parceiro_id, StatusParceiro.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
-		        </div>
+				<div class="form-input col-sm-6">
+					<%= f.label :status_parceiro_id, "Status do Parceiro" %>
+					<%= f.select :status_parceiro_id, StatusParceiro.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+				</div>
+
+				<div class="form-input col-sm-6">
+				<%= f.input :desconto, label: "Desconto padrão do parceiro", placeholder: "Porcentagem de desconto" %>
+				</div>
 
 				<div class="form-actions col-sm-12" style="margin-top: 20px;">
 					<%= f.button :button, class: 'btn btn-danger' do %>

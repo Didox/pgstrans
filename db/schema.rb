@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_24_111827) do
+ActiveRecord::Schema.define(version: 2020_08_28_104745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,14 @@ ActiveRecord::Schema.define(version: 2020_08_24_111827) do
     t.integer "bacen"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "desconto_parceiros", force: :cascade do |t|
+    t.float "porcentagem"
+    t.bigint "partner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["partner_id"], name: "index_desconto_parceiros_on_partner_id"
   end
 
   create_table "dispositivos", force: :cascade do |t|
@@ -257,6 +265,7 @@ ActiveRecord::Schema.define(version: 2020_08_24_111827) do
     t.string "slug"
     t.bigint "status_parceiro_id"
     t.integer "order"
+    t.float "desconto", default: 0.0
     t.index ["status_parceiro_id"], name: "index_partners_on_status_parceiro_id"
   end
 
@@ -524,6 +533,7 @@ ActiveRecord::Schema.define(version: 2020_08_24_111827) do
   add_foreign_key "conta_correntes", "lancamentos"
   add_foreign_key "conta_correntes", "partners"
   add_foreign_key "conta_correntes", "usuarios"
+  add_foreign_key "desconto_parceiros", "partners"
   add_foreign_key "grupo_registros", "grupos"
   add_foreign_key "grupo_usuarios", "grupos"
   add_foreign_key "grupo_usuarios", "usuarios"

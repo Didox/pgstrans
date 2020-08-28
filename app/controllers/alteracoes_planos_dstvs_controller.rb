@@ -44,7 +44,7 @@ class AlteracoesPlanosDstvsController < ApplicationController
 
     respond_to do |format|
       if @alteracoes_planos_dstv.save
-        format.html { redirect_to @alteracoes_planos_dstv, notice: 'Alteracoes planos dstv was successfully created.' }
+        format.html { redirect_to @alteracoes_planos_dstv, notice: 'Alteracoes planos dstv foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @alteracoes_planos_dstv }
       else
         format.html { render :new }
@@ -60,7 +60,7 @@ class AlteracoesPlanosDstvsController < ApplicationController
     return
     respond_to do |format|
       if @alteracoes_planos_dstv.update(alteracoes_planos_dstv_params)
-        format.html { redirect_to @alteracoes_planos_dstv, notice: 'Alteracoes planos dstv was successfully updated.' }
+        format.html { redirect_to @alteracoes_planos_dstv, notice: 'Alteracoes planos dstv foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @alteracoes_planos_dstv }
       else
         format.html { render :edit }
@@ -76,7 +76,7 @@ class AlteracoesPlanosDstvsController < ApplicationController
     return
     @alteracoes_planos_dstv.destroy
     respond_to do |format|
-      format.html { redirect_to alteracoes_planos_dstvs_url, notice: 'Alteracoes planos dstv was successfully destroyed.' }
+      format.html { redirect_to alteracoes_planos_dstvs_url, notice: 'Alteracoes planos dstv foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

@@ -46,7 +46,7 @@ class LogVendasController < ApplicationController
 
     respond_to do |format|
       if @log_venda.save
-        format.html { redirect_to @log_venda, notice: 'Log venda was successfully created.' }
+        format.html { redirect_to @log_venda, notice: 'Log venda foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @log_venda }
       else
         format.html { render :new }
@@ -62,7 +62,7 @@ class LogVendasController < ApplicationController
     return
     respond_to do |format|
       if @log_venda.update(log_venda_params)
-        format.html { redirect_to @log_venda, notice: 'Log venda was successfully updated.' }
+        format.html { redirect_to @log_venda, notice: 'Log venda foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @log_venda }
       else
         format.html { render :edit }
@@ -78,7 +78,7 @@ class LogVendasController < ApplicationController
     return
     @log_venda.destroy
     respond_to do |format|
-      format.html { redirect_to log_vendas_url, notice: 'Log venda was successfully destroyed.' }
+      format.html { redirect_to log_vendas_url, notice: 'Log venda foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

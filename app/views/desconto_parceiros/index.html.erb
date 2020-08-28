@@ -1,0 +1,36 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h4>Desconto Parceiro</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="container scroltable">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Porcentagem</th>
+          <th scope="col">Partner</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @desconto_parceiros.each do |desconto_parceiro| %>
+        <tr>
+          <td><%= desconto_parceiro.porcentagem %></td>
+          <td><%= desconto_parceiro.partner.name %></td>
+          <td><%= link_to 'Mostrar', partner_desconto_parceiro_path(@partner, desconto_parceiro) %></td>
+          <td><%= link_to 'Editar', edit_partner_desconto_parceiro_path(@partner, desconto_parceiro) %></td>
+          <td><%= link_to 'Apagar', partner_desconto_parceiro_path(@partner, desconto_parceiro), method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to "Novo Registo", new_partner_desconto_parceiro_path(@partner), class: 'btn btn-danger' %>
+    <%= link_to 'Voltar', partners_path, class: 'btn btn-danger' %>
+  </div>
+</div>

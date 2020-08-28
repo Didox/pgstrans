@@ -42,7 +42,7 @@ class PagamentosFaturasDstvsController < ApplicationController
 
     respond_to do |format|
       if @pagamentos_faturas_dstv.save
-        format.html { redirect_to @pagamentos_faturas_dstv, notice: 'Pagamentos faturas dstv was successfully created.' }
+        format.html { redirect_to @pagamentos_faturas_dstv, notice: 'Pagamentos faturas dstv foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @pagamentos_faturas_dstv }
       else
         format.html { render :new }
@@ -58,7 +58,7 @@ class PagamentosFaturasDstvsController < ApplicationController
     return
     respond_to do |format|
       if @pagamentos_faturas_dstv.update(pagamentos_faturas_dstv_params)
-        format.html { redirect_to @pagamentos_faturas_dstv, notice: 'Pagamentos faturas dstv was successfully updated.' }
+        format.html { redirect_to @pagamentos_faturas_dstv, notice: 'Pagamentos faturas dstv foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @pagamentos_faturas_dstv }
       else
         format.html { render :edit }
@@ -74,7 +74,7 @@ class PagamentosFaturasDstvsController < ApplicationController
     return
     @pagamentos_faturas_dstv.destroy
     respond_to do |format|
-      format.html { redirect_to pagamentos_faturas_dstvs_url, notice: 'Pagamentos faturas dstv was successfully destroyed.' }
+      format.html { redirect_to pagamentos_faturas_dstvs_url, notice: 'Pagamentos faturas dstv foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

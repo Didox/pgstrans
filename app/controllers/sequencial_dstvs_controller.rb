@@ -39,7 +39,7 @@ class SequencialDstvsController < ApplicationController
 
     respond_to do |format|
       if @sequencial_dstv.save
-        format.html { redirect_to @sequencial_dstv, notice: 'Sequencial dstv was successfully created.' }
+        format.html { redirect_to @sequencial_dstv, notice: 'Sequencial dstv foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @sequencial_dstv }
       else
         format.html { render :new }
@@ -53,7 +53,7 @@ class SequencialDstvsController < ApplicationController
   def update
     respond_to do |format|
       if @sequencial_dstv.update(sequencial_dstv_params)
-        format.html { redirect_to @sequencial_dstv, notice: 'Sequencial dstv was successfully updated.' }
+        format.html { redirect_to @sequencial_dstv, notice: 'Sequencial dstv foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @sequencial_dstv }
       else
         format.html { render :edit }
@@ -67,7 +67,7 @@ class SequencialDstvsController < ApplicationController
   def destroy
     @sequencial_dstv.destroy
     respond_to do |format|
-      format.html { redirect_to sequencial_dstvs_url, notice: 'Sequencial dstv was successfully destroyed.' }
+      format.html { redirect_to sequencial_dstvs_url, notice: 'Sequencial dstv foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end
