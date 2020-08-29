@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_28_104745) do
+ActiveRecord::Schema.define(version: 2020_08_29_101824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -337,6 +337,17 @@ ActiveRecord::Schema.define(version: 2020_08_28_104745) do
     t.index ["partner_id"], name: "index_relatorio_conciliacao_zaptvs_on_partner_id"
   end
 
+  create_table "remuneracao_descontos", force: :cascade do |t|
+    t.bigint "remuneracao_id"
+    t.bigint "partner_id"
+    t.bigint "desconto_parceiro_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["desconto_parceiro_id"], name: "index_remuneracao_descontos_on_desconto_parceiro_id"
+    t.index ["partner_id"], name: "index_remuneracao_descontos_on_partner_id"
+    t.index ["remuneracao_id"], name: "index_remuneracao_descontos_on_remuneracao_id"
+  end
+
   create_table "remuneracaos", force: :cascade do |t|
     t.bigint "usuario_id"
     t.bigint "produto_id"
@@ -546,6 +557,9 @@ ActiveRecord::Schema.define(version: 2020_08_28_104745) do
   add_foreign_key "produtos", "status_produtos"
   add_foreign_key "provincia", "countries"
   add_foreign_key "relatorio_conciliacao_zaptvs", "partners"
+  add_foreign_key "remuneracao_descontos", "desconto_parceiros"
+  add_foreign_key "remuneracao_descontos", "partners"
+  add_foreign_key "remuneracao_descontos", "remuneracaos"
   add_foreign_key "remuneracaos", "produtos"
   add_foreign_key "remuneracaos", "usuarios"
   add_foreign_key "return_code_apis", "partners"

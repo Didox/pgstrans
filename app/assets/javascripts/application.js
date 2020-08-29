@@ -39,6 +39,19 @@ pgstrans.displayRecargaDstv = (tipo) => {
   $(".clearFieldjs").val("")
 }
 
+pgstrans.carregaDescontos = (self) => {
+  $.ajax({
+    type: "GET",
+    url: "/partners/" + self.value + "/desconto_parceiros.json",
+    success: function(data){
+      $("#remuneracao_parceiro_desconto_id_partner_id_" + self.value).html("<option value=\"\" selected=\"selected\">[Selecione]</option>");
+      $(data).each(function(){
+        $("#remuneracao_parceiro_desconto_id_partner_id_" + self.value).append("<option value=\"" + this.id + "\">" + this.porcentagem + "%</option>")
+      });
+    }
+  });
+}
+
 pgstrans.displayRecarga = (tipo) => {
   $(".icone-menu").removeClass("menu-ativo");
   $(".recarga .img_" + tipo).addClass("menu-ativo");

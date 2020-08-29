@@ -33,6 +33,7 @@ class RemuneracaosController < ApplicationController
     
     respond_to do |format|
       if @remuneracao.save
+        salvar_remuneracao_desconto
         format.html { redirect_to @remuneracao, notice: 'Remuneração foi criada com sucesso.' }
         format.json { render :show, status: :created, location: @remuneracao }
       else
@@ -47,6 +48,7 @@ class RemuneracaosController < ApplicationController
   def update
     respond_to do |format|
       if @remuneracao.update(remuneracao_params)
+        salvar_remuneracao_desconto
         format.html { redirect_to @remuneracao, notice: 'Remuneração foi atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @remuneracao }
       else
@@ -67,6 +69,16 @@ class RemuneracaosController < ApplicationController
   end
 
   private
+    def salvar_remuneracao_desconto
+      RemuneracaoDesconto.where(remuneracao_id: @remuneracao.id).destroy_all
+      params[:partner_descontos].each do |partner_desconto|
+        RemuneracaoDesconto.create(
+          partner_id: partner_desconto["id"],
+          remuneracao_id: @remuneracao.id,
+          desconto_parceiro_id: params["parceiro_desconto_id_partner_id_#{partner_desconto["id"]}"]
+        )
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_remuneracao
       @remuneracao = Remuneracao.find(params[:id])
