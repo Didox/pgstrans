@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_30_173532) do
+ActiveRecord::Schema.define(version: 2020_08_30_215734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -287,10 +287,6 @@ ActiveRecord::Schema.define(version: 2020_08_30_173532) do
     t.float "valor_compra_site"
     t.float "valor_compra_pos"
     t.float "valor_compra_tef"
-    t.float "valor_minimo_venda_telemovel"
-    t.float "valor_minimo_venda_site"
-    t.float "valor_minimo_venda_pos"
-    t.float "valor_minimo_venda_tef"
     t.float "margem_telemovel"
     t.float "margem_pos"
     t.float "margem_tef"
@@ -353,10 +349,6 @@ ActiveRecord::Schema.define(version: 2020_08_30_173532) do
   create_table "remuneracaos", force: :cascade do |t|
     t.bigint "usuario_id"
     t.bigint "produto_id"
-    t.float "valor_venda_final_telemovel"
-    t.float "valor_venda_final_site"
-    t.float "valor_venda_final_pos"
-    t.float "valor_venda_final_tef"
     t.datetime "vigencia_inicio"
     t.datetime "vigencia_fim"
     t.datetime "created_at", null: false

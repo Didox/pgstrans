@@ -12,14 +12,6 @@
       <dd><%= "#{@remuneracao.usuario_id}/#{@remuneracao.usuario.nome}" %></dd>
       <dt>Produto:</dt>
       <dd><%= @remuneracao.produto.description %></dd>
-      <dt>Valor Telemóvel:</dt>
-      <dd><%= @remuneracao.valor_venda_final_telemovel %></dd>
-      <dt>Valor Site:</dt>
-      <dd><%= @remuneracao.valor_venda_final_site %></dd>
-      <dt>Valor POS:</dt>
-      <dd><%= @remuneracao.valor_venda_final_pos %></dd>
-      <dt>Valor TEF:</dt>
-      <dd><%= @remuneracao.valor_venda_final_tef %></dd>
       <dt>Início de Vigência:</dt>
       <dd><%= @remuneracao.vigencia_inicio.strftime("%d/%m/%Y") rescue "" %></dd>
       <dt>Fim de Vigência:</dt>
