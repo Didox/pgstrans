@@ -9,17 +9,33 @@
   <div style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-6">
+        <div class="col-sm-2">
           <div class="form-group">
-            <label>Nome</label>
+            <label>Código Produto Parceiro</label>
+            <div>
+              <input type="text" name="produto_id_parceiro" value="<%= params[:produto_id_parceiro] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="form-group">
+            <label>Nome do Produto na Operadora</label>
             <div>
               <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-5">
           <div class="form-group">
-            <label>Parceiro</label>
+            <label>Nome Comercial do Produto</label>
+            <div>
+              <input type="text" name="nome_comercial" value="<%= params[:nome_comercial] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Nome do Parceiro</label>
             <div>
               <select name="parceiro_id" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
@@ -30,7 +46,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Moeda</label>
             <div>
@@ -43,9 +59,9 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <div class="form-group">
-            <label>Status</label>
+            <label>Status do Produto</label>
             <div>
               <select name="status_produto_id" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
@@ -56,19 +72,43 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <div class="form-group">
-            <label>Margem Telemóvel</label>
+            <label>Data do Início da Vigência</label>
             <div>
-              <input type="number" name="margem_telemovel" value="<%= params[:margem_telemovel] %>" class="form-control">
+              <input type="date" name="data_vigencia" value="<%= params[:data_vigencia] %>" class="form-control">
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <div class="form-group">
-            <label>Margem site</label>
+            <label>Data da Criação (INÍCIO)</label>
             <div>
-              <input type="number" name="margem_site" value="<%= params[:margem_site] %>" class="form-control">
+              <input type="date" name="created_at" value="<%= params[:created_at] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Data da Criação (FIM)</label>
+            <div>
+              <input type="date" name="created_at_fim" value="<%= params[:created_at_fim] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Data de Atualização (INÍCIO)</label>
+            <div>
+              <input type="date" name="updated_at" value="<%= params[:updated_at] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Data de Atualização (FIM)</label>
+            <div>
+              <input type="date" name="updated_at_fim" value="<%= params[:updated_at_fim] %>" class="form-control">
             </div>
           </div>
         </div>
@@ -84,23 +124,15 @@
       </div>
     </form>
   </div>
-
   <div class="container scroltable">
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Código produto parceiro</th>
-          <th scope="col">Nome</th>
-          <th scope="col">Partner</th>
-          <th scope="col">Moeda</th>
-          <th scope="col">Status</th>
-          <th scope="col">Valor Unitário</th>
-          <th scope="col">Valor compra Telemóvel</th>
-          <th scope="col">Margem Telemóvel</th>
-          <th scope="col">Tipo</th>
-          <th scope="col">Subtipo</th>
-          <th scope="col">Data criação</th>
-          <th scope="col">Data atualização</th>
+          <th scope="col">Produto</th>
+          <th scope="col">Parceiro</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Tipo/Subtipo</th>
+          <th scope="col">Datas</th>
           <th colspan="3">Ações</th>
         </tr>
       </thead>
@@ -108,18 +140,42 @@
       <tbody>
         <% @produtos.each do |produto| %>
         <tr>
-          <td class="text-right"><%= produto.produto_id_parceiro %></td>
-          <td><%= produto.description %></td>
-          <td><%= produto.partner.name %></td>
-          <td><%= "#{produto.moeda_id}/#{(produto.moeda.simbolo rescue "")}" %></td>       
-          <td><%= produto.status_produto.nome %></td>
-          <td style="width:110px" align="right"><%= number_to_currency(produto.valor_unitario) %></td>
-          <td style="width:110px" align="right"><%= number_to_currency(produto.valor_compra_telemovel) %></td>
-          <td class="text-right"><%= produto.margem_telemovel %></td>
-          <td><%= produto.tipo %></td>
-          <td><%= produto.subtipo %></td>
-          <td><%= produto.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
-          <td><%= produto.updated_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+          <td style="width: 400px">
+            <b>Código Produto Parceiro</b> <br>
+            <%= produto.produto_id_parceiro %><br>
+            <b>Descrição do Produto na Operadora</b> <br>
+            <%= produto.description %><br>
+            <b>Nome Comercial do Produto</b> <br>
+            <%= produto.nome_comercial %>
+          </td>
+          <td style="width: 200px">
+            <b>Parceiro</b> <br>
+            <%= produto.partner.name %><br>
+            <b>Moeda</b> <br>
+            <%= "#{produto.moeda_id}/#{(produto.moeda.simbolo rescue "")}" %><br>
+            <b>Status</b> <br>
+            <%= produto.status_produto.nome %><br>
+          </td>
+          <td style="width: 200px">
+            <b>$ Unitário</b> <br>
+            <%= number_to_currency(produto.valor_unitario) %></br>
+            <b>$ Compra Telemóvel</b> <br>
+            <%= number_to_currency(produto.valor_compra_telemovel) %></br>
+          </td>
+          <td style="width: 150px">
+            <b>Tipo</b> <br>
+            <%= produto.tipo %></br>
+            <b>Subtipo</b> <br>
+            <%= number_to_currency(produto.valor_compra_telemovel) %></br>
+          </td>
+          <td style="width: 230px">
+            <b>Criação</b><br>
+            <%= produto.created_at.strftime("%d/%m/%Y %H:%M:%S") %><br>
+            <b>Atualização</b><br>
+            <%= produto.updated_at.strftime("%d/%m/%Y %H:%M:%S") %><br>
+            <b>Início da Vigência</b><br>
+            <%= produto.data_vigencia.strftime("%d/%m/%Y %H:%M:%S") rescue "" %>
+          </td>
           <td><%= link_to 'Mostrar', produto %></td>
           <td><%= link_to 'Editar', edit_produto_path(produto) %></td>
           <td><%= link_to 'Apagar', produto, method: :delete, data: { confirm: 'Tem certeza?' } %></td>

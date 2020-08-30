@@ -8,96 +8,72 @@
 
   <div class="container">
     <dl class="dl-horizontal">
-      <div class="col-sm-6">
-        <dt>Descrição</dt>
-        <dd><%= @produto.description %></dd>
-      </div>
-      <div class="col-sm-6">
-        <dt>Parceiro</dt>
-        <dd><%= @produto.partner.name %></dd>
-      </div>
-      <div class="col-sm-6">
-        <dt>Moeda:</dt>
-        <dd><%= "#{@produto.moeda_id}/#{@produto.moeda.nome}" %></dd>  
-      </div>
-      <div class="col-sm-6">
-        <dt>Status produto:</dt>
-        <dd><%= @produto.status_produto.nome %></dd>
-      </div>
-      <div class="col-sm-6">
-        <dt>Valor compra telemovel:</dt>
-        <dd><%= @produto.valor_compra_telemovel %></dd>
-      </div>
-      <div class="col-sm-6">
-        <dt>Valor compra site:</dt>
-        <dd><%= @produto.valor_compra_site %></dd>
-      </div>
-      <div class="col-sm-6">
-        <dt>Valor compra pos:</dt>
-        <dd><%= @produto.valor_compra_pos %></dd>
-      </div>
-      <div class="col-sm-6">
-        <dt>Valor compra tef:</dt>
-        <dd><%= @produto.valor_compra_tef %></dd>
-      </div>
-      <div class="col-sm-6">
-        <dt>Valor minimo venda telemovel:</dt>
-        <dd><%= @produto.valor_minimo_venda_telemovel %></dd>
-      </div>
-      <div class="col-sm-6">
-        <dt>Valor minimo venda site:</dt>
-        <dd><%= @produto.valor_minimo_venda_site %></dd>
-      </div>
-      <div class="col-sm-6">
-        <dt>Valor minimo venda pos:</dt>
-        <dd><%= @produto.valor_minimo_venda_pos %></dd>
-      </div>
-      <div class="col-sm-6">
-        <dt>Valor minimo venda tef:</dt>
-        <dd><%= @produto.valor_minimo_venda_tef %></dd>
-      </div>
-      <div class="col-sm-6">
-        <dt>Margem telemovel:</dt>
-        <dd><%= @produto.margem_telemovel %></dd>
-      </div>
-      <div class="col-sm-6">
-        <dt>Margem site:</dt>
-        <dd><%= @produto.margem_site %></dd>
-      </div>
-      <div class="col-sm-6">
-        <dt>Margem pos:</dt>
-        <dd><%= @produto.margem_pos %></dd>
-      </div>
-      <div class="col-sm-6">
-        <dt>Margem tef:</dt>
-        <dd><%= @produto.margem_tef %></dd>
-      </div>
-      <div class="col-sm-6">
+      <div class="col-sm-12">
         <dt>ProductID Parceiro:</dt>
         <dd><%= @produto.produto_id_parceiro %></dd>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-12">
+        <dt>Descrição</dt>
+        <dd><%= @produto.description %></dd>
+      </div>
+      <div class="col-sm-12">
+        <dt>Nome Comercial do Produto</dt>
+        <dd><%= @produto.nome_comercial %></dd>
+      </div>
+      <div class="col-sm-12">
+        <dt>Parceiro</dt>
+        <dd><%= @produto.partner.name %></dd>
+      </div>
+      <div class="col-sm-12">
+        <dt>Moeda:</dt>
+        <dd><%= "#{@produto.moeda_id}/#{@produto.moeda.nome}" %></dd>  
+      </div>
+      <div class="col-sm-12">
+        <dt>Status produto:</dt>
+        <dd><%= @produto.status_produto.nome %></dd>
+      </div>
+      <div class="col-sm-12">
+        <dt>Valor de compra telemóvel:</dt>
+        <dd><%= number_to_currency(@produto.valor_compra_telemovel) %></dd>
+      </div>
+      <div class="col-sm-12">
+        <dt>Valor de compra SITE:</dt>
+        <dd><%= number_to_currency(@produto.valor_compra_site) %></dd>
+      </div>
+      <div class="col-sm-12">
+        <dt>Valor de compra POS:</dt>
+        <dd><%= number_to_currency(@produto.valor_compra_pos) %></dd>
+      </div>
+      <div class="col-sm-12">
+        <dt>Valor de compra TEF:</dt>
+        <dd><%= number_to_currency(@produto.valor_compra_tef) %></dd>
+      </div>
+      <div class="col-sm-12">
         <dt>Valor Unitário Parceiro:</dt>
         <dd><%= @produto.valor_unitario %></dd>
       </div>
-      <div class="col-sm-6">
-        <dt>Tipo Parceiro:</dt>
+      <div class="col-sm-12">
+        <dt>Tipo do Produto no Parceiro:</dt>
         <dd><%= @produto.tipo %></dd>
       </div>
-      <div class="col-sm-6">
-        <dt>Subtipo Parceiro:</dt>
+      <div class="col-sm-12">
+        <dt>Subtipo do Produto no Parceiro:</dt>
         <dd><%= @produto.subtipo %></dd>
-      </div>    
+      </div>
       <div class="col-sm-12">
         <dt>Mensagem cupom venda:</dt>
         <dd><%= @produto.mensagem_cupom_venda %></dd>
       </div>
       <div class="col-sm-12">
-        <dt>Data criação:</dt>
-        <dd><%= @produto.created_at.strftime("%d/%m/%Y %H:%M:%S") %></dd>
-      </div> 
+        <dt>Data de início da vigência:</dt>
+        <dd><%= @produto.data_vigencia.strftime("%d/%m/%Y %H:%M:%S") rescue ""%></dd>
+      </div>
       <div class="col-sm-12">
-        <dt>Data atualização:</dt>
+        <dt>Data da criação:</dt>
+        <dd><%= @produto.created_at.strftime("%d/%m/%Y %H:%M:%S") %></dd>
+      </div>
+      <div class="col-sm-12">
+        <dt>Data da última atualização:</dt>
         <dd><%= @produto.updated_at.strftime("%d/%m/%Y %H:%M:%S") %></dd>
       </div> 
     </dl>

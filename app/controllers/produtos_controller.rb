@@ -4,16 +4,25 @@ class ProdutosController < ApplicationController
   # GET /produtos
   # GET /produtos.json
   def index
-    @produtos = Produto.all.order(description: :asc)  
+    @produtos = Produto.all.order(partner_id: :asc, description: :asc)
 
     @produtos = @produtos.where(partner_id: params[:partner_id]) if params[:partner_id].present?
+    @produtos = @produtos.where("produto_id_parceiro ilike '%#{params[:produto_id_parceiro]}%'") if params[:produto_id_parceiro].present?
     @produtos = @produtos.where("description ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @produtos = @produtos.where("nome_comercial ilike '%#{params[:nome_comercial]}%'") if params[:nome_comercial].present?
     @produtos = @produtos.where("partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
     @produtos = @produtos.where("moeda_id = ?", params[:moeda_id]) if params[:moeda_id].present?
     @produtos = @produtos.where("status_produto_id = ?", params[:status_produto_id]) if params[:status_produto_id].present?
-    @produtos = @produtos.where("margem_telemovel = ?", params[:margem_telemovel].to_f) if params[:margem_telemovel].present?
-    @produtos = @produtos.where("margem_site = ?", params[:margem_site].to_f) if params[:margem_site].present?
-  
+
+    @produtos = @produtos.where("created_at >= ?", params[:created_at].to_datetime.beginning_of_day) if params[:created_at].present?
+    @produtos = @produtos.where("created_at <= ?", params[:created_at_fim].to_date.end_of_day) if params[:created_at_fim].present?
+
+    @produtos = @produtos.where("updated_at >= ?", params[:updated_at].to_datetime.beginning_of_day) if params[:updated_at].present?
+    @produtos = @produtos.where("updated_at <= ?", params[:updated_at_fim].to_date.end_of_day) if params[:updated_at_fim].present?
+
+    @produtos = @produtos.where("data_vigencia >= ?", params[:data_vigencia].to_date.beginning_of_day) if params[:data_vigencia].present?
+    @produtos = @produtos.where("data_vigencia < ?", params[:data_vigencia].to_date.end_of_day) if params[:data_vigencia].present?
+
     options = {page: params[:page] || 1, per_page: 10}
     @produtos = @produtos.paginate(options)
 
@@ -81,6 +90,9 @@ class ProdutosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def produto_params
-      params.require(:produto).permit(:partner_id, :status_produto_id, :valor_compra_telemovel, :valor_compra_site, :valor_compra_pos, :valor_compra_tef, :valor_minimo_venda_telemovel, :valor_minimo_venda_site, :valor_minimo_venda_pos, :valor_minimo_venda_tef, :margem_telemovel, :margem_site, :margem_pos, :margem_tef, :mensagem_cupom_venda, :moeda_id, :produto_id_parceiro, :valor_unitario, :tipo, :subtipo)
+      params.require(:produto).permit(:partner_id, :status_produto_id, :valor_compra_telemovel, 
+        :valor_compra_site, :valor_compra_pos, :valor_compra_tef, :margem_telemovel, 
+        :margem_site, :margem_tef, :margem_pos, :mensagem_cupom_venda, :moeda_id, :produto_id_parceiro, 
+        :valor_unitario, :tipo, :subtipo, :data_vigencia, :nome_comercial)
     end
 end

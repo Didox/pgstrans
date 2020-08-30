@@ -15,7 +15,6 @@
           <div class="alert alert-danger alert-dismissable" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             <h4><%= pluralize(@produto.errors.count, "erros") %> no produto, confira abaixo:</h4>
-
             <ul>
               <% @produto.errors.full_messages.each do |msg| %>
                   <li><%= msg %></li>
@@ -32,20 +31,26 @@
           <%= f.label :partner_id, "Parceiro" %>
           <%= f.select :partner_id, Partner.all.collect{|d| [d.name, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
-<!--
-        <div class="form-input col-sm-12">
-          <%#= f.label :moeda %>
-          <%#= f.select :moeda, [["KZ - Kwanza", "1"], ["USD - Dolar", "2"], ["EUR - Euro", "3"], ["BRL - Real", "4"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
-        </div-->
 
         <div class="form-input col-sm-12">
+           <%= f.input :nome_comercial, :label => "Nome Comercial do Produto", placeholder: "Nome Comercial do Produto" %>
+        </div>
+
+        <div class="label-success">&nbsp;</div>
+
+        <div class="form-input col-sm-4">
           <%= f.label :moeda_id %>
           <%= f.select :moeda_id, Moeda.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-4">
           <%= f.label :status_produto_id, "Status do Produto" %>
           <%= f.select :status_produto_id, StatusProduto.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+        </div>
+
+        <div class="form-input col-sm-4">
+          <%= f.label :data_vigencia, "Data do início da vigência do produto" %>
+          <%= f.date_field :data_vigencia, class:"form-control" %>
         </div>
 
         <div class="form-input col-sm-6">
@@ -53,68 +58,36 @@
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :valor_compra_site,:label => "Valor de compra para revenda pelo SITE",placeholder: "Valor de compra do produto na operadora" %>
-        </div>
-
-        <!-- <div class="form-input col-sm-6">
-          <%= f.input :valor_compra_pos, :label => "Valor de compra do produto para revenda pelo POS",placeholder: "Valor de compra do produto na operadora" %>
-        </div> -->
-
-        <!-- <div class="form-input col-sm-6">
-          <%= f.input :valor_compra_tef, :label => "Valor de compra do produto para revenda por TEF",placeholder: "Valor de compra do produto na operadora" %>
-        </div> -->
-
-        <div class="form-input col-sm-6">
-          <%= f.input :valor_minimo_venda_telemovel, :label => "Valor mínimo de venda TELEMÓVEL", placeholder: "Valor mínimo de venda do produto" %>
+          <%= f.input :valor_compra_site,:label => "Valor de compra para revenda pelo SITE", placeholder: "Valor de compra do produto na operadora" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :valor_minimo_venda_site, :label => "Valor mínimo de venda SITE", placeholder: "Valor mínimo de venda do produto" %>
-        </div>
-
-       <!--  <div class="form-input col-sm-6">
-          <%= f.input :valor_minimo_venda_pos, :label => "Valor mínimo de venda POS", placeholder: "Valor mínimo de venda do produto" %>
-        </div> -->
-
-        <!-- <div class="form-input col-sm-6">
-          <%= f.input :valor_minimo_venda_tef, :label => "Valor mínimo de venda TEF", placeholder: "Valor mínimo de venda do produto" %>
-        </div> -->
-
-        <div class="form-input col-sm-6">
-          <%= f.input :margem_telemovel, :label => "Margem para TELEMÓVEL", placeholder: "Margem % de venda para telemóvel" %>
+          <%= f.input :valor_compra_pos, :label => "Valor de compra do produto para revenda pelo POS", placeholder: "Valor de compra do produto na operadora" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :margem_site, :label => "Margem para SITE", placeholder: "Margem % de venda pelo site" %>
+          <%= f.input :valor_compra_tef, :label => "Valor de compra do produto para revenda por TEF", placeholder: "Valor de compra do produto na operadora" %>
         </div>
-
-        <!-- <div class="form-input col-sm-6">
-          <%= f.input :margem_pos, :label => "Margem para POS", placeholder: "Margem % de venda por POS" %>
-        </div>
-
-        <div class="form-input col-sm-6">
-          <%= f.input :margem_tef, :label => "Margem para TEF", placeholder: "Margem % de venda por TEF" %>
-        </div> -->
 
         <div class="form-input col-sm-12">
           <%= f.input :mensagem_cupom_venda, :label => "Mensagem cupom de venda", placeholder: "Mensagem a ser impressa no cupom de venda. Funcionalidade para POS ou TEF." %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :produto_id_parceiro, :label => "produto_id_parceiro", placeholder: "Id do produto no parceiro" %>
+          <%= f.input :produto_id_parceiro, :label => "ID do produto no parceiro", placeholder: "ID do produto no parceiro" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :valor_unitario, :label => "valor_unitario" %>
+          <%= f.input :valor_unitario, :label => "Valor unitário do produto no parceiro" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.label :tipo, "Tipo Parceiro" %>
+          <%= f.label :tipo, "Tipo de produto definido pelo parceiro" %>
           <%= f.select :tipo, [["RECHARGE", "RECHARGE"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.label :subtipo, "Subtipo parceiro" %>
+          <%= f.label :subtipo, "Subtipo do produto no parceiro" %>
           <%= f.select :subtipo, [["VOZ", "VOZ"], ["DADOS", "DADOS"], ["SMS", "SMS"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
