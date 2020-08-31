@@ -44,7 +44,7 @@
                 </div>
                 <select required="required" class="form-control" style="width:90%" name="parceiro_desconto_id_partner_id_<%= partner.id %>" id="parceiro_desconto_id_partner_id_<%= partner.id %>">
                   <% descontos = DescontoParceiro.where(partner_id: partner.id) %>
-                  <option value="">Remuneração padrão</option>
+                  <option value="">Desconto padrão</option>
                   <% descontos.each do |desconto_parceiro| %>
                     <option value="<%= desconto_parceiro.id %>" <% if RemuneracaoDesconto.where(remuneracao_id: @remuneracao.id, partner_id: partner.id, desconto_parceiro_id: desconto_parceiro.id).count > 0 %> selected="selected" <% end %> ><%= desconto_parceiro.porcentagem %>%</option>
                   <% end %>
@@ -59,12 +59,12 @@
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.label :vigencia_inicio, "Início da vigência deste plano de remuneração" %>
+          <%= f.label :vigencia_inicio, "Início da vigência deste plano de desconto" %>
           <%= f.date_field :vigencia_inicio, class:"form-control" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.label :vigencia_fim, "Fim da vigência deste plano de remuneração" %>
+          <%= f.label :vigencia_fim, "Fim da vigência deste plano de desconto" %>
           <%= f.date_field :vigencia_fim, class:"form-control" %>
         </div>
 
