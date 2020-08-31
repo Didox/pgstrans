@@ -6,7 +6,7 @@ class Produto < ApplicationRecord
   validates :valor_compra_site, presence: true
 
   def self.produtos
-    Produto.where(status_produto: StatusProduto.where(nome: "Ativo")).where("data_vigencia is not null and data_vigencia >= ?", DateTime.zone.now)
+    Produto.where(status_produto: StatusProduto.where(nome: "Ativo"))
   end
 end
 
