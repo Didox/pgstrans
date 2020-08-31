@@ -3,19 +3,17 @@ class Dstv
 
   def self.produtos
     partner = Partner.where(slug: "DSTv").first
-    Produto.where(partner_id: partner.id)
+    Produto.produtos.where(partner_id: partner.id)
   end
 
   def self.produtos_ativos
-    partner = Partner.where(slug: "DSTv").first
-    produtos = Produto.where(partner_id: partner.id)
+    produtos = Dstv.produtos
     produtos = produtos.where("valor_compra_telemovel > 0 and produto_id_parceiro is not null and produto_id_parceiro <> ''").reorder("valor_compra_telemovel asc")
     produtos
   end
 
   def self.produtos_ativos_box_office
-    partner = Partner.where(slug: "DSTv").first
-    produtos = Produto.where(partner_id: partner.id)
+    produtos = Dstv.produtos
     produtos = produtos.where("(valor_compra_telemovel > 0 or produto_id_parceiro = 'BOXOFFICE') and produto_id_parceiro is not null and produto_id_parceiro <> ''").reorder("valor_compra_telemovel asc")
     produtos
   end
@@ -79,29 +77,16 @@ class Dstv
             end
           end
 
-          produtos = Produto.where(produto_id_parceiro: produto_id_parceiro, partner_id: partner.id)
-          if produtos.count == 0
-            produtos = Produto.where(description: descricao, partner_id: partner.id)
-            if produtos.count == 0
-              produto = Produto.new
-              produto.produto_id_parceiro = produto_id_parceiro
-              produto.partner_id = partner.id
-            else
-              produto = produtos.first
-            end
-          else
-            produto = produtos.first
-          end
-
+          produto = Produto.new
+          produto.produto_id_parceiro = produto_id_parceiro
+          produto.partner_id = partner.id
           produto.description = descricao
-
           produto.valor_compra_telemovel = price
           produto.valor_compra_site = price
           produto.valor_compra_pos = price
           produto.valor_compra_tef = price
-          produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id rescue Moeda.first.id
-          produto.status_produto = StatusProduto.where(nome: "Ativo").first
-
+          produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id rescue Moeda.where(simbolo: "Kz").first.id
+          produto.status_produto = StatusProduto.where(nome: "Inativo").first
           produto.save!
         end
       end
@@ -120,7 +105,7 @@ class Dstv
     raise "Selecione o produto" if produto_id_parceiro.blank?
     raise "Customer number não pode ser vazio" if customer_number.blank?
     raise "Tipo de plano não pode ser vazio" if tipo_plano.blank?
-    produto = Produto.where(produto_id_parceiro: produto_id_parceiro).first
+    produto = Dstv.produtos.where(produto_id_parceiro: produto_id_parceiro).first
     raise "Selecione um produto válido" if produto.blank?
 
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
