@@ -22,27 +22,15 @@ class Zaptv
     if (200...300).include?(res.code)
       dados = JSON.parse(res.body)
       dados.each do |p_hash|
-        produtos = Produto.produtos.where(produto_id_parceiro: p_hash["code"], partner_id: partner.id)
-        if produtos.count == 0
-          produto = Produto.new
-          produto.produto_id_parceiro = p_hash["code"]
-          produto.partner_id = partner.id
-        else
-          produto = produtos.first
-        end
-
+        produto = Produto.new
+        produto.produto_id_parceiro = p_hash["code"]
+        produto.partner_id = partner.id
         produto.description = p_hash["description"]
         produto.valor_compra_site = p_hash["price"]
         produto.valor_compra_telemovel = p_hash["price"]
-        
-        # TODO ::: Verificar se um dia iremos utilizar :::
-        # produto.name = p_hash["recomended_quantity"]
-        # produto.name = p_hash["unit"]
-        # produto.name = p_hash["unit_pl"]
-        produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{p_hash["currency"]}')").first.id
         produto.subtipo = p_hash["technology"]
-        produto.status_produto = StatusProduto.where(nome: "Ativo").first
-
+        produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id rescue Moeda.where(simbolo: "Kz").first.id
+        produto.status_produto = StatusProduto.where(nome: "Inativo").first
         produto.save
       end
     end
