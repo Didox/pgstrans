@@ -89,6 +89,6 @@ class RemuneracaosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def remuneracao_params
-      params.require(:remuneracao).permit(:usuario_id, :produto_id, :vigencia_inicio, :vigencia_fim)
+      params.require(:remuneracao).permit(:usuario_id, :vigencia_inicio, :vigencia_fim)
     end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_30_212928) do
+ActiveRecord::Schema.define(version: 2020_08_31_103721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -287,13 +287,9 @@ ActiveRecord::Schema.define(version: 2020_08_30_212928) do
     t.float "valor_compra_site"
     t.float "valor_compra_pos"
     t.float "valor_compra_tef"
-    t.float "margem_telemovel"
-    t.float "margem_pos"
-    t.float "margem_tef"
     t.text "mensagem_cupom_venda"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "margem_site"
     t.bigint "moeda_id"
     t.string "produto_id_parceiro"
     t.float "valor_unitario"
@@ -348,12 +344,10 @@ ActiveRecord::Schema.define(version: 2020_08_30_212928) do
 
   create_table "remuneracaos", force: :cascade do |t|
     t.bigint "usuario_id"
-    t.bigint "produto_id"
     t.datetime "vigencia_inicio"
     t.datetime "vigencia_fim"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["produto_id"], name: "index_remuneracaos_on_produto_id"
     t.index ["usuario_id"], name: "index_remuneracaos_on_usuario_id"
   end
 
@@ -554,7 +548,6 @@ ActiveRecord::Schema.define(version: 2020_08_30_212928) do
   add_foreign_key "remuneracao_descontos", "desconto_parceiros"
   add_foreign_key "remuneracao_descontos", "partners"
   add_foreign_key "remuneracao_descontos", "remuneracaos"
-  add_foreign_key "remuneracaos", "produtos"
   add_foreign_key "remuneracaos", "usuarios"
   add_foreign_key "return_code_apis", "partners"
   add_foreign_key "saldo_parceiros", "partners"

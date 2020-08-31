@@ -53,11 +53,6 @@
             <% end %>
         </div>
 
-        <div class="form-input col-sm-12">
-          <%= f.label :produto_id %>
-          <%= f.select :produto_id, Produto.all.collect{|d| [d.description, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
-        </div>
-
         <div class="form-input col-sm-6">
           <%= f.label :vigencia_inicio, "Início da vigência deste plano de desconto" %>
           <%= f.date_field :vigencia_inicio, class:"form-control" %>

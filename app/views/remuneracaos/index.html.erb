@@ -13,7 +13,6 @@
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Usuário</th>
-          <th scope="col">Produto</th>
           <th scope="col">Início da Vigência</th>
           <th scope="col">Fim da Vigência</th>
           <th colspan="3">Ações</th>
@@ -25,7 +24,6 @@
         <tr>
           <td><%= remuneracao.id %></td>
           <td><%= remuneracao.usuario.nome %></td>
-          <td><%= remuneracao.produto.description %></td>
           <td><%= remuneracao.vigencia_inicio.strftime("%d/%m/%Y") rescue "" %></td>
           <td><%= remuneracao.vigencia_fim.strftime("%d/%m/%Y") rescue "" %></td>
           <td><%= link_to 'Mostrar', remuneracao %></td>

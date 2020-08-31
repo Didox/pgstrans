@@ -10,8 +10,6 @@
     <dl class="dl-horizontal">
       <dt>Usuário:</dt>
       <dd><%= "#{@remuneracao.usuario_id}/#{@remuneracao.usuario.nome}" %></dd>
-      <dt>Produto:</dt>
-      <dd><%= @remuneracao.produto.description %></dd>
       <dt>Início de Vigência:</dt>
       <dd><%= @remuneracao.vigencia_inicio.strftime("%d/%m/%Y") rescue "" %></dd>
       <dt>Fim de Vigência:</dt>
