@@ -99,10 +99,6 @@ class Dstv
           produto.valor_compra_site = price
           produto.valor_compra_pos = price
           produto.valor_compra_tef = price
-          produto.valor_minimo_venda_telemovel = price
-          produto.valor_minimo_venda_site = price
-          produto.valor_minimo_venda_pos = price
-          produto.valor_minimo_venda_tef = price
           produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id rescue Moeda.first.id
           produto.status_produto = StatusProduto.where(nome: "Ativo").first
 

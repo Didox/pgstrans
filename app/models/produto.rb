@@ -3,6 +3,7 @@ class Produto < ApplicationRecord
   belongs_to :status_produto
   belongs_to :moeda
   validates :description, presence: true, uniqueness: { scope: [:description, :partner_id] }
-  validates :valor_minimo_venda_site, presence: true
+  validates :valor_compra_telemovel, presence: true
+  validates :valor_compra_site, presence: true
 end
 

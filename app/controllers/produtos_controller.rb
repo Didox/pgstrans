@@ -92,7 +92,8 @@ class ProdutosController < ApplicationController
     def produto_params
       params.require(:produto).permit(:partner_id, :status_produto_id, :valor_compra_telemovel, 
         :valor_compra_site, :valor_compra_pos, :valor_compra_tef, :margem_telemovel, 
-        :margem_site, :margem_tef, :margem_pos, :mensagem_cupom_venda, :moeda_id, :produto_id_parceiro, 
+        :margem_site, :margem_tef, :margem_pos, 
+        :mensagem_cupom_venda, :moeda_id, :produto_id_parceiro, 
         :valor_unitario, :tipo, :subtipo, :data_vigencia, :nome_comercial)
     end
 end

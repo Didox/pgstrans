@@ -4,6 +4,6 @@ module ApplicationHelper
   end
 
   def formata_numero_duas_casas(numero)
-    number_to_currency(numero, :precision => 2).downcase.gsub(/kz|\./,"").gsub(",",".")
+    number_to_currency(numero.to_f, :precision => 2).downcase.gsub(/kz|\./,"").gsub(",",".")
   end
 end
