@@ -71,12 +71,14 @@ class RemuneracaosController < ApplicationController
   private
     def salvar_remuneracao_desconto
       RemuneracaoDesconto.where(remuneracao_id: @remuneracao.id).destroy_all
-      params[:partner_descontos].each do |partner_desconto|
-        RemuneracaoDesconto.create(
-          partner_id: partner_desconto["id"],
-          remuneracao_id: @remuneracao.id,
-          desconto_parceiro_id: params["parceiro_desconto_id_partner_id_#{partner_desconto["id"]}"]
-        )
+      if params[:partner_descontos].present?
+        params[:partner_descontos].each do |partner_desconto|
+          RemuneracaoDesconto.create(
+            partner_id: partner_desconto["id"],
+            remuneracao_id: @remuneracao.id,
+            desconto_parceiro_id: params["parceiro_desconto_id_partner_id_#{partner_desconto["id"]}"]
+          )
+        end
       end
     end
     # Use callbacks to share common setup or constraints between actions.
