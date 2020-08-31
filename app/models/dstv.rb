@@ -90,6 +90,8 @@ class Dstv
           produto.save!
         end
       end
+    else
+      raise "API DSTV Não retornou 200, sem dados para atualização"
     end
 
     item = UltimaAtualizacaoProduto.where(partner_id: partner.id).first

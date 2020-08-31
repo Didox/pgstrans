@@ -33,6 +33,8 @@ class Zaptv
         produto.status_produto = StatusProduto.where(nome: "Inativo").first
         produto.save
       end
+    else
+      raise "API ZAPTV Não retornou 200, sem dados para atualização"
     end
 
     item = UltimaAtualizacaoProduto.where(partner_id: partner.id).first
