@@ -2,8 +2,8 @@
   <option value="">Escolher</option>
   <% produtos = Dstv.produtos_ativos_box_office %>
   <% produtos.each do |produto| %>
-    <option value="<%= produto.produto_id_parceiro || produto.id %>-<%= formata_numero_duas_casas(produto.valor_compra_site) %>">
-      <%= produto.produto_id_parceiro %> - <%= produto.nome_comercial %> - <%= number_to_currency(produto.valor_compra_site, :unit => "KZ", :precision => 2) %>
+    <option value="<%= produto.produto_id_parceiro || produto.id %>-<%= formata_numero_duas_casas(produto.valor_compra_telemovel) %>">
+      <%= produto.produto_id_parceiro %> - <%= produto.nome_comercial %> - <%= number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2) %>
     </option>
   <% end %>
 </select>
