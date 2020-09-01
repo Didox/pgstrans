@@ -77,17 +77,19 @@ class Dstv
             end
           end
 
-          produto = Produto.new
-          produto.produto_id_parceiro = produto_id_parceiro
-          produto.partner_id = partner.id
-          produto.description = descricao
-          produto.valor_compra_telemovel = price
-          produto.valor_compra_site = price
-          produto.valor_compra_pos = price
-          produto.valor_compra_tef = price
-          produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id rescue Moeda.where(simbolo: "Kz").first.id
-          produto.status_produto = StatusProduto.where(nome: "Inativo").first
-          produto.save!
+          if Produto.where(produto_id_parceiro: produto_id_parceiro, partner_id: partner.id).where("created_at BETWEEN ? AND ?", (Time.zone.now - 2.minutes), (Time.zone.now + 2.minutes)).count == 0
+            produto = Produto.new
+            produto.produto_id_parceiro = produto_id_parceiro
+            produto.partner_id = partner.id
+            produto.description = descricao
+            produto.valor_compra_telemovel = price
+            produto.valor_compra_site = price
+            produto.valor_compra_pos = price
+            produto.valor_compra_tef = price
+            produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id rescue Moeda.where(simbolo: "Kz").first.id
+            produto.status_produto = StatusProduto.where(nome: "Inativo").first
+            produto.save!
+          end
         end
       end
     else

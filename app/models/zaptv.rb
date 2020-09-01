@@ -22,16 +22,18 @@ class Zaptv
     if (200...300).include?(res.code)
       dados = JSON.parse(res.body)
       dados.each do |p_hash|
-        produto = Produto.new
-        produto.produto_id_parceiro = p_hash["code"]
-        produto.partner_id = partner.id
-        produto.description = p_hash["description"]
-        produto.valor_compra_site = p_hash["price"]
-        produto.valor_compra_telemovel = p_hash["price"]
-        produto.subtipo = p_hash["technology"]
-        produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id rescue Moeda.where(simbolo: "Kz").first.id
-        produto.status_produto = StatusProduto.where(nome: "Inativo").first
-        produto.save
+        if Produto.where(produto_id_parceiro: p_hash["code"], partner_id: partner.id).where("created_at BETWEEN ? AND ?", (Time.zone.now - 2.minutes), (Time.zone.now + 2.minutes)).count == 0
+          produto = Produto.new
+          produto.produto_id_parceiro = p_hash["code"]
+          produto.partner_id = partner.id
+          produto.description = p_hash["description"]
+          produto.valor_compra_site = p_hash["price"]
+          produto.valor_compra_telemovel = p_hash["price"]
+          produto.subtipo = p_hash["technology"]
+          produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id rescue Moeda.where(simbolo: "Kz").first.id
+          produto.status_produto = StatusProduto.where(nome: "Inativo").first
+          produto.save
+        end
       end
     else
       raise "API ZAPTV Não retornou 200, sem dados para atualização"

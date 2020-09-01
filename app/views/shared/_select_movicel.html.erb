@@ -4,7 +4,7 @@
   <% produtos = Produto.produtos.where(partner_id: Partner.where(slug: partner.slug)).reorder("valor_compra_site asc") %>
   <% produtos.each do |produto| %>
     <option value="<%= produto.produto_id_parceiro || produto.id %>-<%= formata_numero_duas_casas(produto.valor_compra_site) %>">
-      <%= produto.description %>
+      <%= produto.nome_comercial %>
     </option>
   <% end %>
 </select>
