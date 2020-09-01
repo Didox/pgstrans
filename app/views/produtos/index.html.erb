@@ -53,7 +53,7 @@
               <select name="moeda_id" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
                 <% Moeda.all.each do |moeda| %>
-                  <option value="<%= moeda.id %>" <% if moeda.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= "#{moeda.id}/#{moeda.simbolo}" %></option>
+                  <option value="<%= moeda.id %>" <% if moeda.id.to_s == params[:moeda_id] %> selected="selected" <% end %> ><%= "#{moeda.id}/#{moeda.simbolo}" %></option>
                 <% end %>
               </select>
             </div>
@@ -66,7 +66,7 @@
               <select name="status_produto_id" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
                 <% StatusProduto.all.each do |status_produto| %>
-                  <option value="<%= status_produto.id %>" <% if status_produto.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= status_produto.nome %></option>
+                  <option value="<%= status_produto.id %>" <% if status_produto.id.to_s == params[:status_produto_id] %> selected="selected" <% end %> ><%= status_produto.nome %></option>
                 <% end %>
               </select>
             </div>
