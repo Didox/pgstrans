@@ -176,13 +176,19 @@ class Venda < ApplicationRecord
       remuneracao_descontos = RemuneracaoDesconto.where(partner_id: parceiro.id, remuneracao_id: remuneracao.id)
       if remuneracao_descontos.count > 0
         remuneracao_desconto = remuneracao_descontos.first
-        desconto = remuneracao_desconto.desconto_parceiro.porcentagem
+        if remuneracao_desconto.desconto_parceiro.present?
+          desconto = remuneracao_desconto.desconto_parceiro.porcentagem
+        else
+          desconto = parceiro.desconto
+        end
+      else
+        desconto = parceiro.desconto
       end
     else
       desconto = parceiro.desconto
     end
 
-    desconto_aplicado = valor * desconto / 100
+    desconto_aplicado = valor.to_f * desconto.to_f / 100
     valor_original = valor
     valor = valor - desconto_aplicado
 
