@@ -20,6 +20,11 @@ class Zaptv
     )
 
     if (200...300).include?(res.code)
+
+      Rails.logger.info "=================Retorno API========================="
+      Rails.logger.info res.body
+      Rails.logger.info "=================Retorno API========================="
+
       dados = JSON.parse(res.body)
       dados.each do |p_hash|
         if Produto.where(produto_id_parceiro: p_hash["code"], partner_id: partner.id).where("created_at BETWEEN ? AND ?", (Time.zone.now - 2.minutes), (Time.zone.now + 2.minutes)).count == 0

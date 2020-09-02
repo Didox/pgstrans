@@ -166,9 +166,41 @@ class Venda < ApplicationRecord
     end
   end
 
+  def self.desconto_venda(usuario, parceiro, valor)
+    desconto = 0
+    remuneracoes = Remuneracao.where(usuario_id: usuario.id)
+    remuneracoes = remuneracoes.where("vigencia_inicio >= ?", Time.zone.now.beginning_of_day)
+    remuneracoes = remuneracoes.where("vigencia_fim <= ?", Time.zone.now.end_of_day)
+    if remuneracoes.count > 0
+      remuneracao = remuneracoes.first
+      remuneracao_descontos = RemuneracaoDesconto.where(partner_id: parceiro.id, remuneracao_id: remuneracao.id)
+      if remuneracao_descontos.count > 0
+        remuneracao_desconto = remuneracao_descontos.first
+        if remuneracao_desconto.desconto_parceiro.present?
+          desconto = remuneracao_desconto.desconto_parceiro.porcentagem
+        else
+          desconto = parceiro.desconto
+        end
+      else
+        desconto = parceiro.desconto
+      end
+    else
+      desconto = parceiro.desconto
+    end
+
+    desconto_aplicado = valor.to_f * desconto.to_f / 100
+    valor_original = valor
+    valor = valor - desconto_aplicado
+
+    return [desconto_aplicado, valor_original, valor]
+  end
+
   def self.venda_zaptv(params, usuario, ip)
     parceiro = Partner.where("lower(slug) = 'zaptv'").first
     valor = params[:valor].to_i
+
+    desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
+    
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     raise "Saldo insuficiente para recarga" if usuario.saldo < valor
@@ -210,7 +242,7 @@ class Venda < ApplicationRecord
       :body => body_send
     )
 
-    venda = Venda.new(product_id: product_id, agent_id: parametro.zaptv_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(product_id: product_id, agent_id: parametro.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
@@ -328,6 +360,8 @@ class Venda < ApplicationRecord
     parceiro = Partner.where("lower(slug) = 'movicel'").first
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
+
+    desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
 
     raise "Parâmetros não localizados" if parametro.blank?
     raise "Saldo insuficiente para recarga" if usuario.saldo < valor
@@ -489,7 +523,7 @@ class Venda < ApplicationRecord
 
           last_request = request.body
 
-          venda = Venda.new(product_id:product_id, agent_id: parametro.movicel_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+          venda = Venda.new(product_id:product_id, agent_id: parametro.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
           venda.responsavel = usuario
           venda.save!
 
@@ -572,6 +606,8 @@ class Venda < ApplicationRecord
     parceiro = Partner.where("lower(slug) = 'dstv'").first
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
+
+    desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
 
     raise "Parâmetros não localizados" if parametro.blank?
     raise "Saldo insuficiente para recarga" if usuario.saldo < valor
@@ -667,7 +703,7 @@ class Venda < ApplicationRecord
 
     last_request = request.body
     
-    venda = Venda.new(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_customer_number], usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, client_msisdn: params[:dstv_customer_number], usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -724,6 +760,7 @@ class Venda < ApplicationRecord
   #     parceiro = Partner.where("lower(slug) = 'dstv'").first
   #     valor = params[:valor].to_i
   #     parametro = Parametro.where(partner_id: parceiro.id).first
+  #     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
 
   #     raise "Parâmetros não localizados" if parametro.blank?
   #     raise "Saldo insuficiente para recarga" if usuario.saldo < valor
@@ -815,7 +852,7 @@ class Venda < ApplicationRecord
 
   #     last_request = request.body
       
-  #     venda = Venda.new(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
+  #     venda = Venda.new(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
         # venda.responsavel = usuario
         # venda.save!
   #     venda.store_id = usuario.sub_agente.store_id_parceiro
@@ -849,6 +886,7 @@ class Venda < ApplicationRecord
     parceiro = Partner.where("lower(slug) = 'unitel'").first
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
+    desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
 
     raise "Parâmetros não localizados" if parametro.blank?
     raise "Saldo insuficiente para recarga" if usuario.saldo < valor
@@ -861,7 +899,7 @@ class Venda < ApplicationRecord
     product_id = params[:unitel_produto_id].split("-").first
     telefone = params[:unitel_telefone]
 
-    venda = Venda.new(agent_id: parametro.unitel_agente_id, product_id: product_id, value: valor, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(agent_id: parametro.unitel_agente_id, product_id: product_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
