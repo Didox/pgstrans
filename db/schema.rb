@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_31_103721) do
+ActiveRecord::Schema.define(version: 2020_09_02_110921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -523,6 +523,8 @@ ActiveRecord::Schema.define(version: 2020_08_31_103721) do
     t.bigint "usuario_id"
     t.string "status"
     t.string "request_id"
+    t.float "desconto_aplicado", default: 0.0
+    t.float "valor_original", default: 0.0
     t.index ["partner_id"], name: "index_vendas_on_partner_id"
     t.index ["usuario_id"], name: "index_vendas_on_usuario_id"
   end
