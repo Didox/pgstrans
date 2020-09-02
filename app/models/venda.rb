@@ -166,9 +166,34 @@ class Venda < ApplicationRecord
     end
   end
 
+  def self.desconto_venda(usuario, parceiro)
+    desconto = 0
+    remuneracoes = Remuneracao.where(usuario_id: usuario.id)
+    remuneracoes = remuneracoes.where("vigencia_inicio >= ?", Time.zone.now.beginning_of_day)
+    remuneracoes = remuneracoes.where("vigencia_fim <= ?", Time.zone.now.end_of_day)
+    if remuneracoes.count > 0
+      remuneracao = remuneracoes.first
+      remuneracao_descontos = RemuneracaoDesconto.where(partner_id: parceiro.id, remuneracao_id: remuneracao.id)
+      if remuneracao_descontos.count > 0
+        remuneracao_desconto = remuneracao_descontos.first
+        desconto = remuneracao_desconto.desconto_parceiro.porcentagem
+      end
+    else
+      desconto = parceiro.desconto
+    end
+
+    return desconto
+  end
+
   def self.venda_zaptv(params, usuario, ip)
     parceiro = Partner.where("lower(slug) = 'zaptv'").first
     valor = params[:valor].to_i
+
+    desconto = desconto_venda(usuario, parceiro)
+    desconto_aplicado = valor * desconto / 100
+    valor_original = valor
+    valor = valor - desconto_aplicado
+    
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     raise "Saldo insuficiente para recarga" if usuario.saldo < valor
@@ -210,7 +235,7 @@ class Venda < ApplicationRecord
       :body => body_send
     )
 
-    venda = Venda.new(product_id: product_id, agent_id: parametro.zaptv_agente_id, value: valor, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(product_id: product_id, agent_id: parametro.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
