@@ -197,7 +197,7 @@ class Venda < ApplicationRecord
 
   def self.venda_zaptv(params, usuario, ip)
     parceiro = Partner.where("lower(slug) = 'zaptv'").first
-    valor = params[:valor].to_i
+    valor = params[:valor].to_f
 
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
     
@@ -225,7 +225,7 @@ class Venda < ApplicationRecord
     product_id = params[:zaptv_produto_id].split("-").first
 
     body_send = {
-      :price => params[:valor].to_f, 
+      :price => valor_original, 
       :product_code => product_id, #produto importado zap
       :product_quantity => 1, 
       :source_reference => request_id, #meu código 
@@ -429,7 +429,7 @@ class Venda < ApplicationRecord
         <soapenv:Body>
             <int:ValidateTopupReq>
                <int:ValidateTopupReqBody>
-                  <mid1:Amount>#{valor}</mid1:Amount>
+                  <mid1:Amount>#{valor_original}</mid1:Amount>
                   <mid1:MSISDN>#{msisdn}</mid1:MSISDN>
                </int:ValidateTopupReqBody>
             </int:ValidateTopupReq>
@@ -485,7 +485,7 @@ class Venda < ApplicationRecord
             <soapenv:Body>
                 <int:TopupReq>
                   <int:TopupReqBody>
-                      <mid1:Amount>#{valor}</mid1:Amount>
+                      <mid1:Amount>#{valor_original}</mid1:Amount>
                       <mid1:MSISDN>#{msisdn}</mid1:MSISDN>
                       <mid1:Type>Default</mid1:Type>
                   </int:TopupReqBody>
@@ -660,7 +660,7 @@ class Venda < ApplicationRecord
             <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
             <sel1:dataSource>#{data_source}</sel1:dataSource>
             <sel1:customerNumber>#{params[:dstv_customer_number]}</sel1:customerNumber>
-            <sel1:amount>#{params[:valor]}</sel1:amount>
+            <sel1:amount>#{valor_original}</sel1:amount>
             <sel1:invoicePeriod>1</sel1:invoicePeriod>
             <sel1:currency>AOA</sel1:currency>
             <sel1:paymentDescription>Pagasó Payment System</sel1:paymentDescription>
@@ -753,135 +753,6 @@ class Venda < ApplicationRecord
     return venda
   end
 
-
-  ######### Implementação SubmitPaymentBySmartCard em validação #########
-  # def self.venda_dstv(params, usuario, ip)
-  #   ActiveRecord::Base.transaction do
-  #     parceiro = Partner.where("lower(slug) = 'dstv'").first
-  #     valor = params[:valor].to_i
-  #     parametro = Parametro.where(partner_id: parceiro.id).first
-  #     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
-
-  #     raise "Parâmetros não localizados" if parametro.blank?
-  #     raise "Saldo insuficiente para recarga" if usuario.saldo < valor
-  #     raise "Parceiro não localizado" if parceiro.blank?
-  #     raise "Selecione o valor" if params[:valor].blank?
-  #     raise "Digite o Nº SmartCard" if params[:dstv_customer_number].blank?
-  #     raise "Talão p/SMS" if params[:talao_sms].blank?
-  #     raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
-  #     raise "Produto não selecionado" if params[:dstv_produto_id].blank?
-
-  #     product_id = params[:dstv_produto_id].split("-").first
-
-  #     require 'openssl'
-
-  #     transaction_number = (Venda.order("id desc").first.id + 1)
-
-  #     if Rails.env == "development"
-  #       url_service = parametro.url_integracao_desenvolvimento
-  #       data_source = parametro.data_source_dstv_desenvolvimento
-  #       payment_vendor_code = parametro.payment_vendor_code_dstv_desenvolvimento
-  #       vendor_code = parametro.vendor_code_dstv_desenvolvimento
-  #       agent_account = parametro.agent_account_dstv_desenvolvimento
-  #       currency = parametro.currency_dstv_desenvolvimento
-  #       product_user_key = parametro.product_user_key_dstv_desenvolvimento
-  #       mop = parametro.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM "
-  #       agent_number = parametro.agent_number_dstv_desenvolvimento #122434345
-  #     else
-  #       url_service = parametro.url_integracao_producao
-  #       data_source = parametro.data_source_dstv_producao
-  #       payment_vendor_code = parametro.payment_vendor_code_dstv_producao
-  #       vendor_code = parametro.vendor_code_dstv_producao
-  #       agent_account = parametro.agent_account_dstv_producao
-  #       currency = parametro.currency_dstv_producao
-  #       product_user_key = parametro.product_user_key_dstv_producao
-  #       mop = parametro.mop_dstv_producao # mop = "CASH, MOBILE or ATM "
-  #       agent_number = parametro.agent_number_dstv_producao #122434345
-  #     end
-
-  #     request_send = ""
-  #     response_get = ""
-  #     last_request = ""
-
-  #     body = "
-  #       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
-  #          <soapenv:Header/>
-  #          <soapenv:Body>
-  #             <sel:SubmitPaymentBySmartCard>
-  #               <sel1:VendorCode>#{vendor_code}</sel1:VendorCode>
-  #               <sel1:DataSource>#{data_source}</sel1:DataSource>
-  #               <sel1:PaymentVendorCode>#{payment_vendor_code}</sel1:PaymentVendorCode>
-  #               <sel1:TransactionNumber>#{transaction_number}</sel1:TransactionNumber>
-  #               <sel:SmartCardNumber>#{params[:dstv_customer_number]}</sel:SmartCardNumber>
-  #               <sel1:Amount>#{params[:valor]}</sel1:Amount>
-  #               <sel1:InvoicePeriod>12</sel1:InvoicePeriod>
-  #               <sel1:Currency>AOA</sel1:Currency>
-  #               <sel1:PaymentDescription>?</sel1:PaymentDescription>
-  #               <sel1:ProductCollection>
-  #                  <sel1:PaymentProduct>
-  #                     <sel1:ProductUserKey>#{product_id}</sel1:ProductUserKey>
-  #                  </sel1:PaymentProduct>
-  #               </sel1:ProductCollection>
-  #               <sel1:MethodOfPayment>CASH</sel1:MethodOfPayment>
-  #               <sel:Language>PT</sel:Language>
-  #               <sel:IpAddress>#{ip}</sel:IpAddress>
-  #               <sel:BusinessUnit>?</sel:BusinessUnit>
-  #             </sel:SubmitPaymentBySmartCard>
-  #          </soapenv:Body>
-  #       </soapenv:Envelope>
-  #     "
-
-  #     request_send += "=========[SubmitPaymentBySmartCard]========"
-  #     request_send += body
-  #     request_send += "=========[SubmitPaymentBySmartCard]========"
-
-  #     #http://uat.mcadigitalmedia.com/VendorSelfCare/SelfCareService.svc?wsdl
-  #     url = "#{url_service}/VendorSelfCare/SelfCareService.svc"
-  #     uri = URI.parse(URI.escape(url))
-  #     request = HTTParty.post(uri, 
-  #       :headers => {
-  #         'Content-Type' => 'text/xml;charset=UTF-8',
-  #         'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/SubmitPaymentBySmartCard",
-  #       },
-  #       :body => body
-  #     )
-      
-  #     response_get += "=========[SubmitPaymentBySmartCard]========"
-  #     response_get += request.body
-  #     response_get += "=========[SubmitPaymentBySmartCard]========"
-
-  #     last_request = request.body
-      
-  #     venda = Venda.new(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, client_msisdn: params[:dstv_smart_card], usuario_id: usuario.id, partner_id: parceiro.id)
-        # venda.responsavel = usuario
-        # venda.save!
-  #     venda.store_id = usuario.sub_agente.store_id_parceiro
-  #     venda.seller_id = usuario.sub_agente.seller_id_parceiro
-  #     venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
-
-  #     venda.request_send = request_send
-  #     venda.response_get = response_get
-  #     venda.status = last_request.scan(/receiptNumber.*?<\/receiptNumber/).first.scan(/>.*?</).first.scan(/\d/).join("") rescue "3"
-
-  #     venda.save!
-
-  #     if venda.sucesso?
-  
-  #       ContaCorrente.create!(
-  #         usuario_id: usuario.id,
-  #         valor: "-#{valor}",
-  #         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
-  #         lancamento_id: Lancamento.where(nome: "Compra de crédito ou recarga").first.id rescue Lancamento.first.id,
-  #         banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
-  #         partner_id: parceiro.id,
-  #         iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
-  #       )
-  #     end
-
-  #     return venda
-  #   end
-  # end
-
   def self.venda_unitel(params, usuario, ip)
     parceiro = Partner.where("lower(slug) = 'unitel'").first
     valor = params[:valor].to_i
@@ -923,9 +794,9 @@ class Venda < ApplicationRecord
     # ./chaves/unitel_recarga.sh '7' '9' '114250' '' '' '' '500' '244998524570' 'https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale'
     
     if Rails.env == "development"
-      dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+      dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
     else
-      dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+      dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
     end
 
     retorno = `#{dados_envio}`
