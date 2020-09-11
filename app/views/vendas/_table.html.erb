@@ -1,0 +1,75 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Usuário</th>
+      <th scope="col">Parceiro</th>
+      <th scope="col">Data da Venda</th>
+      <th scope="col">Status</th>
+      <th scope="col">Product</th>
+      <th scope="col">Agent</th>
+      <th scope="col">Store</th>
+      <th scope="col">ID do Vendedor</th>
+      <th scope="col">Terminal</th>
+      <th scope="col">Customer Number / MSIDN</th>
+      <th scope="col">Value</th>
+      <th colspan="3">Ação</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% valor_total = 0 %>
+    <% @vendas.each do |venda| %>
+    <tr>
+      <td><%= venda.id %></td>
+      <td><%= venda.usuario.nome %></td>
+      <td><%= venda.partner.name %></td>
+      <td><%= venda.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+      <td><%= venda.status_desc.error_description_pt %></td>
+      <td>
+        <%= venda.product_id %>
+        <hr>
+        <%= venda.product_nome %>
+      </td>
+      <td align="right"><%= venda.agent_id %></td>
+      <td align="right"><%= venda.store_id %></td>
+      <td align="right"><%= venda.seller_id %></td>
+      <td align="right"><%= venda.terminal_id %></td>
+      <td align="right"><%= venda.client_msisdn %></td>
+      <td style="width:110px" align="right"><%= number_to_currency(venda.value) %></td>
+      <td>
+        <%= link_to 'Detalhes', venda, class: "btn btn-warning", style:"width:100px" %><br><br>
+        <%= link_to 'Grupo Acesso', "/controle-acessos/#{venda.class}/#{venda.id}/grupos", class: "btn btn-warning", style:"width:100px" %>
+      </td>
+      <% valor_total += venda.value %>
+    </tr>
+    <% end %>
+    <tfoot>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td align="right"></td>
+        <td align="right"></td>
+        <td align="right"></td>
+        <td align="right"></td>
+        <td align="right"><b>Total:</b></td>
+        <td style="width:110px" align="right">
+          <b><%= number_to_currency(valor_total) %></b>
+        </td>              
+        <td align="right"></td>
+      </tr>
+    </tfoot>
+  </tbody>
+</table>
+
+<h2>
+  Total de vendas ou recargas: <%= number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %>
+</h2>
+
+<div class="apple_pagination">
+  <%= will_paginate @usuarios, :container => false %>
+</div>
