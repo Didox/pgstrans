@@ -14,7 +14,7 @@ class Dstv
 
   def self.produtos_ativos_box_office
     produtos = Dstv.produtos
-    produtos = produtos.where("(valor_compra_telemovel > 0 or produto_id_parceiro = 'BOXOFFICE') and produto_id_parceiro is not null and produto_id_parceiro <> ''").reorder("nome_comercial asc")
+    produtos = produtos.where("(valor_compra_telemovel > 0 or produto_id_parceiro = 'BOXOFFICE') and produto_id_parceiro is not null and produto_id_parceiro <> ''").reorder("valor_compra_telemovel asc, nome_comercial asc")
     produtos
   end
 

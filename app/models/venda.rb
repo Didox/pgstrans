@@ -826,4 +826,13 @@ class Venda < ApplicationRecord
 
     return venda
   end
+
+  def lucro
+    
+    venda.valor_original
+    venda.desconto_aplicado 
+    venda.lucro
+    venda.value
+
+  end
 end
