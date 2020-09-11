@@ -38,7 +38,7 @@
               <div style="display:flex">
                 <div style="width:100px;padding-top: 15px;">
                   <label>
-                    <input type="checkbox" name="partner_descontos[][id]" value="<%= partner.id %>" <% if RemuneracaoDesconto.where(remuneracao_id: @remuneracao.id, partner_id: partner.id).count > 0 %> checked="checked" <% end %> /> 
+                    <input type="hidden" name="partner_descontos[][id]" value="<%= partner.id %>" /> 
                     <%= partner.name %>
                   </label>
                 </div>
