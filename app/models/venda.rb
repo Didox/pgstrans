@@ -32,10 +32,10 @@ class Venda < ApplicationRecord
           venda.seller_id,
           venda.terminal_id,
           venda.client_msisdn,
-          venda.valor_original,
-          venda.desconto_aplicado,
-          porcentagem,
-          venda.value,
+          venda.valor_original.round(2),
+          venda.desconto_aplicado.round(2),
+          porcentagem.round(2),
+          venda.value.round(2),
         ]
       end
     end
