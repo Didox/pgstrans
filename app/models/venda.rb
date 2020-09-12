@@ -32,10 +32,10 @@ class Venda < ApplicationRecord
           venda.seller_id,
           venda.terminal_id,
           venda.client_msisdn,
-          moeda_csv(helper.number_to_currency(venda.valor_original)),
-          moeda_csv(helper.number_to_currency(venda.desconto_aplicado)),
+          moeda_csv(helper.number_to_currency(venda.valor_original, :unit => "")),
+          moeda_csv(helper.number_to_currency(venda.desconto_aplicado, :unit => "")),
           moeda_csv(helper.number_to_currency(porcentagem, :unit => "")),
-          moeda_csv(helper.number_to_currency(venda.value)),
+          moeda_csv(helper.number_to_currency(venda.value, :unit => "")),
         ]
       end
     end
