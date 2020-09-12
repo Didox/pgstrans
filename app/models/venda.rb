@@ -32,10 +32,10 @@ class Venda < ApplicationRecord
           venda.seller_id,
           venda.terminal_id,
           venda.client_msisdn,
-          venda.valor_original.round(2),
-          venda.desconto_aplicado.round(2),
-          porcentagem.round(2),
-          venda.value.round(2),
+          helper.number_to_currency(venda.valor_original),
+          helper.number_to_currency(venda.desconto_aplicado),
+          helper.number_to_currency(porcentagem, :unit => ""),
+          helper.number_to_currency(venda.value),
         ]
       end
     end
@@ -841,4 +841,11 @@ class Venda < ApplicationRecord
     venda.value
 
   end
+
+  private
+    def self.helper
+      @helper ||= Class.new do
+        include ActionView::Helpers::NumberHelper
+      end.new
+    end
 end

@@ -43,7 +43,7 @@
         <%= number_to_currency(venda.desconto_aplicado) %><br>
         <% porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
         unless porcentagem.nan? %>
-          <%= porcentagem.round(2) %>%
+          <%= number_to_currency(porcentagem, :unit => "") %>%
         <% end %>
       </td>
       <td style="width:110px" align="right"><%= number_to_currency(venda.value) %></td>
@@ -71,7 +71,7 @@
             <%= number_to_currency(valor_desconto_total) %><br>
             <% porcentagem = (valor_desconto_total.to_f / valor_original_total.to_f * 100) 
             unless porcentagem.nan? %>
-              <%= porcentagem.round(2) %>%
+              <%= number_to_currency(porcentagem, :unit => "") %>%
             <% end %>
           </b>
         </td>
