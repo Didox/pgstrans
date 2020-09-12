@@ -2,8 +2,8 @@
   <thead>
     <tr>
       <th scope="col" style="width: 25%">Dados</th>
-      <th scope="col" style="width: 25%">Agent</th>
-      <th scope="col">Product</th>
+      <th scope="col" style="width: 25%">Agente</th>
+      <th scope="col">Produto</th>
       <th scope="col">Valor</th>
       <th scope="col">Desconto</th>
       <th scope="col">Lucro</th>
@@ -27,7 +27,7 @@
         <b>Status:</b> <%= venda.status_desc.error_description_pt %><br>
       </td>
       <td>
-        <b>Agent:</b> <%= venda.agent_id %><br>
+        <b>Agente:</b> <%= venda.agent_id %><br>
         <b>Store:</b> <%= venda.store_id %><br>
         <b>ID do Vendedor:</b> <%= venda.seller_id %><br>
         <b>Terminal:</b> <%= venda.terminal_id %><br>
@@ -39,7 +39,13 @@
         <%= venda.product_nome %>
       </td>
       <td style="width:110px" align="right"><%= number_to_currency(venda.valor_original) %></td>
-      <td style="width:110px" align="right"><%= number_to_currency(venda.desconto_aplicado) %></td>
+      <td style="width:110px" align="right">
+        <%= number_to_currency(venda.desconto_aplicado) %><br>
+        <% porcentagem = (venda.valor_original.to_f / venda.desconto_aplicado.to_f * 100) 
+        unless porcentagem.nan? %>
+          <%= porcentagem %>%
+        <% end %>
+      </td>
       <td style="width:110px" align="right"><%= number_to_currency(venda.value) %></td>
       <td>
         <%= link_to 'Detalhes', venda, class: "btn btn-warning", style:"width:100px" %><br><br>
