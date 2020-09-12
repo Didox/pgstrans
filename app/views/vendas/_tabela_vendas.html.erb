@@ -41,7 +41,7 @@
       <td style="width:110px" align="right"><%= number_to_currency(venda.valor_original) %></td>
       <td style="width:110px" align="right">
         <%= number_to_currency(venda.desconto_aplicado) %><br>
-        <% porcentagem = (venda.valor_original.to_f / venda.desconto_aplicado.to_f * 100) 
+        <% porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
         unless porcentagem.nan? %>
           <%= porcentagem %>%
         <% end %>
