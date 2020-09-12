@@ -32,10 +32,10 @@ class Venda < ApplicationRecord
           venda.seller_id,
           venda.terminal_id,
           venda.client_msisdn,
-          helper.number_to_currency(venda.valor_original),
-          helper.number_to_currency(venda.desconto_aplicado),
-          helper.number_to_currency(porcentagem, :unit => ""),
-          helper.number_to_currency(venda.value),
+          moeda_csv(helper.number_to_currency(venda.valor_original)),
+          moeda_csv(helper.number_to_currency(venda.desconto_aplicado)),
+          moeda_csv(helper.number_to_currency(porcentagem, :unit => "")),
+          moeda_csv(helper.number_to_currency(venda.value)),
         ]
       end
     end
@@ -843,6 +843,10 @@ class Venda < ApplicationRecord
   end
 
   private
+    def self.moeda_csv(valor)
+      valor.gsub(".", "").gsub(",", ".")
+    end
+
     def self.helper
       @helper ||= Class.new do
         include ActionView::Helpers::NumberHelper
