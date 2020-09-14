@@ -118,7 +118,8 @@
                 <ul class="list-group">
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :RemuneracaosController, :index) %>
                         <li class="list-group-item">
-                            <%= link_to 'Relatório de Descontos e Lucro', descontos_lucros_path %>
+                            <%#= link_to 'Relatório de Descontos e Lucro', descontos_lucros_path %>
+                            <%= link_to 'Relatório de Descontos e Lucro', "#" %>
                         </li>
                     <% end %>
                 </ul>
