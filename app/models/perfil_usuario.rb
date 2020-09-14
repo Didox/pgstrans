@@ -61,6 +61,7 @@ class PerfilUsuario < ApplicationRecord
       controle_acessos_modelo_novo: "Controle de Acesso MODELOS (NOVO)",
       controle_acessos_modelo_salvar: "Controle de Acesso MODELOS (SALVAR)",
       controle_acessos_modelo_delete: "Controle de Acesso MODELOS (EXCLUIR)",
+      lucros: "Relatório de Descontos e Lucro",
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
@@ -108,7 +109,8 @@ class PerfilUsuario < ApplicationRecord
       log_vendas: "Log de vendas não realizadas",
       pagamentos_faturas_dstvs: "Pagamentos de fatura DSTV",
       alteracoes_planos_dstvs: "Alteração de planos DSTV",
-      desconto_parceiros: "Desconto para parceiros"
+      desconto_parceiros: "Desconto para parceiros",
+      descontos: "Tabela de Descontos de Parceiros index"
     }
     nomes[controller.to_sym]
   end

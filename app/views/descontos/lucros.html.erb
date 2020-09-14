@@ -1,0 +1,41 @@
+<div class="container">
+  <h4>Descontos</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="container scroltable">
+    <br>Descontos possíveis para o parceiro
+    <hr>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Operadora</th>
+          <th scope="col">Valor Total Vendido</th>
+          <th scope="col">Valor Total Desconto</th>
+          <th scope="col">Valor Total Lucro</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @parceiros.each do |parceiro| %>
+        <tr>
+          <td><%= parceiro.name %></td>
+          <td align="right"><%= number_to_currency(parceiro.valor_total_original) %></td>
+          <td align="right">
+            <%= number_to_currency(parceiro.desconto_total_aplicado) %><br>
+            <% porcentagem = (parceiro.desconto_total_aplicado.to_f / parceiro.valor_total_original.to_f * 100) 
+            unless porcentagem.nan? %>
+              <%= number_to_currency(porcentagem, :unit => "") %>%
+            <% end %>
+          </td>
+          <td align="right">
+            <%= number_to_currency(parceiro.valor_total_vendido) %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

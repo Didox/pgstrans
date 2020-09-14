@@ -111,14 +111,14 @@
                 <ul class="list-group">
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :RemuneracaosController, :index) %>
                         <li class="list-group-item">
-                            <%= link_to 'Tabela de Descontos de Parceiros', remuneracaos_path %>
+                            <%= link_to 'Tabela de Descontos de Parceiros', descontos_path %>
                         </li>
                     <% end %>
                 </ul>
                 <ul class="list-group">
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :RemuneracaosController, :index) %>
                         <li class="list-group-item">
-                            <%= link_to 'Relatório de Descontos e Lucro', remuneracaos_path %>
+                            <%= link_to 'Relatório de Descontos e Lucro', descontos_lucros_path %>
                         </li>
                     <% end %>
                 </ul>

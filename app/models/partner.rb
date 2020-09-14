@@ -29,6 +29,18 @@ class Partner < ApplicationRecord
     vendas.sum(:value)
   end
 
+  def valor_total_original
+    Venda.where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code }).sum(:valor_original)
+  end
+
+  def desconto_total_aplicado
+    Venda.where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code }).sum(:desconto_aplicado)
+  end
+
+  def valor_total_vendido
+    Venda.where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code }).sum(:value)
+  end
+
   def importa_produtos!
     self.slug.capitalize.constantize.importa_produtos
   end

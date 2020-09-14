@@ -73,6 +73,9 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
+  get 'descontos', to: 'descontos#index'
+  get 'descontos/lucros', to: 'descontos#lucros', as: "descontos_lucros"
+
   get 'login', to: 'login#index'
   get 'login', to: 'login#index'
   get 'logout', to: 'login#logout'

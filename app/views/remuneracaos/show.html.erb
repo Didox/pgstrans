@@ -14,6 +14,24 @@
       <dd><%= @remuneracao.vigencia_inicio.strftime("%d/%m/%Y") rescue "" %></dd>
       <dt>Fim de Vigência:</dt>
       <dd><%= @remuneracao.vigencia_fim.strftime("%d/%m/%Y") rescue "" %></dd>
+      <dt>Remunerações:</dt>
+      <dd>
+        <% Partner.all.each do |partner| %>
+          <div>
+            <b>
+              <%= partner.name %>: 
+            </b>
+            <% 
+            porcentagem = partner.desconto
+            rd = RemuneracaoDesconto.where(remuneracao_id: @remuneracao.id, partner_id: partner.id, desconto_parceiro: DescontoParceiro.where(partner_id: partner.id)).first
+            if rd.present?
+              porcentagem = rd.desconto_parceiro.porcentagem
+            end
+            %>
+            <%= porcentagem %>%
+          </div>
+        <% end %>
+      </dd>
     </dl>
 
     <div class="page-header">
