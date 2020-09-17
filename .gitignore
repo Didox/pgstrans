@@ -34,3 +34,4 @@ log/test.log
 
 sftp-config.json
 _sftp-config.json
+.DS_Store

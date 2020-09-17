@@ -57,4 +57,12 @@ namespace :jobs do
     x = ""
   end
 
+  desc "Consulta número"
+  task atualiza_vendas_desconto: :environment do
+    Venda.all.each do |venda|
+      desconto_aplicado, valor_original, valor = Venda.desconto_venda(venda.usuario, venda.partner, venda.value)
+      Venda.where(id: venda.id).update_all(value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original)
+    end
+  end
+
 end
