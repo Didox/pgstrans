@@ -29,16 +29,41 @@ class Partner < ApplicationRecord
     vendas.sum(:value)
   end
 
-  def valor_total_original
-    Venda.where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code }).sum(:valor_original)
+  def cor
+    case self.slug
+    when "Unitel"
+      return "#ED7018"
+    when "Movicel"
+      return "#CC031B"
+    when "DSTv"
+      return "#5991B1"
+    when "ZAPTv"
+      return "#FDD500"
+    end
   end
 
-  def desconto_total_aplicado
-    Venda.where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code }).sum(:desconto_aplicado)
+  def valor_total_original(params={})
+    vendas = Venda.where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code })
+    vendas = vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
+    vendas = vendas.where("vendas.updated_at <= ?", params[:data_fim].to_date.end_of_day) if params[:data_fim].present?
+    vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id").where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    vendas.sum(:valor_original)
   end
 
-  def valor_total_vendido
-    Venda.where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code }).sum(:value)
+  def desconto_total_aplicado(params={})
+    vendas = Venda.where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code })
+    vendas = vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
+    vendas = vendas.where("vendas.updated_at <= ?", params[:data_fim].to_date.end_of_day) if params[:data_fim].present?
+    vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id").where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    vendas.sum(:desconto_aplicado)
+  end
+
+  def valor_total_vendido(params={})
+    vendas = Venda.where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code })
+    vendas = vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
+    vendas = vendas.where("vendas.updated_at <= ?", params[:data_fim].to_date.end_of_day) if params[:data_fim].present?
+    vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id").where("lower(usuarios.nome) ilike '%#{params[:nome]}%'") if params[:nome].present?
+    vendas.sum(:value)
   end
 
   def importa_produtos!

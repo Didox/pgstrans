@@ -5,6 +5,79 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
+
+  <div style="margin-top:10px">
+    <form action="" method="get" id="formApuracao">
+      <div class="row" style="padding:10px">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Usuário</label>
+            <div>
+              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Data Inicio</label>
+            <div>
+              <input type="date" name="data_inicio" value="<%= params[:data_inicio] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Data Fim</label>
+            <div>
+              <input type="date" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+          <script type="text/javascript">
+            google.charts.load("current", {packages:['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+              var data = google.visualization.arrayToDataTable([
+                ["Nome", "Valor", { role: "style" } ],
+                <% Partner.all.each do |partner| %>
+                ["<%= partner.name %>", <%= partner.valor_total_vendido(params).round(2) %>, "<%= partner.cor %>"],
+                <% end %>
+              ]);
+
+              var view = new google.visualization.DataView(data);
+              view.setColumns([0, 1,
+                              { calc: "stringify",
+                                sourceColumn: 1,
+                                type: "string",
+                                role: "annotation" },
+                              2]);
+
+              var options = {
+                bar: {groupWidth: "95%"},
+                legend: { position: "none" },
+              };
+              var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+              chart.draw(view, options);
+          }
+          </script>
+          <div id="columnchart_values" style="height: 400px"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit" value="Buscar" class="btn btn-info">
+          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>
+        </div>
+      </div>
+    </form>
+  </div>
+
   <div class="container scroltable">
     <br>Total de vendas por parceiro
     <hr>
@@ -22,16 +95,16 @@
         <% @parceiros.each do |parceiro| %>
         <tr>
           <td><%= parceiro.name %></td>
-          <td align="right"><%= number_to_currency(parceiro.valor_total_original) %></td>
+          <td align="right"><%= number_to_currency(parceiro.valor_total_original(params)) %></td>
           <td align="right">
-            <%= number_to_currency(parceiro.desconto_total_aplicado) %><br>
-            <% porcentagem = (parceiro.desconto_total_aplicado.to_f / parceiro.valor_total_original.to_f * 100) 
+            <%= number_to_currency(parceiro.desconto_total_aplicado(params)) %><br>
+            <% porcentagem = (parceiro.desconto_total_aplicado(params).to_f / parceiro.valor_total_original(params).to_f * 100) 
             unless porcentagem.nan? %>
               <%= number_to_currency(porcentagem, :unit => "") %>%
             <% end %>
           </td>
           <td align="right">
-            <%= number_to_currency(parceiro.valor_total_vendido) %>
+            <%= number_to_currency(parceiro.valor_total_vendido(params)) %>
           </td>
         </tr>
         <% end %>
