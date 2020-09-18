@@ -5,6 +5,59 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
+  <div style="margin-top:10px">
+    <form action="" method="get" id="formApuracao">
+      <div class="row" style="padding:10px">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Parceiro</label>
+            <div>
+              <select name="parceiro_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Partner.all.each do |partner| %>
+                  <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Data da Última Atualização do Registo - INÍCIO</label>
+            <div>
+              <input type="date" name="updated_at_inicio" value="<%= params[:updated_at] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Data da Última Atualização do Registo - FIM</label>
+            <div>
+              <input type="date" name="update_at_fim" value="<%= params[:updated_at] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-1">
+          <div class="form-group">
+            <label>Desconto</label>
+            <div>
+              <input type="text" name="porcentagem" value="<%= params[:porcentagem] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit" value="Buscar" class="btn btn-info">
+          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>
+        </div>
+      </div>
+    </form>
+  </div>
+
   <div class="container scroltable">
     <br>Descontos possíveis para o parceiro
     <hr>
