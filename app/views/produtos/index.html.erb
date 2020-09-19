@@ -11,13 +11,21 @@
       <div class="row" style="padding:10px">
         <div class="col-sm-2">
           <div class="form-group">
+            <label>Código Produto Pagasó</label>
+            <div>
+              <input type="text" name="id" value="<%= params[:id] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
             <label>Código Produto Parceiro</label>
             <div>
               <input type="text" name="produto_id_parceiro" value="<%= params[:produto_id_parceiro] %>" class="form-control">
             </div>
           </div>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Nome do Produto na Operadora</label>
             <div>
@@ -25,7 +33,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Nome Comercial do Produto</label>
             <div>
@@ -141,8 +149,8 @@
         <% @produtos.each do |produto| %>
         <tr>
           <td style="width: 400px">
-            <b>Código Produto Parceiro</b> <br>
-            <%= produto.produto_id_parceiro %><br>
+            <b>Código Produto Pagasó:</b> <%= produto.id %><br>
+            <b>Código Produto Parceiro:</b> <%= produto.produto_id_parceiro %><br>
             <b>Descrição do Produto na Operadora</b> <br>
             <%= produto.description %><br>
             <b>Nome Comercial do Produto</b> <br>
