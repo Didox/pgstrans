@@ -94,7 +94,17 @@ class Venda < ApplicationRecord
       vendas = Venda.com_acesso(usuario_logado)
     end
     vendas = vendas.where(status: ReturnCodeApi.all.map{|r| r.return_code } )
-    vendas.sum(:value)
+    vendas.sum(:valor_original)
+  end
+
+  def self.total_lucros_acesso(usuario_logado, vendas_filtrada=nil)
+    unless vendas_filtrada.nil?
+      vendas = vendas_filtrada.clone
+    else
+      vendas = Venda.com_acesso(usuario_logado)
+    end
+    vendas = vendas.where(status: ReturnCodeApi.all.map{|r| r.return_code } )
+    vendas.sum(:desconto_aplicado)
   end
 
   def sucesso?

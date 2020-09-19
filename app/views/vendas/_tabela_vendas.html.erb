@@ -87,6 +87,9 @@
 <h2>
   Total de vendas ou recargas: <%= number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %>
 </h2>
+<h2>
+  Total de lucros: <%= number_to_currency(Venda.total_lucros_acesso(@adm, @vendas_graficos), :unit => "KZ") %>
+</h2>
 
 <div class="apple_pagination">
   <%= will_paginate @usuarios, :container => false %>
