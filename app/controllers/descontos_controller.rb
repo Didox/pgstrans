@@ -1,6 +1,6 @@
 class DescontosController < ApplicationController
   def index
-    @desconto_parceiros = DescontoParceiro.all
+    @desconto_parceiros = DescontoParceiro.all.order(partner_id: :asc)
 
     @desconto_parceiros = @desconto_parceiros.where("desconto_parceiros.partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
     @desconto_parceiros = @desconto_parceiros.where("desconto_parceiros.porcentagem >= ?", params[:porcentagem_de].to_f_ptBR) if params[:porcentagem_de].present?
