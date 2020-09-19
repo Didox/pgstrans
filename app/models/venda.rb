@@ -5,6 +5,8 @@ class Venda < ApplicationRecord
   belongs_to :usuario
   belongs_to :partner
 
+  after_save :update_product_name
+
   def grupos_id
     #TODO - Verificar como pegar os grupos de acesso de um registro
     [].map{|g| g.id}.join(",")
@@ -41,8 +43,13 @@ class Venda < ApplicationRecord
     end
   end
 
+  def update_product_name
+    Venda.where(id: self.id).update_all(product_nome: (self.product.description rescue ""))
+  end
+
   def product_nome
-    self.product.description rescue ""
+    self.update_product_name if super.blank?
+    super
   end
 
   def product
