@@ -42,7 +42,15 @@ class Venda < ApplicationRecord
   end
 
   def product_nome
-    Produto.produtos.where(partner_id: self.partner_id).where("produto_id_parceiro = '#{self.product_id}' or id = '#{self.product_id}'").first.description rescue ""
+    self.product.description rescue ""
+  end
+
+  def product
+    produto = Produto.produtos.where(partner_id: self.partner_id).where("produto_id_parceiro = '#{self.product_id}'").first
+    produto ||= Produto.produtos.where(partner_id: self.partner_id).where("id = '#{self.product_id}'").first
+    return produto || Produto.new
+  rescue
+    Produto.new
   end
 
   def request_send_parse

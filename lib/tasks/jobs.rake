@@ -64,5 +64,14 @@ namespace :jobs do
       Venda.where(id: venda.id).update_all(value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original)
     end
   end
+  
+  desc "Correção numero"
+  task atualiza_vendas_desconto_correcao: :environment do
+    Venda.where("created_at > ?", Time.zone.now - 15.days).each do |venda|
+      venda_value = venda.product.valor_compra_site || 0
+      desconto_aplicado, valor_original, valor = Venda.desconto_venda(venda.usuario, venda.partner, venda_value)
+      Venda.where(id: venda.id).update_all(value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original)
+    end
+  end
 
 end
