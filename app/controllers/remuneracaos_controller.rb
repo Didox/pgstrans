@@ -7,6 +7,10 @@ class RemuneracaosController < ApplicationController
     @remuneracaos = Remuneracao.all.order(usuario_id: :asc)
     #@remuneracaos = Remuneracao.com_acesso(usuario_logado).order(usuario_id: :asc) 
 
+    #@remuneracaos = @remuneracaos.joins(:usuario)
+    #@remuneracaos = @remuneracaos.reorder("remuneracao.usuario.nome asc")
+    #@remuneracaos = @remuneracaos.where("remuneracao.usuario.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+
     options = {page: params[:page] || 1, per_page: 10}
     @remuneracaos = @remuneracaos.paginate(options)
   end
