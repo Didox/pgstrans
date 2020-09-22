@@ -5,7 +5,9 @@ class RemuneracaosController < ApplicationController
   # GET /remuneracaos.json
   def index
     @remuneracaos = Remuneracao.all.order(usuario_id: :asc)
-    #@remuneracaos = Remuneracao.com_acesso(usuario_logado).order(usuario_id: :asc) 
+    @remuneracaos = @remuneracaos.joins("inner join usuarios on usuarios.id = remuneracaos.usuario_id")
+    @remuneracaos = @remuneracaos.where("lower(usuarios.nome) ilike ? ", "%#{params[:nome]}%") if params[:nome].present?
+    @remuneracaos = @remuneracaos.where("lower(usuarios.email) ilike ? ", "%#{params[:email]}%") if params[:email].present?
 
     options = {page: params[:page] || 1, per_page: 10}
     @remuneracaos = @remuneracaos.paginate(options)

@@ -6,6 +6,39 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
+
+  <div style="margin-top:10px">
+    <form action="" method="get" id="formApuracao">
+      <div class="row" style="padding:10px">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Nome do Usuário</label>
+            <div>
+              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>E-mail do Usuário</label>
+            <div>
+              <input type="text" name="email" value="<%= params[:email] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit" value="Buscar" class="btn btn-info">
+          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>        
+        </div>
+    </form>
+  </div>
+
+
   <div class="container scroltable">
     <p>Margem do Cliente</p>
     <table class="table table-hover">

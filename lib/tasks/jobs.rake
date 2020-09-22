@@ -81,4 +81,13 @@ namespace :jobs do
       Venda.where(id: venda.id).update_all(product_nome: product_nome)
     end
   end
+
+  desc "Atualiza produto id venda"
+  task atualiza_produto_id_venda: :environment do
+    Venda.all.each do |venda|
+      produto_id_parceiro = venda.product.produto_id_parceiro
+      produto_id = venda.product.id
+      Venda.where(id: venda.id).update_all(produto_id_parceiro: produto_id_parceiro, produto_id: produto_id)
+    end
+  end
 end

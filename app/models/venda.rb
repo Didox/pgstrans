@@ -5,7 +5,7 @@ class Venda < ApplicationRecord
   belongs_to :usuario
   belongs_to :partner
 
-  after_save :update_product_name
+  after_save :update_product
 
   def grupos_id
     #TODO - Verificar como pegar os grupos de acesso de um registro
@@ -43,16 +43,20 @@ class Venda < ApplicationRecord
     end
   end
 
-  def update_product_name
-    Venda.where(id: self.id).update_all(product_nome: (self.product.description rescue ""))
+  def update_product
+    Venda.where(id: self.id).update_all(product_nome: (self.product.description rescue ""), product_id: (self.product.id rescue ""))
   end
 
   def product_nome
-    self.update_product_name if super.blank?
+    self.update_product if super.blank?
     super
   end
 
   def product
+    # produto = Produto.produtos.where(partner_id: self.partner_id).where("produto_id_parceiro = '#{self.produto_id_parceiro}'").first
+    # produto ||= Produto.produtos.where(partner_id: self.partner_id).where("id = '#{self.product_id}'").first
+    # return produto || Produto.new
+
     produto = Produto.produtos.where(partner_id: self.partner_id).where("produto_id_parceiro = '#{self.product_id}'").first
     produto ||= Produto.produtos.where(partner_id: self.partner_id).where("id = '#{self.product_id}'").first
     return produto || Produto.new
@@ -273,7 +277,7 @@ class Venda < ApplicationRecord
       :body => body_send
     )
 
-    venda = Venda.new(product_id: product_id, agent_id: parametro.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: product_id, agent_id: parametro.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
@@ -554,7 +558,7 @@ class Venda < ApplicationRecord
 
           last_request = request.body
 
-          venda = Venda.new(product_id:product_id, agent_id: parametro.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+          venda = Venda.new(produto_id_parceiro:product_id, agent_id: parametro.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
           venda.responsavel = usuario
           venda.save!
 
@@ -734,7 +738,7 @@ class Venda < ApplicationRecord
 
     last_request = request.body
     
-    venda = Venda.new(product_id: product_id, agent_id: parametro.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, client_msisdn: params[:dstv_customer_number], usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: product_id, agent_id: parametro.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, client_msisdn: params[:dstv_customer_number], usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -801,7 +805,7 @@ class Venda < ApplicationRecord
     product_id = params[:unitel_produto_id].split("-").first
     telefone = params[:unitel_telefone]
 
-    venda = Venda.new(agent_id: parametro.unitel_agente_id, product_id: product_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(agent_id: parametro.unitel_agente_id, produto_id_parceiro: product_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
