@@ -8,7 +8,15 @@
   <div class="container" style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-12">
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>ID da Venda</label>
+            <div>
+              <input type="text" name="venda_id" value="<%= params[:venda_id] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-10">
           <div class="form-group">
             <label>Log transação Ex: (Request_ID, saleTimestamp)</label>
             <div>
@@ -120,7 +128,7 @@
         </div>
         <div class="col-sm-4">
           <div class="form-group">
-            <label>Customer Number / MSIDN</label>
+            <label>Customer Number/MSIDN/Device Number</label>
             <div>
               <input type="text" name="client_msisdn" value="<%= params[:client_msisdn] %>" class="form-control">
             </div>

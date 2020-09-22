@@ -9,6 +9,10 @@ class RemuneracaosController < ApplicationController
     @remuneracaos = @remuneracaos.where("lower(usuarios.nome) ilike ? ", "%#{params[:nome]}%") if params[:nome].present?
     @remuneracaos = @remuneracaos.where("lower(usuarios.email) ilike ? ", "%#{params[:email]}%") if params[:email].present?
 
+    #@remuneracaos = @remuneracaos.joins(:usuario)
+    #@remuneracaos = @remuneracaos.reorder("remuneracao.usuario.nome asc")
+    #@remuneracaos = @remuneracaos.where("remuneracao.usuario.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+
     options = {page: params[:page] || 1, per_page: 10}
     @remuneracaos = @remuneracaos.paginate(options)
   end

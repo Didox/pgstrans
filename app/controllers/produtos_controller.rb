@@ -7,7 +7,8 @@ class ProdutosController < ApplicationController
     @produtos = Produto.all.order(partner_id: :asc, description: :asc)
 
     @produtos = @produtos.where(partner_id: params[:partner_id]) if params[:partner_id].present?
-    @produtos = @produtos.where("produto_id_parceiro ilike '%#{params[:produto_id_parceiro]}%'") if params[:produto_id_parceiro].present?
+    @produtos = @produtos.where("id = ?", params[:id]) if params[:id].present?
+    @produtos = @produtos.where("produto_id_parceiro = ?", params[:produto_id_parceiro]) if params[:produto_id_parceiro].present?
     @produtos = @produtos.where("description ilike '%#{params[:nome]}%'") if params[:nome].present?
     @produtos = @produtos.where("nome_comercial ilike '%#{params[:nome_comercial]}%'") if params[:nome_comercial].present?
     @produtos = @produtos.where("partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
