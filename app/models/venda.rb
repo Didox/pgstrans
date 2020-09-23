@@ -45,7 +45,9 @@ class Venda < ApplicationRecord
   end
 
   def update_product
-    Venda.where(id: self.id).update_all(product_nome: (self.product.description rescue ""), product_id: (self.product.id rescue ""))
+    if self.product.present? && self.product_nome.blank?
+      Venda.where(id: self.id).update_all(product_nome: self.product.description, product_id: self.product.id)
+    end
   end
 
   def product_nome
@@ -255,10 +257,11 @@ class Venda < ApplicationRecord
 
     raise "Produto não selecionado" if params[:zaptv_produto_id].blank?
     product_id = params[:zaptv_produto_id].split("-").first
+    produto = Produto.find(product_id)
 
     body_send = {
       :price => valor_original, 
-      :product_code => product_id, #produto importado zap
+      :product_code => produto.produto_id_parceiro, #produto importado zap
       :product_quantity => 1, 
       :source_reference => request_id, #meu código 
       :zappi => telefone #Iremos receber este numero
@@ -274,7 +277,7 @@ class Venda < ApplicationRecord
       :body => body_send
     )
 
-    venda = Venda.new(produto_id_parceiro: product_id, agent_id: parametro.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.produto_id, product_nome: produto.description, agent_id: parametro.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
@@ -406,6 +409,7 @@ class Venda < ApplicationRecord
 
     raise "Produto não selecionado" if params[:movicel_produto_id].blank?
     product_id = params[:movicel_produto_id].split("-").first
+    produto = Produto.find(product_id)
 
     require 'openssl'
 
@@ -555,7 +559,7 @@ class Venda < ApplicationRecord
 
           last_request = request.body
 
-          venda = Venda.new(produto_id_parceiro:product_id, agent_id: parametro.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+          venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.produto_id, product_nome: produto.description, agent_id: parametro.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
           venda.responsavel = usuario
           venda.save!
 
@@ -651,6 +655,7 @@ class Venda < ApplicationRecord
     raise "Produto não selecionado" if params[:dstv_produto_id].blank?
 
     product_id = params[:dstv_produto_id].split("-").first
+    produto = Produto.find(product_id)
 
     require 'openssl'
 
@@ -700,7 +705,7 @@ class Venda < ApplicationRecord
             <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>
               <sel1:Product>
-                <sel1:productUserkey>#{product_id}</sel1:productUserkey>
+                <sel1:productUserkey>#{produto.produto_id_parceiro}</sel1:productUserkey>
               </sel1:Product>
             </sel1:productCollection>
             <sel1:baskedId>0</sel1:baskedId>
@@ -735,7 +740,7 @@ class Venda < ApplicationRecord
 
     last_request = request.body
     
-    venda = Venda.new(produto_id_parceiro: product_id, agent_id: parametro.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, client_msisdn: params[:dstv_customer_number], usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.produto_id, product_nome: produto.description, agent_id: parametro.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, client_msisdn: params[:dstv_customer_number], usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -800,9 +805,10 @@ class Venda < ApplicationRecord
     raise "Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador." if usuario.sub_agente.blank?
 
     product_id = params[:unitel_produto_id].split("-").first
+    produto = Produto.find(product_id)
     telefone = params[:unitel_telefone]
 
-    venda = Venda.new(agent_id: parametro.unitel_agente_id, produto_id_parceiro: product_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.produto_id, product_nome: produto.description, agent_id: parametro.unitel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -826,9 +832,9 @@ class Venda < ApplicationRecord
     # ./chaves/unitel_recarga.sh '7' '9' '114250' '' '' '' '500' '244998524570' 'https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale'
     
     if Rails.env == "development"
-      dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+      dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
     else
-      dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.product_id}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+      dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
     end
 
     retorno = `#{dados_envio}`

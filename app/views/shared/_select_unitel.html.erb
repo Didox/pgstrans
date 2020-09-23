@@ -5,7 +5,7 @@
     <optgroup label="<%= subtipo %>">
       <% produtos = Produto.produtos.where(partner_id: Partner.where(slug: partner.slug), subtipo: subtipo).reorder("nome_comercial asc, valor_compra_telemovel asc") %>
       <% produtos.each do |produto| %>
-        <option value="<%= produto.produto_id_parceiro || produto.id %>-<%= formata_numero_duas_casas(produto.valor_compra_telemovel) %>">
+        <option value="<%= produto.id %>-<%= formata_numero_duas_casas(produto.valor_compra_telemovel) %>">
           <%= produto.nome_comercial %>
         </option>
       <% end %>
