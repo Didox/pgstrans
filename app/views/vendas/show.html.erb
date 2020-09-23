@@ -11,9 +11,23 @@
       <dt>ID da Venda:</dt>
       <dd><%= @venda.id %></dd>
       <dt>Produto no Pagasó:</dt>
-      <dd><%= @venda.product_id %></dd>
+      <dd>
+        <a href="/produtos/<%= venda.product_id %>" target="_blank">
+          <%= @venda.product_id %>
+        </a>
+      </dd>
       <dt>Produto no Parceiro:</dt>
-      <dd><%= @venda.produto_id_parceiro %></dd>
+      <dd>
+        <a href="/produtos/<%= venda.product_id %>" target="_blank">
+          <%= @venda.produto_id_parceiro %>
+        </a>
+      </dd>
+      <dt>Nome do Produto:</dt>
+      <dd>
+        <a href="/produtos/<%= venda.product_id %>" target="_blank">
+          <%= @venda.product_nome %>
+        </a>
+      </dd>
       <dt>Agente:</dt>
       <dd><%= @venda.agent_id %></dd>
       <dt>Store/Loja:</dt>

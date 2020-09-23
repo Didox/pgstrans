@@ -34,9 +34,11 @@
         <b>Customer Number / MSIDN:</b> <%= venda.client_msisdn %>
       </td>
       <td>
-        <%= venda.product_id %>
-        <hr>
-        <%= venda.product_nome %>
+        <a href="/produtos/<%= venda.product_id %>" target="_blank">
+          <%= venda.product_id %>
+          <hr>
+          <%= venda.product_nome %>
+        </a>
       </td>
       <td style="width:110px" align="right"><%= number_to_currency(venda.valor_original) %></td>
       <td style="width:110px" align="right">
