@@ -128,6 +128,20 @@ class VendasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def venda_params
-      params.require(:venda).permit(:product_id, :agent_id, :store_id, :seller_id, :terminal_id, :value, :client_msisdn, :request_send, :response_get)
+      params.require(:venda).permit(
+        :product_id, 
+        :produto_id_parceiro,
+        :product_nome,
+        :agent_id,
+        :store_id, 
+        :seller_id,
+        :terminal_id,
+        :valor_original, 
+        :desconto_aplicado,
+        :value,
+        :client_msisdn, 
+        :status,
+        :status_movicel, 
+      )
     end
 end

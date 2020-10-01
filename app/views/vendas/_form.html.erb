@@ -24,49 +24,76 @@
           </div>
         <% end %>
 
-                  <div class="form-input col-sm-6">
-            <%= f.label :product_id, class: "col-sm-2 control-label" %>
-            <%= f.text_field :product_id, class: "form-control" %>
-          </div>
-                  <div class="form-input col-sm-6">
-            <%= f.label :agent_id, class: "col-sm-2 control-label" %>
-            <%= f.text_field :agent_id, class: "form-control" %>
-          </div>
-                  <div class="form-input col-sm-6">
-            <%= f.label :store_id, class: "col-sm-2 control-label" %>
-            <%= f.text_field :store_id, class: "form-control" %>
-          </div>
-                  <div class="form-input col-sm-6">
-            <%= f.label :seller_id, class: "col-sm-2 control-label" %>
-            <%= f.text_field :seller_id, class: "form-control" %>
-          </div>
-                  <div class="form-input col-sm-6">
-            <%= f.label :terminal_id, class: "col-sm-2 control-label" %>
-            <%= f.text_field :terminal_id, class: "form-control" %>
-          </div>
-                  <div class="form-input col-sm-6">
-            <%= f.label :value, class: "col-sm-2 control-label" %>
-            <%= f.text_field :value, class: "form-control" %>
-          </div>
-                  <div class="form-input col-sm-6">
-            <%= f.label :client_msisdn, class: "col-sm-2 control-label" %>
-            <%= f.text_field :client_msisdn, class: "form-control" %>
-          </div>
-                  <div class="form-input col-sm-6">
-            <%= f.label :request_send, class: "col-sm-2 control-label" %>
-            <%= f.text_area :request_send, class: "form-control" %>
-          </div>
-                  <div class="form-input col-sm-6">
-            <%= f.label :response_get, class: "col-sm-2 control-label" %>
-            <%= f.text_area :response_get, class: "form-control" %>
-          </div>
-          
-          <!--div class="form-actions col-sm-12">
-          <%#= f.button :button, class: 'btn btn-danger' do %>
+        <div class="form-input col-sm-12">
+          <%= f.label :product_id, "Produto no Pagasó", class: "col-sm-12" %>
+          <%= f.text_field :product_id, class: "form-control" %>
+        </div>
+
+        <div class="form-input col-sm-12">
+          <%= f.label :produto_id_parceiro, "Produto no Parceiro", class: "col-sm-12" %>
+          <%= f.text_field :produto_id_parceiro, class: "form-control" %>
+        </div>
+
+        <div class="form-input col-sm-12">
+          <%= f.label :product_nome, "Nome do Produto", class: "col-sm-12" %>
+          <%= f.text_field :product_nome, class: "form-control" %>
+        </div>
+
+        <div class="form-input col-sm-12">
+          <%= f.label :agent_id, "Agente", class: "col-sm-12" %>
+          <%= f.text_field :agent_id, class: "form-control" %>
+        </div>
+
+        <div class="form-input col-sm-12">
+          <%= f.label :store_id, "Store/Loja:", class: "col-sm-12" %>
+          <%= f.text_field :store_id, class: "form-control" %>
+        </div>
+
+        <div class="form-input col-sm-12">
+          <%= f.label :seller_id, "Seller/Vendedor:", class: "col-sm-12" %>
+          <%= f.text_field :seller_id, class: "form-control" %>
+        </div>
+
+        <div class="form-input col-sm-12">
+          <%= f.label :terminal_id, "Terminal:", class: "col-sm-12" %>
+          <%= f.text_field :terminal_id, class: "form-control" %>
+        </div>
+
+        <div class="form-input col-sm-12">
+          <%= f.label :valor_original, "Valor:", class: "col-sm-12" %>
+          <%= f.text_field :valor_original, class: "form-control" %>
+        </div>
+
+        <div class="form-input col-sm-12">
+          <%= f.label :desconto_aplicado, "Lucro:", class: "col-sm-12" %>
+          <%= f.text_field :desconto_aplicado, class: "form-control" %>
+        </div>
+
+        <div class="form-input col-sm-12">
+          <%= f.label :value, "Custo:", class: "col-sm-12" %>
+          <%= f.text_field :value, class: "form-control" %>
+        </div>
+
+        <div class="form-input col-sm-12">
+          <%= f.label :client_msisdn, "Customer Number/MSISDN:", class: "col-sm-12" %>
+          <%= f.text_field :client_msisdn, class: "form-control" %>
+        </div>
+
+        <div class="form-input col-sm-12">
+          <%= f.label :status, "Situação:", class: "col-sm-12" %>
+          <%= f.text_field :status, class: "form-control" %>
+        </div>
+
+        <div class="form-actions col-sm-12">
+          <br>
+          <%= f.button :button, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-ok"></span>
             Confirmar
-          <%# end %>
-          </div-->
+          <% end %>
+        </div>
+        <br>
+        <br>
+
       <% end %>
     </div>
   </div>
