@@ -86,30 +86,64 @@
       <thead>
         <tr>
           <th scope="col">Operadora</th>
-          <th scope="col">Valor Total Vendido</th>
-          <th scope="col">Valor Total Lucro</th>
-          <th scope="col">Valor Total Custo</th>
+          <th scope="col" style="text-align:right">Valor Total Vendido</th>
+          <th scope="col" style="text-align:right">Valor Total Lucro</th>
+          <th scope="col" style="text-align:right">Valor Total Custo</th>
         </tr>
       </thead>
-
+      <%
+        totais_valor_total_original = 0
+        totais_desconto_total_aplicado = 0
+        totais_valor_total_vendido = 0
+      %>
       <tbody>
         <% @parceiros.each do |parceiro| %>
         <tr>
           <td><%= parceiro.name %></td>
-          <td align="right"><%= number_to_currency(parceiro.valor_total_original(params)) %></td>
+          <%
+            valor_total_original = parceiro.valor_total_original(params)
+            desconto_total_aplicado = parceiro.desconto_total_aplicado(params)
+            valor_total_vendido = parceiro.valor_total_vendido(params)
+
+            totais_valor_total_original += valor_total_original
+            totais_desconto_total_aplicado += desconto_total_aplicado
+            totais_valor_total_vendido += valor_total_vendido
+          %>
+          <td align="right"><%= number_to_currency(valor_total_original) %></td>
           <td align="right">
-            <%= number_to_currency(parceiro.desconto_total_aplicado(params)) %><br>
-            <% porcentagem = (parceiro.desconto_total_aplicado(params).to_f / parceiro.valor_total_original(params).to_f * 100) 
+            <%= number_to_currency(desconto_total_aplicado) %><br>
+            <% porcentagem = (desconto_total_aplicado.to_f / valor_total_original.to_f * 100) 
             unless porcentagem.nan? %>
               <%= number_to_currency(porcentagem, :unit => "") %>%
             <% end %>
           </td>
           <td align="right">
-            <%= number_to_currency(parceiro.valor_total_vendido(params)) %>
+            <%= number_to_currency(valor_total_vendido) %>
           </td>
         </tr>
         <% end %>
       </tbody>
+      <tfoot>
+        <tr>
+          <td align="right"><b>Total</b></td>
+          <td style="width:210px" align="right">
+            <b><%= number_to_currency(totais_valor_total_original) %></b>
+          </td>    
+          <td style="width:210px" align="right">
+            <b>
+              <%= number_to_currency(totais_desconto_total_aplicado) %><br>
+              <% porcentagem = (totais_desconto_total_aplicado.to_f / totais_valor_total_original.to_f * 100) 
+              unless porcentagem.nan? %>
+                <%= number_to_currency(porcentagem, :unit => "") %>%
+              <% end %>
+            </b>
+          </td>
+          <td style="width:210px" align="right">
+            <b><%= number_to_currency(totais_valor_total_vendido) %></b>
+          </td>        
+          <td align="right"></td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 </div>

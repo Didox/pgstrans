@@ -50,11 +50,6 @@ class Venda < ApplicationRecord
     end
   end
 
-  def product_nome
-    self.update_product if super.blank?
-    super
-  end
-
   def product
     produto = Produto.produtos.where(partner_id: self.partner_id).where(produto_id_parceiro: self.produto_id_parceiro).first
     produto ||= Produto.produtos.where(partner_id: self.partner_id).where(id: self.product_id).first
