@@ -19,6 +19,8 @@ pg_dump -h localhost -U "pgsdba" "pgstrans_development" -Fc > dump/pgstrans_deve
 pg_dump -h localhost -U "pgsdba" "pgstrans_production" -Fc > dump/pgstrans_production.bkp
 
 ::::::::: Backup Database ::::::::: 
+rake db:drop
+rake db:create
 pg_restore -U danilo -d pgstrans_development -1 < dump/pgstrans_production.bkp
 
 psql pgstrans_development

@@ -8,7 +8,7 @@
     <form action="" method="get" id="formApuracao">
       <div class="card-body recarga">
         <div class="container" style="margin-top:10px">
-            <div class="col-sm-2">
+            <div class="col-sm-6">
               <div class="form-group">
                 <label>Data Inicial</label>
                 <div>
@@ -16,7 +16,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-6">
               <div class="form-group">
                 <label>Data Final</label>
                 <div>
@@ -24,11 +24,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
               <div class="form-group">
                 <label>Parceiro</label>
                 <div>
-                  <select name="parceiro_id" onchange="pgstrans.carregaProdutosPorParceiro(this)" class="form-control">
+                  <select name="parceiro_id" class="form-control">
                     <option value="" selected="'selected'">Todos</option>
                     <% Partner.all.each do |partner| %>
                       <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
@@ -37,18 +37,19 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-4">
               <div class="form-group">
-                <label>Produto</label>
+                <label>Código Produto Pagasó</label>
                 <div>
-                  <select name="produto_id" id="produto_id" class="form-control">
-                    <option value="" selected="selected">Todos</option>
-                    <% if params[:parceiro_id].present? %>
-                      <% Produto.produtos.where(partner_id: params[:parceiro_id]).each do |produto| %>
-                        <option value="<%= produto.id %>" <% if produto.id.to_s == params[:produto_id] %> selected="selected" <% end %> ><%= produto.description %></option>
-                      <% end %>
-                    <% end %>
-                  </select>
+                  <input type="text" name="produto_id" value="<%= params[:produto_id] %>" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label>Código Produto Parceiro</label>
+                <div>
+                  <input type="text" name="produto_id_parceiro" value="<%= params[:produto_id_parceiro] %>" class="form-control">
                 </div>
               </div>
             </div>
@@ -133,60 +134,84 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Usuário</th>
-              <th scope="col">Parceiro</th>
-              <th scope="col">Data</th>
-              <th scope="col">Situação</th>
+              <th scope="col" style="width: 25%">Dados</th>
+              <th scope="col" style="width: 25%">Agente</th>
               <th scope="col">Produto</th>
-              <th scope="col">Agente</th>
-              <th scope="col">ID da Loja</th>
-              <th scope="col">ID do Vendedor</th>
-              <th scope="col">Terminal</th>
-              <th scope="col">Customer Number/MSISDN</th>
               <th scope="col">Valor</th>
+              <th scope="col">Lucro</th>
+              <th scope="col">Custo</th>
             </tr>
           </thead>
 
           <tbody>
-            <% valor_total = 0 %>
+           <% 
+            valor_original_total = 0
+            valor_desconto_total = 0
+            valor_total = 0 
+            %>
             <% @vendas.each do |venda| %>
             <tr>
-              <td><%= venda.usuario.nome %></td>
-              <td><%= venda.partner.name %></td>
-              <td><%= venda.updated_at.strftime("%d/%m/%Y %H:%M") %></td>
-              <td><%= venda.status_desc.error_description_pt %></td>
-              <td align="right"><%= venda.product_id %></td>
-              <td align="right"><%= venda.agent_id %></td>
-              <td align="right"><%= venda.store_id %></td>
-              <td align="right"><%= venda.seller_id %></td>
-              <td align="right"><%= venda.terminal_id %></td>
-              <td align="right"><%= venda.client_msisdn %></td>
-              <td style="width:110px" align="right"><%= number_to_currency(venda.value) %></td>              
-              <% valor_total += venda.value %>
+              <td>
+                <b>ID da Venda:</b> <%= venda.id %><br>
+                <b>Usuário:</b> <%= venda.usuario.nome %><br>
+                <b>Parceiro:</b> <%= venda.partner.name %><br>
+                <b>Data da Venda:</b> <%= venda.created_at.strftime("%d/%m/%Y %H:%M") %><br>
+                <b>Status:</b> <%= venda.status_desc.error_description_pt %><br>
+              </td>
+              <td>
+                <b>Agente:</b> <%= venda.agent_id %><br>
+                <b>Store:</b> <%= venda.store_id %><br>
+                <b>ID do Vendedor:</b> <%= venda.seller_id %><br>
+                <b>Terminal:</b> <%= venda.terminal_id %><br>
+                <b>Customer Number / MSIDN:</b> <%= venda.client_msisdn %>
+              </td>
+              <td style="width:50px"><%= venda.product_id %></td>
+              <td style="width:80px" align="right"><%= number_to_currency(venda.valor_original) %></td>
+              <td style="width:80px" align="right">
+                <%= number_to_currency(venda.desconto_aplicado) %><br>
+                <% porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
+                unless porcentagem.nan? %>
+                  <%= number_to_currency(porcentagem, :unit => "") %>%
+                <% end %>
+              </td>
+              <td style="width:80px" align="right"><%= number_to_currency(venda.value) %></td>              
             </tr>
+            <% 
+            valor_original_total += venda.valor_original 
+            valor_desconto_total += venda.desconto_aplicado 
+            valor_total += venda.value 
+            %>
             <% end %>
           </tbody>
           <tfoot>
             <tr>
               <td></td>
               <td></td>
-              <td></td>
-              <td></td>
-              <td align="right"></td>
-              <td align="right"></td>
-              <td align="right"></td>
-              <td align="right"></td>
-              <td align="right"></td>
               <td align="right"><b>Total:</b></td>
               <td style="width:110px" align="right">
+                <b><%= number_to_currency(valor_original_total) %></b>
+              </td>    
+              <td style="width:110px" align="right">
+                <b>
+                  <%= number_to_currency(valor_desconto_total) %><br>
+                  <% porcentagem = (valor_desconto_total.to_f / valor_original_total.to_f * 100) 
+                  unless porcentagem.nan? %>
+                    <%= number_to_currency(porcentagem, :unit => "") %>%
+                  <% end %>
+                </b>
+              </td>
+              <td style="width:110px" align="right">
                 <b><%= number_to_currency(valor_total) %></b>
-              </td>              
+              </td>      
             </tr>
           </tfoot>
         </table>
 
         <h2>
-          Total de vendas ou recargas: <%= number_to_currency(Venda.total(@adm, @vendas_graficos), :unit => "KZ") %>
+          Total de vendas ou recargas: <%= number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %>
+        </h2>
+        <h2>
+          Total de lucros: <%= number_to_currency(Venda.total_lucros_acesso(@adm, @vendas_graficos), :unit => "KZ") %>
         </h2>
 
         <div class="apple_pagination">

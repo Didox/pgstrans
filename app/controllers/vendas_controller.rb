@@ -102,6 +102,7 @@ class VendasController < ApplicationController
       @vendas = @vendas.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
       @vendas = @vendas.where("vendas.partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
       @vendas = @vendas.where("vendas.product_id = ?", params[:produto_id]) if params[:produto_id].present?
+      @vendas = @vendas.where("vendas.produto_id_parceiro = ?", params[:produto_id_parceiro]) if params[:produto_id_parceiro].present?
       @vendas = @vendas.where("vendas.agent_id = ?", params[:agente]) if params[:agente].present?
       @vendas = @vendas.where("vendas.store_id = ?", params[:store]) if params[:store].present?
       @vendas = @vendas.where("vendas.seller_id = ?", params[:seller]) if params[:seller].present?
