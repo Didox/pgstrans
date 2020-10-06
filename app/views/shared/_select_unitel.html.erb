@@ -1,7 +1,7 @@
 
 <select class="rechargeType form-control validate v<%= partner.slug %>" name="<%= partner.slug.downcase %>_produto_id" data-message="Selecione um produto">
   <option value="">Escolher</option>
-  <% ["PLANO MAIS", "VOZ", "DADOS", "SMS"].each do |subtipo| %>
+  <% ["VOZ", "PLANO MAIS", "DADOS", "SMS"].each do |subtipo| %>
     <optgroup label="<%= subtipo %>">
       <% produtos = Produto.produtos.where(partner_id: Partner.where(slug: partner.slug), subtipo: subtipo).reorder("nome_comercial asc, valor_compra_telemovel asc") %>
       <% produtos.each do |produto| %>

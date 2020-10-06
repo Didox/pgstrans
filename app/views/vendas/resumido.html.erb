@@ -165,7 +165,11 @@
                 <b>Terminal:</b> <%= venda.terminal_id %><br>
                 <b>Customer Number / MSIDN:</b> <%= venda.client_msisdn %>
               </td>
-              <td style="width:50px"><%= venda.product_id %></td>
+              <td style="width:50px">
+                <%= venda.product_id %>
+                <hr>
+                <%= venda.product_nome %>
+              </td>
               <td style="width:80px" align="right"><%= number_to_currency(venda.valor_original) %></td>
               <td style="width:80px" align="right">
                 <%= number_to_currency(venda.desconto_aplicado) %><br>
