@@ -17,6 +17,13 @@ module PermissionamentoDados
             grupo_registros.grupo_id in (#{usuario.grupos_id.join(",")}) and
             grupo_registros.grupo_id = grupo_usuarios.grupo_id
           ").distinct
+
+          # self.joins("
+          # inner join grupo_registros on 
+          #   grupo_registros.modelo = '#{self.to_s}' and 
+          #   grupo_registros.modelo_id = #{self.to_s.underscore.pluralize}.id and 
+          #   grupo_registros.grupo_id in (#{usuario.grupos_id.join(",")}) 
+          # ").distinct
         end
       end
 

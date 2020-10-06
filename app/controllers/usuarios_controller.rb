@@ -6,6 +6,7 @@ class UsuariosController < ApplicationController
   def index
     #@usuarios = Usuario.all.order(nome: :asc)
     @usuarios = Usuario.com_acesso(usuario_logado).order(nome: :asc)
+
     @usuarios = @usuarios.joins(:perfil_usuario)
     @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
     @usuarios = @usuarios.where("usuarios.email ilike '%#{params[:email]}%'") if params[:email].present?
