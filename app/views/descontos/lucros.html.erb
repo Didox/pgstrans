@@ -131,11 +131,7 @@
           </td>    
           <td style="width:210px" align="right">
             <b>
-              <%= number_to_currency(totais_desconto_total_aplicado) %><br>
-              <% porcentagem = (totais_desconto_total_aplicado.to_f / totais_valor_total_original.to_f * 100) 
-              unless porcentagem.nan? %>
-                <%= number_to_currency(porcentagem, :unit => "") %>%
-              <% end %>
+              <%= number_to_currency(totais_desconto_total_aplicado) %>
             </b>
           </td>
           <td style="width:210px" align="right">
