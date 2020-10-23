@@ -90,4 +90,11 @@ namespace :jobs do
       Venda.where(id: venda.id).update_all(produto_id_parceiro: produto_id_parceiro, product_id: produto_id)
     end
   end
+
+  desc "Atualiza usuario login vazio"
+  task atualiza_usuario_login_vazio: :environment do
+    Usuario.where("login is null").all.each do |usuario|
+      Usuario.where(id: usuario.id).update_all(login: Usuario.gerar_login)
+    end
+  end
 end

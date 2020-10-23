@@ -8,11 +8,12 @@ class Usuario < ApplicationRecord
   belongs_to :sub_agente
   belongs_to :municipio
   
-  validates :email, presence: true, uniqueness: true
+  validates :email, :login, presence: true, uniqueness: true
   validates :nome, :email, presence: true
 
   validate :verifica_tamanho_senha
   after_validation :senha_sha1
+  before_validation :preenche_login
 
   def saldo
     ContaCorrente.where(usuario_id: self.id).order("data_ultima_atualizacao_saldo desc").first.saldo_atual
@@ -23,6 +24,14 @@ class Usuario < ApplicationRecord
   def acessos
     return @acessos if @acessos.present?
     @acessos = perfil_usuario.acessos_actions
+  end
+
+  def self.gerar_login
+    numero = 0
+    while (numero.to_s.length < 7)
+      numero = rand.to_s[2..8].to_i
+    end
+    numero
   end
 
   def grupos
@@ -84,5 +93,9 @@ class Usuario < ApplicationRecord
     def senha_sha1
       #self.senha = Digest::SHA1.hexdigest(self.senha) if self.senha.length <= 10
       self.senha = Digest::SHA1.hexdigest(self.senha) if self.senha.length <= 30
+    end
+
+    def preenche_login
+      self.login = Usuario.gerar_login if self.login.blank?
     end
 end
