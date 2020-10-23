@@ -33,11 +33,15 @@
         </div>
 
         <div class="form-input col-sm-6">
+          <%= f.input :login, :label => "Login", disabled: true %>
+        </div>
+
+        <div class="form-input col-sm-6">
           <%= f.label :senha, "Palavra-passe" %>
           <%= f.password_field :senha, class: "form-control" %>
         </div>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-12">
           <%= f.label :perfil_usuario_id, "Perfil do Usuário" %>
           <% if @adm.admin? %>
             <%= f.select :perfil_usuario_id, PerfilUsuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
