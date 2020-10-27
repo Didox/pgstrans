@@ -7,7 +7,7 @@ class LoginController < ApplicationController
   def autentica
     if params[:email].present? && params[:senha].present?
       senha = Digest::SHA1.hexdigest(params[:senha])
-      usuarios = Usuario.ativo.where(email: params[:email], senha: senha, status_cliente_id: StatusCliente.where("lower(nome) = 'ativo'"))
+      usuarios = Usuario.ativo.where("email = ? or login = ?", params[:email], params[:email]).where(senha: senha, status_cliente_id: StatusCliente.where("lower(nome) = 'ativo'"))
       if usuarios.count > 0
         usuario = usuarios.first
         Usuario.where(id: usuario.id).update_all(logado: true)

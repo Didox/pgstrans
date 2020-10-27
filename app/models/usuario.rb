@@ -13,7 +13,7 @@ class Usuario < ApplicationRecord
 
   validate :verifica_tamanho_senha
   after_validation :senha_sha1
-  before_validation :preenche_login
+  before_validation :preenche_login, :senha_forte
 
   def saldo
     ContaCorrente.where(usuario_id: self.id).order("data_ultima_atualizacao_saldo desc").first.saldo_atual
@@ -98,4 +98,44 @@ class Usuario < ApplicationRecord
     def preenche_login
       self.login = Usuario.gerar_login if self.login.blank?
     end
+
+    def senha_forte
+      if self.senha.length < 6
+        self.errors.add("Senha", "Deve conter pelo menos 6 caracteres")
+        return
+      end
+
+      simbolos_validos = '!@#$%^&*()[]{}?+|"\'\\/.,:;'
+
+      testes_de_senha_obrigatorio = [
+        /[#{Regexp.escape(simbolos_validos)}]/,
+        /\d+/
+      ]
+
+      testes_de_senha_obrigatorio.each do |regexp|
+        if self.senha.to_s.scan(regexp).length == 0
+          self.errors.add("Senha", "deve conter símbolos e números")
+          return
+        end
+      end
+
+      testes_de_senha = [
+        /[a-zA-Z]+/,                 
+        /[a-z].*?[A-Z]|[A-Z].*[a-z]/,
+        /.{10}/                      
+      ]
+
+      minimo_caractere_valido = 3
+
+      quantidade_caractere_valido = testes_de_senha.sum do |regexp|
+        self.senha.to_s.scan(regexp).length
+      end
+
+      if quantidade_caractere_valido < minimo_caractere_valido
+        self.errors.add("Senha", "deve conter símbolos e números, letras maiúsculas e letras minúsculas")
+      end
+    end
 end
+
+
+
