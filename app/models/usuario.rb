@@ -13,7 +13,7 @@ class Usuario < ApplicationRecord
 
   validate :verifica_tamanho_senha
   after_validation :senha_sha1
-  before_validation :preenche_login, :senha_forte
+  before_validation :preenche_login #, :senha_forte
 
   def saldo
     ContaCorrente.where(usuario_id: self.id).order("data_ultima_atualizacao_saldo desc").first.saldo_atual
