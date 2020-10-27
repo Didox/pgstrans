@@ -1,4 +1,5 @@
 VERSION="v2"
+URL_SITE=ENV["URL_SITE"] || "https://recarga.pagaso.co.ao/"
 
 String.class_eval do
   def to_f_ptBR
