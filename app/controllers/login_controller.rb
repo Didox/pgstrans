@@ -34,4 +34,75 @@ class LoginController < ApplicationController
     cookies[:usuario_pgstrans_oauth] = nil
     redirect_to login_path
   end
+
+  def alterar_senha
+    if params[:token].blank?
+      flash[:error] = "Token não pode ficar em branco"
+      redirect_to login_path
+      return
+    end
+
+    usuarioToken = TokenUsuarioSenha.where(token: params[:token]).first
+    if usuarioToken.present?
+      flash[:error] = "Token de recuperação inválido"
+      redirect_to login_path
+      return
+    end
+
+    @usuario = usuarioToken.usuario
+
+    # require 'securerandom'
+    # @token = SecureRandom.uuid
+    # TokenUsuarioSenha.where(usuario_id: @usuario.id).destroy_all
+    # TokenUsuarioSenha.create(usuario_id: @usuario.id, token: @token)
+  end
+
+  def mudar_senha
+    if params[:token].blank?
+      flash[:error] = "Token não pode ficar em branco"
+      redirect_to login_path
+      return
+    end
+
+    usuarioToken = TokenUsuarioSenha.where(token: params[:token]).first
+    if usuarioToken.present?
+      flash[:error] = "Token de recuperação inválido"
+      redirect_to login_path
+      return
+    end
+    
+    if params[:senha].blank? || params[:csenha].blank?
+      flash[:error] = "Palavra passe ou confirmação da palavra passe não pode ficar em branco"
+      redirect_to "/alterar-senha?token=#{usuarioToken.token}"
+      return
+    end
+
+    if params[:senha].blank? != params[:csenha].blank?
+      flash[:error] = "Palavra passe precisa ser igual confirmação da palavra passe"
+      redirect_to "/alterar-senha?token=#{usuarioToken.token}"
+      return
+    end
+
+    usuario = usuarioToken.usuario
+    usuario.senha = params[:senha]
+    unless usuario.save
+      flash[:error] =  usuario.errors.inspect
+      redirect_to "/alterar-senha?token=#{usuarioToken.token}"
+      return
+    end
+
+    Usuario.where(id: usuario.id).update_all(logado: true)
+    cookies[:usuario_pgstrans_oauth] = { 
+      value: {
+        id: usuario.id,
+        nome: usuario.nome,
+        email: usuario.email,
+      }.to_json, 
+      expires: Time.zone.now + 1.year, 
+      httponly: true 
+    }
+    UsuarioAcesso.create(usuario: usuario, mac_adress: request.ip)
+    redirect_to root_path
+  end
+  
 end

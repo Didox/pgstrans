@@ -82,6 +82,9 @@ Rails.application.routes.draw do
   post 'autentica', to: 'login#autentica'
   post 'recarga/confirma', to: 'recarga#confirma', as: "recarga_confirma"
 
+  get 'alterar-senha', to: 'login#alterar_senha'
+  post 'alterar-senha', to: 'login#mudar_senha'
+ 
   resources :return_code_apis
   resources :matrix_users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
