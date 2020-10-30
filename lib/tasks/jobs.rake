@@ -94,7 +94,7 @@ namespace :jobs do
   desc "Atualiza usuario login vazio"
   task atualiza_usuario_login_vazio: :environment do
     Usuario.where("login is null").all.each do |usuario|
-      Usuario.where(id: usuario.id).update_all(login: Usuario.gerar_login)
+      Usuario.where(id: usuario.id).update_all(login: Usuario.gerar_login, senha: "#Fcda#!1133%")
     end
   end
 end
