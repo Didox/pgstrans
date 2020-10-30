@@ -13,7 +13,7 @@ class Usuario < ApplicationRecord
 
   validate :verifica_tamanho_senha
   after_validation :senha_sha1
-  before_validation :preenche_login #, :senha_forte
+  before_validation :preenche_login, :senha_forte
 
   def saldo
     ContaCorrente.where(usuario_id: self.id).order("data_ultima_atualizacao_saldo desc").first.saldo_atual
@@ -79,6 +79,43 @@ class Usuario < ApplicationRecord
     acesso.created_at if acesso.present?
   end
 
+  def valida_senha
+    if self.senha.length < 6
+      return false
+    end
+
+    simbolos_validos = '!@#$%^&*()[]{}?+|"\'\\/.,:;'
+
+    testes_de_senha_obrigatorio = [
+      /[#{Regexp.escape(simbolos_validos)}]/,
+      /\d+/
+    ]
+
+    testes_de_senha_obrigatorio.each do |regexp|
+      if self.senha.to_s.scan(regexp).length == 0
+        return false
+      end
+    end
+
+    testes_de_senha = [
+      /[a-zA-Z]+/,                 
+      /[a-z].*?[A-Z]|[A-Z].*[a-z]/,
+      /.{10}/                      
+    ]
+
+    minimo_caractere_valido = 3
+
+    quantidade_caractere_valido = testes_de_senha.sum do |regexp|
+      self.senha.to_s.scan(regexp).length
+    end
+
+    if quantidade_caractere_valido < minimo_caractere_valido
+      return false
+    end
+
+    return true
+  end
+
   private
 
     def verifica_tamanho_senha
@@ -92,7 +129,7 @@ class Usuario < ApplicationRecord
 
     def senha_sha1
       #self.senha = Digest::SHA1.hexdigest(self.senha) if self.senha.length <= 10
-      self.senha = Digest::SHA1.hexdigest(self.senha) if self.senha.length <= 30
+      self.senha = Digest::SHA1.hexdigest(self.senha) if self.senha.length <= 30 if self.valida_senha
     end
 
     def preenche_login
@@ -102,38 +139,41 @@ class Usuario < ApplicationRecord
     def senha_forte
       if self.senha.length < 6
         self.errors.add("Senha", "Deve conter pelo menos 6 caracteres")
-        return
+        return false
       end
-
+  
       simbolos_validos = '!@#$%^&*()[]{}?+|"\'\\/.,:;'
-
+  
       testes_de_senha_obrigatorio = [
         /[#{Regexp.escape(simbolos_validos)}]/,
         /\d+/
       ]
-
+  
       testes_de_senha_obrigatorio.each do |regexp|
         if self.senha.to_s.scan(regexp).length == 0
           self.errors.add("Senha", "deve conter símbolos e números")
-          return
+          return false
         end
       end
-
+  
       testes_de_senha = [
         /[a-zA-Z]+/,                 
         /[a-z].*?[A-Z]|[A-Z].*[a-z]/,
         /.{10}/                      
       ]
-
+  
       minimo_caractere_valido = 3
-
+  
       quantidade_caractere_valido = testes_de_senha.sum do |regexp|
         self.senha.to_s.scan(regexp).length
       end
-
+  
       if quantidade_caractere_valido < minimo_caractere_valido
         self.errors.add("Senha", "deve conter símbolos e números, letras maiúsculas e letras minúsculas")
+        return false
       end
+  
+      return true
     end
 end
 

@@ -1,6 +1,6 @@
 class LoginController < ApplicationController
   layout = "login"
-  skip_before_action :verify_authenticity_token, only: [:autentica]
+  skip_before_action :verify_authenticity_token, only: [:autentica, :mudar_senha, :password_esquecida, :recuperar_password_esquecida]
   skip_before_action :validate_login
 
   def index;end
@@ -11,13 +11,14 @@ class LoginController < ApplicationController
       if usuarios.count > 0
         usuario = usuarios.first
         Usuario.where(id: usuario.id).update_all(logado: true)
+        time = params[:remember].present? ? 1.year.from_now : 30.minutes.from_now
         cookies[:usuario_pgstrans_oauth] = { 
           value: {
             id: usuario.id,
             nome: usuario.nome,
             email: usuario.email,
           }.to_json, 
-          expires: Time.zone.now + 1.year, 
+          expires: time, 
           httponly: true 
         }
         UsuarioAcesso.create(usuario: usuario, mac_adress: request.ip)
@@ -42,8 +43,8 @@ class LoginController < ApplicationController
       return
     end
 
-    usuarioToken = TokenUsuarioSenha.where(token: params[:token]).first
-    if usuarioToken.present?
+    usuarioToken = TokenUsuarioSenha.where(token: params[:token]).where("created_at > ?", Time.zone.now - 60.minutes).first
+    if usuarioToken.blank?
       flash[:error] = "Token de recuperação inválido"
       redirect_to login_path
       return
@@ -51,12 +52,31 @@ class LoginController < ApplicationController
 
     @usuario = usuarioToken.usuario
 
-    # require 'securerandom'
-    # @token = SecureRandom.uuid
-    # TokenUsuarioSenha.where(usuario_id: @usuario.id).destroy_all
-    # TokenUsuarioSenha.create(usuario_id: @usuario.id, token: @token)
+    require 'securerandom'
+    @token = SecureRandom.uuid
+    TokenUsuarioSenha.where(usuario_id: @usuario.id).destroy_all
+    TokenUsuarioSenha.create(usuario_id: @usuario.id, token: @token)
   end
 
+  def password_esquecida;end
+  def recuperar_password_esquecida
+    if params[:email].blank?
+      flash[:error] = "E-mail não pode ficar em branco"
+      redirect_to "/password-esquecida"
+      return
+    end
+
+    usuario = Usuario.where(email: params[:email]).first
+    if usuario.present?
+      flash[:notice] = "Encaminhado e-mail de recuperação. Caso não o encontre, verifique caixa de spam."
+      UsuarioMailer.recupera_senha(usuario).deliver
+      redirect_to login_path
+    else
+      flash[:error] = "E-mail não cadastrado"
+      redirect_to "/password-esquecida"
+    end
+  end
+  
   def mudar_senha
     if params[:token].blank?
       flash[:error] = "Token não pode ficar em branco"
@@ -65,29 +85,35 @@ class LoginController < ApplicationController
     end
 
     usuarioToken = TokenUsuarioSenha.where(token: params[:token]).first
-    if usuarioToken.present?
+    if usuarioToken.blank?
       flash[:error] = "Token de recuperação inválido"
       redirect_to login_path
       return
     end
+
+    usuario = usuarioToken.usuario
+    require 'securerandom'
+    @token = SecureRandom.uuid
+    TokenUsuarioSenha.where(usuario_id: usuario.id).destroy_all
+    TokenUsuarioSenha.create(usuario_id: usuario.id, token: @token)
     
     if params[:senha].blank? || params[:csenha].blank?
       flash[:error] = "Palavra passe ou confirmação da palavra passe não pode ficar em branco"
-      redirect_to "/alterar-senha?token=#{usuarioToken.token}"
+      redirect_to "/alterar-senha?token=#{@token}"
       return
     end
 
     if params[:senha].blank? != params[:csenha].blank?
       flash[:error] = "Palavra passe precisa ser igual confirmação da palavra passe"
-      redirect_to "/alterar-senha?token=#{usuarioToken.token}"
+      redirect_to "/alterar-senha?token=#{@token}"
       return
     end
 
-    usuario = usuarioToken.usuario
+    usuario.responsavel = usuario
     usuario.senha = params[:senha]
     unless usuario.save
-      flash[:error] =  usuario.errors.inspect
-      redirect_to "/alterar-senha?token=#{usuarioToken.token}"
+      flash[:error] =  usuario.errors.full_messages.join(", ")
+      redirect_to "/alterar-senha?token=#{@token}"
       return
     end
 

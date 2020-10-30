@@ -84,7 +84,9 @@ Rails.application.routes.draw do
 
   get 'alterar-senha', to: 'login#alterar_senha'
   post 'alterar-senha', to: 'login#mudar_senha'
- 
+  get 'password-esquecida', to: 'login#password_esquecida'
+  post 'password-esquecida', to: 'login#recuperar_password_esquecida'
+  
   resources :return_code_apis
   resources :matrix_users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
