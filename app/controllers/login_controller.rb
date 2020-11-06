@@ -27,7 +27,7 @@ class LoginController < ApplicationController
       end
     end
 
-    flash[:error] = "Email ou senha inválidos"
+    flash[:error] = "E-mail ou senha inválidos"
     redirect_to login_path
   end
 
@@ -68,7 +68,7 @@ class LoginController < ApplicationController
 
     usuario = Usuario.where(email: params[:email]).first
     if usuario.present?
-      flash[:notice] = "Encaminhado e-mail de recuperação. Caso não o encontre, verifique caixa de spam."
+      flash[:notice] = "Encaminhado e-mail de recuperação. Caso não o encontre, verifique caixa de spam ou repita a operação"
       UsuarioMailer.recupera_senha(usuario).deliver
       redirect_to login_path
     else
@@ -98,13 +98,13 @@ class LoginController < ApplicationController
     TokenUsuarioSenha.create(usuario_id: usuario.id, token: @token)
     
     if params[:senha].blank? || params[:csenha].blank?
-      flash[:error] = "Palavra passe ou confirmação da palavra passe não pode ficar em branco"
+      flash[:error] = "Palavra-passe ou confirmação da palavra-passe não pode ficar em branco"
       redirect_to "/alterar-senha?token=#{@token}"
       return
     end
 
     if params[:senha].blank? != params[:csenha].blank?
-      flash[:error] = "Palavra passe precisa ser igual confirmação da palavra passe"
+      flash[:error] = "Palavra-passe precisa ser igual confirmação da palavra-passe"
       redirect_to "/alterar-senha?token=#{@token}"
       return
     end
