@@ -14,11 +14,26 @@
 @import "bootstrap";
 @import "tether";
 
+.alert-dismissable .close, .alert-dismissible .close{
+  top: 0px;
+  right: 0px;
+}
+
+.alert > p, .alert > ul{
+  list-style-type: none;
+}
 
 .btn-login{
   display: block;margin-top: 10px;
   height: 35px;
 }
+
+.btn-voltar{
+  text-align:center;
+  padding: 8px;
+  text-decoration: none!important;
+}
+
 // btn-space - espaço entre botões
 .menu_recarga{
   display: inline-block;
