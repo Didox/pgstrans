@@ -66,13 +66,13 @@ class LoginController < ApplicationController
       return
     end
 
-    usuario = Usuario.where(email: params[:email]).first
+    usuario = Usuario.where(email: params[:email], status_cliente_id: StatusCliente.where("lower(nome) = 'ativo'")).first
     if usuario.present?
       flash[:notice] = "Encaminhado e-mail de recuperação. Caso não o encontre, verifique caixa de spam ou repita a operação"
       UsuarioMailer.recupera_senha(usuario).deliver
       redirect_to login_path
     else
-      flash[:error] = "E-mail não cadastrado"
+      flash[:error] = "E-mail não cadastrado ou inativo"
       redirect_to "/password-esquecida"
     end
   end
