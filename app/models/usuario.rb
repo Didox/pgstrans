@@ -128,8 +128,7 @@ class Usuario < ApplicationRecord
     end
 
     def senha_sha1
-      #self.senha = Digest::SHA1.hexdigest(self.senha) if self.senha.length <= 10
-      self.senha = Digest::SHA1.hexdigest(self.senha) if self.senha.length <= 30 if self.valida_senha
+      self.senha = Digest::SHA1.hexdigest(self.senha) if self.valida_senha
     end
 
     def preenche_login
