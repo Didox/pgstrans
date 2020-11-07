@@ -45,7 +45,7 @@ class LoginController < ApplicationController
 
     usuarioToken = TokenUsuarioSenha.where(token: params[:token]).where("created_at > ?", Time.zone.now - 60.minutes).first
     if usuarioToken.blank?
-      flash[:error] = "Token de recuperação inválido"
+      flash[:error] = "Token inválido"
       redirect_to login_path
       return
     end
@@ -68,7 +68,7 @@ class LoginController < ApplicationController
 
     usuario = Usuario.where(email: params[:email], status_cliente_id: StatusCliente.where("lower(nome) = 'ativo'")).first
     if usuario.present?
-      flash[:notice] = "Encaminhado e-mail de recuperação. Caso não o encontre, verifique caixa de spam ou repita a operação"
+      flash[:notice] = "Encaminhado e-mail para redefinição de palavra-passe. Caso não o encontre, verifique caixa de spam ou repita a operação"
       UsuarioMailer.recupera_senha(usuario).deliver
       redirect_to login_path
     else
@@ -86,7 +86,7 @@ class LoginController < ApplicationController
 
     usuarioToken = TokenUsuarioSenha.where(token: params[:token]).first
     if usuarioToken.blank?
-      flash[:error] = "Token de recuperação inválido"
+      flash[:error] = "Token inválido"
       redirect_to login_path
       return
     end

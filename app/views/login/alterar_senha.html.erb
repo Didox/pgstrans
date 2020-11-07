@@ -1,7 +1,7 @@
 <div class="container">
   <div class="col-md-12 panel panel-default">
     <div class="panel-heading">
-        <h1>Alteração de senha</h1>
+        <h1>Alteração de Palavra-passe</h1>
     </div>
     <div class="panel-body">
         <div class="col-md-4">
@@ -16,7 +16,7 @@
               <form action="/alterar-senha" method="post">
                 <h3>
                   Olá <%= @usuario.nome %> que bom ver você por aqui!<br>
-                  Vamos alterar sua senha ?
+                  Vamos alterar sua palavra-passe?
                 </h3>
                 
                 <input type="hidden" name="token" value="<%= @token %>">
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="form-group row">
-                  <label for="password" class="col-md-4 col-form-label text-md-right">Confirmação da nova palavra-passe</label>
+                  <label for="password" class="col-md-4 col-form-label text-md-right">Confirmação de palavra-passe</label>
                   <div class="col-md-6">
                     <input type="password" id="csenha" class="form-control" name="csenha" required="">
                   </div>
@@ -38,7 +38,7 @@
                 <div class="form-group row">
                   <div class="col-md-6 offset-md-4">
                     <div>
-                      <input type="submit" class="fadeIn fourth btn-block btn-success btn-login" value="Aceder">
+                      <input type="submit" class="fadeIn fourth btn-block btn-success btn-login" value="Alterar">
                     </div>
                   </div>
                 </div>
