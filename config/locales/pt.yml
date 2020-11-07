@@ -3,6 +3,7 @@ pt:
     page_gap: "&hellip;"
     previous_label: "Anterior"
     next_label: "Próximo"
+    page_aria_label: "."
   activerecord:
     errors:
       messages:
