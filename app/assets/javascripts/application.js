@@ -87,6 +87,7 @@ pgstrans.carregaProdutosPorParceiro = (self) => {
   });
 }
 
+var pagamentoProcessando = false;
 $(function(){
   $( ".autocomplete" ).autocomplete({
     source: function( request, response ) {
@@ -123,7 +124,7 @@ $(function(){
 
   $(".recarga #recargaForm").submit(function(e) {
     e.preventDefault();
-
+    pagamentoProcessando = false;
     let message = "";
     $(".validate.v" + $("#tipo_ativo").val()).each(function(){
       if($(this).val() == ""){
@@ -153,17 +154,22 @@ $(function(){
           text: 'Confirmar',
           btnClass: 'btn-warning',
           action: function(){
+            if(pagamentoProcessando) return;
+
             var form = $(".recarga #recargaForm");
             var url = form.attr('action');
+            pagamentoProcessando = true;
             $.ajax({
               type: "POST",
               url: url,
               data: form.serialize(),
               success: function(data){
+                pagamentoProcessando = false;
                 $.alert(data.mensagem);
                 $(".clearFieldjs").val("")
               },
               error: function(xhr, ajaxOptions, thrownError){
+                pagamentoProcessando = false;
                 var data = JSON.parse(xhr.responseText);
                 var erroObject = JSON.parse(xhr.responseText)
                 var stackthrow = (erroObject && erroObject.erro ? ' - ' + erroObject.erro : "")
@@ -177,6 +183,7 @@ $(function(){
           text: 'Cancelar',
           btnClass: 'btn-danger',
           action: function(){
+            pagamentoProcessando = false;
             $.alert('cancelado!');
           }
         }
