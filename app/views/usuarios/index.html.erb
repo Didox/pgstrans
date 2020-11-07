@@ -18,13 +18,21 @@
         </div>
         <div class="col-sm-4">
           <div class="form-group">
+            <label>Login do Usuário</label>
+            <div>
+              <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
             <label>E-mail do Usuário</label>
             <div>
               <input type="text" name="email" value="<%= params[:email] %>" class="form-control">
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Administrador</label>
             <div>
@@ -42,7 +50,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Operador</label>
             <div>
@@ -60,7 +68,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Perfil do Usuário</label>
             <div>
@@ -73,7 +81,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Sugagente</label>
             <div>
@@ -103,14 +111,12 @@
       <thead>
         <tr class="text-center">
           <th scope="col">ID</th>
-          <th scope="col">Nome</th>
-          <th scope="col">E-Mail</th>
+          <th scope="col">Usuário</th>
           <th scope="col">Admin?</th>
           <th scope="col">Operador?</th>
           <th scope="col">Agente?</th>
           <th scope="col">Perfil</th>
-          <th scope="col">Subagente</th>
-          <th scope="col">Criado em</th>
+          <th scope="col">Subagente e Data da Criação</th>
           <th colspan="4">Ações</th>
         </tr>
       </thead>
@@ -119,8 +125,11 @@
         <% @usuarios.each do |usuario| %>
           <tr>
             <td><%= usuario.id %></td>
-            <td><%= usuario.nome %></td>
-            <td><%= usuario.email %></td>
+            <td>
+              Login: <%= usuario.login %><br>
+              Nome: <%= usuario.nome %><br>
+              E-mail: <%= usuario.email %>
+            </td>
             <td class="text-center"><%= usuario.admin? ? "Sim": "Não" %></td>
             <td class="text-center"><%= usuario.operador? ? "Sim": "Não" %></td>
             <td class="text-center"><%= usuario.agente? ? "Sim": "Não" %></td>
@@ -130,16 +139,17 @@
               </a>
             </td>
             <td>
-              <%= "#{usuario.sub_agente_id}/#{usuario.sub_agente.nome_fantasia}" %>
-            </td>          
-            <td><%= usuario.created_at %></td>
-            <td><%= link_to 'Editar', edit_usuario_path(usuario) %></td>
+              <%= "#{usuario.sub_agente_id}/#{usuario.sub_agente.nome_fantasia}" %><br><br>
+              <%= usuario.created_at %>
+            </td>
             <td>
+              <%= link_to 'Editar', edit_usuario_path(usuario) %><br>
               <% if usuario.logado %>
                 <%= link_to 'Forçar Logout ', "/usuarios/#{usuario.id}/forcar-logout", data: { confirm: 'Confirma?' } %>
               <% end %>
+              <br>
+              <%= link_to 'Apagar', usuario, method: :delete, data: { confirm: 'Tem Certeza?' } %>
             </td>
-            <td><%= link_to 'Apagar', usuario, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
           </tr>
         <% end %>
       </tbody>
