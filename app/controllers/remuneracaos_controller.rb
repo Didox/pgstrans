@@ -8,6 +8,9 @@ class RemuneracaosController < ApplicationController
     @remuneracaos = @remuneracaos.joins("inner join usuarios on usuarios.id = remuneracaos.usuario_id")
     @remuneracaos = @remuneracaos.where("lower(usuarios.nome) ilike ? ", "%#{params[:nome]}%") if params[:nome].present?
     @remuneracaos = @remuneracaos.where("lower(usuarios.email) ilike ? ", "%#{params[:email]}%") if params[:email].present?
+    @remuneracaos = @remuneracaos.where("lower(usuarios.login) ilike ? ", "%#{params[:login]}%") if params[:login].present?
+    @remuneracaos = @remuneracaos.where("remuneracaos.vigencia_inicio >= ?", params[:vigencia_inicio].to_datetime.beginning_of_day) if params[:vigencia_inicio].present?
+    @remuneracaos = @remuneracaos.where("remuneracaos.vigencia_fim <= ?", params[:vigencia_fim].to_date.end_of_day) if params[:vigencia_fim].present?
 
     #@remuneracaos = @remuneracaos.joins(:usuario)
     #@remuneracaos = @remuneracaos.reorder("remuneracao.usuario.nome asc")
