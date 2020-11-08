@@ -6,6 +6,9 @@ class DescontoParceirosController < ApplicationController
   # GET /desconto_parceiros.json
   def index
     @desconto_parceiros = DescontoParceiro.where(partner_id: @partner.id)
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @desconto_parceiros = @desconto_parceiros.paginate(options)
   end
 
   # GET /desconto_parceiros/1

@@ -95,6 +95,10 @@
       </tbody>
     </table>
 
+    <div class="apple_pagination">
+      <%= will_paginate @desconto_parceiros, :container => false %>
+    </div>    
+
     <%= link_to partners_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar
