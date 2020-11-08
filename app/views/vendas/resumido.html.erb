@@ -8,7 +8,7 @@
     <form action="" method="get" id="formApuracao">
       <div class="card-body recarga">
         <div class="container" style="margin-top:10px">
-            <div class="col-sm-6">
+            <div class="col-sm-2">
               <div class="form-group">
                 <label>Data Inicial</label>
                 <div>
@@ -16,11 +16,29 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-2">
               <div class="form-group">
                 <label>Data Final</label>
                 <div>
                   <input type="date" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="form-group">
+                <label>Status</label>
+                <div>
+                  <select name="return_code" class="form-control">
+                    <option value="" selected="'selected'">Todos</option>
+                    <option value="sucesso" <% if params[:return_code] == "sucesso" %> selected="selected" <% end %>>Todos com sucesso</option>
+                    <% Partner.where(status_parceiro_id: 1).each do |partner| %>
+                      <optgroup label="<%= partner.name %>">
+                        <% ReturnCodeApi.where(partner_id: partner.id).each do |ret| %>
+                          <option value="<%= ret.id %>" <% if ret.id.to_s == params[:return_code] %> selected="selected" <% end %> ><%= ret.partner.name %> - <%= ret.sucesso ? "[SUCESSO] - " : "" %><%= ret.error_description_pt %></option>
+                        <% end %>
+                      </optgroup>
+                    <% end %>
+                  </select>
                 </div>
               </div>
             </div>
