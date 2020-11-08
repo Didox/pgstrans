@@ -121,9 +121,9 @@ class Usuario < ApplicationRecord
     def verifica_tamanho_senha
       #if self.senha.length > 10
       if self.senha.length > 30
-        self.errors.add(:senha, "A senha não pode ser maior que 30 caracteres")
+        self.errors.add(:senha, "A palavra-passe não pode ser maior que 30 caracteres")
       elsif self.senha.blank? && self.id.blank?
-        self.errors.add(:senha, "A senha não pode ficar em branco")
+        self.errors.add(:senha, "A palavra-passe não pode ficar em branco")
       end
     end
 
@@ -137,7 +137,7 @@ class Usuario < ApplicationRecord
 
     def senha_forte
       if self.senha.length < 6
-        self.errors.add("Senha", "Deve conter pelo menos 6 caracteres")
+        self.errors.add("Senha", "deve conter pelo menos 6 caracteres")
         return false
       end
   

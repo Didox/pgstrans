@@ -27,7 +27,7 @@ class LoginController < ApplicationController
       end
     end
 
-    flash[:error] = "E-mail ou senha inválidos"
+    flash[:error] = "E-mail ou palavra-passe inválidos"
     redirect_to login_path
   end
 
@@ -104,7 +104,7 @@ class LoginController < ApplicationController
     end
 
     if params[:senha].blank? != params[:csenha].blank?
-      flash[:error] = "Palavra-passe precisa ser igual confirmação da palavra-passe"
+      flash[:error] = "Palavra-passe precisa ser igual a confirmação da palavra-passe"
       redirect_to "/alterar-senha?token=#{@token}"
       return
     end
