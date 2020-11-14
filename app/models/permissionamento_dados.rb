@@ -11,9 +11,23 @@ module PermissionamentoDados
           self.all
         else
           sql_where = ""
+
           if self.new.respond_to?(:usuario_id)
             sql_where = "(#{self.to_s.underscore.pluralize}.usuario_id = #{usuario.id}) or "
+          elsif self == Usuario
+            sql_where = "(usuarios.id = #{usuario.id}) or
+            
+              usuarios.id in (
+                select grupo_usuarios.usuario_id from grupo_usuarios
+                where grupo_usuarios.grupo_id in (#{usuario.grupos_id.join(",")})
+                and grupo_usuarios.usuario_id = usuarios.id
+              )
+
+              or
+
+            "
           end
+
           sql_where += "
             (
               #{self.to_s.underscore.pluralize}.id in (

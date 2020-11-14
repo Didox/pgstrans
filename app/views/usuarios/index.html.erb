@@ -106,6 +106,10 @@
     </form>
   </div>
 
+  <h5>
+    Usuarios do grupo cadastrados pelo agente ou pelo administrador
+  </h5>
+
   <div class="container scroltable">
     <table class="table table-hover">
       <thead>
@@ -159,10 +163,12 @@
       <%= will_paginate @usuarios, :container => false %>
     </div> 
 
-    <%= link_to new_usuario_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-plus"></span>
-      Novo Registro
-    <% end %>    
+    <% if(usuario_logado.admin? || usuario_logado.operador?) %>
+      <%= link_to new_usuario_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-plus"></span>
+        Novo Registro
+      <% end %>    
+    <% end %>  
 
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>

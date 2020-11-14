@@ -19,8 +19,6 @@ namespace :poc do
 
     puts res.body
 
-    debugger
-
     #DEV – https://10.151.59.196/ao/echarge/pagaso/dev
     #QA - https://10.151.59.196/ao/echarge/pagaso/qa
 

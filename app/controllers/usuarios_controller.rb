@@ -40,7 +40,11 @@ class UsuariosController < ApplicationController
 
   # GET /usuarios/new
   def new
-    @usuario = Usuario.new
+    if(usuario_logado.admin? || usuario_logado.operador?)
+      @usuario = Usuario.new
+    else
+      redirect_to usuarios_path
+    end
   end
 
   # GET /usuarios/1/edit
@@ -50,18 +54,22 @@ class UsuariosController < ApplicationController
   # POST /usuarios
   # POST /usuarios.json
   def create
-    @usuario = Usuario.new(usuario_params)
-    @usuario.responsavel = usuario_logado
-    
-    respond_to do |format|
-      if @usuario.save
-        salvar_grupos
-        format.html { redirect_to @usuario, notice: 'Usuário foi criado com sucesso.' }
-        format.json { render :show, status: :created, location: @usuario }
-      else
-        format.html { render :new }
-        format.json { render json: @usuario.errors, status: :unprocessable_entity }
+    if(usuario_logado.admin? || usuario_logado.operador?)
+      @usuario = Usuario.new(usuario_params)
+      @usuario.responsavel = usuario_logado
+      
+      respond_to do |format|
+        if @usuario.save
+          salvar_grupos
+          format.html { redirect_to @usuario, notice: 'Usuário foi criado com sucesso.' }
+          format.json { render :show, status: :created, location: @usuario }
+        else
+          format.html { render :new }
+          format.json { render json: @usuario.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to usuarios_path
     end
   end
 

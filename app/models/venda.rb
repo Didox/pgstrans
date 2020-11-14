@@ -429,7 +429,6 @@ class Venda < ApplicationRecord
     msisdn = telefone
     request_id = Time.now.strftime("%d%m%Y%H%M%S")
 
-    # debugger
     cripto = "AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto"
     Rails.logger.info "=========[cripto]========"
     pass = `#{cripto}`

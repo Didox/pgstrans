@@ -52,8 +52,6 @@ namespace :jobs do
   desc "Consulta número"
   task consulta_numero_dstv: :environment do
     info = Dstv.informacoes("3001492459")
-    debugger
-
     x = ""
   end
 

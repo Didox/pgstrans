@@ -53,7 +53,7 @@
               var data = google.visualization.arrayToDataTable([
                 ["Nome", "Valor", { role: "style" } ],
                 <% Partner.all.each do |partner| %>
-                ["<%= partner.name %>", <%= partner.valor_total_vendido(params).round(2) %>, "<%= partner.cor %>"],
+                ["<%= partner.name %>", <%= partner.valor_total_vendido(params, usuario_logado).round(2) %>, "<%= partner.cor %>"],
                 <% end %>
               ]);
 
@@ -101,9 +101,9 @@
         <tr>
           <td><%= parceiro.name %></td>
           <%
-            valor_total_original = parceiro.valor_total_original(params)
-            desconto_total_aplicado = parceiro.desconto_total_aplicado(params)
-            valor_total_vendido = parceiro.valor_total_vendido(params)
+            valor_total_original = parceiro.valor_total_original(params, usuario_logado)
+            desconto_total_aplicado = parceiro.desconto_total_aplicado(params, usuario_logado)
+            valor_total_vendido = parceiro.valor_total_vendido(params, usuario_logado)
 
             totais_valor_total_original += valor_total_original
             totais_desconto_total_aplicado += desconto_total_aplicado

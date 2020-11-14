@@ -31,7 +31,7 @@ class ContaCorrentesController < ApplicationController
   end
 
   def index_morada_saldo
-    @usuarios = Usuario.all
+    @usuarios = Usuario.com_acesso(usuario_logado)
     options = {page: params[:page] || 1, per_page: 10}
     @usuarios = @usuarios.paginate(options)
     @usuarios = @usuarios.reorder("nome asc")
