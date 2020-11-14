@@ -32,6 +32,7 @@
             </div>
           </div>
         </div>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
         <div class="col-sm-3">
           <div class="form-group">
             <label>Administrador</label>
@@ -94,6 +95,7 @@
             </div>
           </div>
         </div>
+      <% end %>
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
@@ -106,22 +108,25 @@
     </form>
   </div>
 
-  <h5>
-    Usuarios do grupo cadastrados pelo agente ou pelo administrador
-  </h5>
-
   <div class="container scroltable">
+    <h5>
+    Usuários do grupo que foram cadastrados pelo próprio agente ou pelo administrador
+    </h5>
     <table class="table table-hover">
       <thead>
-        <tr class="text-center">
-          <th scope="col">ID</th>
-          <th scope="col">Usuário</th>
-          <th scope="col">Admin?</th>
-          <th scope="col">Operador?</th>
-          <th scope="col">Agente?</th>
+        <tr class="text-left">
+          <th scope="col">ID Usuário</th>
+          <th scope="col">Dados do Usuário</th>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+              <th scope="col">Admin?</th>
+              <th scope="col">Operador?</th>
+              <th scope="col">Agente?</th>              
+          <% end %>
           <th scope="col">Perfil</th>
-          <th scope="col">Subagente e Data da Criação</th>
-          <th colspan="4">Ações</th>
+          <th scope="col">Subagente e Data da Criação do Usuário</th>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <th colspan="4">Ações</th>
+          <% end %>
         </tr>
       </thead>
 
@@ -134,9 +139,11 @@
               Nome: <%= usuario.nome %><br>
               E-mail: <%= usuario.email %>
             </td>
-            <td class="text-center"><%= usuario.admin? ? "Sim": "Não" %></td>
-            <td class="text-center"><%= usuario.operador? ? "Sim": "Não" %></td>
-            <td class="text-center"><%= usuario.agente? ? "Sim": "Não" %></td>
+            <% if usuario_logado.admin? || usuario_logado.operador? %>
+                <td><%= usuario.admin? ? "Sim": "Não" %></td>
+                <td><%= usuario.operador? ? "Sim": "Não" %></td>
+                <td><%= usuario.agente? ? "Sim": "Não" %></td>
+            <% end %>
             <td class="text-left">
                <% if usuario_logado.admin? || usuario_logado.operador? %>
                   <a href="/perfil_usuarios/<%= usuario.perfil_usuario.id %>">
