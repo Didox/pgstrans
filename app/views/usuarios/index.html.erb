@@ -83,7 +83,7 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Sugagente</label>
+            <label>Subagente</label>
             <div>
               <select name="sub_agente_id" onchange="pgstrans.carregaSubAgente(this)" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
@@ -138,7 +138,9 @@
             <td class="text-center"><%= usuario.operador? ? "Sim": "Não" %></td>
             <td class="text-center"><%= usuario.agente? ? "Sim": "Não" %></td>
             <td class="text-left">
-              <a href="/perfil_usuarios/<%= usuario.perfil_usuario.id %>">
+               <% if usuario_logado.admin? || usuario_logado.operador? %>
+                  <a href="/perfil_usuarios/<%= usuario.perfil_usuario.id %>">
+                <% end %>
                 <%= usuario.perfil_usuario.nome %>
               </a>
             </td>
@@ -147,12 +149,14 @@
               <%= usuario.created_at %>
             </td>
             <td>
-              <%= link_to 'Editar', edit_usuario_path(usuario) %><br>
-              <% if usuario.logado %>
-                <%= link_to 'Forçar Logout ', "/usuarios/#{usuario.id}/forcar-logout", data: { confirm: 'Confirma?' } %>
+              <% if usuario_logado.admin? || usuario_logado.operador? %>
+                <%= link_to 'Editar', edit_usuario_path(usuario) %><br>
+                <% if usuario.logado %>
+                  <%= link_to 'Forçar Logout ', "/usuarios/#{usuario.id}/forcar-logout", data: { confirm: 'Confirma?' }%>
+                <% end %>
+                <br>
+                <%= link_to 'Apagar', usuario, method: :delete, data: { confirm: 'Tem Certeza?' } %>
               <% end %>
-              <br>
-              <%= link_to 'Apagar', usuario, method: :delete, data: { confirm: 'Tem Certeza?' } %>
             </td>
           </tr>
         <% end %>
