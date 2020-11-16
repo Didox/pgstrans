@@ -19,7 +19,7 @@ module PermissionamentoDados
           "
           elsif self == Usuario
             sql_where = "
-              usuarios.id = #{usuario.id}) 
+              usuarios.id = #{usuario.id}
               
               or
             
