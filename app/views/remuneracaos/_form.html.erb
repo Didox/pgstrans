@@ -28,7 +28,7 @@
           <%= f.label :usuario_id, "Buscar ou selecionar usuário" %>
           <div style="display:flex">
             <input type="text" id="usuario" class="form-control autocomplete" style="width:30%">
-            <%= f.select :usuario_id, Usuario.all.limit(100).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%" %>
+            <%= f.select :usuario_id, Usuario.com_acesso(usuario_logado).limit(100).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%" %>
           </div>
         </div>
 
