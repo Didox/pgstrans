@@ -13,7 +13,10 @@ module PermissionamentoDados
           sql_where = ""
 
           if self.new.respond_to?(:usuario_id)
-            sql_where = "#{self.to_s.underscore.pluralize}.usuario_id = #{usuario.id} or "
+            sql_where = "
+            #{self.to_s.underscore.pluralize}.usuario_id = #{usuario.id} 
+            or 
+          "
           elsif self == Usuario
             sql_where = "
               usuarios.id = #{usuario.id}) 
@@ -38,7 +41,7 @@ module PermissionamentoDados
                   select grupo_registros.modelo_id from grupo_registros
                   where grupo_registros.modelo = '#{self.to_s}' and 
                     grupo_registros.modelo_id = #{self.to_s.underscore.pluralize}.id and 
-                    grupo_registros.grupo_id in (#{usuario.grupos_id.join(",")}
+                    grupo_registros.grupo_id in (#{usuario.grupos_id.join(",")})
                 )
               )
             "
