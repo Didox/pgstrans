@@ -73,7 +73,9 @@
           <th scope="col">Nome do Usuário</th>
           <th scope="col">Início da Vigência</th>
           <th scope="col">Remunerações</th>
-          <th colspan="3">Ações</th>
+          <% if(usuario_logado.admin? || usuario_logado.operador?) %>
+            <th colspan="3">Ações</th>
+          <% end %>
         </tr>
       </thead>
 
@@ -101,9 +103,11 @@
               </div>
             <% end %>
           </td>
-          <td><%= link_to 'Mostrar', remuneracao %></td>
-          <td><%= link_to 'Editar', edit_remuneracao_path(remuneracao) %></td>
-          <td><%= link_to 'Apagar', remuneracao, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+          <% if(usuario_logado.admin? || usuario_logado.operador?) %>
+            <td><%= link_to 'Mostrar', remuneracao %></td>
+            <td><%= link_to 'Editar', edit_remuneracao_path(remuneracao) %></td>
+            <td><%= link_to 'Apagar', remuneracao, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+          <% end %>
         </tr>
         <% end %>
       </tbody>

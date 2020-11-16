@@ -34,7 +34,9 @@
         <b>Customer Number / MSIDN:</b> <%= venda.client_msisdn %>
       </td>
       <td>
-        <a href="/produtos/<%= venda.product_id %>" target="_blank">
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <a href="/produtos/<%= venda.product_id %>" target="_blank">
+        <% end %>
           <%= venda.product_id %>
         </a>
         <hr>
@@ -50,8 +52,10 @@
       </td>
       <td style="width:110px" align="right"><%= number_to_currency(venda.value) %></td>
       <td>
-        <%= link_to 'Detalhes', venda, class: "btn btn-warning", style:"width:100px" %><br><br>
-        <%= link_to 'Grupo Acesso', "/controle-acessos/#{venda.class}/#{venda.id}/grupos", class: "btn btn-warning", style:"width:100px" %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <%= link_to 'Detalhes', venda, class: "btn btn-warning", style:"width:100px" %><br><br>
+          <%= link_to 'Grupo Acesso', "/controle-acessos/#{venda.class}/#{venda.id}/grupos", class: "btn btn-warning", style:"width:100px" %>
+        <% end %>
       </td>
       <% 
       valor_original_total += venda.valor_original 
