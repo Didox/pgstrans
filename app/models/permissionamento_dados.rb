@@ -13,9 +13,12 @@ module PermissionamentoDados
           sql_where = ""
 
           if self.new.respond_to?(:usuario_id)
-            sql_where = "(#{self.to_s.underscore.pluralize}.usuario_id = #{usuario.id}) or "
+            sql_where = "#{self.to_s.underscore.pluralize}.usuario_id = #{usuario.id} or "
           elsif self == Usuario
-            sql_where = "(usuarios.id = #{usuario.id}) or
+            sql_where = "
+              usuarios.id = #{usuario.id}) 
+              
+              or
             
               usuarios.id in (
                 select grupo_usuarios.usuario_id from grupo_usuarios
@@ -28,16 +31,23 @@ module PermissionamentoDados
             "
           end
 
-          sql_where += "
-            (
-              #{self.to_s.underscore.pluralize}.id in (
-                select grupo_registros.modelo_id from grupo_registros
-                where grupo_registros.modelo = '#{self.to_s}' and 
-                  grupo_registros.modelo_id = #{self.to_s.underscore.pluralize}.id and 
-                  grupo_registros.grupo_id in (#{usuario.grupos_id.join(",")})
+          if usuario.grupos_id.present?
+            sql_where += "
+              (
+                #{self.to_s.underscore.pluralize}.id in (
+                  select grupo_registros.modelo_id from grupo_registros
+                  where grupo_registros.modelo = '#{self.to_s}' and 
+                    grupo_registros.modelo_id = #{self.to_s.underscore.pluralize}.id and 
+                    grupo_registros.grupo_id in (#{usuario.grupos_id.join(",")}
+                )
               )
-            )
-          "
+            "
+          else
+            sql_where = sql_where[0..(sql_where.length - 4)] # removendo condição or para usuários sem grupos
+          end
+
+          sql_where = "(#{sql_where})"
+
           self.where(sql_where)
         end
       end
