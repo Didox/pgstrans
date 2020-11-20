@@ -304,7 +304,7 @@ class Venda < ApplicationRecord
       lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
       lancamento = Lancamento.first if lancamento.blank?
 
-      ContaCorrente.create!(
+      conta_corrente = ContaCorrente.new(
         usuario_id: usuario.id,
         valor: "-#{valor}",
         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
@@ -313,6 +313,8 @@ class Venda < ApplicationRecord
         partner_id: parceiro.id,
         iban: iban
       )
+      conta_corrente.responsavel = usuario
+      conta_corrente.save!
     end
 
     return venda
@@ -581,7 +583,7 @@ class Venda < ApplicationRecord
             lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
             lancamento = Lancamento.first if lancamento.blank?
 
-            ContaCorrente.create!(
+            conta_corrente = ContaCorrente.new(
               usuario_id: usuario.id,
               valor: "-#{valor}",
               observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
@@ -590,6 +592,9 @@ class Venda < ApplicationRecord
               partner_id: parceiro.id,
               iban: iban
             )
+
+            conta_corrente.responsavel = usuario
+            conta_corrente.save!
           end
 
           return venda
@@ -772,7 +777,7 @@ class Venda < ApplicationRecord
       lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
       lancamento = Lancamento.first if lancamento.blank?
 
-      ContaCorrente.create!(
+      conta_corrente = ContaCorrente.new(
         usuario_id: usuario.id,
         valor: "-#{valor}",
         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
@@ -781,6 +786,8 @@ class Venda < ApplicationRecord
         partner_id: parceiro.id,
         iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
       )
+      conta_corrente.responsavel = usuario
+      conta_corrente.save!
     end
 
     return venda
@@ -847,7 +854,7 @@ class Venda < ApplicationRecord
       lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
       lancamento = Lancamento.first if lancamento.blank?
 
-      ContaCorrente.create!(
+      conta_corrente = ContaCorrente.new(
         usuario_id: usuario.id,
         valor: "-#{valor}",
         observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
@@ -856,6 +863,9 @@ class Venda < ApplicationRecord
         banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
         iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
       )
+
+      conta_corrente.responsavel = usuario
+      conta_corrente.save!
     end
 
     return venda

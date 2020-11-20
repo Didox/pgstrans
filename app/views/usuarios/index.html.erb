@@ -138,6 +138,19 @@
               Login: <%= usuario.login %><br>
               Nome: <%= usuario.nome %><br>
               E-mail: <%= usuario.email %>
+              Grupos: <br>
+              <ul>
+                <% usuario.grupo_usuarios.each do |gu| %>
+                  <li>
+                    <b>Grupo:</b> <a href="/grupos/<%= gu.grupo_id %>"><%= gu.grupo.nome %></a><br>
+                    <b>Consegue ver registros do grupo? </b> Sim<br>
+                    <b>Compartilha seus registros com o grupo? </b> <%= gu.escrita ? "Sim" : "Não" %><br>
+                    <a href="/grupos/<%= gu.grupo_id %>/usuarios/<%= gu.usuario_id %>/edit" class="btn btn-primary">
+                      Alterar
+                    </a>
+                  </li>
+                <% end %>
+              </ul>
             </td>
             <% if usuario_logado.admin? || usuario_logado.operador? %>
                 <td><%= usuario.admin? ? "Sim": "Não" %></td>

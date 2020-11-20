@@ -19,6 +19,12 @@
       <dd><%= @grupo.descricao %></dd>
     </dl>
 
+    <hr>
+
+    <%= link_to 'Console Acessos', "/grupos/#{@grupo.id}/controle-acessos", class: 'btn btn-danger' %></td>
+    
+    <hr>
+
     <div class="page-header">
       <%= link_to grupos_path, class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>

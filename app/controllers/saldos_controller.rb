@@ -1,6 +1,6 @@
 class SaldosController < ApplicationController
   def index
-    @conta_correntes = ContaCorrente.where(usuario: usuario_logado)
+    @conta_correntes = ContaCorrente.com_acesso(usuario_logado)
     @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
     @conta_correntes = @conta_correntes.reorder("updated_at desc")
     
