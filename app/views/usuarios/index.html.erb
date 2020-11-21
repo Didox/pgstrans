@@ -132,13 +132,13 @@
     <table class="table table-hover">
       <thead>
         <tr class="text-left">
-          <th scope="col">ID Usuário</th>
+          <th scope="col">ID do Usuário</th>
           <th scope="col">Dados do Usuário</th>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
               <th scope="col">Admin?</th>
-              <th scope="col">Operador?</th>           
+              <th scope="col">Operador?</th>
+              <th scope="col">Agente</th>     
           <% end %>
-          <th scope="col">Perfil</th>
           <th scope="col">Subagente e Data da Criação do Usuário</th>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
             <th colspan="4">Ações</th>
@@ -153,13 +153,13 @@
             <td>
               Login: <%= usuario.login %><br>
               Nome: <%= usuario.nome %><br>
+              E-mail: <%= usuario.email %><br>
               <% if usuario_logado.admin? || usuario_logado.operador? %>
                 Perfil do usuário: <a href="/perfil_usuarios/<%= usuario.perfil_usuario_id %>"><%= usuario.perfil_usuario.nome %></a><br>
               <% else %>
                 Perfil do usuário: <%= usuario.perfil_usuario.nome %><br>
               <% end %>
-              E-mail: <%= usuario.email %><br>
-              Grupos: <br>
+              Grupos associados ao usuário: <br>
               <ul>
                 <% usuario.grupo_usuarios.each do |gu| %>
                   <li>
