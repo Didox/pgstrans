@@ -163,14 +163,22 @@
               <ul>
                 <% usuario.grupo_usuarios.each do |gu| %>
                   <li>
-                    <b>Grupo:</b> <a href="/grupos/<%= gu.grupo_id %>"><%= gu.grupo.nome %></a>
+                    <b>Grupo:</b> 
+                        <% if usuario_logado.admin? || usuario_logado.operador? %>
+                            <a href="/grupos/<%= gu.grupo_id %>">
+                            <%= gu.grupo.nome %></a>
+                        <% else %>
+                            <%= gu.grupo.nome %></a>
+                        <% end %>
                     <br>
-                    <b>Consegue ver registros do grupo? </b> Sim<br>
-                    <b>Compartilha seus registros com o grupo? </b>
-                    <select id="compartilha" onchange="pgstrans.alteraCompartilha(<%= gu.id %>, this)">
-                      <option value="true" <%= gu.escrita ? "selected='selected'" : "" %> >Sim</option>
-                      <option value="false" <%= !gu.escrita ? "selected='selected'" : "" %> >Não</option>
-                    </select>
+                    <% if usuario_logado.admin? || usuario_logado.operador? %>
+                      <b>Consegue ver registros do grupo? </b> Sim<br>
+                      <b>Compartilha seus registros com o grupo? </b>
+                      <select id="compartilha" onchange="pgstrans.alteraCompartilha(<%= gu.id %>, this)">
+                        <option value="true" <%= gu.escrita ? "selected='selected'" : "" %> >Sim</option>
+                        <option value="false" <%= !gu.escrita ? "selected='selected'" : "" %> >Não</option>
+                      </select>
+                    <% end %>
                   </li>
                 <% end %>
               </ul>
