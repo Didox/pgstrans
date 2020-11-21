@@ -155,7 +155,7 @@
               Nome: <%= usuario.nome %><br>
               E-mail: <%= usuario.email %><br>
               <% if usuario_logado.admin? || usuario_logado.operador? %>
-                Perfil do usuário: <a href="/perfil_usuarios/<%= usuario.perfil_usuario_id %>"><%= usuario.perfil_usuario.nome %></a><br>
+                Perfil do usuário: <a href="/perfil_usuarios/<%= usuario.perfil_usuario_id %>" target="_blank"><%= usuario.perfil_usuario.nome %></a><br>
               <% else %>
                 Perfil do usuário: <%= usuario.perfil_usuario.nome %><br>
               <% end %>
@@ -165,7 +165,7 @@
                   <li>
                     <b>Grupo:</b> 
                         <% if usuario_logado.admin? || usuario_logado.operador? %>
-                            <a href="/grupos/<%= gu.grupo_id %>">
+                            <a href="/grupos/<%= gu.grupo_id %>" target="_blank">
                             <%= gu.grupo.nome %></a>
                         <% else %>
                             <%= gu.grupo.nome %></a>
