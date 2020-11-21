@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
       if cookies[:usuario_pgstrans_oauth].blank?
         flash[:error] = "Área restrita. Digite o login e palavra-passe para entrar."
 
-        if self.class.to_s == "RecargaController"
+        if self.class.to_s == "RecargaController" 
           render json: {mensagem: "Área restrita. Digite o login e palavra-passe para entrar."}, status: 401
           return
         end
@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
       end
 
       if administrador.present?
-	      return true if self.class.to_s == "WelcomeController"
+	      return true if self.class.to_s == "WelcomeController" || self.class.to_s == "GrupoUsuariosController"
 
         if administrador.acessos.blank?
           flash[:erro] = "Usuário sem permissão de acesso a página"

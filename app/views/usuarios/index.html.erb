@@ -8,7 +8,7 @@
   <div style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Nome do Usuário</label>
             <div>
@@ -16,7 +16,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Login do Usuário</label>
             <div>
@@ -24,11 +24,28 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>E-mail do Usuário</label>
             <div>
               <input type="text" name="email" value="<%= params[:email] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Grupo do Usuário</label>
+            <div>
+              <select name="grupo_id" id="grupo_id" class="form-control" style="width100%;">
+                <option value="" <% if params[:grupo_id].blank? %> selected="selected" <% end %>>
+                  Todos
+                </option>
+                <% Grupo.all.each do |grupo| %>
+                  <option value="<%= grupo.id %>" <% if params[:grupo_id] == grupo.id.to_s %> selected="selected" <% end %>>
+                    <%= grupo.nome %>
+                  </option>
+                <% end %>
+              </select>
             </div>
           </div>
         </div>
@@ -119,8 +136,7 @@
           <th scope="col">Dados do Usuário</th>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
               <th scope="col">Admin?</th>
-              <th scope="col">Operador?</th>
-              <th scope="col">Agente?</th>              
+              <th scope="col">Operador?</th>           
           <% end %>
           <th scope="col">Perfil</th>
           <th scope="col">Subagente e Data da Criação do Usuário</th>
@@ -137,17 +153,24 @@
             <td>
               Login: <%= usuario.login %><br>
               Nome: <%= usuario.nome %><br>
-              E-mail: <%= usuario.email %>
+              <% if usuario_logado.admin? || usuario_logado.operador? %>
+                Perfil do usuário: <a href="/perfil_usuarios/<%= usuario.perfil_usuario_id %>"><%= usuario.perfil_usuario.nome %></a><br>
+              <% else %>
+                Perfil do usuário: <%= usuario.perfil_usuario.nome %><br>
+              <% end %>
+              E-mail: <%= usuario.email %><br>
               Grupos: <br>
               <ul>
                 <% usuario.grupo_usuarios.each do |gu| %>
                   <li>
-                    <b>Grupo:</b> <a href="/grupos/<%= gu.grupo_id %>"><%= gu.grupo.nome %></a><br>
+                    <b>Grupo:</b> <a href="/grupos/<%= gu.grupo_id %>"><%= gu.grupo.nome %></a>
+                    <br>
                     <b>Consegue ver registros do grupo? </b> Sim<br>
-                    <b>Compartilha seus registros com o grupo? </b> <%= gu.escrita ? "Sim" : "Não" %><br>
-                    <a href="/grupos/<%= gu.grupo_id %>/usuarios/<%= gu.usuario_id %>/edit" class="btn btn-primary">
-                      Alterar
-                    </a>
+                    <b>Compartilha seus registros com o grupo? </b>
+                    <select id="compartilha" onchange="pgstrans.alteraCompartilha(<%= gu.id %>, this)">
+                      <option value="true" <%= gu.escrita ? "selected='selected'" : "" %> >Sim</option>
+                      <option value="false" <%= !gu.escrita ? "selected='selected'" : "" %> >Não</option>
+                    </select>
                   </li>
                 <% end %>
               </ul>
@@ -157,13 +180,6 @@
                 <td><%= usuario.operador? ? "Sim": "Não" %></td>
                 <td><%= usuario.agente? ? "Sim": "Não" %></td>
             <% end %>
-            <td class="text-left">
-               <% if usuario_logado.admin? || usuario_logado.operador? %>
-                  <a href="/perfil_usuarios/<%= usuario.perfil_usuario.id %>">
-                <% end %>
-                <%= usuario.perfil_usuario.nome %>
-              </a>
-            </td>
             <td>
               <%= "#{usuario.sub_agente_id}/#{usuario.sub_agente.nome_fantasia}" %><br><br>
               <%= usuario.created_at %>

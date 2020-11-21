@@ -39,6 +39,21 @@ pgstrans.displayRecargaDstv = (tipo) => {
   $(".clearFieldjs").val("")
 }
 
+pgstrans.alteraCompartilha = (grupo_usuario_id, self) => {
+  $.ajax({
+    type: "PUT",
+    url: `/grupo_usuarios/${grupo_usuario_id}.json`,
+    data: {
+      grupo_usuario: {
+        id: grupo_usuario_id,
+        escrita: self.value
+      }
+    }
+  });
+}
+
+
+
 pgstrans.carregaDescontos = (self) => {
   $.ajax({
     type: "GET",
@@ -92,7 +107,7 @@ $(function(){
   $( ".autocomplete" ).autocomplete({
     source: function( request, response ) {
       $.ajax({
-        url: "/usuarios.json",
+        url: "/usuarios.json?select_usuarios_not_self=ok",
         dataType: "json",
         data: {
           nome: $( ".autocomplete" ).val()

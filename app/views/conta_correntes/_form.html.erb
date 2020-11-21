@@ -29,7 +29,13 @@
             <%= f.label :usuario_id, "Buscar ou selecionar usuário" %>
             <div style="display:flex">
               <input type="text" id="usuario" class="form-control autocomplete" style="width:30%">
-              <%= f.select :usuario_id, Usuario.com_acesso(usuario_logado).limit(100).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%" %>
+              <%
+              usuarios = Usuario.com_acesso(usuario_logado)
+              if !usuario_logado.admin? && !usuario_logado.operador?
+                usuarios = usuarios.where("id not in (?)", usuario_logado.id)
+              end
+              %>
+              <%= f.select :usuario_id, usuarios.limit(100).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%" %>
             </div>
           </div>
         <% end %>

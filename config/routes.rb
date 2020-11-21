@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   post '/controle-acessos/:modelo/:modelo_id/grupos/salvar', to: 'grupos#controle_acessos_modelo_salvar'
   delete '/controle-acessos/:modelo/:modelo_id/grupos/:grupo_registro_id/delete', to: 'grupos#controle_acessos_modelo_delete'
   
+  put '/grupo_usuarios/:grupo_usuario_id', to: 'grupo_usuarios#update'
+
   resources :grupos do
     get 'usuarios', tox: 'grupos#usuarios'
     delete 'usuarios/:usuario_id', to: 'grupos#apaga_acesso_usuario'

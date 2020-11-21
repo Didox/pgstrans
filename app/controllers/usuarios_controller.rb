@@ -13,6 +13,17 @@ class UsuariosController < ApplicationController
     @usuarios = @usuarios.where("perfil_usuarios.admin = ?", params[:perfil_admin]) if params[:perfil_admin].present?
     @usuarios = @usuarios.where("perfil_usuarios.operador = ?", params[:perfil_operador]) if params[:perfil_operador].present?
     @usuarios = @usuarios.where("perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
+    
+    if params[:grupo_id].present?
+      @usuarios = @usuarios.joins("inner join grupo_usuarios on grupo_usuarios.usuario_id = usuarios.id").where("grupo_usuarios.grupo_id = ?", params[:grupo_id])
+    end
+
+    if params[:select_usuarios_not_self].present?
+      if !usuario_logado.admin? && !usuario_logado.operador?
+        @usuarios = @usuarios.where("usuarios.id not in (?)", usuario_logado.id)
+      end
+    end
+    
     @usuarios = @usuarios.where(sub_agente_id: params[:sub_agente_id]) if params[:sub_agente_id].present?
 
     options = {page: params[:page] || 1, per_page: 10}
