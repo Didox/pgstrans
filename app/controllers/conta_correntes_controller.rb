@@ -51,47 +51,44 @@ class ContaCorrentesController < ApplicationController
   # POST /conta_correntes
   # POST /conta_correntes.json
   def create
-    if !usuario_logado.admin? && !usuario_logado.operador? && !usuario_logado.agente?
-      flash[:error] = "Somente o Administrador tem acesso a essa operação."
-      redirect_to conta_correntes_url
-      return
-    end
-    
-    @conta_corrente = ContaCorrente.new(conta_corrente_params)
-    @conta_corrente.responsavel = usuario_logado
-    @conta_corrente.responsavel_aprovacao_id = usuario_logado.id
-
-    if !usuario_logado.admin? && !usuario_logado.operador? && !usuario_logado.operador?
-      @conta_corrente.usuario = usuario_logado
-    end
-
-    respond_to do |format|
-      if @conta_corrente.save
-        format.html { redirect_to conta_correntes_url, notice: 'Conta corrente foi criada com sucesso.' }
-        format.json { render :show, status: :created, location: @conta_corrente }
-      else
-        format.html { render :new }
-        format.json { render json: @conta_corrente.errors, status: :unprocessable_entity }
+    ActiveRecord::Base.transaction do
+      if !usuario_logado.admin? && !usuario_logado.operador? && !usuario_logado.agente?
+        flash[:error] = "Somente o Administrador tem acesso a essa operação."
+        redirect_to conta_correntes_url
+        return
       end
-    end
-  end
 
-  # PATCH/PUT /conta_correntes/1
-  # PATCH/PUT /conta_correntes/1.json
-  def update
-    if !usuario_logado.admin? && !usuario_logado.operador? && !usuario_logado.agente?
-      flash[:error] = "Somente o Administrador tem acesso a essa operação."
-      redirect_to conta_correntes_url
-      return
-    end
+      if !usuario_logado.admin? && !usuario_logado.operador? && (usuario_logado.saldo < 0.1 || usuario_logado.saldo < conta_corrente_params[:valor].to_f)
+        flash[:error] = "Saldo insuficiente."
+        redirect_to conta_correntes_url
+        return
+      end
+      
+      @conta_corrente = ContaCorrente.new(conta_corrente_params)
+      @conta_corrente.responsavel = usuario_logado
+      @conta_corrente.responsavel_aprovacao_id = usuario_logado.id
 
-    respond_to do |format|
-      if @conta_corrente.update(conta_corrente_params)
-        format.html { redirect_to conta_correntes_url, notice: 'Conta corrente foi atualizada com sucesso.' }
-        format.json { render :show, status: :ok, location: @conta_corrente }
-      else
-        format.html { render :edit }
-        format.json { render json: @conta_corrente.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @conta_corrente.save
+
+          if !usuario_logado.admin? && !usuario_logado.operador?
+            conta_corrente_retirada = ContaCorrente.new(conta_corrente_params)
+            conta_corrente_retirada.id = nil
+            conta_corrente_retirada.valor = "-#{conta_corrente_retirada.valor}"
+            conta_corrente_retirada.usuario = usuario_logado
+            conta_corrente_retirada.responsavel = usuario_logado
+            conta_corrente_retirada.lancamento = Lancamento.where(nome: Lancamento::TRANSFERENCIA_ENTRE_USUARIOS).first || Lancamento.first
+            conta_corrente_retirada.responsavel_aprovacao_id = usuario_logado.id
+            conta_corrente_retirada.observacao = "Transferência entre contas para o usuário #{@conta_corrente.usuario.nome} (#{@conta_corrente.usuario_id}). #{conta_corrente_retirada.observacao}"
+            conta_corrente_retirada.save!
+          end
+
+          format.html { redirect_to conta_correntes_url, notice: 'Transação efetuada com sucesso.' }
+          format.json { render :show, status: :created, location: @conta_corrente }
+        else
+          format.html { render :new }
+          format.json { render json: @conta_corrente.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

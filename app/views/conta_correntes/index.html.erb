@@ -1,6 +1,9 @@
 <div class="container scroltable">
 
-  <h4>Conta Corrente</h4>
+  <h4>
+    Conta Corrente -
+    Saldo Disponível: <%= number_to_currency(usuario_logado.saldo, :unit => "KZ", :precision => 2) %>
+  </h4>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>

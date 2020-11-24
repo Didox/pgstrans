@@ -301,7 +301,7 @@ class Venda < ApplicationRecord
         banco = cc.banco
       end
 
-      lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
+      lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first
       lancamento = Lancamento.first if lancamento.blank?
 
       conta_corrente = ContaCorrente.new(
@@ -580,7 +580,7 @@ class Venda < ApplicationRecord
               banco = cc.banco
             end
 
-            lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
+            lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first
             lancamento = Lancamento.first if lancamento.blank?
 
             conta_corrente = ContaCorrente.new(
@@ -774,7 +774,7 @@ class Venda < ApplicationRecord
     venda.save!
 
     if venda.sucesso?
-      lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
+      lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first
       lancamento = Lancamento.first if lancamento.blank?
 
       conta_corrente = ContaCorrente.new(
@@ -851,7 +851,7 @@ class Venda < ApplicationRecord
     UnitelSequence.create(sequence_id: sequence_id, venda_id: venda.id)
 
     if venda.sucesso?
-      lancamento = Lancamento.where(nome: "Compra de crédito ou recarga").first
+      lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first
       lancamento = Lancamento.first if lancamento.blank?
 
       conta_corrente = ContaCorrente.new(

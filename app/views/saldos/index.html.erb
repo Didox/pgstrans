@@ -53,7 +53,8 @@
     	            <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %>
     	          </td>
     	          <td>
-    	            <%= conta_corrente.lancamento.nome %>
+    	            <b><%= conta_corrente.lancamento.nome %></b><br>
+                  <%= conta_corrente.observacao %>
     	          </td>
     	          <td style="width:150px" align="right">
     	            <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "Kz") %>
