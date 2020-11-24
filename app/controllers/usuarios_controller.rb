@@ -123,7 +123,7 @@ class UsuariosController < ApplicationController
     end
 
     def verifica_permissao
-      if !usuario_logado.admin? && !usuario_logado.operador?
+      if !usuario_logado.admin? && !usuario_logado.operador? && !usuario_logado.agente?
         flash[:error] = "Área restrita. Digite o login e palavra-passe para entrar."
         redirect_to root_path
       end
