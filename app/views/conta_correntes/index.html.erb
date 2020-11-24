@@ -22,7 +22,7 @@
         </div>
         <div class="col-sm-2">
           <div class="form-group">
-            <label>Última Atualização</label>
+            <label>Última da Atualização</label>
             <div>
               <input type="date" name="data_ultima_atualizacao_saldo" value="<%= params[:data_ultima_atualizacao_saldo] %>" class="form-control">
             </div>
@@ -81,8 +81,8 @@
       <tbody>
         <% @conta_correntes.each do |conta_corrente| %>
         <tr>
-          <td style="width: 250px">
-            <b>Usuario:</b> <%= conta_corrente.usuario.nome %><br>
+          <td style="width: 450px">
+            <b>Usuário:</b> <%= conta_corrente.usuario.nome %><br>
             <b>Lançamento:</b> <%= conta_corrente.lancamento.nome %><br>
             <b>Banco:</b> <%= conta_corrente.banco.nome %><br>
             <b>IBAN:</b> <%= conta_corrente.iban %><br>
@@ -91,14 +91,16 @@
               <b>Responsável aprovação:</b> <%= conta_corrente.responsavel_aprovacao.nome %>
             <% end %>
           </td>
-          <td style="width: 300px">
-            <b>Valor do lançamento:</b> <%= number_to_currency(conta_corrente.valor, :unit => "KZ") %><br>
+          <td style="width: 250px">
+            <b>Valor do Lançamento:</b> <%= number_to_currency(conta_corrente.valor, :unit => "KZ") %><br>
             <b>Saldo Atual:</b> <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %><br>
             <b>Saldo Anterior:</b> <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %><br>
           </td>
-          <td style="width: 350px">
-            <b>Data de Lançamento:</b> <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %><br>
-            <b>Última Atualização:</b> <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %><br>
+          <td style="width: 250px">
+            <b>Data do Lançamento:</b><br>
+            <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %><br>
+            <b>Última Atualização:</b><br>
+            <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %><br>
           </td>
           <td><%= link_to 'Mostrar', conta_corrente %></td>
           <% if usuario_logado.admin? || usuario_logado.operador? %>

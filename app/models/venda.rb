@@ -307,7 +307,7 @@ class Venda < ApplicationRecord
       conta_corrente = ContaCorrente.new(
         usuario_id: usuario.id,
         valor: "-#{valor}",
-        observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+        observacao: "Compra de recarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
         lancamento_id: lancamento.id,
         banco_id: banco.id,
         partner_id: parceiro.id,
@@ -586,7 +586,7 @@ class Venda < ApplicationRecord
             conta_corrente = ContaCorrente.new(
               usuario_id: usuario.id,
               valor: "-#{valor}",
-              observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+              observacao: "Compra de recarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
               lancamento_id: lancamento.id,
               banco_id: banco.id,
               partner_id: parceiro.id,
@@ -780,7 +780,7 @@ class Venda < ApplicationRecord
       conta_corrente = ContaCorrente.new(
         usuario_id: usuario.id,
         valor: "-#{valor}",
-        observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+        observacao: "Compra de recarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
         lancamento_id: lancamento.id,
         banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
         partner_id: parceiro.id,
@@ -857,7 +857,7 @@ class Venda < ApplicationRecord
       conta_corrente = ContaCorrente.new(
         usuario_id: usuario.id,
         valor: "-#{valor}",
-        observacao: "Compra de regarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+        observacao: "Compra de recarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
         lancamento_id: lancamento.id,
         partner_id: parceiro.id,
         banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
