@@ -15,7 +15,6 @@ module PermissionamentoDados
           if self.new.respond_to?(:usuario_id)
             sql_where = "
             #{self.to_s.underscore.pluralize}.usuario_id = #{usuario.id} 
-            or 
           "
           elsif self == Usuario
             sql_where = "
@@ -29,12 +28,11 @@ module PermissionamentoDados
                 and grupo_usuarios.usuario_id = usuarios.id
               )
 
-              or
-
             "
           end
 
           if usuario.grupos_id.present?
+            sql_where += " or " if sql_where.present?
             sql_where += "
               (
                 #{self.to_s.underscore.pluralize}.id in (
@@ -45,8 +43,6 @@ module PermissionamentoDados
                 )
               )
             "
-          else
-            sql_where = sql_where[0..(sql_where.length - 4)] # removendo condição or para usuários sem grupos
           end
 
           sql_where = "(#{sql_where})"
