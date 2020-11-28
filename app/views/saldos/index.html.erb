@@ -24,6 +24,18 @@
                   <input type="date" name="data_alegacao_pagamento_fim" value="<%= params[:data_alegacao_pagamento_fim] %>" class="form-control">
                 </div>
               </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label>Tipo de Lançamento</label>
+                  <div>
+                    <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
+                      <option value="" selected="'selected'">Todos</option>
+                      <% Lancamento.all.each do |lancamentos| %>
+                        <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamentos.nome %></option>
+                      <% end %>
+                    </select>
+                  </div>
+                </div>
             </div>
             <div class="col-sm-6" style="text-align: right;">
               <div class="form-group">
@@ -39,7 +51,7 @@
           <thead>
             <tr>
               <th scope="col">Data da Movimentação</th>
-              <th scope="col">Tipo de Movimentação</th>
+              <th scope="col">Tipo de Lançamento</th>
               <th scope="col" align="right">Saldo Anterior</th>
               <th scope="col" align="right">Valor da Movimentação</th>
               <th scope="col" align="right">Saldo Atual</th>
