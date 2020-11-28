@@ -30,8 +30,8 @@
                   <div>
                     <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
                       <option value="" selected="'selected'">Todos</option>
-                      <% Lancamento.all.each do |lancamentos| %>
-                        <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamentos.nome %></option>
+                      <% Lancamento.all.each do |lancamento| %>
+                        <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
                       <% end %>
                     </select>
                   </div>
