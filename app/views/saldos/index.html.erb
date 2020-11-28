@@ -53,9 +53,7 @@
     	            <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %>
     	          </td>
     	          <td>
-                  <% if conta_corrente.observacao == "" %>
-      	             <b><%= conta_corrente.lancamento.nome %></b><br>
-                  <% end %>
+      	          <b><%= conta_corrente.lancamento.nome %></b><br>
                   <%= conta_corrente.observacao %>
     	          </td>
     	          <td style="width:150px" align="right">
