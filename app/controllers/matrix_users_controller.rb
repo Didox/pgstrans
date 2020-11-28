@@ -8,6 +8,7 @@ class MatrixUsersController < ApplicationController
 
     @matrix_users = @matrix_users.joins(:usuario)
     @matrix_users = @matrix_users.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @matrix_users = @matrix_users.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
     @matrix_users = @matrix_users.where("matrix_users.master_profile = ?", params[:master_profile_id]) if params[:master_profile_id].present?
     @matrix_users = @matrix_users.where("matrix_users.sub_distribuidor = ?", params[:sub_distribuidor_id]) if params[:sub_distribuidor_id].present?
     @matrix_users = @matrix_users.where("matrix_users.sub_agente = ?", params[:sub_agente_id]) if params[:sub_agente_id].present?
