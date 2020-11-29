@@ -8,11 +8,11 @@
 
   <div class="container">
     <dl class="dl-horizontal">
-      <dt>Usuario:</dt>
+      <dt>Usuário:</dt>
       <dd><%= @movicel_loop.usuario %></dd>
       <dt>Token:</dt>
       <dd><%= @movicel_loop.token %></dd>
-      <dt>Uri:</dt>
+      <dt>URI:</dt>
       <dd><%= @movicel_loop.uri %></dd>
       <dt>Ambiente:</dt>
       <dd><%= @movicel_loop.ambiente %></dd>
@@ -22,16 +22,20 @@
       <dd><%= @movicel_loop.terminal %></dd>
       <dt>Valor:</dt>
       <dd><%= @movicel_loop.valor %></dd>
-      <dt>Repeticao:</dt>
+      <dt>Repetição:</dt>
       <dd><%= @movicel_loop.repeticao %></dd>
-      <dt>Nropedidoinicio:</dt>
+      <dt>Nro. Inicial do Pedido:</dt>
       <dd><%= @movicel_loop.nropedidoinicio %></dd>
-      <dt>Nropedido:</dt>
+      <dt>Nro. deste pedido (transação):</dt>
       <dd><%= @movicel_loop.nropedido %></dd>
-      <dt>Request:</dt>
+      <dt>Request log:</dt>
       <dd><%= @movicel_loop.request %></dd>
-      <dt>Response:</dt>
+      <dt>Response log:</dt>
       <dd><%= @movicel_loop.response %></dd>
+      <dt>Data da criação:</dt>
+      <dd><%= @movicel_loop.created_at %></dd>
+      <dt>Data da última utilização:</dt>
+      <dd><%= @movicel_loop.updated_at %></dd>
     </dl>
 
     <div class="page-header">

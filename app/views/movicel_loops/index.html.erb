@@ -1,7 +1,7 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <h4>MovicelLoop</h4>
+  <h4>Movicel Loop para obtenção de logs</h4>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -11,38 +11,35 @@
     <table class="table table-hover">
       <thead>
         <tr>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Token</th>
-                    <th scope="col">Uri</th>
-                    <th scope="col">Ambiente</th>
-                    <th scope="col">Agente</th>
-                    <th scope="col">Terminal</th>
-                    <th scope="col">Valor</th>
-                    <th scope="col">Repeticao</th>
-                    <th scope="col">Nropedidoinicio</th>
-                    <th scope="col">Nropedido</th>
-                    <th scope="col">Request</th>
-                    <th scope="col">Response</th>
-                    <th colspan="3"></th>
+          <th scope="col">Sobre a Transação<br>
+          <th scope="col">Log</th>
+          <th colspan="3">Ações para o Registro</th>
         </tr>
       </thead>
 
       <tbody>
         <% @movicel_loops.each do |movicel_loop| %>
         <tr>
-                    <td><%= movicel_loop.usuario %></td>
-                    <td><%= movicel_loop.token %></td>
-                    <td><%= movicel_loop.uri %></td>
-                    <td><%= movicel_loop.ambiente %></td>
-                    <td><%= movicel_loop.agente %></td>
-                    <td><%= movicel_loop.terminal %></td>
-                    <td><%= movicel_loop.valor %></td>
-                    <td><%= movicel_loop.repeticao %></td>
-                    <td><%= movicel_loop.nropedidoinicio %></td>
-                    <td><%= movicel_loop.nropedido %></td>
-                    <td><%= movicel_loop.request %></td>
-                    <td><%= movicel_loop.response %></td>
-                    <td><%= link_to 'Mostrar', movicel_loop %></td>
+          <td>
+            <strong>Detalhes da Conta</strong><br>
+            <strong>Usuário: </strong><%= movicel_loop.usuario %><br>
+            <strong>Token: </strong><%= movicel_loop.token %><br>
+            <strong>URI: </strong><%= movicel_loop.uri %><br>
+            <hr>
+            <strong>Detalhes do Processamento</strong><br>
+            <strong>Ambiente: </strong><%= movicel_loop.ambiente %><br>
+            <strong>Agente: </strong><%= movicel_loop.agente %><br>
+            <strong>Terminal: </strong><%= movicel_loop.terminal %><br>
+            <strong>Valor: </strong><%= movicel_loop.valor %><br>
+            <strong>Repetição: </strong><%= movicel_loop.repeticao %><br>
+            <strong>Nro. Inicial do Pedido: </strong><%= movicel_loop.nropedidoinicio %><br>
+            <strong>Nro. Deste Pedido (Transação): </strong><%= movicel_loop.nropedido %>
+          </td>        
+          <td>
+            <strong>Request: </strong><%= movicel_loop.request %><br>
+            <strong>Response: </strong><%= movicel_loop.response %>
+          </td>
+          <td><%= link_to 'Mostrar', movicel_loop %></td>
           <td><%= link_to 'Editar', edit_movicel_loop_path(movicel_loop) %></td>
           <td><%= link_to 'Apagar', movicel_loop, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>
@@ -50,7 +47,15 @@
       </tbody>
     </table>
 
-    <%= link_to "Novo Registo", new_movicel_loop_path, class: 'btn btn-danger' %>
-    <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
+      <%= link_to new_movicel_loop_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-plus"></span>
+        Novo Registro
+      <% end %>
+
+      <%= link_to root_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+
   </div>
 </div>
