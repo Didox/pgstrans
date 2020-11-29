@@ -8,7 +8,7 @@
   <div style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Nome do Usuário</label>
             <div>
@@ -16,7 +16,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Login do Usuário</label>
             <div>
@@ -50,7 +50,7 @@
           </div>
         </div>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Administrador</label>
             <div>
@@ -68,7 +68,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Operador</label>
             <div>
@@ -86,7 +86,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Perfil do Usuário</label>
             <div>
@@ -99,7 +99,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-6">
           <div class="form-group">
             <label>Subagente</label>
             <div>
@@ -107,6 +107,19 @@
                 <option value="" selected="'selected'">Todos</option>
                 <% SubAgente.all.each do |sub_agente| %>
                   <option value="<%= sub_agente.id %>" <% if sub_agente.id.to_s == params[:sub_agente_id] %> selected="selected" <% end %> ><%= sub_agente.nome_fantasia %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Status do Usuário</label>
+            <div>
+              <select name="status_cliente_id" onchange="pgstrans.carregaStatusCliente(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% StatusCliente.all.each do |status_cliente| %>
+                  <option value="<%= status_cliente.id %>" <% if status_cliente.id.to_s == params[:status_cliente_id] %> selected="selected" <% end %> ><%= status_cliente.nome %></option>
                 <% end %>
               </select>
             </div>
@@ -120,6 +133,10 @@
           <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
+          <% end %>
+          <%= link_to new_usuario_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-plus"></span>
+            Novo Registro
           <% end %>
         </div>
     </form>
@@ -153,7 +170,7 @@
             <td>
               Login: <%= usuario.login %><br>
               Nome: <%= usuario.nome %><br>
-              E-mail: <%= usuario.email %><br>
+              E-mail: <%= usuario.email %><br>          
               <% if usuario_logado.admin? || usuario_logado.operador? %>
                 Perfil do usuário: <a href="/perfil_usuarios/<%= usuario.perfil_usuario_id %>" target="_blank"><%= usuario.perfil_usuario.nome %></a><br>
               <% else %>

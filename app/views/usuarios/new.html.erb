@@ -8,6 +8,14 @@
 
 	<%= render 'form', usuario: @usuario %>
 
+
+	<% if usuario_logado.agente? %>
+		<hr>
+    	<div class="form-group col-sm-12">
+    	<label><strong>Após o cadastro, a equipa de Backoffice da Pagasó concluirá a parametrização do usuário e liberará o acesso!</strong></label>
+      	<br><hr>
+    <% end %>
+
 	<%= link_to usuarios_path, class: 'btn btn-danger' do %>
     	<span class="glyphicon glyphicon-list-alt"></span>
     	Voltar
