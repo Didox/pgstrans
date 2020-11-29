@@ -1,0 +1,48 @@
+<div class="container">
+
+  <h4>Mostrar MovicelLoop</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Usuario:</dt>
+      <dd><%= @movicel_loop.usuario %></dd>
+      <dt>Token:</dt>
+      <dd><%= @movicel_loop.token %></dd>
+      <dt>Uri:</dt>
+      <dd><%= @movicel_loop.uri %></dd>
+      <dt>Ambiente:</dt>
+      <dd><%= @movicel_loop.ambiente %></dd>
+      <dt>Agente:</dt>
+      <dd><%= @movicel_loop.agente %></dd>
+      <dt>Terminal:</dt>
+      <dd><%= @movicel_loop.terminal %></dd>
+      <dt>Valor:</dt>
+      <dd><%= @movicel_loop.valor %></dd>
+      <dt>Repeticao:</dt>
+      <dd><%= @movicel_loop.repeticao %></dd>
+      <dt>Nropedidoinicio:</dt>
+      <dd><%= @movicel_loop.nropedidoinicio %></dd>
+      <dt>Nropedido:</dt>
+      <dd><%= @movicel_loop.nropedido %></dd>
+      <dt>Request:</dt>
+      <dd><%= @movicel_loop.request %></dd>
+      <dt>Response:</dt>
+      <dd><%= @movicel_loop.response %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to movicel_loops_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_movicel_loop_path(@movicel_loop), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>

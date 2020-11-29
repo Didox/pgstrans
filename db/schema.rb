@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_27_105053) do
+ActiveRecord::Schema.define(version: 2020_11_29_204325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,6 +193,23 @@ ActiveRecord::Schema.define(version: 2020_10_27_105053) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_moedas_on_country_id"
+  end
+
+  create_table "movicel_loops", force: :cascade do |t|
+    t.string "usuario"
+    t.string "token"
+    t.string "uri"
+    t.string "ambiente"
+    t.string "agente"
+    t.string "terminal"
+    t.float "valor"
+    t.integer "repeticao"
+    t.decimal "nropedidoinicio"
+    t.decimal "nropedido"
+    t.string "request"
+    t.string "response"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "municipios", force: :cascade do |t|

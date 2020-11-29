@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :movicel_loops
   resources :pagamentos_faturas_dstvs
   resources :alteracoes_planos_dstvs
   resources :log_vendas

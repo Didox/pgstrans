@@ -1,0 +1,2 @@
+class MovicelLoop < ApplicationRecord
+end

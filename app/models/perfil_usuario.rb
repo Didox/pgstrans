@@ -29,11 +29,11 @@ class PerfilUsuario < ApplicationRecord
     nomes = {
       new: "Mostrar a tela que permite a inclusão de um novo registo",
       index: "(INDEX) Mostrar a lista de todos os registos ou serviços dessa sessão",
-      update: "Permitir a atualização de registo",
-      create: "Pemitir a efetivação da criação de um novo registo",
-      destroy: "Permitir apagar registo",
-      show: "Permitir mostrar detalhes do registo",
-      edit: "Permitir mostrar tela de edição do registo",
+      update: "(UPDATE) Permitir a atualização de registo",
+      create: "(CREATE) Pemitir a efetivação da criação de um novo registo",
+      destroy: "(DELETE) Permitir apagar registo",
+      show: "(SHOW) Permitir mostrar detalhes do registo",
+      edit: "(EDIT) Permitir mostrar tela de edição do registo",
       atualiza_saldo: "Fazer consulta de saldo no parceiro, caso o parceiro ofereça esse serviço",
       confirma: "Efectuar recarga, fazer pagamento e outras transações disponíveis na operadora",
       usuarios: "Usuários",
@@ -62,6 +62,7 @@ class PerfilUsuario < ApplicationRecord
       controle_acessos_modelo_salvar: "Controle de Acesso MODELOS (SALVAR)",
       controle_acessos_modelo_delete: "Controle de Acesso MODELOS (EXCLUIR)",
       lucros: "Relatório de Descontos e Lucro",
+      movicel_loop: "Programa de Repetição Timeout Movicel"
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
@@ -110,7 +111,8 @@ class PerfilUsuario < ApplicationRecord
       pagamentos_faturas_dstvs: "Pagamentos de fatura DSTV",
       alteracoes_planos_dstvs: "Alteração de planos DSTV",
       desconto_parceiros: "Desconto para parceiros",
-      descontos: "Tabela de Descontos de Parceiros index"
+      descontos: "Tabela de Descontos de Parceiros index",
+      movicel_loops: "Timeout Movicel Programa de Repetição/Looping para coleta de logs"
     }
     nomes[controller.to_sym]
   end
