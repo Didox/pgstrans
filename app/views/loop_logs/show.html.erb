@@ -12,18 +12,12 @@
       <dd><%= @loop_log.request %></dd>
       <dt>Response:</dt>
       <dd><%= @loop_log.response %></dd>
-      <dt>Movicel loop:</dt>
-      <dd><%= @loop_log.movicel_loop %></dd>
     </dl>
 
     <div class="page-header">
-      <%= link_to loop_logs_path, class: 'btn btn-danger' do %>
+      <%= link_to "/movicel_loops/#{@loop_log.movicel_loop_id}/loop_logs", class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Voltar
-      <% end %>
-      <%= link_to edit_loop_log_path(@loop_log), class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-pencil"></span>
-        Editar
       <% end %>
     </div>
   </div>

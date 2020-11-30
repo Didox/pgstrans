@@ -22,9 +22,9 @@ class MovicelLoopsController < ApplicationController
   end
 
   def processar
-    @movicel_loop = MovicelLoop.new(movicel_loop_params)
     @movicel_loop.processar!
     flash[:success] = "Os dados estão sendo processados, logo será finalizado"
+    redirect_to "/movicel_loops/1"
   end
 
   # POST /movicel_loops
@@ -70,7 +70,7 @@ class MovicelLoopsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_movicel_loop
-      @movicel_loop = MovicelLoop.find(params[:id])
+      @movicel_loop = MovicelLoop.find(params[:id] || params[:movicel_loop_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

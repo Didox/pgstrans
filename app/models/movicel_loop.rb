@@ -10,6 +10,7 @@ class MovicelLoop < ApplicationRecord
 	def prepara_enviar(index)
 		loop_log = LoopLog.new
 		loop_log.index = self.nropedidoinicio
+		loop_log.movicel_loop_id = self.id
 		loop_log.save!
 
 		self.nropedidoinicio += (index + 1)
@@ -20,156 +21,163 @@ class MovicelLoop < ApplicationRecord
 
 	def enviar!(loop_log)
 		Thread.new do
-			parceiro = Partner.where("lower(slug) = 'movicel'").first
-			valor = self.valor
-			parametro = Parametro.where(partner_id: parceiro.id).first
-
-			telefone = self.terminal
-
-			require 'openssl'
-
-			url_service = self.uri
-			agent_key = self.token
-			user_id = self.usuario
-
-			msisdn = telefone
-
-			cripto = "AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{loop_log.index}' ./chaves/movicell/ubuntu/encripto"
-			Rails.logger.info "=========[cripto]========"
-			pass = `#{cripto}`
-			Rails.logger.info "=========[cripto]========"
-
-			pass = pass.strip
-
-			request_send = ""
-			response_get = ""
-			last_request = ""
-
-			body = "
-				<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
-					<soapenv:Header>
-					<int:ValidateTopupReqHeader>
-							<mid:RequestId>#{request_id}</mid:RequestId>
-							<mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
-							<mid:SourceSystem>#{user_id}</mid:SourceSystem>  
-							<mid:Credentials>
-								<mid:User>#{user_id}</mid:User>
-								<mid:Password>#{pass}</mid:Password>
-								</mid:Credentials>
-							</int:ValidateTopupReqHeader>
-					</soapenv:Header>
-					<soapenv:Body>
-							<int:ValidateTopupReq>
-								<int:ValidateTopupReqBody>
-										<mid1:Amount>#{valor_original}</mid1:Amount>
-										<mid1:MSISDN>#{msisdn}</mid1:MSISDN>
-								</int:ValidateTopupReqBody>
-							</int:ValidateTopupReq>
-					</soapenv:Body>
-				</soapenv:Envelope>
-			"
-
-			data_envio = Time.zone.now
-
-			request_send += "=========[ValidateTopup - #{data_envio.to_s}]========"
-			request_send += cripto
-			request_send += "=========[Cripto]========"
-			request_send += body
-			request_send += "=========[ValidateTopup]========"
-
-			Rails.logger.info request_send
-			Rails.logger.info "========[Enviando para operadora Movicel - #{data_envio.to_s}]=========="
-
-			url = "#{url_service}/DirectTopupService/Topup/"
-			uri = URI.parse(URI.escape(url))
 			begin
-				request = HTTParty.post(uri, 
-					headers: {
-						'Content-Type' => 'text/xml;charset=UTF-8',
-						'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
-					},
-					timeout: 100,
-					body: body
-				)
+				sleep(1)
+				parceiro = Partner.where("lower(slug) = 'movicel'").first
+				valor_original = self.valor
+				parametro = Parametro.where(partner_id: parceiro.id).first
 
-				Rails.logger.info "========[Dados enviados para operadora Movicel]=========="
+				telefone = self.terminal
 
-				response_get += "=========[ValidateTopup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio} ]========"
-				response_get += request.body
-				response_get += "=========[ValidateTopup]========"
-				Rails.logger.info response_get
+				require 'openssl'
 
-				if (200...300).include?(request.code.to_i) && request.body.include?("200</ReturnCode>")
+				url_service = self.uri
+				agent_key = self.token
+				user_id = self.usuario
 
-					body = "
-						<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
-							<soapenv:Header>
-									<int:TopupReqHeader>
-										<mid:RequestId>#{request_id}</mid:RequestId>
-										<mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
-										<mid:SourceSystem>#{user_id}</mid:SourceSystem>
-										<mid:Credentials>
-												<mid:User>#{user_id}</mid:User>
-												<mid:Password>#{pass}</mid:Password>
-										</mid:Credentials>
-									</int:TopupReqHeader>
-							</soapenv:Header>
-							<soapenv:Body>
-									<int:TopupReq>
-										<int:TopupReqBody>
-												<mid1:Amount>#{valor_original}</mid1:Amount>
-												<mid1:MSISDN>#{msisdn}</mid1:MSISDN>
-												<mid1:Type>Default</mid1:Type>
-										</int:TopupReqBody>
-									</int:TopupReq>
-							</soapenv:Body>
-						</soapenv:Envelope>
-					"
+				msisdn = telefone
 
-					data_envio = Time.zone.now
-					request_send += "=========[Topup - #{data_envio.to_s}]========"
-					request_send += body
-					request_send += "=========[Topup]========"
-					Rails.logger.info request_send
+				request_id = loop_log.index
 
-					Rails.logger.info "========[Enviando confirmação para operadora Movicel]=========="
+				cripto = "AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto"
+				Rails.logger.info "=========[cripto]========"
+				pass = `#{cripto}`
+				Rails.logger.info "=========[cripto]========"
 
-					url = "#{url_service}/DirectTopupService/Topup/"
-					uri = URI.parse(URI.escape(url))
-					begin
-						request = HTTParty.post(uri, 
-							headers: {
-								'Content-Type' => 'text/xml;charset=UTF-8',
-								'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
-							},
-							timeout: 100,
-							body: body
-						)
-						
-						response_get += "=========[Topup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio}]========"
-						response_get += request.body
-						response_get += "=========[Topup]========"
-						Rails.logger.info response_get
+				pass = pass.strip
 
-						Rails.logger.info "========[Confirmação enviada para operadora Movicel]=========="
+				request_send = ""
+				response_get = ""
+				last_request = ""
 
-						last_request = request.body
+				body = "
+					<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
+						<soapenv:Header>
+						<int:ValidateTopupReqHeader>
+								<mid:RequestId>#{request_id}</mid:RequestId>
+								<mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
+								<mid:SourceSystem>#{user_id}</mid:SourceSystem>  
+								<mid:Credentials>
+									<mid:User>#{user_id}</mid:User>
+									<mid:Password>#{pass}</mid:Password>
+									</mid:Credentials>
+								</int:ValidateTopupReqHeader>
+						</soapenv:Header>
+						<soapenv:Body>
+								<int:ValidateTopupReq>
+									<int:ValidateTopupReqBody>
+											<mid1:Amount>#{valor_original}</mid1:Amount>
+											<mid1:MSISDN>#{msisdn}</mid1:MSISDN>
+									</int:ValidateTopupReqBody>
+								</int:ValidateTopupReq>
+						</soapenv:Body>
+					</soapenv:Envelope>
+				"
 
-						loop_log.request = request_send
+				data_envio = Time.zone.now
+
+				request_send += "=========[ValidateTopup - #{data_envio.to_s}]========"
+				request_send += cripto
+				request_send += "=========[Cripto]========"
+				request_send += body
+				request_send += "=========[ValidateTopup]========"
+
+				Rails.logger.info request_send
+				Rails.logger.info "========[Enviando para operadora Movicel - #{data_envio.to_s}]=========="
+
+				url = "#{url_service}/DirectTopupService/Topup/"
+				uri = URI.parse(URI.escape(url))
+				begin
+					request = HTTParty.post(uri, 
+						headers: {
+							'Content-Type' => 'text/xml;charset=UTF-8',
+							'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
+						},
+						timeout: 100,
+						body: body
+					)
+
+					Rails.logger.info "========[Dados enviados para operadora Movicel]=========="
+
+					response_get += "=========[ValidateTopup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio} ]========"
+					response_get += request.body
+					response_get += "=========[ValidateTopup]========"
+					Rails.logger.info response_get
+
+					if (200...300).include?(request.code.to_i) && request.body.include?("200</ReturnCode>")
+
+						body = "
+							<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
+								<soapenv:Header>
+										<int:TopupReqHeader>
+											<mid:RequestId>#{request_id}</mid:RequestId>
+											<mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
+											<mid:SourceSystem>#{user_id}</mid:SourceSystem>
+											<mid:Credentials>
+													<mid:User>#{user_id}</mid:User>
+													<mid:Password>#{pass}</mid:Password>
+											</mid:Credentials>
+										</int:TopupReqHeader>
+								</soapenv:Header>
+								<soapenv:Body>
+										<int:TopupReq>
+											<int:TopupReqBody>
+													<mid1:Amount>#{valor_original}</mid1:Amount>
+													<mid1:MSISDN>#{msisdn}</mid1:MSISDN>
+													<mid1:Type>Default</mid1:Type>
+											</int:TopupReqBody>
+										</int:TopupReq>
+								</soapenv:Body>
+							</soapenv:Envelope>
+						"
+
+						data_envio = Time.zone.now
+						request_send += "=========[Topup - #{data_envio.to_s}]========"
+						request_send += body
+						request_send += "=========[Topup]========"
+						Rails.logger.info request_send
+
+						Rails.logger.info "========[Enviando confirmação para operadora Movicel]=========="
+
+						url = "#{url_service}/DirectTopupService/Topup/"
+						uri = URI.parse(URI.escape(url))
+						begin
+							request = HTTParty.post(uri, 
+								headers: {
+									'Content-Type' => 'text/xml;charset=UTF-8',
+									'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
+								},
+								timeout: 100,
+								body: body
+							)
+							
+							response_get += "=========[Topup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio}]========"
+							response_get += request.body
+							response_get += "=========[Topup]========"
+							Rails.logger.info response_get
+
+							Rails.logger.info "========[Confirmação enviada para operadora Movicel]=========="
+
+							last_request = request.body
+
+							loop_log.request = request_send
+							loop_log.response = response_get
+							loop_log.save!
+						end
+					else
+						loop_log.request = request_send = "#{request_send} - #{request.body}"
 						loop_log.response = response_get
 						loop_log.save!
 					end
-				else
-					loop_log.request = request_send = "#{request_send} - #{request.body}"
+				rescue Exception => err
+					loop_log.request = request_send = "#{request_send} - Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - Erro = #{err.message} - backtrace = #{err.backtrace}"
 					loop_log.response = response_get
 					loop_log.save!
 				end
 			rescue Exception => err
-				loop_log.request = request_send = "#{request_send} - Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - Erro = #{err.message} - backtrace = #{err.backtrace}"
-				loop_log.response = response_get
+				loop_log.request = "Erro = #{err.message} - backtrace = #{err.backtrace}"
 				loop_log.save!
 			end
-
 		end
 	end
 end
