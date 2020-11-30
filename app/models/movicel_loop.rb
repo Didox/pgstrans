@@ -2,7 +2,7 @@ class MovicelLoop < ApplicationRecord
 	validates :usuario, :token, :uri, presence: true
 	
 	def processar!
-		self.repeticao.times.each |i| do
+		self.repeticao.times.each do |i|
 			self.prepara_enviar(i)
 		end
 	end
