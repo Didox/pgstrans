@@ -12,7 +12,7 @@ class BancosController < ApplicationController
     @bancos = @bancos.where("conta_bancaria ilike '%#{params[:conta_bancaria]}%'") if params[:conta_bancaria].present?
 
     options = {page: params[:page] || 1, per_page: 10}
-    @bancos = @bancos.paginate(options) 
+    @bancos = @bancos.paginate(options)
   end
 
   # GET /bancos/1

@@ -28,15 +28,16 @@
       <dd><%= @movicel_loop.nropedidoinicio %></dd>
       <dt>Nro. deste pedido (transação):</dt>
       <dd><%= @movicel_loop.nropedido %></dd>
-      <dt>Request log:</dt>
-      <dd><%= @movicel_loop.request %></dd>
-      <dt>Response log:</dt>
-      <dd><%= @movicel_loop.response %></dd>
       <dt>Data da criação:</dt>
       <dd><%= @movicel_loop.created_at %></dd>
       <dt>Data da última utilização:</dt>
       <dd><%= @movicel_loop.updated_at %></dd>
     </dl>
+
+    <hr>
+    <%= link_to 'Processar', "/movicel_loops/#{@movicel_loop.id}/processar", class: 'btn btn-danger', method: :post, data: { confirm: 'Tem certeza?' } %>
+    <%= link_to 'Logs', "/movicel_loops/#{@movicel_loop.id}/loop_logs", class: 'btn btn-danger' %>
+    <hr>
 
     <div class="page-header">
       <%= link_to movicel_loops_path, class: 'btn btn-danger' do %>

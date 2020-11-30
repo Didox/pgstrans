@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_29_204325) do
+ActiveRecord::Schema.define(version: 2020_11_30_102659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,16 @@ ActiveRecord::Schema.define(version: 2020_11_29_204325) do
     t.bigint "usuario_id"
   end
 
+  create_table "loop_logs", force: :cascade do |t|
+    t.text "request"
+    t.text "response"
+    t.bigint "movicel_loop_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "index"
+    t.index ["movicel_loop_id"], name: "index_loop_logs_on_movicel_loop_id"
+  end
+
   create_table "master_profiles", force: :cascade do |t|
     t.string "description"
     t.datetime "created_at", null: false
@@ -206,8 +216,6 @@ ActiveRecord::Schema.define(version: 2020_11_29_204325) do
     t.integer "repeticao"
     t.decimal "nropedidoinicio"
     t.decimal "nropedido"
-    t.string "request"
-    t.string "response"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -566,6 +574,7 @@ ActiveRecord::Schema.define(version: 2020_11_29_204325) do
   add_foreign_key "grupo_registros", "grupos"
   add_foreign_key "grupo_usuarios", "grupos"
   add_foreign_key "grupo_usuarios", "usuarios"
+  add_foreign_key "loop_logs", "movicel_loops"
   add_foreign_key "matrix_users", "usuarios"
   add_foreign_key "moedas", "countries"
   add_foreign_key "parametros", "partners"

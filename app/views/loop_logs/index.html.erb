@@ -1,0 +1,38 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h4>LoopLog</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="container scroltable">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+        <th scope="col">Request</th>
+        <th scope="col">Response</th>
+        <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @loop_logs.each do |loop_log| %>
+        <tr>
+          <td><%= loop_log.request %></td>
+          <td><%= loop_log.response %></td>
+          <td><%= link_to 'Mostrar', movicel_loop_loop_log_path(loop_log) %></td>
+          <td><%= link_to 'Apagar', movicel_loop_loop_log_path(loop_log), method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="apple_pagination">
+      <%= will_paginate @loop_logs, :container => false %>
+    </div>
+
+    <%= link_to 'Voltar', movicel_loop_path(@movicel_loop), class: 'btn btn-danger' %>
+  </div>
+</div>

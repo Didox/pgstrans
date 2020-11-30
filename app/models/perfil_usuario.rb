@@ -62,7 +62,8 @@ class PerfilUsuario < ApplicationRecord
       controle_acessos_modelo_salvar: "Controle de Acesso MODELOS (SALVAR)",
       controle_acessos_modelo_delete: "Controle de Acesso MODELOS (EXCLUIR)",
       lucros: "Relatório de Descontos e Lucro",
-      movicel_loop: "Programa de Repetição Timeout Movicel"
+      movicel_loop: "Programa de Repetição Timeout Movicel",
+      processar: "Processar dados"
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
@@ -112,7 +113,8 @@ class PerfilUsuario < ApplicationRecord
       alteracoes_planos_dstvs: "Alteração de planos DSTV",
       desconto_parceiros: "Desconto para parceiros",
       descontos: "Tabela de Descontos de Parceiros index",
-      movicel_loops: "Timeout Movicel Programa de Repetição/Looping para coleta de logs"
+      movicel_loops: "Timeout Movicel Programa de Repetição/Looping para coleta de logs",
+      loop_logs: "Logs do Programa de Repetição/Looping para coleta de logs"
     }
     nomes[controller.to_sym]
   end

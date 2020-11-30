@@ -1,5 +1,5 @@
 class MovicelLoopsController < ApplicationController
-  before_action :set_movicel_loop, only: [:show, :edit, :update, :destroy]
+  before_action :set_movicel_loop, only: [:show, :edit, :update, :destroy, :processar]
 
   # GET /movicel_loops
   # GET /movicel_loops.json
@@ -21,6 +21,12 @@ class MovicelLoopsController < ApplicationController
   def edit
   end
 
+  def processar
+    @movicel_loop = MovicelLoop.new(movicel_loop_params)
+    @movicel_loop.processar!
+    flash[:success] = "Os dados estão sendo processados, logo será finalizado"
+  end
+
   # POST /movicel_loops
   # POST /movicel_loops.json
   def create
@@ -28,7 +34,7 @@ class MovicelLoopsController < ApplicationController
 
     respond_to do |format|
       if @movicel_loop.save
-        format.html { redirect_to @movicel_loop, notice: 'Movicel loop was successfully created.' }
+        format.html { redirect_to @movicel_loop, notice: 'Movicel loop foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @movicel_loop }
       else
         format.html { render :new }
@@ -42,7 +48,7 @@ class MovicelLoopsController < ApplicationController
   def update
     respond_to do |format|
       if @movicel_loop.update(movicel_loop_params)
-        format.html { redirect_to @movicel_loop, notice: 'Movicel loop was successfully updated.' }
+        format.html { redirect_to @movicel_loop, notice: 'Movicel loop foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @movicel_loop }
       else
         format.html { render :edit }
@@ -56,7 +62,7 @@ class MovicelLoopsController < ApplicationController
   def destroy
     @movicel_loop.destroy
     respond_to do |format|
-      format.html { redirect_to movicel_loops_url, notice: 'Movicel loop was successfully destroyed.' }
+      format.html { redirect_to movicel_loops_url, notice: 'Movicel loop foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end

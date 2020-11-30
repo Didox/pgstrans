@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :movicel_loops
+  resources :movicel_loops do
+    post '/processar', to: 'movicel_loops#processar'
+    resources :loop_logs
+  end
+  
   resources :pagamentos_faturas_dstvs
   resources :alteracoes_planos_dstvs
   resources :log_vendas
