@@ -11,8 +11,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
-        <th scope="col">Request</th>
-        <th scope="col">Response</th>
+        <th scope="col">Dados de envio e retorno</th>
         <th scope="col">Data</th>
         <th colspan="3"></th>
         </tr>
@@ -21,8 +20,13 @@
       <tbody>
         <% @loop_logs.each do |loop_log| %>
         <tr>
-          <td><%= raw loop_log.request %></td>
-          <td><%= raw loop_log.response %></td>
+          <td>
+            <h1>Envio para movicel</h1>
+            <%= raw loop_log.request %>
+            <hr>
+            <h1>Resposta da movicel</h1>
+            <%= raw loop_log.response %>
+          </td>
           <td><%= loop_log.created_at.strftime("%d/%m/%Y %H:%M") %></td>
           <td><%= link_to 'Mostrar', "/movicel_loops/#{loop_log.movicel_loop_id}/loop_logs/#{loop_log.id}" %></td>
           <td><%= link_to 'Apagar', "/movicel_loops/#{loop_log.movicel_loop_id}/loop_logs/#{loop_log.id}", method: :delete, data: { confirm: 'Tem certeza?' } %></td>

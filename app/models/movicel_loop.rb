@@ -25,7 +25,7 @@ class MovicelLoop < ApplicationRecord
 		request_send = ""
 		Thread.new do
 			begin
-				sleep(1)
+				sleep(2)
 				parceiro = Partner.where("lower(slug) = 'movicel'").first
 				valor_original = self.valor
 				parametro = Parametro.where(partner_id: parceiro.id).first
@@ -43,9 +43,10 @@ class MovicelLoop < ApplicationRecord
 				request_id = loop_log.index
 
 				cripto = "AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto"
-				Rails.logger.info "=========[cripto]========"
+				request_send += "=========[pass]========</div>"
 				pass = `#{cripto}`
-				Rails.logger.info "=========[cripto]========"
+				request_send += "#{pass}<br>"
+				request_send += "=========[pass]========</div>"
 
 				pass = pass.strip
 
@@ -85,20 +86,18 @@ class MovicelLoop < ApplicationRecord
 
 				data_envio = Time.zone.now
 
-				request_send += "<br>=========[ValidateTopup - #{data_envio.to_s}]========<br>"
+				request_send += "<div>=========[ValidateTopup - #{data_envio.to_s}]========</div>"
 				request_send += cripto
-				request_send += "<br>=========[Cripto]========<br>"
+				request_send += "<div>=========[ValidateTopup]========</div>"
 				request_send += "<pre>#{CGI.escapeHTML(body)}</pre>"
-				request_send += "<br>=========[ValidateTopup]========<br>"
-
-				Rails.logger.info request_send
-				Rails.logger.info "========[Enviando para operadora Movicel - #{data_envio.to_s}]=========="
+				request_send += "<div>=========[ValidateTopup]========</div>"
+				request_send += "<strong>========[Enviando para operadora Movicel - #{data_envio.to_s}]==========</strong>"
 
 				url = "#{url_service}/DirectTopupService/Topup/"
 				uri = URI.parse(URI.escape(url))
-				request_send += "<br>=========[URI]========<br>"
-				request_send += "<br>#{url}<br>"
-				request_send += "<br>=========[URI]========<br>"
+				request_send += "<div>=========[URI]========</div>"
+				request_send += "<strong>#{url}</strong>"
+				request_send += "<div>=========[URI]========</div>"
 				
 				begin
 					payload = {
@@ -110,18 +109,17 @@ class MovicelLoop < ApplicationRecord
 						body: body
 					}
 
-					request_send += "<br>=========[payload - ValidateTopup]========<br>"
+					request_send += "<div>=========[payload - ValidateTopup]========</div>"
 					request_send += "<pre>#{CGI.escapeHTML(payload.inspect)}</pre>"
-					request_send += "<br>=========[payload - ValidateTopup]========<br>"
+					request_send += "<div>=========[payload - ValidateTopup]========</div>"
 
 					request = HTTParty.post(uri, payload)
 
-					Rails.logger.info "========[Dados enviados para operadora Movicel]=========="
+					request_send += "<strong>========[Dados enviados para operadora Movicel]==========</strong>"
 
-					response_get += "=========[ValidateTopup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio} ]========<br>"
+					response_get += "=========[ValidateTopup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio} ]========</div>"
 					response_get += "<pre>#{CGI.escapeHTML(request.body)}</pre>"
-					response_get += "<br>=========[ValidateTopup]========<br>"
-					Rails.logger.info response_get
+					response_get += "<div>=========[ValidateTopup]========</div>"
 
 					if (200...300).include?(request.code.to_i) && request.body.include?("200</ReturnCode>")
 
@@ -151,17 +149,15 @@ class MovicelLoop < ApplicationRecord
 						"
 
 						data_envio = Time.zone.now
-						request_send += "<br>=========[Topup - #{data_envio.to_s}]========<br>"
+						request_send += "<div>=========[Topup - #{data_envio.to_s}]========</div>"
 						request_send += "<pre>#{CGI.escapeHTML(request.body)}</pre>"
-						request_send += "<br>=========[Topup]========<br>"
-						Rails.logger.info request_send
-
-						Rails.logger.info "========[Enviando confirmação para operadora Movicel]=========="
+						request_send += "<div>=========[Topup]========</div>"
+						request_send += "<strong>========[Enviando confirmação para operadora Movicel]==========</strong>"
 
 						url = "#{url_service}/DirectTopupService/Topup/"
-						request_send += "<br>=========[URI]========<br>"
-						request_send += "<br>#{url}<br>"
-						request_send += "<br>=========[URI]========<br>"
+						request_send += "<div>=========[URI]========</div>"
+						request_send += "<strong>#{url}</strong>"
+						request_send += "<div>=========[URI]========</div>"
 
 						uri = URI.parse(URI.escape(url))
 						begin
@@ -174,18 +170,17 @@ class MovicelLoop < ApplicationRecord
 								body: body
 							}
 
-							request_send += "<br>=========[payload - Topup]========<br>"
+							request_send += "<div>=========[payload - Topup]========</div>"
 							request_send += "<pre>#{CGI.escapeHTML(payload.inspect)}</pre>"
-							request_send += "<br>=========[payload - Topup]========<br>"
+							request_send += "<div>=========[payload - Topup]========</div>"
 
 							request = HTTParty.post(uri, payload)
 							
-							response_get += "<br>=========[Topup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio}]========<br>"
+							response_get += "<div>=========[Topup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio}]========</div>"
 							response_get += "<pre>#{CGI.escapeHTML(request.body)}</pre>"
-							response_get += "<br>=========[Topup]========<br>"
-							Rails.logger.info response_get
+							response_get += "<div>=========[Topup]========</div>"
 
-							Rails.logger.info "========[Confirmação enviada para operadora Movicel]=========="
+							response_get += "<strong>========[Confirmação enviada para operadora Movicel]==========</strong>"
 
 							last_request = request.body
 
@@ -194,7 +189,7 @@ class MovicelLoop < ApplicationRecord
 							loop_log.save!
 						end
 					else
-						loop_log.request = request_send = "#{request_send} - #{request.body}"
+						loop_log.request = request_send = "#{request_send} - <pre>#{CGI.escapeHTML(request.body)}</pre>"
 						loop_log.response = response_get
 						loop_log.save!
 					end
