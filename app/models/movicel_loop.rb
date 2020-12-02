@@ -84,7 +84,7 @@ class MovicelLoop < ApplicationRecord
 					</soapenv:Envelope>
 				"
 
-				body  = body.gsub("\t", "").gsub("\n", "")
+				body  = body
 
 				data_envio = Time.zone.now
 
@@ -120,7 +120,7 @@ class MovicelLoop < ApplicationRecord
 					request_send += "<strong>========[Dados enviados para operadora Movicel]==========</strong>"
 
 					response_get += "=========[ValidateTopup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio} ]========</div>"
-					response_get += "<pre>#{CGI.escapeHTML(request.body)}</pre>"
+					response_get += "<pre>#{formata_html_request(request.body)}</pre>"
 					response_get += "<div>=========[ValidateTopup]========</div>"
 
 					if (200...300).include?(request.code.to_i) && request.body.include?("200</ReturnCode>")
@@ -149,11 +149,11 @@ class MovicelLoop < ApplicationRecord
 								</soapenv:Body>
 							</soapenv:Envelope>
 						"
-						body  = body.gsub("\t", "").gsub("\n", "")
+						body  = body
 
 						data_envio = Time.zone.now
 						request_send += "<div>=========[Topup - #{data_envio.to_s}]========</div>"
-						request_send += "<pre>#{CGI.escapeHTML(request.body)}</pre>"
+						request_send += "<pre>#{formata_html_request(request.body)}</pre>"
 						request_send += "<div>=========[Topup]========</div>"
 						request_send += "<strong>========[Enviando confirmação para operadora Movicel]==========</strong>"
 
@@ -180,7 +180,7 @@ class MovicelLoop < ApplicationRecord
 							request = HTTParty.post(uri, payload)
 							
 							response_get += "<div>=========[Topup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio}]========</div>"
-							response_get += "<pre>#{CGI.escapeHTML(request.body)}</pre>"
+							response_get += "<pre>#{formata_html_request(request.body)}</pre>"
 							response_get += "<div>=========[Topup]========</div>"
 
 							response_get += "<strong>========[Confirmação enviada para operadora Movicel]==========</strong>"
@@ -192,7 +192,7 @@ class MovicelLoop < ApplicationRecord
 							loop_log.save!
 						end
 					else
-						loop_log.request = request_send = "#{request_send} - <pre>#{CGI.escapeHTML(request.body)}</pre>"
+						loop_log.request = request_send = "#{request_send} - <pre>#{formata_html_request(request.body)}</pre>"
 						loop_log.response = response_get
 						loop_log.save!
 					end
@@ -206,5 +206,10 @@ class MovicelLoop < ApplicationRecord
 				loop_log.save!
 			end
 		end
+	end
+
+	def formata_html_request(body)
+		body = body.gsub(">", ">\n")
+		CGI.escapeHTML(body)
 	end
 end
