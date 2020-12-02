@@ -20,6 +20,8 @@ class MovicelLoop < ApplicationRecord
 	end
 
 	def enviar!(loop_log)
+		require 'cgi'
+
 		request_send = ""
 		Thread.new do
 			begin
@@ -86,7 +88,7 @@ class MovicelLoop < ApplicationRecord
 				request_send += "<br>=========[ValidateTopup - #{data_envio.to_s}]========<br>"
 				request_send += cripto
 				request_send += "<br>=========[Cripto]========<br>"
-				request_send += body
+				request_send += "<pre>#{CGI.escapeHTML(body)}</pre>"
 				request_send += "<br>=========[ValidateTopup]========<br>"
 
 				Rails.logger.info request_send
@@ -109,7 +111,7 @@ class MovicelLoop < ApplicationRecord
 					}
 
 					request_send += "<br>=========[payload - ValidateTopup]========<br>"
-					request_send += payload.inspect
+					request_send += "<pre>#{CGI.escapeHTML(payload.inspect)}</pre>"
 					request_send += "<br>=========[payload - ValidateTopup]========<br>"
 
 					request = HTTParty.post(uri, payload)
@@ -117,7 +119,7 @@ class MovicelLoop < ApplicationRecord
 					Rails.logger.info "========[Dados enviados para operadora Movicel]=========="
 
 					response_get += "=========[ValidateTopup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio} ]========<br>"
-					response_get += request.body
+					response_get += "<pre>#{CGI.escapeHTML(request.body)}</pre>"
 					response_get += "<br>=========[ValidateTopup]========<br>"
 					Rails.logger.info response_get
 
@@ -150,7 +152,7 @@ class MovicelLoop < ApplicationRecord
 
 						data_envio = Time.zone.now
 						request_send += "<br>=========[Topup - #{data_envio.to_s}]========<br>"
-						request_send += body
+						request_send += "<pre>#{CGI.escapeHTML(request.body)}</pre>"
 						request_send += "<br>=========[Topup]========<br>"
 						Rails.logger.info request_send
 
@@ -173,13 +175,13 @@ class MovicelLoop < ApplicationRecord
 							}
 
 							request_send += "<br>=========[payload - Topup]========<br>"
-							request_send += payload.inspect
+							request_send += "<pre>#{CGI.escapeHTML(payload.inspect)}</pre>"
 							request_send += "<br>=========[payload - Topup]========<br>"
 
 							request = HTTParty.post(uri, payload)
 							
 							response_get += "<br>=========[Topup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio}]========<br>"
-							response_get += request.body
+							response_get += "<pre>#{CGI.escapeHTML(request.body)}</pre>"
 							response_get += "<br>=========[Topup]========<br>"
 							Rails.logger.info response_get
 
