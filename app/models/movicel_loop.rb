@@ -51,7 +51,6 @@ class MovicelLoop < ApplicationRecord
 				response_get = ""
 				last_request = ""
 
-
 				request_send += "AGENTKEY='#{agent_key}' <br>"
 				request_send += "USERID='#{user_id}' <br>"
 				request_send += "MSISDN='#{msisdn}' <br>"
@@ -95,15 +94,25 @@ class MovicelLoop < ApplicationRecord
 
 				url = "#{url_service}/DirectTopupService/Topup/"
 				uri = URI.parse(URI.escape(url))
+				request_send += "<br>=========[URI]========<br>"
+				request_send += "<br>#{url}<br>"
+				request_send += "<br>=========[URI]========<br>"
+				
 				begin
-					request = HTTParty.post(uri, 
+					payload = {
 						headers: {
 							'Content-Type' => 'text/xml;charset=UTF-8',
 							'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
 						},
 						timeout: 100,
 						body: body
-					)
+					}
+
+					request_send += "<br>=========[payload - ValidateTopup]========<br>"
+					request_send += payload.inspect
+					request_send += "<br>=========[payload - ValidateTopup]========<br>"
+
+					request = HTTParty.post(uri, payload)
 
 					Rails.logger.info "========[Dados enviados para operadora Movicel]=========="
 
@@ -148,16 +157,26 @@ class MovicelLoop < ApplicationRecord
 						Rails.logger.info "========[Enviando confirmação para operadora Movicel]=========="
 
 						url = "#{url_service}/DirectTopupService/Topup/"
+						request_send += "<br>=========[URI]========<br>"
+						request_send += "<br>#{url}<br>"
+						request_send += "<br>=========[URI]========<br>"
+
 						uri = URI.parse(URI.escape(url))
 						begin
-							request = HTTParty.post(uri, 
+							payload = {
 								headers: {
 									'Content-Type' => 'text/xml;charset=UTF-8',
 									'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
 								},
 								timeout: 100,
 								body: body
-							)
+							}
+
+							request_send += "<br>=========[payload - Topup]========<br>"
+							request_send += payload.inspect
+							request_send += "<br>=========[payload - Topup]========<br>"
+
+							request = HTTParty.post(uri, payload)
 							
 							response_get += "<br>=========[Topup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio}]========<br>"
 							response_get += request.body
