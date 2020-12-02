@@ -24,7 +24,7 @@ class MovicelLoopsController < ApplicationController
   def processar
     @movicel_loop.processar!
     flash[:success] = "Os dados estão sendo processados, logo será finalizado"
-    redirect_to "/movicel_loops/1"
+    redirect_to "/movicel_loops/#{@movicel_loop.id}"
   end
 
   # POST /movicel_loops
