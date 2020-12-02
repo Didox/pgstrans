@@ -20,6 +20,7 @@ class MovicelLoop < ApplicationRecord
 	end
 
 	def enviar!(loop_log)
+		body = ""
 		Thread.new do
 			begin
 				sleep(1)
@@ -170,7 +171,7 @@ class MovicelLoop < ApplicationRecord
 						loop_log.save!
 					end
 				rescue Exception => err
-					loop_log.request = request_send = "#{request_send} - Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - Erro = #{err.message} - backtrace = #{err.backtrace}"
+					loop_log.request = request_send = "#{request_send} - Erro ao enviar dados para api - URL = #{url} - payload = #{body} - Erro = #{err.message} - backtrace = #{err.backtrace}"
 					loop_log.response = response_get
 					loop_log.save!
 				end
