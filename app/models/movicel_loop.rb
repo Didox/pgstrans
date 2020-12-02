@@ -84,6 +84,8 @@ class MovicelLoop < ApplicationRecord
 					</soapenv:Envelope>
 				"
 
+				body  = body.gsub("\t", "").gsub("\n", "")
+
 				data_envio = Time.zone.now
 
 				request_send += "<div>=========[ValidateTopup - #{data_envio.to_s}]========</div>"
@@ -147,6 +149,7 @@ class MovicelLoop < ApplicationRecord
 								</soapenv:Body>
 							</soapenv:Envelope>
 						"
+						body  = body.gsub("\t", "").gsub("\n", "")
 
 						data_envio = Time.zone.now
 						request_send += "<div>=========[Topup - #{data_envio.to_s}]========</div>"
