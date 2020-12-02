@@ -20,7 +20,7 @@ class MovicelLoop < ApplicationRecord
 	end
 
 	def enviar!(loop_log)
-		body = ""
+		request_send = ""
 		Thread.new do
 			begin
 				sleep(1)
@@ -51,6 +51,13 @@ class MovicelLoop < ApplicationRecord
 				response_get = ""
 				last_request = ""
 
+
+				request_send += "AGENTKEY='#{agent_key}' <br>"
+				request_send += "USERID='#{user_id}' <br>"
+				request_send += "MSISDN='#{msisdn}' <br>"
+				request_send += "REQUESTID='#{request_id}' <br>"
+				request_send += "cripto='#{cripto}' <br>"
+
 				body = "
 					<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
 						<soapenv:Header>
@@ -77,11 +84,11 @@ class MovicelLoop < ApplicationRecord
 
 				data_envio = Time.zone.now
 
-				request_send += "=========[ValidateTopup - #{data_envio.to_s}]========"
+				request_send += "<br>=========[ValidateTopup - #{data_envio.to_s}]========<br>"
 				request_send += cripto
-				request_send += "=========[Cripto]========"
+				request_send += "<br>=========[Cripto]========<br>"
 				request_send += body
-				request_send += "=========[ValidateTopup]========"
+				request_send += "<br>=========[ValidateTopup]========<br>"
 
 				Rails.logger.info request_send
 				Rails.logger.info "========[Enviando para operadora Movicel - #{data_envio.to_s}]=========="
@@ -100,9 +107,9 @@ class MovicelLoop < ApplicationRecord
 
 					Rails.logger.info "========[Dados enviados para operadora Movicel]=========="
 
-					response_get += "=========[ValidateTopup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio} ]========"
+					response_get += "=========[ValidateTopup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio} ]========<br>"
 					response_get += request.body
-					response_get += "=========[ValidateTopup]========"
+					response_get += "<br>=========[ValidateTopup]========<br>"
 					Rails.logger.info response_get
 
 					if (200...300).include?(request.code.to_i) && request.body.include?("200</ReturnCode>")
@@ -133,9 +140,9 @@ class MovicelLoop < ApplicationRecord
 						"
 
 						data_envio = Time.zone.now
-						request_send += "=========[Topup - #{data_envio.to_s}]========"
+						request_send += "<br>=========[Topup - #{data_envio.to_s}]========<br>"
 						request_send += body
-						request_send += "=========[Topup]========"
+						request_send += "<br>=========[Topup]========<br>"
 						Rails.logger.info request_send
 
 						Rails.logger.info "========[Enviando confirmação para operadora Movicel]=========="
@@ -152,9 +159,9 @@ class MovicelLoop < ApplicationRecord
 								body: body
 							)
 							
-							response_get += "=========[Topup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio}]========"
+							response_get += "<br>=========[Topup - #{Time.zone.now.to_s} - Tempo de envio: #{Time.zone.now - data_envio}]========<br>"
 							response_get += request.body
-							response_get += "=========[Topup]========"
+							response_get += "<br>=========[Topup]========<br>"
 							Rails.logger.info response_get
 
 							Rails.logger.info "========[Confirmação enviada para operadora Movicel]=========="
@@ -171,12 +178,12 @@ class MovicelLoop < ApplicationRecord
 						loop_log.save!
 					end
 				rescue Exception => err
-					loop_log.request = request_send = "#{request_send} - Erro ao enviar dados para api - URL = #{url} - payload = #{body} - Erro = #{err.message} - backtrace = #{err.backtrace}"
+					loop_log.request = request_send = "#{request_send} - Erro ao enviar dados para api - URL = #{url} - payload = #{request_send} - Erro = #{err.message} - backtrace = #{err.backtrace}"
 					loop_log.response = response_get
 					loop_log.save!
 				end
 			rescue Exception => err
-				loop_log.request = "Erro = #{err.message} - backtrace = #{err.backtrace}"
+				loop_log.request = "Erro = #{request_send} - #{err.message} - backtrace = #{err.backtrace}"
 				loop_log.save!
 			end
 		end
