@@ -13,12 +13,7 @@ namespace ConsoleTeste
             var userId = Environment.GetEnvironmentVariable("USER");
             var requestTime = Environment.GetEnvironmentVariable("REQUESTTIME");
 
-            //var agentKey = "6b6579303030";
-            //var userId = "123";
-            //var requestTime = "20191228083500";
-
             var message = requestTime + userId;
-
             string str3 = Encryption.HashHMACHex(agentKey, message);
 
             Console.WriteLine(str3);
