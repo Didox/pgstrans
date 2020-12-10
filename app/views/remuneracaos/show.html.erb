@@ -8,6 +8,8 @@
 
   <div class="container">
     <dl class="dl-horizontal">
+      <dt>Ativo:</dt>
+      <dd><%= @remuneracao.ativo ? "Sim" : "Não" %></dd>
       <dt>Usuário:</dt>
       <dd><%= "#{@remuneracao.usuario_id}/#{@remuneracao.usuario.nome}" %></dd>
       <dt>Início de Vigência:</dt>

@@ -57,6 +57,15 @@
           <%= f.label :vigencia_inicio, "Início da vigência deste plano de desconto" %>
           <%= f.date_field :vigencia_inicio, class:"form-control" %>
         </div>
+        <div class="form-input col-sm-6">
+          <%= f.label :vigencia_fim, "Final da vigência deste plano de desconto" %>
+          <%= f.date_field :vigencia_fim, class:"form-control" %>
+        </div>
+
+        <div class="form-input col-sm-12">
+          <%= f.check_box :ativo %>
+          <%= f.label :ativo, "Ativo" %>
+        </div>
 
         <div class="form-actions col-sm-12">
           <%= f.button :button, class: 'btn btn-danger' do %>

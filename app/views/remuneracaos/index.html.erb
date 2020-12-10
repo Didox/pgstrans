@@ -75,6 +75,7 @@
       <thead>
         <tr>
           <th scope="col">ID Remuner.</th>
+          <th scope="col">Ativo</th>
           <th scope="col">Login do Usuário</th>
           <th scope="col">Nome do Usuário</th>
           <th scope="col">Início da Vigência</th>
@@ -89,6 +90,7 @@
         <% @remuneracaos.each do |remuneracao| %>
         <tr>
           <td><%= remuneracao.id %></td>
+          <td><%= remuneracao.ativo ? "Sim" : "Não" %></td>
           <td><%= remuneracao.usuario.login %></td>
           <td><%= remuneracao.usuario.nome %></td>
           <td><%= remuneracao.vigencia_inicio.strftime("%d/%m/%Y") rescue "" %></td>
