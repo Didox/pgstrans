@@ -198,9 +198,7 @@ class Venda < ApplicationRecord
 
   def self.desconto_venda(usuario, parceiro, valor)
     desconto = 0
-    remuneracoes = Remuneracao.where(usuario_id: usuario.id)
-    remuneracoes = remuneracoes.where("vigencia_inicio <= ?", Time.zone.now.beginning_of_day)
-    remuneracoes = remuneracoes.where("vigencia_fim >= ?", Time.zone.now.end_of_day)
+    remuneracoes = Remuneracao.where(usuario_id: usuario.id, ativo: true)
 
     if remuneracoes.count > 0
       remuneracao = remuneracoes.first
