@@ -6,11 +6,10 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-
   <div style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Nome do Usuário</label>
             <div>
@@ -18,7 +17,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Login do Usuário</label>
             <div>
@@ -26,7 +25,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-5">
           <div class="form-group">
             <label>E-mail do Usuário</label>
             <div>
@@ -34,7 +33,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Data da Vigência (DE)</label>
             <div>
@@ -42,7 +41,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Data da Vigência (ATÉ)</label>
             <div>
@@ -50,32 +49,47 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <div style="float: right;margin-right:10px">
-          <input type="submit" value="Buscar" class="btn btn-info">
-          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-            <span class="glyphicon glyphicon-list-alt"></span>
-            Voltar
-          <% end %>        
-
-          <%= link_to new_remuneracao_path, class: 'btn btn-danger' do %>
-            <span class="glyphicon glyphicon-plus"></span>
-            Novo Registro
-          <% end %>    
-
+        <div class="col-sm-4">
+        <div class="form-group">
+          <label>Status do Plano de Remuneração</label>
+          <div>
+            <select name="ativo" id="ativo" class="form-control" style="width100%;max-width: 500px;">
+              <option value="" <% if params[:ativo].blank? %> selected="selected" <% end %>>
+                Todos
+              </option>
+              <option value="true" <% if params[:ativo] == "true" %> selected="selected" <% end %>>
+                Ativo
+              </option>
+              <option value="false" <% if params[:ativo] == "false" %> selected="selected" <% end %>>
+                Inativo
+              </option>
+            </select>
+          </div>
         </div>
+        <div class="form-group">
+          <div style="float: right;margin-right:10px">
+            <input type="submit" value="Buscar" class="btn btn-info">
+            <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+              <span class="glyphicon glyphicon-list-alt"></span>
+              Voltar
+            <% end %>        
+
+            <%= link_to new_remuneracao_path, class: 'btn btn-danger' do %>
+              <span class="glyphicon glyphicon-plus"></span>
+                Novo Registro
+              <% end %>    
+            </div>
       </div>
     </form>
   </div>
 
   <div class="container scroltable">
-    <p>Margens atribuídas ao Cliente</p>
+    <p>Margens atribuídas aos Clientes</p>
     <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">ID Remuner.</th>
-          <th scope="col">Ativo</th>
+          <th scope="col">Status</th>
           <th scope="col">Login do Usuário</th>
           <th scope="col">Nome do Usuário</th>
           <th scope="col">Início da Vigência</th>
@@ -91,7 +105,7 @@
         <% @remuneracaos.each do |remuneracao| %>
         <tr>
           <td><%= remuneracao.id %></td>
-          <td><%= remuneracao.ativo ? "Sim" : "Não" %></td>
+          <td><%= remuneracao.ativo ? "Ativo" : "Inativo" %></td>
           <td><%= remuneracao.usuario.login %></td>
           <td><%= remuneracao.usuario.nome %></td>
           <td><%= remuneracao.vigencia_inicio.strftime("%d/%m/%Y") rescue "" %></td>
