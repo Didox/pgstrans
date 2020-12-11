@@ -87,6 +87,10 @@ class VendasController < ApplicationController
     def vendas_busca
       @vendas = @vendas.joins(:usuario)
 
+      if params[:return_code].nil?
+        params[:return_code] = "sucesso"
+      end
+
       if params[:return_code].present?
         if params[:return_code] == "sucesso"
           @vendas = @vendas.where("vendas.status in (?)", ReturnCodeApi.where(sucesso: true).map{|r| r.return_code })
