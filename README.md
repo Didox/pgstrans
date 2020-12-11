@@ -28,6 +28,9 @@ psql pgstrans_development
 CREATE USER pgsdba WITH ENCRYPTED PASSWORD '';
 
 
+pg_restore --host localhost --port 5432 --username pgsdba --dbname pgstrans_development < dump/pgstrans_production_1012_0431.bkp
+Password: senha do banco de dados da aplicação
+
 ::::::::: Documentações ::::::::: 
 
 url = "https://address/spgw/#{VERSION}/query_string"
