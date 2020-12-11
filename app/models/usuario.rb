@@ -7,6 +7,7 @@ class Usuario < ApplicationRecord
   belongs_to :perfil_usuario
   belongs_to :sub_agente
   belongs_to :municipio
+  belongs_to :status_cliente
   
   validates :email, :login, presence: true, uniqueness: true
   validates :nome, :email, presence: true

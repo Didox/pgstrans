@@ -170,7 +170,8 @@
             <td>
               Login: <%= usuario.login %><br>
               Nome: <%= usuario.nome %><br>
-              E-mail: <%= usuario.email %><br>          
+              E-mail: <%= usuario.email %><br>
+              Status: <%= usuario.status_cliente.nome rescue "" %><br>          
               <% if usuario_logado.admin? || usuario_logado.operador? %>
                 Perfil do usuário: <a href="/perfil_usuarios/<%= usuario.perfil_usuario_id %>" target="_blank"><%= usuario.perfil_usuario.nome %></a><br>
               <% else %>
