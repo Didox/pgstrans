@@ -4,7 +4,7 @@
       <div>
         <strong>
           Conta Corrente -
-          Saldo Disponível: <%= number_to_currency(usuario_logado.saldo, :unit => "KZ", :precision => 2) %>
+          Saldo Disponível do usuário <%= usuario_logado.nome %>: <%= number_to_currency(usuario_logado.saldo, :unit => "KZ", :precision => 2) %>
         </strong>
       </div>
     </div>
@@ -38,9 +38,10 @@
                 usuarios = usuarios.where("id not in (?)", usuario_logado.id)
               end
               %>
-              <%= f.select :usuario_id, usuarios.limit(100).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%" %>
+              <%= f.select :usuario_id, usuarios.limit(100).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", onchange: "pgstrans.mostraSaldo(this)", style: "width:70%" %>
             </div>
           </div>
+          <div class="form-input col-sm-12" style="text-align: right" id="saldoUsuario"></div>
         <% end %>
         
         <div class="form-input col-sm-12">

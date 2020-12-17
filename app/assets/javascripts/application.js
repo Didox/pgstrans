@@ -89,6 +89,17 @@ pgstrans.displayRecarga = (tipo) => {
   $(".clearFieldjs").val("")
 }
 
+pgstrans.mostraSaldo = (self) => {
+  $("#saldoUsuario").html("");
+  $.ajax({
+    type: "GET",
+    url: "/usuarios/"+ self.value + ".json",
+    success: function(usuario){
+      $("#saldoUsuario").html("Saldo do usuário " + usuario.nome + ": <b>R$ " + usuario.saldo.toLocaleString('pt-br', {minimumFractionDigits: 2}) + "<b>");
+    }
+  });
+}
+
 pgstrans.carregaProdutosPorParceiro = (self) => {
   $.ajax({
     type: "GET",

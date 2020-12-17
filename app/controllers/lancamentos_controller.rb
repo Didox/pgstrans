@@ -29,12 +29,8 @@ class LancamentosController < ApplicationController
   def create
     @lancamento = Lancamento.new(lancamento_params)
     @lancamento.responsavel = usuario_logado
-
-    if @lancamento.nome == Lancamento::COMPRA_DE_CREDITO_OU_RECARGA
-      flash[:error] = "Este status é de uso interno não - pode ser alterado"
-      redirect_to "/lancamentos"
-      return
-    elsif @lancamento.nome == Lancamento::TRANSFERENCIA_ENTRE_USUARIOS
+    
+    if Lancamento::ITENS_SISTEMA.include?(@lancamento.nome)
       flash[:error] = "Este status é de uso interno não - pode ser alterado"
       redirect_to "/lancamentos"
       return
@@ -54,11 +50,7 @@ class LancamentosController < ApplicationController
   # PATCH/PUT /lancamentos/1
   # PATCH/PUT /lancamentos/1.json
   def update
-    if @lancamento.nome == Lancamento::COMPRA_DE_CREDITO_OU_RECARGA
-      flash[:error] = "Este status é de uso interno não - pode ser alterado"
-      redirect_to "/lancamentos"
-      return
-    elsif @lancamento.nome == Lancamento::TRANSFERENCIA_ENTRE_USUARIOS
+    if Lancamento::ITENS_SISTEMA.include?(@lancamento.nome)
       flash[:error] = "Este status é de uso interno não - pode ser alterado"
       redirect_to "/lancamentos"
       return
@@ -78,11 +70,7 @@ class LancamentosController < ApplicationController
   # DELETE /lancamentos/1
   # DELETE /lancamentos/1.json
   def destroy
-    if @lancamento.nome == Lancamento::COMPRA_DE_CREDITO_OU_RECARGA
-      flash[:error] = "Este status é de uso interno não - pode ser alterado"
-      redirect_to "/lancamentos"
-      return
-    elsif @lancamento.nome == Lancamento::TRANSFERENCIA_ENTRE_USUARIOS
+    if Lancamento::ITENS_SISTEMA.include?(@lancamento.nome)
       flash[:error] = "Este status é de uso interno não - pode ser alterado"
       redirect_to "/lancamentos"
       return

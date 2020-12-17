@@ -71,14 +71,20 @@ class ContaCorrentesController < ApplicationController
       @conta_corrente = ContaCorrente.new(conta_corrente_params)
       @conta_corrente.responsavel = usuario_logado
       @conta_corrente.responsavel_aprovacao_id = usuario_logado.id
+      
+      if @conta_corrente.lancamento.nome == Lancamento::DEBITO
+        @conta_corrente.valor = "-#{@conta_corrente.valor.abs}"
+      else
+        @conta_corrente.valor = @conta_corrente.valor.abs
+      end
 
       respond_to do |format|
         if @conta_corrente.save
 
-          if !usuario_logado.admin? && !usuario_logado.operador?
+          if !usuario_logado.admin? && !usuario_logado.operador? && @conta_corrente.lancamento.nome != Lancamento::DEBITO
             conta_corrente_retirada = ContaCorrente.new(conta_corrente_params)
             conta_corrente_retirada.id = nil
-            conta_corrente_retirada.valor = "-#{conta_corrente_retirada.valor}"
+            conta_corrente_retirada.valor = "-#{conta_corrente_retirada.valor.abs}"
             conta_corrente_retirada.usuario = usuario_logado
             conta_corrente_retirada.responsavel = usuario_logado
             conta_corrente_retirada.lancamento = Lancamento.where(nome: Lancamento::TRANSFERENCIA_ENTRE_USUARIOS).first || Lancamento.first
