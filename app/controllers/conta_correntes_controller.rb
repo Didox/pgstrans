@@ -41,6 +41,14 @@ class ContaCorrentesController < ApplicationController
     @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
   end
 
+  def index_carregamento_usuario
+    @usuarios = Usuario.com_acesso(usuario_logado)
+    options = {page: params[:page] || 1, per_page: 10}
+    @usuarios = @usuarios.paginate(options)
+    @usuarios = @usuarios.reorder("nome asc")
+    @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+  end
+
   # GET /conta_correntes/new
   def new
     @conta_corrente = ContaCorrente.new

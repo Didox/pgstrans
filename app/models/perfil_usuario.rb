@@ -52,7 +52,8 @@ class PerfilUsuario < ApplicationRecord
       alteracao_cliente_produtos: "Listagem de produtos em validação de pagamento DSTV",
       pagar_fatura: "Pagar fatura DSTV",
       reverter_venda_zaptv: "Reverter Vendas ZAPTV",
-      index_morada_saldo: "Ver relatório de Conta corrente - Usuário Morada Saldo",
+      index_morada_saldo: "Ver relatório de Conta corrente - Lista Saldo de Usuário (apresenta botão para ZERAR SALDO)",
+      index_carregamento_usuario: "Ver relatório de Conta corrente - Lista de Carregamento por Usuário",
       forcar_logout: "Habilitar permissão para deslogar usuário (forçar logout após troca de senha)",
       controle_acessos: "Controle de Acesso",
       controle_acessos_edit: "Controle de Acesso EDITAR",
@@ -64,7 +65,7 @@ class PerfilUsuario < ApplicationRecord
       lucros: "Relatório de Descontos e Lucro",
       movicel_loop: "Programa de Repetição Timeout Movicel",
       processar: "Processar dados",
-      zerar_saldo: "Zerar saldo",
+      zerar_saldo: "Efetivar a ação de ZERAR SALDO de usuário presente em Conta Corrente / Lista de Saldo do Usuário ",
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]

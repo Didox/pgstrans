@@ -1,0 +1,116 @@
+<div class="container scroltable">
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div style="margin-top:10px">
+    <form action="" method="get" id="formApuracao">
+      <div class="row" style="padding:10px">
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Data de Lançamento</label>
+            <div>
+              <input type="date" name="data_alegacao_pagamento" value="<%= params[:data_alegacao_pagamento] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Última da Atualização</label>
+            <div>
+              <input type="date" name="data_ultima_atualizacao_saldo" value="<%= params[:data_ultima_atualizacao_saldo] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Nome do Usuário</label>
+            <div>
+              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Login</label>
+            <div>
+              <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Responsável pela Aprovação</label>
+            <div>
+              <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+            <div style="float: right;margin-right:10px">
+                <input type="submit" value="Buscar" class="btn btn-info">
+
+                <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+                <span class="glyphicon glyphicon-list-alt"></span>
+                Voltar
+                <% end %>
+
+                <%= link_to new_conta_corrente_path, class: 'btn btn-danger' do %>
+                <span class="glyphicon glyphicon-plus"></span>
+                Novo Registro
+                <% end %>    
+                
+            </div>
+        </div>
+      </form>
+    </div>
+
+  <div class="container">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Login</th>
+          <th scope="col">Valor Lançamento</th>
+          <th scope="col">Data Lançamento</th>
+          <th scope="col">Responsável Aprovação</th>      
+          <th colspan="3">Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% valor_total = 0 %>
+        <% @usuarios.each do |usuario| %>
+        <tr>
+          <td style="width: 25px" align="right"><%= usuario.id %></td>
+          <td style="width: 100px"><%= usuario.login %></td>
+          <td style="width: 400px"><%= usuario.nome %></td>
+          <td style="width: 120px" align="right"><%= number_to_currency(conta_corrente.valor, :unit => "KZ", :precision => 2) %></td>
+          <td style="width: 400px"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %></td>
+          <% if conta_corrente.responsavel_aprovacao.present? %>
+              <%= conta_corrente.responsavel_aprovacao.nome %>
+          <% end %>
+          <td><%= link_to 'Mostrar', conta_corrente %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="apple_pagination">
+      <%= will_paginate @conta_correntes, :container => false %>
+    </div>
+
+    <%= link_to new_conta_corrente_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      Novo Registro
+    <% end %>    
+
+    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>
+
+  </div>
+</div>
