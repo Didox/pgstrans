@@ -142,11 +142,6 @@
             <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %><br>
           </td>
           <td><%= link_to 'Mostrar', conta_corrente %></td>
-          <% if usuario_logado.admin? || usuario_logado.operador? %>
-            <td><%= link_to 'Apagar', conta_corrente, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
-          <% else %>
-            <td colspan="2"></td>
-          <% end %>
         </tr>
         <% end %>
       </tbody>
