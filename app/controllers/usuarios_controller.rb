@@ -1,6 +1,8 @@
 class UsuariosController < ApplicationController
   before_action :set_usuario, only: [:show, :edit, :update, :destroy]
   before_action :verifica_permissao, only: [:edit, :create, :update, :destroy]
+  skip_before_action :verify_authenticity_token, only: [:zerar_saldo]
+  
   # GET /usuarios
   # GET /usuarios.json
   def index
@@ -37,6 +39,35 @@ class UsuariosController < ApplicationController
       flash[:success] = "Forçar logout do usuário #{usuarios.first.nome} executado com sucesso !"
       usuarios.update_all(logado: false)
       redirect_to usuarios_path
+      return
+    end
+
+    flash[:error] = "Usuário não localizado"
+    redirect_to usuarios_path
+  end
+
+  def zerar_saldo
+    usuario = Usuario.where(id: params[:usuario_id]).first
+    if usuario.present?
+      flash[:success] = "Saldo do usuário #{usuario.nome} zerado com sucesso !"
+      
+      conta_corrente = ContaCorrente.new
+      if usuario.saldo > 0
+        conta_corrente.valor = "-#{usuario.saldo.abs}"
+        conta_corrente.lancamento = Lancamento.where(nome: Lancamento::DEBITO).first || Lancamento.first
+        conta_corrente.observacao = "Zerando o saldo do usuário #{usuario.nome} (#{usuario.id})."
+      else
+        conta_corrente.valor = usuario.saldo.abs
+        conta_corrente.lancamento = Lancamento.where(nome: Lancamento::CREDITO).first || Lancamento.first
+        conta_corrente.observacao = "Regularizando o saldo do usuário #{usuario.nome} (#{usuario.id})."
+      end
+
+      conta_corrente.usuario = usuario
+      conta_corrente.responsavel = usuario_logado
+      conta_corrente.responsavel_aprovacao_id = usuario_logado.id
+      conta_corrente.save!
+
+      redirect_to "/conta_correntes/index_morada_saldo"
       return
     end
 

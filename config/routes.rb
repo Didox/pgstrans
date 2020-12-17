@@ -66,6 +66,7 @@ Rails.application.routes.draw do
   resources :industries
   resources :usuarios do
     get 'forcar-logout', tox: 'usuarios#forcar_logout'
+    post 'zerar_saldo', tox: 'usuarios#zerar_saldo'
   end
   resources :sub_agentes
   resources :sub_distribuidors

@@ -3,11 +3,11 @@ class ContaCorrente < ApplicationRecord
 
   belongs_to :usuario
   belongs_to :lancamento
-  belongs_to :banco
+  belongs_to :banco, optional: true
 
   default_scope { order(updated_at: :desc) }
 
-  before_validation :preenche_padrao
+  before_validation :preenche_padrao, :banco_obrigatorio
 
   after_save :atualiza_saldo
 
@@ -25,6 +25,12 @@ class ContaCorrente < ApplicationRecord
   def preenche_padrao
   	self.data_alegacao_pagamento ||= Time.zone.now
   	self.saldo_anterior ||= ContaCorrente.where(usuario_id: usuario).sum(:valor)
+  end
+
+  def banco_obrigatorio
+    if ![Lancamento::DEBITO, Lancamento::CREDITO].include?(self.lancamento.nome) && self.banco_id.blank?
+      self.errors.add(:banco, "é obrigatório")
+    end
   end
 
   def atualiza_saldo

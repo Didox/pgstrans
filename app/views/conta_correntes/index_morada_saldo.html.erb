@@ -54,7 +54,9 @@
           <td style="width: 150px"><%= usuario.municipio.nome rescue "" %></td>
           <td style="width: 100px" align="right"><%= number_to_currency(usuario.saldo, :unit => "KZ", :precision => 2) %></td>
           <td style="width: 100px" align="right">
-            <button>Zerar saldo</button>
+            <form action="/usuarios/<%= usuario.id %>/zerar_saldo" onsubmit="return confirm('Confirma?')" method="post">
+              <button type="submit" class="btn btn-danger">Zerar saldo</button>
+            </form>
           </td>
         </tr>
           <% valor_total += usuario.saldo %>

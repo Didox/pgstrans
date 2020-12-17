@@ -63,7 +63,8 @@ class PerfilUsuario < ApplicationRecord
       controle_acessos_modelo_delete: "Controle de Acesso MODELOS (EXCLUIR)",
       lucros: "Relatório de Descontos e Lucro",
       movicel_loop: "Programa de Repetição Timeout Movicel",
-      processar: "Processar dados"
+      processar: "Processar dados",
+      zerar_saldo: "Zerar saldo",
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]

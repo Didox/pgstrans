@@ -119,15 +119,19 @@
             <b>Login:</b> <%= conta_corrente.usuario.login %><br>
             <b>Usuário:</b> <%= conta_corrente.usuario.nome %><br>
             <b>Lançamento:</b> <%= conta_corrente.lancamento.nome %><br>
-            <b>Banco:</b> <%= conta_corrente.banco.nome %><br>
-            <b>IBAN:</b> <%= conta_corrente.iban %><br>
+            <% if conta_corrente.banco_id.present? %>
+              <b>Banco:</b> <%= conta_corrente.banco.nome %><br>
+            <% end %>
+            <% if conta_corrente.iban.present? %>
+              <b>IBAN:</b> <%= conta_corrente.iban %><br>
+            <% end %>
             <b>Observação:</b> <%= conta_corrente.observacao %><br>
             <% if conta_corrente.responsavel_aprovacao.present? %>
               <b>Responsável aprovação:</b> <%= conta_corrente.responsavel_aprovacao.nome %>
             <% end %>
           </td>
           <td style="width: 250px">
-            <b>Valor do Lançamento:</b> <%= number_to_currency(conta_corrente.valor, :unit => "KZ") %><br>
+            <b>Valor do Lançamento:</b> <span <%if conta_corrente.lancamento.nome == Lancamento::DEBITO%> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span><br>
             <b>Saldo Atual:</b> <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %><br>
             <b>Saldo Anterior:</b> <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %><br>
           </td>
