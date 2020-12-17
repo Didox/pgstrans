@@ -8,6 +8,8 @@
 
   <div class="container">
     <dl class="dl-horizontal">
+      <dt>Login:</dt>
+      <dd><%= @conta_corrente.usuario.login %></dd>
       <dt>Usuário:</dt>
       <dd><%= @conta_corrente.usuario.nome %></dd>
       <dt>Lançamento:</dt>
@@ -16,18 +18,24 @@
         <dt>Banco:</dt>
         <dd><%= @conta_corrente.banco.nome %></dd>
       <% end %>
-      <dt>Valor:</dt>
-      <dd><%= number_to_currency(@conta_corrente.valor, :unit => "KZ") %></dd>
       <% if @conta_corrente.banco_id.present? %>
         <dt>IBAN:</dt>
         <dd><%= @conta_corrente.iban %></dd>
       <% end %>
       <dt>Data da Alegação de Pagamento:</dt>
       <dd><%= @conta_corrente.data_alegacao_pagamento %></dd>
+      <hr>
+      <dt>
+        Valor do Lançamento:
+      </dt>
+      <dd>
+          <%= number_to_currency(@conta_corrente.valor, :unit => "KZ") %>
+      </dt>
       <dt>Saldo Anterior:</dt>
-      <dd><%= @conta_corrente.saldo_anterior %></dd>
+      <dd><%= number_to_currency(@conta_corrente.saldo_anterior, :unit => "KZ") %></dd>
       <dt>Saldo Atual:</dt>
-      <dd><%= @conta_corrente.saldo_atual %></dd>
+      <dd><%= number_to_currency(@conta_corrente.saldo_atual, :unit => "KZ") %></dd>
+      <hr>
       <dt>Data da Última Atualização de Saldo:</dt>
       <dd><%= @conta_corrente.data_ultima_atualizacao_saldo %></dd>
       <% if @conta_corrente.responsavel_aprovacao.present? %>

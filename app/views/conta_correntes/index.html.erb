@@ -2,7 +2,7 @@
 
   <h4>
     Conta Corrente -
-    Saldo Disponível para usuário <%= usuario_logado.nome %>: <%= number_to_currency(usuario_logado.saldo, :unit => "KZ", :precision => 2) %>
+    Saldo Disponível para o usuário <%= usuario_logado.nome %>: <%= number_to_currency(usuario_logado.saldo, :unit => "KZ", :precision => 2) %>
   </h4>
 
   <!-- Page Heading/Breadcrumbs -->
@@ -132,8 +132,10 @@
           </td>
           <td style="width: 250px">
             <b>Valor do Lançamento:</b> <span <%if conta_corrente.lancamento.nome == Lancamento::DEBITO%> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span><br>
-            <b>Saldo Atual:</b> <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %><br>
+            <hr>
             <b>Saldo Anterior:</b> <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %><br>
+            <hr>
+            <b>Saldo Atual:</b> <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %><br>
           </td>
           <td style="width: 250px">
             <b>Data do Lançamento:</b><br>

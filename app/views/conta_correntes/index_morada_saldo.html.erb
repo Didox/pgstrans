@@ -33,10 +33,10 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Identificador</th>
+          <th scope="col">ID</th>
+          <th scope="col">Login</th>
           <th scope="col">Nome do Usuário</th>
           <th scope="col">Morada</th>
-          <th scope="col">Bairro</th>
           <th scope="col">Município</th-->
           <th scope="col" align="right">Saldo</th>
           <th scope="col" align="right"></th>
@@ -47,15 +47,19 @@
         <% valor_total = 0 %>
         <% @usuarios.each do |usuario| %>
         <tr>
-          <td style="width: 50px" align="right"><%= usuario.id %></td>
-          <td style="width: 200px"><%= usuario.nome %></td>
+          <td style="width: 25px" align="right"><%= usuario.id %></td>
+          <td style="width: 100px"><%= usuario.login %></td>
+          <td style="width: 400px"><%= usuario.nome %></td>
           <td style="width: 300px"><%= usuario.morada %></td>
-          <td style="width: 150px"><%= usuario.bairro %></td>
           <td style="width: 150px"><%= usuario.municipio.nome rescue "" %></td>
-          <td style="width: 100px" align="right"><%= number_to_currency(usuario.saldo, :unit => "KZ", :precision => 2) %></td>
+          <td style="width: 120px" align="right"><%= number_to_currency(usuario.saldo, :unit => "KZ", :precision => 2) %></td>
           <td style="width: 100px" align="right">
             <form action="/usuarios/<%= usuario.id %>/zerar_saldo" onsubmit="return confirm('Confirma?')" method="post">
-              <button type="submit" class="btn btn-danger">Zerar saldo</button>
+                <button type="submit" class="btn btn-danger"
+                <% if usuario.saldo <= 0 %> 
+                  disabled
+                <% end %>
+                >Zerar Saldo</button>
             </form>
           </td>
         </tr>
