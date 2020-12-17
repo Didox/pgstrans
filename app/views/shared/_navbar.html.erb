@@ -52,11 +52,7 @@
 
         <script type="text/javascript">
           $(".jsmenu a.jsdropdown").click(function(){
-            $(".jsmenu ." + $(this).attr("id")).show();
-          });
-
-          $("#content").click(function(){
-            $(".jsmenu .jsItensMenu").hide();
+            $(".jsmenu ." + $(this).attr("id")).toggle();
           });
         </script>
       </div>
