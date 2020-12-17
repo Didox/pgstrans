@@ -39,6 +39,7 @@
           <th scope="col">Bairro</th>
           <th scope="col">Município</th-->
           <th scope="col" align="right">Saldo</th>
+          <th scope="col" align="right"></th>
         </tr>
       </thead>
 
@@ -52,6 +53,9 @@
           <td style="width: 150px"><%= usuario.bairro %></td>
           <td style="width: 150px"><%= usuario.municipio.nome rescue "" %></td>
           <td style="width: 100px" align="right"><%= number_to_currency(usuario.saldo, :unit => "KZ", :precision => 2) %></td>
+          <td style="width: 100px" align="right">
+            <button>Zerar saldo</button>
+          </td>
         </tr>
           <% valor_total += usuario.saldo %>
         <% end %>
