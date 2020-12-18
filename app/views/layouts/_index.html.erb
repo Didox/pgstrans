@@ -185,7 +185,7 @@
                 <ul class="list-group">
                     <% if PerfilUsuario.tem_acesso?(usuario_logado, :ContaCorrentesController, :index) %>
                         <li class="list-group-item">
-                            <%= link_to 'Creditar Conta Corrente', conta_correntes_path %>
+                            <%= link_to 'Lançamento em Conta Corrente de Usuário', conta_correntes_path %>
                         </li>
                     <% end %>
 

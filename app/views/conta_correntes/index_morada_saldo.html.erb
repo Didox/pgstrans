@@ -33,7 +33,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col">ID Registro</th>
           <th scope="col">Login</th>
           <th scope="col">Nome do Usuário</th>
           <th scope="col">Morada</th>
@@ -55,7 +55,7 @@
           <td style="width: 120px" align="right"><%= number_to_currency(usuario.saldo, :unit => "KZ", :precision => 2) %></td>
           <td style="width: 100px" align="right">
             <form action="/usuarios/<%= usuario.id %>/zerar_saldo" onsubmit="return confirm('Confirma?')" method="post">
-                <button type="submit" class="btn btn-danger"
+                <button type="submit" class="btn btn-warning"
                 <% if usuario.saldo <= 0 %> 
                   disabled
                 <% end %>

@@ -11,7 +11,6 @@ class ContaCorrente < ApplicationRecord
 
   after_save :atualiza_saldo
 
-
   def responsavel_aprovacao
     return nil if self.responsavel_aprovacao_id.blank? 
     

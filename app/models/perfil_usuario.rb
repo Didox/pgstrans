@@ -65,7 +65,7 @@ class PerfilUsuario < ApplicationRecord
       lucros: "Relatório de Descontos e Lucro",
       movicel_loop: "Programa de Repetição Timeout Movicel",
       processar: "Processar dados",
-      zerar_saldo: "Efetivar a ação de ZERAR SALDO de usuário presente em Conta Corrente / Lista de Saldo do Usuário ",
+      zerar_saldo: "Efetivar a ação de ZERAR SALDO de usuário presente em Conta Corrente / Lançamento em Conta Corrente de Usuário ",
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]

@@ -43,7 +43,7 @@ class ContaCorrentesController < ApplicationController
 
   def index_carregamento_usuario
     @conta_correntes = ContaCorrente.com_acesso(usuario_logado)
-    @conta_correntes = @conta_correntes.where(usuario_id: params[:usuario_id])
+    #@conta_correntes = @conta_correntes.where(usuario_id: params[:usuario_id])
 
     if params[:nome].present?
       @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
@@ -91,7 +91,7 @@ class ContaCorrentesController < ApplicationController
       else
         @conta_corrente.valor = @conta_corrente.valor.abs
       end
-
+      
       respond_to do |format|
         if @conta_corrente.save
 
