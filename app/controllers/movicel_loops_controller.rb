@@ -76,6 +76,6 @@ class MovicelLoopsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def movicel_loop_params
-      params.require(:movicel_loop).permit(:usuario, :token, :uri, :ambiente, :agente, :terminal, :valor, :repeticao, :nropedidoinicio, :nropedido, :request, :response)
+      params.require(:movicel_loop).permit(:usuario, :token, :uri, :ambiente, :agente, :terminal, :valor, :repeticao, :nropedidoinicio, :nropedido, :request, :response, :processar_loop)
     end
 end
