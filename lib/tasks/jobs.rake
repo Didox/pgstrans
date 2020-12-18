@@ -10,7 +10,7 @@ namespace :jobs do
     MovicelLoop.where(processar: true).each do |movicel_loop|
       begin
         movicel_loop.processar!
-      rescue Exception err
+      rescue Exception => err
         puts "==============="
         puts err.mensagem
         puts "==============="
