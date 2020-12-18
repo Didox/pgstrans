@@ -7,12 +7,15 @@
   <!-- /.row -->  
 
   <div class="container">
-    <dl class="dl-horizontal">
-      <dt>Request:</dt>
-      <dd><%= @loop_log.request %></dd>
-      <dt>Response:</dt>
-      <dd><%= @loop_log.response %></dd>
-    </dl>
+    <h1>Envio para movicel</h1>
+    <%= raw @loop_log.request %>
+    <hr>
+    <br>
+    <br>
+    <br>
+    
+    <h1>Resposta da movicel</h1>
+    <%= raw @loop_log.response %>
 
     <div class="page-header">
       <%= link_to "/movicel_loops/#{@loop_log.movicel_loop_id}/loop_logs", class: 'btn btn-danger' do %>

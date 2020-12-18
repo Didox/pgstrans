@@ -12,7 +12,7 @@
       <thead>
         <tr>
           <th scope="col">Sobre a Transação<br>
-          <th colspan="3">Ações para o Registro</th>
+          <th colspan="4">Ações para o Registro</th>
         </tr>
       </thead>
 
@@ -35,6 +35,7 @@
             <strong>Nro. Deste Pedido (Transação): </strong><%= movicel_loop.nropedido %>
           </td>        
           <td><%= link_to 'Processar', "/movicel_loops/#{movicel_loop.id}/processar", method: :post, data: { confirm: 'Tem certeza?' } %></td>
+          <td><%= link_to 'Logs', "/movicel_loops/#{movicel_loop.id}/loop_logs" %></td>
           <td><%= link_to 'Mostrar', movicel_loop %></td>
           <td><%= link_to 'Editar', edit_movicel_loop_path(movicel_loop) %></td>
           <td><%= link_to 'Apagar', movicel_loop, method: :delete, data: { confirm: 'Tem certeza?' } %></td>

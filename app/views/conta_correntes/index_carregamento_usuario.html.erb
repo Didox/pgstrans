@@ -81,11 +81,11 @@
 
       <tbody>
         <% valor_total = 0 %>
-        <% @usuarios.each do |usuario| %>
+        <% @conta_correntes.each do |conta_corrente| %>
         <tr>
-          <td style="width: 25px" align="right"><%= usuario.id %></td>
-          <td style="width: 100px"><%= usuario.login %></td>
-          <td style="width: 400px"><%= usuario.nome %></td>
+          <td style="width: 25px" align="right"><%= conta_corrente.usuario.id %></td>
+          <td style="width: 100px"><%= conta_corrente.usuario.login %></td>
+          <td style="width: 400px"><%= conta_corrente.usuario.nome %></td>
           <td style="width: 120px" align="right"><%= number_to_currency(conta_corrente.valor, :unit => "KZ", :precision => 2) %></td>
           <td style="width: 400px"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %></td>
           <% if conta_corrente.responsavel_aprovacao.present? %>

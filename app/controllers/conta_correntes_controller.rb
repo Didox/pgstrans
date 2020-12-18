@@ -42,11 +42,17 @@ class ContaCorrentesController < ApplicationController
   end
 
   def index_carregamento_usuario
-    @usuarios = Usuario.com_acesso(usuario_logado)
+    @conta_correntes = ContaCorrente.com_acesso(usuario_logado)
+    @conta_correntes = @conta_correntes.where(usuario_id: params[:usuario_id])
+
+    if params[:nome].present?
+      @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
+      @conta_correntes = @conta_correntes.where("usuarios.nome ilike '%#{params[:nome]}%'")
+    end
+
     options = {page: params[:page] || 1, per_page: 10}
-    @usuarios = @usuarios.paginate(options)
-    @usuarios = @usuarios.reorder("nome asc")
-    @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @conta_correntes = @conta_correntes.paginate(options)
+    @conta_correntes = @conta_correntes.reorder("created_at desc")
   end
 
   # GET /conta_correntes/new

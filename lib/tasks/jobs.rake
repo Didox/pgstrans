@@ -5,6 +5,21 @@ namespace :jobs do
     partner.importa_dados!
   end
 
+  desc "Processar loop movicel"
+  task processar_loop_movicel: :environment do
+    MovicelLoop.where(processar: true).each do |movicel_loop|
+      begin
+        movicel_loop.processar!
+      rescue Exception err
+        puts "==============="
+        puts err.mensagem
+        puts "==============="
+        puts err.backtrace
+        puts "==============="
+      end
+    end
+  end
+
   desc "Adiciona grupo rosi"
   task grupo_rosi: :environment do
     usuario = Usuario.where("email = 'rosi.volgarin@gmail.com'").first
