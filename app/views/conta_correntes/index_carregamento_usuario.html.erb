@@ -85,11 +85,11 @@
           <td style="width: 150px"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %></td>
           <td style="width: 200px"><%= conta_corrente.lancamento.nome rescue "" %>
           <td style="width: 200px"><%= conta_corrente.responsavel_aprovacao.nome rescue "" %>
+          <% valor_total += conta_corrente.valor %>
           <td>
           <%= link_to 'Mostrar', conta_corrente %>
           </td>
         </tr>
-        <% valor_total += conta_corrente.valor %>
         <% end %>
         <tfoot>
           <tr>
