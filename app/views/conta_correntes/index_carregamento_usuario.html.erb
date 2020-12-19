@@ -49,17 +49,18 @@
         </div>
         <div class="form-group">
           <div style="float: right;margin-right:10px">
-            <input type="submit" value="Buscar" class="btn btn-info">
+            <input type="checkbox" name="download_xlsx" id="download_xlsx">
+            <input type="submit" value="Exportar Excel (xlsx)" onclick="$('#download_xlsx').val('ok');" class="btn btn-success navbar-btn btn-space mobile-botao">
+            <input type="submit" value="Buscar" class="btn btn-space btn-info">
             <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-            <span class="glyphicon glyphicon-list-alt"></span>
-            Voltar
+              <span class="glyphicon glyphicon-list-alt"></span>
+              Voltar
             <% end %>
           </div>
         </div>
       </form>
     </div>
- 
-  <div class="container">
+    <div class="container">
     <table class="table table-hover">
       <thead>
         <tr>

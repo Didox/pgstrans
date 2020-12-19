@@ -61,7 +61,43 @@ class ContaCorrentesController < ApplicationController
     options = {page: params[:page] || 1, per_page: 10}
     @conta_correntes = @conta_correntes.paginate(options)
     @conta_correntes = @conta_correntes.reorder("created_at desc")
+  
+    if params[:download_xlsx].present?
+        filename = "carregamento_usuario_#{Time.now.strftime("%Y%m%d%H%M%S")}.xlsx"
+        workbook = WriteXLSX.new("/tmp/#{filename}")
+        worksheet = workbook.add_worksheet
+
+        format = workbook.add_format
+        format.set_bold
+
+        worksheet.write(0,0, "ID Usuário", format)
+        worksheet.write(0,1, "Login do Usuário", format)
+        worksheet.write(0,2, "Nome do Usuário", format)
+        worksheet.write(0,3, "Valor do Lançamento", format)
+        worksheet.write(0,4, "Data do Lançamento", format)
+        worksheet.write(0,5, "Tipo do Lançamento", format)
+        worksheet.write(0,6, "Responsável pela aprovação", format)
+
+        i = 1
+        @conta_correntes.each do |conta_corrente|
+          worksheet.write(i, 0, conta_corrente.usuario.id)
+          worksheet.write(i, 1, conta_corrente.usuario.login)
+          worksheet.write(i, 2, conta_corrente.usuario.nome)
+          worksheet.write(i, 3, conta_corrente.valor)
+          worksheet.write(i, 4, conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M"))
+          worksheet.write(i, 5, (conta_corrente.lancamento.nome rescue ""))
+          worksheet.write(i, 6, (conta_corrente.responsavel_aprovacao.nome rescue ""))
+          i += 1
+        end
+
+        workbook.close
+
+        send_data File.read("/tmp/#{filename}"), type: "application/xlsx", filename: filename
+
+        return
+      end
   end
+
 
   # GET /conta_correntes/new
   def new
