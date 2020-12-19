@@ -39,6 +39,7 @@ class ContaCorrentesController < ApplicationController
     @usuarios = @usuarios.paginate(options)
     @usuarios = @usuarios.reorder("nome asc")
     @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @usuarios = @usuarios.where("usuarios.login ilike '%#{params[:login]}%'")
   end
 
   def index_carregamento_usuario

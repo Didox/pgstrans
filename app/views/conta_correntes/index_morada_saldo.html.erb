@@ -9,7 +9,15 @@
   <div style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-12">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Login</label>
+            <div>
+              <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-9">
           <div class="form-group">
             <label>Usuário</label>
             <div>
@@ -36,7 +44,6 @@
           <th scope="col">ID Registro</th>
           <th scope="col">Login</th>
           <th scope="col">Nome do Usuário</th>
-          <th scope="col">Morada</th>
           <th scope="col">Município</th-->
           <th scope="col" align="right">Saldo</th>
           <th scope="col" align="right"></th>
@@ -50,7 +57,6 @@
           <td style="width: 25px" align="right"><%= usuario.id %></td>
           <td style="width: 100px"><%= usuario.login %></td>
           <td style="width: 400px"><%= usuario.nome %></td>
-          <td style="width: 300px"><%= usuario.morada %></td>
           <td style="width: 150px"><%= usuario.municipio.nome rescue "" %></td>
           <td style="width: 120px" align="right"><%= number_to_currency(usuario.saldo, :unit => "KZ", :precision => 2) %></td>
           <td style="width: 100px" align="right">
