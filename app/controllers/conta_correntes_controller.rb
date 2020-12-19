@@ -49,7 +49,14 @@ class ContaCorrentesController < ApplicationController
       @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
       @conta_correntes = @conta_correntes.where("usuarios.nome ilike '%#{params[:nome]}%'")
     end
-
+    
+    if params[:login].present?
+      @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
+      @conta_correntes = @conta_correntes.where("usuarios.login ilike '%#{params[:login]}%'")
+    end
+    
+    @conta_correntes = @conta_correntes.where("conta_correntes.lancamento_id = ?", params[:lancamento_id]) if params[:lancamento_id].present?
+    
     options = {page: params[:page] || 1, per_page: 10}
     @conta_correntes = @conta_correntes.paginate(options)
     @conta_correntes = @conta_correntes.reorder("created_at desc")
