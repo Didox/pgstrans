@@ -112,6 +112,10 @@
       <%= will_paginate @conta_correntes, :container => false %>
     </div>
 
+    <%= link_to conta_correntes_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Creditar Conta  Corrente
+    <% end %>
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar

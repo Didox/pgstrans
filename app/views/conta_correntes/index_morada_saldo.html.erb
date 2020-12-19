@@ -90,6 +90,14 @@
       <%= will_paginate @usuarios, :container => false %>
     </div>
 
+    <%= link_to "index_carregamento_usuario", class: 'btn btn-success' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Lista de Carregamento
+    <% end %>
+    <%= link_to conta_correntes_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Creditar Conta  Corrente
+    <% end %>
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar
