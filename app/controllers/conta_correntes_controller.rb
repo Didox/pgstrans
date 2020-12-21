@@ -135,10 +135,10 @@ class ContaCorrentesController < ApplicationController
       @conta_corrente.responsavel = usuario_logado
       @conta_corrente.responsavel_aprovacao_id = usuario_logado.id
       
-      if @conta_corrente.lancamento.nome == Lancamento::DEBITO
+      if @conta_corrente.lancamento_id.present? && @conta_corrente.lancamento.nome == Lancamento::DEBITO
         @conta_corrente.valor = "-#{@conta_corrente.valor.abs}"
       else
-        @conta_corrente.valor = @conta_corrente.valor.abs
+        @conta_corrente.valor = (@conta_corrente.valor || 0).abs
       end
       
       respond_to do |format|

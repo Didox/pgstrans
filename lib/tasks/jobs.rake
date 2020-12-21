@@ -7,7 +7,7 @@ namespace :jobs do
 
   desc "Processar loop movicel"
   task processar_loop_movicel: :environment do
-    MovicelLoop.where(processar: true).each do |movicel_loop|
+    MovicelLoop.where(processar_loop: true).each do |movicel_loop|
       begin
         movicel_loop.processar!
       rescue Exception => err
