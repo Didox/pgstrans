@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h4>Mostrar RelatorioConciliacaoZaptv</h4>
+  <h4>Mostrar Relatório de Conciliação ZAPTV</h4>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -25,11 +25,11 @@
       <dt>Tipo Transação:</dt>
       <dd><%= @relatorio_conciliacao_zaptv.type_data %></dd>
       <dt>Valor Total:</dt>
-      <dd><%= @relatorio_conciliacao_zaptv.total_price %></dd>
+      <dd><%= number_to_currency(@relatorio_conciliacao_zaptv.total_price) %></dd>
       <dt>Status:</dt>
       <dd><%= @relatorio_conciliacao_zaptv.status %></dd>
       <dt>Valor Unitário:</dt>
-      <dd><%= @relatorio_conciliacao_zaptv.unit_price %></dd>
+      <dd><%= number_to_currency(@relatorio_conciliacao_zaptv.unit_price) %></dd>
     </dl>
 
     <div class="page-header">
