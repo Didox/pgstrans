@@ -1,6 +1,7 @@
-<div class="container">
-
-	<h4>Novo Grupo de Usuário</h4>
+<div class="col-sm-12">
+	<div class="col-sm-12">
+		<h3>Novo Grupo de Usuário</h3>
+	</div>
 
 	<!-- Page Heading/Breadcrumbs -->
   	<%= render :partial => 'shared/header_backoffice' %>
@@ -8,9 +9,10 @@
 
 	<%= render 'form' %>
 
-	<%= link_to grupos_path, class: 'btn btn-danger' do %>
-		<span class="glyphicon glyphicon-list-alt"></span>
-		Voltar
-	<% end %>
-
+	<div class="col-sm-12">
+		<%= link_to grupos_path, class: 'btn btn-danger' do %>
+			<span class="glyphicon glyphicon-list-alt"></span>
+			Voltar
+		<% end %>
+	</div>
 </div>

@@ -1,32 +1,31 @@
-<div class="container">
+<div class="col-sm-12">
 
-  <h4>Detalhes do Grupo</h4>
+  <div class="col-sm-12">
+    <h3>Detalhes do Grupo</h3>
+  </div>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
 
-  <div class="container">
+  <div class="col-sm-12">
     <dl class="dl-horizontal">
-      <dt>Hierarquia do grupo:</dt>
-      <dd>
-        <b><%= @grupo.nome %></b>
-        <% @grupo.hierarquia.each_with_index do |grupo, i| %>
-          <div><%= raw "#{(0..i).map{|i| "&nbsp; "}.join("")} - #{grupo.nome}" %></div>
-        <% end %>
-      </dd>
-      <dt>Descrição:</dt>
-      <dd><%= @grupo.descricao %></dd>
+        <dt>Hierarquia do grupo:</dt>
+        <dd>
+          <b><%= @grupo.nome %></b>
+          <% @grupo.hierarquia.each_with_index do |grupo, i| %>
+            <div><%= raw "#{(0..i).map{|i| "&nbsp; "}.join("")} - #{grupo.nome}" %></div>
+          <% end %>
+        </dd>
+        <dt>Descrição:</dt>
+        <dd><%= @grupo.descricao %></dd>
     </dl>
-
     <hr>
-
     <%= link_to 'Console Acessos', "/grupos/#{@grupo.id}/controle-acessos", class: 'btn btn-danger' %></td>
-    
     <hr>
 
     <div class="page-header">
-      <%= link_to grupos_path, class: 'btn btn-danger' do %>
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Voltar
       <% end %>

@@ -1,13 +1,15 @@
-<div class="container">
+<div class="col-sm-12">
   <p id="notice"><%= notice %></p>
 
-  <h4>Usuários do Grupo</h4>
+  <div class="col-sm-12">
+    <h3>Usuários do Grupo</h3>
+  </div>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div class="container scroltable">
+  <div class="col-sm-12 scroltable">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -49,7 +51,7 @@
       Novo Registro
     <% end %>     
 
-    <%= link_to grupos_path, class: 'btn btn-danger' do %>
+    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar
     <% end %>
