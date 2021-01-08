@@ -30,11 +30,11 @@
       <dd><%= @relatorio_conciliacao_zaptv.status %></dd>
       <dt>Valor Unitário:</dt>
       <dd><%= number_to_currency(@relatorio_conciliacao_zaptv.unit_price) %></dd>
-      <dt>Número do Cartão:</dt>
+      <dt>Número do Cartão ZAPPI:</dt>
       <dd>
           <% @relatorio_conciliacao_zaptv.vendas.each do |venda| %>
               <a href="/vendas/<%= venda.id %>">
-                Zappi(Número do cartão): <%= venda.zappi %>
+                <%= venda.zappi %>
               </a>
           <% end %>
       </dd>
