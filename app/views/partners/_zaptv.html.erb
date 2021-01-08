@@ -34,7 +34,7 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Código da operação venda</label>
+            <label>Código da Operação de Venda</label>
             <div>
               <input type="text" name="operation_code" value="<%= params[:operation_code] %>" class="form-control">
             </div>
@@ -62,15 +62,15 @@
         <tr>
           <th scope="col">ID ZAP</th>
           <th scope="col">ID Interno Pagasó</th>
-          <th scope="col">Código do Produto</th>
+          <th scope="col">Código Produto</th>
           <th scope="col">Nome do Produto</th>
           <th scope="col">QTD</th>
           <th scope="col">Data</th>
           <th scope="col">Tipo</th>
-          <th scope="col">Preço Total</th>
+          <th scope="col" style="width: 35%">Preço Total</th>
           <th scope="col">Status</th>
-          <th scope="col">Preço Unitário</th>
-          <th scope="col">Card Number</th>
+          <th scope="col" style="width: 25%">Preço Unitário</th>
+          <th scope="col" style="width: 25%">Número do Cartão ZAPPI</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -90,16 +90,11 @@
             KZ<%= number_to_currency((relatorio_conciliacao_zaptv.unit_price * 24), :unit => "") %>
           </td>
           <td>
-            Vendas:
-            <ul>
-              <% relatorio_conciliacao_zaptv.vendas.each do |venda| %>
-                <li>
-                  <a href="/vendas/<%= venda.id %>">
-                    Zappi(Número cartão): <%= venda.zappi %>
-                  </a>
-                </li>
-              <% end %>
-            </ul>
+            <% relatorio_conciliacao_zaptv.vendas.each do |venda| %>
+                <a href="/vendas/<%= venda.id %>">
+                  <%= venda.zappi %>
+                </a>
+            <% end %>
           </td>
           <td><%= link_to 'Mostrar', relatorio_conciliacao_zaptv %></td>
         </tr>
