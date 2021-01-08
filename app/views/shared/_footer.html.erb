@@ -1,28 +1,22 @@
 <!-- Footer -------------------------------------- -->
 <nav class="navbar navbar-wrapper navbar-dark bg-default navbar-fixed-bottom">
     <div class="navbar-collapse">
-		<div class="container">
-	      <ul class="nav navbar-nav pull-right">
-	        <li>
-
-	            <button type="button" class="btn btn-info navbar-btn btn-space mobile-botao" style="width: 280px; text-align: center;">
-	              <copyright>
-	                  &copy; 2016 - <%= Time.now.year %> TIV TECNOLOGIA / PAGASÓ
-	              </copyright>        
-	            </button>
-	  
-	            <button type="button" class="btn btn-warning navbar-btn btn-space mobile-botao" style="width: 262px; text-align: center;">
-	              <%= link_to ('Segurança e Privacidade').upcase, "https://www.pagaso.com.br/pages/policies", target: "_blank", :style => "color: #fff" %>
-	            </button>
-	  
-	            <button type="button" class="btn btn-danger navbar-btn pull-right mobile-botao" style="width: 262px; text-align: center;">
-	              <%= link_to ('Seja Nosso Cliente').upcase, "https://www.pagaso.com.br/contact-us", target: "_blank", :style => "color: #fff" %>
-	            </button>
-
-	          </li>
-	      </ul>
-  		</div>
+		<ul class="nav navbar-nav pull-right">
+			<li>
+				<button type="button" class="btn btn-info navbar-btn btn-space mobile-botao" style="width: 280px; text-align: center;">
+					<copyright>
+						&copy; 2016 - <%= Time.now.year %> TIV TECNOLOGIA / PAGASÓ
+					</copyright>        
+				</button>
+				<button type="button" class="btn btn-warning navbar-btn btn-space mobile-botao" style="width: 262px; text-align: center;">
+					<%= link_to ('Segurança e Privacidade').upcase, "https://www.pagaso.com.br/pages/policies", target: "_blank", :style => "color: #fff" %>
+				</button>
+				<button type="button" class="btn btn-danger navbar-btn pull-right mobile-botao" style="width: 262px; text-align: center;">
+					<%= link_to ('Seja Nosso Cliente').upcase, "https://www.pagaso.com.br/contact-us", target: "_blank", :style => "color: #fff" %>
+				</button>
+			</li>
+		</ul>
     </div>
  </nav>
 
- <h3 style="font-size: 25px;margin-top: 20px;"></h3>
+ <h3 style="font-size: 25px;margin-top: 5px;"></h3>
