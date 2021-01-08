@@ -5,23 +5,14 @@
       <strong>Dados</strong><br />
     </div>
   </div>
-
   <div class="card border-bootstrap box-shadow mb-4">
-      <div class="card-header text-bootstrap align-items-center justify-content-between">
-
-        <%= simple_form_for(@master_profile) do |f| %>
-          <%= f.error_notification %>
-          <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-          
-          <div class="form-input">
-            <%= f.input :description, :label => "Descrição" %>
-          </div>
-          
-          <div class="form-actions">
-            <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
-          </div>
-        <% end %>
-      </div>
+    <div class="card-header text-bootstrap align-items-center justify-content-between">
+      <%= simple_form_for(@master_profile) do |f| %>
+        <%= f.error_notification %>
+        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+        <%= f.input :description, :label => "Descrição" %>
+        <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
+      <% end %>
     </div>
   </div>
 </div>

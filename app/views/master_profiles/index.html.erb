@@ -1,12 +1,13 @@
-<div class="container scroltable">
-
-  <h3>Perfil Master</h3>
-
+<div class="col-md-12">
+	<div class="col-md-12">
+    <h3>Perfil Master</h3>
+  </div>
+  <br>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
-
-  <div style="margin-top:10px">
+  <br>
+  <div class="col-md-12">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
         <div class="col-sm-12">
@@ -29,7 +30,7 @@
     </form>
   </div>  
 
-  <div class="container">
+  <div class="col-md-12">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -38,7 +39,6 @@
           <th scope="col" colspan="3">Ações</th>
         </tr>
       </thead>
-
       <tbody>
         <% @master_profiles.each do |master_profile| %>
           <tr>
@@ -51,16 +51,16 @@
         <% end %>
       </tbody>
     </table>
-
+  
     <div class="apple_pagination">
       <%= will_paginate @lancamentos, :container => false %>
     </div>
-
+  </div>
+  <div class="col-md-12">
     <%= link_to new_master_profile_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registro
     <% end %>    
-
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar

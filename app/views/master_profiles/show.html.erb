@@ -1,27 +1,25 @@
-<div class="container">
-
-	<h4>Mostra Tipo de Perfil Master</h4>
-
+<div class="col-md-12">
+	<div class="col-md-12">
+		<h4>Mostra Tipo de Perfil Master</h4>
+	</div>
+	<br><br>
 	<!-- Page Heading/Breadcrumbs -->
 	<%= render :partial => 'shared/header_backoffice' %>
 	<!-- /.row -->
-
-	<div class="container">
+	<br><br>
+	<div class="col-md-12">
 		<p>
 		  <strong>ID:</strong>
 		  <%= @master_profile.id %>
 		</p>
-
 		<p>
 		  <strong>Descrição:</strong>
 		  <%= @master_profile.description %>
 		</p>
-
 		<%= link_to edit_master_profile_path(@master_profile), class: 'btn btn-danger' do %>
 		  <span class="glyphicon glyphicon-pencil"></span>
 		  Editar
 		<% end %>
-
 		<%= link_to master_profiles_path, class: 'btn btn-danger' do %>
 		  <span class="glyphicon glyphicon-list-alt"></span>
 		  Voltar

@@ -1,14 +1,18 @@
-<h4>Novo Tipo de Perfil Principal</h4>
-
-<!-- Page Heading/Breadcrumbs -->
-<%= render :partial => 'shared/header_backoffice' %>
-<!-- /.row -->
+<div class="col-md-12">
+  <div class="col-md-12">
+    <h4>Novo Tipo de Perfil Principal</h4>
+  </div>
+  <br><br>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
   
-<div class="container">
   <%= render 'form' %>
 
-  <%= link_to master_profiles_path, class: 'btn btn-danger' do %>
+  <div class="col-md-12">
+    <%= link_to master_profiles_path, class: 'btn btn-danger' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
     Voltar
   <% end %>
+  </div>
 </div>
