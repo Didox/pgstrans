@@ -1,15 +1,17 @@
-<div class="container">
-	<h3>Editando SubDistribuidor</h3>
-
+<div class="col-md-12">
+	<div class="col-md-12">
+		<h3>Editando Subdistribuidor</h3>
+	</div>
+	<br><br>
 	<%= render 'form', sub_distribuidor: @sub_distribuidor %>
-
+</div>
+<div class="col-md-12">
 	<%= link_to @sub_distribuidor, class: 'btn btn-danger' do %>
 		<span class="glyphicon glyphicon-info-sign"></span>
 		Mostrar
 	<% end %>
-	<%= link_to sub_distribuidors_path, class: 'btn btn-danger' do %>
+	<%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
 		<span class="glyphicon glyphicon-list-alt"></span>
 		Voltar
 	<% end %>
-
 </div>
