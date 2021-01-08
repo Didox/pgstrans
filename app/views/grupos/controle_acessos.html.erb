@@ -1,7 +1,6 @@
-<div class="container scroltable">
-
+<div style="padding:10px">
   <h4>Perfis de Usuários</h4>
-
+  <br>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
@@ -45,7 +44,7 @@
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-info">
-          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+          <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
           <% end %>        
@@ -54,7 +53,7 @@
     </form>
   </div>  
 
-  <div class="container">
+  <div>
     <div style="margin-left:9px">
       * Grupo de acesso ao qual está associado o registro
     </div>

@@ -1,4 +1,4 @@
-<div class="container">
+<div style="padding:10px">
   <p id="notice"><%= notice %></p>
 
   <h4>Grupos de Usuários</h4>
@@ -45,7 +45,6 @@
           </div>
         </div>
       </div> 
-    </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-info">
@@ -60,35 +59,35 @@
     </form>
   </div>
 
-  <div class="container scroltable">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Hierarquia do Grupo</th>
-          <th scope="col" style="width: 50%;">Descrição</th>
-          <th colspan="3">Ações</th>
-        </tr>
-      </thead>
+  
+  <table class="table scroltable table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Hierarquia do Grupo</th>
+        <th scope="col" style="width: 50%;">Descrição</th>
+        <th colspan="3">Ações</th>
+      </tr>
+    </thead>
 
-      <tbody>
-        <% @grupos.each do |grupo| %>
-        <tr>
-          <td>
-            <b><%= grupo.nome %> (<%= grupo.id %>)</b>
-            <% grupo.hierarquia.each_with_index do |g, i| %>
-              <div><%= raw "#{(0..i).map{|i| "&nbsp; "}.join("")} - #{g.nome}" %></div>
-            <% end %>
-          </td>
-          <td><%= grupo.descricao %></td>
-          <td><%= link_to 'Console Acessos', "/grupos/#{grupo.id}/controle-acessos" %></td>
-          <td><%= link_to 'Usuários', grupo_usuarios_path(grupo) %></td>
-          <td><%= link_to 'Mostrar', grupo %></td>
-          <td><%= link_to 'Editar', edit_grupo_path(grupo) %></td>
-          <td><%= link_to 'Apagar', grupo, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <tbody>
+      <% @grupos.each do |grupo| %>
+      <tr>
+        <td>
+          <b><%= grupo.nome %> (<%= grupo.id %>)</b>
+          <% grupo.hierarquia.each_with_index do |g, i| %>
+            <div><%= raw "#{(0..i).map{|i| "&nbsp; "}.join("")} - #{g.nome}" %></div>
+          <% end %>
+        </td>
+        <td><%= grupo.descricao %></td>
+        <td><%= link_to 'Console Acessos', "/grupos/#{grupo.id}/controle-acessos" %></td>
+        <td><%= link_to 'Usuários', grupo_usuarios_path(grupo) %></td>
+        <td><%= link_to 'Mostrar', grupo %></td>
+        <td><%= link_to 'Editar', edit_grupo_path(grupo) %></td>
+        <td><%= link_to 'Apagar', grupo, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 
     <div class="apple_pagination">
       <%= will_paginate @grupos, :container => false %>
