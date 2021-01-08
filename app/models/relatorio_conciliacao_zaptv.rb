@@ -19,7 +19,7 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
   end
 
   def card_number
-    self.vendas.map { |venda| JSON.parse(venda.request_send)["zappi"] }.join(" ")
+    self.vendas.map { |venda| venda.zappi }.join(" ")
   rescue 
     ""
   end
