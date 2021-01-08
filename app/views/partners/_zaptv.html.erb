@@ -94,7 +94,6 @@
             <ul>
               <% relatorio_conciliacao_zaptv.vendas.each do |venda| %>
                 <li>
-                  <%= venda.response_get %>
                   <a href="/vendas/<%= venda.id %>">
                     Zappi(Número cartão): <%= venda.zappi %>
                   </a>
