@@ -47,7 +47,7 @@ class PartnersController < ApplicationController
 
     if params[:operation_code].present?
       @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.joins("inner join vendas on vendas.partner_id = relatorio_conciliacao_zaptvs.partner_id")
-      @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where("vendas.response_get ilike '%:#{params[:operation_code]}%' or vendas.response_get ilike '%: #{params[:operation_code]}%'")
+      @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where("vendas.response_get ilike '%:#{params[:operation_code]},%' or vendas.response_get ilike '%: #{params[:operation_code]},%'")
       @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where(operation_code: params[:operation_code])
     end
 
