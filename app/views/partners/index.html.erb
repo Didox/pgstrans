@@ -16,7 +16,7 @@
               <select name="parceiro_id" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
                 <% Partner.all.each do |partner| %>
-                  <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
+                <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %>><%= partner.name %></option>
                 <% end %>
               </select>
             </div>
@@ -29,24 +29,24 @@
               <select name="status_parceiro_id" onchange="pgstrans.carregaStatusParceiro(this)" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
                 <% StatusParceiro.all.each do |status_parceiro| %>
-                  <option value="<%= status_parceiro.id %>" <% if status_parceiro.id.to_s == params[:status_parceiro_id] %> selected="selected" <% end %> ><%= status_parceiro.nome %></option>
+                <option value="<%= status_parceiro.id %>" <% if status_parceiro.id.to_s == params[:status_parceiro_id] %> selected="selected" <% end %>><%= status_parceiro.nome %></option>
                 <% end %>
               </select>
             </div>
           </div>
         </div>
-        </div>
-           <div class="form-group">
-            <div style="float: right;margin-right:10px">
-              <input type="submit" value="Buscar" class="btn btn-success">
-              <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-                <span class="glyphicon glyphicon-list-alt"></span>
-                Voltar
-              <% end %>
-            </div>
-          </div>
-        </form>
       </div>
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit" value="Buscar" class="btn btn-success">
+          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-list-alt"></span>
+          Voltar
+          <% end %>
+        </div>
+      </div>
+    </form>
+  </div>
 
   <div class="container scroltable">
     <table class="table table-hover">
@@ -64,17 +64,17 @@
 
       <tbody>
         <% @partners.each do |partner| %>
-          <tr>
-            <td><%= partner.id %></td>
-            <td><%= partner.name %></td>
-            <td align="center"><%= partner.order %></td>
-            <td align="center"><%= partner.desconto %></td>
-            <td><%= partner.status_parceiro.nome rescue "" %></td>
-            <td><%= link_to 'Descontos', partner_desconto_parceiros_path(partner) %></td>
-            <td><%= link_to 'Mostrar', partner %></td>
-            <td><%= link_to 'Editar', edit_partner_path(partner) %></td>
-            <td><%= link_to 'Apagar', partner, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
-          </tr>
+        <tr>
+          <td><%= partner.id %></td>
+          <td><%= partner.name %></td>
+          <td align="center"><%= partner.order %></td>
+          <td align="center"><%= partner.desconto %></td>
+          <td><%= partner.status_parceiro.nome rescue "" %></td>
+          <td><%= link_to 'Descontos', partner_desconto_parceiros_path(partner) %></td>
+          <td><%= link_to 'Mostrar', partner %></td>
+          <td><%= link_to 'Editar', edit_partner_path(partner) %></td>
+          <td><%= link_to 'Apagar', partner, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
+        </tr>
         <% end %>
       </tbody>
     </table>
@@ -84,13 +84,13 @@
     </div>
 
     <%= link_to new_partner_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-plus"></span>
-      Novo Registro
-    <% end %>    
+    <span class="glyphicon glyphicon-plus"></span>
+    Novo Registro
+    <% end %>
 
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
-      Voltar
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
     <% end %>
   </div>
 </div>

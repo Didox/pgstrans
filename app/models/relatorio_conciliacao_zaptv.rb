@@ -25,6 +25,6 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
   end
 
   def vendas
-    Venda.where(partner_id: self.partner_id).where("response_get ilike '%\"operation_code\": #{self.operation_code}%' ")
+    Venda.where(partner_id: self.partner_id).where("response_get ilike '%:#{self.operation_code}%' or response_get ilike '%: #{self.operation_code}%' ")
   end
 end

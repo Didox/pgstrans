@@ -32,6 +32,14 @@
             </div>
           </div>
         </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Código da operação venda</label>
+            <div>
+              <input type="text" name="operation_code" value="<%= params[:operation_code] %>" class="form-control">
+            </div>
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
@@ -86,8 +94,9 @@
             <ul>
               <% relatorio_conciliacao_zaptv.vendas.each do |venda| %>
                 <li>
+                  <%= venda.response_get %>
                   <a href="/vendas/<%= venda.id %>">
-                    Zappi(Número cartão): <%= JSON.parse(venda.request_send)["zappi"] %>
+                    Zappi(Número cartão): <%= venda.zappi %>
                   </a>
                 </li>
               <% end %>

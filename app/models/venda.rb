@@ -196,6 +196,13 @@ class Venda < ApplicationRecord
     end
   end
 
+  def zappi
+    json = self.request_send.include?("body=") ? self.request_send.split("body=")[1] : self.request_send
+    JSON.parse(json)["zappi"]
+  rescue
+    ""
+  end
+
   def self.desconto_venda(usuario, parceiro, valor)
     desconto = 0
     remuneracoes = Remuneracao.where(usuario_id: usuario.id, ativo: true)

@@ -8,7 +8,7 @@ class PartnersController < ApplicationController
 
     @partners = @partners.where(id: params[:parceiro_id]) if params[:parceiro_id].present?
     @partners = @partners.where(status_parceiro_id: params[:status_parceiro_id]) if params[:status_parceiro_id].present?
-
+    
     options = {page: params[:page] || 1, per_page: 10}
     @partners = @partners.paginate(options)    
   end
@@ -44,6 +44,13 @@ class PartnersController < ApplicationController
 
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where("relatorio_conciliacao_zaptvs.date_time >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where("relatorio_conciliacao_zaptvs.date_time <= ?", params[:data_fim].to_datetime.end_of_day) if params[:data_fim].present?
+
+    if params[:operation_code].present?
+      @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.joins("inner join vendas on vendas.partner_id = relatorio_conciliacao_zaptvs.partner_id")
+      @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where("vendas.response_get ilike '%:#{params[:operation_code]}%' or vendas.response_get ilike '%: #{params[:operation_code]}%'")
+      @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where(operation_code: params[:operation_code])
+    end
+
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.reorder("date_time desc")
 
     if params[:csv].present?
