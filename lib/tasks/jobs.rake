@@ -9,12 +9,14 @@ namespace :jobs do
   task menu_import: :environment do
     require 'yaml'
     import_menu = YAML.load_file("#{Rails.root}/config/import_menu.yml")
+    order = 1
     import_menu.each do |sessao, itens|
       itens.each do |nome, controller_action|
         controller, action = controller_action
         menus = Menu.where(sessao: sessao, nome: nome, controller: controller, action: action)
         if menus.count == 0
-          Menu.create(sessao: sessao, nome: nome, controller: controller, action: action)
+          Menu.create(sessao: sessao, nome: nome, controller: controller, action: action, ordem: order)
+          order += 1
         end
       end
     end

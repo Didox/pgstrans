@@ -1,3 +1,3 @@
 class Menu < ApplicationRecord
-  default_scope { order("sessao asc, nome asc") }
+  default_scope { order("ordem asc") }
 end
