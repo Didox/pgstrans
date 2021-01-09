@@ -1,4 +1,4 @@
-'<div class="col-md-12" data-target="toggle.grid">
+<div class="col-md-12" data-target="toggle.grid">
   <div class="card border-simpleform box-shadow mb-4">
     <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
       <div>
@@ -6,16 +6,13 @@
       </div>
     </div>
   </div>
-
   <div class="card border-bootstrap box-shadow mb-4">
     <div class="card-header text-bootstrap align-items-center justify-content-between">
-
        <%= simple_form_for(@sub_agente) do |f| %>
         <% if @sub_agente.errors.any? %>
           <div class="alert alert-danger alert-dismissable" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             <h4><%= pluralize(@sub_agente.errors.count, "erros") %> sub-agente, confira abaixo:</h4>
-
             <ul>
             <% @sub_agente.errors.full_messages.each do |msg| %>
               <li><%= msg %></li>
@@ -23,78 +20,61 @@
             </ul>
           </div>
         <% end %>
-
         <div class="form-input col-sm-6">
           <%= f.input :razao_social, :label => "Razão Social", placeholder: "Razão Social" %>
         </div>
-
         <div class="form-input col-sm-6">
           <%= f.input :nome_fantasia, :label => "Nome Fantasia", placeholder: "Nome Fantasia" %>
         </div>
-
         <div class="form-input col-sm-6">
           <%= f.input :bi, :label => "BI", placeholder: "Bilhete de Identidade" %>
         </div>
-
         <div class="form-input col-sm-6">
           <%= f.label :industry_id, "Grupo de Atividade Econômica" %>
           <%= f.select :industry_id, Industry.all.collect{|d| [d.descricao_grupo, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
-
         <div class="form-input col-sm-12">
           <%= f.input :morada, placeholder: "Morada" %>
         </div>
-
         <div class="form-input col-sm-6">
           <%= f.input :bairro, placeholder: "Bairro" %>
         </div>
-
         <div class="form-input col-sm-6">
           <%= f.label :provincia_id, "Província" %>
           <%= f.select :provincia_id, Provincium.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
-
         <div class="form-input col-sm-12">
           <%= f.input :email, :label => "E-Mail", placeholder: "E-Mail" %>
         </div>
-
         <div class="form-input col-sm-6">
           <%= f.input :telefone, :label => "Telefone(s)", placeholder: "Telefones com DDD" %>
         </div>
-
         <div class="form-input col-sm-6">
           <%= f.input :contato, :label => "Pessoa de Contacto", placeholder: "Contacto" %>
         </div>
-
         <div class="form-input col-sm-6">
           <%= f.input :store_id_parceiro, :label => "store_id_parceiro", placeholder: "Identificação da Loja na Unitel" %>
         </div>
-
         <div class="form-input col-sm-6">
           <%= f.input :seller_id_parceiro, :label => "seller_id_parceiro", placeholder: "Identificação do Agente na Unitel" %>
         </div>
-
         <div class="form-input col-sm-6">
           <%= f.input :terminal_id_parceiro, :label => "terminal_id_parceiro", placeholder: "Identificação do Terminal na Unitel" %>
         </div>
-
         <div class="form-input col-sm-6">
           <%= f.label :uni_pessoal_empresa_id, "Cliente Unipessoal / Empresa" %>
           <%= f.select :uni_pessoal_empresa_id, UniPessoalEmpresa.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
-
         <div class="form-actions col-sm-12">
           <%= f.button :button, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-ok"></span>
             Confirmar
           <% end %>
-
           <%= link_to @sub_agente, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-info-sign"></span>
             Mostrar
           <% end %>
-
-          <%= link_to sub_agentes_path, class: 'btn btn-danger' do %>
+          <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
           <% end %>

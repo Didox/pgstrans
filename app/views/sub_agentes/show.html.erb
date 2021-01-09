@@ -1,84 +1,69 @@
-<div class="container">
-
-  <h4>Detalhe do Subagente</h4>
-
+<div class="col-md-12">
+  <div class="col-md-12">
+    <h4>Detalhe do Subagente</h4>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
-  <!-- /.row -->  
-
-  <div class="container">
+  <!-- /.row -->
+  <div class="col-md-12">
     <p>
       <strong>Razão Social:</strong>
       <%= @sub_agente.razao_social %>
     </p>
-
     <p>
       <strong>Nome Fantasia:</strong>
       <%= @sub_agente.nome_fantasia %>
     </p>
-
     <p>
       <strong>BI:</strong>
       <%= @sub_agente.bi %>
     </p>
-
     <p>
       <strong>Tipo:</strong>
       <%= @sub_agente.uni_pessoal_empresa.nome rescue ""%>
     </p>
-
     <p>
       <strong>Actividade Económica (grupo):</strong>
       <%= @sub_agente.industry.descricao_grupo %>
     </p>
-
     <p>
       <strong>Morada:</strong>
       <%= @sub_agente.morada %>
     </p>
-
     <p>
       <strong>Bairro:</strong>
       <%= @sub_agente.bairro %>
     </p>
-
     <p>
       <strong>Província:</strong>
       <%= @sub_agente.provincia.nome %>
     </p>
-
     <p>
       <strong>E-Mail:</strong>
       <%= @sub_agente.email %>
     </p>
-
     <p>
       <strong>Telefone:</strong>
       <%= @sub_agente.telefone %>
     </p>
-
     <p>
       <strong>Pessoa de Contato:</strong>
       <%= @sub_agente.contato %>
     </p>
-
     <p>
       <strong>Identificação da loja na Unitel (store_id_parceiro):</strong>
       <%= @sub_agente.store_id_parceiro %>
     </p>
-
     <p>
       <strong>Identificação do agente na Unitel (seller_id_parceiro):</strong>
       <%= @sub_agente.seller_id_parceiro %>
     </p>
-
     <p>
       <strong>Identificação do terminal na Unitel (terminal_id_parceiro):</strong>
       <%= @sub_agente.terminal_id_parceiro %>
     </p>
-
     <div class="page-header">
-      <%= link_to sub_agentes_path, class: 'btn btn-danger' do %>
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Voltar
       <% end %>
