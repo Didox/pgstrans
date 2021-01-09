@@ -1,0 +1,63 @@
+<div class="col-md-12" data-target="toggle.grid">
+  <div class="card border-simpleform box-shadow mb-4">
+    <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
+      <div>
+        <strong>Dados</strong><br />
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-bootstrap box-shadow mb-4">
+    <div class="card-header text-bootstrap align-items-center justify-content-between">
+      
+      <%= simple_form_for(@menu, html: { class: "form-horizontal", role: "form" }) do |f| %>
+        <% if @menu.errors.any? %>
+          <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4><%= pluralize(@menu.errors.count, "erros") %> no menu, confira abaixo:</h4>
+
+            <ul>
+            <% @menu.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-input col-sm-12">
+          <%= f.label :sessao, class: "col-sm-12 control-label" %>
+          <%= f.select :sessao, [
+            ["Usuários","Usuários"],
+            ["Parceiros e Produtos","Parceiros e Produtos"],
+            ["Desconto / Remuneração / Margem","Desconto / Remuneração / Margem"],
+            ["Vendas e Pagamentos","Vendas e Pagamentos"],
+            ["Conta Corrente","Conta Corrente"],
+            ["Tabelas Auxiliares","Tabelas Auxiliares"],
+          ], {}, required:true, class: "form-control" %>      
+        </div>
+        <div class="form-input col-sm-6">
+          <%= f.label :nome, class: "col-sm-12 control-label" %>
+          <%= f.text_field :nome, class: "form-control" %>
+        </div>
+        <div class="form-input col-sm-6">
+          <%= f.label :link, class: "col-sm-12 control-label" %>
+          <%= f.text_field :link, class: "form-control" %>
+        </div>
+        <div class="form-input col-sm-6">
+          <%= f.label :controller, class: "col-sm-12 control-label" %>
+          <%= f.text_field :controller, class: "form-control" %>
+        </div>
+        <div class="form-input col-sm-6">
+          <%= f.label :action, class: "col-sm-12 control-label" %>
+          <%= f.text_field :action, class: "form-control" %>
+        </div>
+        <div class="form-actions col-sm-12">
+          <%= f.button :button, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-ok"></span>
+            Confirmar
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

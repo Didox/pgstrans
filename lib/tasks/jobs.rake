@@ -5,6 +5,21 @@ namespace :jobs do
     partner.importa_dados!
   end
 
+  desc "Import menu"
+  task menu_import: :environment do
+    require 'yaml'
+    import_menu = YAML.load_file('/Users/danilo/projetos/rosi/pgstrans/import_menu.yml')
+    import_menu.each do |sessao, itens|
+      itens.each do |nome, controller_action|
+        controller, action = controller_action
+        menus = Menu.where(sessao: sessao, nome: nome, controller: controller, action: action)
+        if menus.count == 0
+          Menu.create(sessao: sessao, nome: nome, controller: controller, action: action)
+        end
+      end
+    end
+  end
+
   desc "Processar loop movicel"
   task processar_loop_movicel: :environment do
     MovicelLoop.where(processar_loop: true).each do |movicel_loop|

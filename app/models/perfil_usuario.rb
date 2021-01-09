@@ -25,6 +25,21 @@ class PerfilUsuario < ApplicationRecord
     false
   end
 
+  def self.menu(administrador)
+    controllers = administrador.acessos.map{|a| a.split("::")[0] }
+    actions = administrador.acessos.map{|a| a.split("::")[1] }
+    menus = Menu.where(controller: controllers, action: actions)
+    return [] if menus.count == 0
+
+    sessoes = menus.pluck(:sessao).compact.uniq
+    menu = {}
+    sessoes.each do |sessao|
+      menu[sessao] = Menu.where(sessao: sessao, controller: controllers, action: actions)
+    end
+
+    menu
+  end
+
   def self.action_amigavel(action)
     nomes = {
       new: "Mostrar a tela que permite a inclusão de um novo registo",
@@ -74,6 +89,7 @@ class PerfilUsuario < ApplicationRecord
   def self.nome_amigavel_controller(controller)
     nomes = {
       vendas: "Backoffice - Relatório de Vendas",
+      menus: "Menus do Backoffice",
       status_alegacao_pagamentos: "Backoffice - Sessão de Conta Corrente - Tabela de Situações de Alegação de Pagamento",
       parametros: "Backoffice - Sessão de Transações - Parâmetros de Integração dos Parceiros",
       unitel_sequences: "Backoffice - Sessão de Transações - Controle de Sequência de Vendas da Unitel",

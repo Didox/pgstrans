@@ -1,0 +1,120 @@
+Usuários:
+  Grupos de Acesso:
+    - GruposController
+    - index
+  Matriz de Usuários:
+    - MatrixUsersController
+    - index
+  Perfil Master:
+    - MasterProfilesController
+    - index
+  Subdistribuidores:
+    - SubDistribuidorsController
+    - index
+  Subagentes:
+    - SubAgentesController
+    - index
+  Perfil de Usuário:
+    - PerfilUsuariosController
+    - index
+  Usuários:
+    - UsuariosController
+    - index
+  Situação de Usuários:
+    - StatusClientesController
+    - index
+  Situação de Usuários:
+    - StatusClientesController
+    - index
+Parceiros e Produtos:
+  Parceiros:
+    - PartnersController
+    - index
+  Produtos:
+    - ProdutosController
+    - index
+  Situação de Parceiros:
+    - StatusParceirosController
+    - index
+  Situação de Produtos:
+    - StatusProdutosController
+    - index
+Desconto / Remuneração / Margem:
+  Cadastro de Desconto de Usuário:
+    - RemuneracaosController
+    - index
+  Tabela de Descontos de Parceiros:
+    - DescontosController
+    - index
+  Relatório de Descontos e Lucro:
+    - DescontosController
+    - lucros
+Vendas e Pagamentos:
+  Vendas:
+    - VendasController
+    - index
+  Log de Tentativas de Vendas com Erro:
+    - LogVendasController
+    - index
+  Pagamentos de Faturas DSTV:
+    - PagamentosFaturasDstvsController
+    - index
+  Alterações de Planos DSTV:
+    - AlteracoesPlanosDstvsController
+    - index
+  Sequencial de Transações DSTV:
+    - SequencialDstvsController
+    - index
+  Sequencial de Vendas Unitel:
+    - UnitelSequencesController
+    - index
+Conta Corrente:
+  Lançamento em Conta Corrente de Usuário:
+    - ContaCorrentesController
+    - index
+  Lista de Saldo por Usuário:
+    - ContaCorrentesController
+    - index_morada_saldo
+  Lista de Carregamento por Usuário:
+    - ContaCorrentesController
+    - index
+Tabelas Auxiliares:
+  Parâmetros de Integração:
+    - ParametrosController
+    - index
+  Tipos de Transações:
+    - TipoTransacaosController
+    - index
+  Códigos de Retorno das APIs:
+    - ReturnCodeApisController
+    - index
+  Actividades Económicas:
+    - IndustriesController
+    - index
+  Dispositivos:
+    - DispositivosController
+    - index
+  Canais de Venda:
+    - CanalVendasController
+    - index
+  Províncias:
+    - ProvinciaController
+    - index
+  Municípios:
+    - MunicipiosController
+    - index
+  Moedas:
+    - MoedasController
+    - index
+  Tipo de Usuário Unipessoal / Empresa:
+    - UniPessoalEmpresasController
+    - index
+  Lista de Bancos:
+    - BancosController
+    - index
+  Tipos de Lançamentos:
+    - LancamentosController
+    - index
+  Situação de Alegações de Pagamentos:
+    - StatusAlegacaoPagamentosController
+    - index

@@ -1,5 +1,16 @@
+<style>
+.desk{
+    width: 70%
+}
+@media only screen and (max-width: 600px) {
+    .desk{
+        width: 100%
+    }
+}
+</style>
+
 <!-- Page Content -->
-<div class="container-fluid">
+<div class="container-fluid desk">
 
     <!-- Page Heading/Breadcrumbs -->
     <div class="row">
@@ -18,283 +29,20 @@
     <!-- Content Row -->
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-info text-center">
-                <div class="panel-heading">
-                     <h3 class="panel-title"><span class="label label-warning">Usuários</span></h3>
+            <% PerfilUsuario.menu(usuario_logado).each do |sessao, itens| %>
+                <div class="panel panel-info text-center">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="label label-warning"><%= sessao %></span></h3>
+                    </div>
+                    <ul class="list-group">
+                        <% itens.each do |item| %>
+                            <li class="list-group-item">
+                                <%= link_to item.nome, controller: item.controller.remove("Controller").underscore, action: item.action %>
+                            </li>
+                        <% end %>
+                    </ul>
                 </div>
-                <ul class="list-group">
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :GruposController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Grupos de Acesso', grupos_path %>
-                        </li>
-                    <% end %>
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :MatrixUsersController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Matriz de Usuários', matrix_users_path %>
-                        </li>
-                    <% end %>
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :MasterProfilesController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Perfil Master', master_profiles_path %>
-                        </li>
-                    <% end %>
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :SubDistribuidorsController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Subdistribuidores', sub_distribuidors_path %>
-                        </li>
-                    <% end %>
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :SubAgentesController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Subagentes', sub_agentes_path %>
-                        </li>
-                    <% end %>
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :PerfilUsuariosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Perfil de Usuário', perfil_usuarios_path %>
-                        </li>
-                    <% end %>
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :UsuariosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Usuários', usuarios_path %>
-                        </li>
-                    <% end %>
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :StatusClientesController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Situação de Usuários', status_clientes_path %>
-                        </li>
-                    <% end %>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="panel panel-info text-center">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><span class="label label-warning">Parceiros e Produtos</span></h3>
-                </div>
-                <ul class="list-group">
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :PartnersController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Parceiros', partners_path %>
-                        </li>
-                    <% end %>
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :ProdutosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Produtos', produtos_path %>
-                        </li>
-                    <% end %>
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :StatusParceirosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Situação de Parceiros', status_parceiros_path %>
-                        </li>
-                    <% end %>
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :StatusProdutosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Situação de Produtos', status_produtos_path %>
-                        </li>
-                    <% end %>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="panel panel-info text-center">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><span class="label label-warning">Desconto / Remuneração / Margem</span></h3>
-                </div>
-                
-                <ul class="list-group">
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :RemuneracaosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Cadastro de Desconto de Usuário', remuneracaos_path %>
-                        </li>
-                    <% end %>
-                </ul>
-                <ul class="list-group">
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :RemuneracaosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Tabela de Descontos de Parceiros', descontos_path %>
-                        </li>
-                    <% end %>
-                </ul>
-                <ul class="list-group">
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :RemuneracaosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Relatório de Descontos e Lucro', descontos_lucros_path %>
-                            <%#= link_to 'Relatório de Descontos e Lucro', "#" %>
-                        </li>
-                    <% end %>
-                </ul>
-
-
-            </div>
-        </div>
-    </div>
-    <!-- /.row -->
-
-    <!-- Content Row -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-info text-center">
-                <div class="panel-heading">
-                     <h3 class="panel-title"><span class="label label-warning">Vendas e Pagamentos</span></h3>
-                </div>
-                <ul class="list-group">
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :VendasController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Vendas', vendas_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :LogVendasController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Log de Tentativas de Vendas com Erro', log_vendas_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :PagamentosFaturasDstvsController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Pagamentos de Faturas DSTV', "/pagamentos_faturas_dstvs" %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :AlteracoesPlanosDstvsController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Alterações de Planos DSTV', "/alteracoes_planos_dstvs" %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :SequencialDstvsController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Sequencial de Transações DSTV', sequencial_dstvs_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :UnitelSequencesController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Sequencial de Vendas Unitel', unitel_sequences_path %>
-                        </li>
-                    <% end %>                  
-
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="panel panel-info text-center">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><span class="label label-warning">Conta Corrente</span></h3>
-                </div>
-                <ul class="list-group">
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :ContaCorrentesController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Lançamento em Conta Corrente de Usuário', conta_correntes_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :ContaCorrentesController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Lista de Saldo por Usuário', index_morada_saldo_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :ContaCorrentesController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Lista de Carregamento por Usuário', index_carregamento_usuario_path %>
-                        </li>
-                    <% end %>
-                    
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="panel panel-info text-center">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><span class="label label-warning">Tabelas Auxiliares</span></h3>
-                </div>
-                <ul class="list-group">
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :ParametrosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Parâmetros de Integração', parametros_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :TipoTransacaosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Tipos de Transações', tipo_transacaos_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :ReturnCodeApisController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Códigos de Retorno das APIs', return_code_apis_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :IndustriesController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Actividades Económicas', industries_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :DispositivosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Dispositivos', dispositivos_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :CanalVendasController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Canais de Venda', canal_vendas_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :CountriesController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Países', countries_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :ProvinciaController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Províncias', provincia_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :MunicipiosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Municípios', municipios_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :MoedasController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Moedas', moedas_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :UniPessoalEmpresasController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Tipo de Usuário Unipessoal / Empresa', uni_pessoal_empresas_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :BancosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Lista de Bancos', bancos_path %>
-                        </li>
-                    <% end %>
-
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :LancamentosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Tipos de Lançamentos', lancamentos_path %>
-                        </li>
-                    <% end %>
-                    <% if PerfilUsuario.tem_acesso?(usuario_logado, :StatusAlegacaoPagamentosController, :index) %>
-                        <li class="list-group-item">
-                            <%= link_to 'Situação de Alegações de Pagamentos', status_alegacao_pagamentos_path %>
-                        </li>
-                    <% end %>
-
-                </ul>
-            </div>
+            <% end %>
         </div>
     </div>
     <!-- /.row -->

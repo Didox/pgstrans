@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_18_120643) do
+ActiveRecord::Schema.define(version: 2021_01_09_093339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,6 +193,16 @@ ActiveRecord::Schema.define(version: 2020_12_18_120643) do
     t.datetime "updated_at", null: false
     t.bigint "usuario_id"
     t.index ["usuario_id"], name: "index_matrix_users_on_usuario_id"
+  end
+
+  create_table "menus", force: :cascade do |t|
+    t.string "sessao"
+    t.string "nome"
+    t.string "link"
+    t.string "controller"
+    t.string "action"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "moedas", force: :cascade do |t|
