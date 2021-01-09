@@ -1,13 +1,14 @@
-<div class="container">
-  <p id="notice"><%= notice %></p>
-
-  <h4>Pagamentos de Faturas DSTV</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <p id="notice"><%= notice %></p>
+    <br>
+    <h3>Pagamentos de Faturas DSTV</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div style="margin-top:10px">
+  <div class="col-md-12" style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
         <div class="col-sm-3">
@@ -58,13 +59,12 @@
     </form>
   </div>
 
-  <div class="container scroltable">
+  <div class="col-md-12 scroltable">
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col" style="width:300px">Dados</th>
-          <th scope="col">Envio</th>
-          <th scope="col">Resposta</th>
+          <th scope="col" style="width: 30%">Dados</th>
+          <th scope="col">Envio e Resposta</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -83,8 +83,10 @@
             <b>Transaction date time</b>: <%= pagamentos_faturas_dstv.transaction_date_time %><br>
             <b>Audit reference number</b>: <%= pagamentos_faturas_dstv.audit_reference_number %><br>
           </td>
-          <td><%= pagamentos_faturas_dstv.response_body %></td>
-          <td><%= pagamentos_faturas_dstv.request_body %></td>
+          <td>
+            <b>Envio: </b> <%= pagamentos_faturas_dstv.response_body %><br>
+            <hr>
+            <b>Resposta: </b> <%= pagamentos_faturas_dstv.request_body %></td>
         </tr>
         <% end %>
       </tbody>

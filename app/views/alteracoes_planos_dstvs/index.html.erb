@@ -1,64 +1,63 @@
-<div class="container">
-  <p id="notice"><%= notice %></p>
-
-  <h4>Alterações de Planos DSTV</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <p id="notice"><%= notice %></p>
+    <h3>Alterações de Planos DSTV</h3>
+  </div>  
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div style="margin-top:10px">
+  <div style="col-md-12 margin-top:10px">
     <form action="" method="get" id="formApuracao">
-      <div class="row" style="padding:10px">
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Customer Number/Número do Cliente</label>
-            <div>
-              <input type="text" name="customer_number" value="<%= params[:customer_number] %>" class="form-control">
-            </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Customer Number/Número do Cliente</label>
+          <div>
+            <input type="text" name="customer_number" value="<%= params[:customer_number] %>" class="form-control">
           </div>
         </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Smartcard/Device Number</label>
-            <div>
-              <input type="text" name="smartcard" value="<%= params[:smartcard] %>" class="form-control">
-            </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Smartcard/Device Number</label>
+          <div>
+            <input type="text" name="smartcard" value="<%= params[:smartcard] %>" class="form-control">
           </div>
         </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Receipt Number DSTV</label>
-            <div>
-              <input type="text" name="receipt_number" value="<%= params[:receipt_number] %>" class="form-control">
-            </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Receipt Number DSTV</label>
+          <div>
+            <input type="text" name="receipt_number" value="<%= params[:receipt_number] %>" class="form-control">
           </div>
         </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Data da Transação</label>
-            <div>
-              <input type="date" name="transaction_date_time" value="<%= params[:transaction_date_time] %>" class="form-control">
-            </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Data da Transação</label>
+          <div>
+            <input type="date" name="transaction_date_time" value="<%= params[:transaction_date_time] %>" class="form-control">
           </div>
         </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Tipo de plano</label>
-            <div>
-              <select name="tipo_plano" id="tipo_plano" class="form-control" style="width100%;max-width: 500px;">
-                <option value="" <% if params[:tipo_plano].blank? %> selected="selected" <% end %>>
-                  Todos
-                </option>
-                <option value="mensal" <% if params[:tipo_plano] == "mensal" %> selected="selected" <% end %>>
-                  Mensal
-                </option>
-                <option value="anual" <% if params[:tipo_plano] == "anual" %> selected="selected" <% end %>>
-                  Anual
-                </option>
-              </select>
-            </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Tipo de Plano</label>
+          <div>
+            <select name="tipo_plano" id="tipo_plano" class="form-control" style="width100%;max-width: 500px;">
+              <option value="" <% if params[:tipo_plano].blank? %> selected="selected" <% end %>>
+                Todos
+              </option>
+              <option value="mensal" <% if params[:tipo_plano] == "mensal" %> selected="selected" <% end %>>
+                Mensal
+              </option>
+              <option value="anual" <% if params[:tipo_plano] == "anual" %> selected="selected" <% end %>>
+                Anual
+              </option>
+            </select>
           </div>
+        </div>
       </div>
       <div class="col-sm-4">
         <div class="form-group">
@@ -68,59 +67,53 @@
           </div>
         </div>
       </div> 
-    </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-info">
-
           <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
-          <% end %>
-          
+          <% end %>         
         </div>
       </div>
-    </form>
-  </div>
+  </form>
 
-  <div class="container scroltable">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Dados</th>
-          <th scope="col">Envio</th>
-          <th scope="col">Resposta</th>
-        </tr>
-      </thead>
+  <table class="table scroltable table-hover">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 30%">Dados</th>
+        <th scope="col">Envio e Resposta</th>
+      </tr>
+    </thead>
 
-      <tbody>
-        <% @alteracoes_planos_dstvs.each do |alteracoes_planos_dstv| %>
-        <tr>
-          <td>
-            <b>Customer number</b>: <%= alteracoes_planos_dstv.customer_number %><br>
-            <b>Smartcard</b>: <%= alteracoes_planos_dstv.smartcard %><br>
-            <b>Produto</b>: <%= alteracoes_planos_dstv.produto %><br>
-            <b>Usuário</b>: <%= alteracoes_planos_dstv.usuario.nome rescue "" %><br>
-            <b>Codigo</b>: <%= alteracoes_planos_dstv.codigo %><br>
-            <b>Valor</b>: <%= alteracoes_planos_dstv.valor %><br>
-            <b>Receipt number</b>: <%= alteracoes_planos_dstv.receipt_number %><br>
-            <b>Transaction number</b>: <%= alteracoes_planos_dstv.transaction_number %><br>
-            <b>Status</b>: <%= alteracoes_planos_dstv.status %><br>
-            <b>Transaction date time</b>: <%= alteracoes_planos_dstv.transaction_date_time %><br>
-            <b>Audit reference number</b>: <%= alteracoes_planos_dstv.audit_reference_number %><br>
-            <b>Tipo de plano</b>: <%= alteracoes_planos_dstv.tipo_plano %><br>
-          </td>
-          <td><%= alteracoes_planos_dstv.response_body %></td>
-          <td><%= alteracoes_planos_dstv.request_body %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="apple_pagination">
-    <%= will_paginate @alteracoes_planos_dstvs, :container => false %>
-  </div> 
-
-  <%= link_to 'Voltar', "/backoffice/index", class: 'btn btn-danger' %>
+    <tbody>
+      <% @alteracoes_planos_dstvs.each do |alteracoes_planos_dstv| %>
+      <tr>
+        <td>
+          <b>Customer number</b>: <%= alteracoes_planos_dstv.customer_number %><br>
+          <b>Smartcard</b>: <%= alteracoes_planos_dstv.smartcard %><br>
+          <b>Produto</b>: <%= alteracoes_planos_dstv.produto %><br>
+          <b>Usuário</b>: <%= alteracoes_planos_dstv.usuario.nome rescue "" %><br>
+          <b>Codigo</b>: <%= alteracoes_planos_dstv.codigo %><br>
+          <b>Valor</b>: <%= alteracoes_planos_dstv.valor %><br>
+          <b>Receipt number</b>: <%= alteracoes_planos_dstv.receipt_number %><br>
+          <b>Transaction number</b>: <%= alteracoes_planos_dstv.transaction_number %><br>
+          <b>Status</b>: <%= alteracoes_planos_dstv.status %><br>
+          <b>Transaction date time</b>: <%= alteracoes_planos_dstv.transaction_date_time %><br>
+          <b>Audit reference number</b>: <%= alteracoes_planos_dstv.audit_reference_number %><br>
+          <b>Tipo de plano</b>: <%= alteracoes_planos_dstv.tipo_plano %><br>
+        </td>
+        <td>
+          <b>Envio: </b> <%= alteracoes_planos_dstv.response_body %><br>
+          <hr>
+          <b>Resposta: </b> <%= alteracoes_planos_dstv.request_body %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
+<div class="apple_pagination">
+  <%= will_paginate @alteracoes_planos_dstvs, :container => false %>
+</div> 
+
+<%= link_to 'Voltar', "/backoffice/index", class: 'btn btn-danger' %>

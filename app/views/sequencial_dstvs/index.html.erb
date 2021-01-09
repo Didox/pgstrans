@@ -1,13 +1,13 @@
-<div class="container">
-  <p id="notice"><%= notice %></p>
-
-  <h4>Sequencial de Transações DSTV</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <p id="notice"><%= notice %></p>
+    <h3>Sequencial de Transações DSTV</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div style="margin-top:10px">
+  <div class="col-md-12">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
         <div class="col-sm-3">
@@ -28,7 +28,7 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Envio</label>
+            <label>Parte de string contida no Envio</label>
             <div>
               <input type="text" name="request_body" value="<%= params[:request_body] %>" class="form-control">
             </div>
@@ -36,7 +36,7 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Resposta</label>
+            <label>Parte de string contida na Resposta</label>
             <div>
               <input type="text" name="response_body" value="<%= params[:response_body] %>" class="form-control">
             </div>
@@ -58,14 +58,13 @@
     </form>
   </div>
 
-  <div class="container scroltable">
+  <div class="col-md-12 scroltable">
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">No. TRN</th>
-          <th scope="col">Data/Hora</th>
-          <th scope="col">Envio</th>
-          <th scope="col">Resposta</th>
+          <th scope="col">No.TRN</th>
+          <th scope="col" style="width: 12%">Data/Hora</th>
+          <th scope="col">Envio e Resposta</th>
           <th colspan="3">Ação</th>
         </tr>
       </thead>
@@ -75,8 +74,11 @@
         <tr>
           <td><%= sequencial_dstv.numero %></td>
           <td><%= sequencial_dstv.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
-          <td><%= sequencial_dstv.response_body %></td>
-          <td><%= sequencial_dstv.request_body %></td>
+          <td>
+            <b>Envio: </b><%= sequencial_dstv.response_body %><br>
+            <hr>
+            <b>Resposta: </b><%= sequencial_dstv.request_body %>
+          </td>
           <td><%= link_to 'Mostrar', sequencial_dstv %></td>
         </tr>
         <% end %>
