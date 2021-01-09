@@ -8,7 +8,7 @@ namespace :jobs do
   desc "Import menu"
   task menu_import: :environment do
     require 'yaml'
-    import_menu = YAML.load_file('/Users/danilo/projetos/rosi/pgstrans/import_menu.yml')
+    import_menu = YAML.load_file("#{Rails.root}/config/import_menu.yml")
     import_menu.each do |sessao, itens|
       itens.each do |nome, controller_action|
         controller, action = controller_action
