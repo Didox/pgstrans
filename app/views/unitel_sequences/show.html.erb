@@ -1,16 +1,17 @@
-<div class="container">
-
-  <h4>Mostrar Sequência de Vendas Unitel</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Sequência de Venda Unitel</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
 
-  <div class="container">
+  <div class="col-md-12">
     <dl class="dl-horizontal">
-      <dt>Sequence:</dt>
+      <dt>Sequência da Venda:</dt>
       <dd><%= @unitel_sequence.sequence_id %></dd>
-      <dt>Venda:</dt>
+      <dt><div class="col-md-12 scroltable">
+      <div class="col-md-12">Detalhe da Venda:</dt>
       <dd>
         <a href="/vendas/<%= @unitel_sequence.venda.id %>"><%= @unitel_sequence.venda.id %></a>
       </dd>
