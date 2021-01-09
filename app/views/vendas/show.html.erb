@@ -1,12 +1,13 @@
-<div class="container">
-
-  <h4>Detalhes da Venda</h4>
+<div class="col-md-12">
+  <div class="col-md-12">
+    <h3>Detalhes da Venda</h3>
+  </div>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
 
-  <div class="container">
+  <div class="col-md-12">
     <dl class="dl-horizontal">
       <dt>ID da Venda:</dt>
       <dd><%= @venda.id %></dd>
@@ -44,8 +45,6 @@
       </dd>
       <dt>Custo:</dt>
       <dd><%= number_to_currency(@venda.value) %></dd>
-
-
       <dt>Customer Number/Card Number/MSISDN:</dt>
       <dd><%= @venda.client_msisdn %></dd>
       <dt>Situação:</dt>
@@ -60,7 +59,6 @@
       <dd><%= @venda.created_at.strftime("%d/%m/%Y %H:%M") %></dd>
       <dt>Data atualizaçao:</dt>
       <dd><%= @venda.updated_at.strftime("%d/%m/%Y %H:%M") %></dd>
-
       <% if @venda.partner.slug.to_s.downcase == "unitel" %>
         <hr>
         <dt>Id transação Unitel:</dt>

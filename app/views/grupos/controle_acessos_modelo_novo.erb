@@ -1,6 +1,7 @@
-<div class="col-sm-12"> 
-  <h4>Edição Grupo</h4>
-
+<div class="col-sm-12">
+  <div class="col-sm-12">
+    <h3>Edição Grupo</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
@@ -55,7 +56,7 @@
     <span class="glyphicon glyphicon-info-sign"></span>
     Mostrar
   <% end %>
-  <%= link_to grupos_path, class: 'btn btn-danger' do %>
+  <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
     Voltar
   <% end %>

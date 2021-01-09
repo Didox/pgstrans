@@ -1,11 +1,12 @@
-<div class="container">
-  <h4>Vendas</h4>
-
+<div class="col-md-12">
+  <div class="col-md-12">
+    <h3>Vendas</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div class="container" style="margin-top:10px">
+  <div class="col-md-12" style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
         <div class="col-sm-2">
@@ -151,32 +152,34 @@
     </form>
   </div>
 
-  <% if Venda.total_acesso(@adm, @vendas_graficos) > 0 %>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Operadora', 'Vendas'],
-          <% Partner.where(status_parceiro_id: 1).each do |partner| %>
-            ['<%= partner.name %>',  <%= partner.total_vendas_acesso(@adm, @vendas_graficos) %>],
-          <% end %>
-        ]);
+  <div class="col-md-12">
+    <% if Venda.total_acesso(@adm, @vendas_graficos) > 0 %>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Operadora', 'Vendas'],
+            <% Partner.where(status_parceiro_id: 1).each do |partner| %>
+              ['<%= partner.name %>',  <%= partner.total_vendas_acesso(@adm, @vendas_graficos) %>],
+            <% end %>
+          ]);
 
-        var options = {
-          title: 'Total de vendas ou recargas',
-          is3D: true,
-        };
+          var options = {
+            title: 'Total de vendas ou recargas',
+            is3D: true,
+          };
 
-        var chart = new google.visualization.PieChart(document.getElementById('grafico_vendas'));
-        chart.draw(data, options);
-      }
-    </script>
-    <div id="grafico_vendas" style="width: 100%; height: 300px;"></div>
-  <% end %>
+          var chart = new google.visualization.PieChart(document.getElementById('grafico_vendas'));
+          chart.draw(data, options);
+        }
+      </script>
+      <div id="grafico_vendas" style="width: 100%; height: 300px;"></div>
+    <% end %>
+  </div>
 
-  <div class="container scroltable" style="width: 100%;overflow: scroll;">
+  <div class="col-md-12">
     <%= render "tabela_vendas" %>
 
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
