@@ -1,12 +1,11 @@
-<div class="container scroltable">
-
-  <h4>Perfis de Usuários</h4>
-
+<div class="col-md-12">
+  <div class="col-md-12">
+    <h4>Perfil de Usuários</h4>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
-
-  <div style="margin-top:10px">
+  <div class="col-md-12">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
         <div class="col-sm-4">
@@ -54,25 +53,24 @@
           </div>
         </div>
       </div>
-        <div class="form-group">
-          <div style="float: right;margin-right:10px">
-            <input type="submit" value="Buscar" class="btn btn-info">
-            <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-              <span class="glyphicon glyphicon-list-alt"></span>
-              Voltar
-            <% end %>
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit" value="Buscar" class="btn btn-info">
+          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>
 
-            <%= link_to new_perfil_usuario_path, class: 'btn btn-danger' do %>
-              <span class="glyphicon glyphicon-plus"></span>
-              Novo Registro
-            <% end %>
-                
-          </div>
-      </form>
-    </div>
+          <%= link_to new_perfil_usuario_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-plus"></span>
+            Novo Registro
+          <% end %>
+        </div>
+      </div>
+    </form>
   </div>  
 
-  <div class="container">
+  <div class="col-md-12">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -84,7 +82,6 @@
           <th colspan="3">Ações</th>
         </tr>
       </thead>
-
       <tbody>
         <% @perfil_usuarios.each do |perfil_usuario| %>
         <tr>

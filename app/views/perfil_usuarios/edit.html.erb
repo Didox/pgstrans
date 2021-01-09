@@ -1,6 +1,7 @@
-<div class="container"> 
-  <h3>Edição de Perfil</h3>
-
+<div class="col-md-12">
+  <div class="col-md-12">
+    <h3>Edição de Perfil</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
@@ -12,7 +13,7 @@
     Mostrar
   <% end %>
   
-  <%= link_to perfil_usuarios_path, class: 'btn btn-danger' do %>
+  <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
     Voltar
   <% end %>

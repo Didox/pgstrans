@@ -1,12 +1,12 @@
-<div class="col-sm-12">
-  <div class="col-sm-12">
-    <h4>Perfil de Usuário</h4>
+<div class="col-md-12">
+  <div class="col-md-12">
+    <h3>Perfil de Usuário</h3>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
 
-  <div class="container">
+  <div class="col-md-12">
     <dl class="dl-horizontal">
       <dt>Nome:</dt>
       <dd><%= @perfil_usuario.nome %></dd>
@@ -17,11 +17,9 @@
       <dt>Agente?</dt>
       <dd><%= @perfil_usuario.agente %></dd>
     </dl>
-
     <br><hr>
     <label>Clique em Editar para acessar as permissões deste perfil</label>
     <br><hr>
-
     <div class="page-header">
       <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>

@@ -1,48 +1,41 @@
-<div class="container">
-  	<h4>Detalhe de Usuário</h4>
-
+<div class="col-md-12">
+	<div class="col-md-12">
+  		<h4>Detalhe de Usuário</h4>
+	</div>
   	<!-- Page Heading/Breadcrumbs -->
   	<%= render :partial => 'shared/header_backoffice' %>
   	<!-- /.row --> 
-
-	<div class="container">
+	<div class="col-md-12">
 		<p>
 		  <strong>Nome:</strong>
 		  <%= @usuario.nome %>
 		</p>
-
 		<p>
 		  <strong>Email:</strong>
 		  <%= @usuario.email %>
 		</p>
-
 		<p>
 		  <strong>Login:</strong>
 		  <%= @usuario.login %>
 		</p>
-
 		<p>
 		  <strong>Perfil:</strong>
 		  <%= @usuario.perfil_usuario.nome %>
 		</p>
-
 		<p>
 		  <strong>Morada:</strong>
 		  <%= @usuario.morada %>
 		</p>
-
 		<p>
 		  <strong>Bairro:</strong>
 		  <%= @usuario.bairro %>
 		</p>
-
 		<p>
 		  <strong>Data da criação:</strong>
 		  <%= @usuario.created_at %>
 		</p>
-
 	    <div class="page-header">
-	      <%= link_to usuarios_path, class: 'btn btn-danger' do %>
+	      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
 	        <span class="glyphicon glyphicon-list-alt"></span>
 	        Voltar
 	      <% end %>
