@@ -42,16 +42,16 @@
           <%= f.select :sub_distribuidor, SubDistribuidor.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>   
         </div>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-4">
           <%= f.label :sub_agente, "Subagente" %>
           <%= f.select :sub_agente, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-2">
           <%= f.input :filial %>
         </div>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-2">
           <%= f.input :pdv, :label => "PDV" %>
         </div>
 

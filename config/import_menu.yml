@@ -97,6 +97,9 @@ Tabelas Auxiliares:
   Canais de Venda:
     - CanalVendasController
     - index
+  Países:
+    - CountriesController
+    - index
   Províncias:
     - ProvinciaController
     - index

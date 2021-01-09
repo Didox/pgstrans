@@ -1,14 +1,3 @@
-<style>
-.desk{
-    width: 70%
-}
-@media only screen and (max-width: 600px) {
-    .desk{
-        width: 100%
-    }
-}
-</style>
-
 <!-- Page Content -->
 <div class="container-fluid desk">
 
@@ -29,10 +18,10 @@
     <!-- Content Row -->
     <div class="row">
         <div class="col-md-12">
-            <% PerfilUsuario.menu(usuario_logado).each do |sessao, itens| %>
+            <% PerfilUsuario.menu(usuario_logado).each do |secao, itens| %>
                 <div class="panel panel-info text-center">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><span class="label label-warning"><%= sessao %></span></h3>
+                        <h3 class="panel-title"><span class="label label-warning"><%= secao %></span></h3>
                     </div>
                     <ul class="list-group">
                         <% itens.each do |item| %>

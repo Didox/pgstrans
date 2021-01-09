@@ -1,11 +1,12 @@
-<div class="container">
-  <h4>Desconto por Parceiro</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h4>Desconto por Parceiro</h4>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div class="container scroltable">
+  <div class="col-md-12 scroltable">
     <br>Descontos possíveis para o parceiro
     <hr>
     <table class="table table-hover">
@@ -39,7 +40,7 @@
       Novo Registro
     <% end %>    
 
-    <%= link_to partners_path, class: 'btn btn-danger' do %>
+    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar
     <% end %>

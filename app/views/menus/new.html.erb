@@ -1,16 +1,14 @@
-<div class="container">
-
-	<h4>Novo Menu</h4>
-
+<div class="col-md-12">
+	<div class="col-md-12">
+		<h3>Inclusão de Novo Item no Menu Backoffice</h3>
+	</div>
+	<br><br>
 	<!-- Page Heading/Breadcrumbs -->
   	<%= render :partial => 'shared/header_backoffice' %>
   	<!-- /.row -->
-
 	<%= render 'form' %>
-
-	<%= link_to menus_path, class: 'btn btn-danger' do %>
+	<%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
 		<span class="glyphicon glyphicon-list-alt"></span>
 		Voltar
 	<% end %>
-
 </div>

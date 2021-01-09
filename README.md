@@ -69,6 +69,17 @@ RelatorioConciliacaoZaptv.create(
 )
 
 
+#<style>
+#.desk{
+#    width: 100%
+#}
+#@media only screen and (max-width: 600px) {
+#    .desk{
+#        width: 100%
+#    }
+#}
+#</style>
+
 
 
 

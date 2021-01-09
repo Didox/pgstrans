@@ -1,43 +1,36 @@
-<div class="container">
-
-  <h4>Detalhe de Parceiro</h4>
-
+<div class="col-md-12">
+  <div class="col-md-12">
+    <br>
+    <h3>Detalhe de Parceiro</h3>
+  </div>
     <!-- Page Heading/Breadcrumbs -->
     <%= render :partial => 'shared/header_backoffice' %>
     <!-- /.row -->  
-
-  <div class="container">
-
+  <div class="col-md-12">
     <p>
       <strong>ID:</strong>
       <%= @partner.id %>
     </p>
-
     <p>
       <strong>Name:</strong>
       <%= @partner.name %>
     </p>
-
     <p>
       <strong>Ordem de Apresentação:</strong>
       <%= @partner.order %>
     </p>
-
     <p>
       <strong>Data da última alteração:</strong>
       <%= @partner.updated_at %>
     </p>
-
     <p>
       <strong>Desconto padrão do parceiro:</strong>
       <%= @partner.desconto %>
     </p>
-
     <p>
       <strong>Status do parceiro:</strong>
       <%= @partner.status_parceiro.nome rescue "" %>
     </p>
-
     <% if !["unitel", "dstv"].include?(@partner.slug.downcase)  %>
       <p>
         <strong>Saldo atual:</strong><br>
@@ -49,25 +42,21 @@
           <%= @partner.ultimo_saldo.log %>
         <% end %>
       </p>
-      
       <%= link_to partner_atualiza_saldo_path(@partner), class: 'btn btn-danger' do %>
         Consultar saldo
       <% end %>
     <% end %>
-
     <hr>
-
     <%= link_to edit_partner_path(@partner), class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-edit"></span>
       Editar
     <% end %>
-
-    <%= link_to partners_path, class: 'btn btn-danger' do %>
+    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar
     <% end %>
   </div>
-
+  <br>
 	<%= render 'zaptv' %>
 	<%= render 'dstv' %>
 	<%= render 'unitel' %>

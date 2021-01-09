@@ -31,10 +31,10 @@ class PerfilUsuario < ApplicationRecord
     menus = Menu.where(controller: controllers, action: actions)
     return [] if menus.count == 0
 
-    sessoes = menus.pluck(:sessao).compact.uniq
+    secoes = menus.pluck(:secao).compact.uniq
     menu = {}
-    sessoes.each do |sessao|
-      menu[sessao] = Menu.where(sessao: sessao, controller: controllers, action: actions)
+    secoes.each do |secao|
+      menu[secao] = Menu.where(secao: secao, controller: controllers, action: actions)
     end
 
     menu

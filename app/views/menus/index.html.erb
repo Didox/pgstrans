@@ -1,42 +1,52 @@
-<div class="container">
-  <p id="notice"><%= notice %></p>
-
-  <h4>Menu</h4>
-
+<div class="col-md-12">
+  <div class="col-md-12">
+    <p id="notice"><%= notice %></p>
+    <h3>Item da Composição do Menu Backoffice</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div class="container scroltable">
+  <div class="col-md-12 scroltable">
     <table class="table table-hover">
       <thead>
         <tr>
-                    <th scope="col">Sessao</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Link</th>
-                    <th scope="col">Controller</th>
-                    <th scope="col">Action</th>
-                    <th colspan="3"></th>
+          <th scope="col">Nome da Seção</th>
+          <th scope="col">Nome do Item</th>
+          <th scope="col">Controller</th>
+          <th scope="col">Ação</th>
+          <th scope="col">Ordem da Seção</th>
+          <th scope="col">Ordem do Item na Seção</th>
+          <th scope="col">Link Externo</th>
+          <th colspan="3">Ações para o Registo</th>
         </tr>
       </thead>
 
       <tbody>
         <% @menus.each do |menu| %>
         <tr>
-                    <td><%= menu.sessao %></td>
-                    <td><%= menu.nome %></td>
-                    <td><%= menu.link %></td>
-                    <td><%= menu.controller %></td>
-                    <td><%= menu.action %></td>
-                    <td><%= link_to 'Mostrar', menu %></td>
+          <td><%= menu.secao %></td>
+          <td><%= menu.nome %></td>
+          <td><%= menu.controller %></td>
+          <td><%= menu.action %></td>
+          <td><%= menu.ordem_secao %></td>
+          <td><%= menu.ordem_item %></td>
+          <td><%= menu.link %></td>
+          <td><%= link_to 'Mostrar', menu %></td>
           <td><%= link_to 'Editar', edit_menu_path(menu) %></td>
           <td><%= link_to 'Apagar', menu, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>
         <% end %>
       </tbody>
     </table>
-
-    <%= link_to "Novo Registo", new_menu_path, class: 'btn btn-danger' %>
-    <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
-  </div>
+    <div class="form-group">
+      <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to new_menu_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-plus"></span>
+        Novo Registro
+      <% end %>    
+    </div>
 </div>
