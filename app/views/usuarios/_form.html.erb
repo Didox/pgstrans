@@ -53,12 +53,12 @@
         </div>
   
         <div class="form-input col-sm-6">
-          <%= f.label :sub_agente_id %>
+          <%= f.label :sub_agente_id, :label => "Subagente" %>
           <%= f.select :sub_agente_id, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.label :status_cliente_id %>
+          <%= f.label :status_cliente_id, :label => "Status do Usuário" %>
           <% if @adm.agente? %>
             <%= f.select :status_cliente_id, StatusCliente.where("lower(nome) ilike '%inativo%'").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% else %>
