@@ -1,36 +1,37 @@
-<div class="container">
-
-  <h4>Mostrar Província</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Mostrar Província</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
-
-  <div class="container">
+  <div class="col-md-12">
     <dl class="dl-horizontal">
       <dt>Nome:</dt>
       <dd><%= @provincium.nome %></dd>
       <dt>Capital:</dt>
       <dd><%= @provincium.capital %></dd>
-      <dt>Área km2:</dt>
+      <dt>Área KM<sup>2</sup>:</dt>
       <dd><%= @provincium.area_km2 %></dd>
       <dt>População:</dt>
       <dd><%= number_with_delimiter(@provincium.population, delimiter: ".") %></dd>
-      <dt>Mapa:</dt>
+      <dt>Link para o Mapa:</dt>
       <dd><%= @provincium.image_map %></dd>
       <dt>País:</dt>
       <dd><%= @provincium.country.name_pt %></dd>
     </dl>
-
-    <div class="page-header">
-      <%= link_to provincia_path, class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-list-alt"></span>
-        Voltar
-      <% end %>
-      <%= link_to edit_provincium_path(@provincium), class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-pencil"></span>
-        Editar
-      <% end %>
+    <hr>
+    <div class="col-md-12"
+      <div class="page-header">
+        <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-list-alt"></span>
+          Voltar
+        <% end %>
+        <%= link_to edit_provincium_path(@provincium), class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-pencil"></span>
+          Editar
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
