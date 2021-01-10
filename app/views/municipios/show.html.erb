@@ -1,30 +1,26 @@
-<div class="container">
-
-  <h4>Mostra Município</h4>
-
-  <!-- Page Heading/Breadcrumbs -->
-  <%= render :partial => 'shared/header_backoffice' %>
-  <!-- /.row -->
-
-  <div class="container">
-
-	<p>
-	  <strong>ID:</strong>
-	  <%= @municipio.id %>
-	</p>    
-
-	<p>
-	  <strong>Nome:</strong>
-	  <%= @municipio.nome %>
-	</p>    
-
-	<%= link_to edit_municipio_path(@municipio), class: 'btn btn-danger' do %>
-		<span class="glyphicon glyphicon-edit"></span>
-		Editar
-	<% end %>
-
-	<%= link_to municipios_path, class: 'btn btn-danger' do %>
-		<span class="glyphicon glyphicon-list-alt"></span>
-		Voltar
-	<% end %>
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+	  <h3>Detalhe de Município</h2>
+	</div>
+	<!-- Page Heading/Breadcrumbs -->
+	<%= render :partial => 'shared/header_backoffice' %>
+	<!-- /.row -->
+	<div class="col-md-12">
+		<p>
+		<strong>ID:</strong>
+		<%= @municipio.id %>
+		</p>    
+		<p>
+		<strong>Nome:</strong>
+		<%= @municipio.nome %>
+		</p>    
+		<%= link_to edit_municipio_path(@municipio), class: 'btn btn-danger' do %>
+			<span class="glyphicon glyphicon-edit"></span>
+			Editar
+		<% end %>
+		<%= link_to municipios_path, class: 'btn btn-danger' do %>
+			<span class="glyphicon glyphicon-list-alt"></span>
+			Voltar
+		<% end %>
+	</div>
 </div>

@@ -1,46 +1,40 @@
-<div class="container scroltable">
-  
-  <h4>Tipos de Lançamentos</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Tipos de Lançamentos</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
-
-  <div class="container">
+  <div class="col-md-12">
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Nome</th>
-          <th colspan="3">Ações</th>
+          <th scope="col" class="text-center">ID do Registo</th>
+          <th scope="col">Nome do Lançamento</th>
+          <th colspan="3">Ações para o Registo</th>
         </tr>
       </thead>
-
       <tbody>
         <% @lancamentos.each do |lancamento| %>
         <tr>
-            <td><%= lancamento.id %></td>  
+            <td class="text-center"><%= lancamento.id %></td>  
             <td><%= lancamento.nome %></td>
-            <td><%= link_to 'Mostrar', lancamento %></td>
           <td><%= link_to 'Editar', edit_lancamento_path(lancamento) %></td>
           <td><%= link_to 'Apagar', lancamento, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>
         <% end %>
       </tbody>
     </table>
-
     <div class="apple_pagination">
       <%= will_paginate @lancamentos, :container => false %>
     </div>     
-
     <%= link_to new_lancamento_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-plus"></span>
-      Novo Registro
+      Novo Registo
     <% end %> 
-
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-list-alt"></span>
-        Voltar
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
     <% end %>
   </div>
 </div>

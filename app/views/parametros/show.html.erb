@@ -1,12 +1,12 @@
-<div class="container">
-
-  <h4>Mostrar Parâmetros</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Mostrar Parâmetros de Integração</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
-
-  <div class="container">
+  <div class="col-md-12">
+    <hr>
     <div class="row bg-light h-50 p-3">
       <div class="col-md-4">
           Parceiro
@@ -15,7 +15,7 @@
          <%= @parametro.partner.name %>
       </div>
     </div>
-    
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           URL integração desenvolvimento:
@@ -24,7 +24,7 @@
           <%= @parametro.url_integracao_desenvolvimento %>
       </div>
     </div>
-    
+    <hr>
     <div class="row bg-light h-50 p-3">
       <div class="col-md-4">
           URL integração produção:
@@ -33,7 +33,7 @@
           <%= @parametro.url_integracao_producao %>
       </div>
     </div>
-    
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           AGENT_ID Unitel:
@@ -42,7 +42,7 @@
           <%= @parametro.unitel_agente_id %>
       </div>
     </div>
-
+    <hr>
     <div class="row bg-light h-50 p-3">
       <div class="col-md-4">
           AGENT_ID ZAPTV:
@@ -51,7 +51,7 @@
           <%= @parametro.zaptv_agente_id %>
       </div>
     </div>
-
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           AGENT_ID Movicel:
@@ -60,7 +60,7 @@
           <%= @parametro.movicel_agente_id %>
       </div>
     </div>
-
+    <hr>
     <div class="row bg-light h-50 p-3">
       <div class="col-md-4">
           Customer Number DSTV Desenvolvimento:
@@ -69,7 +69,7 @@
           <%= @parametro.customer_number_desenvolvimento %>
       </div>
     </div>
-
+    <hr>
     <div class="row bg-light h-50 p-3">
       <div class="col-md-4">
           Customer Number DSTV Produção:
@@ -78,7 +78,7 @@
           <%= @parametro.customer_number_producao %>
       </div>
     </div>
-
+    <hr>
     <div class="row bg-light h-50 p-3">
       <div class="col-md-4">
           AGENT_ID DSTV:
@@ -87,8 +87,8 @@
           <%= @parametro.dstv_agente_id %>
       </div>
     </div>
-
-     <div class="row h-50 p-3">
+    <hr>
+    <div class="row h-50 p-3">
       <div class="col-md-4">
           Api key ZAPTV desenvolvimento:
       </div>
@@ -96,7 +96,7 @@
           <%= @parametro.api_key_zaptv_desenvolvimento %>
       </div>
     </div>
-    
+    <hr>
     <div class="row bg-light h-50 p-3">
       <div class="col-md-4">
           Api key ZAPTV produção:
@@ -105,7 +105,7 @@
           <%= @parametro.api_key_zaptv_producao %>
       </div>
     </div>
-
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           Agent key Movicel desenvolvimento:
@@ -114,7 +114,7 @@
           <%= @parametro.agent_key_movicel_desenvolvimento %>
       </div>
     </div>
-    
+    <hr>
     <div class="row bg-light h-50 p-3">
       <div class="col-md-4">
           Agent key Movicel produção:
@@ -123,7 +123,7 @@
           <%= @parametro.agent_key_movicel_producao %>
       </div>
     </div>
-    
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           User id Movicel desenvolvimento:
@@ -132,7 +132,7 @@
           <%= @parametro.user_id_movicel_desenvolvimento %>
       </div>
     </div>
-    
+    <hr>
     <div class="row bg-light h-50 p-3">
       <div class="col-md-4">
           User id Movicel Produção:
@@ -141,7 +141,7 @@
           <%= @parametro.user_id_movicel_producao %>
       </div>
     </div>
-
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           Data source DSTV desenvolvimento:
@@ -150,7 +150,7 @@
           <%= @parametro.data_source_dstv_desenvolvimento %>
       </div>
     </div>
-
+    <hr>
     <div class="row bg-light h-50 p-3">      
       <div class="col-md-4">
           Data source DSTV Produção:
@@ -159,7 +159,7 @@
           <%= @parametro.data_source_dstv_producao %>
       </div>
     </div>
-
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           Payment vendor code DSTV desenvolvimento:
@@ -168,7 +168,7 @@
           <%= @parametro.payment_vendor_code_dstv_desenvolvimento %>
       </div>
     </div>
-
+    <hr>
     <div class="row bg-light h-50 p-3">
       <div class="col-md-4">
           Payment vendor code DSTV produção:
@@ -177,7 +177,7 @@
           <%= @parametro.payment_vendor_code_dstv_producao %>
       </div>
     </div>
-    
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           Vendor code DSTV desenvolvimento:
@@ -186,7 +186,7 @@
           <%= @parametro.vendor_code_dstv_desenvolvimento %>
       </div>
     </div>
-     
+    <hr>
     <div class="row bg-light h-50 p-3">
       <div class="col-md-4">
           Vendor code DSTV produção:
@@ -195,7 +195,7 @@
           <%= @parametro.vendor_code_dstv_producao %>
       </div>
     </div>
-        
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           Agent account DSTV desenvolvimento:
@@ -204,7 +204,7 @@
           <%= @parametro.agent_account_dstv_desenvolvimento %>
       </div>
     </div>
-
+    <hr>
     <div class="row bg-light h-50 p-3">      
       <div class="col-md-4">
           Agent account DSTV produção:
@@ -213,7 +213,7 @@
           <%= @parametro.agent_account_dstv_producao %>
       </div>
     </div>
-
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           Currency DSTV desenvolvimento:
@@ -222,7 +222,7 @@
           <%= @parametro.currency_dstv_desenvolvimento %>
       </div>
     </div>
-    
+    <hr>
     <div class="row bg-light h-50 p-3">
       <div class="col-md-4">
           Currency DSTV produção:
@@ -231,7 +231,7 @@
           <%= @parametro.currency_dstv_producao %>
       </div>
     </div>
-
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           Product user key DSTV desenvolvimento:
@@ -240,7 +240,7 @@
           <%= @parametro.product_user_key_dstv_desenvolvimento %>
       </div>
     </div>
-    
+    <hr>
     <div class="row bg-light h-50 p-3">
       <div class="col-md-4">
           Product user key DSTV produção:
@@ -249,7 +249,7 @@
           <%= @parametro.product_user_key_dstv_producao %>
       </div>
     </div>
-
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           Business Unit desenvolvimento:
@@ -258,7 +258,7 @@
           <%= @parametro.business_unit_desenvolvimento %>
       </div>
     </div>
-    
+    <hr>
     <div class="row bg-light h-50 p-3">    
       <div class="col-md-4">
           Business Unit produção:
@@ -267,7 +267,7 @@
           <%= @parametro.business_unit_producao %>
       </div>
     </div>
-    
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           Mop DSTV desenvolvimento:
@@ -276,7 +276,7 @@
           <%= @parametro.mop_dstv_desenvolvimento %>
       </div>
     </div>
-    
+    <hr>
     <div class="row bg-light h-50 p-3">    
       <div class="col-md-4">
           Mop DSTV produção:
@@ -285,7 +285,7 @@
           <%= @parametro.mop_dstv_producao %>
       </div>
     </div>
-
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           Agent Number desenvolvimento:
@@ -294,7 +294,7 @@
           <%= @parametro.agent_number_dstv_desenvolvimento %>
       </div>
     </div>
-    
+    <hr>
     <div class="row bg-light h-50 p-3">    
       <div class="col-md-4">
           Agent Number produção:
@@ -303,7 +303,7 @@
           <%= @parametro.agent_number_dstv_producao %>
       </div>
     </div>
-
+    <hr>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           Language desenvolvimento:
@@ -312,7 +312,7 @@
           <%= @parametro.language_desenvolvimento %>
       </div>
     </div>
-    
+    <hr>
     <div class="row bg-light h-50 p-3">    
       <div class="col-md-4">
           Language produção:
@@ -321,9 +321,9 @@
           <%= @parametro.language_producao %>
       </div>
     </div>
- 
+    <hr>
     <div class="page-header">
-      <%= link_to parametros_path, class: 'btn btn-danger' do %>
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Voltar
       <% end %>

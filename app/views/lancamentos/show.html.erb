@@ -1,23 +1,24 @@
-<h4>Mostra Tipo de Lançamento</h4>
-
-<!-- Page Heading/Breadcrumbs -->
-<%= render :partial => 'shared/header_backoffice' %>
-<!-- /.row -->
-
-<dl class="dl-horizontal">
-  <dt>ID:</dt>
-  <dd><%= @lancamento.id %></dd>
-  <dt>Nome:</dt>
-  <dd><%= @lancamento.nome %></dd>
-</dl>
-
-<div class="page-header">
-  <%= link_to lancamentos_path, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Voltar
-  <% end %>
-  <%= link_to edit_lancamento_path(@lancamento), class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Editar
-  <% end %>
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Detalhes de Tipo de Lançamento</h3>
+  </div>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+  <dl class="dl-horizontal">
+    <dt>ID:</dt>
+    <dd><%= @lancamento.id %></dd>
+    <dt>Nome:</dt>
+    <dd><%= @lancamento.nome %></dd>
+  </dl>
+  <div class="col-md-12">
+    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>
+    <%= link_to edit_lancamento_path(@lancamento), class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+      Editar
+    <% end %>
+  </div>
 </div>

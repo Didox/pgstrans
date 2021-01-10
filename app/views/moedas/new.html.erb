@@ -1,16 +1,15 @@
-<div class="container">
-
-	<h4>Nova Moeda</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+		<h3>Nova Moeda</h3>
+	</div>
 	<!-- Page Heading/Breadcrumbs -->
   	<%= render :partial => 'shared/header_backoffice' %>
   	<!-- /.row -->
-
 	<%= render 'form' %>
-
-	<%= link_to moedas_path, class: 'btn btn-danger' do %>
-		<span class="glyphicon glyphicon-list-alt"></span>
-		Voltar
-	<% end %>
-
+	<div class="col-md-12">
+		<%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+			<span class="glyphicon glyphicon-list-alt"></span>
+			Voltar
+		<% end %>
+	</div>
 </div>

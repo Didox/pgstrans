@@ -1,27 +1,24 @@
-<div class="container">
-
-  <h4>Situações de Alegação Pagamentos</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Situações de Alegação Pagamentos</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
-
-  <div class="container scroltable">
+  <div class="col-md-12 scroltable">
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Nome</th>
-          <th colspan="3">Ações</th>
+          <th scope="col" class="text-center" >ID do Registo</th>
+          <th scope="col">Descrição do Status</th>
+          <th colspan="3">Ações para o Registo</th>
         </tr>
       </thead>
-
       <tbody>
         <% @status_alegacao_pagamentos.each do |status_alegacao_pagamento| %>
         <tr>
-          <td><%= status_alegacao_pagamento.id %></td>
+          <td class="text-center"><%= status_alegacao_pagamento.id %></td>
           <td><%= status_alegacao_pagamento.nome %></td>
-          <td><%= link_to 'Mostrar', status_alegacao_pagamento %></td>
           <td><%= link_to 'Editar', edit_status_alegacao_pagamento_path(status_alegacao_pagamento) %></td>
           <td><%= link_to 'Apagar', status_alegacao_pagamento, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>
@@ -35,12 +32,11 @@
 
     <%= link_to new_status_alegacao_pagamento_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-plus"></span>
-      Novo Registro
+      Novo Registo
     <% end %>    
 
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar
     <% end %>
-  </div>
 </div>

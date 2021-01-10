@@ -1,71 +1,66 @@
-<div class="container">
-
-  <h3>Municípios</h3>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Lista de Municípios</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div style="margin-top:10px">
+  <div>
     <form action="" method="get" id="formApuracao">
-      <div class="row" style="padding:10px">
-        <div class="col-sm-12">
-          <div class="form-group">
-            <label>Nome do Município</label>
-            <div>
-              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>Nome do Município</label>
+          <div>
+            <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <div style="float: right;margin-right:10px">
+            <input type="submit" value="Buscar" class="btn btn-info">
+              <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+                <span class="glyphicon glyphicon-list-alt"></span>
+                Voltar
+              <% end %>
             </div>
           </div>
-          <div class="form-group">
-            <div style="float: right;margin-right:10px">
-              <input type="submit" value="Buscar" class="btn btn-info">
-                <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-                  <span class="glyphicon glyphicon-list-alt"></span>
-                  Voltar
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <div class="container">
-        <table class="table table-hover">
-          <thead>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center">ID do Registo</th>
+            <th scope="col">Nome do Município</th>
+            <th colspan="3">Ações para o Registo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @municipios.each do |municipio| %>
             <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Nome</th>
-              <th colspan="3">Ações</th>
+              <td class="text-center"><%= municipio.id %></td>
+              <td style="width: 450px;"><%= municipio.nome %></td>
+              <td><%= link_to 'Editar', edit_municipio_path(municipio) %></td>
+              <td><%= link_to 'Apagar', municipio, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
             </tr>
-          </thead>
+          <% end %>
+        </tbody>
+      </table>
 
-          <tbody>
-            <% @municipios.each do |municipio| %>
-              <tr>
-                <td class="text-right"><%= municipio.id %></td>
-                <td style="width: 450px;"><%= municipio.nome %></td>
-                <td><%= link_to 'Mostrar', municipio %></td>
-                <td><%= link_to 'Editar', edit_municipio_path(municipio) %></td>
-                <td><%= link_to 'Apagar', municipio, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+      <div class="apple_pagination">
+        <%= will_paginate @municipios, :container => false %>
+      </div>    
 
-        <div class="apple_pagination">
-          <%= will_paginate @municipios, :container => false %>
-        </div>    
+      <%= link_to new_municipio_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-plus"></span>
+        Novo Registro
+      <% end %>    
 
-        <%= link_to new_municipio_path, class: 'btn btn-danger' do %>
-          <span class="glyphicon glyphicon-plus"></span>
-          Novo Registro
-        <% end %>    
-
-        <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-          <span class="glyphicon glyphicon-list-alt"></span>
-          Voltar
-        <% end %>
-      </div>
+      <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
     </div>
   </div>
 </div>

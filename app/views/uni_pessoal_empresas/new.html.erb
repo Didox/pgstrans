@@ -1,16 +1,15 @@
-<div class="container">
-
-	<h4>Novo Registro Unipessoal ou Empresa</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+		<h3>Novo Registro Unipessoal ou Empresa</h3>
+	</div>
 	<!-- Page Heading/Breadcrumbs -->
   	<%= render :partial => 'shared/header_backoffice' %>
   	<!-- /.row -->
-
 	<%= render 'form', uni_pessoal_empresas: @uni_pessoal_empresas %>
-
-	<%= link_to uni_pessoal_empresas_path, class: 'btn btn-danger' do %>
-		<span class="glyphicon glyphicon-list-alt"></span>
-		Voltar
-	<% end %>
-
+	<div class="col-md-12">
+		<%= link_to uni_pessoal_empresas_path, class: 'btn btn-danger' do %>
+			<span class="glyphicon glyphicon-list-alt"></span>
+			Voltar
+		<% end %>
+	</div>
 </div>

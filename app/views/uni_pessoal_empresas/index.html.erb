@@ -1,19 +1,17 @@
-<div class="container">
-  <h4>Cliente Unipessoal ou Empresa</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Cliente Unipessoal ou Empresa</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
-
-  <div style="margin-top:10px">
+  <div>
     <form action="" method="get" id="formApuracao">
-      <div class="row" style="padding:10px">
-        <div class="col-sm-12">
-          <div class="form-group">
-            <label>Descrição</label>
-            <div>
-              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
-            </div>
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label>Descrição</label>
+          <div>
+            <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
           </div>
         </div>
       </div>
@@ -25,16 +23,16 @@
             Voltar
           <% end %>        
         </div>
+      </div>
     </form>
   </div>
-
-  <div class="container scroltable">
+  <div class="col-md-12 scroltable">
     <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Nome</th>
-          <th colspan="3">Ações</th>
+          <th colspan="3">Ações para o Registo</th>
         </tr>
       </thead>
 
@@ -43,7 +41,6 @@
         <tr>
           <td><%= uni_pessoal_empresa.id %></td>
           <td><%= uni_pessoal_empresa.nome %></td>
-          <td><%= link_to 'Mostrar', uni_pessoal_empresa %></td>
           <td><%= link_to 'Editar', edit_uni_pessoal_empresa_path(uni_pessoal_empresa) %></td>
           <td><%= link_to 'Apagar', uni_pessoal_empresa, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>
