@@ -1,7 +1,8 @@
-<% if @partner.slug.downcase == "dstv" %>
-  <hr>
-  <%= link_to partner_importa_produtos_path(@partner), class: 'btn btn-danger', style:"margin-left: 15px;", data: { confirm: 'Tem Certeza?' } do %>
-    Atualizar portfólio de produtos
-  <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
-  <br><br>
-<% end %>
+<div class="col-md-12">
+  <% if @partner.slug.downcase == "dstv" %>
+      <%= link_to partner_importa_produtos_path(@partner), 
+      class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
+        Atualizar portfólio de produtos
+      <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
+    <% end %>
+</div>
