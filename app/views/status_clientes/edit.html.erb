@@ -8,12 +8,10 @@
 
   <%= render 'form',  status_cliente: @status_cliente %>
 
-  <%= link_to @status_cliente, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-info-sign"></span>
-    Mostrar
-  <% end %>
+  <div class="col-md-12">
   <%= link_to status_clientes_path, class: 'btn btn-danger' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
     Voltar
   <% end %>
+  </div>
 </div>

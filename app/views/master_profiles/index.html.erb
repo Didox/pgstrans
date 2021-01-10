@@ -34,17 +34,16 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col" class="text-center">ID do Registo</th>
           <th scope="col">Descrição</th>
-          <th scope="col" colspan="3">Ações</th>
+          <th scope="col" colspan="3">Ações para o Registo</th>
         </tr>
       </thead>
       <tbody>
         <% @master_profiles.each do |master_profile| %>
           <tr>
-            <td><%= master_profile.id %></td>
+            <td class="text-center"><%= master_profile.id %></td>
             <td><%= master_profile.description %></td>
-            <td><%= link_to 'Mostrar', master_profile %></td>
             <td><%= link_to 'Editar', edit_master_profile_path(master_profile) %></td>
             <td><%= link_to 'Apagar', master_profile, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
           </tr>
@@ -59,7 +58,7 @@
   <div class="col-md-12">
     <%= link_to new_master_profile_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-plus"></span>
-      Novo Registro
+      Novo Registo
     <% end %>    
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>

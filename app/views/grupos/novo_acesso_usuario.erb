@@ -35,9 +35,9 @@
               <%= f.select :usuario_id, Usuario.com_acesso(usuario_logado).limit(100).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%" %>
             </div>
           </div>
-					<div class="form-input col-sm-12" style="margin-top:20px">
+			<div class="form-input col-sm-12" style="margin-top:20px">
           	<%= f.check_box :escrita %>
-						<%= f.label :escrita, "Se marcar esta opção irá inserir este grupo em todo registro que alterar ou incluir, ou seja, o prório usuário poderá ver as vendas dele e todas as outras pessoas do grupo também" %>
+						<%= f.label :escrita, "Se marcar esta opção irá inserir este grupo em todo registo que alterar ou incluir, ou seja, o prório usuário poderá ver as vendas dele e todas as outras pessoas do grupo também" %>
 					</div>
 					<div class="form-actions col-sm-12">
 						<hr>

@@ -11,19 +11,19 @@
     <table class="table table-hover">
       <thead>
         <tr>
-        <th scope="col">Sequência da Venda</th>
-        <th scope="col">Data da Transação</th>
-        <th scope="col">ID da Venda</th>
-        <th colspan="3">Ações</th>
+        <th scope="col" class="text-center">Sequência da Venda</th>
+        <th scope="col" class="text-center">Data da Transação</th>
+        <th scope="col" class="text-center">ID da Venda</th>
+        <th colspan="3">Ações para o Registo</th>
         </tr>
       </thead>
 
       <tbody>
         <% @unitel_sequences.each do |unitel_sequence| %>
         <tr>
-          <td><%= unitel_sequence.sequence_id %></td>
-          <td><%= unitel_sequence.created_at.strftime("%d/%m/%Y %H:%M") %></td>
-          <td><a href="/vendas/<%= unitel_sequence.venda.id %>"><%= unitel_sequence.venda.id %></a></td>
+          <td class="text-center"><%= unitel_sequence.sequence_id %></td>
+          <td class="text-center"><%= unitel_sequence.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+          <td class="text-center"><a href="/vendas/<%= unitel_sequence.venda.id %>"><%= unitel_sequence.venda.id %></a></td>
           <td><%= link_to 'Mostrar', unitel_sequence %></td>
         </tr>
         <% end %>

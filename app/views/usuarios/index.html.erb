@@ -1,6 +1,6 @@
 <div class="col-md-12">
   <div class="col-md-12">
-    <h3>Usuários</h3>
+    <h3>Lista de Usuários</h3>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -136,7 +136,7 @@
           <% end %>
           <%= link_to new_usuario_path, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-plus"></span>
-            Novo Registro
+            Novo Registo
           <% end %>
         </div>
     </form>
@@ -158,7 +158,7 @@
           <% end %>
           <th scope="col">Subagente e Data da Criação do Usuário</th>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
-            <th colspan="4">Ações</th>
+            <th colspan="4">Ações para o Registo</th>
           <% end %>
         </tr>
       </thead>
@@ -190,8 +190,8 @@
                         <% end %>
                     <br>
                     <% if usuario_logado.admin? || usuario_logado.operador? %>
-                      <b>Consegue ver registros do grupo? </b> Sim<br>
-                      <b>Compartilha seus registros com o grupo? </b>
+                      <b>Consegue ver registos do grupo? </b> Sim<br>
+                      <b>Compartilha seus registos com o grupo? </b>
                       <select id="compartilha" onchange="pgstrans.alteraCompartilha(<%= gu.id %>, this)">
                         <option value="true" <%= gu.escrita ? "selected='selected'" : "" %> >Sim</option>
                         <option value="false" <%= !gu.escrita ? "selected='selected'" : "" %> >Não</option>
@@ -231,7 +231,7 @@
 
     <%= link_to new_usuario_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-plus"></span>
-      Novo Registro
+      Novo Registo
     <% end %>    
 
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
