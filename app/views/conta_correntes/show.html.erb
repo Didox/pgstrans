@@ -1,12 +1,12 @@
-<div class="container">
-
-  <h4>Conta Corrente</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Detalhe de Registo de Conta Corrente</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
 
-  <div class="container">
+  <div class="col-md-12">
     <dl class="dl-horizontal">
       <dt>Login:</dt>
       <dd><%= @conta_corrente.usuario.login %></dd>
@@ -51,7 +51,7 @@
         <span class="glyphicon glyphicon-list-alt"></span>
         Lista de Carregamento
       <% end %>
-      <%= link_to conta_correntes_path, class: 'btn btn-danger' do %>
+      <%= link_to conta_correntes_path, class: 'btn btn-info' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Creditar Conta  Corrente
       <% end %>
@@ -59,6 +59,10 @@
         <span class="glyphicon glyphicon-pencil"></span>
         Editar
       <% end %>
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>  
     </div>
   </div>
 </div>

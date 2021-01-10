@@ -1,165 +1,162 @@
-<div class="container scroltable">
-
-  <h4>
-    Conta Corrente -
-    Saldo Disponível para o usuário <%= usuario_logado.nome %>: <%= number_to_currency(usuario_logado.saldo, :unit => "KZ", :precision => 2) %>
-  </h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h4>
+      Conta Corrente -
+      Saldo Disponível para o usuário <%= usuario_logado.nome %>: 
+      <%= number_to_currency(usuario_logado.saldo, :unit => "KZ", :precision => 2) %>
+    </h4>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
-
-  <div style="margin-top:10px">
+  <div class="col-md-12">
     <form action="" method="get" id="formApuracao">
-      <div class="row" style="padding:10px">
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Data de Lançamento</label>
-            <div>
-              <input type="date" name="data_alegacao_pagamento" value="<%= params[:data_alegacao_pagamento] %>" class="form-control">
-            </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Data de Lançamento</label>
+          <div>
+            <input type="date" name="data_alegacao_pagamento" value="<%= params[:data_alegacao_pagamento] %>" class="form-control">
           </div>
         </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Última da Atualização</label>
-            <div>
-              <input type="date" name="data_ultima_atualizacao_saldo" value="<%= params[:data_ultima_atualizacao_saldo] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Nome do Usuário</label>
-            <div>
-              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Login</label>
-            <div>
-              <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Responsável pela Aprovação</label>
-            <div>
-              <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>IBAN</label>
-            <div>
-              <input type="text" name="iban" value="<%= params[:iban] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Tipo de Lançamento</label>
-              <div>
-                <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
-                  <option value="" selected="'selected'">Todos</option>
-                  <% Lancamento.all.each do |lancamento| %>
-                    <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
-                  <% end %>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-5">
-                <div class="form-group">
-                  <label>Observação</label>
-                  <div>
-                    <input type="text" name="observacao" value="<%= params[:observacao] %>" class="form-control">
-                  </div>
-                </div>
-              </div>
-            </div>
-          <div class="form-group">
-            <div style="float: right;margin-right:10px">
-              <input type="submit" value="Buscar" class="btn btn-info">
-
-              <%= link_to new_conta_corrente_path, class: 'btn btn-success' do %>
-                <span class="glyphicon glyphicon-plus"></span>
-                Novo Registro
-              <% end %>
-
-              <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-                <span class="glyphicon glyphicon-list-alt"></span>
-                Voltar
-              <% end %>  
-              
-            </div>
-          </div>
-        </form>
       </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Última da Atualização</label>
+          <div>
+            <input type="date" name="data_ultima_atualizacao_saldo" value="<%= params[:data_ultima_atualizacao_saldo] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Nome do Usuário</label>
+          <div>
+            <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Login</label>
+          <div>
+            <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Responsável pela Aprovação</label>
+          <div>
+            <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>IBAN</label>
+          <div>
+            <input type="text" name="iban" value="<%= params[:iban] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Tipo de Lançamento
+          </label>
+            <div>
+              <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Lancamento.all.each do |lancamento| %>
+                  <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
+                <% end %>
+              </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="form-group">
+          <label>Observação</label>
+           <div>
+              <input type="text" name="observacao" value="<%= params[:observacao] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit" value="Buscar" class="btn btn-info">
 
-  <div class="container">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Dados</th>
-          <th scope="col">Valores</th>
-          <th scope="col">Datas</th>
-          <th colspan="3">Ações</th>
-        </tr>
-      </thead>
+          <%= link_to new_conta_corrente_path, class: 'btn btn-success' do %>
+            <span class="glyphicon glyphicon-plus"></span>
+            Novo Registro
+          <% end %>
 
-      <tbody>
-        <% @conta_correntes.each do |conta_corrente| %>
-        <tr>
-          <td style="width: 450px">
-            <b>Login:</b> <%= conta_corrente.usuario.login %><br>
-            <b>Usuário:</b> <%= conta_corrente.usuario.nome %><br>
-            <b>Lançamento:</b> <%= conta_corrente.lancamento.nome %><br>
-            <% if conta_corrente.banco_id.present? %>
-              <b>Banco:</b> <%= conta_corrente.banco.nome %><br>
-            <% end %>
-            <% if conta_corrente.iban.present? %>
-              <b>IBAN:</b> <%= conta_corrente.iban %><br>
-            <% end %>
-            <b>Observação:</b> <%= conta_corrente.observacao %><br>
-            <% if conta_corrente.responsavel_aprovacao.present? %>
-              <b>Responsável aprovação:</b> <%= conta_corrente.responsavel_aprovacao.nome %>
-            <% end %>
-          </td>
-          <td style="width: 250px">
-            <b>Valor do Lançamento:</b> <span <%if conta_corrente.lancamento.nome == Lancamento::DEBITO%> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span><br>
-            <hr>
-            <b>Saldo Anterior:</b> <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %><br>
-            <hr>
-            <b>Saldo Atual:</b> <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %><br>
-          </td>
-          <td style="width: 250px">
-            <b>Data do Lançamento:</b><br>
-            <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %><br>
-            <b>Última Atualização:</b><br>
-            <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %><br>
-          </td>
-          <td><%= link_to 'Mostrar', conta_corrente %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-    <div class="apple_pagination">
-      <%= will_paginate @conta_correntes, :container => false %>
-    </div>
-
-    <%= link_to new_conta_corrente_path, class: 'btn btn-success' do %>
-      <span class="glyphicon glyphicon-plus"></span>
-      Novo Registro
-    <% end %>
-    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
-      Voltar
-    <% end %>    
+          <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>  
+        </div>
+      </div>
+    </form>
   </div>
+</div>
+<div class="col-md-12">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Dados</th>
+        <th scope="col">Valores</th>
+        <th scope="col">Datas</th>
+        <th colspan="3">Ação para o Registo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @conta_correntes.each do |conta_corrente| %>
+      <tr>
+        <td style="width: 450px">
+          <b>Login:</b> <%= conta_corrente.usuario.login %><br>
+          <b>Usuário:</b> <%= conta_corrente.usuario.nome %><br>
+          <b>Lançamento:</b> <%= conta_corrente.lancamento.nome %><br>
+          <% if conta_corrente.banco_id.present? %>
+            <b>Banco:</b> <%= conta_corrente.banco.nome %><br>
+          <% end %>
+          <% if conta_corrente.iban.present? %>
+            <b>IBAN:</b> <%= conta_corrente.iban %><br>
+          <% end %>
+          <b>Observação:</b> <%= conta_corrente.observacao %><br>
+          <% if conta_corrente.responsavel_aprovacao.present? %>
+            <b>Responsável aprovação:</b> <%= conta_corrente.responsavel_aprovacao.nome %>
+          <% end %>
+        </td>
+        <td style="width: 350px">
+          <b>Valor do Lançamento:</b> <span <%if conta_corrente.lancamento.nome == Lancamento::DEBITO%> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span><br>
+          <hr>
+          <b>Saldo Anterior:</b> <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %><br>
+          <hr>
+          <b>Saldo Atual:</b> <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %><br>
+        </td>
+        <td style="width: 300px">
+          <b>Data do Lançamento:</b><br>
+          <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %><br>
+          <hr>
+          <b>Última Atualização:</b><br>
+          <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %><br>
+        </td>
+        <td><%= link_to 'Mostrar', conta_corrente %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="apple_pagination">
+    <%= will_paginate @conta_correntes, :container => false %>
+  </div>
+  <%= link_to new_conta_corrente_path, class: 'btn btn-success' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    Novo Registro
+  <% end %>
+  <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>    
 </div>
