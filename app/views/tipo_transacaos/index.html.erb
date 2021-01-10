@@ -9,7 +9,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col" class="text-center">ID do Registo</th>
           <th scope="col">Nome</th>
           <th colspan="2">Ações para o Registo</th>
         </tr>
@@ -18,7 +18,7 @@
       <tbody>
         <% @tipo_transacaos.each do |tipo_transacao| %>
         <tr>
-          <td><%= tipo_transacao.id %></td>
+          <td class="text-center"><%= tipo_transacao.id %></td>
           <td><%= tipo_transacao.nome %></td>
           <td><%= link_to 'Editar', edit_tipo_transacao_path(tipo_transacao) %></td>
           <td><%= link_to 'Apagar', tipo_transacao, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
