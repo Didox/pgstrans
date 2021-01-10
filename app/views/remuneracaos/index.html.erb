@@ -1,12 +1,12 @@
-<div class="container">
-
-  <h4>Lista de Remunerações</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Lista de Remuneração por Usuário</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div style="margin-top:10px">
+  <div class="col-md-12 scroltable">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
         <div class="col-sm-4">
@@ -82,73 +82,71 @@
       </div>
     </form>
   </div>
-
-  <div class="container scroltable">
-    <p>Margens atribuídas aos Clientes</p>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">ID Remuner.</th>
-          <th scope="col">Status</th>
-          <th scope="col">Login do Usuário</th>
-          <th scope="col">Nome do Usuário</th>
-          <th scope="col">Início da Vigência</th>
-          <th scope="col">Fim da Vigência</th>
-          <th scope="col">Remunerações</th>
-          <% if(usuario_logado.admin? || usuario_logado.operador?) %>
-            <th colspan="3">Ações</th>
-          <% end %>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @remuneracaos.each do |remuneracao| %>
-        <tr>
-          <td><%= remuneracao.id %></td>
-          <td><%= remuneracao.ativo ? "Ativo" : "Inativo" %></td>
-          <td><%= remuneracao.usuario.login %></td>
-          <td><%= remuneracao.usuario.nome %></td>
-          <td><%= remuneracao.vigencia_inicio.strftime("%d/%m/%Y") rescue "" %></td>
-          <td><%= remuneracao.vigencia_fim.strftime("%d/%m/%Y") rescue "" %></td>
-          <td>
-            <% Partner.all.each do |partner| %>
-              <div>
-                <b>
-                  <%= partner.name %>: 
-                </b>
-                <% 
-                porcentagem = partner.desconto
-                rd = RemuneracaoDesconto.where(remuneracao_id: remuneracao.id, partner_id: partner.id, desconto_parceiro: DescontoParceiro.where(partner_id: partner.id)).first
-                if rd.present?
-                  porcentagem = rd.desconto_parceiro.porcentagem
-                end
-                %>
-                <%= porcentagem %>%
-              </div>
-            <% end %>
-          </td>
-          <% if(usuario_logado.admin? || usuario_logado.operador?) %>
-            <td><%= link_to 'Mostrar', remuneracao %></td>
-            <td><%= link_to 'Editar', edit_remuneracao_path(remuneracao) %></td>
-            <td><%= link_to 'Apagar', remuneracao, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
-          <% end %>
-        </tr>
+</div>
+<div class="col-md-12 scroltable">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ID Remuner.</th>
+        <th scope="col">Status</th>
+        <th scope="col">Login do Usuário</th>
+        <th scope="col">Nome do Usuário</th>
+        <th scope="col">Início da Vigência</th>
+        <th scope="col">Fim da Vigência</th>
+        <th scope="col">Remunerações</th>
+        <% if(usuario_logado.admin? || usuario_logado.operador?) %>
+          <th colspan="3">Ações</th>
         <% end %>
-      </tbody>
-    </table>
+      </tr>
+    </thead>
 
-    <div class="apple_pagination">
-      <%= will_paginate @remuneracaos, :container => false %>
-    </div> 
+    <tbody>
+      <% @remuneracaos.each do |remuneracao| %>
+      <tr>
+        <td><%= remuneracao.id %></td>
+        <td><%= remuneracao.ativo ? "Ativo" : "Inativo" %></td>
+        <td><%= remuneracao.usuario.login %></td>
+        <td><%= remuneracao.usuario.nome %></td>
+        <td><%= remuneracao.vigencia_inicio.strftime("%d/%m/%Y") rescue "" %></td>
+        <td><%= remuneracao.vigencia_fim.strftime("%d/%m/%Y") rescue "" %></td>
+        <td>
+          <% Partner.all.each do |partner| %>
+            <div>
+              <b>
+                <%= partner.name %>: 
+              </b>
+              <% 
+              porcentagem = partner.desconto
+              rd = RemuneracaoDesconto.where(remuneracao_id: remuneracao.id, partner_id: partner.id, desconto_parceiro: DescontoParceiro.where(partner_id: partner.id)).first
+              if rd.present?
+                porcentagem = rd.desconto_parceiro.porcentagem
+              end
+              %>
+              <%= porcentagem %>%
+            </div>
+          <% end %>
+        </td>
+        <% if(usuario_logado.admin? || usuario_logado.operador?) %>
+          <td><%= link_to 'Mostrar', remuneracao %></td>
+          <td><%= link_to 'Editar', edit_remuneracao_path(remuneracao) %></td>
+          <td><%= link_to 'Apagar', remuneracao, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-    <%= link_to new_remuneracao_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-plus"></span>
-      Novo Registro
-    <% end %>    
+  <div class="apple_pagination">
+    <%= will_paginate @remuneracaos, :container => false %>
+  </div> 
 
-    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
-      Voltar
-    <% end %>
-  </div>
+  <%= link_to new_remuneracao_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    Novo Registro
+  <% end %>    
+
+  <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
 </div>

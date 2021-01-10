@@ -108,7 +108,7 @@ class PerfilUsuario < ApplicationRecord
       status_clientes: "Backoffice - Sessão de Usuários - Tabela de Situação Usuários",
       uni_pessoal_empresas: "Backoffice - Sessão de Tabelas Auxiliares - Tabela de Tipo de Usuário Unipessoal ou Empresa",
       perfil_usuarios: "Backoffice - Sessão de Usuários - Tabela de Perfil de Usuários do Sistema",
-      remuneracaos: "Backoffice - Sessão de Desconto / Remuneração / Margem - Definicação da Remuneração dos Usuários",
+      remuneracaos: "Backoffice - Sessão de Desconto / Remuneração / Margem - Definição da Remuneração dos Usuários",
       produtos: "Backoffice - Sessão de Parceiros e Produtos - Tabela de Produtos",
       status_produtos: "Backoffice - Sessão de Parceiros e Produtos - Tabela de Situação de Produtos",
       saldos: "Consulta a movimentação da sua conta corrente e visualiza o própio saldo",
