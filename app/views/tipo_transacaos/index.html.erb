@@ -1,17 +1,17 @@
-<div class="container">
-  <h4>Tipos de Transações</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Tipos de Transações</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
-
-  <div class="container scroltable">
+  <div class="col-md-12 scroltable">
     <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Nome</th>
-          <th colspan="3">Ações</th>
+          <th colspan="2">Ações para o Registo</th>
         </tr>
       </thead>
 
@@ -20,7 +20,6 @@
         <tr>
           <td><%= tipo_transacao.id %></td>
           <td><%= tipo_transacao.nome %></td>
-          <td><%= link_to 'Mostrar', tipo_transacao %></td>
           <td><%= link_to 'Editar', edit_tipo_transacao_path(tipo_transacao) %></td>
           <td><%= link_to 'Apagar', tipo_transacao, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>

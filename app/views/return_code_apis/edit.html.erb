@@ -1,18 +1,21 @@
-<div class="container"> 
-  <h4>Editar Código de Retorno das APIs</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Editar Código de Retorno das APIs</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
   <%= render 'form', return_code_api: @return_code_api %>
 
-  <%= link_to @return_code_api, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-info-sign"></span>
-    Mostrar
-  <% end %>
-  <%= link_to return_code_apis_path, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Voltar
-  <% end %>
+  <div class="col-md-12">
+    <%= link_to @return_code_api, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-info-sign"></span>
+      Mostrar
+    <% end %>
+    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>
+  </div>
 </div>

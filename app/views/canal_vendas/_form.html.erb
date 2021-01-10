@@ -24,21 +24,24 @@
           </div>
         <% end %>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-4">
           <%= f.input :nome, placeholder: "Nome do canal de venda" %>
         </div>
 
-        <div class="col-sm-6">
+        <div class="form-input col-sm-4">
           <%= f.input :carregamento_minimo, :label => "Carregamento Mínimo", placeholder: "Carregamento mínimo no credenciamento do agente" %>
         </div>
  
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-4">
           <%= f.label :dispositivo_id, "Dispositivo" %>
           <%= f.select :dispositivo_id, Dispositivo.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>   
         </div>
-  
+
         <div class="form-actions col-sm-12">
-          <%= f.button :submit, "Confirmar", class: 'btn btn-danger' %>
+          <%= f.button :button, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-ok"></span>
+            Confirmar
+          <% end %>
         </div>
       <% end %>
     </div>

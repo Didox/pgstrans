@@ -1,48 +1,44 @@
-<div class="container scroltable">
-
-  <h4>Lista de Países</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Lista de Países</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
-
-  <div style="margin-top:10px">
+  <div class="col-md-12">
     <form action="" method="get" id="formApuracao">
-      <div class="row" style="padding:10px">
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Nome em Inglês</label>
-            <div>
-              <input type="text" name="name_eng" value="<%= params[:name_eng] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Nome em Português</label>
-            <div>
-              <input type="text" name="name_pt" value="<%= params[:name_pt] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>ISO2</label>
-            <div>
-              <input type="text" name="iso2" value="<%= params[:iso2] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Código BACEN</label>
-            <div>
-              <input type="text" name="bacen" value="<%= params[:bacen] %>" class="form-control">
-            </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Nome em Inglês</label>
+          <div>
+            <input type="text" name="name_eng" value="<%= params[:name_eng] %>" class="form-control">
           </div>
         </div>
       </div>
-
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Nome em Português</label>
+          <div>
+            <input type="text" name="name_pt" value="<%= params[:name_pt] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>ISO2 / Sigla Internacional</label>
+          <div>
+            <input type="text" name="iso2" value="<%= params[:iso2] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Código Banco Central do Brasil</label>
+          <div>
+            <input type="text" name="bacen" value="<%= params[:bacen] %>" class="form-control">
+          </div>
+        </div>
+      </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-info">
@@ -51,32 +47,30 @@
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
           <% end %>
-          
         </div>
       </div>
     </form>
   </div>
 
-  <div class="container">
+  <div class="col-md-12">
     <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Nome em Inglês</th>
           <th scope="col">Nome em Português</th>
-          <th scope="col">ISO2</th>
-          <th scope="col">Bacen</th>
-          <th colspan="3">Ações</th>
+          <th scope="col" class="text-right">ISO2 / Sigla Internacional</th>
+          <th scope="col" class="text-right">Código Banco Central do Brasil</th>
+          <th colspan="3">Ações para o Registo</th>
         </tr>
       </thead>
-
       <tbody>
         <% @countries.each do |country| %>
         <tr>
           <td><%= country.id %></td>
           <td><%= country.name_eng %></td>
           <td><%= country.name_pt %></td>
-          <td><%= country.iso2 %></td>
+          <td class="text-center"><%= country.iso2 %></td>
           <td class="text-right"><%= country.bacen %></td>
           <td><%= link_to 'Mostrar', country %></td>
           <td><%= link_to 'Editar', edit_country_path(country) %></td>
@@ -89,7 +83,6 @@
     <div class="apple_pagination">
       <%= will_paginate @countries, :container => false %>
     </div>    
-
 
     <%= link_to new_country_path, class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-plus"></span>

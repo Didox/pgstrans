@@ -1,27 +1,32 @@
-<h4>Mostra Canal de Venda</h4>
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Detalhes de Canal de Venda</h3>
+  </div>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
 
-<!-- Page Heading/Breadcrumbs -->
-<%= render :partial => 'shared/header_backoffice' %>
-<!-- /.row -->
+  <div class="col-md-12">
+    <dl class="dl-horizontal">
+      <dt>ID:</dt>
+      <dd><%= @canal_venda.id %></dd>
+      <dt>Nome:</dt>
+      <dd><%= @canal_venda.nome %></dd>
+      <dt>Carragamento Mínimo KZ:</dt>
+      <dd><%= @canal_venda.carregamento_minimo %></dd>
+      <dt>Dispositivo:</dt>
+      <dd><%= @canal_venda.dispositivo.nome %></dd>
+    </dl>
 
-<dl class="dl-horizontal">
-  <dt>ID:</dt>
-  <dd><%= @canal_venda.id %></dd>
-  <dt>Nome:</dt>
-  <dd><%= @canal_venda.nome %></dd>
-  <dt>Carragamento minimo KZ:</dt>
-  <dd><%= @canal_venda.carregamento_minimo %></dd>
-  <dt>Dispositivo:</dt>
-  <dd><%= @canal_venda.dispositivo.nome %></dd>
-</dl>
-
-<div class="page-header">
-  <%= link_to canal_vendas_path, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Voltar
-  <% end %>
-  <%= link_to edit_canal_venda_path(@canal_venda), class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Editar
-  <% end %>
+    <div class="page-header">
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_canal_venda_path(@canal_venda), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
 </div>

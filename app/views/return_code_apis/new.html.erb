@@ -1,7 +1,13 @@
-<div class="container">
-	<h3>Novo Código de Retorno da API</h3>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+		<h3>Cadastro de Código de Retorno da API</h3>
+	</div>
 	<%= render 'form', return_code_api: @return_code_api %>
 
-	<%= link_to 'Voltar', return_code_apis_path %>
+	<div class="col-md-12">
+		<%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+			<span class="glyphicon glyphicon-list-alt"></span>
+			Voltar
+		<% end %>
+	</div>
 </div>

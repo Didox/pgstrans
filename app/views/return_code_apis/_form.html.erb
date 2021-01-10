@@ -25,26 +25,25 @@
         <% end %>
       
         <div class="form-input col-sm-6">
-          <%= f.input :return_code %>
+          <%= f.input :return_code, :label => "Código de Retorno" %>
         </div>
         <div class="form-input col-sm-6">
-          <%= f.input :return_description %>
+          <%= f.input :return_description, :label => "Descrição do Código de Retorno" %>
         </div>
         <div class="form-input col-sm-6">
-          <%= f.input :error_description %>
+          <%= f.input :error_description, :label => "Descrição do Erro no Idioma Original" %>
         </div>
         <div class="form-input col-sm-6">
-          <%= f.input :error_description_pt %>
-        </div>
-        <div class="form-input col-sm-6">
-          <%= f.label :sucesso, "Marque se o retorno é sucesso" %>
-          <%= f.check_box :sucesso %>
+          <%= f.input :error_description_pt, :label => "Descrição do Erro em Português" %>
         </div>
         <div class="form-input col-sm-6">
           <%= f.label :partner_id, "Parceiro" %>
           <%= f.select :partner_id, Partner.all.collect{|p|[p.name, p.id]}, {}, {class: 'form-control is-valid'} %>
-        </div>
-        
+        </div>        
+        <div class="form-input col-sm-6">
+          <%= f.label :sucesso, "Marque se esse código de retorno corresponde a sucesso na transação" %>
+          <%= f.check_box :sucesso %>
+        </div>     
         <div class="form-actions col-sm-12" style="margin-top: 15px">
           <%= f.button :button, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-ok"></span>

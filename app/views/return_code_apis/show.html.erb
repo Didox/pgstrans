@@ -1,46 +1,39 @@
-<div class="container">
-
-  <h4>Mostra Códigos de Retorno APIs</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+	  <h3>Mostra Códigos de Retorno APIs</h3>
+	</div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row --> 
 
-	<div class="container">
-
+	<div class="col-md-12">
 		<p>
 		  <strong>Return code:</strong>
 		  <%= @return_code_api.return_code %>
 		</p>
-
 		<p>
 		  <strong>Return description:</strong>
 		  <%= @return_code_api.return_description %>
 		</p>
-
 		<p>
 		  <strong>Error description:</strong>
 		  <%= @return_code_api.error_description %>
 		</p>
-
 		<p>
 		  <strong>Error description pt:</strong>
 		  <%= @return_code_api.error_description_pt %>
 		</p>
-
 		<p>
 		  <strong>Partner:</strong>
 		  <%= @return_code_api.partner.name %>
 		</p>
-
 		<% if @return_code_api.sucesso %>
 		<p>
 		  <strong>Este é um retorno de sucesso</strong>
 		</p>
 		<% end %>
-
 	    <div class="page-header">
-	      <%= link_to return_code_apis_path, class: 'btn btn-danger' do %>
+	      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
 	        <span class="glyphicon glyphicon-list-alt"></span>
 	        Voltar
 	      <% end %>

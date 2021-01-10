@@ -1,23 +1,22 @@
-<h4>Mostra Dados do País</h4>
-
-<!-- Page Heading/Breadcrumbs -->
-<%= render :partial => 'shared/header_backoffice' %>
-<!-- /.row -->
-
-<div class="container">
-  <dl class="dl-horizontal">
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Detalhe de Dados de País</h3>
+  </div>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+  <dl class="col-md-12 dl-horizontal">
     <dt>Nome em Inglês:</dt>
     <dd><%= @country.name_eng %></dd>
     <dt>Nome em Português:</dt>
     <dd><%= @country.name_pt %></dd>
-    <dt>Código Internacional do País:</dt>
+    <dt>ISO 2 / Sigla Internacional:</dt>
     <dd><%= @country.iso2 %></dd>
     <dt>Código BACEN:</dt>
     <dd><%= @country.bacen %></dd>
   </dl>
-
-  <div class="page-header">
-    <%= link_to countries_path, class: 'btn btn-danger' do %>
+  <div class="col-md-12">
+    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar
     <% end %>

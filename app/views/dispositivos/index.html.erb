@@ -1,21 +1,19 @@
-<div class="container scroltable">
-  
-  <h4>Lista de Dispositivos</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Lista de Dispositivos</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
-
-  <div class="container">
+  <div class="col-md-12">
     <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">Marca / Modelo</th>
           <th scope="col">Características Técnicas</th>
-          <th colspan="3">Ações</th>
+          <th colspan="3">Ações para o Registo</th>
         </tr>
       </thead>
-
       <tbody>
         <% @dispositivos.each do |dispositivo| %>
         <tr>

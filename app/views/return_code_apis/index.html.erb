@@ -1,50 +1,47 @@
-<div class="container">
-
-
-  <h3>Códigos de Retorno das APIs</h3>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Códigos de Retorno das APIs</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
 
-  <div style="margin-top:10px">
+  <div class="col-md-12">
     <form action="" method="get" id="formApuracao">
-      <div class="row" style="padding:10px">
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Código de Retorno</label>
-            <div>
-              <input type="text" name="return_code" value="<%= params[:return_code] %>" class="form-control">
-            </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Código de Retorno</label>
+          <div>
+            <input type="text" name="return_code" value="<%= params[:return_code] %>" class="form-control">
           </div>
         </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Descrição do Retorno</label>
-            <div>
-              <input type="text" name="return_description" value="<%= params[:return_description] %>" class="form-control">
-            </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Descrição do Retorno</label>
+          <div>
+            <input type="text" name="return_description" value="<%= params[:return_description] %>" class="form-control">
           </div>
         </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Descrição do Erro em Português</label>
-            <div>
-              <input type="text" name="error_description_pt" value="<%= params[:error_description_pt] %>" class="form-control">
-            </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Descrição do Erro em Português</label>
+          <div>
+            <input type="text" name="error_description_pt" value="<%= params[:error_description_pt] %>" class="form-control">
           </div>
         </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Parceiro</label>
-            <div>
-              <select name="parceiro_id" onchange="pgstrans.carregaProdutosPorParceiro(this)" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% Partner.all.each do |partner| %>
-                  <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
-                <% end %>
-              </select>
-            </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Parceiro</label>
+          <div>
+            <select name="parceiro_id" onchange="pgstrans.carregaProdutosPorParceiro(this)" class="form-control">
+              <option value="" selected="'selected'">Todos</option>
+              <% Partner.all.each do |partner| %>
+                <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
+              <% end %>
+            </select>
           </div>
         </div>
       </div>
@@ -63,16 +60,16 @@
     </form>
   </div>
 
-  <div class="container scroltable">
+  <div class="col-md-12 scroltable">
     <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">Código de Retorno</th>
           <th scope="col">Descrição do Retorno</th>
-          <th scope="col">Descrição do Erro</th>
+          <th scope="col">Descrição do Erro no Idioma Original</th>
           <th scope="col">Descrição do Erro em Português</th>
           <th scope="col">Parceiro</th>
-          <th colspan="3">Ações</th>
+          <th colspan="3">Ações para o Registo</th>
         </tr>
       </thead>
 
