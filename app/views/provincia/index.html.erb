@@ -54,7 +54,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col">ID do Registo</th>
           <th scope="col">Nome</th>
           <th scope="col">Capital</th>
           <th scope="col">Área em KM<sup>2</sup></th>
@@ -67,7 +67,7 @@
       <tbody>
         <% @provincia.each do |provincium| %>
         <tr>
-          <td><%= provincium.id %></td>
+          <td class="text-center"><%= provincium.id %></td>
           <td><%= provincium.nome %></td>
           <td><%= provincium.capital %></td>
           <td align="right"><%= number_with_delimiter(provincium.area_km2, delimiter: ".") %></td>
