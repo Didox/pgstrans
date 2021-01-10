@@ -1,18 +1,17 @@
-<div class="container">
-  <h4>Edição de Status de Parceiros</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Edição de Status de Parceiros</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
   <%= render 'form' %>
 
-  <%= link_to @status_parceiro, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-info-sign"></span>
-    Mostrar
-  <% end %>
-  <%= link_to status_parceiros_path, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Voltar
-  <% end %>
+  <div class="col-md-12">
+    <%= link_to status_parceiros_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>
+  </div>
 </div>
