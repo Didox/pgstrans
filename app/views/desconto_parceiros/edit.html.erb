@@ -1,6 +1,7 @@
-<div class="container"> 
-  <h4>Edição de Desconto por Parceiro</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Edição de Registo de Desconto de Parceiro</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
@@ -14,5 +15,9 @@
   <%= link_to partner_desconto_parceiros_path(@partner), class: 'btn btn-danger' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
     Voltar
+  <% end %>
+  <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Tela Anterior
   <% end %>
 </div>

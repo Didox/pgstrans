@@ -1,12 +1,12 @@
-<div class="container">
-
-  <h4>Produtos</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Lista de Produtos</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
 
-  <div style="margin-top:10px">
+  <div class="col-md-12">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
         <div class="col-sm-2">
@@ -120,13 +120,11 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <div style="float: right;margin-right:10px">
+      <div class="form-group ml-auto">
           <input type="submit" class="btn btn-info" value="Buscar">
-          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+          <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
-            Voltar
+            Tela Anterior
           <% end %>
 
           <%= link_to new_produto_path, class: 'btn btn-danger' do %>
@@ -134,11 +132,15 @@
             Novo Registro
           <% end %>
 
+          <%= link_to backoffice_index_path, class: 'btn btn-dark' do %>
+            <span class="glyphicon glyphicon-plus"></span>
+            Backoffice
+          <% end %>
         </div>
       </div>
     </form>
   </div>
-  <div class="container scroltable">
+  <div class="col-md-12 scroltable">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -147,7 +149,7 @@
           <th scope="col">Valor</th>
           <th scope="col">Tipo/Subtipo</th>
           <th scope="col">Datas</th>
-          <th colspan="3">Ações</th>
+          <th colspan="3">Ações para o Registo</th>
         </tr>
       </thead>
 
@@ -202,14 +204,18 @@
       <%= will_paginate @produtos, :container => false %>
     </div> 
 
+    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Tela Anterior
+    <% end %>
+
     <%= link_to new_produto_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registro
-    <% end %>   
-
-    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
-      Voltar
     <% end %>
-  </div>
+
+    <%= link_to backoffice_index_path, class: 'btn btn-dark' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      Backoffice
+    <% end %>  </div>
 </div>

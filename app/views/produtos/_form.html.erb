@@ -36,8 +36,6 @@
            <%= f.input :nome_comercial, :label => "Nome Comercial do Produto para a Pagasó", placeholder: "Nome Comercial do Produto" %>
         </div>
 
-        <div class="label-success">&nbsp;</div>
-
         <div class="form-input col-sm-4">
           <%= f.label :moeda_id %>
           <%= f.select :moeda_id, Moeda.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
