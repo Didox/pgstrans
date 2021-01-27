@@ -9,61 +9,67 @@
             <%= link_to image_tag("Mascote_270x228.png")%>
           </img>
         </div>
-        <h3 style="font-size: 28px;margin-top: 20px;">Mais vantagens para você <strong>VENDER MAIS!</strong></h3>
+        <h3 style="font-size: 28px;margin-top: 20px;">
+          Mais vantagens para você <strong>VENDER MAIS!</strong>
+        </h3>
 
         <div class="container">
-            <div id="formContent">
-              <form action="/autentica" method="post">
-                <div class="form-group row">
-                    <label for="email_address" class="col-md-4 col-form-label text-md-right">Login ou E-Mail</label>
-                    <div class="col-md-6">
-                      <input type="text" id="email" class="form-control" name="email" required autofocus>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                  <label for="password" class="col-md-4 col-form-label text-md-right">Palavra-passe</label>
+          <div id="formContent">
+            <form action="/autentica" method="post">
+              <div class="form-group row">
+                  <label for="email_address" class="col-md-4 col-form-label text-md-right">Login ou E-Mail</label>
                   <div class="col-md-6">
-                      <input type="password" id="senha" class="form-control" name="senha" required="">
+                    <input type="text" id="email" class="form-control" name="email" required autofocus>
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="password" class="col-md-4 col-form-label text-md-right">Palavra-passe</label>
+                <div class="col-md-6">
+                    <input type="password" id="senha" class="form-control" name="senha" required="">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-6 offset-md-4">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="remember"> Lembre-se de mim!
+                    </label>
+                  </div>
+                  <div>
+                    <input type="submit" class="fadeIn fourth btn-block btn-success btn-login" value="Aceder">
                   </div>
                 </div>
+              </div>
 
-                <div class="form-group row">
-                  <div class="col-md-6 offset-md-4">
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox" name="remember"> Lembre-se de mim!
-                      </label>
-                    </div>
-                    <div>
-                      <input type="submit" class="fadeIn fourth btn-block btn-success btn-login" value="Aceder">
-                    </div>
-                  </div>
+              <% if flash[:error].present? %>
+                <div class="alert alert-danger alert-dismissable col-md-12" role="alert">
+                  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                  <ul>
+                    <li><%= flash[:error] %></li>
+                  </ul>
                 </div>
-
-                <% if flash[:error].present? %>
-                  <div class="alert alert-danger alert-dismissable col-md-12" role="alert">
-                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
-                    <ul>
-                      <li><%= flash[:error] %></li>
-                    </ul>
-                  </div>
-                <% elsif flash[:notice].present? %>
-                  <div class="alert alert-success alert-dismissable col-md-12" role="alert">
-                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
-                    <ul>
-                      <li><%= flash[:notice] %></li>
-                    </ul>
-                  </div>
-                <% end %>
-
-                <div class="col-md-12">
-                  <%= link_to 'Precisa de ajuda?', "https://www.pagaso.co.ao/pages/contact?locale=pt", target: "_blank" %><br>
-                  <%= link_to 'Password esquecida?', "/password-esquecida" %>
+              <% elsif flash[:notice].present? %>
+                <div class="alert alert-success alert-dismissable col-md-12" role="alert">
+                  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+                  <ul>
+                    <li><%= flash[:notice] %></li>
+                  </ul>
                 </div>
+              <% end %>
+
+              <div class="col-md-12">
+                <%= link_to 'Precisa de ajuda?', "https://www.pagaso.co.ao/pages/contact?locale=pt", target: "_blank" %><br>
+                <%= link_to 'Password esquecida?', "/password-esquecida" %>
+              </div>
             </form>
           </div>
         </div>
+        <div id="ContatoWhatsapp" style="position: fixed; top: calc(100% - 80px); right: 5px;">
+          <a href="https://api.whatsapp.com/send?phone=244931489997&amp;text=Pagasó%20Facilita%20Bué!%20Vamos%20conversar?" target="_blank" title="Como podemos ajudar?">
+          <img src="assets/whatsapp.png" style="width: 60px;background: transparent;">
+        </a>
     </div>
   </div>
 </div>
