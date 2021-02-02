@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_09_125930) do
+ActiveRecord::Schema.define(version: 2021_02_02_101645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -402,6 +402,22 @@ ActiveRecord::Schema.define(version: 2021_01_09_125930) do
     t.index ["partner_id"], name: "index_return_code_apis_on_partner_id"
   end
 
+  create_table "saldo_parceiro_dstvs", force: :cascade do |t|
+    t.bigint "partner_id"
+    t.text "request"
+    t.text "response"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "saldo"
+    t.string "moeda"
+    t.string "agent_first_name"
+    t.string "agent_last_name"
+    t.string "audit_reference_number"
+    t.string "device_id"
+    t.string "device_description"
+    t.index ["partner_id"], name: "index_saldo_parceiro_dstvs_on_partner_id"
+  end
+
   create_table "saldo_parceiros", force: :cascade do |t|
     t.bigint "partner_id"
     t.float "saldo"
@@ -603,6 +619,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_125930) do
   add_foreign_key "remuneracao_descontos", "remuneracaos"
   add_foreign_key "remuneracaos", "usuarios"
   add_foreign_key "return_code_apis", "partners"
+  add_foreign_key "saldo_parceiro_dstvs", "partners"
   add_foreign_key "saldo_parceiros", "partners"
   add_foreign_key "sub_agentes", "industries"
   add_foreign_key "sub_agentes", "provincia", column: "provincia_id"

@@ -74,7 +74,7 @@ class Partner < ApplicationRecord
     self.slug.capitalize.constantize.importa_dados!
   end
 
-  def saldo_atual_movicel
+  def saldo_atual_movicel(ip="?")
     parceiro = Partner.where("lower(slug) = 'movicel'").first
     parametro = Parametro.where(partner_id: parceiro.id).first
 
@@ -158,7 +158,7 @@ class Partner < ApplicationRecord
     SaldoParceiro.new
   end
 
-  def saldo_atual_zaptv
+  def saldo_atual_zaptv(ip="?")
     parceiro = Partner.where("lower(slug) = 'zaptv'").first
     parametro = Parametro.where(partner_id: parceiro.id).first
 
@@ -190,7 +190,11 @@ class Partner < ApplicationRecord
     SaldoParceiro.create!(saldo: 0, partner_id: self.id, log: "Erro ao atualizar saldo - #{e.message} - #{e.backtrace} ")
   end
 
-  def atualiza_saldo!
-    return self.send("saldo_atual_#{self.slug.downcase}")
+  def saldo_atual_dstv(ip="?")
+    Dstv.consulta_saldo(ip)
+  end
+
+  def atualiza_saldo!(ip="?")
+    return self.send("saldo_atual_#{self.slug.downcase}", ip)
   end
 end

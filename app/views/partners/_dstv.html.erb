@@ -1,8 +1,99 @@
 <div class="col-md-12">
   <% if @partner.slug.downcase == "dstv" %>
-      <%= link_to partner_importa_produtos_path(@partner), 
-      class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
-        Atualizar portfólio de produtos
-      <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
+    <%= link_to partner_importa_produtos_path(@partner), 
+    class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
+      Atualizar portfólio de produtos
+    <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
+    <hr>
+    <%= link_to partner_atualiza_saldo_path(@partner), 
+    class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
+      Atualizar saldo
     <% end %>
+    <% saldo = SaldoParceiroDstv.where(partner: @partner.id).first 
+    if saldo.present? && saldo.agent_first_name.present? %>
+      <%= " - Última atualização em: #{saldo.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
+      <hr>
+      <style>
+        .saldo-table-dstv{
+          border: 1px solid #ffc001
+        }
+        .saldo-table-dstv tr{
+          border: 1px solid #ffc001;
+        }
+        .saldo-table-dstv tr td{
+          padding: 10px;
+          border: 1px solid #ffc001;
+        }
+        .saldo-table-dstv tr td:first-child{
+          background: #ffc001;
+        }
+      </style>
+      <table class="saldo-table-dstv">
+        <tr>
+          <td>
+            Primeiro Nome do Agente
+          </td>
+          <td>
+            <%= saldo.agent_first_name %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Último Nome do Agente
+          </td>
+          <td>
+            <%= saldo.agent_last_name %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Saldo
+          </td>
+          <td>
+            <%= number_to_currency(saldo.saldo, :precision => 2) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Moeda
+          </td>
+          <td>
+            <%= saldo.moeda %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Device Id
+          </td>
+          <td>
+            <%= saldo.device_id %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Descrição do Dispositivo
+          </td>
+          <td>
+            <%= saldo.device_description %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            AuditReferenceNumber
+          </td>
+          <td>
+            <%= saldo.audit_reference_number %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Data e Hora da Consulta
+          </td>
+          <td>
+            <%= saldo.updated_at.strftime("%d/%m/%Y %H:%M") %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
 </div>

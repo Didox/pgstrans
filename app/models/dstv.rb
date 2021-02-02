@@ -142,6 +142,104 @@ class Dstv
     end
   end
 
+  def self.consulta_saldo(ip="?")
+    parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language,customer_number_default = parametros
+    partner = Partner.where(slug: "DSTv").first
+   
+    body = "
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
+        <soapenv:Header/>
+        <soapenv:Body>
+            <sel:GetAgentDetails>
+              <sel:agentDetailsRequest>
+                  <sel1:dataSource>#{data_source}</sel1:dataSource>
+                  <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
+              </sel:agentDetailsRequest>
+              <sel:VendorCode>#{vendor_code}</sel:VendorCode>
+              <sel:language>#{language}</sel:language>
+              <sel:ipAddress>#{ip}</sel:ipAddress>
+              <sel:businessUnit>#{business_unit}</sel:businessUnit>
+            </sel:GetAgentDetails>
+        </soapenv:Body>
+      </soapenv:Envelope>
+    "
+
+    Rails.logger.info "=========================================="
+    Rails.logger.info url_service
+    Rails.logger.info "=========================================="
+    Rails.logger.info body
+    Rails.logger.info "=========================================="
+    Rails.logger.info "GetAgentDetails"
+    Rails.logger.info "=========================================="
+
+    request = fazer_request(url_service, body, "GetAgentDetails")
+
+
+    Rails.logger.info "=========================================="
+    Rails.logger.info request.body
+    Rails.logger.info "=========================================="
+
+    if (200...300).include?(request.code.to_i)
+      if request.body.present?
+        xml_doc = Nokogiri::XML(request.body)
+
+        itens = xml_doc.child.children[0].children[0].children
+        itens.each do |item|
+
+          agent_balance = 0
+          currency = ""
+          agent_first_name = ""
+          agent_last_name = ""
+          audit_reference_number = ""
+          device_id = ""
+          device_description = ""
+
+          item.children.each do |campo|
+            if campo.name == "agentBalance"
+              agent_balance = campo.content
+            elsif campo.name == "currency"
+              currency = campo.content
+            elsif campo.name == "agentFirstName"
+              agent_first_name = campo.content
+            elsif campo.name == "agentLastName"
+              agent_last_name = campo.content
+            elsif campo.name == "AuditReferenceNumber"
+              audit_reference_number = campo.content
+            elsif campo.name == "DeviceCollection"
+              device_id = campo.children[0].children[0].content rescue ""
+              device_description = campo.children[0].children[1].content rescue ""
+            end
+          end
+
+          if SaldoParceiroDstv.where(partner_id: partner.id).where("created_at BETWEEN ? AND ?", (Time.zone.now - 2.minutes), (Time.zone.now + 2.minutes)).count == 0
+            saldo_dstv = SaldoParceiroDstv.new
+            saldo_dstv.request = body
+            saldo_dstv.partner_id = partner.id
+            saldo_dstv.response = request.body
+            saldo_dstv.saldo = agent_balance
+            saldo_dstv.moeda = currency
+            saldo_dstv.agent_first_name = agent_first_name
+            saldo_dstv.agent_last_name = agent_last_name
+            saldo_dstv.audit_reference_number = audit_reference_number
+            saldo_dstv.device_id = device_id
+            saldo_dstv.device_description = device_description
+            saldo_dstv.save!
+          end
+        end
+      end
+    else
+      raise "API DSTV Não retornou 200, sem dados para atualização"
+    end
+
+    item = SaldoParceiroDstv.where(partner_id: partner.id).first
+    if item.present?
+      item.updated_at = Time.zone.now
+      item.save!
+    else
+      SaldoParceiroDstv.create(partner_id: partner.id)
+    end
+  end
+
   def self.alteracao_plano_mensal_anual(produto_id_parceiro, customer_number, tipo_plano, ip, usuario_logado)
     raise "Selecione o produto" if produto_id_parceiro.blank?
     raise "Customer number não pode ser vazio" if customer_number.blank?

@@ -30,9 +30,12 @@ class PartnersController < ApplicationController
   end
 
   def atualiza_saldo
-    @partner.atualiza_saldo!
+    @partner.atualiza_saldo!(request.ip)
 
     flash[:notice] = 'Saldo atualizado com sucesso.'
+    redirect_to partner_url(@partner)
+  rescue Exception => erro
+    flash[:error] = "Problemas na atualização de saldo - #{erro.message}"
     redirect_to partner_url(@partner)
   end
   
