@@ -19,9 +19,10 @@ class DstvController < ApplicationController
 
   def pagar_fatura
     return flash[:error] = "Customer number não pode ser vazio" if params[:customer_number].blank?
+    return flash[:error] = "Smartcard não pode ser vazio" if params[:smartcard].blank?
     return flash[:error] = "Valor não pode ser vazio" if params[:valor].blank?
     
-    @info = Dstv.pagar_fatura(params[:customer_number], params[:valor], request.remote_ip, usuario_logado)
+    @info = Dstv.pagar_fatura(params[:customer_number], params[:valor], request.remote_ip, usuario_logado, params[:smartcard])
   rescue Exception => e
     flash[:mensagem_erro_fatura] = e.message
   end

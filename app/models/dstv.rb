@@ -509,8 +509,9 @@ class Dstv
     return detail_hash
   end
 
-  def self.pagar_fatura(customer_number, valor, ip, usuario_logado)
+  def self.pagar_fatura(customer_number, valor, ip, usuario_logado, smartcard)
     raise "Por favor digite o customer_number" if customer_number.blank?
+    raise "Smartcard é obrigatório" if smartcard.blank?
     raise "Por favor digite o valor" if valor.blank?
     raise "Valor da fatura é insuficiente para pagamento" if valor.to_f < 0.1
     raise "Saldo insuficiente para realizar a operação, seu saldo atual é de KZ #{usuario_logado.saldo.round(2)}" if usuario_logado.saldo < valor.to_f
@@ -579,6 +580,7 @@ class Dstv
     pagamentos_faturas_dstv.request_body = request.body
     pagamentos_faturas_dstv.response_body = body
     pagamentos_faturas_dstv.customer_number = customer_number
+    pagamentos_faturas_dstv.smartcard = smartcard
     pagamentos_faturas_dstv.valor = valor
     pagamentos_faturas_dstv.usuario_id = usuario_logado.id
     pagamentos_faturas_dstv.receipt_number = agent_submit_payment_hash["receiptNumber"]

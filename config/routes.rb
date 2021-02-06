@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     resources :loop_logs
   end
   
+  get 'pagamentos_faturas_dstvs/resumido', to: 'pagamentos_faturas_dstvs#resumido'
   resources :pagamentos_faturas_dstvs
+
   resources :alteracoes_planos_dstvs
   resources :log_vendas
   resources :sequencial_dstvs
