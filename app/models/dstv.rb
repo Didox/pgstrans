@@ -512,8 +512,11 @@ class Dstv
   def self.pagar_fatura(customer_number, valor, ip, usuario_logado)
     raise "Por favor digite o customer_number" if customer_number.blank?
     raise "Por favor digite o valor" if valor.blank?
+    raise "Valor da fatura é insuficiente para pagamento" if valor.to_f < 0.1
+    raise "Saldo insuficiente para realizar a operação, seu saldo atual é de KZ #{usuario_logado.saldo.round(2)}" if usuario_logado.saldo < valor.to_f
+    
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
-
+    
     sequencial = SequencialDstv.order("id desc").first
     if sequencial.blank?
       sequencial = SequencialDstv.new
@@ -586,6 +589,15 @@ class Dstv
     pagamentos_faturas_dstv.save!
 
     raise agent_submit_payment_hash["errorMessage"] if agent_submit_payment_hash["errorMessage"].present?
+
+    conta_corrente_retirada = ContaCorrente.new
+    conta_corrente_retirada.valor = "-#{valor.abs}"
+    conta_corrente_retirada.usuario = usuario_logado
+    conta_corrente_retirada.responsavel = usuario_logado
+    conta_corrente_retirada.lancamento = Lancamento.where(nome: Lancamento::PAGAMENTO_DE_FATURA).first || Lancamento.first
+    conta_corrente_retirada.responsavel_aprovacao_id = usuario_logado.id
+    conta_corrente_retirada.observacao = "Pagamento de fatura DSTV"
+    conta_corrente_retirada.save!
 
     return agent_submit_payment_hash
   end

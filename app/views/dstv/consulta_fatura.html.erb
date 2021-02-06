@@ -92,10 +92,12 @@
                 Voltar
               <% end %>
               
-              <button type="submit" class="btn btn-success" style="width: 150px; text-align: center;">
-                <span class="glyphicon glyphicon-ok"></span>
-                Pagar
-              </button>
+              <% if @info["dueAmount"].to_f > 0 %>
+                <button type="submit" class="btn btn-success" style="width: 150px; text-align: center;">
+                  <span class="glyphicon glyphicon-ok"></span>
+                  Pagar
+                </button>
+              <% end %>
             </form>
           </div>
         <% end %>
