@@ -593,7 +593,7 @@ class Dstv
     raise agent_submit_payment_hash["errorMessage"] if agent_submit_payment_hash["errorMessage"].present?
 
     conta_corrente_retirada = ContaCorrente.new
-    conta_corrente_retirada.valor = "-#{valor.abs}"
+    conta_corrente_retirada.valor = "-#{valor.to_f.abs}"
     conta_corrente_retirada.usuario = usuario_logado
     conta_corrente_retirada.responsavel = usuario_logado
     conta_corrente_retirada.lancamento = Lancamento.where(nome: Lancamento::PAGAMENTO_DE_FATURA).first || Lancamento.first
