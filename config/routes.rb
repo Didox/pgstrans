@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :erro_amigavels
   resources :menus
   resources :movicel_loops do
     post '/processar', to: 'movicel_loops#processar'

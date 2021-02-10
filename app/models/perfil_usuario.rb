@@ -91,6 +91,7 @@ class PerfilUsuario < ApplicationRecord
     nomes = {
       vendas: "Backoffice - Relatório de Vendas",
       menus: "Menus do Backoffice",
+      erro_amigavels: "Cadastro de erros amigáveis",
       status_alegacao_pagamentos: "Backoffice - Sessão de Conta Corrente - Tabela de Situações de Alegação de Pagamento",
       parametros: "Backoffice - Sessão de Transações - Parâmetros de Integração dos Parceiros",
       unitel_sequences: "Backoffice - Sessão de Transações - Controle de Sequência de Vendas da Unitel",

@@ -295,7 +295,7 @@ class Dstv
     xml_doc = Nokogiri::XML(request.body)
 
     mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
-    raise mensagem if mensagem.present?
+    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
 
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
     raise "Pagamento não processado" if agent_submit_payment.blank?
@@ -318,7 +318,7 @@ class Dstv
     agent_submit_payment_hash["errorMessage"] = agent_submit_payment.children.select{|child| child.name == "errorMessage"}.first.text
     agent_submit_payment_hash["AuditReferenceNumber"] = agent_submit_payment.children.select{|child| child.name == "AuditReferenceNumber"}.first.text
 
-    raise agent_submit_payment_hash["errorMessage"] if agent_submit_payment_hash["errorMessage"].present?
+    raise ErroAmigavel.traducao(agent_submit_payment_hash["errorMessage"]) if agent_submit_payment_hash["errorMessage"].present?
 
     alteracoes_planos_dstv = AlteracoesPlanosDstv.new
     alteracoes_planos_dstv.request_body = request.body
@@ -404,7 +404,7 @@ class Dstv
     xml_doc = Nokogiri::XML(request.body)
 
     mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
-    raise mensagem if mensagem.present?
+    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
 
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
     raise "Pagamento não processado" if agent_submit_payment.blank?
@@ -492,9 +492,9 @@ class Dstv
     xml_doc = Nokogiri::XML(request.body)
 
     get_due_amountand_date = xml_doc.child.child.child.children rescue nil
-    if get_due_amountand_date.blank?
+    if get_due_amountand_date.blank? || request.body.scan(/<\/faultcode><faultstring/).length > 0
       mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
-      raise mensagem if mensagem.present?
+      raise ErroAmigavel.traducao(mensagem) if mensagem.present?
     end
 
     detail_hash = {}
@@ -562,7 +562,7 @@ class Dstv
     xml_doc = Nokogiri::XML(request.body)
 
     mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
-    raise mensagem if mensagem.present?
+    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
 
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
     raise "Pagamento não processado" if agent_submit_payment.blank?
@@ -590,7 +590,7 @@ class Dstv
     pagamentos_faturas_dstv.audit_reference_number = agent_submit_payment_hash["AuditReferenceNumber"]
     pagamentos_faturas_dstv.save!
 
-    raise agent_submit_payment_hash["errorMessage"] if agent_submit_payment_hash["errorMessage"].present?
+    raise ErroAmigavel.traducao(agent_submit_payment_hash["errorMessage"]) if agent_submit_payment_hash["errorMessage"].present?
 
     conta_corrente_retirada = ContaCorrente.new
     conta_corrente_retirada.valor = "-#{valor.to_f.abs}"
@@ -672,7 +672,7 @@ class Dstv
 
     if customer_details.blank? || accounts_xml.blank?
       mensagem = body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
-      raise mensagem if mensagem.present?
+      raise ErroAmigavel.traducao(mensagem) if mensagem.present?
     end
 
     if customer_details

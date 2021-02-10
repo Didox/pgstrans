@@ -11,6 +11,13 @@
           Consulta valor e data do vencimento da fatura e efetua o pagamento
         </div>
         <br>
+
+        <% if flash[:mensagem_erro_fatura].present? %>
+          <div style="color:red;margin-left: 17px;margin-bottom: 20px;font-size: 16px;">
+            <%= flash[:mensagem_erro_fatura] %>
+          </div>
+        <% end %>
+
         <% if @info.blank? %>
           <div class="card-body">
             <style type="text/css">

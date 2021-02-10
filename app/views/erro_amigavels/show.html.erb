@@ -1,0 +1,28 @@
+<div class="container">
+
+  <h4>Mostrar ErroAmigavel</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>De:</dt>
+      <dd><%= @erro_amigavel.de %></dd>
+      <dt>Para:</dt>
+      <dd><%= @erro_amigavel.para %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to erro_amigavels_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_erro_amigavel_path(@erro_amigavel), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>

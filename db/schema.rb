@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_101645) do
+ActiveRecord::Schema.define(version: 2021_02_10_095644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,13 @@ ActiveRecord::Schema.define(version: 2021_02_02_101645) do
     t.string "so"
     t.string "ram_rom"
     t.string "conectividade"
+  end
+
+  create_table "erro_amigavels", force: :cascade do |t|
+    t.string "de"
+    t.string "para"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "grupo_registros", force: :cascade do |t|
