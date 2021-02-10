@@ -1,28 +1,28 @@
-<div class="container">
-  <p id="notice"><%= notice %></p>
-
-  <h4>ErroAmigavel</h4>
-
+<div class="col-md-12">
+  <div class="col-md-12">  
+    <p id="notice"><%= notice %></p>
+    <h4>Erros Amigáveis</h4>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div class="container scroltable">
+  <div class="col-md-12 scroltable">
     <table class="table table-hover">
       <thead>
         <tr>
-                    <th scope="col">De</th>
-                    <th scope="col">Para</th>
-                    <th colspan="3"></th>
+          <th scope="col">De</th>
+          <th scope="col">Para</th>
+          <th colspan="3"></th>
         </tr>
       </thead>
 
       <tbody>
         <% @erro_amigavels.each do |erro_amigavel| %>
         <tr>
-                    <td><%= erro_amigavel.de %></td>
-                    <td><%= erro_amigavel.para %></td>
-                    <td><%= link_to 'Mostrar', erro_amigavel %></td>
+          <td><%= erro_amigavel.de %></td>
+          <td><%= erro_amigavel.para %></td>
+          <td><%= link_to 'Mostrar', erro_amigavel %></td>
           <td><%= link_to 'Editar', edit_erro_amigavel_path(erro_amigavel) %></td>
           <td><%= link_to 'Apagar', erro_amigavel, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>
@@ -30,7 +30,14 @@
       </tbody>
     </table>
 
-    <%= link_to "Novo Registo", new_erro_amigavel_path, class: 'btn btn-danger' %>
-    <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
+    <%= link_to new_erro_amigavel_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      Novo Registo
+    <% end %>    
+
+    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>
   </div>
 </div>

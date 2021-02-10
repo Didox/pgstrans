@@ -28,7 +28,7 @@ class ErroAmigavelsController < ApplicationController
 
     respond_to do |format|
       if @erro_amigavel.save
-        format.html { redirect_to @erro_amigavel, notice: 'Erro amigavel was successfully created.' }
+        format.html { redirect_to @erro_amigavel, notice: 'Erro amigável cadastrado com sucesso.' }
         format.json { render :show, status: :created, location: @erro_amigavel }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ErroAmigavelsController < ApplicationController
   def update
     respond_to do |format|
       if @erro_amigavel.update(erro_amigavel_params)
-        format.html { redirect_to @erro_amigavel, notice: 'Erro amigavel was successfully updated.' }
+        format.html { redirect_to @erro_amigavel, notice: 'Erro amigável alterado com sucesso.' }
         format.json { render :show, status: :ok, location: @erro_amigavel }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class ErroAmigavelsController < ApplicationController
   def destroy
     @erro_amigavel.destroy
     respond_to do |format|
-      format.html { redirect_to erro_amigavels_url, notice: 'Erro amigavel was successfully destroyed.' }
+      format.html { redirect_to erro_amigavels_url, notice: 'Erro amigável apagado com sucesso.' }
       format.json { head :no_content }
     end
   end
