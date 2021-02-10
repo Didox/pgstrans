@@ -1,0 +1,121 @@
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <p id="notice"><%= notice %></p>
+    <h3>Alterações de Planos DSTV</h3>
+  </div>  
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div style="col-md-12 margin-top:10px">
+    <form action="" method="get" id="formApuracao">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Customer Number/Número do Cliente</label>
+          <div>
+            <input type="text" name="customer_number" value="<%= params[:customer_number] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Smartcard/Device Number</label>
+          <div>
+            <input type="text" name="smartcard" value="<%= params[:smartcard] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Receipt Number DSTV</label>
+          <div>
+            <input type="text" name="receipt_number" value="<%= params[:receipt_number] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Data da Transação</label>
+          <div>
+            <input type="date" name="transaction_date_time" value="<%= params[:transaction_date_time] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Tipo de Plano</label>
+          <div>
+            <select name="tipo_plano" id="tipo_plano" class="form-control" style="width100%;max-width: 500px;">
+              <option value="" <% if params[:tipo_plano].blank? %> selected="selected" <% end %>>
+                Todos
+              </option>
+              <option value="mensal" <% if params[:tipo_plano] == "mensal" %> selected="selected" <% end %>>
+                Mensal
+              </option>
+              <option value="anual" <% if params[:tipo_plano] == "anual" %> selected="selected" <% end %>>
+                Anual
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Transaction Number Pagasó</label>
+          <div>
+            <input type="text" name="transaction_number" value="<%= params[:transaction_number] %>" class="form-control">
+          </div>
+        </div>
+      </div> 
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit" value="Buscar" class="btn btn-info">
+          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>         
+        </div>
+      </div>
+  </form>
+
+  <table class="table scroltable table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Customer number</th>
+        <th scope="col">Smartcard</th>
+        <th scope="col">Produto</th>
+        <th scope="col">Usuário</th>
+        <th scope="col">Codigo</th>
+        <th scope="col">Valor</th>
+        <th scope="col">Receipt number</th>
+        <th scope="col">Transaction number</th>
+        <th scope="col">Status</th>
+        <th scope="col">Transaction date time</th>
+        <th scope="col">Tipo de plano</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @alteracoes_planos_dstvs.each do |alteracoes_planos_dstv| %>
+        <tr>
+          <td><%= alteracoes_planos_dstv.customer_number %></td>
+          <td><%= alteracoes_planos_dstv.smartcard %></td>
+          <td><%= alteracoes_planos_dstv.produto %></td>
+          <td><%= alteracoes_planos_dstv.usuario.nome rescue "" %></td>
+          <td><%= alteracoes_planos_dstv.codigo %></td>
+          <td><%= alteracoes_planos_dstv.valor %></td>
+          <td><%= alteracoes_planos_dstv.receipt_number %></td>
+          <td><%= alteracoes_planos_dstv.transaction_number %></td>
+          <td><%= alteracoes_planos_dstv.status ? "Sim" : "Não" %></td>
+          <td><%= alteracoes_planos_dstv.transaction_date_time.to_datetime.strftime("%d/%m/%Y %H:%M") rescue alteracoes_planos_dstv.transaction_date_time %></td>
+          <td><%= alteracoes_planos_dstv.tipo_plano %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="apple_pagination">
+  <%= will_paginate @alteracoes_planos_dstvs, :container => false %>
+</div> 
+
+<%= link_to 'Voltar', "/backoffice/index", class: 'btn btn-danger' %>

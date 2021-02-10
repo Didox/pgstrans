@@ -29,7 +29,7 @@ class ContaCorrente < ApplicationRecord
   def banco_obrigatorio
     return if self.lancamento_id.blank?
 
-    if ![Lancamento::DEBITO, Lancamento::CREDITO, Lancamento::PAGAMENTO_DE_FATURA].include?(self.lancamento.nome) && self.banco_id.blank?
+    if ![Lancamento::DEBITO, Lancamento::CREDITO, Lancamento::PAGAMENTO_DE_FATURA, Lancamento::ALTERACAO_PLANO].include?(self.lancamento.nome) && self.banco_id.blank?
       self.errors.add(:banco, "é obrigatório")
     end
   end

@@ -56,6 +56,7 @@ class Dstv
   end
 
   def self.importa_produtos(customer_number = nil, ip="?")
+    customer_number = customer_number.to_s.strip
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language,customer_number_default = parametros
     customer_number = customer_number || customer_number_default
     partner = Partner.where(slug: "DSTv").first
@@ -247,6 +248,8 @@ class Dstv
     produto = Dstv.produtos.where(produto_id_parceiro: produto_id_parceiro).first
     raise "Selecione um produto válido" if produto.blank?
 
+    customer_number = customer_number.strip
+
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
     sequencial = SequencialDstv.order("id desc").first
@@ -336,6 +339,15 @@ class Dstv
     alteracoes_planos_dstv.transaction_date_time = agent_submit_payment_hash["transactionDateTime"]
     alteracoes_planos_dstv.audit_reference_number = agent_submit_payment_hash["AuditReferenceNumber"]
     alteracoes_planos_dstv.save!
+    
+    conta_corrente_retirada = ContaCorrente.new
+    conta_corrente_retirada.valor = "-#{alteracoes_planos_dstv.valor.to_f.abs}"
+    conta_corrente_retirada.usuario = usuario_logado
+    conta_corrente_retirada.responsavel = usuario_logado
+    conta_corrente_retirada.lancamento = Lancamento.where(nome: Lancamento::ALTERACAO_PLANO).first || Lancamento.first
+    conta_corrente_retirada.responsavel_aprovacao_id = usuario_logado.id
+    conta_corrente_retirada.observacao = "Alteração de plano DSTV"
+    conta_corrente_retirada.save!
 
     return agent_submit_payment_hash
   end
@@ -344,6 +356,9 @@ class Dstv
     raise "Selecione pelo menos um produto" if produtos.blank?
     raise "Customer number não pode ser vazio" if customer_number.blank?
     raise "Smartcard não pode ser vazio" if smartcard.blank?
+
+    customer_number = customer_number.strip
+    smartcard = smartcard.strip
 
     valor_total = 0
     produtos_api = ""
@@ -441,6 +456,7 @@ class Dstv
 
   def self.informacoes_customer_number(customer_number, ip)
     raise "Por favor digite o customer number" if customer_number.blank?
+    customer_number = customer_number.strip
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
     body = "
@@ -468,6 +484,10 @@ class Dstv
   def self.consulta_fatura(smartcard, customer_number, ip)
     raise "Por favor digite o smartcard" if smartcard.blank?
     raise "Por favor digite o customer_number" if customer_number.blank?
+
+    customer_number = customer_number.strip
+    smartcard = smartcard.strip
+
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
     body = "
@@ -516,6 +536,9 @@ class Dstv
     raise "Valor da fatura é insuficiente para pagamento" if valor.to_f < 0.1
     raise "Saldo insuficiente para realizar a operação, seu saldo atual é de KZ #{usuario_logado.saldo.round(2)}" if usuario_logado.saldo < valor.to_f
     
+    customer_number = customer_number.strip
+    smartcard = smartcard.strip
+
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
     
     sequencial = SequencialDstv.order("id desc").first
