@@ -2,7 +2,7 @@
 	<div class="col-md-12">
     <p id="notice"><%= notice %></p>
     <br>
-    <h3>Pagamentos de Faturas DSTV</h3>
+    <h3>Log de Pagamentos de Faturas DSTV</h3>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -29,7 +29,7 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Receipt Number DSTV</label>
+            <label>Recibo Confirmação</label>
             <div>
               <input type="text" name="receipt_number" value="<%= params[:receipt_number] %>" class="form-control">
             </div>
@@ -73,14 +73,14 @@
         <% @pagamentos_faturas_dstvs.each do |pagamentos_faturas_dstv| %>
         <tr>
           <td>
-            <b>Customer number</b>: <%= pagamentos_faturas_dstv.customer_number %><br>
+            <b>Customer number DSTV</b>: <%= pagamentos_faturas_dstv.customer_number %><br>
             <b>Usuário</b>: <%= pagamentos_faturas_dstv.usuario.nome rescue "" %><br>
             <b>Valor KZ</b>: <%= pagamentos_faturas_dstv.valor %><br>
             <b>Smartcard/Device number</b>: <%= pagamentos_faturas_dstv.smartcard %><br>
-            <b>Receipt number</b>: <%= pagamentos_faturas_dstv.receipt_number %><br>
-            <b>Transaction number</b>: <%= pagamentos_faturas_dstv.transaction_number %><br>
+            <b>Recibo Confirmação</b>: <%= pagamentos_faturas_dstv.receipt_number %><br>
+            <b>Nro. Transação</b>: <%= pagamentos_faturas_dstv.transaction_number %><br>
             <b>Status</b>: <%= pagamentos_faturas_dstv.status %><br>
-            <b>Transaction date time</b>: <%= pagamentos_faturas_dstv.transaction_date_time %><br>
+            <b>Data e Hora da Transação</b>: <%= pagamentos_faturas_dstv.transaction_date_time %><br>
             <b>Audit reference number</b>: <%= pagamentos_faturas_dstv.audit_reference_number %><br>
           </td>
           <td>

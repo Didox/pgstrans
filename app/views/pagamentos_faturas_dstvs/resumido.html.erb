@@ -1,5 +1,5 @@
-<div class="col-md-12 scroltable">
-	<div class="col-md-12">
+  
+  <div class="col-md-12 scroltable">
     <p id="notice"><%= notice %></p>
     <br>
     <h3>Pagamentos de Faturas DSTV</h3>
@@ -29,7 +29,7 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Receipt Number DSTV</label>
+            <label>Recibo Confirmação DSTV</label>
             <div>
               <input type="text" name="receipt_number" value="<%= params[:receipt_number] %>" class="form-control">
             </div>
@@ -63,14 +63,14 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Customer number</th>
+          <th scope="col">Número do Cliente</th>
           <th scope="col">Usuário</th>
           <th scope="col">Valor KZ</th>
           <th scope="col">Smartcard/Device number</th>
-          <th scope="col">Receipt number</th>
-          <th scope="col">Transaction number</th>
-          <th scope="col">Status</th>
-          <th scope="col">Transaction date time</th>
+          <th scope="col">Recibo Confirmação</th>
+          <th scope="col">Nro. Transação</th>
+          <th scope="col">Confirmado?</th>
+          <th scope="col">Data/Hora</th>
         </tr>
       </thead>
 
@@ -81,9 +81,9 @@
               <td><%= pagamentos_faturas_dstv.usuario.nome rescue "" %></td>
               <td><%= number_to_currency(pagamentos_faturas_dstv.valor, :unit => "KZ") %></td>
               <td><%= pagamentos_faturas_dstv.smartcard %></td>
-              <td><%= pagamentos_faturas_dstv.receipt_number %></td>
-              <td><%= pagamentos_faturas_dstv.transaction_number %></td>
-              <td><%= pagamentos_faturas_dstv.status ? "Sim" : "Não" %></td>
+              <td class="text-center"><%= pagamentos_faturas_dstv.receipt_number %></td>
+              <td class="text-center"><%= pagamentos_faturas_dstv.transaction_number %></td>
+              <td class="text-center"><%= pagamentos_faturas_dstv.status ? "Sim" : "Não" %></td>
               <td><%= pagamentos_faturas_dstv.transaction_date_time.to_datetime.strftime("%d/%m/%Y %H:%M") rescue pagamentos_faturas_dstv.transaction_date_time.to_datetime %></td>
             </tr>
           <% end %>
