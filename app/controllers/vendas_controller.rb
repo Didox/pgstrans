@@ -100,6 +100,12 @@ class VendasController < ApplicationController
         end
       end
 
+      params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
+      if params[:status].present?
+        @vendas = @vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id")
+        @vendas = @vendas.where("usuarios.status_cliente_id = ?", params[:status])
+      end
+
       @vendas = @vendas.where("vendas.id = ?", params[:venda_id]) if params[:venda_id].present?
       @vendas = @vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
       @vendas = @vendas.where("vendas.updated_at <= ?", params[:data_fim].to_date.end_of_day) if params[:data_fim].present?
