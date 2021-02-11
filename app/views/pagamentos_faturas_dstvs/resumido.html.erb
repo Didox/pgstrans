@@ -93,7 +93,10 @@
 
   <div class="apple_pagination">
     <%= will_paginate @pagamentos_faturas_dstvs, :container => false %>
-  </div> 
+  </div>
 
-  <%= link_to 'Voltar', "/backoffice/index", class: 'btn btn-danger' %>
+  <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
 </div>

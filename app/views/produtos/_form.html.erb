@@ -86,7 +86,7 @@
 
         <div class="form-input col-sm-6">
           <%= f.label :subtipo, "Subtipo do produto no parceiro" %>
-          <%= f.select :subtipo, [["ADITIVOS", "ADITIVOS"], ["DADOS", "DADOS"], ["PACOTES", "PACOTES"], ["PACOTE MAIS ADICIONAIS", "PACOTE MAIS ADICIONAIS"], ["PLANO MAIS", "PLANO MAIS"], ["SERVIÇOS ADICIONAIS", "SERVIÇOS ADICIONAIS"], ["SMS", "SMS"], ["VOZ", "VOZ"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <%= f.select :subtipo, [["ADICIONAL", "ADICIONAL"], ["DADOS", "DADOS"], ["PACOTES", "PACOTES"], ["PACOTE + ADICIONAIS", "PACOTE + ADICIONAIS"], ["PLANO MAIS", "PLANO MAIS"], ["SERVIÇOS ADICIONAIS", "SERVIÇOS ADICIONAIS"], ["SMS", "SMS"], ["VOZ", "VOZ"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
         <div class="form-actions col-sm-12" style="margin-top: 20px;">
