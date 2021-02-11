@@ -15,6 +15,8 @@ class UsuariosController < ApplicationController
     @usuarios = @usuarios.where("perfil_usuarios.admin = ?", params[:perfil_admin]) if params[:perfil_admin].present?
     @usuarios = @usuarios.where("perfil_usuarios.operador = ?", params[:perfil_operador]) if params[:perfil_operador].present?
     @usuarios = @usuarios.where("perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
+
+    params[:status_cliente_id] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status_cliente_id)
     @usuarios = @usuarios.where("status_cliente_id = ?", params[:status_cliente_id]) if params[:status_cliente_id].present?
 
     if params[:grupo_id].present?
@@ -110,6 +112,8 @@ class UsuariosController < ApplicationController
   # PATCH/PUT /usuarios/1
   # PATCH/PUT /usuarios/1.json
   def update
+    params[:usuario].delete(:senha) if params[:usuario] && params[:usuario][:senha].blank?
+
     respond_to do |format|
       if @usuario.update(usuario_params)
         salvar_grupos

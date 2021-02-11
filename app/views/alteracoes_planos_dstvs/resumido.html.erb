@@ -85,13 +85,13 @@
         <th scope="col">Smartcard</th>
         <th scope="col">Produto</th>
         <th scope="col">Usuário</th>
-        <th scope="col">Codigo</th>
+        <th scope="col">Código</th>
         <th scope="col">Valor</th>
-        <th scope="col">Receipt number</th>
-        <th scope="col">Transaction number</th>
+        <th scope="col">Recibo DSTV</th>
+        <th scope="col">Nro Transação</th>
         <th scope="col">Status</th>
-        <th scope="col">Transaction date time</th>
-        <th scope="col">Tipo de plano</th>
+        <th scope="col">Data e Hora</th>
+        <th scope="col">Tipo de Plano</th>
       </tr>
     </thead>
 
@@ -103,7 +103,7 @@
           <td><%= alteracoes_planos_dstv.produto %></td>
           <td><%= alteracoes_planos_dstv.usuario.nome rescue "" %></td>
           <td><%= alteracoes_planos_dstv.codigo %></td>
-          <td><%= alteracoes_planos_dstv.valor %></td>
+          <td><%= number_to_currency(alteracoes_planos_dstv.valor, :unit => "KZ") %></td>
           <td><%= alteracoes_planos_dstv.receipt_number %></td>
           <td><%= alteracoes_planos_dstv.transaction_number %></td>
           <td><%= alteracoes_planos_dstv.status ? "Sim" : "Não" %></td>

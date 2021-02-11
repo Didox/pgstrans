@@ -117,10 +117,14 @@ class Usuario < ApplicationRecord
     return true
   end
 
-  private
+  def senha_hexdigest?
+    self.senha.match?(/^[0-9a-f]{40}$/)
+  end
 
+  private
     def verifica_tamanho_senha
-      #if self.senha.length > 10
+      return if self.senha_hexdigest? && !self.new_record?
+
       if self.senha.length > 30
         self.errors.add(:senha, "A palavra-passe não pode ser maior que 30 caracteres")
       elsif self.senha.blank? && self.id.blank?
@@ -137,11 +141,13 @@ class Usuario < ApplicationRecord
     end
 
     def senha_forte
+      return if self.senha_hexdigest? && !self.new_record?
+
       if self.senha.length < 6
         self.errors.add("Senha", "deve conter pelo menos 6 caracteres")
         return false
       end
-  
+
       simbolos_validos = '!@#$%^&*()[]{}?+|"\'\\/.,:;'
   
       testes_de_senha_obrigatorio = [

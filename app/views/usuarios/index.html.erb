@@ -114,12 +114,12 @@
         </div>
         <div class="col-sm-6">
           <div class="form-group">
-            <label>Status do Usuário</label>
+            <label>Status</label>
             <div>
               <select name="status_cliente_id" onchange="pgstrans.carregaStatusCliente(this)" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
                 <% StatusCliente.all.each do |status_cliente| %>
-                  <option value="<%= status_cliente.id %>" <% if status_cliente.id.to_s == params[:status_cliente_id] %> selected="selected" <% end %> ><%= status_cliente.nome %></option>
+                  <option value="<%= status_cliente.id %>" <% if status_cliente.id.to_s == params[:status_cliente_id].to_s %> selected="selected" <% end %> ><%= status_cliente.nome %></option>
                 <% end %>
               </select>
             </div>
