@@ -12,6 +12,13 @@ class LoginController < ApplicationController
         usuario = usuarios.first
         Usuario.where(id: usuario.id).update_all(logado: true)
         time = params[:remember].present? ? 1.year.from_now : 30.minutes.from_now
+        
+        cookies[:usuario_pgstrans_oauth_time] = { 
+          value: time, 
+          expires: time, 
+          httponly: true 
+        }
+
         cookies[:usuario_pgstrans_oauth] = { 
           value: {
             id: usuario.id,
@@ -21,6 +28,7 @@ class LoginController < ApplicationController
           expires: time, 
           httponly: true 
         }
+
         UsuarioAcesso.create(usuario: usuario, mac_adress: request.ip)
         redirect_to root_path
         return
@@ -33,6 +41,7 @@ class LoginController < ApplicationController
 
   def logout
     cookies[:usuario_pgstrans_oauth] = nil
+    cookies[:usuario_pgstrans_oauth_time] = nil
     redirect_to login_path
   end
 
@@ -118,15 +127,17 @@ class LoginController < ApplicationController
     end
 
     Usuario.where(id: usuario.id).update_all(logado: true)
+
     cookies[:usuario_pgstrans_oauth] = { 
       value: {
         id: usuario.id,
         nome: usuario.nome,
         email: usuario.email,
       }.to_json, 
-      expires: Time.zone.now + 1.year, 
+      expires: cookies[:usuario_pgstrans_oauth_time].to_time, 
       httponly: true 
     }
+
     UsuarioAcesso.create(usuario: usuario, mac_adress: request.ip)
     redirect_to root_path
   end

@@ -118,11 +118,6 @@ class UsuariosController < ApplicationController
       if @usuario.update(usuario_params)
         salvar_grupos
 
-        if usuario_params[:senha].present?
-          usuarios = Usuario.where(id: @usuario.id)
-          usuarios.update_all(logado: false)
-        end
-
         format.html { redirect_to @usuario, notice: 'Usuário foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @usuario }
       else

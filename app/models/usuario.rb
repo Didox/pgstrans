@@ -133,7 +133,10 @@ class Usuario < ApplicationRecord
     end
 
     def senha_sha1
-      self.senha = Digest::SHA1.hexdigest(self.senha) if self.valida_senha
+      if self.valida_senha
+        self.senha = Digest::SHA1.hexdigest(self.senha)
+        Usuario.where(id: self.id).where("senha <> '#{self.senha}'").update_all(logado: false)
+      end
     end
 
     def preenche_login

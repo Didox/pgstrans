@@ -46,7 +46,7 @@
           <br>
           <a href="/" class="btn btn-danger">Voltar</a>
         <% elsif flash[:mensagem_erro_fatura].present? %>
-          <div style="color:red;margin-left: 17px;margin-bottom: 20px;font-size: 16px;">
+          <div class="erro_pagamento">
             <%= flash[:mensagem_erro_fatura] %>
           </div>
 

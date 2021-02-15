@@ -260,6 +260,8 @@ class Dstv
       sequencial.numero += 1
     end
 
+    raise "Valor da fatura é insuficiente para pagamento" if produto.valor_compra_telemovel.to_f < 0.1
+    raise "Saldo insuficiente para realizar a operação, seu saldo atual é de KZ #{usuario_logado.saldo.round(2)}" if usuario_logado.saldo < produto.valor_compra_telemovel.to_f
     
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"  xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
@@ -303,10 +305,10 @@ class Dstv
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
     raise "Pagamento não processado" if agent_submit_payment.blank?
 
-    return agent_submit_payment_hash_parse(produto.description, produto.produto_id_parceiro, produto.valor_compra_telemovel, agent_submit_payment, request, body, customer_number, usuario_logado, nil, tipo_plano)
+    return agent_submit_payment_hash_parse(produto.description, produto.produto_id_parceiro, produto.valor_compra_telemovel, agent_submit_payment, request, body, customer_number, usuario_logado, nil, tipo_plano, Lancamento::ALTERACAO_PLANO)
   end
 
-  def self.agent_submit_payment_hash_parse(produtos, codigos, valor_total, agent_submit_payment, request, body, customer_number, usuario_logado, smartcard=nil, tipo_plano="mensal")
+  def self.agent_submit_payment_hash_parse(produtos, codigos, valor_total, agent_submit_payment, request, body, customer_number, usuario_logado, smartcard=nil, tipo_plano="mensal", lancamento = Lancamento::ALTERACAO_PLANO)
     agent_submit_payment_hash = {
       "produto" => produtos,
       "codigo" => codigos,
@@ -344,7 +346,7 @@ class Dstv
     conta_corrente_retirada.valor = "-#{alteracoes_planos_dstv.valor.to_f.abs}"
     conta_corrente_retirada.usuario = usuario_logado
     conta_corrente_retirada.responsavel = usuario_logado
-    conta_corrente_retirada.lancamento = Lancamento.where(nome: Lancamento::ALTERACAO_PLANO).first || Lancamento.first
+    conta_corrente_retirada.lancamento = Lancamento.where(nome: lancamento).first || Lancamento.first
     conta_corrente_retirada.responsavel_aprovacao_id = usuario_logado.id
     conta_corrente_retirada.observacao = "Alteração de plano DSTV"
     conta_corrente_retirada.save!
@@ -352,7 +354,7 @@ class Dstv
     return agent_submit_payment_hash
   end
 
-  def self.altera_plano(customer_number, smartcard, produtos, ip, usuario_logado)
+  def self.alterar_pacote(customer_number, smartcard, produtos, ip, usuario_logado)
     raise "Selecione pelo menos um produto" if produtos.blank?
     raise "Customer number não pode ser vazio" if customer_number.blank?
     raise "Smartcard não pode ser vazio" if smartcard.blank?
@@ -373,6 +375,9 @@ class Dstv
       produtos_api += "<sel1:productUserkey>#{produto.produto_id_parceiro}</sel1:productUserkey>";
       produtos_api += "</sel1:Product>";
     end
+
+    raise "Valor da fatura é insuficiente para pagamento" if valor_total.to_f < 0.1
+    raise "Saldo insuficiente para realizar a operação, seu saldo atual é de KZ #{usuario_logado.saldo.round(2)}" if usuario_logado.saldo < valor_total.to_f
 
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
@@ -424,7 +429,7 @@ class Dstv
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
     raise "Pagamento não processado" if agent_submit_payment.blank?
 
-    return agent_submit_payment_hash_parse(produtos_enviados.map{|produto| produto.description}.join(", "), produtos_enviados.map{|produto| produto.produto_id_parceiro}.join(", "), valor_total, agent_submit_payment, request, body, customer_number, usuario_logado, smartcard)
+    return agent_submit_payment_hash_parse(produtos_enviados.map{|produto| produto.description}.join(", "), produtos_enviados.map{|produto| produto.produto_id_parceiro}.join(", "), valor_total, agent_submit_payment, request, body, customer_number, usuario_logado, smartcard, "mensal", Lancamento::ALTERACAO_PACOTE)
   end
 
   def self.informacoes_device_number(smartcard, ip)

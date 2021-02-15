@@ -94,7 +94,6 @@
           <%= f.select :industry_id, Industry.all.collect{|d| [d.descricao_grupo, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
       </div>
-      
 
       <% if @adm.admin? || @adm.operador? %>
         <hr>
@@ -105,7 +104,7 @@
           <input type="button" value="DESMARCAR TODOS" onclick="uncheckAcessos()" class="btn btn-danger">
           <label>Ou selecionar os itens individualmente para definir os grupos</label>        
           <br><hr>
-          <div class="col-sm-10">
+          <div class="col-sm-10" style="height: 280px;overflow: scroll;">
             <ul>
               <% Grupo.all.each do |grupo| %>
                 <li>
@@ -125,7 +124,7 @@
           Confirmar
         <% end %>
       </div>
-      <% end %>
+    <% end %>
     <br>
   </div>
 </div>

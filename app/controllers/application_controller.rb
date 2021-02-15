@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     def validate_login
       return if request.path_parameters[:format] == 'json'
 
-      if cookies[:usuario_pgstrans_oauth].blank?
+      if cookies[:usuario_pgstrans_oauth].blank? || cookies[:usuario_pgstrans_oauth_time].blank?
         flash[:error] = "Área restrita. Digite o login e palavra-passe para entrar."
 
         if self.class.to_s == "RecargaController" 
@@ -33,6 +33,20 @@ class ApplicationController < ActionController::Base
         end
 
         redirect_to login_path
+      else
+        time = cookies[:usuario_pgstrans_oauth_time].to_time + 5.seconds
+
+        cookies[:usuario_pgstrans_oauth] = { 
+          value: cookies[:usuario_pgstrans_oauth], 
+          expires: time, 
+          httponly: true
+        }
+
+        cookies[:usuario_pgstrans_oauth_time] = { 
+          value: time, 
+          expires: time, 
+          httponly: true 
+        }
       end
 
       if administrador.present?

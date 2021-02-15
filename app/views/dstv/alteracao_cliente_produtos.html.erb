@@ -4,79 +4,84 @@
   <!-- /.row -->
 
   <div class="container">
-    
-    <div class="card" style="margin-top: 5px;">
-      <div class="card-header">
-        <div class="col-md-12">
-          Selecione o Produto (no máximo 2)
-        </div>
-        <div class="container scroltable">
-          <script>
-            var validaSelecionaProdutos = function(form) {
-              if($(form).find(".produtojs:checked").length == 0){
-                alert("Selecione o Produto (no máximo 2)")
-                return false
+    <% if flash[:mensagem_erro_fatura].present? %>
+      <div class="erro_pagamento">
+        <%= flash[:mensagem_erro_fatura] %>
+      </div>
+    <% else %>
+      <div class="card" style="margin-top: 5px;">
+        <div class="card-header">
+          <div class="col-md-12">
+            Selecione o Produto (no máximo 2)
+          </div>
+          <div class="container scroltable">
+            <script>
+              var validaSelecionaProdutos = function(form) {
+                if($(form).find(".produtojs:checked").length == 0){
+                  alert("Selecione o Produto (no máximo 2)")
+                  return false
+                }
+                return true
               }
-              return true
-            }
-          </script>
-          <form action="/dstv/alteracao-cliente-produtos/upgrade-downgrade" onsubmit="return validaSelecionaProdutos(this)" method="get">
+            </script>
+            <form action="/dstv/alteracao-cliente-produtos/upgrade-downgrade" onsubmit="return validaSelecionaProdutos(this)" method="get">
 
-            <div>
-              <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
-                <table class="table">
-                  <tr>
-                    <th>#</th>
-                    <th>
-                      Código
-                    </th>
-                    <th>
-                      Descrição
-                    </th>
-                    <th>
-                      Valor
-                    </th>
-                  </tr>
-                  <% @produtos.each do |produto| %>
-                    <tr>
-                      <td>
-                        <input type="checkbox" class="produtojs" name="produtos[]" onclick="selecionaMaximoDoisProdutos(this)" value="<%= produto.id %>">
-                      </td>
-                      <td>
-                        <%= produto.produto_id_parceiro %>
-                      </td>
-                      <td>
-                        <%= produto.description %>
-                      </td>
-                      <td>
-                        <%= number_to_currency(produto.valor_compra_telemovel, :unit => "KZ") %>
-                      </td>
-                    </tr>
-                  <% end %>
-                </table>
-              </div>
               <div>
-                <div style="float: right;">
-                  <input type="hidden" value="<%= params[:smartcard] %>" name="smartcard">
-                  <input type="hidden" value="<%= params[:customer_number] %>" name="customer_number">
-                  <a href="/" class="btn btn-danger" style="width: 150px; text-align: center;">
-                      <span class="glyphicon glyphicon-list-alt"></span>
-                      VOLTAR
-                  </a>
-                  <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="CONFIRMAR">
+                <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
+                  <table class="table">
+                    <tr>
+                      <th>#</th>
+                      <th>
+                        Código
+                      </th>
+                      <th>
+                        Descrição
+                      </th>
+                      <th>
+                        Valor
+                      </th>
+                    </tr>
+                    <% @produtos.each do |produto| %>
+                      <tr>
+                        <td>
+                          <input type="checkbox" class="produtojs" name="produtos[]" onclick="selecionaMaximoDoisProdutos(this)" value="<%= produto.id %>">
+                        </td>
+                        <td>
+                          <%= produto.produto_id_parceiro %>
+                        </td>
+                        <td>
+                          <%= produto.description %>
+                        </td>
+                        <td>
+                          <%= number_to_currency(produto.valor_compra_telemovel, :unit => "KZ") %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </table>
+                </div>
+                <div>
+                  <div style="float: right;">
+                    <input type="hidden" value="<%= params[:smartcard] %>" name="smartcard">
+                    <input type="hidden" value="<%= params[:customer_number] %>" name="customer_number">
+                    <a href="/" class="btn btn-danger" style="width: 150px; text-align: center;">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                        VOLTAR
+                    </a>
+                    <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="CONFIRMAR">
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+      <script>
+        var selecionaMaximoDoisProdutos = function(elen) {
+          if($(".produtojs:checked").length > 2){
+            $(elen).prop( "checked", false );
+          }
+        }
+      </script>
+    <% end %>
   </div>
-  <script>
-    var selecionaMaximoDoisProdutos = function(elen) {
-      if($(".produtojs:checked").length > 2){
-        $(elen).prop( "checked", false );
-      }
-    }
-  </script>
 </div>

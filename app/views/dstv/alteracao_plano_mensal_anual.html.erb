@@ -32,7 +32,8 @@
                   }
                 })
 
-                return validado
+                if (!validado) return false
+                return confirm('Confirma operação ?')
               }
             </script>
             <form action="/dstv/alteracao-plano-mensal-anual/alterar" onsubmit="return validaInformacoesConsulta(this)" method="get">
@@ -104,7 +105,7 @@
           <br>
           <br>
           <div class="card-body">
-            <form action="/dstv/pagar-fatura">
+            <form action="/dstv/pagar-fatura" >
               <input type="hidden" name="valor" value="<%= @info["dueAmount"] %>">
               <input type="hidden" name="customer_number" value="<%= params["customer_number"] %>">
               <input type="hidden" name="dueDate" value="<%= @info["dueDate"].to_date.strftime("%d/%m/%Y") %>">
