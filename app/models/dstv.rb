@@ -317,6 +317,7 @@ class Dstv
     }
 
     agent_submit_payment_hash["errorMessage"] = agent_submit_payment.children.select{|child| child.name == "errorMessage"}.first.text rescue ""
+    agent_submit_payment_hash["errorMessage"] ||= agent_submit_payment.children.select{|child| child.name == "Message"}.first.text rescue ""
     
     raise ErroAmigavel.traducao(agent_submit_payment_hash["errorMessage"]) if agent_submit_payment_hash["errorMessage"].present?
 
