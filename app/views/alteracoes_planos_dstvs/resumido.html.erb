@@ -1,7 +1,7 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
     <p id="notice"><%= notice %></p>
-    <h3>Alterações de Planos DSTV</h3>
+    <h3>Alterações de Pacotes de Produtos ou Planos de Cobrança DSTV</h3>
   </div>  
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -27,7 +27,7 @@
       </div>
       <div class="col-sm-4">
         <div class="form-group">
-          <label>Receipt Number DSTV</label>
+          <label>Número do Recibo de Confirmação DSTV</label>
           <div>
             <input type="text" name="receipt_number" value="<%= params[:receipt_number] %>" class="form-control">
           </div>
@@ -61,7 +61,7 @@
       </div>
       <div class="col-sm-4">
         <div class="form-group">
-          <label>Transaction Number Pagasó</label>
+          <label>Nro. Transação Pagasó</label>
           <div>
             <input type="text" name="transaction_number" value="<%= params[:transaction_number] %>" class="form-control">
           </div>
@@ -70,7 +70,7 @@
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-info">
-          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+          <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
           <% end %>         
@@ -81,16 +81,14 @@
   <table class="table scroltable table-hover">
     <thead>
       <tr>
-        <th scope="col">Customer number</th>
-        <th scope="col">Smartcard</th>
-        <th scope="col">Produto</th>
         <th scope="col">Usuário</th>
-        <th scope="col">Código</th>
-        <th scope="col">Valor</th>
+        <th scope="col">Dados DSTV</th>
+        <th scope="col">Produto</th>
+        <th scope="col">Valor KZ</th>
         <th scope="col">Recibo DSTV</th>
-        <th scope="col">Nro Transação</th>
-        <th scope="col">Status</th>
-        <th scope="col">Data e Hora</th>
+        <th scope="col">Nro. Transação</th>
+        <th scope="col">Confirmado?</th>
+        <th scope="col">Data/Hora</th>
         <th scope="col">Tipo de Plano</th>
       </tr>
     </thead>
@@ -98,15 +96,22 @@
     <tbody>
       <% @alteracoes_planos_dstvs.each do |alteracoes_planos_dstv| %>
         <tr>
-          <td><%= alteracoes_planos_dstv.customer_number %></td>
-          <td><%= alteracoes_planos_dstv.smartcard %></td>
-          <td><%= alteracoes_planos_dstv.produto %></td>
-          <td><%= alteracoes_planos_dstv.usuario.nome rescue "" %></td>
-          <td><%= alteracoes_planos_dstv.codigo %></td>
+        <td>
+          <%= alteracoes_planos_dstv.usuario.login rescue "" %> /
+          <%= alteracoes_planos_dstv.usuario.nome rescue "" %>
+        </td>
+        <td>
+            <strong>Customer Number: </strong><%= alteracoes_planos_dstv.customer_number %><br>
+            <strong>Smartcard: </strong><%= alteracoes_planos_dstv.smartcard %>
+          </td>
+          <td>
+            <%= alteracoes_planos_dstv.codigo %> /
+            <%= alteracoes_planos_dstv.produto %>
+          </td>
           <td><%= number_to_currency(alteracoes_planos_dstv.valor, :unit => "KZ") %></td>
           <td><%= alteracoes_planos_dstv.receipt_number %></td>
-          <td><%= alteracoes_planos_dstv.transaction_number %></td>
-          <td><%= alteracoes_planos_dstv.status ? "Sim" : "Não" %></td>
+          <td class="text-center"><%= alteracoes_planos_dstv.transaction_number %></td>
+          <td class="text-center"><%= alteracoes_planos_dstv.status ? "Sim" : "Não" %></td>
           <td><%= alteracoes_planos_dstv.transaction_date_time.to_datetime.strftime("%d/%m/%Y %H:%M") rescue alteracoes_planos_dstv.transaction_date_time %></td>
           <td><%= alteracoes_planos_dstv.tipo_plano %></td>
         </tr>
@@ -118,4 +123,4 @@
   <%= will_paginate @alteracoes_planos_dstvs, :container => false %>
 </div> 
 
-<%= link_to 'Voltar', "/backoffice/index", class: 'btn btn-danger' %>
+<%= link_to 'Voltar', 'javascript:history.go(-1)', class: 'btn btn-danger' %>

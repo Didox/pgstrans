@@ -29,7 +29,7 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Recibo Confirmação DSTV</label>
+            <label>Número do Recibo de Confirmação DSTV</label>
             <div>
               <input type="text" name="receipt_number" value="<%= params[:receipt_number] %>" class="form-control">
             </div>
@@ -63,24 +63,27 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Número do Cliente</th>
           <th scope="col">Usuário</th>
+          <th scope="col">Customer Number DSTV</th>
+          <th scope="col">Smartcard/Device Number DSTV</th>
           <th scope="col">Valor KZ</th>
-          <th scope="col">Smartcard/Device number</th>
-          <th scope="col">Recibo Confirmação</th>
+          <th scope="col">Recibo DSTV</th>
           <th scope="col">Nro. Transação</th>
           <th scope="col">Confirmado?</th>
-          <th scope="col">Data/Hora</th>
+          <th scope="col" class="text-center">Data/Hora</th>
         </tr>
       </thead>
 
       <tbody>
           <% @pagamentos_faturas_dstvs.each do |pagamentos_faturas_dstv| %>
             <tr>
-              <td><%= pagamentos_faturas_dstv.customer_number %></td>
-              <td><%= pagamentos_faturas_dstv.usuario.nome rescue "" %></td>
+              <td>
+                <%= pagamentos_faturas_dstv.usuario.login rescue "" %> / 
+                <%= pagamentos_faturas_dstv.usuario.nome rescue "" %>
+              </td>
+              <td class="text-center"><%= pagamentos_faturas_dstv.customer_number %></td>
+              <td class="text-center"><%= pagamentos_faturas_dstv.smartcard %></td>
               <td><%= number_to_currency(pagamentos_faturas_dstv.valor, :unit => "KZ") %></td>
-              <td><%= pagamentos_faturas_dstv.smartcard %></td>
               <td class="text-center"><%= pagamentos_faturas_dstv.receipt_number %></td>
               <td class="text-center"><%= pagamentos_faturas_dstv.transaction_number %></td>
               <td class="text-center"><%= pagamentos_faturas_dstv.status ? "Sim" : "Não" %></td>
