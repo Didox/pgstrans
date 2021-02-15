@@ -74,7 +74,7 @@
                     <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="CONFIRMAR">
                   </div>
                   <div style="float: right;">
-                    <%= link_to root_path, class: 'btn btn-space btn-danger', style: "width: 150px; text-align: center;" do %>
+                    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-space btn-danger', style: "width: 150px; text-align: center;" do %>
                       <span class="glyphicon glyphicon-list-alt"></span>
                       VOLTAR
                     <% end %>
@@ -109,7 +109,7 @@
               <input type="hidden" name="customer_number" value="<%= params["customer_number"] %>">
               <input type="hidden" name="dueDate" value="<%= @info["dueDate"].to_date.strftime("%d/%m/%Y") %>">
 
-              <%= link_to root_path, class: 'btn btn-danger', style: "width: 150px; text-align: center;" do %>
+              <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger', style: "width: 150px; text-align: center;" do %>
                 <span class="glyphicon glyphicon-list-alt"></span>
                 Voltar
               <% end %>

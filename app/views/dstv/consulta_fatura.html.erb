@@ -56,14 +56,14 @@
                 </div>
                 <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;">
                   <div style="float: right;">
-                    <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="PRÓXIMO">
+                    <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="AVANÇAR">
                   </div>
                   <div style="float: right;">
-                    <%= link_to root_path, class: 'btn btn-space btn-danger', style: "width: 150px; text-align: center;" do %>
+                    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-space btn-danger', style: "width: 150px; text-align: center;" do %>
                       <span class="glyphicon glyphicon-list-alt"></span>
                       VOLTAR
                     <% end %>
-                  </div>                  
+                  </div>
                 </div>
               </div>
             </form>
@@ -95,7 +95,7 @@
               <input type="hidden" name="smartcard" value="<%= params["smartcard"] %>">
               <input type="hidden" name="dueDate" value="<%= @info["dueDate"].to_date.strftime("%d/%m/%Y") %>">
               <br>
-              <%= link_to root_path, class: "btn btn-danger", style: "width: 150px; text-align: center;" do %>
+              <%= link_to 'javascript:history.go(-1)', class: "btn btn-danger", style: "width: 150px; text-align: center;" do %>
                 <span class="glyphicon glyphicon-list-alt"></span>
                 Voltar
               <% end %>
