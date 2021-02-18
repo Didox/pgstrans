@@ -34,7 +34,6 @@ class Dstv
     "number" => "Número",
     "paymentDueDate" => "Data de Vencimento",
     "segmentation" => "Segmentação",
-    "status" => "Status",
     "totalBalance" => "Saldo Total",
   }
 
