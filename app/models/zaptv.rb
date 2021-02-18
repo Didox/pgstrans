@@ -16,7 +16,8 @@ class Zaptv
       host, 
       headers: {
         apikey: api_key
-      }
+      },
+      timeout: DEFAULT_TIMEOUT.to_i.seconds,
     )
 
     if (200...300).include?(res.code)
@@ -51,6 +52,8 @@ class Zaptv
     else
       UltimaAtualizacaoProduto.create(partner_id: partner.id)
     end
+  rescue Net::ReadTimeout => e
+    raise "Timeout. Sem resposta da operadora"
   end
 
   def self.importa_dados!
@@ -77,7 +80,8 @@ class Zaptv
         headers: {
           "apikey" => api_key,
           "Content-Type" => "application/json"
-        }
+        },
+        timeout: DEFAULT_TIMEOUT.to_i.seconds,
       )
 
       if (200..300).include?(res.code)
@@ -113,5 +117,7 @@ class Zaptv
     else
       UltimaAtualizacaoReconciliacao.create(partner_id: partner.id)
     end
+  rescue Net::ReadTimeout => e
+    raise "Timeout. Sem resposta da operadora"
   end
 end

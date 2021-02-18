@@ -141,7 +141,7 @@ class Venda < ApplicationRecord
           headers: {
             "apikey" => api_key,
             "Content-Type" => "application/json"
-          }
+          }, timeout: DEFAULT_TIMEOUT.to_i.seconds
         )
 
         if (200..300).include?(res.code)
@@ -178,7 +178,7 @@ class Venda < ApplicationRecord
           headers: {
             "apikey" => api_key,
             "Content-Type" => "application/json"
-          }
+          }, timeout: DEFAULT_TIMEOUT.to_i.seconds
         )
 
         if (200..300).include?(res.code)
@@ -276,7 +276,7 @@ class Venda < ApplicationRecord
         "apikey" => api_key,
         "Content-Type" => "application/json"
       },
-      :body => body_send
+      :body => body_send, timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
     venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
@@ -323,9 +323,11 @@ class Venda < ApplicationRecord
     end
 
     return venda
+  rescue Net::ReadTimeout => e
+    raise "Timeout. Sem resposta da operadora"
   end
 
-   def status_movicel
+  def status_movicel
     return if self.partner.name.downcase != "movicel"
 
     require 'openssl'
@@ -385,7 +387,7 @@ class Venda < ApplicationRecord
         'Content-Type' => 'text/xml;charset=UTF-8',
         'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryTransaction',
       },
-      :body => body
+      :body => body, timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
     if (200...300).include?(request.code.to_i)
@@ -393,6 +395,8 @@ class Venda < ApplicationRecord
       return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue nil
       # return "#{request_id} - #{Nokogiri::XML(request.body).children.children.children.children.children.text}" rescue nil
     end
+  rescue Net::ReadTimeout => e
+    raise "Timeout. Sem resposta da operadora"
   end
 
   def self.venda_movicel(params, usuario, ip)
@@ -495,7 +499,7 @@ class Venda < ApplicationRecord
           'Content-Type' => 'text/xml;charset=UTF-8',
           'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
         },
-        timeout: 100,
+        timeout: DEFAULT_TIMEOUT.to_i.seconds,
         body: body
       )
 
@@ -549,7 +553,7 @@ class Venda < ApplicationRecord
               'Content-Type' => 'text/xml;charset=UTF-8',
               'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
             },
-            timeout: 100,
+            timeout: DEFAULT_TIMEOUT.to_i.seconds,
             body: body
           )
           
@@ -610,7 +614,7 @@ class Venda < ApplicationRecord
               'Content-Type' => 'text/xml;charset=UTF-8',
               'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
             },
-            timeout: 100,
+            timeout: DEFAULT_TIMEOUT.to_i.seconds,
             body: body
           }
           raise "Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - Erro = #{err.message} - backtrace = #{err.backtrace}"
@@ -630,11 +634,13 @@ class Venda < ApplicationRecord
           'Content-Type' => 'text/xml;charset=UTF-8',
           'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
         },
-        timeout: 100,
+        timeout: DEFAULT_TIMEOUT.to_i.seconds,
         body: body
       }
       raise "Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - Erro = #{err.message} - backtrace = #{err.backtrace}"
     end
+  rescue Net::ReadTimeout => e
+    raise "Timeout. Sem resposta da operadora"
   end
 
   def status_dstv

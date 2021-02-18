@@ -681,7 +681,8 @@ class Dstv
         'Content-Type' => 'text/xml;charset=UTF-8',
         'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/#{resource}",
       },
-      :body => body
+      :body => body,
+      timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
     Rails.logger.info "=========================================="
@@ -691,6 +692,8 @@ class Dstv
     Rails.logger.info "=========================================="
 
     return request
+  rescue Net::ReadTimeout => e
+    raise "Timeout. Sem resposta da operadora"
   end
 
   def self.informacoes_parse(body)

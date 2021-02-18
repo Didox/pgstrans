@@ -107,7 +107,7 @@ class MovicelLoop < ApplicationRecord
 							'Content-Type' => 'text/xml;charset=UTF-8',
 							'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
 						},
-						timeout: 100,
+						timeout: DEFAULT_TIMEOUT.to_i.seconds,
 						body: body
 					}
 
@@ -169,7 +169,7 @@ class MovicelLoop < ApplicationRecord
 									'Content-Type' => 'text/xml;charset=UTF-8',
 									'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
 								},
-								timeout: 100,
+								timeout: 90.seconts,
 								body: body
 							}
 
