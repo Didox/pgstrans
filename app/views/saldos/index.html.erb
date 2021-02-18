@@ -50,7 +50,9 @@
         <thead>
           <tr>
             <th scope="col">Data da Movimentação</th>
+            <th scope="col">Usuário</th>
             <th scope="col">Lançamento</th>
+            <!--th scope="col">Hierarquia</th -->
             <th scope="col" align="right">Saldo Anterior</th>
             <th scope="col" align="right">Valor da Movimentação</th>
             <th scope="col" align="right">Saldo Atual</th>
@@ -63,9 +65,15 @@
                 <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %>
               </td>
               <td>
+                <%= conta_corrente.usuario.login %>/<%= conta_corrente.usuario.nome %>
+              </td>
+              <td>
                 <b><%= conta_corrente.lancamento.nome %></b><br>
                 <%= conta_corrente.observacao %>
               </td>
+              <!--td>
+                <%#= conta_corrente.usuario.superiores.join(", ") %>
+              </td-->
               <td style="width:150px" align="right">
                 <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "Kz") %>
               </td>
