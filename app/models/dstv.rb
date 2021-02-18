@@ -694,6 +694,8 @@ class Dstv
     return request
   rescue Net::ReadTimeout => e
     raise "Timeout. Sem resposta da operadora"
+  rescue Net::OpenTimeout => e
+    raise "Timeout. Sem resposta da operadora"
   end
 
   def self.informacoes_parse(body)

@@ -70,9 +70,9 @@ class Venda < ApplicationRecord
   end
 
   def status_desc
-    ReturnCodeApi.where(return_code: self.status, partner_id: self.partner_id).first || ReturnCodeApi.new(error_description_pt: "Status não localizado")
+    ReturnCodeApi.where(return_code: self.status, partner_id: self.partner_id).first || ReturnCodeApi.new(error_description_pt: "Status não localizado ou sem resposta da operadora")
   rescue
-    ReturnCodeApi.new(error_description_pt: "Status não localizado")
+    ReturnCodeApi.new(error_description_pt: "Status não localizado ou sem resposta da operadora")
   end
 
   def self.total(usuario_logado, vendas_filtrada=nil)
@@ -325,6 +325,8 @@ class Venda < ApplicationRecord
     return venda
   rescue Net::ReadTimeout => e
     raise "Timeout. Sem resposta da operadora"
+  rescue Net::OpenTimeout => e
+    raise "Timeout. Sem resposta da operadora"
   end
 
   def status_movicel
@@ -396,6 +398,8 @@ class Venda < ApplicationRecord
       # return "#{request_id} - #{Nokogiri::XML(request.body).children.children.children.children.children.text}" rescue nil
     end
   rescue Net::ReadTimeout => e
+    raise "Timeout. Sem resposta da operadora"
+  rescue Net::OpenTimeout => e
     raise "Timeout. Sem resposta da operadora"
   end
 
@@ -617,7 +621,7 @@ class Venda < ApplicationRecord
             timeout: DEFAULT_TIMEOUT.to_i.seconds,
             body: body
           }
-          raise "Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - Erro = #{err.message} - backtrace = #{err.backtrace}"
+          raise "#{err.message} - Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - backtrace = #{err.backtrace}"
         end
       else
         return_message = request.body.scan(/<ReturnMessage.*?ReturnMessage>/)
@@ -637,9 +641,11 @@ class Venda < ApplicationRecord
         timeout: DEFAULT_TIMEOUT.to_i.seconds,
         body: body
       }
-      raise "Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - Erro = #{err.message} - backtrace = #{err.backtrace}"
+      raise "#{err.message} - Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - backtrace = #{err.backtrace}"
     end
   rescue Net::ReadTimeout => e
+    raise "Timeout. Sem resposta da operadora"
+  rescue Net::OpenTimeout => e
     raise "Timeout. Sem resposta da operadora"
   end
 

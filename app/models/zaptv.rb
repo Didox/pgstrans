@@ -54,6 +54,8 @@ class Zaptv
     end
   rescue Net::ReadTimeout => e
     raise "Timeout. Sem resposta da operadora"
+  rescue Net::OpenTimeout => e
+    raise "Timeout. Sem resposta da operadora"
   end
 
   def self.importa_dados!
@@ -118,6 +120,8 @@ class Zaptv
       UltimaAtualizacaoReconciliacao.create(partner_id: partner.id)
     end
   rescue Net::ReadTimeout => e
+    raise "Timeout. Sem resposta da operadora"
+  rescue Net::OpenTimeout => e
     raise "Timeout. Sem resposta da operadora"
   end
 end
