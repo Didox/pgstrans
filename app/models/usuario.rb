@@ -121,21 +121,25 @@ class Usuario < ApplicationRecord
     self.senha.match?(/^[0-9a-f]{40}$/)
   end
 
-
-  def superiores
-    self.grupo_pai(self.grupo_usuarios, [])
+  def grupos_superiores
+    self.grups_pai(self.grupo_usuarios, [])
   end
 
-  def grupo_pai(grupo_usuarios, lideres)
-    self.grupo_usuarios.each do |gu|
+  def superiores
+    self.grups_pai(self.grupo_usuarios, [], true)
+  end
+
+  def grups_pai(grupo_usuarios, lideres, mostra_usuarios = false)
+    grupo_usuarios.each do |gu|
+      nome = mostra_usuarios ? gu.usuario.nome : gu.grupo.nome 
       if !gu.grupo.pai
-        unless lideres.include? gu.usuario.nome
-          lideres << gu.usuario.nome
-          return self.grupo_pai(GrupoUsuario.where(grupo_id: gu.grupo_id), lideres)
+        unless lideres.include? nome
+          lideres << nome
+          return self.grups_pai(GrupoUsuario.where(grupo_id: gu.grupo.grupo_id), lideres, mostra_usuarios)
         end
       else
-        unless lideres.include? gu.usuario.nome
-          lideres << gu.usuario.nome
+        unless lideres.include? nome
+          lideres << nome
         end
       end
     end
