@@ -72,7 +72,7 @@
                 <%= conta_corrente.observacao %>
               </td>
               <td>
-                <%= conta_corrente.usuario.grupos_superiores.join(", ") %>
+                <%= conta_corrente.usuario.superiores_imediato.join(", ") %>
               </td>
               <td style="width:150px" align="right">
                 <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "Kz") %>

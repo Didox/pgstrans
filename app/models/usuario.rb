@@ -121,6 +121,14 @@ class Usuario < ApplicationRecord
     self.senha.match?(/^[0-9a-f]{40}$/)
   end
 
+  def superiores_imediato
+    superiores = []
+    self.grupo_usuarios.each do |gu|
+      superiores << Grupo.find(gu.grupo.grupo_id).nome if gu.grupo.grupo_id.to_i > 0
+    end
+    superiores
+  end
+
   def grupos_superiores
     self.grups_pai(self.grupo_usuarios, [])
   end
