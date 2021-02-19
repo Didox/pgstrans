@@ -349,7 +349,7 @@ class Dstv
     conta_corrente_retirada.responsavel = usuario_logado
     conta_corrente_retirada.lancamento = Lancamento.where(nome: lancamento).first || Lancamento.first
     conta_corrente_retirada.responsavel_aprovacao_id = usuario_logado.id
-    conta_corrente_retirada.observacao = "Alteração de plano DSTV"
+    conta_corrente_retirada.observacao = "#{conta_corrente_retirada.lancamento.nome} DSTV"
     conta_corrente_retirada.save!
 
     return agent_submit_payment_hash
