@@ -40,7 +40,7 @@
                 <option value="" <% if params[:grupo_id].blank? %> selected="selected" <% end %>>
                   Todos
                 </option>
-                <% Grupo.all.each do |grupo| %>
+                <% Grupo.all.reorder(nome: :asc).each do |grupo| %>
                   <option value="<%= grupo.id %>" <% if params[:grupo_id] == grupo.id.to_s %> selected="selected" <% end %>>
                     <%= grupo.nome %>
                   </option>
@@ -92,7 +92,7 @@
             <div>
               <select name="perfil_usuario_id" onchange="pgstrans.carregaPerfilUsuario(this)" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
-                <% PerfilUsuario.all.each do |perfil_usuario| %>
+                <% PerfilUsuario.all.reorder(nome: :asc).each do |perfil_usuario| %>
                   <option value="<%= perfil_usuario.id %>" <% if perfil_usuario.id.to_s == params[:perfil_usuario_id] %> selected="selected" <% end %> ><%= perfil_usuario.nome %></option>
                 <% end %>
               </select>
@@ -105,7 +105,7 @@
             <div>
               <select name="sub_agente_id" onchange="pgstrans.carregaSubAgente(this)" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
-                <% SubAgente.all.each do |sub_agente| %>
+                <% SubAgente.all.reorder(nome_fantasia: :asc).each do |sub_agente| %>
                   <option value="<%= sub_agente.id %>" <% if sub_agente.id.to_s == params[:sub_agente_id] %> selected="selected" <% end %> ><%= sub_agente.nome_fantasia %></option>
                 <% end %>
               </select>
@@ -118,7 +118,7 @@
             <div>
               <select name="status_cliente_id" onchange="pgstrans.carregaStatusCliente(this)" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
-                <% StatusCliente.all.each do |status_cliente| %>
+                <% StatusCliente.all.reorder(nome: :asc).each do |status_cliente| %>
                   <option value="<%= status_cliente.id %>" <% if status_cliente.id.to_s == params[:status_cliente_id].to_s %> selected="selected" <% end %> ><%= status_cliente.nome %></option>
                 <% end %>
               </select>

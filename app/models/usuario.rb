@@ -126,7 +126,7 @@ class Usuario < ApplicationRecord
     self.grupo_usuarios.each do |gu|
       superiores << Grupo.find(gu.grupo.grupo_id).nome if gu.grupo.grupo_id.to_i > 0
     end
-    superiores
+    superiores.uniq
   end
 
   def grupos_superiores
