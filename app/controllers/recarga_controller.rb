@@ -12,10 +12,14 @@ class RecargaController < ApplicationController
       end
     rescue Exception => erro
       LogVenda.create(usuario_id: usuario_logado.id,titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{erro.message} - #{erro.backtrace}")
-      render json: {mensagem: erro.message, status:401}, status: 401
+      mensagem = erro.message
+      mensagem = erro.message.to_s.split("-").first if Rails.env == "production" && (erro.message.to_s.split("-").length rescue 0) > 0
+      render json: {mensagem: mensagem, status:401}, status: 401
     end
   rescue Exception => erro
     LogVenda.create(usuario_id: usuario_logado.id,titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{erro.message} - #{erro.backtrace}")
-    render json: {mensagem: erro.message, status:401}, status: 401
+    mensagem = erro.message
+    mensagem = erro.message.to_s.split("-").first if Rails.env == "production" && (erro.message.to_s.split("-").length rescue 0) > 0
+    render json: {mensagem: mensagem, status:401}, status: 401
   end
 end

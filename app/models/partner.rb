@@ -137,7 +137,8 @@ class Partner < ApplicationRecord
         'Content-Type' => 'text/xml;charset=UTF-8',
         'SOAPAction' => "http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryBalance",
       },
-      :body => body
+      :body => body,
+      timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
     Rails.logger.info "========[Consulta de saldo operadora Movicel enviado]=========="
 
@@ -177,7 +178,8 @@ class Partner < ApplicationRecord
       headers: {
         "apikey" => api_key,
         "Content-Type" => "application/json"
-      }
+      },
+      timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
     Rails.logger.info "========[Consulta de saldo operadora Zap enviada #{url}]=========="
 

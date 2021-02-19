@@ -121,6 +121,27 @@ class Usuario < ApplicationRecord
     self.senha.match?(/^[0-9a-f]{40}$/)
   end
 
+
+  def superiores
+    self.grupo_pai(self.grupo_usuarios, [])
+  end
+
+  def grupo_pai(grupo_usuarios, lideres)
+    self.grupo_usuarios.each do |gu|
+      if !gu.grupo.pai
+        unless lideres.include? gu.usuario.nome
+          lideres << gu.usuario.nome
+          return self.grupo_pai(GrupoUsuario.where(grupo_id: gu.grupo_id), lideres)
+        end
+      else
+        unless lideres.include? gu.usuario.nome
+          lideres << gu.usuario.nome
+        end
+      end
+    end
+    lideres
+  end
+
   private
     def verifica_tamanho_senha
       return if self.senha_hexdigest? && !self.new_record?
