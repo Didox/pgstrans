@@ -341,6 +341,7 @@ class Dstv
     alteracoes_planos_dstv.status = agent_submit_payment_hash["status"]
     alteracoes_planos_dstv.transaction_date_time = agent_submit_payment_hash["transactionDateTime"]
     alteracoes_planos_dstv.audit_reference_number = agent_submit_payment_hash["AuditReferenceNumber"]
+    alteracoes_planos_dstv.lancamento = Lancamento.where(nome: lancamento).first || Lancamento.first
     alteracoes_planos_dstv.save!
     
     conta_corrente_retirada = ContaCorrente.new
