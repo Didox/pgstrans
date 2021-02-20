@@ -314,7 +314,7 @@ class Venda < ApplicationRecord
         valor: "-#{valor}",
         observacao: "Compra de recarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
         lancamento_id: lancamento.id,
-        banco_id: (banco.id rescue 0),
+        banco_id: (banco.id rescue nil),
         partner_id: parceiro.id,
         iban: iban
       )
