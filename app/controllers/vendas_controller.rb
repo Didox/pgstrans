@@ -110,6 +110,7 @@ class VendasController < ApplicationController
       @vendas = @vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
       @vendas = @vendas.where("vendas.updated_at <= ?", params[:data_fim].to_date.end_of_day) if params[:data_fim].present?
       @vendas = @vendas.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+      @vendas = @vendas.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
       @vendas = @vendas.where("vendas.partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
       @vendas = @vendas.where("vendas.product_id = ?", params[:produto_id]) if params[:produto_id].present?
       @vendas = @vendas.where("vendas.produto_id_parceiro = ?", params[:produto_id_parceiro]) if params[:produto_id_parceiro].present?
