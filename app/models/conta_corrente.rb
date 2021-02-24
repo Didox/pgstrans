@@ -11,6 +11,11 @@ class ContaCorrente < ApplicationRecord
 
   after_save :atualiza_saldo
 
+  BANCO_OBRIGATORIO = [
+    Lancamento::DEBITO,
+    Lancamento::CREDITO
+  ]
+
   def responsavel_aprovacao
     return nil if self.responsavel_aprovacao_id.blank? 
     
@@ -29,9 +34,9 @@ class ContaCorrente < ApplicationRecord
   def banco_obrigatorio
     return if self.lancamento_id.blank?
 
-#    if ![Lancamento::DEBITO, Lancamento::CREDITO, Lancamento::PAGAMENTO_DE_FATURA, Lancamento::ALTERACAO_PLANO, Lancamento::ALTERACAO_PACOTE].include?(self.lancamento.nome) && self.banco_id.blank?
-#      self.errors.add(:banco, "é obrigatório")
-#    end
+    if BANCO_OBRIGATORIO.include?(self.lancamento.nome) && self.banco_id.blank?
+      self.errors.add(:banco, "é obrigatório")
+    end
   end
 
   def lancamento_obrigatorio

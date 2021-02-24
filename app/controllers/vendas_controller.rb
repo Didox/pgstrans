@@ -114,7 +114,8 @@ class VendasController < ApplicationController
       @vendas = @vendas.where("vendas.partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
       @vendas = @vendas.where("vendas.product_id = ?", params[:produto_id]) if params[:produto_id].present?
       @vendas = @vendas.where("vendas.produto_id_parceiro = ?", params[:produto_id_parceiro]) if params[:produto_id_parceiro].present?
-
+      @vendas = @vendas.where("vendas.usuario_id = ?", params[:id_interno]) if params[:id_interno].present?
+      
       if params[:status_parceiro_id].present?
         @vendas = @vendas.joins("inner join partners on partners.id = vendas.partner_id")
         @vendas = @vendas.where("partners.status_parceiro_id = ?", params[:status_parceiro_id])
