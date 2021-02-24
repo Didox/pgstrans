@@ -5,6 +5,9 @@ class LogsController < ApplicationController
   # GET /logs.json
   def index
     @logs = Log.all
+
+    options = {page: params[:page] || 1, per_page: 5}
+    @logs = @logs.paginate(options)
   end
 
   # GET /logs/1
