@@ -47,6 +47,14 @@
       </div>
       <div class="col-sm-3">
         <div class="form-group">
+          <label>ID Interno Usuário</label>
+          <div>
+            <input type="text" name="id" value="<%= params[:id] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
           <label>Responsável pela Aprovação</label>
           <div>
             <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
@@ -61,7 +69,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="form-group">
           <label>Tipo de Lançamento
           </label>
@@ -75,7 +83,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-5">
+      <div class="col-sm-3">
         <div class="form-group">
           <label>Observação</label>
            <div>
@@ -116,8 +124,9 @@
       <% @conta_correntes.each do |conta_corrente| %>
       <tr>
         <td style="width: 450px">
+          <b>ID Interno Usuário:</b> <%= conta_corrente.usuario.id %><br>
           <b>Login:</b> <%= conta_corrente.usuario.login %><br>
-          <b>Usuário:</b> <%= conta_corrente.usuario.nome %><br>
+          <b>Nome do Usuário:</b> <%= conta_corrente.usuario.nome %><br>
           <b>Lançamento:</b> <%= conta_corrente.lancamento.nome %><br>
           <% if conta_corrente.banco_id.present? %>
             <b>Banco:</b> <%= conta_corrente.banco.nome %><br>
