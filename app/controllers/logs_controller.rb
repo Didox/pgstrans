@@ -6,6 +6,12 @@ class LogsController < ApplicationController
   def index
     @logs = Log.all
 
+    @logs = @logs.where("lower(responsavel) ilike ? ", "%#{params[:nome]}%") if params[:nome].present?
+    @logs = @logs.where("lower(titulo) ilike ? ", "%#{params[:titulo]}%") if params[:titulo].present?
+    @logs = @logs.where("lower(dados_alterados) ilike ? ", "%#{params[:dados_alterados]}%") if params[:dados_alterados].present?
+    @logs = @logs.where("created_at >= ?", params[:created_at_de].to_datetime.beginning_of_day) if params[:created_at_de].present?
+    @logs = @logs.where("created_at <= ?", params[:created_at_ate].to_datetime.end_of_day) if params[:created_at_ate].present?  
+
     options = {page: params[:page] || 1, per_page: 5}
     @logs = @logs.paginate(options)
   end
