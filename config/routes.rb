@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :logs
   resources :erro_amigavels
   resources :menus
   resources :movicel_loops do

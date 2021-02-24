@@ -90,6 +90,7 @@ class PerfilUsuario < ApplicationRecord
   def self.nome_amigavel_controller(controller)
     nomes = {
       vendas: "Backoffice - Relatório de Vendas",
+      logs: "Log do sistema",
       menus: "Menus do Backoffice",
       erro_amigavels: "Cadastro de erros amigáveis",
       status_alegacao_pagamentos: "Backoffice - Sessão de Conta Corrente - Tabela de Situações de Alegação de Pagamento",

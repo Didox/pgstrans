@@ -1,0 +1,38 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h4>Log</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="container scroltable">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Responsavel</th>
+                    <th scope="col">Dados alterados</th>
+                    <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @logs.each do |log| %>
+        <tr>
+                    <td><%= log.titulo %></td>
+                    <td><%= log.responsavel %></td>
+                    <td><%= log.dados_alterados %></td>
+                    <td><%= link_to 'Mostrar', log %></td>
+          <td><%= link_to 'Editar', edit_log_path(log) %></td>
+          <td><%= link_to 'Apagar', log, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to "Novo Registo", new_log_path, class: 'btn btn-danger' %>
+    <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
+  </div>
+</div>

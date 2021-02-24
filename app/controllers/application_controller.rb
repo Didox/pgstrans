@@ -50,6 +50,8 @@ class ApplicationController < ActionController::Base
       end
 
       if administrador.present?
+        Log.responsavel_log = administrador.nome
+
 	      return true if self.class.to_s == "WelcomeController" || self.class.to_s == "GrupoUsuariosController"
 
         if administrador.acessos.blank?
