@@ -40,9 +40,9 @@ namespace :jobs do
     text.each_line do |line|
       puts (line_num += 1)
       json = JSON.parse(line)
-      if ContaCorrente.where(id: json["id"]).count == 0
+      if Banco.where(id: json["id"]).count == 0
         responsavel = Usuario.find(json["responsavel_aprovacao_id"]) rescue Usuario.find(2)
-        cc = ContaCorrente.new(json)
+        cc = Banco.new(json)
         cc.responsavel = responsavel
         cc.save!
 
