@@ -24,7 +24,15 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>ID Interno do Usuário</label>
+            <div>
+              <input type="text" name="id_interno" value="<%= params[:id_interno] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
           <div class="form-group">
             <label>E-mail do Usuário</label>
             <div>
@@ -32,7 +40,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-6">
           <div class="form-group">
             <label>Grupo do Usuário</label>
             <div>
@@ -50,7 +58,7 @@
           </div>
         </div>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Administrador</label>
             <div>
@@ -68,7 +76,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Operador</label>
             <div>
@@ -86,7 +94,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Perfil do Usuário</label>
             <div>

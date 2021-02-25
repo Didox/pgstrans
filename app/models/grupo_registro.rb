@@ -6,4 +6,5 @@ class GrupoRegistro < ApplicationRecord
   rescue
     nil
   end
+
 end

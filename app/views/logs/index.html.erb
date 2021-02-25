@@ -1,20 +1,75 @@
-<div class="container">
-  <p id="notice"><%= notice %></p>
-
-  <h4>Log</h4>
+<div class="col-md-12">
+  <div class="col-md-12">
+    <p id="notice"><%= notice %></p>
+    <h4>Log do Sistema</h4>
+  </div>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div class="container scroltable">
+  <div class="col-md-12 scroltable">
+    <form action="" method="get" id="formApuracao">
+      <div class="row" style="padding:10px">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Nome do Usuário Responsável</label>
+            <div>
+              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Título/Modelo</label>
+            <div>
+              <input type="text" name="titulo" value="<%= params[:titulo] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Data da Criação do Registro / Evento (DE)</label>
+            <div>
+              <input type="date" name="created_at_de" value="<%= params[:created_at_de] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Data da Criação do Registro / Evento (ATÉ)</label>
+            <div>
+              <input type="date" name="created_at_ate" value="<%= params[:created_at_ate] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Parte de texto que esteja contido em dados alterados</label>
+            <div>
+              <input type="text" name="dados_alterados" value="<%= params[:dados_alterados] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit" value="Buscar" class="btn btn-info">
+          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>        
+      </div>
+    </form>
+  </div>
+  <div class="col-md-12 scroltable">
     <table class="table table-bordered" width="100%" cellspacing="0">
         <thead>
           <tr>
             <th>Responsável</th>
             <th>Data criação</th>
-            <th>Titulo</th>
-            <th>Dados alterados</th>
+            <th>Título/Modelo</th>
+            <th>Dados Alterados</th>
           </tr>
         </thead>
 

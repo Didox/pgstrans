@@ -10,4 +10,5 @@ class DescontoParceiro < ApplicationRecord
   def valor_maior_zero_desconto
     self.errors.add(:porcentagem, "precisa ser maior que 0.1") if self.porcentagem < 0.1
   end
+
 end

@@ -21,6 +21,7 @@
     <tr>
       <td>
         <b>ID da Venda:</b> <%= venda.id %> <b>Login Usuário:</b> <%= venda.usuario.login %><br>
+        <b>ID Interno do Usuário</b> <%= venda.usuario_id %><br>
         <b>Usuário:</b> <%= venda.usuario.nome %><br>
         <b>Parceiro:</b> <%= venda.partner.name %><br>
         <b>Data da Venda:</b> <%= venda.created_at.strftime("%d/%m/%Y %H:%M") %><br>

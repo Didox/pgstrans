@@ -124,4 +124,5 @@ class Zaptv
   rescue Net::OpenTimeout => e
     raise "Timeout. Sem resposta da operadora"
   end
+
 end
