@@ -66,26 +66,32 @@ namespace :jobs do
   desc "Conta corrente import"
   task conta_corrente_import: :environment do
     log_insert = ""
+    log_nao_inserido = ""
 
     line_num=0
     text=File.open("#{Rails.root}/bkp/conta_corrente.data").read
     text.gsub!(/\r\n?/, "\n")
     text.each_line do |line|
-      puts (line_num += 1)
-      json = JSON.parse(line)
-      next if Usuario.where(id: json["usuario_id"]).count == 0
+      begin
+        puts (line_num += 1)
+        json = JSON.parse(line)
+        next if Usuario.where(id: json["usuario_id"]).count == 0
 
-      if ContaCorrente.where(id: json["id"]).count == 0
-        responsavel = Usuario.find(json["responsavel_aprovacao_id"]) rescue Usuario.find(2)
-        cc = ContaCorrente.new(json)
-        cc.responsavel = responsavel
-        cc.save!
+        if ContaCorrente.where(id: json["id"]).count == 0
+          responsavel = Usuario.find(json["responsavel_aprovacao_id"]) rescue Usuario.find(2)
+          cc = ContaCorrente.new(json)
+          cc.responsavel = responsavel
+          cc.save!
 
-        log_insert += "#{line}\n"
+          log_insert += "#{line}\n"
+        end
+      rescue Exception => erro
+        log_nao_inserido += "#{line} - #{erro.message}"
       end
     end
 
     File.open("#{Rails.root}/bkp/conta_corrente_insert.log", "w") { |f| f.write log_insert }
+    File.open("#{Rails.root}/bkp/conta_corrente_log_nao_inserido.log", "w") { |f| f.write log_nao_inserido }
   end
 
   desc "Processar loop movicel"
