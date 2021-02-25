@@ -74,8 +74,8 @@ namespace :jobs do
       puts (line_num += 1)
       json = JSON.parse(line)
       next if Usuario.where(id: json["id"]).count = 0
-      
-      if ContaCorrente.where(id: json["id"]).count == 0
+
+      if ContaCorrente.where(id: json["usuario_id"]).count == 0
         responsavel = Usuario.find(json["responsavel_aprovacao_id"]) rescue Usuario.find(2)
         cc = ContaCorrente.new(json)
         cc.responsavel = responsavel
