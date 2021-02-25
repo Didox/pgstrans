@@ -20,6 +20,39 @@ namespace :jobs do
     end
   end
 
+  desc "Conta corrente export"
+  task conta_corrente_export: :environment do
+    dado = ""
+    ContaCorrente.all.each_with_index do |cc, index|
+      puts index
+      dado += "#{cc.to_json}\n"
+    end
+    File.open("#{Rails.root}/bkp/conta_corrente.data", "w") { |f| f.write dado }
+  end
+
+  desc "Conta corrente import"
+  task conta_corrente_import: :environment do
+    log_insert = ""
+
+    line_num=0
+    text=File.open("#{Rails.root}/bkp/conta_corrente.data").read
+    text.gsub!(/\r\n?/, "\n")
+    text.each_line do |line|
+      puts (line_num += 1)
+      json = JSON.parse(line)
+      if ContaCorrente.where(id: json["id"]).count == 0
+        responsavel = Usuario.find(json["responsavel_aprovacao_id"])
+        cc = ContaCorrente.new(json)
+        cc.responsavel = responsavel
+        cc.save!
+
+        log_insert += "#{line}\n"
+      end
+    end
+
+    File.open("#{Rails.root}/bkp/conta_corrente_insert.log", "w") { |f| f.write log_insert }
+  end
+
   desc "Processar loop movicel"
   task processar_loop_movicel: :environment do
     MovicelLoop.where(processar_loop: true).each do |movicel_loop|
