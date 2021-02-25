@@ -24,7 +24,8 @@ namespace :jobs do
   task banco_export: :environment do
     dado = ""
     Banco.all.each_with_index do |cc, index|
-      puts cc.to_json
+      puts index
+      dado += "#{cc.to_json}\n"
     end
     File.open("#{Rails.root}/bkp/banco.data", "w") { |f| f.write dado }
   end
