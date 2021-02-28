@@ -1,0 +1,1783 @@
+Banco 3
+
+D, [2021-02-20T02:05:13.227344 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Load (7.2ms)  SELECT "conta_correntes".* FROM
+"conta_correntes" WHERE "conta_correntes"."banco_id" = $1 ORDER BY "conta_correntes"."updated_at" DESC  [["banco_id", 3]]
+D, [2021-02-20T02:05:13.254619 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (1.3ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12435]]
+D, [2021-02-20T02:05:13.256705 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12434]]
+D, [2021-02-20T02:05:13.258315 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12339]]
+D, [2021-02-20T02:05:13.259860 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12180]]
+D, [2021-02-20T02:05:13.261516 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12179]]
+D, [2021-02-20T02:05:13.263071 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12178]]
+D, [2021-02-20T02:05:13.264556 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12131]]
+D, [2021-02-20T02:05:13.266147 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11411]]
+D, [2021-02-20T02:05:13.267820 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11384]]
+D, [2021-02-20T02:05:13.269422 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11309]]
+D, [2021-02-20T02:05:13.271026 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11308]]
+D, [2021-02-20T02:05:13.272763 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11241]]
+D, [2021-02-20T02:05:13.274281 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11221]]
+D, [2021-02-20T02:05:13.275914 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11214]]
+D, [2021-02-20T02:05:13.277428 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11211]]
+D, [2021-02-20T02:05:13.278987 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11171]]
+D, [2021-02-20T02:05:13.280551 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11106]]
+D, [2021-02-20T02:05:13.282343 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11084]]
+D, [2021-02-20T02:05:13.283832 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11065]]
+D, [2021-02-20T02:05:13.285333 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11051]]
+D, [2021-02-20T02:05:13.286889 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11015]]
+D, [2021-02-20T02:05:13.288404 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10970]]
+D, [2021-02-20T02:05:13.290090 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10912]]
+D, [2021-02-20T02:05:13.291579 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10907]]
+D, [2021-02-20T02:05:13.293049 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10892]]
+D, [2021-02-20T02:05:13.294580 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10875]]
+D, [2021-02-20T02:05:13.296277 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10874]]
+D, [2021-02-20T02:05:13.297761 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10851]]
+D, [2021-02-20T02:05:13.299349 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10846]]
+D, [2021-02-20T02:05:13.300823 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10841]]
+D, [2021-02-20T02:05:13.302540 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10835]]
+D, [2021-02-20T02:05:13.304237 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10808]]
+D, [2021-02-20T02:05:13.306094 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10804]]
+D, [2021-02-20T02:05:13.307778 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10802]]
+D, [2021-02-20T02:05:13.309463 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10706]]
+D, [2021-02-20T02:05:13.311339 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10702]]
+D, [2021-02-20T02:05:13.312952 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10674]]
+D, [2021-02-20T02:05:13.314738 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10663]]
+D, [2021-02-20T02:05:13.316472 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10661]]
+D, [2021-02-20T02:05:13.318381 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10615]]
+D, [2021-02-20T02:05:13.320231 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10559]]
+D, [2021-02-20T02:05:13.321790 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10535]]
+D, [2021-02-20T02:05:13.323589 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10532]]
+D, [2021-02-20T02:05:13.325248 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10529]]
+D, [2021-02-20T02:05:13.326893 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10495]]
+D, [2021-02-20T02:05:13.328341 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10492]]
+D, [2021-02-20T02:05:13.329844 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10479]]
+D, [2021-02-20T02:05:13.331501 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10464]]
+D, [2021-02-20T02:05:13.333040 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10352]]
+D, [2021-02-20T02:05:13.334531 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10350]]
+D, [2021-02-20T02:05:13.335995 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10344]]
+D, [2021-02-20T02:05:13.337502 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10298]]
+D, [2021-02-20T02:05:13.339192 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10284]]
+D, [2021-02-20T02:05:13.340643 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10274]]
+D, [2021-02-20T02:05:13.342111 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10273]]
+D, [2021-02-20T02:05:13.343553 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10232]]
+D, [2021-02-20T02:05:13.344958 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10220]]
+D, [2021-02-20T02:05:13.346656 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10174]]
+D, [2021-02-20T02:05:13.348070 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10163]]
+D, [2021-02-20T02:05:13.349585 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10092]]
+D, [2021-02-20T02:05:13.351146 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10010]]
+D, [2021-02-20T02:05:13.352768 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9932]]
+D, [2021-02-20T02:05:13.354315 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9930]]
+D, [2021-02-20T02:05:13.355826 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9910]]
+D, [2021-02-20T02:05:13.357513 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9903]]
+D, [2021-02-20T02:05:13.359173 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9876]]
+D, [2021-02-20T02:05:13.360687 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9834]]
+D, [2021-02-20T02:05:13.362251 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9813]]
+D, [2021-02-20T02:05:13.363976 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9802]]
+D, [2021-02-20T02:05:13.365688 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9670]]
+D, [2021-02-20T02:05:13.367482 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9644]]
+D, [2021-02-20T02:05:13.369030 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9616]]
+D, [2021-02-20T02:05:13.370546 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9393]]
+D, [2021-02-20T02:05:13.372222 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9294]]
+D, [2021-02-20T02:05:13.373904 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9236]]
+D, [2021-02-20T02:05:13.375407 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9179]]
+D, [2021-02-20T02:05:13.377238 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9153]]
+D, [2021-02-20T02:05:13.378891 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9012]]
+D, [2021-02-20T02:05:13.380461 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8963]]
+D, [2021-02-20T02:05:13.382372 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8924]]
+D, [2021-02-20T02:05:13.383819 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8918]]
+D, [2021-02-20T02:05:13.385295 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8911]]
+D, [2021-02-20T02:05:13.387004 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8893]]
+D, [2021-02-20T02:05:13.388969 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8890]]
+D, [2021-02-20T02:05:13.390482 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8883]]
+D, [2021-02-20T02:05:13.391998 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8881]]
+D, [2021-02-20T02:05:13.393638 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8875]]
+D, [2021-02-20T02:05:13.395448 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8863]]
+D, [2021-02-20T02:05:13.396991 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8860]]
+D, [2021-02-20T02:05:13.398691 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8857]]
+D, [2021-02-20T02:05:13.400311 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8841]]
+D, [2021-02-20T02:05:13.401950 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8828]]
+D, [2021-02-20T02:05:13.403771 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8825]]
+D, [2021-02-20T02:05:13.405571 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8816]]
+D, [2021-02-20T02:05:13.407334 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8804]]
+D, [2021-02-20T02:05:13.408837 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8803]]
+D, [2021-02-20T02:05:13.410541 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8797]]
+D, [2021-02-20T02:05:13.412334 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8796]]
+D, [2021-02-20T02:05:13.413737 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8795]]
+D, [2021-02-20T02:05:13.415373 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8788]]
+D, [2021-02-20T02:05:13.417281 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8761]]
+D, [2021-02-20T02:05:13.418953 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8757]]
+D, [2021-02-20T02:05:13.420568 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8679]]
+D, [2021-02-20T02:05:13.422264 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8504]]
+D, [2021-02-20T02:05:13.423978 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8493]]
+D, [2021-02-20T02:05:13.425611 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8492]]
+D, [2021-02-20T02:05:13.427417 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8448]]
+D, [2021-02-20T02:05:13.429242 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8435]]
+D, [2021-02-20T02:05:13.430880 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8434]]
+D, [2021-02-20T02:05:13.432657 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8431]]
+D, [2021-02-20T02:05:13.434155 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8412]]
+D, [2021-02-20T02:05:13.436070 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8408]]
+D, [2021-02-20T02:05:13.437967 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8390]]
+D, [2021-02-20T02:05:13.439825 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8379]]
+D, [2021-02-20T02:05:13.441764 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8368]]
+D, [2021-02-20T02:05:13.443907 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (1.2ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8361]]
+D, [2021-02-20T02:05:13.445676 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8358]]
+D, [2021-02-20T02:05:13.447877 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (1.1ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8353]]
+D, [2021-02-20T02:05:13.449613 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8342]]
+D, [2021-02-20T02:05:13.451468 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8334]]
+D, [2021-02-20T02:05:13.453194 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8332]]
+D, [2021-02-20T02:05:13.454916 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8327]]
+D, [2021-02-20T02:05:13.456724 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8325]]
+D, [2021-02-20T02:05:13.458790 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8322]]
+D, [2021-02-20T02:05:13.460726 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8319]]
+D, [2021-02-20T02:05:13.462453 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8306]]
+D, [2021-02-20T02:05:13.463955 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8190]]
+D, [2021-02-20T02:05:13.465509 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8158]]
+D, [2021-02-20T02:05:13.467213 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8104]]
+D, [2021-02-20T02:05:13.468822 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8085]]
+D, [2021-02-20T02:05:13.470298 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8081]]
+D, [2021-02-20T02:05:13.471834 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8057]]
+D, [2021-02-20T02:05:13.473299 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8035]]
+D, [2021-02-20T02:05:13.474724 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8031]]
+D, [2021-02-20T02:05:13.476197 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8030]]
+D, [2021-02-20T02:05:13.477734 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8029]]
+D, [2021-02-20T02:05:13.479147 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8028]]
+D, [2021-02-20T02:05:13.480524 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8023]]
+D, [2021-02-20T02:05:13.481943 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8012]]
+D, [2021-02-20T02:05:13.483428 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8006]]
+D, [2021-02-20T02:05:13.484962 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8004]]
+D, [2021-02-20T02:05:13.486626 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7999]]
+D, [2021-02-20T02:05:13.488307 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7975]]
+D, [2021-02-20T02:05:13.490089 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7973]]
+D, [2021-02-20T02:05:13.491807 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7968]]
+D, [2021-02-20T02:05:13.493612 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (1.1ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7948]]
+D, [2021-02-20T02:05:13.495462 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7943]]
+D, [2021-02-20T02:05:13.496991 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7930]]
+D, [2021-02-20T02:05:13.498629 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7928]]
+D, [2021-02-20T02:05:13.500233 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7922]]
+D, [2021-02-20T02:05:13.501705 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7905]]
+D, [2021-02-20T02:05:13.503293 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7674]]
+D, [2021-02-20T02:05:13.505230 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7638]]
+D, [2021-02-20T02:05:13.507002 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7635]]
+D, [2021-02-20T02:05:13.508550 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7564]]
+D, [2021-02-20T02:05:13.510548 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7559]]
+D, [2021-02-20T02:05:13.512065 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7557]]
+D, [2021-02-20T02:05:13.513684 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7556]]
+D, [2021-02-20T02:05:13.515666 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7548]]
+D, [2021-02-20T02:05:13.517304 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7542]]
+D, [2021-02-20T02:05:13.518999 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7540]]
+D, [2021-02-20T02:05:13.520541 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7533]]
+D, [2021-02-20T02:05:13.522395 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7422]]
+D, [2021-02-20T02:05:13.524076 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7421]]
+D, [2021-02-20T02:05:13.525735 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7418]]
+D, [2021-02-20T02:05:13.527442 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7417]]
+D, [2021-02-20T02:05:13.529213 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 2884]]
+D, [2021-02-20T02:05:13.530915 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1519]]
+D, [2021-02-20T02:05:13.532638 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1847]]
+D, [2021-02-20T02:05:13.534286 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1848]]
+D, [2021-02-20T02:05:13.535962 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1850]]
+D, [2021-02-20T02:05:13.537596 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1858]]
+D, [2021-02-20T02:05:13.539147 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1859]]
+D, [2021-02-20T02:05:13.540637 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1865]]
+D, [2021-02-20T02:05:13.542259 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1866]]
+D, [2021-02-20T02:05:13.543895 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1870]]
+D, [2021-02-20T02:05:13.545328 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1871]]
+D, [2021-02-20T02:05:13.546856 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1872]]
+D, [2021-02-20T02:05:13.548386 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1886]]
+D, [2021-02-20T02:05:13.549955 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1889]]
+D, [2021-02-20T02:05:13.551446 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1904]]
+D, [2021-02-20T02:05:13.552906 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1906]]
+D, [2021-02-20T02:05:13.554454 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1907]]
+D, [2021-02-20T02:05:13.557179 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (1.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1917]]
+D, [2021-02-20T02:05:13.559837 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1969]]
+D, [2021-02-20T02:05:13.561509 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1997]]
+D, [2021-02-20T02:05:13.563231 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 2025]]
+D, [2021-02-20T02:05:13.564987 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 2035]]
+D, [2021-02-20T02:05:13.566927 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 2046]]
+D, [2021-02-20T02:05:13.568700 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 2047]]
+D, [2021-02-20T02:05:13.570752 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 2051]]
+D, [2021-02-20T02:05:13.572778 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 2052]]
+D, [2021-02-20T02:05:13.574896 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 2055]]
+D, [2021-02-20T02:05:13.577062 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (1.1ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1846]]
+D, [2021-02-20T02:05:13.578894 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1518]]
+D, [2021-02-20T02:05:13.743946 #6731] DEBUG -- : [a468baf1-7f80-4876-9d47-2e8db41a7026]   Banco Destroy (2.2ms)  DELETE FROM "bancos" WHERE "bancos"."
+id" = $1  [["id", 3]]
+
+
+Banco 6
+D, [2021-02-20T02:05:26.368858 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Load (1.6ms)  SELECT "conta_correntes".* FROM
+"conta_correntes" WHERE "conta_correntes"."banco_id" = $1 ORDER BY "conta_correntes"."updated_at" DESC  [["banco_id", 6]]
+D, [2021-02-20T02:05:26.373370 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6744]]
+D, [2021-02-20T02:05:26.374988 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6741]]
+D, [2021-02-20T02:05:26.376443 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6739]]
+D, [2021-02-20T02:05:26.377939 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6736]]
+D, [2021-02-20T02:05:26.379475 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6733]]
+D, [2021-02-20T02:05:26.381023 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6731]]
+D, [2021-02-20T02:05:26.382512 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6145]]
+D, [2021-02-20T02:05:26.384016 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6144]]
+D, [2021-02-20T02:05:26.385563 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6064]]
+D, [2021-02-20T02:05:26.387073 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5979]]
+D, [2021-02-20T02:05:26.388619 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5898]]
+D, [2021-02-20T02:05:26.390124 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5818]]
+D, [2021-02-20T02:05:26.391622 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5814]]
+D, [2021-02-20T02:05:26.392953 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5813]]
+D, [2021-02-20T02:05:26.394322 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5805]]
+D, [2021-02-20T02:05:26.395932 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5763]]
+D, [2021-02-20T02:05:26.397569 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5730]]
+D, [2021-02-20T02:05:26.399012 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5682]]
+D, [2021-02-20T02:05:26.400365 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5615]]
+D, [2021-02-20T02:05:26.401931 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5582]]
+D, [2021-02-20T02:05:26.403461 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5573]]
+D, [2021-02-20T02:05:26.404867 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1240]]
+D, [2021-02-20T02:05:26.406311 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1411]]
+D, [2021-02-20T02:05:26.407918 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1218]]
+D, [2021-02-20T02:05:26.411953 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]   Banco Destroy (1.2ms)  DELETE FROM "bancos" WHERE "bancos"."
+id" = $1  [["id", 6]]
+D, [2021-02-20T02:05:26.415873 #6731] DEBUG -- : [f2d42c7c-1edb-4653-88c3-3d54df8bb433]    (2.8ms)  COMMIT
+
+
+Banco 7
+
+D, [2021-02-20T02:05:33.357213 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]    (0.5ms)  BEGIN
+D, [2021-02-20T02:05:33.364899 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Load (5.0ms)  SELECT "conta_correntes".* FROM
+"conta_correntes" WHERE "conta_correntes"."banco_id" = $1 ORDER BY "conta_correntes"."updated_at" DESC  [["banco_id", 7]]
+D, [2021-02-20T02:05:33.386464 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (1.2ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12707]]
+D, [2021-02-20T02:05:33.388422 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12657]]
+D, [2021-02-20T02:05:33.390165 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12597]]
+D, [2021-02-20T02:05:33.391926 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12212]]
+D, [2021-02-20T02:05:33.393399 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12172]]
+D, [2021-02-20T02:05:33.394896 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12171]]
+D, [2021-02-20T02:05:33.396476 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11991]]
+D, [2021-02-20T02:05:33.398065 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11981]]
+D, [2021-02-20T02:05:33.399506 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11939]]
+D, [2021-02-20T02:05:33.401114 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11762]]
+D, [2021-02-20T02:05:33.402635 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11663]]
+D, [2021-02-20T02:05:33.404212 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11606]]
+D, [2021-02-20T02:05:33.405750 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11602]]
+D, [2021-02-20T02:05:33.407238 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11598]]
+D, [2021-02-20T02:05:33.408701 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11550]]
+D, [2021-02-20T02:05:33.410313 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11548]]
+D, [2021-02-20T02:05:33.411782 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11543]]
+D, [2021-02-20T02:05:33.413228 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11538]]
+D, [2021-02-20T02:05:33.414859 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11523]]
+D, [2021-02-20T02:05:33.416865 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11521]]
+D, [2021-02-20T02:05:33.418480 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11513]]
+D, [2021-02-20T02:05:33.420322 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11512]]
+D, [2021-02-20T02:05:33.421798 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11511]]
+D, [2021-02-20T02:05:33.423669 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11487]]
+D, [2021-02-20T02:05:33.425406 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11486]]
+D, [2021-02-20T02:05:33.427173 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11394]]
+D, [2021-02-20T02:05:33.428809 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11376]]
+D, [2021-02-20T02:05:33.430781 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11370]]
+D, [2021-02-20T02:05:33.432444 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11360]]
+D, [2021-02-20T02:05:33.434177 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11323]]
+D, [2021-02-20T02:05:33.435803 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11305]]
+D, [2021-02-20T02:05:33.437488 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11298]]
+D, [2021-02-20T02:05:33.439360 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11293]]
+D, [2021-02-20T02:05:33.441415 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (1.2ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11292]]
+D, [2021-02-20T02:05:33.443418 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (1.1ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11189]]
+D, [2021-02-20T02:05:33.445064 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11174]]
+D, [2021-02-20T02:05:33.447037 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11158]]
+D, [2021-02-20T02:05:33.448882 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11093]]
+D, [2021-02-20T02:05:33.450537 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11091]]
+D, [2021-02-20T02:05:33.452118 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11066]]
+D, [2021-02-20T02:05:33.454153 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (1.1ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11044]]
+D, [2021-02-20T02:05:33.455947 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11042]]
+D, [2021-02-20T02:05:33.457642 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11040]]
+D, [2021-02-20T02:05:33.459644 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11037]]
+D, [2021-02-20T02:05:33.461214 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11029]]
+D, [2021-02-20T02:05:33.462822 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11001]]
+D, [2021-02-20T02:05:33.464470 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10996]]
+D, [2021-02-20T02:05:33.466251 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10960]]
+D, [2021-02-20T02:05:33.467686 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10958]]
+D, [2021-02-20T02:05:33.469056 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10953]]
+D, [2021-02-20T02:05:33.470460 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10940]]
+D, [2021-02-20T02:05:33.471784 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10938]]
+D, [2021-02-20T02:05:33.473144 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10936]]
+D, [2021-02-20T02:05:33.474615 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10930]]
+D, [2021-02-20T02:05:33.476117 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10919]]
+D, [2021-02-20T02:05:33.477432 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10864]]
+D, [2021-02-20T02:05:33.478887 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10861]]
+D, [2021-02-20T02:05:33.480298 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10856]]
+D, [2021-02-20T02:05:33.481717 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10854]]
+D, [2021-02-20T02:05:33.483263 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10852]]
+D, [2021-02-20T02:05:33.484621 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10829]]
+D, [2021-02-20T02:05:33.486104 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10763]]
+D, [2021-02-20T02:05:33.487519 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10752]]
+D, [2021-02-20T02:05:33.489039 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10723]]
+D, [2021-02-20T02:05:33.490627 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10692]]
+D, [2021-02-20T02:05:33.492174 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10574]]
+D, [2021-02-20T02:05:33.493725 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10573]]
+D, [2021-02-20T02:05:33.495459 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10571]]
+D, [2021-02-20T02:05:33.496791 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10546]]
+D, [2021-02-20T02:05:33.498191 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10542]]
+D, [2021-02-20T02:05:33.499583 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10527]]
+D, [2021-02-20T02:05:33.501362 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10523]]
+D, [2021-02-20T02:05:33.502999 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10508]]
+D, [2021-02-20T02:05:33.504585 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10505]]
+D, [2021-02-20T02:05:33.506223 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10489]]
+D, [2021-02-20T02:05:33.507818 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10476]]
+D, [2021-02-20T02:05:33.509361 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10463]]
+D, [2021-02-20T02:05:33.510953 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10460]]
+D, [2021-02-20T02:05:33.512528 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10452]]
+D, [2021-02-20T02:05:33.514159 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10446]]
+D, [2021-02-20T02:05:33.515717 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10431]]
+D, [2021-02-20T02:05:33.517226 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10428]]
+D, [2021-02-20T02:05:33.518821 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10427]]
+D, [2021-02-20T02:05:33.520428 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10426]]
+D, [2021-02-20T02:05:33.522224 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10422]]
+D, [2021-02-20T02:05:33.523969 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10407]]
+D, [2021-02-20T02:05:33.525667 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10401]]
+D, [2021-02-20T02:05:33.527505 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10379]]
+D, [2021-02-20T02:05:33.529195 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10378]]
+D, [2021-02-20T02:05:33.530887 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10368]]
+D, [2021-02-20T02:05:33.532466 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10366]]
+D, [2021-02-20T02:05:33.534227 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10365]]
+D, [2021-02-20T02:05:33.535803 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10357]]
+D, [2021-02-20T02:05:33.537435 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10294]]
+D, [2021-02-20T02:05:33.539200 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10292]]
+D, [2021-02-20T02:05:33.540738 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10285]]
+D, [2021-02-20T02:05:33.542141 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10281]]
+D, [2021-02-20T02:05:33.544021 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10280]]
+D, [2021-02-20T02:05:33.545622 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10276]]
+D, [2021-02-20T02:05:33.547186 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10262]]
+D, [2021-02-20T02:05:33.548656 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10255]]
+D, [2021-02-20T02:05:33.550328 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10254]]
+D, [2021-02-20T02:05:33.552026 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10247]]
+D, [2021-02-20T02:05:33.553683 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10134]]
+D, [2021-02-20T02:05:33.555705 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9836]]
+D, [2021-02-20T02:05:33.557733 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9774]]
+D, [2021-02-20T02:05:33.559645 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9378]]
+D, [2021-02-20T02:05:33.561213 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9184]]
+D, [2021-02-20T02:05:33.562766 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9174]]
+D, [2021-02-20T02:05:33.564315 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9166]]
+D, [2021-02-20T02:05:33.566026 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9164]]
+D, [2021-02-20T02:05:33.567677 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9150]]
+D, [2021-02-20T02:05:33.569132 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9149]]
+D, [2021-02-20T02:05:33.570973 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8656]]
+D, [2021-02-20T02:05:33.572773 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8655]]
+D, [2021-02-20T02:05:33.574383 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8650]]
+D, [2021-02-20T02:05:33.576273 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8649]]
+D, [2021-02-20T02:05:33.577751 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6152]]
+D, [2021-02-20T02:05:33.579564 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6139]]
+D, [2021-02-20T02:05:33.581144 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6125]]
+D, [2021-02-20T02:05:33.582816 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6123]]
+D, [2021-02-20T02:05:33.584356 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6121]]
+D, [2021-02-20T02:05:33.585957 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6118]]
+D, [2021-02-20T02:05:33.587545 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6113]]
+D, [2021-02-20T02:05:33.589020 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6111]]
+D, [2021-02-20T02:05:33.590611 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6109]]
+D, [2021-02-20T02:05:33.592161 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6104]]
+D, [2021-02-20T02:05:33.593829 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6096]]
+D, [2021-02-20T02:05:33.595439 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6089]]
+D, [2021-02-20T02:05:33.596964 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6083]]
+D, [2021-02-20T02:05:33.598479 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6082]]
+D, [2021-02-20T02:05:33.600029 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6072]]
+D, [2021-02-20T02:05:33.601470 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6062]]
+D, [2021-02-20T02:05:33.602975 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6045]]
+D, [2021-02-20T02:05:33.604417 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5980]]
+D, [2021-02-20T02:05:33.606011 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5925]]
+D, [2021-02-20T02:05:33.607483 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5863]]
+D, [2021-02-20T02:05:33.608930 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5850]]
+D, [2021-02-20T02:05:33.610379 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5838]]
+D, [2021-02-20T02:05:33.611887 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5835]]
+D, [2021-02-20T02:05:33.613352 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5785]]
+D, [2021-02-20T02:05:33.614903 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5774]]
+D, [2021-02-20T02:05:33.616459 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5762]]
+D, [2021-02-20T02:05:33.618103 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5737]]
+D, [2021-02-20T02:05:33.620052 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5668]]
+D, [2021-02-20T02:05:33.621633 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5666]]
+D, [2021-02-20T02:05:33.623534 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5660]]
+D, [2021-02-20T02:05:33.625072 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5653]]
+D, [2021-02-20T02:05:33.626738 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5650]]
+D, [2021-02-20T02:05:33.628427 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5649]]
+D, [2021-02-20T02:05:33.629805 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5646]]
+D, [2021-02-20T02:05:33.631222 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5641]]
+D, [2021-02-20T02:05:33.632644 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5636]]
+D, [2021-02-20T02:05:33.634115 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5635]]
+D, [2021-02-20T02:05:33.635509 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5634]]
+D, [2021-02-20T02:05:33.636873 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5525]]
+D, [2021-02-20T02:05:33.638318 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5405]]
+D, [2021-02-20T02:05:33.731861 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]   Banco Destroy (2.1ms)  DELETE FROM "bancos" WHERE "bancos"."
+id" = $1  [["id", 7]]
+D, [2021-02-20T02:05:33.740651 #6731] DEBUG -- : [c6ad69db-f1ab-4a4b-9102-28307fcbfcea]    (3.1ms)  COMMIT
+
+
+
+D, [2021-02-20T02:05:43.665428 #6731] DEBUG -- : [097c2ad1-d65c-42d5-a7a7-fb5aac9c68f0]    (0.5ms)  BEGIN
+D, [2021-02-20T02:05:43.670241 #6731] DEBUG -- : [097c2ad1-d65c-42d5-a7a7-fb5aac9c68f0]   ContaCorrente Load (1.4ms)  SELECT "conta_correntes".* FROM
+"conta_correntes" WHERE "conta_correntes"."banco_id" = $1 ORDER BY "conta_correntes"."updated_at" DESC  [["banco_id", 8]]
+D, [2021-02-20T02:05:43.674307 #6731] DEBUG -- : [097c2ad1-d65c-42d5-a7a7-fb5aac9c68f0]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7823]]
+D, [2021-02-20T02:05:43.676950 #6731] DEBUG -- : [097c2ad1-d65c-42d5-a7a7-fb5aac9c68f0]   ContaCorrente Destroy (1.4ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3975]]
+D, [2021-02-20T02:05:43.679179 #6731] DEBUG -- : [097c2ad1-d65c-42d5-a7a7-fb5aac9c68f0]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3974]]
+D, [2021-02-20T02:05:43.681662 #6731] DEBUG -- : [097c2ad1-d65c-42d5-a7a7-fb5aac9c68f0]   Banco Destroy (1.2ms)  DELETE FROM "bancos" WHERE "bancos"."
+id" = $1  [["id", 8]]
+D, [2021-02-20T02:05:43.684271 #6731] DEBUG -- : [097c2ad1-d65c-42d5-a7a7-fb5aac9c68f0]    (1.5ms)  COMMIT
+
+
+
+Banco 10
+
+D, [2021-02-20T02:06:04.743770 #6731] DEBUG -- : [822fa951-724f-4a2b-9274-1ee4222801f5]    (0.5ms)  BEGIN
+D, [2021-02-20T02:06:04.748042 #6731] DEBUG -- : [822fa951-724f-4a2b-9274-1ee4222801f5]   ContaCorrente Load (1.3ms)  SELECT "conta_correntes".* FROM
+"conta_correntes" WHERE "conta_correntes"."banco_id" = $1 ORDER BY "conta_correntes"."updated_at" DESC  [["banco_id", 10]]
+D, [2021-02-20T02:06:04.751723 #6731] DEBUG -- : [822fa951-724f-4a2b-9274-1ee4222801f5]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5346]]
+D, [2021-02-20T02:06:04.753483 #6731] DEBUG -- : [822fa951-724f-4a2b-9274-1ee4222801f5]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5138]]
+D, [2021-02-20T02:06:04.755211 #6731] DEBUG -- : [822fa951-724f-4a2b-9274-1ee4222801f5]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4572]]
+D, [2021-02-20T02:06:04.756751 #6731] DEBUG -- : [822fa951-724f-4a2b-9274-1ee4222801f5]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4571]]
+D, [2021-02-20T02:06:04.758565 #6731] DEBUG -- : [822fa951-724f-4a2b-9274-1ee4222801f5]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3711]]
+D, [2021-02-20T02:06:04.760267 #6731] DEBUG -- : [822fa951-724f-4a2b-9274-1ee4222801f5]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 2555]]
+D, [2021-02-20T02:06:04.761757 #6731] DEBUG -- : [822fa951-724f-4a2b-9274-1ee4222801f5]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 2556]]
+D, [2021-02-20T02:06:04.763611 #6731] DEBUG -- : [822fa951-724f-4a2b-9274-1ee4222801f5]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 2557]]
+D, [2021-02-20T02:06:04.766070 #6731] DEBUG -- : [822fa951-724f-4a2b-9274-1ee4222801f5]   ContaCorrente Destroy (1.1ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 2559]]
+D, [2021-02-20T02:06:04.767877 #6731] DEBUG -- : [822fa951-724f-4a2b-9274-1ee4222801f5]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 2554]]
+D, [2021-02-20T02:06:04.770786 #6731] DEBUG -- : [822fa951-724f-4a2b-9274-1ee4222801f5]   Banco Destroy (1.2ms)  DELETE FROM "bancos" WHERE "bancos"."
+id" = $1  [["id", 10]]
+D, [2021-02-20T02:06:04.774307 #6731] DEBUG -- : [822fa951-724f-4a2b-9274-1ee4222801f5]    (2.4ms)  COMMIT
+
+
+
+
+D, [2021-02-20T02:06:36.411531 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]    (0.4ms)  BEGIN
+D, [2021-02-20T02:06:36.415706 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Load (1.4ms)  SELECT "conta_correntes".* FROM
+"conta_correntes" WHERE "conta_correntes"."banco_id" = $1 ORDER BY "conta_correntes"."updated_at" DESC  [["banco_id", 9]]
+D, [2021-02-20T02:06:36.423219 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12433]]
+D, [2021-02-20T02:06:36.424964 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10410]]
+D, [2021-02-20T02:06:36.426652 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3776]]
+D, [2021-02-20T02:06:36.428363 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3749]]
+D, [2021-02-20T02:06:36.430250 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3712]]
+D, [2021-02-20T02:06:36.431824 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3710]]
+D, [2021-02-20T02:06:36.433748 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 431]]
+D, [2021-02-20T02:06:36.435658 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 432]]
+D, [2021-02-20T02:06:36.437613 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 433]]
+D, [2021-02-20T02:06:36.439399 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 451]]
+D, [2021-02-20T02:06:36.441056 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 452]]
+D, [2021-02-20T02:06:36.442878 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 455]]
+D, [2021-02-20T02:06:36.444676 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 458]]
+D, [2021-02-20T02:06:36.446358 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 459]]
+D, [2021-02-20T02:06:36.448070 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 479]]
+D, [2021-02-20T02:06:36.449778 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 480]]
+D, [2021-02-20T02:06:36.451358 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 485]]
+D, [2021-02-20T02:06:36.452942 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 723]]
+D, [2021-02-20T02:06:36.454500 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 724]]
+D, [2021-02-20T02:06:36.456123 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 766]]
+D, [2021-02-20T02:06:36.457697 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 769]]
+D, [2021-02-20T02:06:36.459241 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 791]]
+D, [2021-02-20T02:06:36.460812 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 792]]
+D, [2021-02-20T02:06:36.462573 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 793]]
+D, [2021-02-20T02:06:36.464087 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 796]]
+D, [2021-02-20T02:06:36.465637 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 814]]
+D, [2021-02-20T02:06:36.467316 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1053]]
+D, [2021-02-20T02:06:36.469266 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 430]]
+D, [2021-02-20T02:06:36.475098 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]   Banco Destroy (1.6ms)  DELETE FROM "bancos" WHERE "bancos"."
+id" = $1  [["id", 9]]
+D, [2021-02-20T02:06:36.480618 #6731] DEBUG -- : [fe00c852-2629-459f-9000-e71b2118f6a9]    (4.0ms)  COMMIT
+
+
+Banco 12
+
+D, [2021-02-20T02:06:48.049133 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]    (0.4ms)  BEGIN
+D, [2021-02-20T02:06:48.053635 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Load (2.4ms)  SELECT "conta_correntes".* FROM
+"conta_correntes" WHERE "conta_correntes"."banco_id" = $1 ORDER BY "conta_correntes"."updated_at" DESC  [["banco_id", 12]]
+D, [2021-02-20T02:06:48.063346 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9138]]
+D, [2021-02-20T02:06:48.064863 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9136]]
+D, [2021-02-20T02:06:48.066439 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9132]]
+D, [2021-02-20T02:06:48.068020 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9125]]
+D, [2021-02-20T02:06:48.069531 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9121]]
+D, [2021-02-20T02:06:48.071047 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9042]]
+D, [2021-02-20T02:06:48.072549 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9040]]
+D, [2021-02-20T02:06:48.074354 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9039]]
+D, [2021-02-20T02:06:48.076631 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9034]]
+D, [2021-02-20T02:06:48.078566 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8973]]
+D, [2021-02-20T02:06:48.080321 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8964]]
+D, [2021-02-20T02:06:48.081821 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8957]]
+D, [2021-02-20T02:06:48.083511 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8642]]
+D, [2021-02-20T02:06:48.085610 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8171]]
+D, [2021-02-20T02:06:48.087191 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8091]]
+D, [2021-02-20T02:06:48.088915 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8076]]
+D, [2021-02-20T02:06:48.091132 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7839]]
+D, [2021-02-20T02:06:48.092907 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7838]]
+D, [2021-02-20T02:06:48.094762 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7718]]
+D, [2021-02-20T02:06:48.096982 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7717]]
+D, [2021-02-20T02:06:48.098579 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7675]]
+D, [2021-02-20T02:06:48.100177 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7599]]
+D, [2021-02-20T02:06:48.101630 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7449]]
+D, [2021-02-20T02:06:48.103187 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7447]]
+D, [2021-02-20T02:06:48.104810 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7437]]
+D, [2021-02-20T02:06:48.106927 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7415]]
+D, [2021-02-20T02:06:48.108740 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7414]]
+D, [2021-02-20T02:06:48.110632 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5421]]
+D, [2021-02-20T02:06:48.112661 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5414]]
+D, [2021-02-20T02:06:48.114368 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5412]]
+D, [2021-02-20T02:06:48.116272 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5410]]
+D, [2021-02-20T02:06:48.118327 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5409]]
+D, [2021-02-20T02:06:48.119869 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5372]]
+D, [2021-02-20T02:06:48.121695 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5357]]
+D, [2021-02-20T02:06:48.123854 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5345]]
+D, [2021-02-20T02:06:48.125353 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5341]]
+D, [2021-02-20T02:06:48.127103 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5258]]
+D, [2021-02-20T02:06:48.129154 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5252]]
+D, [2021-02-20T02:06:48.130908 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5231]]
+D, [2021-02-20T02:06:48.132372 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5151]]
+D, [2021-02-20T02:06:48.134145 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5145]]
+D, [2021-02-20T02:06:48.136136 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5133]]
+D, [2021-02-20T02:06:48.137945 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5132]]
+D, [2021-02-20T02:06:48.139498 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5124]]
+D, [2021-02-20T02:06:48.141354 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5109]]
+D, [2021-02-20T02:06:48.143412 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5095]]
+D, [2021-02-20T02:06:48.145482 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5093]]
+D, [2021-02-20T02:06:48.147640 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5057]]
+D, [2021-02-20T02:06:48.149810 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5040]]
+D, [2021-02-20T02:06:48.152078 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5039]]
+D, [2021-02-20T02:06:48.153997 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5038]]
+D, [2021-02-20T02:06:48.155479 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5037]]
+D, [2021-02-20T02:06:48.157173 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5030]]
+D, [2021-02-20T02:06:48.158646 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4897]]
+D, [2021-02-20T02:06:48.160310 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4892]]
+D, [2021-02-20T02:06:48.162019 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3586]]
+D, [2021-02-20T02:06:48.163646 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3585]]
+D, [2021-02-20T02:06:48.165252 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3145]]
+D, [2021-02-20T02:06:48.167273 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3144]]
+D, [2021-02-20T02:06:48.169212 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3131]]
+D, [2021-02-20T02:06:48.170951 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3127]]
+D, [2021-02-20T02:06:48.172903 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3125]]
+D, [2021-02-20T02:06:48.174500 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3124]]
+D, [2021-02-20T02:06:48.176218 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3120]]
+D, [2021-02-20T02:06:48.177899 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3117]]
+D, [2021-02-20T02:06:48.179508 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3108]]
+D, [2021-02-20T02:06:48.181333 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3099]]
+D, [2021-02-20T02:06:48.182897 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3088]]
+D, [2021-02-20T02:06:48.184461 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3087]]
+D, [2021-02-20T02:06:48.186112 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3081]]
+D, [2021-02-20T02:06:48.187806 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3068]]
+D, [2021-02-20T02:06:48.189337 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3059]]
+D, [2021-02-20T02:06:48.190879 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3058]]
+D, [2021-02-20T02:06:48.192358 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3055]]
+D, [2021-02-20T02:06:48.193825 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3054]]
+D, [2021-02-20T02:06:48.195508 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3047]]
+D, [2021-02-20T02:06:48.196929 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 225]]
+D, [2021-02-20T02:06:48.223254 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]   Banco Destroy (1.4ms)  DELETE FROM "bancos" WHERE "bancos"."
+id" = $1  [["id", 12]]
+D, [2021-02-20T02:06:48.228137 #6731] DEBUG -- : [1f0fd885-f822-4b9d-b403-6e026dfa1c5c]    (1.8ms)  COMMIT
+
+
+
+Banco 13
+
+D, [2021-02-20T02:06:57.592398 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]    (0.4ms)  BEGIN
+D, [2021-02-20T02:06:57.596843 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Load (2.1ms)  SELECT "conta_correntes".* FROM
+"conta_correntes" WHERE "conta_correntes"."banco_id" = $1 ORDER BY "conta_correntes"."updated_at" DESC  [["banco_id", 13]]
+D, [2021-02-20T02:06:57.604268 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9117]]
+D, [2021-02-20T02:06:57.605847 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8778]]
+D, [2021-02-20T02:06:57.607440 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8123]]
+D, [2021-02-20T02:06:57.609018 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5239]]
+D, [2021-02-20T02:06:57.610580 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5125]]
+D, [2021-02-20T02:06:57.612135 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5059]]
+D, [2021-02-20T02:06:57.613650 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5058]]
+D, [2021-02-20T02:06:57.615317 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5029]]
+D, [2021-02-20T02:06:57.616883 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5020]]
+D, [2021-02-20T02:06:57.618453 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5017]]
+D, [2021-02-20T02:06:57.619973 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5014]]
+D, [2021-02-20T02:06:57.621634 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5008]]
+D, [2021-02-20T02:06:57.623287 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4970]]
+D, [2021-02-20T02:06:57.624785 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4969]]
+D, [2021-02-20T02:06:57.626312 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4968]]
+D, [2021-02-20T02:06:57.627877 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4927]]
+D, [2021-02-20T02:06:57.629395 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4919]]
+D, [2021-02-20T02:06:57.631365 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4914]]
+D, [2021-02-20T02:06:57.632879 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4707]]
+D, [2021-02-20T02:06:57.634456 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4706]]
+D, [2021-02-20T02:06:57.636211 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4596]]
+D, [2021-02-20T02:06:57.637820 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4578]]
+D, [2021-02-20T02:06:57.639322 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4553]]
+D, [2021-02-20T02:06:57.641062 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4544]]
+D, [2021-02-20T02:06:57.643001 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4542]]
+D, [2021-02-20T02:06:57.644538 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4455]]
+D, [2021-02-20T02:06:57.646122 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4370]]
+D, [2021-02-20T02:06:57.648422 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4366]]
+D, [2021-02-20T02:06:57.650488 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4360]]
+D, [2021-02-20T02:06:57.652034 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4276]]
+D, [2021-02-20T02:06:57.654279 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (1.1ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4266]]
+D, [2021-02-20T02:06:57.656127 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4259]]
+D, [2021-02-20T02:06:57.657708 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4250]]
+D, [2021-02-20T02:06:57.659841 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4236]]
+D, [2021-02-20T02:06:57.661438 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4235]]
+D, [2021-02-20T02:06:57.663001 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4223]]
+D, [2021-02-20T02:06:57.664657 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4213]]
+D, [2021-02-20T02:06:57.666294 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4199]]
+D, [2021-02-20T02:06:57.667895 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4176]]
+D, [2021-02-20T02:06:57.669499 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4175]]
+D, [2021-02-20T02:06:57.671944 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4170]]
+D, [2021-02-20T02:06:57.673594 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4169]]
+D, [2021-02-20T02:06:57.675644 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1239]]
+D, [2021-02-20T02:06:57.677645 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1316]]
+D, [2021-02-20T02:06:57.679450 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1385]]
+D, [2021-02-20T02:06:57.681265 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 1238]]
+D, [2021-02-20T02:06:57.693071 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]   Banco Destroy (1.8ms)  DELETE FROM "bancos" WHERE "bancos"."
+id" = $1  [["id", 13]]
+D, [2021-02-20T02:06:57.697751 #6731] DEBUG -- : [412899b9-a1f8-49b8-b72a-a15d22a5efed]    (2.7ms)  COMMIT
+
+
+Banco 14
+
+D, [2021-02-20T02:07:08.214391 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]    (0.6ms)  BEGIN
+D, [2021-02-20T02:07:08.219994 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Load (2.9ms)  SELECT "conta_correntes".* FROM
+"conta_correntes" WHERE "conta_correntes"."banco_id" = $1 ORDER BY "conta_correntes"."updated_at" DESC  [["banco_id", 14]]
+D, [2021-02-20T02:07:08.230842 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (1.1ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8227]]
+D, [2021-02-20T02:07:08.232853 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7944]]
+D, [2021-02-20T02:07:08.234834 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7552]]
+D, [2021-02-20T02:07:08.236962 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7551]]
+D, [2021-02-20T02:07:08.262607 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (1.3ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7085]]
+D, [2021-02-20T02:07:08.264597 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7080]]
+D, [2021-02-20T02:07:08.266412 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6975]]
+D, [2021-02-20T02:07:08.268076 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6727]]
+D, [2021-02-20T02:07:08.269920 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5995]]
+D, [2021-02-20T02:07:08.271552 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5840]]
+D, [2021-02-20T02:07:08.273108 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4839]]
+D, [2021-02-20T02:07:08.274869 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4826]]
+D, [2021-02-20T02:07:08.276601 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4819]]
+D, [2021-02-20T02:07:08.278472 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4812]]
+D, [2021-02-20T02:07:08.280304 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4790]]
+D, [2021-02-20T02:07:08.281807 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4777]]
+D, [2021-02-20T02:07:08.283545 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4773]]
+D, [2021-02-20T02:07:08.285429 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4742]]
+D, [2021-02-20T02:07:08.287124 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4721]]
+D, [2021-02-20T02:07:08.289015 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4702]]
+D, [2021-02-20T02:07:08.290796 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4679]]
+D, [2021-02-20T02:07:08.292357 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4671]]
+D, [2021-02-20T02:07:08.294088 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4643]]
+D, [2021-02-20T02:07:08.295459 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4598]]
+D, [2021-02-20T02:07:08.296895 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4568]]
+D, [2021-02-20T02:07:08.298447 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4054]]
+D, [2021-02-20T02:07:08.300074 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4053]]
+D, [2021-02-20T02:07:08.301697 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4024]]
+D, [2021-02-20T02:07:08.303459 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4023]]
+D, [2021-02-20T02:07:08.304966 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4022]]
+D, [2021-02-20T02:07:08.306796 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4016]]
+D, [2021-02-20T02:07:08.308462 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3994]]
+D, [2021-02-20T02:07:08.310115 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3992]]
+D, [2021-02-20T02:07:08.311989 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3041]]
+D, [2021-02-20T02:07:08.313606 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3040]]
+D, [2021-02-20T02:07:08.315120 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3039]]
+D, [2021-02-20T02:07:08.316725 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3038]]
+D, [2021-02-20T02:07:08.318922 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (1.3ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3035]]
+D, [2021-02-20T02:07:08.320496 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3031]]
+D, [2021-02-20T02:07:08.322424 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3021]]
+D, [2021-02-20T02:07:08.323988 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3020]]
+D, [2021-02-20T02:07:08.325564 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3018]]
+D, [2021-02-20T02:07:08.327325 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3017]]
+D, [2021-02-20T02:07:08.328951 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3016]]
+D, [2021-02-20T02:07:08.330731 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3015]]
+D, [2021-02-20T02:07:08.332237 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3014]]
+D, [2021-02-20T02:07:08.344309 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]   Banco Destroy (1.1ms)  DELETE FROM "bancos" WHERE "bancos"."
+id" = $1  [["id", 14]]
+D, [2021-02-20T02:07:08.347706 #6731] DEBUG -- : [3802f47a-e840-4dd7-98cc-dcb857d560ae]    (1.4ms)  COMMIT
+
+
+Banco 15
+
+D, [2021-02-20T02:07:26.804386 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]    (0.5ms)  BEGIN
+D, [2021-02-20T02:07:26.812524 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Load (6.0ms)  SELECT "conta_correntes".* FROM
+"conta_correntes" WHERE "conta_correntes"."banco_id" = $1 ORDER BY "conta_correntes"."updated_at" DESC  [["banco_id", 15]]
+D, [2021-02-20T02:07:26.840677 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12690]]
+D, [2021-02-20T02:07:26.842346 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12687]]
+D, [2021-02-20T02:07:26.843933 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12548]]
+D, [2021-02-20T02:07:26.845442 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12540]]
+D, [2021-02-20T02:07:26.847184 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12307]]
+D, [2021-02-20T02:07:26.848839 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 12306]]
+D, [2021-02-20T02:07:26.850491 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11938]]
+D, [2021-02-20T02:07:26.852146 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11821]]
+D, [2021-02-20T02:07:26.853687 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11574]]
+D, [2021-02-20T02:07:26.855269 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11556]]
+D, [2021-02-20T02:07:26.856828 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 11289]]
+D, [2021-02-20T02:07:26.858501 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10989]]
+D, [2021-02-20T02:07:26.860082 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10981]]
+D, [2021-02-20T02:07:26.861520 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10899]]
+D, [2021-02-20T02:07:26.863058 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10143]]
+D, [2021-02-20T02:07:26.864687 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 10120]]
+D, [2021-02-20T02:07:26.866582 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (1.1ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9964]]
+D, [2021-02-20T02:07:26.868182 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9829]]
+D, [2021-02-20T02:07:26.869958 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9662]]
+D, [2021-02-20T02:07:26.871743 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9658]]
+D, [2021-02-20T02:07:26.873322 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9347]]
+D, [2021-02-20T02:07:26.874843 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9185]]
+D, [2021-02-20T02:07:26.876391 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9038]]
+D, [2021-02-20T02:07:26.877817 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 9031]]
+D, [2021-02-20T02:07:26.879360 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8980]]
+D, [2021-02-20T02:07:26.880902 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8873]]
+D, [2021-02-20T02:07:26.882576 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 8677]]
+D, [2021-02-20T02:07:26.883982 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7874]]
+D, [2021-02-20T02:07:26.885569 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7864]]
+D, [2021-02-20T02:07:26.887862 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7843]]
+D, [2021-02-20T02:07:26.889255 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7833]]
+D, [2021-02-20T02:07:26.890975 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7832]]
+D, [2021-02-20T02:07:26.892459 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7642]]
+D, [2021-02-20T02:07:26.894105 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7560]]
+D, [2021-02-20T02:07:26.895698 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7504]]
+D, [2021-02-20T02:07:26.897316 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7474]]
+D, [2021-02-20T02:07:26.899042 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7344]]
+D, [2021-02-20T02:07:26.900733 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7216]]
+D, [2021-02-20T02:07:26.902314 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7156]]
+D, [2021-02-20T02:07:26.903967 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7146]]
+D, [2021-02-20T02:07:26.905638 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7106]]
+D, [2021-02-20T02:07:26.907161 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7088]]
+D, [2021-02-20T02:07:26.908860 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7083]]
+D, [2021-02-20T02:07:26.910536 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7082]]
+D, [2021-02-20T02:07:26.911968 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7074]]
+D, [2021-02-20T02:07:26.913489 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 7020]]
+D, [2021-02-20T02:07:26.914917 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6985]]
+D, [2021-02-20T02:07:26.916533 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6981]]
+D, [2021-02-20T02:07:26.917986 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6960]]
+D, [2021-02-20T02:07:26.919348 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6878]]
+D, [2021-02-20T02:07:26.920889 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6820]]
+D, [2021-02-20T02:07:26.922382 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6798]]
+D, [2021-02-20T02:07:26.923877 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6786]]
+D, [2021-02-20T02:07:26.925279 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6577]]
+D, [2021-02-20T02:07:26.927059 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6486]]
+D, [2021-02-20T02:07:26.928568 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6395]]
+D, [2021-02-20T02:07:26.929997 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6374]]
+D, [2021-02-20T02:07:26.931413 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6281]]
+D, [2021-02-20T02:07:26.933022 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6238]]
+D, [2021-02-20T02:07:26.934507 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6227]]
+D, [2021-02-20T02:07:26.935998 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6087]]
+D, [2021-02-20T02:07:26.937603 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6019]]
+D, [2021-02-20T02:07:26.939533 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (1.2ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6014]]
+D, [2021-02-20T02:07:26.941338 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 6013]]
+D, [2021-02-20T02:07:26.942974 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5983]]
+D, [2021-02-20T02:07:26.944832 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5967]]
+D, [2021-02-20T02:07:26.946322 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5899]]
+D, [2021-02-20T02:07:26.948036 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5817]]
+D, [2021-02-20T02:07:26.950099 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (1.1ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5810]]
+D, [2021-02-20T02:07:26.951519 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5699]]
+D, [2021-02-20T02:07:26.952925 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5690]]
+D, [2021-02-20T02:07:26.954807 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5588]]
+D, [2021-02-20T02:07:26.956875 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5576]]
+D, [2021-02-20T02:07:26.958318 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5575]]
+D, [2021-02-20T02:07:26.960034 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5518]]
+D, [2021-02-20T02:07:26.961913 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5484]]
+D, [2021-02-20T02:07:26.963742 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5423]]
+D, [2021-02-20T02:07:26.965363 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5396]]
+D, [2021-02-20T02:07:26.967004 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5350]]
+D, [2021-02-20T02:07:26.968575 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5303]]
+D, [2021-02-20T02:07:26.970213 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5140]]
+D, [2021-02-20T02:07:26.971614 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5126]]
+D, [2021-02-20T02:07:26.973073 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5117]]
+D, [2021-02-20T02:07:26.974682 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5101]]
+D, [2021-02-20T02:07:26.976288 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5074]]
+D, [2021-02-20T02:07:26.977842 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5065]]
+D, [2021-02-20T02:07:26.979412 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5028]]
+D, [2021-02-20T02:07:26.981038 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5024]]
+D, [2021-02-20T02:07:26.982597 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 5007]]
+D, [2021-02-20T02:07:26.984165 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4998]]
+D, [2021-02-20T02:07:26.985641 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4995]]
+D, [2021-02-20T02:07:26.987144 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4989]]
+D, [2021-02-20T02:07:26.988847 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4977]]
+D, [2021-02-20T02:07:26.990645 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4921]]
+D, [2021-02-20T02:07:26.992258 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4895]]
+D, [2021-02-20T02:07:26.993692 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4894]]
+D, [2021-02-20T02:07:26.995182 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4817]]
+D, [2021-02-20T02:07:26.996683 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4803]]
+D, [2021-02-20T02:07:26.998296 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4764]]
+D, [2021-02-20T02:07:26.999887 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4763]]
+D, [2021-02-20T02:07:27.001341 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4762]]
+D, [2021-02-20T02:07:27.002910 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4761]]
+D, [2021-02-20T02:07:27.004407 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4760]]
+D, [2021-02-20T02:07:27.005827 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4759]]
+D, [2021-02-20T02:07:27.007338 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4758]]
+D, [2021-02-20T02:07:27.008725 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4757]]
+D, [2021-02-20T02:07:27.010371 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4756]]
+D, [2021-02-20T02:07:27.011729 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4752]]
+D, [2021-02-20T02:07:27.013072 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4748]]
+D, [2021-02-20T02:07:27.014429 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4743]]
+D, [2021-02-20T02:07:27.015838 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4737]]
+D, [2021-02-20T02:07:27.017258 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4734]]
+D, [2021-02-20T02:07:27.018608 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4709]]
+D, [2021-02-20T02:07:27.019914 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4705]]
+D, [2021-02-20T02:07:27.021295 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4677]]
+D, [2021-02-20T02:07:27.022692 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4676]]
+D, [2021-02-20T02:07:27.024010 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4673]]
+D, [2021-02-20T02:07:27.025406 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4672]]
+D, [2021-02-20T02:07:27.026839 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4669]]
+D, [2021-02-20T02:07:27.028214 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4621]]
+D, [2021-02-20T02:07:27.029629 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4615]]
+D, [2021-02-20T02:07:27.031156 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4614]]
+D, [2021-02-20T02:07:27.032579 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4610]]
+D, [2021-02-20T02:07:27.034013 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4609]]
+D, [2021-02-20T02:07:27.035583 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4606]]
+D, [2021-02-20T02:07:27.036938 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4603]]
+D, [2021-02-20T02:07:27.038313 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4601]]
+D, [2021-02-20T02:07:27.039739 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4599]]
+D, [2021-02-20T02:07:27.041291 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4592]]
+D, [2021-02-20T02:07:27.042700 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4589]]
+D, [2021-02-20T02:07:27.044053 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4587]]
+D, [2021-02-20T02:07:27.045476 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4577]]
+D, [2021-02-20T02:07:27.047114 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4573]]
+D, [2021-02-20T02:07:27.048513 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4557]]
+D, [2021-02-20T02:07:27.049897 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4556]]
+D, [2021-02-20T02:07:27.051411 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4555]]
+D, [2021-02-20T02:07:27.052880 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4551]]
+D, [2021-02-20T02:07:27.054366 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4550]]
+D, [2021-02-20T02:07:27.055747 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4548]]
+D, [2021-02-20T02:07:27.057179 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4540]]
+D, [2021-02-20T02:07:27.058652 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4530]]
+D, [2021-02-20T02:07:27.060009 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4527]]
+D, [2021-02-20T02:07:27.061514 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4515]]
+D, [2021-02-20T02:07:27.063008 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4511]]
+D, [2021-02-20T02:07:27.064427 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4510]]
+D, [2021-02-20T02:07:27.065941 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4509]]
+D, [2021-02-20T02:07:27.067376 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4508]]
+D, [2021-02-20T02:07:27.068853 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4507]]
+D, [2021-02-20T02:07:27.070323 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4505]]
+D, [2021-02-20T02:07:27.071821 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4504]]
+D, [2021-02-20T02:07:27.073260 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4499]]
+D, [2021-02-20T02:07:27.074807 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4497]]
+D, [2021-02-20T02:07:27.076266 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4494]]
+D, [2021-02-20T02:07:27.077741 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4485]]
+D, [2021-02-20T02:07:27.079916 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4481]]
+D, [2021-02-20T02:07:27.081508 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4480]]
+D, [2021-02-20T02:07:27.082934 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4479]]
+D, [2021-02-20T02:07:27.084354 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4470]]
+D, [2021-02-20T02:07:27.085808 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4463]]
+D, [2021-02-20T02:07:27.087257 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4462]]
+D, [2021-02-20T02:07:27.088626 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4461]]
+D, [2021-02-20T02:07:27.090055 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4460]]
+D, [2021-02-20T02:07:27.091554 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4459]]
+D, [2021-02-20T02:07:27.093183 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4457]]
+D, [2021-02-20T02:07:27.094887 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4456]]
+D, [2021-02-20T02:07:27.096564 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (1.0ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4453]]
+D, [2021-02-20T02:07:27.098230 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4439]]
+D, [2021-02-20T02:07:27.099822 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4435]]
+D, [2021-02-20T02:07:27.101434 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4430]]
+D, [2021-02-20T02:07:27.103153 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4420]]
+D, [2021-02-20T02:07:27.104586 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4413]]
+D, [2021-02-20T02:07:27.106076 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4411]]
+D, [2021-02-20T02:07:27.107500 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4410]]
+D, [2021-02-20T02:07:27.108977 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4407]]
+D, [2021-02-20T02:07:27.110608 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4406]]
+D, [2021-02-20T02:07:27.112031 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4404]]
+D, [2021-02-20T02:07:27.113476 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4396]]
+D, [2021-02-20T02:07:27.115015 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4393]]
+D, [2021-02-20T02:07:27.116499 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4390]]
+D, [2021-02-20T02:07:27.117951 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4389]]
+D, [2021-02-20T02:07:27.119469 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4387]]
+D, [2021-02-20T02:07:27.120895 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4384]]
+D, [2021-02-20T02:07:27.122360 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4382]]
+D, [2021-02-20T02:07:27.123688 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4378]]
+D, [2021-02-20T02:07:27.125139 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4376]]
+D, [2021-02-20T02:07:27.126586 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4375]]
+D, [2021-02-20T02:07:27.127953 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4369]]
+D, [2021-02-20T02:07:27.130066 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (1.4ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4367]]
+D, [2021-02-20T02:07:27.131468 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4357]]
+D, [2021-02-20T02:07:27.132843 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4346]]
+D, [2021-02-20T02:07:27.134315 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4344]]
+D, [2021-02-20T02:07:27.135875 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4343]]
+D, [2021-02-20T02:07:27.137432 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4340]]
+D, [2021-02-20T02:07:27.139259 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4330]]
+D, [2021-02-20T02:07:27.141030 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4325]]
+D, [2021-02-20T02:07:27.142684 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4323]]
+D, [2021-02-20T02:07:27.144173 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4322]]
+D, [2021-02-20T02:07:27.145720 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4320]]
+D, [2021-02-20T02:07:27.147397 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4319]]
+D, [2021-02-20T02:07:27.149062 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4317]]
+D, [2021-02-20T02:07:27.150551 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4315]]
+D, [2021-02-20T02:07:27.151928 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4314]]
+D, [2021-02-20T02:07:27.153265 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4291]]
+D, [2021-02-20T02:07:27.154657 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4290]]
+D, [2021-02-20T02:07:27.156281 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4289]]
+D, [2021-02-20T02:07:27.157732 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4282]]
+D, [2021-02-20T02:07:27.159232 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4264]]
+D, [2021-02-20T02:07:27.160630 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4248]]
+D, [2021-02-20T02:07:27.162172 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4241]]
+D, [2021-02-20T02:07:27.163800 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4240]]
+D, [2021-02-20T02:07:27.165235 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4239]]
+D, [2021-02-20T02:07:27.166768 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4238]]
+D, [2021-02-20T02:07:27.168197 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4237]]
+D, [2021-02-20T02:07:27.169807 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4230]]
+D, [2021-02-20T02:07:27.171437 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4229]]
+D, [2021-02-20T02:07:27.172830 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4227]]
+D, [2021-02-20T02:07:27.174206 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4225]]
+D, [2021-02-20T02:07:27.175884 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4224]]
+D, [2021-02-20T02:07:27.177247 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4209]]
+D, [2021-02-20T02:07:27.178669 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4208]]
+D, [2021-02-20T02:07:27.180043 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4193]]
+D, [2021-02-20T02:07:27.181595 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4189]]
+D, [2021-02-20T02:07:27.183090 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4187]]
+D, [2021-02-20T02:07:27.184729 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4186]]
+D, [2021-02-20T02:07:27.186371 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4184]]
+D, [2021-02-20T02:07:27.187984 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4183]]
+D, [2021-02-20T02:07:27.189443 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4182]]
+D, [2021-02-20T02:07:27.191002 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4180]]
+D, [2021-02-20T02:07:27.193011 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4179]]
+D, [2021-02-20T02:07:27.194723 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4178]]
+D, [2021-02-20T02:07:27.196328 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4173]]
+D, [2021-02-20T02:07:27.198118 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4165]]
+D, [2021-02-20T02:07:27.200116 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.9ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4154]]
+D, [2021-02-20T02:07:27.201482 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4145]]
+D, [2021-02-20T02:07:27.202933 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4140]]
+D, [2021-02-20T02:07:27.204373 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4134]]
+D, [2021-02-20T02:07:27.205756 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4117]]
+D, [2021-02-20T02:07:27.207206 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4116]]
+D, [2021-02-20T02:07:27.208713 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4114]]
+D, [2021-02-20T02:07:27.210118 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4113]]
+D, [2021-02-20T02:07:27.211566 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4108]]
+D, [2021-02-20T02:07:27.213054 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4106]]
+D, [2021-02-20T02:07:27.214658 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4103]]
+D, [2021-02-20T02:07:27.216085 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4101]]
+D, [2021-02-20T02:07:27.217458 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4100]]
+D, [2021-02-20T02:07:27.219028 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4096]]
+D, [2021-02-20T02:07:27.220519 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4095]]
+D, [2021-02-20T02:07:27.222101 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.6ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4094]]
+D, [2021-02-20T02:07:27.223836 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4086]]
+D, [2021-02-20T02:07:27.225416 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4084]]
+D, [2021-02-20T02:07:27.227080 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4080]]
+D, [2021-02-20T02:07:27.228844 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4076]]
+D, [2021-02-20T02:07:27.230383 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4065]]
+D, [2021-02-20T02:07:27.231814 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4048]]
+D, [2021-02-20T02:07:27.233470 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.8ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4047]]
+D, [2021-02-20T02:07:27.235114 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 4041]]
+D, [2021-02-20T02:07:27.236619 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   ContaCorrente Destroy (0.7ms)  DELETE FROM "conta_correntes"
+ WHERE "conta_correntes"."id" = $1  [["id", 3608]]
+D, [2021-02-20T02:07:27.504187 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]   Banco Destroy (2.2ms)  DELETE FROM "bancos" WHERE "bancos"."
+id" = $1  [["id", 15]]
+D, [2021-02-20T02:07:27.514403 #6731] DEBUG -- : [f4b7974a-4da6-4c8e-92bf-bf8b12c70b16]    (1.6ms)  COMMIT
+
+
