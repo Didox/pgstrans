@@ -6,6 +6,14 @@ class Venda < ApplicationRecord
   belongs_to :partner
 
   after_save :update_product
+  
+  def destroy
+    raise "Registro de Venda não pode ser excluído"
+  end
+
+  def self.destroy_all
+    raise "Registro de Venda não pode ser excluído"
+  end
 
   def grupos_id
     #TODO - Verificar como pegar os grupos de acesso de um registro

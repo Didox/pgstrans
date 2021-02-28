@@ -16,6 +16,14 @@ class ContaCorrente < ApplicationRecord
     Lancamento::CREDITO
   ]
 
+  def destroy
+    raise "Registro de Conta Corrente não pode ser excluído"
+  end
+
+  def self.destroy_all
+    raise "Registro de Conta Corrente não pode ser excluído"
+  end
+
   def responsavel_aprovacao
     return nil if self.responsavel_aprovacao_id.blank? 
     
