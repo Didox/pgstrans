@@ -45,6 +45,8 @@ Rails.application.routes.draw do
   resources :status_parceiros
   get 'conta_correntes/index_morada_saldo', to: 'conta_correntes#index_morada_saldo', as: "index_morada_saldo"
   get 'conta_correntes/index_carregamento_usuario', to: 'conta_correntes#index_carregamento_usuario', as: "index_carregamento_usuario"
+  get 'conta_correntes/conciliacao', to: 'conta_correntes#conciliacao', as: "conta_correntes_conciliacao"
+  
   resources :conta_correntes
   get 'vendas/resumido', to: 'vendas#resumido', as: "vendas_resumido"
   get 'vendas/:venda_id/resumido', to: 'vendas#mostrar_resumido', as: "vendas_mostrar_resumido"

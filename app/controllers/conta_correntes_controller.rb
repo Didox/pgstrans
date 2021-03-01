@@ -30,6 +30,33 @@ class ContaCorrentesController < ApplicationController
     @conta_correntes = @conta_correntes.paginate(options)
   end
 
+  def conciliacao
+    if usuario_logado.admin? || usuario_logado.operador?
+      @conta_correntes = ContaCorrente.all
+    else
+      @conta_correntes = ContaCorrente.com_acesso(usuario_logado)
+    end
+
+    @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
+    @conta_correntes = @conta_correntes.reorder("data_alegacao_pagamento desc")
+    @conta_correntes = @conta_correntes.where("conta_correntes.data_alegacao_pagamento >= ?", params[:data_alegacao_pagamento].to_datetime.beginning_of_day) if params[:data_alegacao_pagamento].present?
+    @conta_correntes = @conta_correntes.where("conta_correntes.data_ultima_atualizacao_saldo <= ?", params[:data_ultima_atualizacao_saldo].to_date.end_of_day) if params[:data_ultima_atualizacao_saldo].present?
+    @conta_correntes = @conta_correntes.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @conta_correntes = @conta_correntes.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
+    @conta_correntes = @conta_correntes.where("usuarios.id = ?", params[:id]) if params[:id].present?
+    @conta_correntes = @conta_correntes.where("conta_correntes.lancamento_id = ?", params[:lancamento_id]) if params[:lancamento_id].present?
+    @conta_correntes = @conta_correntes.where("conta_correntes.observacao ilike '%#{params[:observacao]}%'") if params[:observacao].present?
+    @conta_correntes = @conta_correntes.where("conta_correntes.iban ilike '%#{params[:iban]}%'") if params[:iban].present?
+    @conta_correntes = @conta_correntes.where("conta_correntes.id = ?", params[:id_lancamento]) if params[:id_lancamento].present?
+    if params[:responsavel].present?
+      @conta_correntes = @conta_correntes.joins("inner join usuarios as responsavel on responsavel.id = conta_correntes.responsavel_aprovacao_id")
+      @conta_correntes = @conta_correntes.where("responsavel.nome ilike '%#{params[:responsavel]}%'")
+    end
+
+    options = {page: params[:page] || 1, per_page: 100}
+    @conta_correntes = @conta_correntes.paginate(options)
+  end
+
   # GET /conta_correntes/1
   # GET /conta_correntes/1.json
   def show

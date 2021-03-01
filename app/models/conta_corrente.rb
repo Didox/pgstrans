@@ -16,6 +16,10 @@ class ContaCorrente < ApplicationRecord
     Lancamento::CREDITO
   ]
 
+  def saldo_atual_correto
+    self.saldo_anterior - self.valor
+  end
+
   def destroy
     raise "Registro de Conta Corrente não pode ser excluído"
   end
