@@ -37,6 +37,12 @@ class ContaCorrentesController < ApplicationController
       @conta_correntes = ContaCorrente.com_acesso(usuario_logado)
     end
 
+    if params[:novo_saldo].present?
+      cc = ContaCorrente.find(params[:conta_corrente_id])
+      cc.valor = params[:novo_saldo]
+      #cc.save 
+    end
+
     @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
     @conta_correntes = @conta_correntes.reorder("data_alegacao_pagamento desc")
     @conta_correntes = @conta_correntes.where("conta_correntes.data_alegacao_pagamento >= ?", params[:data_alegacao_pagamento].to_datetime.beginning_of_day) if params[:data_alegacao_pagamento].present?

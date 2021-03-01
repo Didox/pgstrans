@@ -126,8 +126,10 @@
         <th>Saldo anterior</th>
         <th>Valor do lançamento</th>
         <th>Lançamento</th>
+        <th>Data da transação</th>
         <th>Saldo atual</th>
         <th>Saldo atual(recalculado)</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -137,8 +139,25 @@
         <td><%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %></td>
         <td><span <% if conta_corrente.valor < 0 %> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span></td>
         <td><%= conta_corrente.lancamento.nome %></td>
-        <td><%= number_to_currency(conta_corrente.saldo_atual_correto, :unit => "KZ") %></td>
+        <td><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %></td>
         <td><%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %></td>
+        <td><%= number_to_currency(conta_corrente.saldo_atual_correto, :unit => "KZ") %></td>
+        <td>
+          <form>
+            <input type="hidden" name="data_alegacao_pagamento" value="<%= params[:data_alegacao_pagamento]%>">
+            <input type="hidden" name="data_ultima_atualizacao_saldo" value="<%= params[:data_ultima_atualizacao_saldo]%>">
+            <input type="hidden" name="nome" value="<%= params[:nome]%>">
+            <input type="hidden" name="login" value="<%= params[:login]%>">
+            <input type="hidden" name="id" value="<%= params[:id]%>">
+            <input type="hidden" name="conta_corrente_id" value="<%= conta_corrente.id %>">
+            <input type="hidden" name="id_lancamento" value="<%= params[:id_lancamento]%>">
+            <input type="hidden" name="responsavel" value="<%= params[:responsavel]%>">
+            <input type="hidden" name="iban" value="<%= params[:iban]%>">
+            <input type="hidden" name="lancamento_id" value="<%= params[:lancamento_id]%>">
+            <input type="hidden" name="observacao" value="<%= params[:observacao]%>">
+            <input type="text" name="novo_saldo"> <button>Salvar</button>
+          </form>
+        </td>
       </tr>
       <% end %>
     </tbody>
