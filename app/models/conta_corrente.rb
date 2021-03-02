@@ -17,7 +17,17 @@ class ContaCorrente < ApplicationRecord
   ]
 
   def saldo_atual_correto
-    self.saldo_anterior - self.valor
+      # for (1) Deposito (9) Credito (3) Transferencia (4) (5) Transferencia
+      # somar o valor do lancamento ao saldo atual
+      # e corrigir saldo alterior do próximo registro
+      if self.lancamento.id == 1 or self.lancamento.id == 9 then
+        self.saldo_atual = self.valor
+      else
+        # caso contrario (12, 11, 8, 10)
+        # subtrair o valor do lancamento do saldo
+        # e corrigir saldo anterior do próximo registro
+        self.saldo_anterior - self.valor
+      end
   end
 
   def destroy

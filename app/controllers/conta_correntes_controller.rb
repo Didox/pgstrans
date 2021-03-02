@@ -59,7 +59,7 @@ class ContaCorrentesController < ApplicationController
       @conta_correntes = @conta_correntes.where("responsavel.nome ilike '%#{params[:responsavel]}%'")
     end
 
-    options = {page: params[:page] || 1, per_page: 100}
+    options = {page: params[:page] || 1, per_page: 1000}
     @conta_correntes = @conta_correntes.paginate(options)
   end
 

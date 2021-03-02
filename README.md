@@ -27,9 +27,14 @@ psql pgstrans_development
 
 CREATE USER pgsdba WITH ENCRYPTED PASSWORD '';
 
-
+Etapas para o restore
+rails db:drop
+rails db:create
 pg_restore --host localhost --port 5432 --username pgsdba --dbname pgstrans_development < dump/pgstrans_production_1012_0431.bkp
 Password: senha do banco de dados da aplicação
+
+
+
 
 ::::::::: Documentações ::::::::: 
 

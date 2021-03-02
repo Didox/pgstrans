@@ -104,11 +104,6 @@
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-info">
 
-          <%= link_to new_conta_corrente_path, class: 'btn btn-success' do %>
-            <span class="glyphicon glyphicon-plus"></span>
-            Novo Registo
-          <% end %>
-
           <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
@@ -122,26 +117,30 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>ID conta corrente</th>
-        <th>Saldo anterior</th>
-        <th>Valor do lançamento</th>
-        <th>Lançamento</th>
-        <th>Data da transação</th>
-        <th>Saldo atual</th>
-        <th>Saldo atual(recalculado)</th>
+        <th class="text-center">ID Conta <br> Corrente</th>
+        <th class="text-center">Login <br> Usuário</th>
+        <th class="text-center">Lançamento</th>
+        <th class="text-center">Data da Transação</th>
+        <th class="text-center">Saldo Anterior</th>
+        <th class="text-center">Valor do <br> Lançamento</th>
+        <th class="text-center">Saldo Atual</th>
+        <th class="text-center">Saldo Atual<br>(recalculado)<br>(Correto)</th>
+        <th class="text-center">Data da Atualização<br>do Saldo</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
       <% @conta_correntes.each do |conta_corrente| %>
       <tr>
-        <td><%= conta_corrente.id %></td>
-        <td><%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %></td>
-        <td><span <% if conta_corrente.valor < 0 %> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span></td>
+        <td class="text-center"><%= conta_corrente.id %></td>
+        <td><%= conta_corrente.usuario.login %></td>
         <td><%= conta_corrente.lancamento.nome %></td>
-        <td><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %></td>
-        <td><%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %></td>
-        <td><%= number_to_currency(conta_corrente.saldo_atual_correto, :unit => "KZ") %></td>
+        <td class="text-center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %></td>
+        <td class="text-right"><%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %></td>
+        <td class="text-right"><span <% if conta_corrente.valor < 0 %> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span></td>
+        <td class="text-right"><%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %></td>
+        <td class="text-right"><%= number_to_currency(conta_corrente.saldo_atual_correto, :unit => "KZ") %></td>
+        <td class="text-center"><%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %></td>
         <td>
           <form>
             <input type="hidden" name="data_alegacao_pagamento" value="<%= params[:data_alegacao_pagamento]%>">
@@ -166,10 +165,6 @@
   <div class="apple_pagination">
     <%= will_paginate @conta_correntes, :container => false %>
   </div>
-  <%= link_to new_conta_corrente_path, class: 'btn btn-success' do %>
-    <span class="glyphicon glyphicon-plus"></span>
-    Novo Registo
-  <% end %>
   <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
     Voltar
