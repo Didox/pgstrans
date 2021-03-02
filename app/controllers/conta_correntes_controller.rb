@@ -1,5 +1,6 @@
 class ContaCorrentesController < ApplicationController
   before_action :set_conta_corrente, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /conta_correntes
   # GET /conta_correntes.json
@@ -59,8 +60,17 @@ class ContaCorrentesController < ApplicationController
       @conta_correntes = @conta_correntes.where("responsavel.nome ilike '%#{params[:responsavel]}%'")
     end
 
-    options = {page: params[:page] || 1, per_page: 1000}
+    @conta_correntes = @conta_correntes.reorder("data_alegacao_pagamento asc")
+    options = {page: params[:page] || 1, per_page: 100}
     @conta_correntes = @conta_correntes.paginate(options)
+  end
+
+  def conciliacao_aplicar
+    params[:conta_corrente_id].each do |conta_corrente_id|
+      cc = ContaCorrente.find(conta_corrente_id)
+      ContaCorrente.where(id: cc.id).update_all(saldo_atual: cc.saldo_atual_do_registro_atual, saldo_anterior: cc.saldo_atual_do_registro_anterior)
+    end
+    redirect_to "/conta_correntes/conciliacao"
   end
 
   # GET /conta_correntes/1

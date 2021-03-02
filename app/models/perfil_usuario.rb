@@ -82,7 +82,8 @@ class PerfilUsuario < ApplicationRecord
       movicel_loop: "Programa de Repetição Timeout Movicel",
       processar: "Processar dados",
       zerar_saldo: "Efetivar a ação de ZERAR SALDO de usuário presente em Conta Corrente / Lançamento em Conta Corrente de Usuário ",
-      conciliacao: "Conta Corrente Conciliação"
+      conciliacao: "Conta Corrente Conciliação",
+      conciliacao_aplicar: "Conta Corrente Conciliação Aplicar"
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]

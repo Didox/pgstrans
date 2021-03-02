@@ -16,18 +16,14 @@ class ContaCorrente < ApplicationRecord
     Lancamento::CREDITO
   ]
 
-  def saldo_atual_correto
-      # for (1) Deposito (9) Credito (3) Transferencia (4) (5) Transferencia
-      # somar o valor do lancamento ao saldo atual
-      # e corrigir saldo alterior do próximo registro
-      if self.lancamento.id == 1 or self.lancamento.id == 9 then
-        self.saldo_atual = self.valor
-      else
-        # caso contrario (12, 11, 8, 10)
-        # subtrair o valor do lancamento do saldo
-        # e corrigir saldo anterior do próximo registro
-        self.saldo_anterior - self.valor
-      end
+  def saldo_atual_do_registro_atual
+    cc_anterior = ContaCorrente.where(usuario_id: self.usuario_id).where("id < #{self.id}").reorder("data_alegacao_pagamento desc").first
+    return (cc_anterior.saldo_atual + self.valor) rescue 0
+  end
+
+  def saldo_atual_do_registro_anterior
+    cc_anterior = ContaCorrente.where(usuario_id: self.usuario_id).where("id < #{self.id}").reorder("data_alegacao_pagamento desc").first
+    return cc_anterior.saldo_atual rescue 0
   end
 
   def destroy

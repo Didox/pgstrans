@@ -114,54 +114,49 @@
   </div>
 </div>
 <div class="col-md-12">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th class="text-center">ID Conta <br> Corrente</th>
-        <th class="text-center">Login <br> Usuário</th>
-        <th class="text-center">Lançamento</th>
-        <th class="text-center">Data da Transação</th>
-        <th class="text-center">Saldo Anterior</th>
-        <th class="text-center">Valor do <br> Lançamento</th>
-        <th class="text-center">Saldo Atual</th>
-        <th class="text-center">Saldo Atual<br>(recalculado)<br>(Correto)</th>
-        <th class="text-center">Data da Atualização<br>do Saldo</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @conta_correntes.each do |conta_corrente| %>
-      <tr>
-        <td class="text-center"><%= conta_corrente.id %></td>
-        <td><%= conta_corrente.usuario.login %></td>
-        <td><%= conta_corrente.lancamento.nome %></td>
-        <td class="text-center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %></td>
-        <td class="text-right"><%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %></td>
-        <td class="text-right"><span <% if conta_corrente.valor < 0 %> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span></td>
-        <td class="text-right"><%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %></td>
-        <td class="text-right"><%= number_to_currency(conta_corrente.saldo_atual_correto, :unit => "KZ") %></td>
-        <td class="text-center"><%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %></td>
-        <td>
-          <form>
-            <input type="hidden" name="data_alegacao_pagamento" value="<%= params[:data_alegacao_pagamento]%>">
-            <input type="hidden" name="data_ultima_atualizacao_saldo" value="<%= params[:data_ultima_atualizacao_saldo]%>">
-            <input type="hidden" name="nome" value="<%= params[:nome]%>">
-            <input type="hidden" name="login" value="<%= params[:login]%>">
-            <input type="hidden" name="id" value="<%= params[:id]%>">
-            <input type="hidden" name="conta_corrente_id" value="<%= conta_corrente.id %>">
-            <input type="hidden" name="id_lancamento" value="<%= params[:id_lancamento]%>">
-            <input type="hidden" name="responsavel" value="<%= params[:responsavel]%>">
-            <input type="hidden" name="iban" value="<%= params[:iban]%>">
-            <input type="hidden" name="lancamento_id" value="<%= params[:lancamento_id]%>">
-            <input type="hidden" name="observacao" value="<%= params[:observacao]%>">
-            <input type="text" name="novo_saldo"> <button>Salvar</button>
-          </form>
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-
+  <form action="/conta_correntes/conciliacao/aplicar" method="post">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th class="text-center">ID Conta <br> Corrente</th>
+          <th class="text-center">Login <br> Usuário</th>
+          <th class="text-center">Lançamento</th>
+          <th class="text-center">Data da Transação</th>
+          <th class="text-center">Valor do <br> Lançamento</th>
+          <th class="text-center">Saldo Anterior</th>
+          <th class="text-center">Saldo correto <br>que irá entrar no<br> lugar do (Saldo anterior)</th>
+          <th class="text-center">Saldo Atual</th>
+          <th class="text-center">Saldo correto <br>que irá entrar no<br> lugar do (Saldo atual)</th>
+          <th class="text-center">&nbsp;</th>
+          <th class="text-center">Data da Atualização<br>do Saldo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @conta_correntes.each do |conta_corrente| %>
+        <tr>
+          <td class="text-center"><%= conta_corrente.id %></td>
+          <td><%= conta_corrente.usuario.login %></td>
+          <td><%= conta_corrente.lancamento_id %> / <%= conta_corrente.lancamento.nome %></td>
+          <td class="text-center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %></td>
+          <td class="text-right"><span <% if conta_corrente.valor < 0 %> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span></td>
+          <td class="text-right"><%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %></td>
+          <td class="text-right"><%= number_to_currency(conta_corrente.saldo_atual_do_registro_anterior, :unit => "KZ") %></td>
+           <td class="text-right"><%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %></td>
+          <td class="text-right"><%= number_to_currency(conta_corrente.saldo_atual_do_registro_atual, :unit => "KZ") %></td>
+          <th class="text-center" style="background:
+          <%= (conta_corrente.saldo_anterior == conta_corrente.saldo_atual_do_registro_anterior && conta_corrente.saldo_atual == conta_corrente.saldo_atual_do_registro_atual ? "green" : "red") %>">&nbsp;</th>
+         <td class="text-center"><%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %></td>
+          <td>
+            <!--input type="checkbox"  name="conta_corrente_id[]" value="<%= conta_corrente.id %>"-->
+            <input type="checkbox" checked="checked" name="conta_corrente_id[]" value="<%= conta_corrente.id %>">
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <button>Enviar</button>
+  </form>
   <div class="apple_pagination">
     <%= will_paginate @conta_correntes, :container => false %>
   </div>
