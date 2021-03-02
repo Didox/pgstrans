@@ -61,6 +61,7 @@ class ContaCorrentesController < ApplicationController
     end
 
     @conta_correntes = @conta_correntes.reorder("data_alegacao_pagamento asc")
+
     options = {page: params[:page] || 1, per_page: 2000}
     @conta_correntes = @conta_correntes.paginate(options)
   end
