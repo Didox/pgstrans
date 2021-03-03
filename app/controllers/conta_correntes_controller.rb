@@ -61,7 +61,10 @@ class ContaCorrentesController < ApplicationController
     end
 
     @conta_correntes = @conta_correntes.reorder("data_alegacao_pagamento asc")
-    options = {page: params[:page] || 1, per_page: 100}
+    @primeira_entrada_id = @conta_correntes.first.id
+    paginas = 50
+    paginas = params[:quantidade_registros].to_i if params[:quantidade_registros].present?
+    options = {page: params[:page] || 1, per_page: paginas}
     @conta_correntes = @conta_correntes.paginate(options)
   end
 

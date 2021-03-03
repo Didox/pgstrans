@@ -18,19 +18,6 @@
 //= require bootstrap
 //= require_tree .
 
-
-var checkAcessos = function(){
-  $(".check-acessos").each(function(){
-    $(this).attr("checked", true);
-  });
-}
-
-var uncheckAcessos = function(){
-  $(".check-acessos").each(function(){
-    $(this).attr("checked", false);
-  });
-}
-
 const pgstrans = {};
 
 pgstrans.displayRecargaDstv = (tipo) => {
@@ -110,6 +97,19 @@ pgstrans.carregaProdutosPorParceiro = (self) => {
         $("#produto_id").append("<option value=\"" + this.id + "\">" + this.description + "</option>")
       });
     }
+  });
+}
+
+
+var checkAcessos = function(){
+  $(".check-acessos").each(function(){
+    $(this).prop("checked", true);
+  });
+}
+
+var uncheckAcessos = function(){
+  $(".check-acessos").each(function(){
+    $(this).prop("checked", false);
   });
 }
 

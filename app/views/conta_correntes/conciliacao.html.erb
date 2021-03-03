@@ -93,9 +93,9 @@
       </div>
       <div class="col-sm-3">
         <div class="form-group">
-          <label>Observação</label>
+          <label>Quantidade de registros a mostrar por páginas</label>
            <div>
-              <input type="text" name="observacao" value="<%= params[:observacao] %>" class="form-control">
+              <input type="text" name="quantidade_registros" value="<%= params[:quantidade_registros] %>" class="form-control">
             </div>
           </div>
         </div>
@@ -115,41 +115,46 @@
 </div>
 <div class="col-md-12">
   <form action="/conta_correntes/conciliacao/aplicar" method="post">
-    <table class="table table-hover">
+    <table class="table table-hover" style="position:fixed;margin-top: -95px;background: #fff;">
       <thead>
         <tr>
-          <th class="text-center">ID Conta <br> Corrente</th>
-          <th class="text-center">Login <br> Usuário</th>
-          <th class="text-center">Lançamento</th>
-          <th class="text-center">Data da Transação</th>
-          <th class="text-center">Valor do <br> Lançamento</th>
-          <th class="text-center">Saldo Anterior</th>
-          <th class="text-center">Saldo correto <br>que irá entrar no<br> lugar do (Saldo anterior)</th>
-          <th class="text-center">Saldo Atual</th>
-          <th class="text-center">Saldo correto <br>que irá entrar no<br> lugar do (Saldo atual)</th>
-          <th class="text-center">&nbsp;</th>
-          <th class="text-center">Data da Atualização<br>do Saldo</th>
-          <th></th>
+          <th style="width: 9%" class="text-center">ID Conta <br> Corrente</th>
+          <th style="width: 9%" class="text-center">Login <br> Usuário</th>
+          <th style="width: 9%" class="text-center">Lançamento</th>
+          <th style="width: 9%" class="text-center">Data da Transação</th>
+          <th style="width: 9%" class="text-center">Valor do <br> Lançamento</th>
+          <th style="width: 9%" class="text-center">Saldo Anterior</th>
+          <th style="width: 9%" class="text-center">Saldo correto <br>que irá entrar no<br> lugar do (Saldo anterior)</th>
+          <th style="width: 9%" class="text-center">Saldo Atual</th>
+          <th style="width: 9%" class="text-center">Saldo correto <br>que irá entrar no<br> lugar do (Saldo atual)</th>
+          <th style="width: 2%" class="text-center">&nbsp;</th>
+          <th style="width: 9%" class="text-center">Data da Atualização<br>do Saldo</th>
+          <th style="width: 9%">
+            <input type="button" class="btn btn-primary" onclick="checkAcessos()" value="Marcar">
+            <input type="button" class="btn btn-danger" onclick="uncheckAcessos()" value="Desmarcar">
+          </th>
         </tr>
       </thead>
+    </table>
+    <table class="table table-hover" style="margin-top: 100px;">
       <tbody>
         <% @conta_correntes.each do |conta_corrente| %>
         <tr>
-          <td class="text-center"><%= conta_corrente.id %></td>
-          <td><%= conta_corrente.usuario.login %></td>
-          <td><%= conta_corrente.lancamento_id %> / <%= conta_corrente.lancamento.nome %></td>
-          <td class="text-center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %></td>
-          <td class="text-right"><span <% if conta_corrente.valor < 0 %> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span></td>
-          <td class="text-right"><%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %></td>
-          <td class="text-right"><%= number_to_currency(conta_corrente.saldo_atual_do_registro_anterior, :unit => "KZ") %></td>
-           <td class="text-right"><%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %></td>
-          <td class="text-right"><%= number_to_currency(conta_corrente.saldo_atual_do_registro_atual, :unit => "KZ") %></td>
-          <th class="text-center" style="background:
-          <%= (conta_corrente.saldo_anterior == conta_corrente.saldo_atual_do_registro_anterior && conta_corrente.saldo_atual == conta_corrente.saldo_atual_do_registro_atual ? "green" : "red") %>">&nbsp;</th>
-         <td class="text-center"><%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %></td>
-          <td>
-            <!--input type="checkbox"  name="conta_corrente_id[]" value="<%= conta_corrente.id %>"-->
-            <input type="checkbox" checked="checked" name="conta_corrente_id[]" value="<%= conta_corrente.id %>">
+          <td  style="width: 9%" class="text-center"><%= conta_corrente.id %></td>
+          <td  style="width: 9%"><%= conta_corrente.usuario.login %></td>
+          <td  style="width: 9%"><%= conta_corrente.lancamento_id %> / <%= conta_corrente.lancamento.nome %></td>
+          <td  style="width: 9%" class="text-center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %></td>
+          <td  style="width: 9%" class="text-right"><span <% if conta_corrente.valor < 0 %> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span></td>
+          <td  style="width: 9%" class="text-right"><%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %></td>
+          <td  style="width: 9%; background: #f3f1f2!important;" class="text-right"><%= number_to_currency(conta_corrente.saldo_atual_do_registro_anterior, :unit => "KZ") %></td>
+          <td  style="width: 9%" class="text-right"><%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %></td>
+          <td  style="width: 9%; background: #f3f1f2!important;" class="text-right"><%= number_to_currency(conta_corrente.saldo_atual_do_registro_atual, :unit => "KZ") %></td>
+          <td class="text-center" style="width: 2%; background:<%= (conta_corrente.saldo_anterior == conta_corrente.saldo_atual_do_registro_anterior && conta_corrente.saldo_atual == conta_corrente.saldo_atual_do_registro_atual ? "green" : "red") %>">&nbsp;</td>
+          <td  style="width: 9%" class="text-center"><%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %></td>
+          <td  style="width: 9%">
+            <% if @primeira_entrada_id != conta_corrente.id %>
+              <input type="checkbox" class="check-acessos" checked="checked" name="conta_corrente_id[]" value="<%= conta_corrente.id %>">
+            <% end %>
           </td>
         </tr>
         <% end %>
