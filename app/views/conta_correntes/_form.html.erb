@@ -54,12 +54,8 @@
           <%= f.select :banco_id, Banco.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
         
-        <div class="form-input col-sm-3">
+        <div class="form-input col-sm-6">
           <%= f.input :valor, :label => "Valor" %>
-        </div>
-
-        <div class="form-input col-sm-3">
-          <%= f.input :saldo_atual, :label => "Valor" %>
         </div>
         
         <div class="form-input col-sm-6">
