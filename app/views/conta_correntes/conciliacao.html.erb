@@ -115,6 +115,7 @@
 </div>
 <div class="col-md-12">
   <form action="/conta_correntes/conciliacao/aplicar" method="post">
+    <%= render "conciliacao_params" %>
     <table class="table table-hover" style="position:fixed;margin-top: -95px;background: #fff;">
       <thead>
         <tr>
@@ -145,11 +146,35 @@
           <td  style="width: 9%"><%= conta_corrente.lancamento_id %> / <%= conta_corrente.lancamento.nome %></td>
           <td  style="width: 9%" class="text-center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %></td>
           <td  style="width: 9%" class="text-right"><span <% if conta_corrente.valor < 0 %> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span></td>
-          <td  style="width: 9%" class="text-right"><%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %></td>
+          <td  style="width: 9%" class="text-right">
+            <% if @adm.id == 2 %>
+              <div style="display:flex" class="flex">
+                <input style="width:120px" type="number" name="saldo_anterior" value="<%= conta_corrente.saldo_anterior %>">
+                <input type="button" onclick="pgstrans.salvaSaldo(this, <%= conta_corrente.id %>, 'saldo_anterior')" value="Salvar">
+              </div>
+            <% end %>
+            <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %>
+            <div style="color:green" class="sucesso"></div>
+          </td>
           <td  style="width: 9%; background: #f3f1f2!important;" class="text-right"><%= number_to_currency(conta_corrente.saldo_atual_do_registro_anterior, :unit => "KZ") %></td>
-          <td  style="width: 9%" class="text-right"><%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %></td>
+          <td  style="width: 9%" class="text-right">
+            <% if @adm.id == 2 %>
+              <div style="display:flex" class="flex">
+                <input style="width:120px" type="number" name="saldo_atual" value="<%= conta_corrente.saldo_atual %>">
+                <input type="button" onclick="pgstrans.salvaSaldo(this, <%= conta_corrente.id %>, 'saldo_atual')" value="Salvar">
+              </div>
+            <% end %>
+            <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %>
+            <div style="color:green" class="sucesso"></div>
+          </td>
           <td  style="width: 9%; background: #f3f1f2!important;" class="text-right"><%= number_to_currency(conta_corrente.saldo_atual_do_registro_atual, :unit => "KZ") %></td>
-          <td class="text-center" style="width: 2%; background:<%= (conta_corrente.saldo_anterior == conta_corrente.saldo_atual_do_registro_anterior && conta_corrente.saldo_atual == conta_corrente.saldo_atual_do_registro_atual ? "green" : "red") %>">&nbsp;</td>
+          <td class="text-center" style="width: 2%; background:<%= (conta_corrente.saldo_anterior == conta_corrente.saldo_atual_do_registro_anterior && conta_corrente.saldo_atual == conta_corrente.saldo_atual_do_registro_atual ? "green" : "red") %>">
+            &nbsp;
+            <% if @adm.id == 2 %>
+              <input type="button" onclick="pgstrans.salvaSaldo(this, <%= conta_corrente.id %>)" value="Salvar este">
+              <button>Salvar marcados</button>
+            <% end %>
+          </td>
           <td  style="width: 9%" class="text-center"><%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %></td>
           <td  style="width: 9%">
             <% if @primeira_entrada_id != conta_corrente.id %>
@@ -160,7 +185,6 @@
         <% end %>
       </tbody>
     </table>
-    <button>Enviar</button>
   </form>
   <div class="apple_pagination">
     <%= will_paginate @conta_correntes, :container => false %>

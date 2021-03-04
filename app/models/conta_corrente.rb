@@ -17,12 +17,12 @@ class ContaCorrente < ApplicationRecord
   ]
 
   def saldo_atual_do_registro_atual
-    cc_anterior = ContaCorrente.where(usuario_id: self.usuario_id).where("id < #{self.id}").reorder("data_alegacao_pagamento desc").first
+    cc_anterior = ContaCorrente.where(usuario_id: self.usuario_id).where("id < #{self.id}").reorder("id desc").first
     return (cc_anterior.saldo_atual + self.valor) rescue 0
   end
 
   def saldo_atual_do_registro_anterior
-    cc_anterior = ContaCorrente.where(usuario_id: self.usuario_id).where("id < #{self.id}").reorder("data_alegacao_pagamento desc").first
+    cc_anterior = ContaCorrente.where(usuario_id: self.usuario_id).where("id < #{self.id}").reorder("id desc").first
     return cc_anterior.saldo_atual rescue 0
   end
 

@@ -20,6 +20,35 @@
 
 const pgstrans = {};
 
+pgstrans.salvaSaldo = function(self, cc_id, elenValue){
+  let data = {}
+  if(elenValue){
+    data.cc_id = cc_id
+    data[elenValue] = $(self).parents(".flex").find("input[name=" + elenValue + "]").val()
+  }
+  else{
+    data["conta_corrente_id[]"] = cc_id 
+  }
+
+  $("input[type=hidden]").each(function(){
+    data[this.name] = this.value
+  });
+
+  $.ajax({
+    type: "POST",
+    url: `/conta_correntes/conciliacao/aplicar.json`,
+    data: data,
+    success: function(data){
+      $(self).parents("td").find(".sucesso").html("Altereação feita")
+      setTimeout(() => {
+        $(self).parents("td").find(".sucesso").html("")
+        window.location.reload();
+      }, 2000);
+    }
+  });
+}
+
+
 pgstrans.displayRecargaDstv = (tipo) => {
   $(".recarga #DSTVMenu").hide();
   $(".recarga #recarga").show();

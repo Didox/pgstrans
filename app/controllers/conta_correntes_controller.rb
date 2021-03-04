@@ -60,7 +60,7 @@ class ContaCorrentesController < ApplicationController
       @conta_correntes = @conta_correntes.where("responsavel.nome ilike '%#{params[:responsavel]}%'")
     end
 
-    @conta_correntes = @conta_correntes.reorder("data_alegacao_pagamento asc")
+    @conta_correntes = @conta_correntes.reorder("id asc")
     @primeira_entrada_id = @conta_correntes.first.id
     paginas = 50
     paginas = params[:quantidade_registros].to_i if params[:quantidade_registros].present?
@@ -69,11 +69,19 @@ class ContaCorrentesController < ApplicationController
   end
 
   def conciliacao_aplicar
-    params[:conta_corrente_id].each do |conta_corrente_id|
-      cc = ContaCorrente.find(conta_corrente_id)
-      ContaCorrente.where(id: cc.id).update_all(saldo_atual: cc.saldo_atual_do_registro_atual, saldo_anterior: cc.saldo_atual_do_registro_anterior)
+    if params[:cc_id].blank?
+      params[:conta_corrente_id].each do |conta_corrente_id|
+        cc = ContaCorrente.find(conta_corrente_id)
+        ContaCorrente.where(id: cc.id).update_all(saldo_atual: cc.saldo_atual_do_registro_atual, saldo_anterior: cc.saldo_atual_do_registro_anterior)
+      end
+    else
+      cc = ContaCorrente.find(params[:cc_id])
+      ContaCorrente.where(id: cc.id).update_all(saldo_atual: params[:saldo_atual]) if params[:saldo_atual].present?
+      ContaCorrente.where(id: cc.id).update_all(saldo_anterior: params[:saldo_anterior]) if params[:saldo_anterior].present?
+      return if request.path_parameters[:format] == 'json'
     end
-    redirect_to "/conta_correntes/conciliacao"
+
+    redirect_to "/conta_correntes/conciliacao?data_alegacao_pagamento=#{params[:data_alegacao_pagamento]}&data_ultima_atualizacao_saldo=#{params[:data_ultima_atualizacao_saldo]}&nome=#{params[:nome]}&login=#{params[:login]}&id=#{params[:id]}&id_lancamento=#{params[:id_lancamento]}&responsavel=#{params[:responsavel]}&iban=#{params[:iban]}&lancamento_id=#{params[:lancamento_id]}&quantidade_registros=#{params[:quantidade_registros]}"
   end
 
   # GET /conta_correntes/1
