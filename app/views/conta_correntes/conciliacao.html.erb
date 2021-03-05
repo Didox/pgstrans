@@ -13,7 +13,7 @@
   <!-- /.row -->
   <div>
     <form action="" method="get" id="formApuracao">
-      <div class="col-sm-2">
+      <div class="col-sm-4">
         <div class="form-group">
           <label>Data de Lançamento</label>
           <div>
@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-4">
         <div class="form-group">
           <label>Última da Atualização</label>
           <div>
@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-3">
         <div class="form-group">
           <label>Login</label>
           <div>
@@ -55,25 +55,9 @@
       </div>
       <div class="col-sm-2">
         <div class="form-group">
-          <label>ID do Lançamento</label>
+          <label>ID Conta Corrente</label>
           <div>
-            <input type="text" name="id_lancamento" value="<%= params[:id_lancamento] %>" class="form-control">
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="form-group">
-          <label>Responsável pela Aprovação</label>
-          <div>
-            <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-2">
-        <div class="form-group">
-          <label>IBAN</label>
-          <div>
-            <input type="text" name="iban" value="<%= params[:iban] %>" class="form-control">
+            <input type="text" name="conta_corrente_id" value="<%= params[:conta_corrente_id] %>" class="form-control">
           </div>
         </div>
       </div>
@@ -93,7 +77,7 @@
       </div>
       <div class="col-sm-3">
         <div class="form-group">
-          <label>Quantidade de registros a mostrar por páginas</label>
+          <label>Quantidade de registros a mostrar por página</label>
            <div>
               <input type="text" name="quantidade_registros" value="<%= params[:quantidade_registros] %>" class="form-control">
             </div>
