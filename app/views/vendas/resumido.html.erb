@@ -38,7 +38,7 @@
               <select name="return_code" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
                 <option value="sucesso" <% if params[:return_code] == "sucesso" %> selected="selected" <% end %>>Todos com sucesso</option>
-                <% Partner.where(status_parceiro_id: 1).each do |partner| %>
+                <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL).each do |partner| %>
                   <optgroup label="<%= partner.name %>">
                     <% ReturnCodeApi.where(partner_id: partner.id).each do |ret| %>
                       <option value="<%= ret.id %>" <% if ret.id.to_s == params[:return_code] %> selected="selected" <% end %> ><%= ret.partner.name %> - <%= ret.sucesso ? "[SUCESSO] - " : "" %><%= ret.error_description_pt %></option>
@@ -57,6 +57,19 @@
                 <option value="" selected="'selected'">Todos</option>
                 <% Partner.all.each do |partner| %>
                   <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Status Parceiro</label>
+            <div>
+              <select name="status_parceiro_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% StatusParceiro.all.reorder(nome: :asc).each do |status_parceiro| %>
+                  <option value="<%= status_parceiro.id %>" <% if status_parceiro.id.to_s == params[:status_parceiro_id] %> selected="selected" <% end %> ><%= status_parceiro.nome %></option>
                 <% end %>
               </select>
             </div>
@@ -102,7 +115,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Seller/Vendedor</label>
             <div>
@@ -110,7 +123,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-1">
           <div class="form-group">
             <label>Valor KZ maior que</label>
             <div>
@@ -118,7 +131,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Customer Number/MSISDN</label>
             <div>
@@ -146,7 +159,13 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Operadora', 'Vendas'],
-          <% Partner.where(status_parceiro_id: 1).each do |partner| %>
+          <%  
+            if params[:status_parceiro_id].blank?
+              @partners = Partner.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL)
+            else
+              @partners = Partner.where(status_parceiro_id: params[:status_parceiro_id])
+            end
+            @partners.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL).each do |partner| %>
             ['<%= partner.name %>',  <%= partner.total_vendas(@adm, @vendas_graficos) %>],
           <% end %>
         ]);

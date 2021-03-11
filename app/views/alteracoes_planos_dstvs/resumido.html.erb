@@ -78,6 +78,8 @@
       </div>
   </form>
 
+  <h2 style="margin-left: 1px">Total de registros: <%= @alteracoes_planos_dstvs.count %></h2>
+  
   <table class="table scroltable table-hover">
     <thead>
       <tr>
@@ -95,7 +97,11 @@
     </thead>
 
     <tbody>
-      <% @alteracoes_planos_dstvs.each do |alteracoes_planos_dstv| %>
+      <% 
+        valor_total = 0 
+        @alteracoes_planos_dstvs.each do |alteracoes_planos_dstv| 
+          valor_total += alteracoes_planos_dstv.valor
+      %>
         <tr>
         <td>
           <%= alteracoes_planos_dstv.usuario.login rescue "" %> /
@@ -119,10 +125,25 @@
         </tr>
       <% end %>
     </tbody>
+    <tfoot>
+      <tr>
+        <td>
+        </td>
+        <td class="text-center"></td>
+        <td class="text-right"><b>Total:</b></td>
+        <td><b><%= number_to_currency(valor_total, :unit => "KZ") %></b></td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+        <td></td>
+      </tr>
+    </tfoot>
   </table>
 </div>
 <div class="apple_pagination">
   <%= will_paginate @alteracoes_planos_dstvs, :container => false %>
 </div> 
+
+<h2>Total de Geral: <%= number_to_currency(@alteracoes_planos_dstvs_valor, :unit => "KZ") %></h2>
 
 <%= link_to 'Voltar', 'javascript:history.go(-1)', class: 'btn btn-danger' %>

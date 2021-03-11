@@ -116,9 +116,11 @@ class VendasController < ApplicationController
       @vendas = @vendas.where("vendas.produto_id_parceiro = ?", params[:produto_id_parceiro]) if params[:produto_id_parceiro].present?
       @vendas = @vendas.where("vendas.usuario_id = ?", params[:id_interno]) if params[:id_interno].present?
       
+      @vendas = @vendas.joins("inner join partners on partners.id = vendas.partner_id")
       if params[:status_parceiro_id].present?
-        @vendas = @vendas.joins("inner join partners on partners.id = vendas.partner_id")
         @vendas = @vendas.where("partners.status_parceiro_id = ?", params[:status_parceiro_id])
+      else
+        @vendas = @vendas.where("partners.status_parceiro_id in (?)", StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL)
       end
       
       @vendas = @vendas.where("vendas.agent_id = ?", params[:agente]) if params[:agente].present?

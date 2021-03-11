@@ -74,7 +74,7 @@
           <input type="hidden" id="tipo_ativo" name="tipo_venda">
           <div class="overlayLoading" id="recargas_RightMenuListItemOverlay"></div>
             <div class="dialogDiv" style="padding: 0px;margin-top: 15px;">
-              <% Partner.where(status_parceiro_id: 1).each do |partner| %>
+              <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO).each do |partner| %>
                 <div class="campos <%= partner.slug %>">
                   <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
                     <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
