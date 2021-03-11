@@ -86,7 +86,7 @@
         <th scope="col">Usuário</th>
         <th scope="col">Dados DSTV</th>
         <th scope="col">Produto</th>
-        <th scope="col">Valor KZ</th>
+        <th scope="col" style="width: 12%" class="text-center">Valor KZ</th>
         <th scope="col">Recibo DSTV</th>
         <th scope="col">Tipo Transação</th>
         <th scope="col">Nro. Transação</th>
@@ -103,20 +103,20 @@
           valor_total += alteracoes_planos_dstv.valor
       %>
         <tr>
-        <td>
-          <%= alteracoes_planos_dstv.usuario.login rescue "" %> /
-          <%= alteracoes_planos_dstv.usuario.nome rescue "" %>
-        </td>
-        <td>
-            <strong>Customer Number: </strong><%= alteracoes_planos_dstv.customer_number %><br>
-            <strong>Smartcard: </strong><%= alteracoes_planos_dstv.smartcard %>
+          <td>
+            <%= alteracoes_planos_dstv.usuario.login rescue "" %> /
+            <%= alteracoes_planos_dstv.usuario.nome rescue "" %>
           </td>
           <td>
-            <%= alteracoes_planos_dstv.codigo %> /
-            <%= alteracoes_planos_dstv.produto %>
+              <strong>Customer Number: </strong><%= alteracoes_planos_dstv.customer_number %><br>
+              <strong>Smartcard: </strong><%= alteracoes_planos_dstv.smartcard %>
           </td>
-          <td><%= number_to_currency(alteracoes_planos_dstv.valor, :unit => "KZ") %></td>
-          <td><%= alteracoes_planos_dstv.receipt_number %></td>
+          <td>
+              <%= alteracoes_planos_dstv.codigo %> /
+              <%= alteracoes_planos_dstv.produto %>
+          </td>
+          <td class="text-right"><%= number_to_currency(alteracoes_planos_dstv.valor, :unit => "KZ") %></td>
+          <td class="text-right"><%= alteracoes_planos_dstv.receipt_number %></td>
           <td><%= alteracoes_planos_dstv.lancamento.nome rescue "" %></td>
           <td class="text-center"><%= alteracoes_planos_dstv.transaction_number %></td>
           <td class="text-center"><%= alteracoes_planos_dstv.status ? "Sim" : "Não" %></td>
@@ -131,7 +131,9 @@
         </td>
         <td class="text-center"></td>
         <td class="text-right"><b>Total:</b></td>
-        <td><b><%= number_to_currency(valor_total, :unit => "KZ") %></b></td>
+        <td class="text-right"><b><%= number_to_currency(valor_total, :unit => "KZ") %></b></td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
         <td class="text-center"></td>
         <td class="text-center"></td>
         <td class="text-center"></td>
