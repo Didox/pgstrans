@@ -39,27 +39,27 @@
           <ul>
             <li>
               <a href="/dstv/validacao-cliente">
-                Validação de dados e consulta da situação do cliente
+                Validação de dados do cliente
               </a>
             </li>
             <li>
               <a href="/dstv/consulta-fatura">
-                Consulta valor e data do vencimento da fatura e efetua o pagamento
+                Efetuar pagamento de diferença de pacote
               </a>
             </li>
             <li>
               <a href="/dstv/alteracao-pacote">
-                Alteração de pacote de produtos (Upgrade/Downgrade) para um ou múltiplos produtos
+                Alteração de pacotes para um ou múltiplos produtos
               </a>
             </li>
             <li>
               <a href="/dstv/alteracao-plano-mensal-anual">
-                Alteração do plano de cobrança alternando entre mensal e anual
+                Alteração de plano entre anual e mensal
               </a>
             </li>
             <li>
               <a href="javascript:pgstrans.displayRecargaDstv()">
-                Recarga com valores pré-fixados ou BoxOffice (usuário define o valor)
+                Recarga com valores pré-fixados
               </a>
             </li>
           </ul>
@@ -77,7 +77,7 @@
               <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO).each do |partner| %>
                 <div class="campos <%= partner.slug %>">
                   <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
-                    <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                    <div class="p16Bold editDiv" style="text-align: left;">
                         Recarga<span class="required">&nbsp;*</span>
                     </div>
                     <div>
@@ -88,7 +88,7 @@
               <% end %>
               <div class="campos Unitel Movicel DSTv ZAPTv">
                 <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
-                  <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                  <div class="p16Bold editDiv" style="text-align: left;">
                     Valor
                   </div>
                   <div class="number">
@@ -98,7 +98,7 @@
               </div>
               <div class="campos Movicel " id="divAditionalFieldsMovicel">
                 <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                  <div class="p16Bold editDiv" style="text-align: left;">
                     Telemóvel<span class="required">&nbsp;*</span>
                   </div>
                   <div>
@@ -108,7 +108,7 @@
               </div>
               <div class="campos DSTv" id="divAditionalFieldsDSTV">
                 <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                  <div class="p16Bold editDiv" style="text-align: left;">
                     Nº Cliente/Customer Number <span class="required">&nbsp;*</span>
                   </div>
                   <div>
@@ -118,7 +118,7 @@
               </div>
               <div class="campos ZAPTv" id="divAditionalFieldsZAP">
                 <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                  <div class="p16Bold editDiv" style="text-align: left;">
                     Nº do Cartão ZAP <span class="required">&nbsp;*</span>
                   </div>
                   <div>
@@ -128,7 +128,7 @@
               </div>
               <div class="campos Unitel" id="divAditionalFieldsUnitel">
                 <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                  <div class="p16Bold editDiv" style="text-align: left;">
                     Telemóvel <span class="required">*</span>
                   </div>
                   <div>
@@ -138,7 +138,7 @@
               </div>
               <div class="campos talaoUnitel talaoMovicel talaoDSTv talaoZAPTv" id="divAditionalFieldsSMS" style="display: none;margin-top: 10px">
                 <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv" style="text-align: left; width: 20% !important;">
+                  <div class="p16Bold editDiv" style="text-align: left;">
                     Talão p/SMS <span class="required">&nbsp;*</span>
                   </div>
                   <div>

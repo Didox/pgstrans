@@ -194,7 +194,7 @@
     </form>
   </div>
 
-  <div class="col-md-12">
+  <div class="scroltable col-md-12" style="overflow:hidden">
     <% if Venda.total_acesso(@adm, @vendas_graficos) > 0 %>
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
       <script type="text/javascript">
@@ -227,7 +227,7 @@
     <% end %>
   </div>
 
-  <div class="col-md-12">
+  <div class="scroltable col-md-12">
     <%= render "tabela_vendas" %>
 
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
