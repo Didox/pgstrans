@@ -2,7 +2,7 @@
   <%= render :partial => 'shared/menu' %>
 
   <div class="card" style="margin-top: 5px;">
-    <div class="card-header" style="text-align: right;font-size: 20px;font-weight: bold;">
+    <div class="card-header" style="text-align: right">
       Saldo Disponível: <%= number_to_currency(usuario_logado.saldo, :unit => "KZ", :precision => 2) %>
     </div>
 
