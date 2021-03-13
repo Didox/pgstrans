@@ -1,9 +1,9 @@
 <div class="card" style="margin-top: 5px;">
   <div class="card-header">
     <div class="col-md-6">
-      Escolha um Parceiro/Fornecedor
+      Escolha um Parceiro
     </div>
-    <div class="col-md-6" style="text-align: right;font-weight: bold;">
+    <div class="col-md-6" style="text-align: right">
       Saldo Disponível: <%= number_to_currency(usuario_logado.saldo, :unit => "KZ", :precision => 2) %>
     </div>
   </div>
@@ -33,7 +33,7 @@
 
       <div class="col-md-12" id="DSTVMenu" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
         <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
-          <h1>O que você deseja fazer ?</h1>
+          <h3>O que você deseja fazer?</h3>
         </div>
         <div class="menuDSTV" style="padding: 20px">
           <ul>
@@ -68,7 +68,7 @@
 
       <div class="col-md-12" id="recarga" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
         <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
-          <h1>Recargas</h1>
+          <h3>Recargas</h3>
         </div>
         <div id="dialogRecharge" title="Recarga">
           <input type="hidden" id="tipo_ativo" name="tipo_venda">
