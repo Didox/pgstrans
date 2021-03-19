@@ -1,0 +1,27 @@
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Mostrar Situação de Bancos</h3>
+  </div>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+  <div class="col-md-12">
+    <dl class="dl-horizontal">
+      <dt>ID:</dt>
+      <dd><%= @status_banco.id %></dd>
+      <dt>Nome:</dt>
+      <dd><%= @status_banco.nome %></dd>
+    </dl>
+
+    <div class="col-md-12">
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_status_banco_path(@status_banco), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>
