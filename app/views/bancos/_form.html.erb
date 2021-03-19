@@ -25,52 +25,57 @@
         <% end %>
 
         <div class="form-input col-sm-6">
-          <%= f.input :nome, placeholder: "Nome do banco" %>
+          <%= f.input :nome, :label => "Nome do Banco", placeholder: "Nome do banco" %>
+        </div>
+
+        <div class="form-input col-sm-3">
+          <%= f.input :sigla, :label => "Sigla do Banco", placeholder: "Sigla do banco" %>
+        </div>
+
+        <div class="form-input col-sm-3">
+          <%= f.input :ordem_prioridade, :label => "Ordem de Prioridade do Banco", placeholder: "Ordem de Prioridade do Banco" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :sigla, placeholder: "Sigla do banco" %>
+          <%= f.input :morada_sede, :label => "Morada da Sede do Banco", placeholder: "Morada da Sede do Banco" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :morada_sede, :label => "Morada da sede", placeholder: "Morada da sede" %>
+          <%= f.input :telefone_sede, :label => "Telefone da Sede do Banco", placeholder: "Telefone da Sede do Banco" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :telefone_sede, :label => "Telefone da sede", placeholder: "Telefone da sede" %>
-        </div>
-
-        <div class="form-input col-sm-6">
-          <%= f.input :fax_sede, :label => "Fax da sede", placeholder: "Fax da sede" %>
-        </div>
-
-        <div class="form-input col-sm-6">
-          <%= f.input :morada_escritorio, :label => "Morada do Escritório", placeholder: "Morada do escritório" %>
+          <%= f.input :morada_escritorio, :label => "Morada do Escritório do Banco", placeholder: "Morada do escritório do Banco" %>
         </div>
         
         <div class="form-input col-sm-6">
-          <%= f.input :telefone_escritorio, :label => "Telefone do Escritório", placeholder: "Telefone do escritório" %>
+          <%= f.input :telefone_escritorio, :label => "Telefone do Escritório do Banco", placeholder: "Telefone do escritório do Banco" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :fax_escritorio, :label => "Fax do Escritório", placeholder: "Fax do escritório" %>
+          <%= f.input :whatsapp, :label => "Número WhatsApp do Banco", placeholder: "Número WhatsApp do Banco" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :website, :label => "Website", placeholder: "Website" %>
+          <%= f.input :website, :label => "Website do Banco", placeholder: "Website do Banco" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :email, :label => "E-Mail", placeholder: "E-Mail" %>
+          <%= f.input :email, :label => "E-Mail do Banco", placeholder: "E-Mail do Banco" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :iban, :label => "IBAN", placeholder: "IBAN" %>
+          <%= f.input :iban, :label => "IBAN Pagasó", placeholder: "IBAN Pagasó" %>
         </div>
 
         <div class="form-input col-sm-6">
-          <%= f.input :conta_bancaria, :label => "Conta Bancária", placeholder: "Conta Bancária" %>
+          <%= f.input :conta_bancaria, :label => "Conta Bancária Pagasó", placeholder: "Conta Bancária Pagasó" %>
         </div>
+
+				<div class="form-input col-sm-6">
+					<%= f.label :status_banco_id, "Status do Banco" %>
+					<%= f.select :status_banco_id, StatusBanco.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+				</div>
 
         <div class="form-input col-sm-12">
           <%= f.input :logomarca, :label => "Link para a Logomarca do Banco", placeholder: "Incluir o link para a logomarca" %>

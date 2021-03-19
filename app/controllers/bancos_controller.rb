@@ -4,7 +4,7 @@ class BancosController < ApplicationController
   # GET /bancos
   # GET /bancos.json
   def index
-    @bancos = Banco.com_acesso(usuario_logado)
+    @bancos = Banco.com_acesso(usuario_logado).order(ordem_prioridade: :asc)
 
     @bancos = @bancos.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
     @bancos = @bancos.where("sigla ilike '%#{params[:sigla]}%'") if params[:sigla].present?
@@ -79,6 +79,8 @@ class BancosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def banco_params
-      params.require(:banco).permit(:nome, :sigla, :morada_sede, :telefone_sede, :fax_sede, :morada_escritorio, :telefone_escritorio, :fax_escritorio, :website, :email, :logomarca, :iban, :conta_bancaria)
+      params.require(:banco).permit(:nome, :sigla, :morada_sede, :telefone_sede, 
+      :morada_escritorio, :telefone_escritorio, :website, :email, :logomarca, :iban, 
+      :conta_bancaria, :ordem_prioridade, :whatsapp, :status_banco_id)
     end
 end

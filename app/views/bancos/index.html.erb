@@ -25,7 +25,7 @@
       </div>
       <div class="col-sm-3">
         <div class="form-group">
-          <label>IBAN</label>
+          <label>IBAN Pagasó</label>
           <div>
             <input type="text" name="iban" value="<%= params[:iban] %>" class="form-control">
           </div>
@@ -33,7 +33,7 @@
       </div>
       <div class="col-sm-3">
         <div class="form-group">
-          <label>Conta Bancária</label>
+          <label>Conta Bancária Pagasó</label>
           <div>
             <input type="text" name="conta_bancaria" value="<%= params[:conta_bancaria] %>" class="form-control">
           </div>
@@ -61,7 +61,7 @@
         <tr>
           <th scope="col">Dados do Banco</th>
           <th scope="col">Contactos</th>           
-          <th scope="col">Logomarca</th>
+          <th scope="col">Logomarca do Banco</th>
           <th colspan="3">Ações para o Registo</th>
         </tr>
       </thead>
@@ -71,19 +71,18 @@
         <tr>
           <td style="width: 350px">
             <b>Sigla:</b> <%= banco.sigla %><br>
-            <b>Nome do Banco:</b> <%= banco.nome %><br>
-            <b>Morada Sede:</b> <%= banco.morada_sede %><br>
-            <b>Morada Escritório:</b> <%= banco.morada_escritorio %><br>
-            <b>IBAN:</b> <%= banco.iban %><br>
-            <b>Conta Bancária:</b> <%= banco.conta_bancaria %><br>
+            <b>Ordem de Prioridade:</b> <%= banco.ordem_prioridade %><br>
+            <b>Morada Sede Banco:</b> <%= banco.morada_sede %><br>
+            <b>IBAN Pagasó:</b> <%= banco.iban %><br>
+            <b>Conta Bancária Pagasó:</b> <%= banco.conta_bancaria %>
           </td>
-          <td style="width: 300px">
-            <b>Telefone Sede:</b> <%= banco.telefone_sede %><br>
-            <b>Fax Sede:</b> <%= banco.fax_sede %><br>
-            <b>Telefone Escritório:</b> <%= banco.telefone_escritorio %><br>
-            <b>FAX Escritório:</b> <%= banco.fax_escritorio %><br>
-            <b>Website:</b> <%= banco.website %><br>
-            <b>E-Mail:</b> <%= banco.email %><br>
+          <td style="width: 500px">
+            <b>Nome do Banco:</b> <%= banco.nome %><br>
+            <b>Telefone Sede do Banco:</b> <%= banco.telefone_sede %><br>
+            <b>WhatsApp do Banco:</b> <%= banco.whatsapp %><br>
+            <b>Website do Banco:</b> <%= banco.website %><br>
+            <b>E-Mail do Banco:</b> <%= banco.email %><br>
+            <b>Situação:</b> <%= banco.status_banco.nome rescue "" %>
           </td>
           <td>
             <img src="<%= banco.logomarca %>" style="width: 200px">

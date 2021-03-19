@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :status_bancos
   resources :logs
   resources :erro_amigavels
   resources :menus
