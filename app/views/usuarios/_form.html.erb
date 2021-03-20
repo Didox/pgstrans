@@ -52,18 +52,23 @@
           <% end %>
         </div>
   
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-5">
           <%= f.label :sub_agente_id, :label => "Subagente" %>
           <%= f.select :sub_agente_id, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-3">
           <%= f.label :status_cliente_id, :label => "Status do Usuário" %>
           <% if @adm.agente? %>
             <%= f.select :status_cliente_id, StatusCliente.where("lower(nome) ilike '%inativo%'").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% else %>
             <%= f.select :status_cliente_id, StatusCliente.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% end %>
+        </div>
+
+        <div class="form-input col-sm-4">
+          <%= f.label :data_adesao, "Data da Adesão" %>
+          <%= f.date_field :data_adesao, class:"form-control" %>
         </div>
 
         <div class="form-input col-sm-6">
@@ -74,22 +79,30 @@
           <%= f.input :bairro, :label => "Bairro", placeholder: "Informe o bairro do usuário" %>
         </div>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-4">
           <%= f.label :municipio_id, :label => "Município" %>
           <%= f.select :municipio_id, Municipio.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-4">
           <%= f.label :provincia_id, :label => "Província" %>
           <%= f.select :provincia_id, Provincium.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-4">
+          <%= f.input :telefone, :label => "Telefone", placeholder: "Informe o telefone do usuário" %>
+        </div>
+
+        <div class="form-input col-sm-4">
+          <%= f.input :whatsapp, :label => "WhatsApp", placeholder: "Informe o whatsApp do usuário" %>
+        </div>
+
+        <div class="form-input col-sm-3">
           <%= f.label :uni_pessoal_empresa_id, :label => "Tipo" %>
           <%= f.select :uni_pessoal_empresa_id, UniPessoalEmpresa.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-5">
           <%= f.label :industry_id, "Grupo de Atividade Económica" %>
           <%= f.select :industry_id, Industry.all.collect{|d| [d.descricao_grupo, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>

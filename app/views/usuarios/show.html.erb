@@ -11,7 +11,7 @@
 		  <%= @usuario.nome %>
 		</p>
 		<p>
-		  <strong>Email:</strong>
+		  <strong>E-Mail:</strong>
 		  <%= @usuario.email %>
 		</p>
 		<p>
@@ -23,6 +23,10 @@
 		  <%= @usuario.perfil_usuario.nome %>
 		</p>
 		<p>
+		  <strong>Situação:</strong>
+		  <%= @usuario.status_cliente.nome %>
+		</p>
+		<p>
 		  <strong>Morada:</strong>
 		  <%= @usuario.morada %>
 		</p>
@@ -31,8 +35,29 @@
 		  <%= @usuario.bairro %>
 		</p>
 		<p>
-		  <strong>Data da criação:</strong>
+		  <strong>Município:</strong>
+		  <%= @usuario.municipio.nome %>
+		</p>
+		<p>
+		  <strong>Telefone:</strong>
+		  <%= @usuario.telefone %>
+		</p>
+		<p>
+		  <strong>WhatsApp:</strong>
+		  <%= @usuario.whatsapp %>
+		</p>
+		<p>
+		  <strong>Data da adesão:</strong>
+		  <%= @usuario.data_adesao.strftime("%d/%m/%Y") rescue "" %>
+		</p>
+		<p>
+		  <strong>Data do cadastro:</strong>
 		  <%= @usuario.created_at %>
+		</p>
+		<p>
+		  <strong>Subagente:</strong>
+		  <%= @usuario.sub_agente_id %>
+		  <%= @usuario.sub_agente.nome_fantasia %>
 		</p>
 	    <div class="page-header">
 	      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>

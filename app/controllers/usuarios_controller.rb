@@ -29,6 +29,9 @@ class UsuariosController < ApplicationController
         @usuarios = @usuarios.where("usuarios.id not in (?)", usuario_logado.id)
       end
     end
+
+    @usuarios = @usuarios.where("data_adesao >= ?", params[:data_adesao].to_date.beginning_of_day) if params[:data_adesao].present?
+    @usuarios = @usuarios.where("data_adesao < ?", params[:data_adesao].to_date.end_of_day) if params[:data_adesao].present?
     
     @usuarios = @usuarios.where(sub_agente_id: params[:sub_agente_id]) if params[:sub_agente_id].present?
 
@@ -169,6 +172,8 @@ class UsuariosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def usuario_params
-      params.require(:usuario).permit(:nome, :email, :senha, :perfil_usuario_id, :sub_agente_id, :status_cliente_id, :morada, :bairro, :municipio_id, :provincia_id, :industry_id, :uni_pessoal_empresa_id)
+      params.require(:usuario).permit(:nome, :email, :senha, :perfil_usuario_id, 
+      :sub_agente_id, :status_cliente_id, :morada, :bairro, :municipio_id, 
+      :provincia_id, :industry_id, :uni_pessoal_empresa_id, :data_adesao, :telefone, :whatsapp)
     end
 end

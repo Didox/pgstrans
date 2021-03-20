@@ -40,6 +40,7 @@
             </div>
           </div>
         </div>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
         <div class="col-sm-6">
           <div class="form-group">
             <label>Grupo do Usuário</label>
@@ -57,6 +58,7 @@
             </div>
           </div>
         </div>
+        <% end %>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
         <div class="col-sm-2">
           <div class="form-group">
@@ -120,7 +122,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Status</label>
             <div>
@@ -133,6 +135,14 @@
             </div>
           </div>
         </div>
+        <div class="col-sm-3">
+        <div class="form-group">
+          <label>Data de Adesão</label>
+          <div>
+            <input type="date" name="data_adesao" value="<%= params[:data_adesao] %>" class="form-control">
+          </div>
+        </div>
+      </div>
       <% end %>
       </div>
       <div class="form-group">
@@ -164,7 +174,7 @@
               <th scope="col">Operador?</th>
               <th scope="col">Agente</th>     
           <% end %>
-          <th scope="col">Subagente e Data da Criação do Usuário</th>
+          <th scope="col">Subagente e Data do Cadastro e Adesão</th>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
             <th colspan="4">Ações para o Registo</th>
           <% end %>
@@ -179,7 +189,8 @@
               Login: <%= usuario.login %><br>
               Nome: <%= usuario.nome %><br>
               E-mail: <%= usuario.email %><br>
-              Status: <%= usuario.status_cliente.nome rescue "" %><br>          
+              Status: <%= usuario.status_cliente.nome rescue "" %>
+              - Telefone: <%= usuario.telefone %><br>
               <% if usuario_logado.admin? || usuario_logado.operador? %>
                 Perfil do usuário: <a href="/perfil_usuarios/<%= usuario.perfil_usuario_id %>" target="_blank"><%= usuario.perfil_usuario.nome %></a><br>
               <% else %>
@@ -216,10 +227,12 @@
             <% end %>
             <td>
               <%= "#{usuario.sub_agente_id}/#{usuario.sub_agente.nome_fantasia}" %><br><br>
-              <%= usuario.created_at %>
+              Data de Cadastro: <%= usuario.created_at %><br><br>
+              Data de Adesão: <%= usuario.data_adesao.strftime("%d/%m/%Y") rescue "" %>
             </td>
             <td>
               <% if usuario_logado.admin? || usuario_logado.operador? %>
+                <%= link_to 'Mostrar', usuario_path(usuario) %><br>
                 <%= link_to 'Editar', edit_usuario_path(usuario) %><br>
                 <% if usuario.logado %>
                   <%= link_to 'Forçar Logout ', "/usuarios/#{usuario.id}/forcar-logout", data: { confirm: 'Confirma?' }%>
