@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'bancos_contas_bancarias/index_bancos_clientes'
   resources :status_bancos
   resources :logs
   resources :erro_amigavels

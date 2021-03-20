@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Lista de Bancos</h3>
+    <h3>Lista de Bancos e Contas Bancárias Pagasó</h3>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -15,24 +15,11 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-5">
         <div class="form-group">
           <label>Nome do Banco</label>
           <div>
             <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-2">
-        <div class="form-group">
-          <label>Situação do Banco</label>
-          <div>
-            <select name="status_banco_id" class="form-control">
-              <option value="" selected="'selected'">Selecione</option>
-              <% StatusBanco.all.each do |status_banco| %>
-                <option value="<%= status_banco.id %>" <% if status_banco.id.to_s == params[:status_banco_id] %> selected="selected" <% end %> ><%= status_banco.nome %></option>
-              <% end %>
-            </select>
           </div>
         </div>
       </div>
@@ -72,50 +59,38 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">Dados do Banco</th>
-          <th scope="col">Contactos</th>           
-          <th scope="col">Logomarca do Banco</th>
-          <th colspan="3">Ações para o Registo</th>
+          <th scope="col">Dados Bancários</th>
         </tr>
       </thead>
 
       <tbody>
         <% @bancos.each do |banco| %>
-        <tr>
-          <td style="width: 350px">
-            <b>Sigla:</b> <%= banco.sigla %><br>
-            <b>Ordem de Prioridade:</b> <%= banco.ordem_prioridade %><br>
-            <b>Morada Sede Banco:</b> <%= banco.morada_sede %><br>
-            <b>IBAN Pagasó:</b> <%= banco.iban %><br>
-            <b>Conta Bancária Pagasó:</b> <%= banco.conta_bancaria %>
-          </td>
-          <td style="width: 500px">
-            <b>Nome do Banco:</b> <%= banco.nome %><br>
-            <b>Telefone Sede do Banco:</b> <%= banco.telefone_sede %><br>
-            <b>WhatsApp do Banco:</b> <%= banco.whatsapp %><br>
-            <b>Website do Banco:</b> <%= banco.website %><br>
-            <b>E-Mail do Banco:</b> <%= banco.email %><br>
-            <b>Situação:</b> <%= banco.status_banco.nome rescue "" %>
-          </td>
-          <td>
-            <img src="<%= banco.logomarca %>" style="width: 200px">
-          </td>
-          <td><%= link_to 'Mostrar', banco %></td>
-          <td><%= link_to 'Editar', edit_banco_path(banco) %></td>
-          <td><%= link_to 'Apagar', banco, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+        <tr class="text-center">
+            <td style="width: 350px">
+                <br>
+                <img src="<%= banco.logomarca %>" style="width: 200px"><br>
+                <b>Sigla:</b> <%= banco.sigla %><br>
+                <b>Nome do Banco:</b> <%= banco.nome %><br>
+                <b>IBAN Pagasó:</b> <%= banco.iban %><br>
+                <b>Conta Bancária Pagasó:</b> <%= banco.conta_bancaria %>
+            </td>
         </tr>
         <% end %>
       </tbody>
     </table>
-  
+    <hr>
+    <p class="text-center">
+        <br>WhatsApp Pagasó: +244 931 489 997
+        <br>Rua Domingos do Ó, 62 / Benguela, Angola
+        <br>Telefones +244 944.090.151 - 998.090.151/152/153
+        <br>E-Mail: pagaso@tiv-tecnologia.com
+        <br>Horário de Atendimento: 
+        <br>Segunda a Sexta-feira: das 8:00 às 17:00 horas
+        <br>Aos Sábados: das 8:00 às 12:00 horas
+    </p>
     <div class="apple_pagination">
       <%= will_paginate @bancos, :container => false %>
     </div>
-
-    <%= link_to new_banco_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-plus"></span>
-      Novo Registo
-    <% end %> 
 
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
