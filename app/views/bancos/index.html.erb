@@ -7,7 +7,7 @@
   <!-- /.row -->
   <div>
     <form action="" method="get" id="formApuracao">
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group">
           <label>Sigla</label>
           <div>
@@ -23,6 +23,19 @@
           </div>
         </div>
       </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Situação do Banco</label>
+          <div>
+            <select name="status_banco_id" class="form-control">
+              <option value="" selected="'selected'">Todos</option>
+              <% StatusBanco.all.each do |status_banco| %>
+                <option value="<%= status_banco.id %>" <% if status_banco.id.to_s == params[:status_produto_id] %> selected="selected" <% end %> ><%= status_banco.nome %></option>
+              <% end %>
+            </select>
+          </div>
+        </div>
+      </div>
       <div class="col-sm-3">
         <div class="form-group">
           <label>IBAN Pagasó</label>
@@ -31,7 +44,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group">
           <label>Conta Bancária Pagasó</label>
           <div>

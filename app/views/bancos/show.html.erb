@@ -26,6 +26,8 @@
     <dd><%= @banco.iban %></dd>
     <dt>Conta Bancária Pagasó:</dt>
     <dd><%= @banco.conta_bancaria %></dd>
+    <dt>Situação do Banco:</dt>
+    <dd><%= @banco.status_banco.nome %></dd>
     <dt>Logomarca do Banco:</dt>
     <dd>
       <img src="<%= @banco.logomarca %>" style="width: 100px;">
