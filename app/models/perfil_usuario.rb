@@ -70,6 +70,7 @@ class PerfilUsuario < ApplicationRecord
       reverter_venda_zaptv: "Reverter Vendas ZAPTV",
       index_morada_saldo: "Ver relatório de Conta corrente - Lista Saldo de Usuário (apresenta botão para ZERAR SALDO)",
       index_carregamento_usuario: "Ver relatório de Conta corrente - Lista de Carregamento por Usuário",
+      index_bancos_clientes: "Ver lista de bancos formatada para os clientes - Lista de Bancos",
       forcar_logout: "Habilitar permissão para deslogar usuário (forçar logout após troca de senha)",
       controle_acessos: "Controle de Acesso",
       controle_acessos_edit: "Controle de Acesso EDITAR",
