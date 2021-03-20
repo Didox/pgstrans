@@ -42,8 +42,11 @@
       <thead>
         <tr>
           <th scope="col">ID do Registo</th>
-          <th scope="col">Login</th>
+          <th scope="col">Login<br>Usuário</th>
           <th scope="col">Nome do Usuário</th>
+          <th scope="col">Telefone <br>do Usuário</th>
+          <th scope="col">Nome do Agente</th>
+          <th scope="col">Telefone do Agente</th>
           <th scope="col">Município</th-->
           <th scope="col" align="right">Saldo</th>
           <th scope="col" align="right"></th>
@@ -57,8 +60,11 @@
           <td style="width: 25px" align="right"><%= usuario.id %></td>
           <td style="width: 100px"><%= usuario.login %></td>
           <td style="width: 400px"><%= usuario.nome %></td>
+          <td style="width: 260px" class="text-right"><%= usuario.telefone %></td>
+          <td style="width: 400px"><%= usuario.sub_agente.nome_fantasia rescue "" %></td>
+          <td style="width: 260px" class="text-right"><%= usuario.sub_agente.telefone rescue "" %></td>
           <td style="width: 150px"><%= usuario.municipio.nome rescue "" %></td>
-          <td style="width: 120px" align="right"><%= number_to_currency(usuario.saldo, :unit => "KZ", :precision => 2) %></td>
+          <td style="width: 160px" align="right"><%= number_to_currency(usuario.saldo, :unit => "KZ", :precision => 2) %></td>
           <td style="width: 100px" align="right">
             <form action="/usuarios/<%= usuario.id %>/zerar_saldo" onsubmit="return confirm('Confirma?')" method="post">
                 <button type="submit" class="btn btn-warning">Zerar Saldo</button>
@@ -69,6 +75,8 @@
         <% end %>
         <tfoot>
           <tr>
+            <td></td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
