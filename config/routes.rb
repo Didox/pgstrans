@@ -58,8 +58,10 @@ Rails.application.routes.draw do
   resources :moedas
   get 'backoffice/home'
   get 'backoffice/index'
+
+  get 'bancos/index_bancos_clientes', to: 'bancos#index_bancos_clientes', as: "index_bancos_clientes"
   resources :bancos
-  get 'bancos/:banco_id/index_bancos_clientes', to: 'bancos#index_bancos_clientes', as: "index_bancos_clientes"
+ 
   resources :lancamentos
   resources :status_alegacao_pagamentos
   resources :tipo_transacaos
