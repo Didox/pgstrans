@@ -6,7 +6,7 @@ class IndustriesController < ApplicationController
   def index
     @industries = Industry.com_acesso(usuario_logado).order(descricao_seccao: :asc, descricao_divisao: :asc, descricao_grupo: :asc)
 
-    options = {page: params[:page] || 1, per_page: 10}
+    options = {page: params[:page] || 1, per_page: 17}
     @industries = @industries.paginate(options)
   end
 
