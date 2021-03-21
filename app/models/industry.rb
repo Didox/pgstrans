@@ -1,4 +1,4 @@
 class Industry < ApplicationRecord
   include PermissionamentoDados
-	validates :descricao_seccao, :descricao_divisao, :descricao_grupo, presence: true
+	validates :descricao_seccao, presence: true
 end
