@@ -141,6 +141,7 @@ class VendasController < ApplicationController
       options = {page: params[:page] || 1, per_page: 10}
       @vendas = @vendas.paginate(options)
     end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_venda
       @venda = Venda.find(params[:id] || params[:venda_id])

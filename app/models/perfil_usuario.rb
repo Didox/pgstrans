@@ -55,7 +55,8 @@ class PerfilUsuario < ApplicationRecord
       apaga_acesso_usuario: "Apaga grupo de acesso de usuário",
       cria_acesso_usuario: "Cria grupo de acesso de usuário",
       novo_acesso_usuario: "Tela de criação de novo acesso do usuário",
-      resumido: "(VENDAS RESUMIDAS) Relatório de Pagamentos de Fatura DSTV",
+      #resumido: "(VENDAS RESUMIDAS) Relatório de Pagamentos de Fatura DSTV",
+      resumido: "(VENDAS RESUMIDAS) Relatório Vendas na Visão do Agente e do Vendedor",
       importa_produtos: "Acesso ao botão 'Atualizar portfólio de produtos ZAP'",
       importa_dados: "Acesso ao botão 'Importar dados para relatório de conciliação ZAP'",
       validacao_cliente: "Validação e consulta da situação do cliente",
@@ -83,7 +84,8 @@ class PerfilUsuario < ApplicationRecord
       processar: "Processar dados",
       zerar_saldo: "Efetivar a ação de ZERAR SALDO de usuário presente em Conta Corrente / Lançamento em Conta Corrente de Usuário ",
       conciliacao: "Conta Corrente Conciliação",
-      conciliacao_aplicar: "Conta Corrente Conciliação Aplicar"
+      conciliacao_aplicar: "Conta Corrente Conciliação Aplicar",
+      index_vendas_conciliacao: "Relatório de Vendas com dados resumidos para fins de conciliação"
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
@@ -92,6 +94,7 @@ class PerfilUsuario < ApplicationRecord
   def self.nome_amigavel_controller(controller)
     nomes = {
       vendas: "Backoffice - Relatório de Vendas",
+      vendas_conciliacao: "Backoffice - Relatório de Vendas - Conciliação",
       logs: "Log do sistema",
       menus: "Menus do Backoffice",
       erro_amigavels: "Cadastro de erros amigáveis",
