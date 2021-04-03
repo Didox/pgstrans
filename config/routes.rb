@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'vendas_conciliacao/index_vendas_conciliacao'
   get 'bancos_contas_bancarias/index_bancos_clientes'
   resources :status_bancos
   resources :logs
