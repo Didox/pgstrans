@@ -13,6 +13,7 @@ class DescontosController < ApplicationController
   end
 
   def lucros
+    params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
     @parceiros = Partner.all
   end
 end

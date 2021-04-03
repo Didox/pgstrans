@@ -16,7 +16,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="form-group">
           <label>Data da Venda (INÍCIO)</label>
           <div>
@@ -24,11 +24,24 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="form-group">
           <label>Data da Venda (FIM)</label>
           <div>
             <input type="date" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Status do Usuário</label>
+          <div>
+            <select name="status" class="form-control">
+              <option value="" selected="'selected'">Todos</option>
+              <% StatusCliente.all.each do |status| %>
+                <option value="<%= status.id %>" <% if params[:status].to_s == status.id.to_s %> selected="selected" <% end %>><%= status.nome %></option>
+              <% end %>
+            </select>
           </div>
         </div>
       </div>
