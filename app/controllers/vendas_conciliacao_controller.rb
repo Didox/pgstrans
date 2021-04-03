@@ -13,7 +13,7 @@ class VendasConciliacaoController < ApplicationController
       WHERE vendas.created_at is not null
     "
 
-    if params[:return_code].nil?
+    if params[:return_code].blank?
       params[:return_code] = "sucesso"
     end
 
@@ -25,6 +25,11 @@ class VendasConciliacaoController < ApplicationController
         ret = ReturnCodeApi.find(params[:return_code])
         sql += " and vendas.status = '#{ret.return_code}' and vendas.partner_id = #{ret.partner_id}"
       end
+    end
+
+    params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
+    if params[:status].present?
+      sql += " and usuarios.status_cliente_id = #{params[:status]}"
     end
 
     sql += " and vendas.updated_at >= '#{params[:data_inicio].to_datetime.beginning_of_day}'" if params[:data_inicio].present?
@@ -41,7 +46,7 @@ class VendasConciliacaoController < ApplicationController
       group by data_venda
       ORDER BY data_venda desc
     "
-
+    
     @vendas = ActiveRecord::Base.connection.exec_query(sql)
   end
 end

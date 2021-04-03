@@ -68,6 +68,7 @@ class UsuariosController < ApplicationController
         conta_corrente.observacao = "Regularizando o saldo do usuário #{usuario.nome} (#{usuario.id})."
       end
 
+      conta_corrente.banco_id = Banco.order("ordem_prioridade asc").first.id
       conta_corrente.usuario = usuario
       conta_corrente.responsavel = usuario_logado
       conta_corrente.responsavel_aprovacao_id = usuario_logado.id
