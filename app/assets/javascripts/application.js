@@ -214,23 +214,28 @@ $(function(){
             var form = $(".recarga #recargaForm");
             var url = form.attr('action');
             pagamentoProcessando = true;
+
+            $(".modal_loader").show();
+
             $.ajax({
               type: "POST",
               url: url,
               data: form.serialize(),
               success: function(data){
+                $(".modal_loader").hide();
                 pagamentoProcessando = false;
                 $.alert(data.mensagem);
                 $(".clearFieldjs").val("")
               },
               error: function(xhr, ajaxOptions, thrownError){
+                $(".modal_loader").hide();
                 pagamentoProcessando = false;
                 var data = JSON.parse(xhr.responseText);
                 var erroObject = JSON.parse(xhr.responseText)
                 var stackthrow = (erroObject && erroObject.erro ? ' - ' + erroObject.erro : "")
                 $.alert(data.mensagem + stackthrow);
               },
-              timeout: 60000 // sets timeout to 60 seconds
+              timeout: 120000 // sets timeout to 120 seconds
             });
           }
         },
