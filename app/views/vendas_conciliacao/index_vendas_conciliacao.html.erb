@@ -11,13 +11,34 @@
       <div class="row" style="padding:10px">
         <div class="col-sm-2">
           <div class="form-group">
-            <label>ID da Venda</label>
+            <label>Data Inicial</label>
             <div>
-              <input type="text" name="venda_id" value="<%= params[:venda_id] %>" class="form-control">
+              <input type="date" name="data_inicio" value="<%= params[:data_inicio] %>" class="form-control">
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Data Final</label>
+            <div>
+              <input type="date" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Parceiro</label>
+            <div>
+              <select name="parceiro_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Partner.all.reorder(name: :asc).each do |partner| %>
+                  <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Status da Venda</label>
             <div>
@@ -37,72 +58,6 @@
         </div>
         <div class="col-sm-2">
           <div class="form-group">
-            <label>Data Inicial</label>
-            <div>
-              <input type="date" name="data_inicio" value="<%= params[:data_inicio] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Data Final</label>
-            <div>
-              <input type="date" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Usuário</label>
-            <div>
-              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>ID Interno do Usuário</label>
-            <div>
-              <input type="text" name="id_interno" value="<%= params[:id_interno] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Login do Usuário</label>
-            <div>
-              <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Status do Usuário</label>
-            <div>
-              <select name="status" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% StatusCliente.all.each do |status| %>
-                  <option value="<%= status.id %>" <% if params[:status].to_s == status.id.to_s %> selected="selected" <% end %>><%= status.nome %></option>
-                <% end %>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Parceiro</label>
-            <div>
-              <select name="parceiro_id" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% Partner.all.reorder(name: :asc).each do |partner| %>
-                  <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
-                <% end %>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
             <label>Status Parceiro</label>
             <div>
               <select name="status_parceiro_id" class="form-control">
@@ -114,44 +69,9 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Código Produto Pagasó</label>
-            <div>
-              <input type="text" name="produto_id" value="<%= params[:produto_id] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Código Produto Parceiro</label>
-            <div>
-              <input type="text" name="produto_id_parceiro" value="<%= params[:produto_id_parceiro] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Valor KZ</label>
-            <div>
-              <input type="text" name="valor" value="<%= params[:valor] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Customer Number/MSIDN</label>
-            <div>
-              <input type="text" name="client_msisdn" value="<%= params[:client_msisdn] %>" class="form-control">
-            </div>
-          </div>
-        </div>
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
-          <label>
-            Exportar CSV <input type="checkbox" name="csv"> 
-          </label>
           <input type="submit" value="Buscar" class="btn btn-success">
           <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
@@ -163,7 +83,82 @@
   </div>
 
   <div class="scroltable col-md-12">
-    <%= render "tabela_vendas_conciliacao" %>
+
+
+
+
+
+
+
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th style="text-align:center" scope="col">Data da Venda</th>
+          <th style="text-align:right" scope="col">Valor</th>
+          <th style="text-align:right" scope="col">Lucro</th>
+          <th style="text-align:right" scope="col">Custo</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% 
+        valor_original_total = 0
+        valor_desconto_total = 0
+        valor_total = 0 
+        %>
+        <% @vendas.each do |venda| 
+          venda = OpenStruct.new venda
+        %>
+        <tr>
+          <td style="text-align:center" ><%= venda.data_venda.to_date.strftime("%d/%m/%Y") %></td>
+          <td align="right"><%= number_to_currency(venda.valor) %></td>
+          <td align="right">
+            <%= number_to_currency(venda.lucro) %><br>
+            <% porcentagem = (venda.lucro.to_f / venda.valor.to_f * 100) %>
+          </td>
+          <td align="right"><%= number_to_currency(venda.custo) %></td>
+          <% 
+            valor_original_total += venda.valor
+            valor_desconto_total += venda.lucro 
+            valor_total += venda.custo 
+          %>
+        </tr>
+        <% end %>
+        <tfoot>
+          <tr>
+            <td align="right"><b>Total:</b></td>
+            <td align="right">
+              <b><%= number_to_currency(valor_original_total) %></b>
+            </td>    
+            <td align="right">
+              <b>
+                <%= number_to_currency(valor_desconto_total) %>
+              </b>
+            </td>
+            <td align="right">
+              <b><%= number_to_currency(valor_total) %></b>
+            </td>        
+          </tr>
+        </tfoot>
+      </tbody>
+    </table>
+
+    <%
+=begin%>
+ <h2>
+      Total de vendas ou recargas: <%= # number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %>
+    </h2>
+    <h2>
+      Total de lucros: <%= # number_to_currency(Venda.total_lucros_acesso(@adm, @vendas_graficos), :unit => "KZ") %>
+    </h2> 
+<%
+=end%>
+
+
+
+
+
 
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
