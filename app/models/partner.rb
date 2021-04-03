@@ -52,7 +52,6 @@ class Partner < ApplicationRecord
       vendas = vendas.where("usuarios.status_cliente_id = ?", params[:status])
     end
 
-    vendas = vendas.where("usuarios.status_cliente_id = #{params[:status]}")
     vendas = vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
     vendas = vendas.where("vendas.updated_at <= ?", params[:data_fim].to_date.end_of_day) if params[:data_fim].present?
     vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id").where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
