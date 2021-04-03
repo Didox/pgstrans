@@ -17,18 +17,18 @@
               <div class="col-md-12">
                 <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
                   <h3>Informe o</h3>
-                  <div style="margin-left: 30px;">Smartcard/Device Number</div>
-                  <input type="text" class="form-control" value="<%= params[:smartcard] %>" name="smartcard" placeholder="Smartcard/Device Number" style="margin-left: 30px;width: 300px;">
+                  <div style="margin-left: 4%;">Smartcard/Device Number</div>
+                  <input type="text" class="form-control" value="<%= params[:smartcard] %>" name="smartcard" placeholder="Smartcard/Device Number" style="margin-left: 4%;max-width: 300px;">
                   <h3>ou</h3>
-                  <div style="margin-left: 30px;">Número do cliente/Customer Number</div>
-                  <input type="text" class="form-control" value="<%= params[:customer_number] %>" name="customer_number" placeholder="Número do cliente/Customer Number" style="margin-left: 30px;width: 300px;">
+                  <div style="margin-left: 4%;">Número do cliente/Customer Number</div>
+                  <input type="text" class="form-control" value="<%= params[:customer_number] %>" name="customer_number" placeholder="Número do cliente/Customer Number" style="margin-left: 4%;max-width: 300px;">
                 </div>
-                <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;">
-                  <div style="float: right;">
+                <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: right;">
+                  <div style="display: inline-block;margin-bottom: 10px;">
                     <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="VALIDAR">
                   </div>
-                  <div style="float: right;">
-                    <%= link_to root_path, class: 'btn btn-space btn-danger', style: "width: 150px; text-align: center;" do %>
+                  <div style="display: inline-block;margin-bottom: 10px;">
+                    <%= link_to root_path, class: 'btn btn-space btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
                       <span class="glyphicon glyphicon-list-alt"></span>
                       VOLTAR
                     <% end %>
@@ -83,7 +83,7 @@
           <br>
           <br>
 
-          <div style="float: right;">
+          <div style="display: inline-block;margin-bottom: 10px;">
             <%= link_to root_path, class: 'btn btn-danger', style: "width: 150px; text-align: center;" do %>
               <span class="glyphicon glyphicon-list-alt"></span>
               Voltar
