@@ -1,6 +1,6 @@
 <div class="col-md-12">
   <div class="col-md-12">
-    <h3>Vendas - Relatório de Conciliação</h3>
+    <h3>Relatório de Vendas por Dia</h3>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -9,23 +9,23 @@
   <div class="col-md-12" style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <div class="form-group">
-            <label>Data Inicial</label>
+            <label>Data Inicial da Venda</label>
             <div>
               <input type="date" name="data_inicio" value="<%= params[:data_inicio] %>" class="form-control">
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <div class="form-group">
-            <label>Data Final</label>
+            <label>Data Final da Venda</label>
             <div>
               <input type="date" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Parceiro</label>
             <div>
@@ -38,7 +38,33 @@
             </div>
           </div>
         </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Status Parceiro</label>
+            <div>
+              <select name="status_parceiro_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% StatusParceiro.all.reorder(nome: :asc).each do |status_parceiro| %>
+                  <option value="<%= status_parceiro.id %>" <% if status_parceiro.id.to_s == params[:status_parceiro_id] %> selected="selected" <% end %> ><%= status_parceiro.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
         <div class="col-sm-4">
+          <div class="form-group">
+            <label>Status do Usuário</label>
+            <div>
+              <select name="status" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% StatusCliente.all.each do |status| %>
+                  <option value="<%= status.id %>" <% if params[:status].to_s == status.id.to_s %> selected="selected" <% end %>><%= status.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-8">
           <div class="form-group">
             <label>Status da Venda</label>
             <div>
@@ -51,19 +77,6 @@
                       <option value="<%= ret.id %>" <% if ret.id.to_s == params[:return_code] %> selected="selected" <% end %> ><%= ret.partner.name %> - <%= ret.sucesso ? "[SUCESSO] - " : "" %><%= ret.error_description_pt %></option>
                     <% end %>
                   </optgroup>
-                <% end %>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Status Parceiro</label>
-            <div>
-              <select name="status_parceiro_id" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% StatusParceiro.all.reorder(nome: :asc).each do |status_parceiro| %>
-                  <option value="<%= status_parceiro.id %>" <% if status_parceiro.id.to_s == params[:status_parceiro_id] %> selected="selected" <% end %> ><%= status_parceiro.nome %></option>
                 <% end %>
               </select>
             </div>
@@ -83,14 +96,6 @@
   </div>
 
   <div class="scroltable col-md-12">
-
-
-
-
-
-
-
-
     <table class="table table-hover">
       <thead>
         <tr>

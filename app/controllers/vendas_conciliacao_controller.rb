@@ -48,5 +48,6 @@ class VendasConciliacaoController < ApplicationController
     "
     
     @vendas = ActiveRecord::Base.connection.exec_query(sql)
+
   end
 end
