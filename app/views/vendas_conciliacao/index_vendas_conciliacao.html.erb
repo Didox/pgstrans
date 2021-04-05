@@ -96,6 +96,11 @@
   </div>
 
   <div class="scroltable col-md-12">
+    <h3>
+      Total de linhas: <%= number_to_currency(@vendas_total, :precision => 0, :unit => "") %>
+    </h3>
+    <hr>
+
     <table class="table table-hover">
       <thead>
         <tr>
@@ -148,23 +153,6 @@
         </tfoot>
       </tbody>
     </table>
-
-    <%
-=begin%>
- <h2>
-      Total de vendas ou recargas: <%= # number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %>
-    </h2>
-    <h2>
-      Total de lucros: <%= # number_to_currency(Venda.total_lucros_acesso(@adm, @vendas_graficos), :unit => "KZ") %>
-    </h2> 
-<%
-=end%>
-
-
-
-
-
-
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar

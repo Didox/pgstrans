@@ -11,6 +11,7 @@ class PagamentosFaturasDstvsController < ApplicationController
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("receipt_number ilike '%#{params[:receipt_number]}%'") if params[:receipt_number].present?
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time]}%'") if params[:transaction_date_time].present?
 
+    @pagamentos_faturas_dstvs_total = @pagamentos_faturas_dstvs.count
     options = {page: params[:page] || 1, per_page: 10}
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.paginate(options)
   end

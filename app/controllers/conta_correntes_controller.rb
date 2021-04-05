@@ -27,6 +27,7 @@ class ContaCorrentesController < ApplicationController
       @conta_correntes = @conta_correntes.where("responsavel.nome ilike '%#{params[:responsavel]}%'")
     end
 
+    @conta_correntes_total = @conta_correntes.count
     options = {page: params[:page] || 1, per_page: 10}
     @conta_correntes = @conta_correntes.paginate(options)
   end
@@ -54,6 +55,7 @@ class ContaCorrentesController < ApplicationController
     paginas = 50
     paginas = params[:quantidade_registros].to_i if params[:quantidade_registros].present?
     options = {page: params[:page] || 1, per_page: paginas}
+    @conta_correntes_total = @conta_correntes.count
     @conta_correntes = @conta_correntes.paginate(options)
   end
 
@@ -90,7 +92,7 @@ class ContaCorrentesController < ApplicationController
     if params[:status].present?
       @usuarios = @usuarios.where("usuarios.status_cliente_id = ?", params[:status])
     end
-    
+    @usuarios_total = @usuarios.count
   end
 
   def index_carregamento_usuario
@@ -114,6 +116,7 @@ class ContaCorrentesController < ApplicationController
       @conta_correntes = @conta_correntes.where("responsavel.nome ilike '%#{params[:responsavel]}%'")
     end
 
+    @conta_correntes_total = @conta_correntes.count
     options = {page: params[:page] || 1, per_page: 10}
     @conta_correntes = @conta_correntes.paginate(options)
     @conta_correntes = @conta_correntes.reorder("created_at desc")

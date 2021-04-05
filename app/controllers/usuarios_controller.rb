@@ -35,6 +35,8 @@ class UsuariosController < ApplicationController
     
     @usuarios = @usuarios.where(sub_agente_id: params[:sub_agente_id]) if params[:sub_agente_id].present?
 
+    @usuarios_total = @usuarios.count
+
     options = {page: params[:page] || 1, per_page: 10}
     @usuarios = @usuarios.paginate(options)
   end

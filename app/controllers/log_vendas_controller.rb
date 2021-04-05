@@ -14,6 +14,8 @@ class LogVendasController < ApplicationController
     @log_vendas = @log_vendas.where("titulo ilike '%#{params[:titulo]}%'") if params[:titulo].present?
     @log_vendas = @log_vendas.where("log ilike '%#{params[:log]}%'") if params[:log].present?
 
+    @log_vendas_total = @log_vendas.count
+
     options = {page: params[:page] || 1, per_page: 10}
     @log_vendas = @log_vendas.paginate(options)
   end

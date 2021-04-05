@@ -14,6 +14,7 @@ class SequencialDstvsController < ApplicationController
     @sequencial_dstvs = @sequencial_dstvs.where("request_body ilike '%#{params[:request_body]}%'") if params[:request_body].present?
     @sequencial_dstvs = @sequencial_dstvs.where("response_body ilike '%#{params[:response_body]}%'") if params[:response_body].present?
 
+    @sequencial_dstvs_total = @sequencial_dstvs.count
     options = {page: params[:page] || 1, per_page: 10}
     @sequencial_dstvs = @sequencial_dstvs.paginate(options)
   end

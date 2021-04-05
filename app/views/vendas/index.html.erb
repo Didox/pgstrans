@@ -226,8 +226,12 @@
       <div id="grafico_vendas" style="width: 100%; height: 300px;"></div>
     <% end %>
   </div>
-
   <div class="scroltable col-md-12">
+    <h3>
+      Total de recargas/transações: <%= number_to_currency(@vendas_total, :precision => 0, :unit => "") %>
+    </h3>
+    <hr>
+
     <%= render "tabela_vendas" %>
 
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>

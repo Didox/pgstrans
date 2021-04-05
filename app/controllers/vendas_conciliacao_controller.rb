@@ -48,6 +48,6 @@ class VendasConciliacaoController < ApplicationController
     "
     
     @vendas = ActiveRecord::Base.connection.exec_query(sql)
-
+    @vendas_total = @vendas.count
   end
 end

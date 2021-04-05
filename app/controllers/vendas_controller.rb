@@ -6,6 +6,7 @@ class VendasController < ApplicationController
   def index
     @vendas = Venda.com_acesso(usuario_logado).order(id: :asc)
     vendas_busca
+    @vendas_total = @vendas.count
   end
 
   # GET /vendas/1

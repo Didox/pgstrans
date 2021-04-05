@@ -16,6 +16,7 @@ class RemuneracaosController < ApplicationController
     #@remuneracaos = @remuneracaos.joins(:usuario)
     #@remuneracaos = @remuneracaos.reorder("remuneracao.usuario.nome asc")
     #@remuneracaos = @remuneracaos.where("remuneracao.usuario.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @remuneracaos_total = @remuneracaos.count
 
     options = {page: params[:page] || 1, per_page: 10}
     @remuneracaos = @remuneracaos.paginate(options)

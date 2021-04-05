@@ -24,6 +24,7 @@ class ProdutosController < ApplicationController
     @produtos = @produtos.where("data_vigencia >= ?", params[:data_vigencia].to_datetime.beginning_of_day) if params[:data_vigencia].present?
     @produtos = @produtos.where("data_vigencia < ?", params[:data_vigencia].to_datetime.end_of_day) if params[:data_vigencia].present?
 
+    @produtos_total = @produtos.count
     options = {page: params[:page] || 1, per_page: 10}
     @produtos = @produtos.paginate(options)
 

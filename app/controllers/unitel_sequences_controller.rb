@@ -6,6 +6,7 @@ class UnitelSequencesController < ApplicationController
   def index
     @unitel_sequences = UnitelSequence.all.order(id: :desc)
 
+    @unitel_sequences_total = @unitel_sequences.count
     options = {page: params[:page] || 1, per_page: 10}
     @unitel_sequences = @unitel_sequences.paginate(options)
   end
