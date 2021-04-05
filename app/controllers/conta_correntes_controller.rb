@@ -85,6 +85,12 @@ class ContaCorrentesController < ApplicationController
     @usuarios = @usuarios.reorder("nome asc")
     @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
     @usuarios = @usuarios.where("usuarios.login ilike '%#{params[:login]}%'")
+
+    params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
+    if params[:status].present?
+      @usuarios = @usuarios.where("usuarios.status_cliente_id = ?", params[:status])
+    end
+    
   end
 
   def index_carregamento_usuario
