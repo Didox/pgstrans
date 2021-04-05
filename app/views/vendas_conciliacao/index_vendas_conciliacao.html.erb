@@ -116,7 +116,7 @@
           venda = OpenStruct.new venda
         %>
         <tr>
-          <td style="text-align:center" ><%= venda.data_venda.to_date.strftime("%d/%m/%Y") %></td>
+          <td style="text-align:center" ><%= venda.data_venda.to_datetime.strftime("%d/%m/%Y") %></td>
           <td align="right"><%= number_to_currency(venda.valor) %></td>
           <td align="right">
             <%= number_to_currency(venda.lucro) %><br>

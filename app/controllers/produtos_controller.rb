@@ -16,13 +16,13 @@ class ProdutosController < ApplicationController
     @produtos = @produtos.where("status_produto_id = ?", params[:status_produto_id]) if params[:status_produto_id].present?
 
     @produtos = @produtos.where("created_at >= ?", params[:created_at].to_datetime.beginning_of_day) if params[:created_at].present?
-    @produtos = @produtos.where("created_at <= ?", params[:created_at_fim].to_date.end_of_day) if params[:created_at_fim].present?
+    @produtos = @produtos.where("created_at <= ?", params[:created_at_fim].to_datetime.end_of_day) if params[:created_at_fim].present?
 
     @produtos = @produtos.where("updated_at >= ?", params[:updated_at].to_datetime.beginning_of_day) if params[:updated_at].present?
-    @produtos = @produtos.where("updated_at <= ?", params[:updated_at_fim].to_date.end_of_day) if params[:updated_at_fim].present?
+    @produtos = @produtos.where("updated_at <= ?", params[:updated_at_fim].to_datetime.end_of_day) if params[:updated_at_fim].present?
 
-    @produtos = @produtos.where("data_vigencia >= ?", params[:data_vigencia].to_date.beginning_of_day) if params[:data_vigencia].present?
-    @produtos = @produtos.where("data_vigencia < ?", params[:data_vigencia].to_date.end_of_day) if params[:data_vigencia].present?
+    @produtos = @produtos.where("data_vigencia >= ?", params[:data_vigencia].to_datetime.beginning_of_day) if params[:data_vigencia].present?
+    @produtos = @produtos.where("data_vigencia < ?", params[:data_vigencia].to_datetime.end_of_day) if params[:data_vigencia].present?
 
     options = {page: params[:page] || 1, per_page: 10}
     @produtos = @produtos.paginate(options)

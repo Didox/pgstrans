@@ -23,7 +23,7 @@
                   <b>Valor</b>: <%= number_to_currency(params["valor"], :unit => "KZ") %>
                 </li>
                 <li style="margin-bottom: 10px">
-                  <b>Data de vencimento</b>: <%= params["dueDate"].to_date.strftime("%d/%m/%Y") rescue params["dueDate"] %>
+                  <b>Data de vencimento</b>: <%= params["dueDate"].to_datetime.strftime("%d/%m/%Y") rescue params["dueDate"] %>
                 </li>
                 <li style="margin-bottom: 10px">
                   <b>Número do recibo</b>: <%= @info["receiptNumber"] %>

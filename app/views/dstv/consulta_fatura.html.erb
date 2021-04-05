@@ -80,7 +80,7 @@
                   <b>Valor</b>: <%= number_to_currency(@info["dueAmount"], :unit => "KZ") %>
                 </li>
                 <li style="margin-bottom: 10px">
-                  <b>Data de vencimento</b>: <%= @info["dueDate"].to_date.strftime("%d/%m/%Y") rescue @info["dueDate"] %>
+                  <b>Data de vencimento</b>: <%= @info["dueDate"].to_datetime.strftime("%d/%m/%Y") rescue @info["dueDate"] %>
                 </li>
               </ul>
             </div>
@@ -93,7 +93,7 @@
               <input type="hidden" name="valor" value="<%= @info["dueAmount"] %>">
               <input type="hidden" name="customer_number" value="<%= params["customer_number"] %>">
               <input type="hidden" name="smartcard" value="<%= params["smartcard"] %>">
-              <input type="hidden" name="dueDate" value="<%= @info["dueDate"].to_date.strftime("%d/%m/%Y") %>">
+              <input type="hidden" name="dueDate" value="<%= @info["dueDate"].to_datetime.strftime("%d/%m/%Y") %>">
               <br>
               <%= link_to 'javascript:history.go(-1)', class: "btn btn-danger", style: "width: 150px; text-align: center;" do %>
                 <span class="glyphicon glyphicon-list-alt"></span>
