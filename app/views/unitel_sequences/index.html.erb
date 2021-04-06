@@ -28,7 +28,13 @@
         <tr>
           <td class="text-center"><%= unitel_sequence.sequence_id %></td>
           <td class="text-center"><%= unitel_sequence.created_at.strftime("%d/%m/%Y %H:%M") %></td>
-          <td class="text-center"><a href="/vendas/<%= unitel_sequence.venda.id %>"><%= unitel_sequence.venda.id %></a></td>
+          <td class="text-center">
+            <% if unitel_sequence.venda_id.present? %>
+              <a href="/vendas/<%= unitel_sequence.venda_id %>"><%= unitel_sequence.venda_id %></a>
+            <% else %>
+              Erro
+            <% end %>
+          </td>
           <td><%= link_to 'Mostrar', unitel_sequence %></td>
         </tr>
         <% end %>

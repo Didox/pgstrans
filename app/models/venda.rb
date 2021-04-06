@@ -848,12 +848,18 @@ class Venda < ApplicationRecord
     sequence_id = sequence.blank? ? 1 : (sequence.sequence_id + 1)
     unitel_sequence = UnitelSequence.create(sequence_id: sequence_id)
 
-    if Rails.env == "development"
-      make_sale_endpoint = "#{parametro.url_integracao_desenvolvimento}/spgw/V2/makeSale"
-      dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
-    else
-      make_sale_endpoint = "#{parametro.url_integracao_producao}/spgw/V2/makeSale"
-      dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+    begin
+      if Rails.env == "development"
+        make_sale_endpoint = "#{parametro.url_integracao_desenvolvimento}/spgw/V2/makeSale"
+        dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+      else
+        make_sale_endpoint = "#{parametro.url_integracao_producao}/spgw/V2/makeSale"
+        dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+      end
+    rescue Exception => erro
+      unitel_sequence.log = "#{erro.message} - #{erro.backtrace}"
+      unitel_sequence.save
+      raise erro.message
     end
 
     retorno = `#{dados_envio}`

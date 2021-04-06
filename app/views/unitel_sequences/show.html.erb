@@ -11,10 +11,17 @@
       <dt>Sequência da Venda:</dt>
       <dd><%= @unitel_sequence.sequence_id %></dd>
       <dt><div class="col-md-12 scroltable">
-      <div class="col-md-12">Detalhe da Venda:</dt>
-      <dd>
-        <a href="/vendas/<%= @unitel_sequence.venda.id %>"><%= @unitel_sequence.venda.id %></a>
-      </dd>
+      <% if @unitel_sequence.venda_id.present? %>
+        <div class="col-md-12">Detalhe da Venda:</dt>
+        <dd>
+          <a href="/vendas/<%= @unitel_sequence.venda_id %>"><%= @unitel_sequence.venda_id %></a>
+        </dd>
+      <% else %>
+        <div class="col-md-12">Erro:</dt>
+        <dd>
+          <%= @unitel_sequence.log %>
+        </dd>
+      <% end %>
     </dl>
 
     <div class="page-header">
