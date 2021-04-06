@@ -1,3 +1,3 @@
 class UnitelSequence < ApplicationRecord
-  belongs_to :venda
+  belongs_to :venda, optional: true
 end
