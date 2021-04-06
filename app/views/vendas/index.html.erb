@@ -215,7 +215,7 @@
           ]);
 
           var options = {
-            title: 'Total de vendas ou recargas',
+            title: 'TOTAL DE RECARGAS OU TRANSAÇÕES',
             is3D: true,
           };
 
@@ -227,9 +227,9 @@
     <% end %>
   </div>
   <div class="scroltable col-md-12">
-    <h3>
-      Total de recargas/transações: <%= number_to_currency(@vendas_total, :precision => 0, :unit => "") %>
-    </h3>
+    <h4>
+      Quantidade de recargas ou transações: <%= number_to_currency(@vendas_total, :precision => 0, :unit => "") %>
+    </h4>
     <hr>
 
     <%= render "tabela_vendas" %>

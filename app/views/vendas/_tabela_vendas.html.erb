@@ -87,12 +87,12 @@
   </tbody>
 </table>
 
-<h2>
-  Total de vendas ou recargas: <%= number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %>
-</h2>
-<h2>
-  Total de lucros: <%= number_to_currency(Venda.total_lucros_acesso(@adm, @vendas_graficos), :unit => "KZ") %>
-</h2>
+<h4>
+  Total de recargas ou transações: <strong><%= number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
+</h4>
+<h4>
+  Total de lucro: <strong><%= number_to_currency(Venda.total_lucros_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
+</h4>
 
 <div class="apple_pagination">
   <%= will_paginate @usuarios, :container => false %>

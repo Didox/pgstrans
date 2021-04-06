@@ -14,7 +14,7 @@ class SubAgentesController < ApplicationController
     @sub_agentes = @sub_agentes.where("uni_pessoal_empresa_id = ?", params[:uni_pessoal_empresa_id]) if params[:uni_pessoal_empresa_id].present?
     @sub_agentes = @sub_agentes.where("industry_id = ?", params[:industry_id]) if params[:industry_id].present?
 
-
+    @sub_agentes_total = @sub_agentes.count
     options = {page: params[:page] || 1, per_page: 10}
     @sub_agentes = @sub_agentes.paginate(options)
   end

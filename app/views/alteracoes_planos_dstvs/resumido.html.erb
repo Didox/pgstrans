@@ -78,7 +78,7 @@
       </div>
   </form>
 
-  <h2 style="margin-left: 1px">Total de registros: <%= @alteracoes_planos_dstvs.count %></h2>
+  <h4 style="margin-left: 15px">Total de Transações: <strong><%= @alteracoes_planos_dstvs.count %></h4></strong>
   
   <table class="table scroltable table-hover">
     <thead>
@@ -142,10 +142,11 @@
     </tfoot>
   </table>
 </div>
+
+<h4>Total de Geral: <strong><%= number_to_currency(@alteracoes_planos_dstvs_valor, :unit => "KZ") %></h4></strong>
+
 <div class="apple_pagination">
   <%= will_paginate @alteracoes_planos_dstvs, :container => false %>
 </div> 
-
-<h2>Total de Geral: <%= number_to_currency(@alteracoes_planos_dstvs_valor, :unit => "KZ") %></h2>
 
 <%= link_to 'Voltar', 'javascript:history.go(-1)', class: 'btn btn-danger' %>

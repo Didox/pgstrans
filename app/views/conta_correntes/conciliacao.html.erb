@@ -100,12 +100,10 @@
 <div class="col-md-12">
   <form action="/conta_correntes/conciliacao/aplicar" method="post">
     <%= render "conciliacao_params" %>
-
-    <h3>
-      Quantidade: <%= number_to_currency(@conta_correntes_total, :precision => 0, :unit => "") %>
-    </h3>
+    <h4>
+      Total de Registos: <strong><%= number_to_currency(@conta_correntes_total, :precision => 0, :unit => "") %></strong>
+    </h4>
     <hr>
-
     <table class="table table-hover" style="position:fixed;margin-top: 0px;background: #fff;">
       <thead>
         <tr>

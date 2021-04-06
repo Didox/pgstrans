@@ -161,13 +161,14 @@
   </div>
 
   <div class="col-md-12 scroltable">
-    <h3>
-      Quantidade de usuários: <%= number_to_currency(@usuarios_total, :precision => 0, :unit => "") %>
-    </h3>
+    <h4>
+      Quantidade de usuários: <strong><%= number_to_currency(@usuarios_total, :precision => 0, :unit => "") %></strong>
+    </h4>
     <hr>
-    <h5>
+    <h4>
       Usuários que foram cadastrados pelo Agente ou pelo Administrador
-    </h5>
+    </h4>
+    <hr>
     <table class="table table-hover">
       <thead>
         <tr class="text-left">

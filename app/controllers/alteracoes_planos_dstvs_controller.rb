@@ -13,6 +13,7 @@ class AlteracoesPlanosDstvsController < ApplicationController
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("tipo_plano = ?", params[:tipo_plano]) if params[:tipo_plano].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_number ilike '%#{params[:transaction_number]}%'") if params[:transaction_number].present?
 
+    @alteracoes_planos_dstvs_total = @alteracoes_planos_dstvs.count
     options = {page: params[:page] || 1, per_page: 10}
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.paginate(options)
   end
@@ -27,7 +28,7 @@ class AlteracoesPlanosDstvsController < ApplicationController
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("tipo_plano = ?", params[:tipo_plano]) if params[:tipo_plano].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_number ilike '%#{params[:transaction_number]}%'") if params[:transaction_number].present?
 
-    @alteracoes_planos_dstvs_valor = @alteracoes_planos_dstvs.sum(:valor)
+    @alteracoes_planos_dstvs_valor = @alteracoes_planos_dstvs.sum(:valor)  
     options = {page: params[:page] || 1, per_page: 10}
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.paginate(options)
   end

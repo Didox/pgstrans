@@ -24,6 +24,7 @@ class GruposController < ApplicationController
       @grupos = @grupos.distinct
     end
 
+    @grupos_total = @grupos.count
     options = {page: params[:page] || 1, per_page: 10}
     @grupos = @grupos.paginate(options)
   end

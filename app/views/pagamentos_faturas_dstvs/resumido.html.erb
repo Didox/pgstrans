@@ -58,7 +58,7 @@
     </form>
   </div>
 
-  <h2 style="margin-left: 20px">Total de registros: <%= @pagamentos_faturas_dstvs.count %></h2>
+  <h4 style="margin-left: 20px">Total de Transações: <strong><%= @pagamentos_faturas_dstvs.count %></h4></strong>
 
   <div class="col-md-12 scroltable">
     <table class="table table-hover">
@@ -114,7 +114,7 @@
       <%= will_paginate @pagamentos_faturas_dstvs, :container => false %>
     </div>
 
-    <h2>Total de Geral: <%= number_to_currency(@pagamentos_faturas_dstvs_valor, :unit => "KZ") %></h2>
+    <h4>Total de Geral: <strong><%= number_to_currency(@pagamentos_faturas_dstvs_valor, :unit => "KZ") %></h4></strong>
 
     <hr>
 
