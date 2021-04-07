@@ -61,7 +61,7 @@ class MovicelLoop < ApplicationRecord
 				request_send += "cripto='#{cripto}' <br>"
 
 				body = "
-					<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
+					<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"#{url_service}/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
 						<soapenv:Header>
 						<int:ValidateTopupReqHeader>
 								<mid:RequestId>#{request_id}</mid:RequestId>
@@ -105,7 +105,7 @@ class MovicelLoop < ApplicationRecord
 					payload = {
 						headers: {
 							'Content-Type' => 'text/xml;charset=UTF-8',
-							'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
+							'SOAPAction' => "#{url_service}/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup",
 						},
 						timeout: DEFAULT_TIMEOUT.to_i.seconds,
 						body: body
@@ -126,7 +126,7 @@ class MovicelLoop < ApplicationRecord
 					if (200...300).include?(request.code.to_i) && request.body.include?("200</ReturnCode>")
 
 						body = "
-							<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
+							<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"#{url_service}/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
 								<soapenv:Header>
 										<int:TopupReqHeader>
 											<mid:RequestId>#{request_id}</mid:RequestId>
@@ -167,7 +167,7 @@ class MovicelLoop < ApplicationRecord
 							payload = {
 								headers: {
 									'Content-Type' => 'text/xml;charset=UTF-8',
-									'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
+									'SOAPAction' => "#{url_service}/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup",
 								},
 								timeout: 90.seconds,
 								body: body

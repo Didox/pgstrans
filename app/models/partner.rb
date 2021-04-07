@@ -120,7 +120,7 @@ class Partner < ApplicationRecord
     pass = pass.strip
 
     body = "
-      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\">
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"#{url_service}/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\">
         <soapenv:Header>
           <int:QueryBalanceReqHeader>
               <mid:RequestId>#{request_id}</mid:RequestId>
@@ -157,7 +157,7 @@ class Partner < ApplicationRecord
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',
-        'SOAPAction' => "http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryBalance",
+        'SOAPAction' => "#{url_service}/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryBalance",
       },
       :body => body,
       timeout: DEFAULT_TIMEOUT.to_i.seconds

@@ -17,7 +17,7 @@ namespace :soap_movicel do
     pass = pass.strip
 
     body = "
-      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"#{url_service}/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
         <soapenv:Header>
             <int:TopupReqHeader>
                <mid:RequestId>#{request_id}</mid:RequestId>
@@ -45,13 +45,13 @@ namespace :soap_movicel do
       </soapenv:Envelope>
     "
 
-
-    url = "http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/"
+    url_service = "http://wsqa.movicel.co.ao:10071"
+    url = "#{url_service}/DirectTopupService/Topup/"
     uri = URI.parse(URI.escape(url))
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',
-        'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup',
+        'SOAPAction' => "#{url_service}/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup",
         # 'Accept-Encoding' => 'gzip,deflate',
         # 'Content-Length' => '1224',
         # 'Host' => 'wsqa.movicel.co.ao:10071',
@@ -85,16 +85,16 @@ namespace :soap_movicel do
 
     pass = pass.strip
 
-
-    url = "http://wsqa.movicel.co.ao:10071/DirectTopupService/Topup/"
+    url_service = "http://wsqa.movicel.co.ao:10071"
+    url = "#{url_service}/DirectTopupService/Topup/"
     uri = URI.parse(URI.escape(url))
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',
-        'SOAPAction' => 'http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup',
+        'SOAPAction' => "#{url_service}/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup",
       },
       :body => "
-        <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
+        <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"#{url_service}/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
           <soapenv:Header>
            <int:ValidateTopupReqHeader>
               <mid:RequestId>#{request_id}</mid:RequestId>

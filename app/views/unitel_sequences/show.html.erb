@@ -12,12 +12,13 @@
       <dd><%= @unitel_sequence.sequence_id %></dd>
       <dt><div class="col-md-12 scroltable">
       <% if @unitel_sequence.venda_id.present? %>
-        <div class="col-md-12">Detalhe da Venda:</dt>
+        <dt class="col-md-12">Detalhe da Venda:</dt>
         <dd>
           <a href="/vendas/<%= @unitel_sequence.venda_id %>"><%= @unitel_sequence.venda_id %></a>
         </dd>
+        <h3>Este sequencial não apresenta erros</h3>
       <% else %>
-        <div class="col-md-12">Erro:</dt>
+        <dt class="col-md-12">Erro:</dt>
         <dd>
           <%= @unitel_sequence.log %>
         </dd>
