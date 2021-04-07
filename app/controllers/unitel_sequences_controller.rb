@@ -6,6 +6,18 @@ class UnitelSequencesController < ApplicationController
   def index
     @unitel_sequences = UnitelSequence.all.order(id: :desc)
 
+    if usuario_logado.admin? || usuario_logado.operador?
+      @unitel_sequences = UnitelSequence.all
+    else
+      @unitel_sequences = UnitelSequence.com_acesso(usuario_logado)
+    end
+
+    @unitel_sequences = @unitel_sequences.reorder("sequence_id desc")
+    @unitel_sequences = @unitel_sequences.where("created_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
+    @unitel_sequences = @unitel_sequences.where("created_at <= ?", params[:data_fim].to_datetime.end_of_day) if params[:data_fim].present?
+    @unitel_sequences = @unitel_sequences.where("vendas_id = ?", params[:venda_id]) if params[:venda_id].present?
+    @unitel_sequences = @unitel_sequences.where("sequence_id = ?", params[:sequence_id]) if params[:sequence_id].present?
+
     @unitel_sequences_total = @unitel_sequences.count
     options = {page: params[:page] || 1, per_page: 10}
     @unitel_sequences = @unitel_sequences.paginate(options)
