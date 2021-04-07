@@ -845,27 +845,26 @@ class Venda < ApplicationRecord
     venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
 
     sequence = UnitelSequence.order("id desc").first
-    if sequence.blank?
-      sequence_id = 1
-    else
-      sequence_id = sequence.sequence_id + 1
-    end
-    
+    sequence_id = sequence.blank? ? 1 : (sequence.sequence_id + 1)
+    unitel_sequence = UnitelSequence.create(sequence_id: sequence_id)
+
     if Rails.env == "development"
       make_sale_endpoint = "#{parametro.url_integracao_desenvolvimento}/spgw/V2/makeSale"
-    else
-      make_sale_endpoint = "#{parametro.url_integracao_producao}/spgw/V2/makeSale"
-    end
-
-    # ./chaves/unitel_recarga.sh '7' '9' '114250' '' '' '' '500' '244998524570' 'https://parceiros.unitel.co.ao:8444/spgw/V2/makeSale'
-    
-    if Rails.env == "development"
       dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
     else
+      make_sale_endpoint = "#{parametro.url_integracao_producao}/spgw/V2/makeSale"
       dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
     end
 
-    retorno = `#{dados_envio}`
+    retorno = ""
+    begin
+      retorno = `#{dados_envio}`
+    rescue Exception => erro
+      unitel_sequence.log = "#{erro.message} - #{erro.backtrace}"
+      unitel_sequence.save
+      raise erro.message
+    end
+
     venda.request_send, venda.response_get = retorno.split(" --- ")
 
     venda.request_send = "#{venda.request_send} ========== #{dados_envio}"
@@ -873,7 +872,8 @@ class Venda < ApplicationRecord
     venda.status = venda.response_get_parse["statusCode"] rescue "3"
     venda.save!
 
-    UnitelSequence.create(sequence_id: sequence_id, venda_id: venda.id)
+    unitel_sequence.venda_id = venda.id
+    unitel_sequence.save
 
     if venda.sucesso?
       lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first

@@ -68,7 +68,7 @@
         <th scope="col" class="text-center">Data da Transação</th>
         <th scope="col" class="text-center">ID Transação Unitel</th>
         <th scope="col" class="text-center">ID da Venda</th>
-        <th colspan="3">Ações para o Registo</th>
+        <th colspan="3" class="text-center">Ações para o Registo</th>
         </tr>
       </thead>
 
@@ -78,8 +78,14 @@
           <td class="text-center"><%= unitel_sequence.sequence_id %></td>
           <td class="text-center"><%= unitel_sequence.created_at.strftime("%d/%m/%Y %H:%M") %></td>
           <td class="text-center"><%= unitel_sequence.venda.response_get_parse["idTransaction"] rescue "" %></td>
-          <td class="text-center"><a href="/vendas/<%= unitel_sequence.venda.id %>"><%= unitel_sequence.venda.id %></a></td>
-          <td><%= link_to 'Mostrar', unitel_sequence %></td>
+          <td class="text-center">
+            <% if unitel_sequence.venda_id.present? %>
+              <a href="/vendas/<%= unitel_sequence.venda_id %>"><%= unitel_sequence.venda_id %></a>
+            <% else %>
+              Erro
+            <% end %>
+          </td>
+          <td class="text-center"><%= link_to 'Mostrar', unitel_sequence %></td>
         </tr>
         <% end %>
       </tbody>
