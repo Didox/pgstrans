@@ -354,16 +354,14 @@ class Venda < ApplicationRecord
       agent_key = parametro.agent_key_movicel_producao
       user_id = parametro.user_id_movicel_producao
     end
-    url_xml_service = url_service.gsub(/https/, "http").gsub(/:.\d.*/, "")
 
     request_id = self.request_id
 
     pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto`
-    # pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' REQUESTID='#{request_id}' ./chaves/movicell/mac/encripto`
     pass = pass.strip
 
     body = "
-      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"#{url_xml_service}/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
          <soapenv:Header>
             <int:QueryTransactionReqHeader>
                <mid:RequestId>#{request_id}</mid:RequestId>
@@ -396,7 +394,7 @@ class Venda < ApplicationRecord
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',
-        'SOAPAction' => "#{url_xml_service}/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryTransaction",
+        'SOAPAction' => "http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryTransaction",
       },
       :body => body, timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
@@ -444,8 +442,6 @@ class Venda < ApplicationRecord
       user_id = parametro.user_id_movicel_producao
     end
 
-    url_xml_service = url_service.gsub(/https/, "http").gsub(/:.\d.*/, "")
-
     #producao
 
     #homologacao
@@ -460,11 +456,6 @@ class Venda < ApplicationRecord
     pass = `#{cripto}`
     Rails.logger.info "=========[cripto]========"
 
-    # cripto = `AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/mac/encripto`
-    # Rails.logger.info += "=========[cripto]========"
-    # pass = `#{cripto}`
-    # Rails.logger.info += "=========[cripto]========"
-
     pass = pass.strip
 
     request_send = ""
@@ -472,7 +463,7 @@ class Venda < ApplicationRecord
     last_request = ""
 
     body = "
-      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"#{url_xml_service}/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
         <soapenv:Header>
          <int:ValidateTopupReqHeader>
             <mid:RequestId>#{request_id}</mid:RequestId>
@@ -512,7 +503,7 @@ class Venda < ApplicationRecord
       request = HTTParty.post(uri, 
         headers: {
           'Content-Type' => 'text/xml;charset=UTF-8',
-          'SOAPAction' => "#{url_xml_service}/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup",
+          'SOAPAction' => "http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup",
         },
         timeout: DEFAULT_TIMEOUT.to_i.seconds,
         body: body
@@ -528,7 +519,7 @@ class Venda < ApplicationRecord
       if (200...300).include?(request.code.to_i) && request.body.include?("200</ReturnCode>")
 
         body = "
-          <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"#{url_xml_service}/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
+          <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
             <soapenv:Header>
                 <int:TopupReqHeader>
                   <mid:RequestId>#{request_id}</mid:RequestId>
@@ -566,7 +557,7 @@ class Venda < ApplicationRecord
           request = HTTParty.post(uri, 
             headers: {
               'Content-Type' => 'text/xml;charset=UTF-8',
-              'SOAPAction' => "#{url_xml_service}/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup",
+              'SOAPAction' => "http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup",
             },
             timeout: DEFAULT_TIMEOUT.to_i.seconds,
             body: body
@@ -627,7 +618,7 @@ class Venda < ApplicationRecord
           payload = {
             headers: {
               'Content-Type' => 'text/xml;charset=UTF-8',
-              'SOAPAction' => "#{url_xml_service}/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup",
+              'SOAPAction' => "http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/Topup",
             },
             timeout: DEFAULT_TIMEOUT.to_i.seconds,
             body: body
@@ -647,7 +638,7 @@ class Venda < ApplicationRecord
       payload = {
         headers: {
           'Content-Type' => 'text/xml;charset=UTF-8',
-          'SOAPAction' => "#{url_xml_service}/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup",
+          'SOAPAction' => "http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/ValidateTopup",
         },
         timeout: DEFAULT_TIMEOUT.to_i.seconds,
         body: body
