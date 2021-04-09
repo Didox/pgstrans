@@ -12,6 +12,15 @@ class LoginController < ApplicationController
         usuario = usuarios.first
         Usuario.where(id: usuario.id).update_all(logado: true)
         time = params[:remember].present? ? 1.year.from_now : 30.minutes.from_now
+
+        if usuario.senha_padrao?
+          require 'securerandom'
+          token = SecureRandom.uuid
+          TokenUsuarioSenha.where(usuario_id: usuario.id).destroy_all
+          TokenUsuarioSenha.create(usuario_id: usuario.id, token: token)
+          redirect_to "/alterar-senha?token=#{token}"
+          return
+        end
         
         cookies[:usuario_pgstrans_oauth_time] = { 
           value: time, 
@@ -31,6 +40,7 @@ class LoginController < ApplicationController
 
         UsuarioAcesso.create(usuario: usuario, mac_adress: request.ip)
         redirect_to root_path
+        
         return
       end
     end
@@ -134,7 +144,7 @@ class LoginController < ApplicationController
         nome: usuario.nome,
         email: usuario.email,
       }.to_json, 
-      expires: cookies[:usuario_pgstrans_oauth_time].to_time, 
+      expires: (cookies[:usuario_pgstrans_oauth_time].to_time rescue 30.minutes.from_now), 
       httponly: true 
     }
 

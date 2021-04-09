@@ -16,6 +16,8 @@ class Usuario < ApplicationRecord
   after_validation :senha_sha1
   before_validation :preenche_login, :senha_forte
 
+  SENHA_PADRAO = "pa3g5a1so14v!2@"
+
   def saldo
     ContaCorrente.where(usuario_id: self.id).order("data_ultima_atualizacao_saldo desc").first.saldo_atual
   rescue
@@ -166,6 +168,10 @@ class Usuario < ApplicationRecord
     Log.save_log("Exclusão de registro (#{self.class.to_s})", self.attributes)
   end
 
+  def senha_padrao?
+    Digest::SHA1.hexdigest(Usuario::SENHA_PADRAO) == self.senha
+  end
+
   private
     def verifica_tamanho_senha
       return if self.senha_hexdigest? && !self.new_record?
@@ -189,6 +195,10 @@ class Usuario < ApplicationRecord
     end
 
     def senha_forte
+      if self.new_record? && self.senha.blank?
+        self.senha = SENHA_PADRAO
+      end
+      
       return if self.senha_hexdigest? && !self.new_record?
 
       if self.senha.length < 6
