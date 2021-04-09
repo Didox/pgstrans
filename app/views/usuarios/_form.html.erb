@@ -57,7 +57,7 @@
   
         <div class="form-input col-sm-5">
           <%= f.label :sub_agente_id, :label => "Subagente" %>
-          <%= f.select :sub_agente_id, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <%= f.select :sub_agente_id, SubAgente.all.order("nome_fantasia asc").collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
         <div class="form-input col-sm-3">
