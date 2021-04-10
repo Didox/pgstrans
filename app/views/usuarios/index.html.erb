@@ -8,7 +8,7 @@
   <div class="col-md-12">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Nome do Usuário</label>
             <div>
@@ -32,7 +32,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>E-mail do Usuário</label>
             <div>
@@ -41,7 +41,91 @@
           </div>
         </div>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
-        <div class="col-sm-6">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label>Morada do Usuário</label>
+              <div>
+                <input type="text" name="morada" value="<%= params[:morada] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Bairro do Usuário</label>
+              <div>
+                <input type="text" name="bairro" value="<%= params[:bairro] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+          <div class="form-group">
+            <label>Telefone do Usuário</label>
+            <div>
+              <input type="text" name="telefone" value="<%= params[:telefone] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>WhatsApp do Usuário</label>
+            <div>
+              <input type="text" name="whatsapp" value="<%= params[:whatsapp] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Perfil do Usuário</label>
+            <div>
+              <select name="perfil_usuario_id" onchange="pgstrans.carregaPerfilUsuario(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% PerfilUsuario.all.reorder(nome: :asc).each do |perfil_usuario| %>
+                  <option value="<%= perfil_usuario.id %>" <% if perfil_usuario.id.to_s == params[:perfil_usuario_id] %> selected="selected" <% end %> ><%= perfil_usuario.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Situação do Usuário</label>
+            <div>
+              <select name="status_cliente_id" onchange="pgstrans.carregaStatusCliente(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% StatusCliente.all.reorder(nome: :asc).each do |status_cliente| %>
+                  <option value="<%= status_cliente.id %>" <% if status_cliente.id.to_s == params[:status_cliente_id].to_s %> selected="selected" <% end %> ><%= status_cliente.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>        
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Município do Usuário</label>
+            <div>
+              <select name="municipio_id" onchange="pgstrans.carregaMunicipio(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Municipio.all.reorder(nome: :asc).each do |municipio| %>
+                  <option value="<%= municipio.id %>" <% if municipio.id.to_s == params[:municipio_id] %> selected="selected" <% end %> ><%= municipio.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Província do Usuário</label>
+            <div>
+              <select name="provincia_id" onchange="pgstrans.carregaProvincia(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Provincium.all.reorder(nome: :asc).each do |provincia| %>
+                  <option value="<%= provincia.id %>" <% if provincia.id.to_s == params[:provincia_id] %> selected="selected" <% end %> ><%= provincia.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Grupo do Usuário</label>
             <div>
@@ -58,8 +142,8 @@
             </div>
           </div>
         </div>
-        <% end %>
-        <% if usuario_logado.admin? || usuario_logado.operador? %>
+      <% end %>
+      <% if usuario_logado.admin? || usuario_logado.operador? %>
         <div class="col-sm-2">
           <div class="form-group">
             <label>Administrador</label>
@@ -96,20 +180,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Perfil do Usuário</label>
-            <div>
-              <select name="perfil_usuario_id" onchange="pgstrans.carregaPerfilUsuario(this)" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% PerfilUsuario.all.reorder(nome: :asc).each do |perfil_usuario| %>
-                  <option value="<%= perfil_usuario.id %>" <% if perfil_usuario.id.to_s == params[:perfil_usuario_id] %> selected="selected" <% end %> ><%= perfil_usuario.nome %></option>
-                <% end %>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Subagente</label>
             <div>
@@ -122,27 +193,40 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="form-group">
-            <label>Status</label>
+            <label>Data de Adesão</label>
             <div>
-              <select name="status_cliente_id" onchange="pgstrans.carregaStatusCliente(this)" class="form-control">
+              <input type="date" name="data_adesao" value="<%= params[:data_adesao] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Tipo de Estabelecimento</label>
+            <div>
+              <select name="uni_pessoal_empresa_id" onchange="pgstrans.carregaUnipessoal_Empresa(this)" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
-                <% StatusCliente.all.reorder(nome: :asc).each do |status_cliente| %>
-                  <option value="<%= status_cliente.id %>" <% if status_cliente.id.to_s == params[:status_cliente_id].to_s %> selected="selected" <% end %> ><%= status_cliente.nome %></option>
+                <% UniPessoalEmpresa.all.reorder(nome: :asc).each do |uni_pessoal_empresa| %>
+                  <option value="<%= uni_pessoal_empresa.id %>" <% if uni_pessoal_empresa.id.to_s == params[:uni_pessoal_empresa_id] %> selected="selected" <% end %> ><%= uni_pessoal_empresa.nome %></option>
                 <% end %>
               </select>
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
-        <div class="form-group">
-          <label>Data de Adesão</label>
-          <div>
-            <input type="date" name="data_adesao" value="<%= params[:data_adesao] %>" class="form-control">
+        <div class="col-sm-8">
+          <div class="form-group">
+            <label>Grupo de Actividade Económica </label>
+            <div>
+              <select name="industry_id" onchange="pgstrans.carregaIndustry(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Industry.all.reorder(descricao_grupo: :asc).each do |industry| %>
+                  <option value="<%= industry.id %>" <% if industry.id.to_s == params[:industry_id] %> selected="selected" <% end %> ><%= industry.descricao_grupo %></option>
+                <% end %>
+              </select>
+            </div>
           </div>
         </div>
-      </div>
       <% end %>
       </div>
       <div class="form-group">
@@ -159,7 +243,6 @@
         </div>
     </form>
   </div>
-
   <div class="col-md-12 scroltable">
     <h4>
       Quantidade de usuários: <strong><%= number_to_currency(@usuarios_total, :precision => 0, :unit => "") %></strong>
@@ -194,7 +277,7 @@
               Login: <%= usuario.login %><br>
               Nome: <%= usuario.nome %><br>
               E-mail: <%= usuario.email %><br>
-              Status: <%= usuario.status_cliente.nome rescue "" %>
+              Situação: <%= usuario.status_cliente.nome rescue "" %>
               - Telefone: <%= usuario.telefone %><br>
               <% if usuario_logado.admin? || usuario_logado.operador? %>
                 Perfil do usuário: <a href="/perfil_usuarios/<%= usuario.perfil_usuario_id %>" target="_blank"><%= usuario.perfil_usuario.nome %></a><br>

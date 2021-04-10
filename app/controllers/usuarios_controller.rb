@@ -12,9 +12,17 @@ class UsuariosController < ApplicationController
     @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
     @usuarios = @usuarios.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
     @usuarios = @usuarios.where("usuarios.email ilike '%#{params[:email]}%'") if params[:email].present?
+    @usuarios = @usuarios.where("usuarios.morada ilike '%#{params[:morada]}%'") if params[:morada].present?
+    @usuarios = @usuarios.where("usuarios.bairro ilike '%#{params[:bairro]}%'") if params[:bairro].present?
+    @usuarios = @usuarios.where("usuarios.telefone ilike '%#{params[:telefone]}%'") if params[:telefone].present?
+    @usuarios = @usuarios.where("usuarios.whatsapp ilike '%#{params[:whatsapp]}%'") if params[:whatsapp].present?
     @usuarios = @usuarios.where("perfil_usuarios.admin = ?", params[:perfil_admin]) if params[:perfil_admin].present?
     @usuarios = @usuarios.where("perfil_usuarios.operador = ?", params[:perfil_operador]) if params[:perfil_operador].present?
     @usuarios = @usuarios.where("perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
+    @usuarios = @usuarios.where("municipio_id = ?", params[:municipio_id]) if params[:municipio_id].present?
+    @usuarios = @usuarios.where("provincia_id = ?", params[:provincia_id]) if params[:provincia_id].present?
+    @usuarios = @usuarios.where("uni_pessoal_empresa_id = ?", params[:uni_pessoal_empresa_id]) if params[:uni_pessoal_empresa_id].present?
+    @usuarios = @usuarios.where("industry_id = ?", params[:industry_id]) if params[:industry_id].present?
     @usuarios = @usuarios.where("usuarios.id = ?", params[:id_interno]) if params[:id_interno].present?
 
     params[:status_cliente_id] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status_cliente_id)
