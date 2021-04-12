@@ -9,23 +9,27 @@
   <div class="col-md-12" style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>ID da Venda</label>
+              <div>
+                <input type="text" name="venda_id" value="<%= params[:venda_id] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-10">
+            <div class="form-group">
+              <label>Log transação Ex: (Request_ID, saleTimestamp)</label>
+              <div>
+                <input type="text" name="log" value="<%= params[:log] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        <% end %>
         <div class="col-sm-2">
-          <div class="form-group">
-            <label>ID da Venda</label>
-            <div>
-              <input type="text" name="venda_id" value="<%= params[:venda_id] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-10">
-          <div class="form-group">
-            <label>Log transação Ex: (Request_ID, saleTimestamp)</label>
-            <div>
-              <input type="text" name="log" value="<%= params[:log] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
           <div class="form-group">
             <label>Status da Venda</label>
             <div>
@@ -43,7 +47,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Data Inicial</label>
             <div>
@@ -51,7 +55,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Data Final</label>
             <div>
@@ -59,7 +63,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Usuário</label>
             <div>
@@ -67,14 +71,16 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>ID Interno do Usuário</label>
-            <div>
-              <input type="text" name="id_interno" value="<%= params[:id_interno] %>" class="form-control">
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>ID Interno do Usuário</label>
+              <div>
+                <input type="text" name="id_interno" value="<%= params[:id_interno] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
         <div class="col-sm-2">
           <div class="form-group">
             <label>Login do Usuário</label>
@@ -83,20 +89,22 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Status do Usuário</label>
-            <div>
-              <select name="status" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% StatusCliente.all.each do |status| %>
-                  <option value="<%= status.id %>" <% if params[:status].to_s == status.id.to_s %> selected="selected" <% end %>><%= status.nome %></option>
-                <% end %>
-              </select>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Status do Usuário</label>
+              <div>
+                <select name="status" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% StatusCliente.all.each do |status| %>
+                    <option value="<%= status.id %>" <% if params[:status].to_s == status.id.to_s %> selected="selected" <% end %>><%= status.nome %></option>
+                  <% end %>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-3">
+        <% end %>
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Parceiro</label>
             <div>
@@ -109,68 +117,82 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Status Parceiro</label>
-            <div>
-              <select name="status_parceiro_id" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% StatusParceiro.all.reorder(nome: :asc).each do |status_parceiro| %>
-                  <option value="<%= status_parceiro.id %>" <% if status_parceiro.id.to_s == params[:status_parceiro_id] %> selected="selected" <% end %> ><%= status_parceiro.nome %></option>
-                <% end %>
-              </select>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Status Parceiro</label>
+              <div>
+                <select name="status_parceiro_id" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% StatusParceiro.all.reorder(nome: :asc).each do |status_parceiro| %>
+                    <option value="<%= status_parceiro.id %>" <% if status_parceiro.id.to_s == params[:status_parceiro_id] %> selected="selected" <% end %> ><%= status_parceiro.nome %></option>
+                  <% end %>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Código Produto Pagasó</label>
+              <div>
+                <input type="text" name="produto_id" value="<%= params[:produto_id] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Código Produto Parceiro</label>
+              <div>
+                <input type="text" name="produto_id_parceiro" value="<%= params[:produto_id_parceiro] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Agente</label>
+              <div>
+                <input type="text" name="agente" value="<%= params[:agente] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Store</label>
+              <div>
+                <input type="text" name="store" value="<%= params[:store] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Seller</label>
+              <div>
+                <input type="text" name="seller" value="<%= params[:seller] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Valor KZ</label>
+              <div>
+                <input type="text" name="valor" value="<%= params[:valor] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        <% end %>
         <div class="col-sm-2">
-          <div class="form-group">
-            <label>Código Produto Pagasó</label>
-            <div>
-              <input type="text" name="produto_id" value="<%= params[:produto_id] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Código Produto Parceiro</label>
-            <div>
-              <input type="text" name="produto_id_parceiro" value="<%= params[:produto_id_parceiro] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Agente</label>
-            <div>
-              <input type="text" name="agente" value="<%= params[:agente] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Store</label>
-            <div>
-              <input type="text" name="store" value="<%= params[:store] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Seller</label>
-            <div>
-              <input type="text" name="seller" value="<%= params[:seller] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Valor KZ</label>
-            <div>
-              <input type="text" name="valor" value="<%= params[:valor] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
           <div class="form-group">
             <label>Customer Number/MSIDN</label>
             <div>

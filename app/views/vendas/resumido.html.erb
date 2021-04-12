@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Usuário</label>
             <div>
@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Status da Venda</label>
             <div>
@@ -49,7 +49,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Parceiro</label>
             <div>
@@ -62,7 +62,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Status Parceiro</label>
             <div>
@@ -75,70 +75,86 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>ID da Venda</label>
-            <div>
-              <input type="text" name="venda_id" value="<%= params[:venda_id] %>" class="form-control">
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label>ID da Venda</label>
+              <div>
+                <input type="text" name="venda_id" value="<%= params[:venda_id] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Código Produto Pagasó</label>
-            <div>
-              <input type="text" name="produto_id" value="<%= params[:produto_id] %>" class="form-control">
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label>Código Produto Pagasó</label>
+              <div>
+                <input type="text" name="produto_id" value="<%= params[:produto_id] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Código Produto Parceiro</label>
-            <div>
-              <input type="text" name="produto_id_parceiro" value="<%= params[:produto_id_parceiro] %>" class="form-control">
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Código Produto Parceiro</label>
+              <div>
+                <input type="text" name="produto_id_parceiro" value="<%= params[:produto_id_parceiro] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Agente</label>
-            <div>
-              <input type="text" name="agente" value="<%= params[:agente] %>" class="form-control">
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Agente</label>
+              <div>
+                <input type="text" name="agente" value="<%= params[:agente] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Store/Loja</label>
-            <div>
-              <input type="text" name="store" value="<%= params[:store] %>" class="form-control">
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Store/Loja</label>
+              <div>
+                <input type="text" name="store" value="<%= params[:store] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Seller/Vendedor</label>
-            <div>
-              <input type="text" name="seller" value="<%= params[:seller] %>" class="form-control">
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Seller/Vendedor</label>
+              <div>
+                <input type="text" name="seller" value="<%= params[:seller] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Valor KZ maior que</label>
-            <div>
-              <input type="text" name="valor" value="<%= params[:valor] %>" class="form-control">
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Valor KZ maior que</label>
+              <div>
+                <input type="text" name="valor" value="<%= params[:valor] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Customer Number/MSISDN</label>
-            <div>
-              <input type="text" name="client_msisdn" value="<%= params[:client_msisdn] %>" class="form-control">
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Customer Number/MSISDN</label>
+              <div>
+                <input type="text" name="client_msisdn" value="<%= params[:client_msisdn] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
