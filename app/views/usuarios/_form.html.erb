@@ -40,7 +40,7 @@
           <%= f.label :senha, "Palavra-passe" %>
           <%= f.password_field :senha, class: "form-control", disabled: @usuario.new_record? %>
           <% if @usuario.new_record? %>
-            A palavra-passe será definina pelo usuário no primeiro acesso
+            Palavra-passe padrão "<%= Usuario::SENHA_PADRAO %>", a mesma será redefinina pelo usuário no primeiro acesso
           <% end %>
         </div>
 

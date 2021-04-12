@@ -18,12 +18,12 @@ Rails.application.routes.draw do
   resources :log_vendas
   resources :sequencial_dstvs
   get 'dstv/validacao-cliente', to: 'dstv#validacao_cliente'
-  get 'dstv/consulta-fatura', to: 'dstv#consulta_fatura'
+  # get 'dstv/consulta-fatura', to: 'dstv#consulta_fatura'
   get 'dstv/pagar-fatura', to: 'dstv#pagar_fatura'
   get 'dstv/alteracao-pacote', to: 'dstv#alteracao_pacote'
   get 'dstv/alteracao-cliente-produtos', to: 'dstv#alteracao_cliente_produtos'
   get 'dstv/alteracao-cliente-produtos/upgrade-downgrade', to: 'dstv#alteracao_pacote_fazer'
-  get 'dstv/alteracao-plano-mensal-anual', to: 'dstv#alteracao_plano_mensal_anual'
+  # get 'dstv/alteracao-plano-mensal-anual', to: 'dstv#alteracao_plano_mensal_anual'
   get 'dstv/alteracao-plano-mensal-anual/alterar', to: 'dstv#alteracao_plano_mensal_anual_efetivar'
 
   get '/controle-acessos/:modelo/:modelo_id/grupos', to: 'grupos#controle_acessos_modelo'
