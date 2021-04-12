@@ -110,6 +110,7 @@ Rails.application.routes.draw do
   post 'alterar-senha', to: 'login#mudar_senha'
   get 'password-esquecida', to: 'login#password_esquecida'
   post 'password-esquecida', to: 'login#recuperar_password_esquecida'
+  get 'primeiro-acesso', to: 'login#primeiro_acesso'
   
   resources :return_code_apis
   resources :matrix_users
