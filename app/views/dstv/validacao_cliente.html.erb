@@ -17,11 +17,11 @@
               <div class="col-md-12">
                 <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
                   <h3>Informe o</h3>
-                  <div style="margin-left: 4%;">Smartcard/Device Number</div>
-                  <input type="text" class="form-control" value="<%= params[:smartcard] %>" name="smartcard" placeholder="Smartcard/Device Number" style="margin-left: 4%;max-width: 300px;">
+                  <div style="margin-left: 4%;">Número do Dispositivo</div>
+                  <input type="text" class="form-control" value="<%= params[:smartcard] %>" name="smartcard" placeholder="Device Number" style="margin-left: 4%;max-width: 300px;">
                   <h3>ou</h3>
-                  <div style="margin-left: 4%;">Número do cliente/Customer Number</div>
-                  <input type="text" class="form-control" value="<%= params[:customer_number] %>" name="customer_number" placeholder="Número do cliente/Customer Number" style="margin-left: 4%;max-width: 300px;">
+                  <div style="margin-left: 4%;">Número do Cliente</div>
+                  <input type="text" class="form-control" value="<%= params[:customer_number] %>" name="customer_number" placeholder="Customer Number" style="margin-left: 4%;max-width: 300px;">
                 </div>
                 <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: right;">
                   <div style="display: inline-block;margin-bottom: 10px;">
@@ -41,13 +41,13 @@
           <div class="col-md-12">
             <div style="margin-bottom:20px;border-bottom: 1px solid #ccc;">
               <% if params[:smartcard].present? %>
-                <div style="font-weight: bold;font-size: 18px;"> Device Number: <%= params[:smartcard] %> </div>
+                <div style="font-weight: bold;font-size: 18px;"> Número do Dispositivo: <%= params[:smartcard] %> </div>
               <% else %>
-                <div style="font-weight: bold;font-size: 18px;"> Customer Number: <%= params[:customer_number] %> </div>
+                <div style="font-weight: bold;font-size: 18px;"> Número do Cliente: <%= params[:customer_number] %> </div>
               <% end %>
               <% traduz = {"number" => "Customer Number"} %>
             </div>
-            <div style="font-weight: bold;font-size: 18px;"> Customer Detail </div>
+            <div style="font-weight: bold;font-size: 18px;"> Detalhes do Cliente </div>
             <div>
               <ul>
                 <% @info[:customer_detail].each do |key, val| %>
@@ -62,7 +62,7 @@
           </div>
 
           <div class="col-md-12">
-            <div style="font-weight: bold;font-size: 18px;">Accounts</div>
+            <div style="font-weight: bold;font-size: 18px;">Detalhes da Conta</div>
             <% @info[:accounts].each do |account| %>
               <div>
                 <ul>
