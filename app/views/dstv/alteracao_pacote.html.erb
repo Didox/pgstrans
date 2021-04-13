@@ -19,7 +19,7 @@
           <script>
             var validaInformacoesConsulta = function(form) {
               var validado = true
-              $(form).find("input").each(function() {
+              $(form).find("input.requerido").each(function() {
                 $(this).val($(this).val().trim())
                 $(this).removeClass("obrigatorio")
                 $(this).attr("placeholder", "")
@@ -40,7 +40,7 @@
               <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
                 <h3>Informe </h3>
                 <div style="margin-left: 4%;">Número do Dispositivo</div>
-                <input type="text" class="form-control" value="" name="smartcard" placeholder="Device Number" style="margin-left: 4%;max-width: 300px;">
+                <input type="text" class="form-control requerido" value="" name="smartcard" placeholder="Device Number" style="margin-left: 4%;max-width: 300px;">
                 <br>
                 <div style="margin-left: 4%;">Número do Cliente</div>
                 <input type="text" class="form-control" value="" name="customer_number" placeholder="Customer Number" style="margin-left: 4%;max-width: 300px;">

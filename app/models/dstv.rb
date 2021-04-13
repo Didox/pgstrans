@@ -1,40 +1,26 @@
 class Dstv
   require 'openssl'
 
-  TRADUCAO_DADOS = {
-    "DateOfBirh" => "Date Of Birh",
-    "MgIndicator" => "Mg Indicator",
-    "cellNumber" => "Número do Celular",
-    "correspondence" => "Correspondência",
-    "faxNumber" => "Número do Fax",
-    "initials" => "Iniciais",
-    "language" => "Idioma",
-    "Customer Number" => "Número do Cliente",
-    "salutation" => "Salutation",
-    "status" => "Status",
+  TRADUCAO_DADOS_CLIENTE = {
+    "initials" => "Primeiro Nome",
     "surname" => "Sobrenome",
-    "type" => "Tipo",
-    "typeName" => "Descrição do Tipo",
-    "afterDue121To150" => "After Due 121 To 150",
-    "afterDue151To180" => "After Due 151 To 180",
-    "afterDue180UpField" => "After Due 180 Up Field",
-    "afterDue1To30Field" => "After Due 1 To 30 Field",
-    "afterDue31To60Field" => "After Due 31 To 60 Field",
-    "afterDue61To90Field" => "After Due 61 To 90 Field",
-    "afterDue91To120Field" => "After Due 91 To 120 Field",
+    "cellNumber" => "Número do Celular",
+    "emailAddress" => "Email",
+    "language" => "Idioma",
+    "number" => "Número do Cliente",
+    "status" => "Status",
+  }
+
+  TRADUCAO_DADOS_CONTAS = {
     "currency" => "Moeda",
     "currentAmount" => "Quantidade Atual",
     "defaultCurrencytotalBalance" => "Saldo Total na Moeda Padrão",
-    "defaultCuurencyCode" => "Código da Moeda Padrão",
     "invoicePeriod" => "Período da Fatura",
-    "isPrimary" => "É Primário?",
     "lastInvoiceAmount" => "Valor da Última Fatura",
     "lastInvoiceDate" => "Última Data da Fatura",
-    "methodOfPayment" => "Método de Pagamento",
-    "number" => "Número",
     "paymentDueDate" => "Data de Vencimento",
-    "segmentation" => "Segmentação",
     "totalBalance" => "Saldo Total",
+    "type" => "Tipo",
   }
 
   def self.produtos
@@ -59,6 +45,7 @@ class Dstv
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language,customer_number_default = parametros
     customer_number = customer_number || customer_number_default
     partner = Partner.where(slug: "DSTv").first
+    customer_number = 0 if customer_number.blank?
    
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\">
