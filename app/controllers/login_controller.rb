@@ -87,7 +87,7 @@ class LoginController < ApplicationController
 
     usuario = Usuario.where(email: params[:email], status_cliente_id: StatusCliente.where("lower(nome) = 'ativo'")).first
     if usuario.present?
-      flash[:notice] = "Encaminhado e-mail para redefinição de palavra-passe. Caso não o encontre, verifique caixa de spam ou repita a operação"
+      flash[:notice] = "Encaminhado e-mail para (re)definição de palavra-passe. Caso não o encontre, verifique caixa de spam ou repita a operação"
       UsuarioMailer.recupera_senha(usuario).deliver
       redirect_to login_path
     else
