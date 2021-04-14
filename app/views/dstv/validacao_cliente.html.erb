@@ -47,7 +47,7 @@
                 <% end %>
             </div>
             
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div style="font-weight: bold;font-size: 15px;"> DADOS DO CLIENTE</div>
                 <div>
                   <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
@@ -75,7 +75,7 @@
               </div>
 
               <div class="col-md-6">
-                <div style="font-weight: bold;font-size: 15px;"><br>DADOS DA CONTA</div>
+                <div style="font-weight: bold;font-size: 15px;">DADOS DA CONTA</div>
                   <% @info[:accounts].each do |account| %>
                     <div>
                       <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
@@ -109,8 +109,11 @@
           <br>
           <br>
 
-          <div style="display: inline-block;margin-bottom: 10px;">
-            <%= link_to root_path, class: 'btn btn-danger', style: "width: 150px; text-align: center;" do %>
+          <a href="/dstv/alteracao-pacote" class="btn btn-success" style="width:33%">Alteração de pacotes para um ou múltiplos produtos</a>
+          <a href="/?recarga=DSTv" class="btn btn-warning" style="width:33%">Recarga com valores pré-fixados</a>
+
+          <div style="display: inline-block;margin-bottom: 10px;width: 33%;">
+            <%= link_to root_path, class: 'btn btn-danger', style: "width: 100%;text-align: center;" do %>
               <span class="glyphicon glyphicon-list-alt"></span>
               Voltar
             <% end %>
@@ -119,6 +122,5 @@
         <% end %>
       </div>
     </div>
-
   </div>
 </div>

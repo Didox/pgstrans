@@ -166,5 +166,15 @@
         pgstrans.displayRecarga('<%= @partner_default.slug %>')
       </script>
     <% end %>
+
+    <% if params[:recarga].present? %>
+      <script type="text/javascript">
+        pgstrans.displayRecarga('<%= params[:recarga] %>')
+        
+        <% if params[:recarga] == "DSTv" %>
+          pgstrans.displayRecargaDstv()
+        <% end %>
+      </script>
+    <% end %>
   </div>
 </div>
