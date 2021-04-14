@@ -40,66 +40,68 @@
         <% else %>
           <div class="col-md-12">
             <div style="margin-bottom:20px;border-bottom: 1px solid #ccc;">
-              <% if params[:smartcard].present? %>
-                <div style="font-weight: bold;font-size: 18px;"> Número do Dispositivo: <%= params[:smartcard] %> </div>
-              <% else %>
-                <div style="font-weight: bold;font-size: 18px;"> Número do Cliente: <%= params[:customer_number] %> </div>
-              <% end %>
+                <% if params[:smartcard].present? %>
+                  <div style="font-weight: bold;font-size: 15px;"> Número do Dispositivo: <%= params[:smartcard] %> </div>
+                <% else %>
+                  <div style="font-weight: bold;font-size: 15px;"> Número do Cliente: <%= params[:customer_number] %> </div>
+                <% end %>
             </div>
             
-            <div class="col-md-6">
-              <div style="font-weight: bold;font-size: 18px;"> DADOS DO CLIENTE</div>
-              <div>
-                <ul>
-                  <%
-                  dados_cliente = {}
-                  Dstv::TRADUCAO_DADOS_CLIENTE.each do |k, v|
-                    @info[:customer_detail].each do |key, val|
-                      if key == k
-                        key_translate = Dstv::TRADUCAO_DADOS_CLIENTE[key]
-                        if val.present? && key_translate.present?
-                          dados_cliente[key_translate] = val
-                        end
-                      end
-                    end
-                  end
-                  %>
-
-                  <% dados_cliente.each do |key, val| %>
-                    <li style="margin-bottom: 10px">
-                      <b><%= key %></b>: <%= val %>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div style="font-weight: bold;font-size: 18px;">DADOS DA CONTA</div>
-              <% @info[:accounts].each do |account| %>
+            <div class="col-md-12">
+              <div style="font-weight: bold;font-size: 15px;"> DADOS DO CLIENTE</div>
                 <div>
-                  <ul>
+                  <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
                     <%
-                    dados_conta = {}
-                    Dstv::TRADUCAO_DADOS_CONTAS.each do |k, v|
-                      account.each do |key, val|
+                    dados_cliente = {}
+                    Dstv::TRADUCAO_DADOS_CLIENTE.each do |k, v|
+                      @info[:customer_detail].each do |key, val|
                         if key == k
-                          key_translate = Dstv::TRADUCAO_DADOS_CONTAS[key]
+                          key_translate = Dstv::TRADUCAO_DADOS_CLIENTE[key]
                           if val.present? && key_translate.present?
-                            dados_conta[key_translate] = val
+                            dados_cliente[key_translate] = val
                           end
                         end
                       end
                     end
                     %>
-                    <% dados_conta.each do |key, val| %>
+
+                    <% dados_cliente.each do |key, val| %>
                       <li style="margin-bottom: 10px">
                         <b><%= key %></b>: <%= val %>
                       </li>
                     <% end %>
                   </ul>
                 </div>
-              <% end %>
+              </div>
+
+              <div class="col-md-6">
+                <div style="font-weight: bold;font-size: 15px;"><br>DADOS DA CONTA</div>
+                  <% @info[:accounts].each do |account| %>
+                    <div>
+                      <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+                        <%
+                        dados_conta = {}
+                        Dstv::TRADUCAO_DADOS_CONTAS.each do |k, v|
+                          account.each do |key, val|
+                            if key == k
+                              key_translate = Dstv::TRADUCAO_DADOS_CONTAS[key]
+                              if val.present? && key_translate.present?
+                                dados_conta[key_translate] = val
+                              end
+                            end
+                          end
+                        end
+                        %>
+                        <% dados_conta.each do |key, val| %>
+                          <li style="margin-bottom: 10px">
+                            <b><%= key %></b>: <%= val %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
             </div>
           </div>
 
