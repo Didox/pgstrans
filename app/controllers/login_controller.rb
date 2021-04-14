@@ -5,48 +5,53 @@ class LoginController < ApplicationController
 
   def index;end
   def autentica
-    if params[:email].present? && params[:senha].present?
-      senha = Digest::SHA1.hexdigest(params[:senha])
-      usuarios = Usuario.ativo.where("email = ? or login = ?", params[:email], params[:email]).where(senha: senha, status_cliente_id: StatusCliente.where("lower(nome) = 'ativo'"))
-      if usuarios.count > 0
-        usuario = usuarios.first
-        Usuario.where(id: usuario.id).update_all(logado: true)
-        time = params[:remember].present? ? 1.year.from_now : 30.minutes.from_now
+    if verify_recaptcha
+      if params[:email].present? && params[:senha].present?
+        senha = Digest::SHA1.hexdigest(params[:senha])
+        usuarios = Usuario.ativo.where("email = ? or login = ?", params[:email], params[:email]).where(senha: senha, status_cliente_id: StatusCliente.where("lower(nome) = 'ativo'"))
+        if usuarios.count > 0
+          usuario = usuarios.first
+          Usuario.where(id: usuario.id).update_all(logado: true)
+          time = params[:remember].present? ? 1.year.from_now : 30.minutes.from_now
 
-        if usuario.senha_padrao?
-          require 'securerandom'
-          token = SecureRandom.uuid
-          TokenUsuarioSenha.where(usuario_id: usuario.id).destroy_all
-          TokenUsuarioSenha.create(usuario_id: usuario.id, token: token)
-          redirect_to "/alterar-senha?token=#{token}"
+          if usuario.senha_padrao?
+            require 'securerandom'
+            token = SecureRandom.uuid
+            TokenUsuarioSenha.where(usuario_id: usuario.id).destroy_all
+            TokenUsuarioSenha.create(usuario_id: usuario.id, token: token)
+            redirect_to "/alterar-senha?token=#{token}"
+            return
+          end
+          
+          cookies[:usuario_pgstrans_oauth_time] = { 
+            value: time, 
+            expires: time, 
+            httponly: true 
+          }
+
+          cookies[:usuario_pgstrans_oauth] = { 
+            value: {
+              id: usuario.id,
+              nome: usuario.nome,
+              email: usuario.email,
+            }.to_json, 
+            expires: time, 
+            httponly: true 
+          }
+
+          UsuarioAcesso.create(usuario: usuario, mac_adress: request.ip)
+          redirect_to root_path
+          
           return
         end
-        
-        cookies[:usuario_pgstrans_oauth_time] = { 
-          value: time, 
-          expires: time, 
-          httponly: true 
-        }
-
-        cookies[:usuario_pgstrans_oauth] = { 
-          value: {
-            id: usuario.id,
-            nome: usuario.nome,
-            email: usuario.email,
-          }.to_json, 
-          expires: time, 
-          httponly: true 
-        }
-
-        UsuarioAcesso.create(usuario: usuario, mac_adress: request.ip)
-        redirect_to root_path
-        
-        return
       end
-    end
 
-    flash[:error] = "E-mail ou palavra-passe inválidos"
-    redirect_to login_path
+      flash[:error] = "E-mail ou palavra-passe inválidos"
+      redirect_to login_path
+    else
+      flash[:error] = "Clique na opção \"Não sou um robô\" (Captcha inválido)"
+      redirect_to login_path
+    end
   end
 
   def logout
