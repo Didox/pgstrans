@@ -346,7 +346,6 @@ class Dstv
   def self.alterar_pacote(customer_number, smartcard, produtos, ip, usuario_logado)
     raise "Selecione pelo menos um produto" if produtos.blank?
     raise "Customer number não pode ser vazio" if customer_number.blank?
-    raise "Smartcard não pode ser vazio" if smartcard.blank?
 
     customer_number = customer_number.strip
     smartcard = smartcard.strip

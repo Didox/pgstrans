@@ -19,17 +19,38 @@
           <script>
             var validaInformacoesConsulta = function(form) {
               var validado = true
-              $(form).find("input.requerido").each(function() {
-                $(this).val($(this).val().trim())
-                $(this).removeClass("obrigatorio")
-                $(this).attr("placeholder", "")
+              if( $(form).find("input.requerido").length > 0 ){
+                $(form).find("input.requerido").each(function() {
+                  $(this).val($(this).val().trim())
+                  $(this).removeClass("obrigatorio")
+                  $(this).attr("placeholder", "")
 
-                if($(this).val() == ""){
-                  $(this).addClass("obrigatorio")
-                  $(this).attr("placeholder", "Campo obrigatório")
-                  validado = false
-                }
-              })
+                  if($(this).val() == ""){
+                    $(this).addClass("obrigatorio")
+                    $(this).attr("placeholder", "Campo obrigatório")
+                    validado = false
+                  }
+                })
+              }
+              else if( $(form).find("input.opcional").length > 0 ){
+                validado = false
+                $(form).find("input.opcional").each(function() {
+                  $(this).val($(this).val().trim())
+                  $(this).removeClass("obrigatorio")
+                  $(this).attr("placeholder", "")
+
+                  if($(this).val() != ""){
+                    validado = true
+                    return
+                  }
+                })
+              }
+
+              if(!validado){
+                var item = $($(form).find("input.opcional").get(1))
+                item.addClass("obrigatorio")
+                item.attr("placeholder", "Campo obrigatório")
+              }
 
               return validado
             }
@@ -39,11 +60,8 @@
             <div class="col-md-12">
               <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
                 <h3>Informe </h3>
-                <div style="margin-left: 4%;">Número do Dispositivo</div>
-                <input type="text" class="form-control requerido" value="" name="smartcard" placeholder="Device Number" style="margin-left: 4%;max-width: 300px;">
-                <br>
                 <div style="margin-left: 4%;">Número do Cliente</div>
-                <input type="text" class="form-control" value="" name="customer_number" placeholder="Customer Number" style="margin-left: 4%;max-width: 300px;">
+                <input type="text" class="form-control requerido" value="" name="customer_number" placeholder="Customer Number" style="margin-left: 4%;max-width: 300px;">
               </div>
               <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: right;">
                 <div style="display: inline-block;margin-bottom: 10px;">
