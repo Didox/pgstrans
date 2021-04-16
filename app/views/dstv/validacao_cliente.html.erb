@@ -53,12 +53,14 @@
                   <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
                     <%
                     dados_cliente = {}
+                    customer_number = 0
                     Dstv::TRADUCAO_DADOS_CLIENTE.each do |k, v|
                       @info[:customer_detail].each do |key, val|
                         if key == k
                           key_translate = Dstv::TRADUCAO_DADOS_CLIENTE[key]
                           if val.present? && key_translate.present?
                             dados_cliente[key_translate] = val
+                            customer_number = val if key == "number"
                           end
                         end
                       end
@@ -109,7 +111,7 @@
           <br>
           <br>
 
-          <a href="/dstv/alteracao-cliente-produtos?customer_number=<%= params[:customer_number] %>" class="btn btn-success" style="width:100%;margin-bottom: 5px;white-space: break-spaces;">Alteração de pacotes para um ou múltiplos produtos</a>
+          <a href="/dstv/alteracao-cliente-produtos?customer_number=<%= customer_number %>" class="btn btn-success" style="width:100%;margin-bottom: 5px;white-space: break-spaces;">Alteração de pacotes para um ou múltiplos produtos</a>
           <a href="/?recarga=DSTv&displayrecarga=ok" class="btn btn-warning" style="width:100%;margin-bottom: 5px;">Recarga com valores pré-fixados</a>
 
           <div style="display: inline-block;margin-bottom: 10px;width: 100%;margin-bottom: 5px;">
