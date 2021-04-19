@@ -5,7 +5,7 @@ class LoginController < ApplicationController
 
   def index;end
   def autentica
-    if verify_recaptcha
+    #if verify_recaptcha
       if params[:email].present? && params[:senha].present?
         senha = Digest::SHA1.hexdigest(params[:senha])
         usuarios = Usuario.ativo.where("email = ? or login = ?", params[:email], params[:email]).where(senha: senha, status_cliente_id: StatusCliente.where("lower(nome) = 'ativo'"))
@@ -48,10 +48,10 @@ class LoginController < ApplicationController
 
       flash[:error] = "E-mail ou palavra-passe inválidos"
       redirect_to login_path
-    else
-      flash[:error] = "Clique na opção \"Não sou um robô\" (Captcha inválido)"
-      redirect_to login_path
-    end
+    #else
+    #  flash[:error] = "Clique na opção \"Não sou um robô\" (Captcha inválido)"
+    #  redirect_to login_path
+    #end
   end
 
   def logout
