@@ -3,7 +3,7 @@
     <%= link_to partner_importa_produtos_path(@partner), 
     class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
       Atualizar portfólio de produtos
-    <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
+    <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
     <hr>
     <%= link_to partner_atualiza_saldo_path(@partner), 
     class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
@@ -11,7 +11,7 @@
     <% end %>
     <% saldo = SaldoParceiroDstv.where(partner: @partner.id).first 
     if saldo.present? && saldo.agent_first_name.present? %>
-      <%= " - Última atualização em: #{saldo.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
+      <%= " - Última atualização em: #{saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
       <hr>
       <style>
         .saldo-table-dstv{
@@ -90,7 +90,7 @@
             Data e Hora da Consulta
           </td>
           <td>
-            <%= saldo.updated_at.strftime("%d/%m/%Y %H:%M") %>
+            <%= saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S") %>
           </td>
         </tr>
       </table>

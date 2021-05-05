@@ -24,7 +24,7 @@
         <b>ID Interno do Usuário</b> <%= venda.usuario_id %><br>
         <b>Usuário:</b> <%= venda.usuario.nome %><br>
         <b>Parceiro:</b> <%= venda.partner.name %><br>
-        <b>Data da Venda:</b> <%= venda.created_at.strftime("%d/%m/%Y %H:%M") %><br>
+        <b>Data da Venda:</b> <%= venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %><br>
         <b>Status:</b> <%= venda.status_desc.error_description_pt %><br>
       </td>
       <td>

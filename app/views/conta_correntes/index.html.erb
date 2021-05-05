@@ -174,10 +174,10 @@
           </td>
           <td style="width: 300px">
             <b>Data do Lançamento:</b><br>
-            <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %><br>
+            <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %><br>
             <hr>
             <b>Última Atualização:</b><br>
-            <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %><br>
+            <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M:%S") %><br>
           </td>
           <td><%= link_to 'Mostrar', conta_corrente %></td>
         </tr>

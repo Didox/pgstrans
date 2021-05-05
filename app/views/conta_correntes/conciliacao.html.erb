@@ -132,7 +132,7 @@
           <td  style="width: 9%" class="text-center"><%= conta_corrente.id %></td>
           <td  style="width: 9%"><%= conta_corrente.usuario.login %></td>
           <td  style="width: 9%"><%= conta_corrente.lancamento_id %> / <%= conta_corrente.lancamento.nome %></td>
-          <td  style="width: 9%" class="text-center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %></td>
+          <td  style="width: 9%" class="text-center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td  style="width: 9%" class="text-right"><span <% if conta_corrente.valor < 0 %> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span></td>
           <td  style="width: 9%" class="text-right">
             <% if @adm.id == 2 %>
@@ -163,7 +163,7 @@
               <button>Salvar marcados</button>
             <% end %>
           </td>
-          <td  style="width: 9%" class="text-center"><%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M") %></td>
+          <td  style="width: 9%" class="text-center"><%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td  style="width: 9%">
             <% if @primeira_entrada_id != conta_corrente.id %>
               <input type="checkbox" class="check-acessos" checked="checked" name="conta_corrente_id[]" value="<%= conta_corrente.id %>">

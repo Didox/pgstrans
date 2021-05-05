@@ -88,7 +88,7 @@
           <td style="width: 100px"><%= conta_corrente.usuario.login %></td>
           <td style="width: 250px"><%= conta_corrente.usuario.nome %></td>
           <td style="width: 180px" align="right"><%= number_to_currency(conta_corrente.valor, :unit => "KZ", :precision => 2) %></td>
-          <td style="width: 150px" align="center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %></td>
+          <td style="width: 150px" align="center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td style="width: 200px"><%= conta_corrente.lancamento.nome rescue "" %>
           <td style="width: 200px"><%= conta_corrente.responsavel_aprovacao.nome rescue "" %>
           <% valor_total += conta_corrente.valor %>

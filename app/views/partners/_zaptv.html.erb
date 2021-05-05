@@ -2,12 +2,12 @@
 <% if @partner.slug.downcase == "zaptv" %>
   <%= link_to partner_importa_produtos_path(@partner), class: 'btn btn-danger', style:"margin-left: 15px;",  data: { confirm: 'Tem Certeza?' } do %>
     Atualizar portfólio de produtos
-  <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
+  <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
   <br><br>
 
   <%= link_to partner_importa_dados_path(@partner), class: 'btn btn-danger', style:"margin-left: 15px;" do %>
     Importar dados para relatório de reconciliação
-  <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoReconciliacao.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M")}" rescue "" %>
+  <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoReconciliacao.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
   <br><br>
 
   <hr>

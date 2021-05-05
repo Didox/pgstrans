@@ -62,7 +62,7 @@
           <% @conta_correntes.each do |conta_corrente| %>
             <tr>
               <td>
-                <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M") %>
+                <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %>
               </td>
               <td>
                 <%= conta_corrente.usuario.login %>/<%= conta_corrente.usuario.nome %>

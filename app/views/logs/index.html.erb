@@ -77,7 +77,7 @@
           <% @logs.each do |log| %>
             <tr>
               <td><%= log.responsavel %></td>
-              <td><%= log.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+              <td><%= log.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
               <td><%= log.titulo %></td>
               <td>
                 <ul>

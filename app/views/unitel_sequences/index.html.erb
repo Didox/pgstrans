@@ -76,7 +76,7 @@
         <% @unitel_sequences.each do |unitel_sequence| %>
         <tr>
           <td class="text-center"><%= unitel_sequence.sequence_id %></td>
-          <td class="text-center"><%= unitel_sequence.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+          <td class="text-center"><%= unitel_sequence.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td class="text-center"><%= unitel_sequence.venda.response_get_parse["idTransaction"] rescue "" %></td>
           <td class="text-center">
             <% if unitel_sequence.venda_id.present? %>

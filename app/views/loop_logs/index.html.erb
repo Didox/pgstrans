@@ -21,7 +21,7 @@
       <tbody>
         <% @loop_logs.each do |loop_log| %>
         <tr>
-          <td><%= loop_log.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+          <td><%= loop_log.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td><%= link_to 'Mostrar', "/movicel_loops/#{loop_log.movicel_loop_id}/loop_logs/#{loop_log.id}" %></td>
           <td><%= link_to 'Apagar', "/movicel_loops/#{loop_log.movicel_loop_id}/loop_logs/#{loop_log.id}", method: :delete, data: { confirm: 'Tem certeza?' } %></td>
           <td>

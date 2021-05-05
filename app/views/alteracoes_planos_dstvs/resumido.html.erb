@@ -120,7 +120,7 @@
           <td><%= alteracoes_planos_dstv.lancamento.nome rescue "" %></td>
           <td class="text-center"><%= alteracoes_planos_dstv.transaction_number %></td>
           <td class="text-center"><%= alteracoes_planos_dstv.status ? "Sim" : "Não" %></td>
-          <td><%= alteracoes_planos_dstv.transaction_date_time.to_datetime.strftime("%d/%m/%Y %H:%M") rescue alteracoes_planos_dstv.transaction_date_time %></td>
+          <td><%= alteracoes_planos_dstv.transaction_date_time.to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue alteracoes_planos_dstv.transaction_date_time %></td>
           <td><%= alteracoes_planos_dstv.tipo_plano %></td>
         </tr>
       <% end %>

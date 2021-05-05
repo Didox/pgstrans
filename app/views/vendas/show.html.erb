@@ -56,9 +56,9 @@
       <dt>Status do processamento na operadora:</dt>
       <dd><%= @venda.status_movicel %></dd>
       <dt>Data criação:</dt>
-      <dd><%= @venda.created_at.strftime("%d/%m/%Y %H:%M") %></dd>
+      <dd><%= @venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %></dd>
       <dt>Data atualizaçao:</dt>
-      <dd><%= @venda.updated_at.strftime("%d/%m/%Y %H:%M") %></dd>
+      <dd><%= @venda.updated_at.strftime("%d/%m/%Y %H:%M:%S") %></dd>
       <% if @venda.partner.slug.to_s.downcase == "unitel" %>
         <hr>
         <dt>Id transação Unitel:</dt>

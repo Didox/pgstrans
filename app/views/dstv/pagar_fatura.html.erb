@@ -32,7 +32,7 @@
                   <b>Número da transação</b>: <%= @info["transactionNumber"] %>
                 </li>
                 <li style="margin-bottom: 10px">
-                  <b>Data e hora da transação</b>: <%= @info["transactionDateTime"].to_datetime.strftime("%d/%m/%Y %H:%M") rescue @info["transactionDateTime"] %>
+                  <b>Data e hora da transação</b>: <%= @info["transactionDateTime"].to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue @info["transactionDateTime"] %>
                 </li>
                 <li style="margin-bottom: 10px">
                   <b>Audit Reference Number da DSTV</b>: <%= @info["AuditReferenceNumber"] %>

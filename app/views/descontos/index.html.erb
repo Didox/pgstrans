@@ -86,8 +86,8 @@
         <tr>
           <td><%= desconto_parceiro.partner.name %></td>
           <td align="center"><%= desconto_parceiro.porcentagem %></td>
-          <td align="center"><%= desconto_parceiro.partner.created_at.strftime("%d/%m/%Y %H:%M") %></td>
-          <td align="center"><%= desconto_parceiro.partner.updated_at.strftime("%d/%m/%Y %H:%M") %></td>
+          <td align="center"><%= desconto_parceiro.partner.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+          <td align="center"><%= desconto_parceiro.partner.updated_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td><%= link_to 'Editar', edit_partner_desconto_parceiro_path(desconto_parceiro.partner, desconto_parceiro) %></td>
           <td><%= link_to 'Apagar', partner_desconto_parceiro_path(desconto_parceiro.partner, desconto_parceiro), method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>

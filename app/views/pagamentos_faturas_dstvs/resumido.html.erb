@@ -91,7 +91,7 @@
           <td class="text-center"><%= pagamentos_faturas_dstv.receipt_number %></td>
           <td class="text-center"><%= pagamentos_faturas_dstv.transaction_number %></td>
           <td class="text-center"><%= pagamentos_faturas_dstv.status ? "Sim" : "Não" %></td>
-          <td><%= pagamentos_faturas_dstv.transaction_date_time.to_datetime.strftime("%d/%m/%Y %H:%M") rescue pagamentos_faturas_dstv.transaction_date_time.to_datetime %></td>
+          <td><%= pagamentos_faturas_dstv.transaction_date_time.to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue pagamentos_faturas_dstv.transaction_date_time.to_datetime %></td>
         </tr>
         <% end %>
       </tbody>

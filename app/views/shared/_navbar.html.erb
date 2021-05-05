@@ -15,7 +15,7 @@
           <div class="jsItensMenu mobile-menu" style="display: none; position: absolute;left: 0;">
             <div><b>Login:</b> <%= usuario_logado.login %></div>
             <div><b>Perfil do usuário:</b> <%= usuario_logado.perfil_usuario.nome %></div>
-            <div><b>Seu último acesso:</b> <%= usuario_logado.ultimo_acesso.strftime("%d/%m/%Y %H:%M") rescue "" %></div>
+            <div><b>Seu último acesso:</b> <%= usuario_logado.ultimo_acesso.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></div>
 
             <% if usuario_logado.admin? || usuario_logado.operador? %>
               <div><a class="text-muted" href="<%= edit_usuario_path(usuario_logado) %>"><span class="fa fa-user"></span> Perfil</a></div>
@@ -37,7 +37,7 @@
             <div class="jsItensMenu" style="display: none; position: absolute;">
               <div><b>Login:</b> <%= usuario_logado.login %></div>
               <div><b>Perfil do usuário:</b> <%= usuario_logado.perfil_usuario.nome %></div>
-              <div><b>Seu último acesso:</b> <%= usuario_logado.ultimo_acesso.strftime("%d/%m/%Y %H:%M") rescue "" %></div>
+              <div><b>Seu último acesso:</b> <%= usuario_logado.ultimo_acesso.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></div>
               
               <% if usuario_logado.admin? || usuario_logado.operador? %>
                 <div><a class="text-muted" href="<%= edit_usuario_path(usuario_logado) %>"><span class="fa fa-user"></span> Perfil</a></div>
