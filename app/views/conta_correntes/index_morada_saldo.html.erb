@@ -17,7 +17,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Nome do Usuário</label>
             <div>
@@ -25,7 +25,49 @@
             </div>
           </div>
         </div>
+        <div class="col-sm-5">
+          <div class="form-group">
+            <label>Morada do Usuário</label>
+            <div>
+              <input type="text" name="morada" value="<%= params[:morada] %>" class="form-control">
+            </div>
+          </div>
+        </div>
         <div class="col-sm-4">
+          <div class="form-group">
+            <label>Bairro do Usuário</label>
+            <div>
+              <input type="text" name="bairro" value="<%= params[:bairro] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Município do Usuário</label>
+            <div>
+              <select name="municipio_id" onchange="pgstrans.carregaMunicipio(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Municipio.all.reorder(nome: :asc).each do |municipio| %>
+                  <option value="<%= municipio.id %>" <% if municipio.id.to_s == params[:municipio_id] %> selected="selected" <% end %> ><%= municipio.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Província do Usuário</label>
+            <div>
+              <select name="provincia_id" onchange="pgstrans.carregaProvincia(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Provincium.all.reorder(nome: :asc).each do |provincia| %>
+                  <option value="<%= provincia.id %>" <% if provincia.id.to_s == params[:provincia_id] %> selected="selected" <% end %> ><%= provincia.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>        
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Situação do Usuário</label>
             <div>
@@ -82,7 +124,13 @@
           <td style="width: 400px"><%= usuario.sub_agente.nome_fantasia rescue "" %></td>
           <td style="width: 260px" class="text-right"><%= usuario.sub_agente.telefone rescue "" %></td>
           <td style="width: 150px"><%= usuario.municipio.nome rescue "" %></td>
-          <td style="width: 160px" align="right"><%= number_to_currency(usuario.saldo, :unit => "KZ", :precision => 2) %></td>
+          <% if usuario.saldo < 10000 %> 
+            <td style="width: 160px; color:red" align="right">
+            <%= number_to_currency(usuario.saldo, :unit => "KZ", :precision => 2) %></td>
+          <% else %>
+            <td style="width: 160px" align="right">
+            <%= number_to_currency(usuario.saldo, :unit => "KZ", :precision => 2) %></td>
+          <% end %>
           <td style="width: 100px" align="right">
             <form action="/usuarios/<%= usuario.id %>/zerar_saldo" onsubmit="return confirm('Confirma?')" method="post">
                 <button type="submit" class="btn btn-warning">Zerar Saldo</button>

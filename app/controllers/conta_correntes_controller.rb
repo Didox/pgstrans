@@ -92,7 +92,11 @@ class ContaCorrentesController < ApplicationController
     @usuarios = @usuarios.paginate(options)
     @usuarios = @usuarios.reorder("nome asc")
     @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
-    @usuarios = @usuarios.where("usuarios.login ilike '%#{params[:login]}%'")
+    @usuarios = @usuarios.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
+    @usuarios = @usuarios.where("usuarios.morada ilike '%#{params[:morada]}%'") if params[:morada].present?
+    @usuarios = @usuarios.where("usuarios.bairro ilike '%#{params[:bairro]}%'") if params[:bairro].present?
+    @usuarios = @usuarios.where("usuarios.municipio_id = ?", params[:municipio_id]) if params[:municipio_id].present?
+    @usuarios = @usuarios.where("usuarios.provincia_id = ?", params[:provincia_id]) if params[:provincia_id].present?
 
     params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
     if params[:status].present?
@@ -243,13 +247,15 @@ class ContaCorrentesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_conta_corrente
-      @conta_corrente = ContaCorrente.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_conta_corrente
+    @conta_corrente = ContaCorrente.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def conta_corrente_params
-      params.require(:conta_corrente).permit(:usuario_id, :lancamento_id, :banco_id, :valor, :iban, :data_alegacao_pagamento, :observacao)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def conta_corrente_params
+    params.require(:conta_corrente).permit(:usuario_id, :lancamento_id, :banco_id, :valor, :iban,
+    :data_alegacao_pagamento, :observacao, :morada, :bairro, :municipio_id, 
+    :provincia_id)
+  end
 end
