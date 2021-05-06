@@ -38,6 +38,19 @@
     </div>
     <div class="col-sm-2">
       <div class="form-group">
+        <label>Perfil do Usuário</label>
+        <div>
+          <select name="perfil_usuario_id" class="form-control">
+            <option value="" selected="'selected'">Todos</option>
+            <% PerfilUsuario.all.each do |perfil_usuario| %>
+              <option value="<%= perfil_usuario.id %>" <% if params[:perfil_usuario_id].to_s == perfil_usuario.id.to_s %> selected="selected" <% end %>><%= perfil_usuario.nome %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
         <label>Login</label>
         <div>
           <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
@@ -73,7 +86,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <div class="form-group">
         <label>Responsável pela Aprovação</label>
         <div>
@@ -103,7 +116,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <div class="form-group">
         <label>Observação</label>
           <div>
@@ -183,6 +196,14 @@
         </tr>
         <% end %>
       </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td><b>Total Geral de Lançamento: </b><%= number_to_currency(@valor_total, :unit => "KZ") %></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tfoot>
     </table>
 
     <div class="apple_pagination">

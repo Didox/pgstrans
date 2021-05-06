@@ -25,7 +25,20 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Perfil do Usuário</label>
+            <div>
+              <select name="perfil_usuario_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% PerfilUsuario.all.each do |perfil_usuario| %>
+                  <option value="<%= perfil_usuario.id %>" <% if params[:perfil_usuario_id].to_s == perfil_usuario.id.to_s %> selected="selected" <% end %>><%= perfil_usuario.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Morada do Usuário</label>
             <div>
@@ -33,7 +46,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Bairro do Usuário</label>
             <div>
@@ -67,7 +80,7 @@
             </div>
           </div>
         </div>        
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Situação do Usuário</label>
             <div>
@@ -114,7 +127,6 @@
       </thead>
 
       <tbody>
-        <% valor_total = 0 %>
         <% @usuarios.each do |usuario| %>
         <tr>
           <td style="width: 25px" align="right"><%= usuario.id %></td>
@@ -137,7 +149,6 @@
             </form>
           </td>
         </tr>
-          <% valor_total += usuario.saldo %>
         <% end %>
         <tfoot>
           <tr>
@@ -149,7 +160,7 @@
             <td></td>
             <td align="right"><b>Total:</b></td>
             <td style="width:110px" align="right">
-              <b><%= number_to_currency(valor_total) %></b>
+              <b><%= number_to_currency(@valor_total) %></b>
             </td>              
           </tr>
         </tfoot>

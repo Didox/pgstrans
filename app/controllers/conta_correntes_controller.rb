@@ -18,6 +18,7 @@ class ContaCorrentesController < ApplicationController
     @conta_correntes = @conta_correntes.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
     @conta_correntes = @conta_correntes.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
     @conta_correntes = @conta_correntes.where("usuarios.id = ?", params[:id]) if params[:id].present?
+    @conta_correntes = @conta_correntes.where("usuarios.perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.lancamento_id = ?", params[:lancamento_id]) if params[:lancamento_id].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.observacao ilike '%#{params[:observacao]}%'") if params[:observacao].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.iban ilike '%#{params[:iban]}%'") if params[:iban].present?
@@ -34,6 +35,7 @@ class ContaCorrentesController < ApplicationController
     end
 
     @conta_correntes_total = @conta_correntes.count
+    @valor_total = @conta_correntes.sum(:valor)
     options = {page: params[:page] || 1, per_page: 10}
     @conta_correntes = @conta_correntes.paginate(options)
   end
@@ -52,6 +54,7 @@ class ContaCorrentesController < ApplicationController
     @conta_correntes = @conta_correntes.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
     @conta_correntes = @conta_correntes.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
     @conta_correntes = @conta_correntes.where("usuarios.id = ?", params[:id]) if params[:id].present?
+    @conta_correntes = @conta_correntes.where("usuarios.perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.lancamento_id = ?", params[:lancamento_id]) if params[:lancamento_id].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.observacao ilike '%#{params[:observacao]}%'") if params[:observacao].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.id = ?", params[:conta_corrente_id]) if params[:conta_corrente_id].present?
@@ -88,8 +91,6 @@ class ContaCorrentesController < ApplicationController
 
   def index_morada_saldo
     @usuarios = Usuario.com_acesso(usuario_logado)
-    options = {page: params[:page] || 1, per_page: 10}
-    @usuarios = @usuarios.paginate(options)
     @usuarios = @usuarios.reorder("nome asc")
     @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
     @usuarios = @usuarios.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
@@ -97,12 +98,30 @@ class ContaCorrentesController < ApplicationController
     @usuarios = @usuarios.where("usuarios.bairro ilike '%#{params[:bairro]}%'") if params[:bairro].present?
     @usuarios = @usuarios.where("usuarios.municipio_id = ?", params[:municipio_id]) if params[:municipio_id].present?
     @usuarios = @usuarios.where("usuarios.provincia_id = ?", params[:provincia_id]) if params[:provincia_id].present?
+    @usuarios = @usuarios.where("usuarios.perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
 
     params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
     if params[:status].present?
       @usuarios = @usuarios.where("usuarios.status_cliente_id = ?", params[:status])
     end
     @usuarios_total = @usuarios.count
+
+    where = @usuarios.to_sql.scan(/WHERE.*/).first
+    where = where.gsub(/ORDER.*/, "")
+    sql = "
+      select 
+        sum((
+          select conta_correntes.saldo_atual from conta_correntes 
+          where conta_correntes.usuario_id = usuarios.id
+          order by conta_correntes.data_ultima_atualizacao_saldo desc limit 1
+        )) as total
+      from usuarios
+      #{where}
+    "
+    @valor_total = ActiveRecord::Base.connection.exec_query(sql).first["total"].to_i
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @usuarios = @usuarios.paginate(options)
   end
 
   def index_carregamento_usuario
