@@ -157,6 +157,7 @@
         </tr>
       </thead>
       <tbody>
+        <% valor_total = 0 %>
         <% @conta_correntes.each do |conta_corrente| %>
         <tr>
           <td style="width: 450px">
@@ -194,12 +195,16 @@
           </td>
           <td><%= link_to 'Mostrar', conta_corrente %></td>
         </tr>
+        <% valor_total += conta_corrente.valor %>
         <% end %>
       </tbody>
       <tfoot>
         <tr>
           <td></td>
-          <td><b>Total Geral de Lançamento: </b><%= number_to_currency(@valor_total, :unit => "KZ") %></td>
+          <td>
+            <b>Total da Página: </b><%= number_to_currency(valor_total, :unit => "KZ") %><br>
+            <b>Total Geral de Lançamentos: </b><%= number_to_currency(@valor_total, :unit => "KZ") %>
+          </td>
           <td></td>
           <td></td>
         </tr>

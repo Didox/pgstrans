@@ -120,6 +120,20 @@ class ContaCorrentesController < ApplicationController
     "
     @valor_total = ActiveRecord::Base.connection.exec_query(sql).first["total"].to_i
 
+    if params[:saldo_menor_que].present?
+      @usuarios = @usuarios.where("
+        (
+          select sum((
+              select conta_correntes.saldo_atual from conta_correntes 
+              where conta_correntes.usuario_id = u.id
+              order by conta_correntes.data_ultima_atualizacao_saldo desc limit 1
+            ))
+          from usuarios u
+          where u.id = usuarios.id
+        ) <= ?
+      ", params[:saldo_menor_que].to_f)
+    end
+
     options = {page: params[:page] || 1, per_page: 10}
     @usuarios = @usuarios.paginate(options)
   end
