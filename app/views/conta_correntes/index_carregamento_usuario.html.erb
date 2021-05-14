@@ -101,11 +101,14 @@
           <tr>
             <td></td>
             <td></td>
-            <td align="right"><b>Total</b></td>
-            <td style="width:110px" align="right">
-              <b><%= number_to_currency(valor_total) %></b>
-            </td>            
-            <td></td>
+            <td style="text-align:right">
+              <b>Total da Página: </b><br>
+              <b>Total Geral de Lançamentos: </b>
+            </td>
+            <td style="text-align:right">
+              <%= number_to_currency(valor_total, :unit => "KZ") %><br>
+              <%= number_to_currency(@valor_total, :unit => "KZ") %>
+            </td>
             <td></td>
             <td></td>
             <td></td>

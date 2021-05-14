@@ -160,6 +160,7 @@ class ContaCorrentesController < ApplicationController
     end
 
     @conta_correntes_total = @conta_correntes.count
+    @valor_total = @conta_correntes.sum(:valor)
     options = {page: params[:page] || 1, per_page: 10}
     @conta_correntes = @conta_correntes.paginate(options)
     @conta_correntes = @conta_correntes.reorder("created_at desc")
