@@ -63,7 +63,8 @@
     </form>
   </div>
   <div class="col-md-12 scroltable">
-    <table class="table table-bordered" width="100%" cellspacing="0">
+    <% if @busca %>
+      <table class="table table-bordered" width="100%" cellspacing="0">
         <thead>
           <tr>
             <th>Responsável</th>
@@ -92,7 +93,10 @@
       </table>
       
       <div class="apple_pagination">
-        <%= will_paginate @log_alteracaos, :container => false %>
+        <%= will_paginate @logs, :container => false %>
       </div>
+    <% else %>
+      <h1 style="text-align:center">Insira um filtro de busca para listar os logs</h1>
+    <% end %>
   </div>
 </div>
