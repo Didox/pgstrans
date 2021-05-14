@@ -262,7 +262,7 @@ class Dstv
             <sel1:amount>#{produto.valor_compra_telemovel}</sel1:amount>
             <sel1:invoicePeriod>#{tipo_plano == "mensal" ? "1" : "12"}</sel1:invoicePeriod>
             <sel1:currency>#{currency}</sel1:currency>
-            <sel1:paymentDescription>Pagaso payment system (#{usuario_logado.nome})</sel1:paymentDescription>
+            <sel1:paymentDescription>Pagaso Payment System (#{usuario_logado.nome.truncate(18)})</sel1:paymentDescription>
             <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
             <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>
@@ -390,7 +390,7 @@ class Dstv
             <sel1:amount>#{valor_total}</sel1:amount>
             <sel1:invoicePeriod>1</sel1:invoicePeriod>
             <sel1:currency>#{currency}</sel1:currency>
-            <sel1:paymentDescription>Pagaso payment system (#{usuario_logado.nome})</sel1:paymentDescription>
+            <sel1:paymentDescription>Pagaso Payment System (#{usuario_logado.nome.truncate(18)})</sel1:paymentDescription>
             <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
             <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>
@@ -554,7 +554,7 @@ class Dstv
             <sel1:amount>#{valor}</sel1:amount>
             <sel1:invoicePeriod>1</sel1:invoicePeriod>
             <sel1:currency>#{currency}</sel1:currency>
-            <sel1:paymentDescription>Pagaso payment system (#{usuario_logado.nome})</sel1:paymentDescription>
+            <sel1:paymentDescription>Pagaso Payment System (#{usuario_logado.nome.truncate(18)})</sel1:paymentDescription>
             <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
             <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>
