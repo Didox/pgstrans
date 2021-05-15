@@ -27,6 +27,15 @@ class AlteracoesPlanosDstvsController < ApplicationController
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time]}%'") if params[:transaction_date_time].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("tipo_plano = ?", params[:tipo_plano]) if params[:tipo_plano].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_number ilike '%#{params[:transaction_number]}%'") if params[:transaction_number].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.joins("inner join usuarios on alteracoes_planos_dstvs.usuario_id = usuarios.id ")
+
+    if params[:login].present?
+      @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("lower(usuarios.login) like ? ", "%#{params[:login].downcase}%")
+    end
+
+    if params[:nome].present?
+      @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("lower(usuarios.nome) like ? ", "%#{params[:nome].downcase}%")
+    end
 
     @alteracoes_planos_dstvs_valor = @alteracoes_planos_dstvs.sum(:valor)  
     options = {page: params[:page] || 1, per_page: 10}
