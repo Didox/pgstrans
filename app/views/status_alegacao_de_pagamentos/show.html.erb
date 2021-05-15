@@ -1,19 +1,20 @@
-<div class="container">
-
-  <h4>Mostrar</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Mostrar Situação de Alegação Pagamento</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
-
-  <div class="container">
+  <div class="col-md-12">
     <dl class="dl-horizontal">
+      <dt>ID:</dt>
+      <dd><%= @status_alegacao_de_pagamento.id %></dd>
       <dt>Nome:</dt>
       <dd><%= @status_alegacao_de_pagamento.nome %></dd>
     </dl>
 
-    <div class="page-header">
-      <%= link_to status_alegacao_de_pagamentos_path, class: 'btn btn-danger' do %>
+    <div class="col-md-12">
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Voltar
       <% end %>

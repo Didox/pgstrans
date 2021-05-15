@@ -4,7 +4,12 @@ class StatusAlegacaoDePagamentosController < ApplicationController
   # GET /status_alegacao_de_pagamentos
   # GET /status_alegacao_de_pagamentos.json
   def index
-    @status_alegacao_de_pagamentos = StatusAlegacaoDePagamento.all
+    @status_alegacao_de_pagamentos = StatusAlegacaoDePagamento.com_acesso(usuario_logado).order(nome: :asc)  
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @status_alegacao_de_pagamentos = @status_alegacao_de_pagamentos.paginate(options)   
+
+
   end
 
   # GET /status_alegacao_de_pagamentos/1
@@ -25,10 +30,11 @@ class StatusAlegacaoDePagamentosController < ApplicationController
   # POST /status_alegacao_de_pagamentos.json
   def create
     @status_alegacao_de_pagamento = StatusAlegacaoDePagamento.new(status_alegacao_de_pagamento_params)
+    @status_alegacao_de_pagamento.responsavel = usuario_logado
 
     respond_to do |format|
       if @status_alegacao_de_pagamento.save
-        format.html { redirect_to @status_alegacao_de_pagamento, notice: 'Status Alegação de pagamento foi criada com sucesso.' }
+        format.html { redirect_to @status_alegacao_de_pagamento, notice: 'Situação de alegação de pagamento foi criada com sucesso.' }
         format.json { render :show, status: :created, location: @status_alegacao_de_pagamento }
       else
         format.html { render :new }
@@ -42,7 +48,7 @@ class StatusAlegacaoDePagamentosController < ApplicationController
   def update
     respond_to do |format|
       if @status_alegacao_de_pagamento.update(status_alegacao_de_pagamento_params)
-        format.html { redirect_to @status_alegacao_de_pagamento, notice: 'Status Alegação de pagamento foi atualizada com sucesso.' }
+        format.html { redirect_to @status_alegacao_de_pagamento, notice: 'Situação de alegação de pagamento foi atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @status_alegacao_de_pagamento }
       else
         format.html { render :edit }
@@ -56,7 +62,7 @@ class StatusAlegacaoDePagamentosController < ApplicationController
   def destroy
     @status_alegacao_de_pagamento.destroy
     respond_to do |format|
-      format.html { redirect_to status_alegacao_de_pagamentos_url, notice: 'Status Alegação de pagamento foi apagada com sucesso.' }
+      format.html { redirect_to status_alegacao_de_pagamentos_url, notice: 'Situação de alegação de pagamento foi apagada com sucesso.' }
       format.json { head :no_content }
     end
   end
@@ -65,6 +71,7 @@ class StatusAlegacaoDePagamentosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_status_alegacao_de_pagamento
       @status_alegacao_de_pagamento = StatusAlegacaoDePagamento.find(params[:id])
+      @status_alegacao_de_pagamento.responsavel = usuario_logado
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

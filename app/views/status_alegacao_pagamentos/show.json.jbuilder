@@ -1,1 +1,0 @@
-json.partial! "status_alegacao_pagamentos/status_alegacao_pagamento", status_alegacao_pagamento: @status_alegacao_pagamento

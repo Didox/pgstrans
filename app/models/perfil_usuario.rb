@@ -96,9 +96,8 @@ class PerfilUsuario < ApplicationRecord
       vendas: "Backoffice - Relatório de Vendas - Geral",
       vendas_conciliacao: "Backoffice - Relatório de Vendas por Dia - Conciliação",
       logs: "Log do sistema",
-      menus: "Menus do Backoffice",
+      menus: "Composição de Menus do Backoffice",
       erro_amigavels: "Cadastro de erros amigáveis",
-      status_alegacao_pagamentos: "Backoffice - Sessão de Conta Corrente - Tabela de Situações de Alegação de Pagamento",
       parametros: "Backoffice - Sessão de Transações - Parâmetros de Integração dos Parceiros",
       unitel_sequences: "Backoffice - Sessão de Transações - Controle de Sequência de Vendas da Unitel",
       relatorio_conciliacao_zaptvs: "Backoffice - Relatório de Reconciliação ZAPTV disponível no menu Parceiros",
@@ -143,8 +142,8 @@ class PerfilUsuario < ApplicationRecord
       descontos: "Tabela de Descontos de Parceiros index",
       movicel_loops: "Timeout Movicel Programa de Repetição/Looping para coleta de logs",
       loop_logs: "Logs do Programa de Repetição/Looping para coleta de logs",
-      alegacao_de_pagamentos: "Cadastro de Alegação de Pagamentos",
-      status_alegacao_de_pagamentos: "Tabela de Status da Alegação de Pagamentos",
+      alegacao_de_pagamentos: "Cadastro de Alegações de Pagamentos",
+      status_alegacao_de_pagamentos: "Tabela de Situações Possíveis para Alegação de Pagamentos",
     }
     nomes[controller.to_sym]
   end

@@ -25,10 +25,10 @@
         <% end %>
 
         <div class="form-input col-sm-12">
-          <%= f.label :nome, class: "col-sm-2" %>
-          <%= f.text_field :nome, class: "form-control" %>
+          <%= f.input :nome, :label => "Descrição da situação da alegação de pagamento", placeholder: "Descrição do status" %>
         </div>
-        <div class="form-actions col-sm-12" style="margin-top: 20px">
+
+        <div class="form-actions">
           <%= f.button :button, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-ok"></span>
             Confirmar
