@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_103802) do
+ActiveRecord::Schema.define(version: 2021_05_15_104603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "alegacao_de_pagamentos", force: :cascade do |t|
+    t.bigint "usuario_id"
+    t.float "valor_deposito"
+    t.datetime "data_deposito"
+    t.string "numero_talao"
+    t.bigint "banco_id"
+    t.string "comprovativo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["banco_id"], name: "index_alegacao_de_pagamentos_on_banco_id"
+    t.index ["usuario_id"], name: "index_alegacao_de_pagamentos_on_usuario_id"
+  end
 
   create_table "alteracoes_planos_dstvs", force: :cascade do |t|
     t.text "request_body"
@@ -452,6 +465,12 @@ ActiveRecord::Schema.define(version: 2021_04_06_103802) do
     t.text "response_body"
   end
 
+  create_table "status_alegacao_de_pagamentos", force: :cascade do |t|
+    t.string "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "status_alegacao_pagamentos", force: :cascade do |t|
     t.string "nome"
     t.datetime "created_at", null: false
@@ -622,6 +641,8 @@ ActiveRecord::Schema.define(version: 2021_04_06_103802) do
     t.index ["usuario_id"], name: "index_vendas_on_usuario_id"
   end
 
+  add_foreign_key "alegacao_de_pagamentos", "bancos"
+  add_foreign_key "alegacao_de_pagamentos", "usuarios"
   add_foreign_key "canal_vendas", "dispositivos"
   add_foreign_key "conta_correntes", "bancos"
   add_foreign_key "conta_correntes", "lancamentos"

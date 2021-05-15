@@ -9,6 +9,6 @@ class BancosContasBancariasController < ApplicationController
     @bancos = @bancos.where("sigla ilike '%#{params[:sigla]}%'") if params[:sigla].present?
     @bancos = @bancos.where("iban ilike '%#{params[:iban]}%'") if params[:iban].present?
     @bancos = @bancos.where("conta_bancaria ilike '%#{params[:conta_bancaria]}%'") if params[:conta_bancaria].present?
-    @bancos = @bancos.where("status_banco_id = 1")
+    @bancos = @bancos.where(status_banco_id: Banco::ATIVO)
   end
 end

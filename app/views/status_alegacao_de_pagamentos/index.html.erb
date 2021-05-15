@@ -1,0 +1,34 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h4>Status</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="container scroltable">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @status_alegacao_de_pagamentos.each do |status_alegacao_de_pagamento| %>
+        <tr>
+          <td><%= status_alegacao_de_pagamento.nome %></td>
+          <td><%= link_to 'Mostrar', status_alegacao_de_pagamento %></td>
+          <td><%= link_to 'Editar', edit_status_alegacao_de_pagamento_path(status_alegacao_de_pagamento) %></td>
+          <td><%= link_to 'Apagar', status_alegacao_de_pagamento, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to "Novo Registo", new_status_alegacao_de_pagamento_path, class: 'btn btn-danger' %>
+    <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="container">
+
+  <h4>Mostrar</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Nome:</dt>
+      <dd><%= @status_alegacao_de_pagamento.nome %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to status_alegacao_de_pagamentos_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_status_alegacao_de_pagamento_path(@status_alegacao_de_pagamento), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :alegacao_de_pagamentos
+  resources :status_alegacao_de_pagamentos
   get 'vendas_conciliacao/index_vendas_conciliacao'
   get 'bancos_contas_bancarias/index_bancos_clientes'
   resources :status_bancos

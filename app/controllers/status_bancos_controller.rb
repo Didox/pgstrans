@@ -35,7 +35,7 @@ class StatusBancosController < ApplicationController
 
     respond_to do |format|
       if @status_banco.save
-        format.html { redirect_to @status_banco, notice: 'Status banco was successfully created.' }
+        format.html { redirect_to @status_banco, notice: 'Status banco foi criada com sucesso.' }
         format.json { render :show, status: :created, location: @status_banco }
       else
         format.html { render :new }
@@ -49,7 +49,7 @@ class StatusBancosController < ApplicationController
   def update
     respond_to do |format|
       if @status_banco.update(status_banco_params)
-        format.html { redirect_to @status_banco, notice: 'Status banco was successfully updated.' }
+        format.html { redirect_to @status_banco, notice: 'Status banco foi atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @status_banco }
       else
         format.html { render :edit }
@@ -63,7 +63,7 @@ class StatusBancosController < ApplicationController
   def destroy
     @status_banco.destroy
     respond_to do |format|
-      format.html { redirect_to status_bancos_url, notice: 'Status banco was successfully destroyed.' }
+      format.html { redirect_to status_bancos_url, notice: 'Status banco foi apagada com sucesso.' }
       format.json { head :no_content }
     end
   end

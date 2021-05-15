@@ -142,7 +142,9 @@ class PerfilUsuario < ApplicationRecord
       desconto_parceiros: "Desconto para parceiros",
       descontos: "Tabela de Descontos de Parceiros index",
       movicel_loops: "Timeout Movicel Programa de Repetição/Looping para coleta de logs",
-      loop_logs: "Logs do Programa de Repetição/Looping para coleta de logs"
+      loop_logs: "Logs do Programa de Repetição/Looping para coleta de logs",
+      alegacao_de_pagamentos: "Cadastro de Alegação de Pagamentos",
+      status_alegacao_de_pagamentos: "Tabela de Status da Alegação de Pagamentos",
     }
     nomes[controller.to_sym]
   end

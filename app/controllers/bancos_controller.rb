@@ -14,7 +14,7 @@ class BancosController < ApplicationController
     if params[:status_banco_id].present?
       @bancos = @bancos.where("status_banco_id = ?", params[:status_banco_id]) if params[:status_banco_id].present?
     else
-      @bancos = @bancos.where("status_banco_id = 1")
+      @bancos = @bancos.where(status_banco_id: Banco::ATIVO)
     end
 
     options = {page: params[:page] || 1, per_page: 10}

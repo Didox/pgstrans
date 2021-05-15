@@ -1,0 +1,44 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h4>Alegação de Pagamento</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="container scroltable">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Usuario</th>
+          <th scope="col">Valor deposito</th>
+          <th scope="col">Data deposito</th>
+          <th scope="col">Numero talao</th>
+          <th scope="col">Banco</th>
+          <th scope="col">Comprovativo</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @alegacao_de_pagamentos.each do |alegacao_de_pagamento| %>
+        <tr>
+          <td><%= alegacao_de_pagamento.usuario %></td>
+          <td><%= alegacao_de_pagamento.valor_deposito %></td>
+          <td><%= alegacao_de_pagamento.data_deposito %></td>
+          <td><%= alegacao_de_pagamento.numero_talao %></td>
+          <td><%= alegacao_de_pagamento.banco %></td>
+          <td><%= alegacao_de_pagamento.comprovativo %></td>
+          <td><%= link_to 'Mostrar', alegacao_de_pagamento %></td>
+          <td><%= link_to 'Editar', edit_alegacao_de_pagamento_path(alegacao_de_pagamento) %></td>
+          <td><%= link_to 'Apagar', alegacao_de_pagamento, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to "Novo Registo", new_alegacao_de_pagamento_path, class: 'btn btn-danger' %>
+    <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
+  </div>
+</div>
