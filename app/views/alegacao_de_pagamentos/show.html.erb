@@ -1,25 +1,29 @@
-<div class="container">
-
-  <h4>Mostrar</h4>
-
+<div class="col-md-12 scroltable">
+  <div class="col-md-12">
+    <h4>Deatalhes da Alegação de Pagamento</h4>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
 
-  <div class="container">
+  <div class="col-md-12">
     <dl class="dl-horizontal">
-      <dt>Usuario:</dt>
-      <dd><%= @alegacao_de_pagamento.usuario %></dd>
-      <dt>Valor deposito:</dt>
-      <dd><%= @alegacao_de_pagamento.valor_deposito %></dd>
-      <dt>Data deposito:</dt>
-      <dd><%= @alegacao_de_pagamento.data_deposito %></dd>
-      <dt>Numero talao:</dt>
+      <dt>Login do Usuário:</dt>
+      <dd><%= @alegacao_de_pagamento.usuario.login %></dd>
+      <dt>Nome do Usuário:</dt>
+      <dd><%= @alegacao_de_pagamento.usuario.nome %></dd>
+      <dt>Valor do Depósito:</dt>
+      <dd><%= number_to_currency(@alegacao_de_pagamento.valor_deposito, :unit => "KZ", :precision => 2) %></dd>
+      <dt>Data e Hora do Depósito:</dt>
+      <dd><%= @alegacao_de_pagamento.data_deposito.strftime("%d/%m/%Y %H:%M:%S") %></dd>
+      <dt>Número do Talão:</dt>
       <dd><%= @alegacao_de_pagamento.numero_talao %></dd>
       <dt>Banco:</dt>
-      <dd><%= @alegacao_de_pagamento.banco %></dd>
-      <dt>Comprovativo:</dt>
-      <dd><%= @alegacao_de_pagamento.comprovativo %></dd>
+      <dd><%= @alegacao_de_pagamento.banco.nome %></dd>
+      <dt>Nome do Agente:</dt>
+      <dd><%= @alegacao_de_pagamento.usuario.sub_agente.nome_fantasia rescue "" %></dd>
+      <dt>Comprovativo de Depósito:</dt>
+      <dd><%= link_to 'Comprovativo', @alegacao_de_pagamento.comprovativo, target: "_blank" %></dd>
     </dl>
 
     <div class="page-header">

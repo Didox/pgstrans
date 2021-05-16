@@ -25,31 +25,33 @@
         <% end %>
 
         <div class="form-input col-sm-12">
-          <%= f.label :usuario_id, "Buscar ou selecionar usuário" %>
+          <%= f.label :usuario_id, "Buscar ou selecionar o usuário" %>
           <div style="display:flex">
             <input type="text" id="usuario" class="form-control autocomplete" style="width:30%">
             <%= f.select :usuario_id, Usuario.com_acesso(usuario_logado).limit(100).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%" %>
           </div>
         </div>
-        <div class="form-input col-sm-12">
-          <%= f.label :valor_deposito, "Valor Depósito", class: "col-sm-2" %>
-          <%= f.text_field :valor_deposito, class: "form-control" %>
+
+
+        <div class="form-input col-sm-3">
+          <%= f.label :valor_deposito, :label => "Valor do Depósito", class: "col-sm-6" %>
+          <%= f.text_field :valor_deposito, placeholder: "  Valor do Depósito", class: "form-control" %>
         </div>
-        <div class="form-input col-sm-12">
-          <%= f.label :data_deposito, "Data Depósito", class: "col-sm-2" %>
-          <%= f.datetime_field :data_deposito, class: "form-control" %>
+        <div class="form-input col-sm-3">
+          <%= f.label :data_deposito, "Data do Depósito", class: "col-sm-6" %>
+          <%= f.datetime_field :data_deposito, placeholder: "  Data do Depósito", class: "form-control" %>
         </div>
-        <div class="form-input col-sm-12">
-          <%= f.label :numero_talao, "Nro. Talão", class: "col-sm-2" %>
-          <%= f.text_field :numero_talao, class: "form-control" %>
+        <div class="form-input col-sm-3">
+          <%= f.label :numero_talao, "Número do Talão", class: "col-sm-6" %>
+          <%= f.text_field :numero_talao, placeholder: "  Número do Talão", class: "form-control" %>
         </div>
-        <div class="form-input col-sm-12">
-          <%= f.label :banco_id, class: "col-sm-2" %>
+        <div class="form-input col-sm-3">
+          <%= f.label :banco_id, class: "col-sm-3" %>
           <%= f.select :banco_id, Banco.where(status_banco_id: Banco::ATIVO).collect{|d| [d.nome, d.id]}, {}, required:true, class: "form-control" %>
         </div>
         <div class="form-input col-sm-12">
-          <%= f.label :comprovativo, class: "col-sm-2" %>
-          <%= f.file_field :comprovativo, class: "form-control" %>
+          <%= f.label :comprovativo, "Comprovativo do Depósito", class: "col-sm-2" %>
+          <%= f.file_field :comprovativo, placeholder: "  Comprovativo do Depósito", class: "form-control" %>
         </div>
         <div class="form-actions col-sm-12" style="margin-top: 20px">
           <%= f.button :button, class: 'btn btn-danger' do %>
