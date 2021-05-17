@@ -7,6 +7,105 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
+  <form action="" method="get" id="formApuracao">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Nome do Usuário</label>
+        <div>
+          <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Perfil do Usuário</label>
+        <div>
+          <select name="perfil_usuario_id" class="form-control">
+            <option value="" selected="'selected'">Todos</option>
+            <% PerfilUsuario.all.each do |perfil_usuario| %>
+              <option value="<%= perfil_usuario.id %>" <% if params[:perfil_usuario_id].to_s == perfil_usuario.id.to_s %> selected="selected" <% end %>><%= perfil_usuario.nome %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Login</label>
+        <div>
+          <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>ID Interno Usuário</label>
+        <div>
+          <input type="text" name="id" value="<%= params[:id] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Data de Alegação Inicio</label>
+        <div>
+          <input type="date" name="data_alegacao_pagamento_inicio" value="<%= params[:data_alegacao_pagamento_inicio] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Data de Alegação Fim</label>
+        <div>
+          <input type="date" name="data_alegacao_pagamento_fim" value="<%= params[:data_alegacao_pagamento_fim] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Situação do Usuário</label>
+        <div>
+          <select name="status" class="form-control">
+            <option value="" selected="'selected'">Todos</option>
+            <% StatusCliente.all.each do |status| %>
+              <option value="<%= status.id %>" <% if params[:status].to_s == status.id.to_s %> selected="selected" <% end %>><%= status.nome %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Status
+        </label>
+          <div>
+            <select name="status_alegacao_de_pagamento_id" class="form-control">
+              <option value="" selected="'selected'">Todos</option>
+              <% StatusAlegacaoDePagamento.all.each do |status| %>
+                <option value="<%= status.id %>" <% if status.id.to_s == params[:status_alegacao_de_pagamento_id] %> selected="selected" <% end %> ><%= status.nome %></option>
+              <% end %>
+            </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div style="float: right;margin-right:10px">
+        <input type="submit" value="Buscar" class="btn btn-info">
+
+        <%= link_to new_alegacao_de_pagamento_path, class: 'btn btn-success' do %>
+          <span class="glyphicon glyphicon-plus"></span>
+          Novo Registo
+        <% end %>    
+
+        <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-list-alt"></span>
+          Voltar
+        <% end %>
+
+      </div>
+    </div>
+  </form>
+
   <div class="col-md-12 scroltable">
     <table class="table table-hover">
       <thead>
@@ -17,12 +116,14 @@
           <th scope="col">Data e Hora do Depósito</th>
           <th scope="col">Número do Talão</th>
           <th scope="col">Banco</th>
+          <th scope="col">Status</th>
           <th scope="col">Link</th>
           <th colspan="3">Ações para o Registo</th>
         </tr>
       </thead>
 
       <tbody>
+        <% valor_total = 0 %>
         <% @alegacao_de_pagamentos.each do |alegacao_de_pagamento| %>
         <tr>
           <td class="text-center"><%= alegacao_de_pagamento.usuario.login %></td>
@@ -31,28 +132,41 @@
           <td class="text-center"><%= alegacao_de_pagamento.data_deposito.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td><%= alegacao_de_pagamento.numero_talao %></td>
           <td><%= alegacao_de_pagamento.banco.nome %></td>
+          <td><%= alegacao_de_pagamento.status_alegacao_de_pagamento.nome rescue "" %></td>
           <td><%= link_to 'Comprovativo', alegacao_de_pagamento.comprovativo, target: "_blank" %></td>
           <td><%= link_to 'Mostrar', alegacao_de_pagamento %></td>
           <td><%= link_to 'Editar', edit_alegacao_de_pagamento_path(alegacao_de_pagamento) %></td>
           <td><%= link_to 'Apagar', alegacao_de_pagamento, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>
+        <% valor_total += alegacao_de_pagamento.valor_deposito %>
         <% end %>
       </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td style="width: 200px;text-align:right">
+            <b>Total da Página: </b><br>
+            <b>Total Geral de Lançamentos: </b>
+          </td>
+          <td style="text-align:right">
+            <%= number_to_currency(valor_total, :unit => "KZ") %><br>
+            <%= number_to_currency(@valor_total, :unit => "KZ") %>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tfoot>
     </table>
 
     <div class="apple_pagination">
       <%= will_paginate @status_alegacao_de_pagamento, :container => false %>
-    </div> 
-
-    <%= link_to new_alegacao_de_pagamento_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-plus"></span>
-      Novo Registo
-    <% end %>    
-
-    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
-      Voltar
-    <% end %>
+    </div>
 
   </div>
 </div>

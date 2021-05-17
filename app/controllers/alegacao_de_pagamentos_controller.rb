@@ -5,11 +5,25 @@ class AlegacaoDePagamentosController < ApplicationController
   # GET /alegacao_de_pagamentos
   # GET /alegacao_de_pagamentos.json
   def index
-    @alegacao_de_pagamentos = AlegacaoDePagamento.com_acesso(usuario_logado).order(id: :asc)  
+    @alegacao_de_pagamentos = AlegacaoDePagamento.com_acesso(usuario_logado).order(id: :asc)
+    @alegacao_de_pagamentos = @alegacao_de_pagamentos.joins("inner join usuarios on usuarios.id = alegacao_de_pagamentos.usuario_id")
+    @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("alegacao_de_pagamentos.created_at >= ?", params[:data_alegacao_pagamento_inicio].to_datetime.beginning_of_day) if params[:data_alegacao_pagamento_inicio].present?
+    @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("alegacao_de_pagamentos.created_at <= ?", params[:data_alegacao_pagamento_fim].to_datetime.end_of_day) if params[:data_alegacao_pagamento_fim].present?
+    @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
+    @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.id = ?", params[:id]) if params[:id].present?
+    @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
+    @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("alegacao_de_pagamentos.status_alegacao_de_pagamento_id = ?", params[:status_alegacao_de_pagamento_id]) if params[:status_alegacao_de_pagamento_id].present?
+    
+    params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
+    if params[:status].present?
+      @alegacao_de_pagamentos  = @alegacao_de_pagamentos.where("usuarios.status_cliente_id = ?", params[:status])
+    end
 
+    @valor_total  = @alegacao_de_pagamentos.sum(:valor_deposito)
+    
     options = {page: params[:page] || 1, per_page: 10}
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.paginate(options)   
-
   end
 
   # GET /alegacao_de_pagamentos/1

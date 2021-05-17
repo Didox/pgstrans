@@ -24,6 +24,8 @@
       <dd><%= @alegacao_de_pagamento.usuario.sub_agente.nome_fantasia rescue "" %></dd>
       <dt>Comprovativo de Depósito:</dt>
       <dd><%= link_to 'Comprovativo', @alegacao_de_pagamento.comprovativo, target: "_blank" %></dd>
+      <dt>Status:</dt>
+      <dd><%= @alegacao_de_pagamento.status_alegacao_de_pagamento.nome rescue "" %></dd>
     </dl>
 
     <div class="page-header">

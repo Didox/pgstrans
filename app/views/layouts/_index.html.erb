@@ -29,7 +29,7 @@
                                 <% if item.link.present? %>
                                     <%= link_to item.nome, item.link %>
                                 <% else %>
-                                    <%= link_to item.nome, controller: item.controller.remove("Controller").underscore, action: item.action %>
+                                    <%= link_to item.nome, controller: item.controller.remove("Controller").underscore, action: item.action rescue "" %>
                                 <% end %>
                             </li>
                         <% end %>

@@ -28,7 +28,14 @@
           <%= f.label :usuario_id, "Buscar ou selecionar o usuário" %>
           <div style="display:flex">
             <input type="text" id="usuario" class="form-control autocomplete" style="width:30%">
-            <%= f.select :usuario_id, Usuario.com_acesso(usuario_logado).limit(100).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%" %>
+            <%
+              usuarios = Usuario.com_acesso(usuario_logado).limit(100).collect{|d| [d.nome, d.id]}
+              if @alegacao_de_pagamento.usuario_id.present?
+                usuario = Usuario.find(@alegacao_de_pagamento.usuario_id)
+                usuarios << [usuario.nome, usuario.id]
+              end
+            %>
+            <%= f.select :usuario_id, usuarios, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%" %>
           </div>
         </div>
 
@@ -50,8 +57,17 @@
         </div>
         <div class="form-input col-sm-12">
           <%= f.label :comprovativo, "Comprovativo do Depósito", class: "col-sm-2" %>
-          <%= f.file_field :comprovativo, placeholder: "  Comprovativo do Depósito", class: "form-control" %>
+          <%= f.file_field :comprovativo, placeholder: "  Comprovativo do Depósito", class: "form-control",  accept:"image/jpeg, image/jpg, image/gif, image/bmp, image/png, application/pdf" %>
         </div>
+        <% if @alegacao_de_pagamento.comprovativo.present? %>
+          <div class="form-input col-sm-12">
+            <% if @alegacao_de_pagamento.comprovativo.scan(/\.pdf/).present? %>
+              <iframe src="<%= @alegacao_de_pagamento.comprovativo %>" style="width: 100%; height: 300px;border: 0px"></iframe>
+            <% else %>
+              <img src="<%= @alegacao_de_pagamento.comprovativo %>" style="width: 200px">
+            <% end %>
+          </div>
+        <% end %>
         <div class="form-actions col-sm-12" style="margin-top: 20px">
           <%= f.button :button, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-ok"></span>

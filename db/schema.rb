@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_15_144053) do
+ActiveRecord::Schema.define(version: 2021_05_17_102407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,9 @@ ActiveRecord::Schema.define(version: 2021_05_15_144053) do
     t.string "comprovativo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "status_alegacao_de_pagamento_id"
     t.index ["banco_id"], name: "index_alegacao_de_pagamentos_on_banco_id"
+    t.index ["status_alegacao_de_pagamento_id"], name: "index_alegacao_de_pagamentos_on_status_alegacao_de_pagamento_id"
     t.index ["usuario_id"], name: "index_alegacao_de_pagamentos_on_usuario_id"
   end
 
@@ -636,6 +638,7 @@ ActiveRecord::Schema.define(version: 2021_05_15_144053) do
   end
 
   add_foreign_key "alegacao_de_pagamentos", "bancos"
+  add_foreign_key "alegacao_de_pagamentos", "status_alegacao_de_pagamentos"
   add_foreign_key "alegacao_de_pagamentos", "usuarios"
   add_foreign_key "canal_vendas", "dispositivos"
   add_foreign_key "conta_correntes", "bancos"
