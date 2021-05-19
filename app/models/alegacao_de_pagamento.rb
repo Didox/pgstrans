@@ -11,7 +11,6 @@ class AlegacaoDePagamento < ApplicationRecord
 
   def processar(responsavel)
     status = StatusAlegacaoDePagamento.where("lower(nome) = ?", StatusAlegacaoDePagamento::PROCESSADO.downcase).first
-    return if self.status_alegacao_de_pagamento_id == status.id
 
     conta_corrente = ContaCorrente.where(alegacao_de_pagamento_id: self.id).first
     conta_corrente ||= ContaCorrente.new
@@ -20,6 +19,7 @@ class AlegacaoDePagamento < ApplicationRecord
     conta_corrente.responsavel = responsavel
     conta_corrente.lancamento = Lancamento.where(nome: Lancamento::CREDITO).first || Lancamento.first
     conta_corrente.responsavel_aprovacao_id = responsavel.id
+    conta_corrente.banco_id = self.banco_id
     conta_corrente.observacao = "Depósito para o usuário #{self.usuario.nome} (#{self.usuario_id}). #{self.observacao}"
     conta_corrente.data_alegacao_pagamento = self.created_at
     conta_corrente.alegacao_de_pagamento_id = self.id

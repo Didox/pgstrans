@@ -1,5 +1,5 @@
 class AlegacaoDePagamentosController < ApplicationController
-  before_action :set_alegacao_de_pagamento, only: [:show, :edit, :update, :destroy]
+  before_action :set_alegacao_de_pagamento, only: [:show, :edit, :update, :destroy, :processar]
   before_action :upload_arquivo, only: [:create, :update]
 
   # GET /alegacao_de_pagamentos
@@ -82,6 +82,14 @@ class AlegacaoDePagamentosController < ApplicationController
     end
   end
 
+  def processar
+    @alegacao_de_pagamento.processar(usuario_logado)
+    respond_to do |format|
+      format.html { redirect_to alegacao_de_pagamentos_url, notice: 'Alegação de pagamento foi processada com sucesso.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
     def upload_arquivo
       return if params[:alegacao_de_pagamento].blank? || params[:alegacao_de_pagamento][:comprovativo].is_a?(String)
@@ -95,7 +103,7 @@ class AlegacaoDePagamentosController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_alegacao_de_pagamento
-      @alegacao_de_pagamento = AlegacaoDePagamento.find(params[:id])
+      @alegacao_de_pagamento = AlegacaoDePagamento.find(params[:id] || params[:alegacao_de_pagamento_id])
       @alegacao_de_pagamento.responsavel = usuario_logado
     end
 
