@@ -7,6 +7,7 @@ class AlegacaoDePagamento < ApplicationRecord
   def destroy
     self.status_alegacao_de_pagamento = StatusAlegacaoDePagamento.where("lower(nome) = ?", StatusAlegacaoDePagamento::CANCELADO.downcase).first
     self.save!
+    ContaCorrente.where(alegacao_de_pagamento_id: self.id).destroy_all
   end
 
   def processar(responsavel)
