@@ -3,4 +3,6 @@ class StatusAlegacaoDePagamento < ApplicationRecord
 	validates :nome, presence: true, uniqueness: true
 
 	PADRAO = "Pendente"
+	CANCELADO = "Cancelado"
+	PROCESSADO = "Processado"
 end

@@ -39,26 +39,43 @@
           </div>
         </div>
 
-        <div class="form-input col-sm-3">
+        <div class="form-input col-sm-4">
           <%= f.label :valor_deposito, :label => "Valor do Depósito", class: "col-sm-6" %>
           <%= f.text_field :valor_deposito, placeholder: "  Valor do Depósito", class: "form-control" %>
         </div>
-        <div class="form-input col-sm-3">
+        <div class="form-input col-sm-4">
           <%= f.label :data_deposito, "Data e Hora do Depósito", class: "col-sm-8" %>
           <%= f.datetime_field :data_deposito, placeholder: "  Data e Hora do Depósito", class: "form-control" %>
         </div>
-        <div class="form-input col-sm-3">
+        <div class="form-input col-sm-4">
           <%= f.label :numero_talao, "Número do Talão", class: "col-sm-6" %>
           <%= f.text_field :numero_talao, placeholder: "  Número do Talão", class: "form-control" %>
         </div>
-        <div class="form-input col-sm-3">
-          <%= f.label :banco_id, class: "col-sm-3" %>
-          <%= f.select :banco_id, Banco.where(status_banco_id: Banco::ATIVO).collect{|d| [d.nome, d.id]}, {}, required:true, class: "form-control" %>
-        </div>
+        <% unless @alegacao_de_pagamento.new_record? %>
+          <div class="form-input col-sm-6">
+            <%= f.label :status_alegacao_de_pagamento_id, "Status", class: "col-sm-3" %>
+            <%= f.select :status_alegacao_de_pagamento_id, StatusAlegacaoDePagamento.all.collect{|d| [d.nome, d.id]}, {}, required:true, class: "form-control" %>
+          </div>
+          <div class="form-input col-sm-6">
+            <%= f.label :banco_id, class: "col-sm-3" %>
+            <%= f.select :banco_id, Banco.where(status_banco_id: Banco::ATIVO).collect{|d| [d.nome, d.id]}, {}, required:true, class: "form-control" %>
+          </div>
+        <% else %>
+          <div class="form-input col-sm-12">
+            <%= f.label :banco_id, class: "col-sm-3" %>
+            <%= f.select :banco_id, Banco.where(status_banco_id: Banco::ATIVO).collect{|d| [d.nome, d.id]}, {}, required:true, class: "form-control" %>
+          </div>
+        <% end %>
         <div class="form-input col-sm-12">
           <%= f.label :comprovativo, "Comprovativo do Depósito", class: "col-sm-2" %>
           <%= f.file_field :comprovativo, placeholder: "  Comprovativo do Depósito", class: "form-control",  accept:"image/jpeg, image/jpg, image/gif, image/bmp, image/png, application/pdf" %>
         </div>
+        <% if @adm.admin? || @adm.operador? %>
+          <div class="form-input col-sm-12">
+            <%= f.label :observacao, "Observação", class: "col-sm-3" %>
+            <%= f.text_area :observacao, placeholder: "  Observação", style:"height: 250px!important", class: "form-control" %>
+          </div>
+        <% end %>
         <% if @alegacao_de_pagamento.comprovativo.present? %>
           <div class="form-input col-sm-12">
             <% if @alegacao_de_pagamento.comprovativo.scan(/\.pdf/).present? %>

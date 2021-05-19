@@ -26,6 +26,8 @@
       <dd><%= link_to 'Comprovativo', @alegacao_de_pagamento.comprovativo, target: "_blank" %></dd>
       <dt>Status:</dt>
       <dd><%= @alegacao_de_pagamento.status_alegacao_de_pagamento.nome rescue "" %></dd>
+      <dt>Observação:</dt>
+      <dd><%= @alegacao_de_pagamento.observacao %></dd>
     </dl>
 
     <div class="page-header">

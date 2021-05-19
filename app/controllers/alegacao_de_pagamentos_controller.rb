@@ -21,6 +21,7 @@ class AlegacaoDePagamentosController < ApplicationController
     end
 
     @valor_total  = @alegacao_de_pagamentos.sum(:valor_deposito)
+    @qtd_total  = @alegacao_de_pagamentos.count
     
     options = {page: params[:page] || 1, per_page: 10}
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.paginate(options)   
@@ -100,6 +101,7 @@ class AlegacaoDePagamentosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def alegacao_de_pagamento_params
-      params.require(:alegacao_de_pagamento).permit(:usuario_id, :valor_deposito, :data_deposito, :numero_talao, :banco_id, :comprovativo)
+      params[:alegacao_de_pagamento].delete(:observacao) unless (@adm.admin? || @adm.operador?)
+      params.require(:alegacao_de_pagamento).permit(:usuario_id, :valor_deposito, :status_alegacao_de_pagamento_id, :observacao, :data_deposito, :numero_talao, :banco_id, :comprovativo)
     end
 end
