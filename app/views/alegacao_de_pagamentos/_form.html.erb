@@ -85,12 +85,14 @@
             <% end %>
           </div>
         <% end %>
-        <div class="form-actions col-sm-12" style="margin-top: 20px">
-          <%= f.button :button, class: 'btn btn-danger' do %>
-            <span class="glyphicon glyphicon-ok"></span>
-            Confirmar
+        <% if :status_alegacao_de_pagamento_id != 1 %>
+          <div class="form-actions col-sm-12" style="margin-top: 20px">
+            <%= f.button :button, class: 'btn btn-danger' do %>
+              <span class="glyphicon glyphicon-ok"></span>
+              Confirmar
+            <% end %>
+          </div>
           <% end %>
-        </div>
       <% end %>
     </div>
   </div>

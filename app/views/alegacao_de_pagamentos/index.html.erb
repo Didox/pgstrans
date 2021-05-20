@@ -108,7 +108,7 @@
 
   <div class="col-md-12 scroltable">
    <h4>
-      Quantidade de registros: <strong><%= @qtd_total %></strong>
+      Quantidade de registos: <strong><%= @qtd_total %></strong>
     </h4>
     <hr>
 
@@ -139,11 +139,13 @@
           <td style="width: 200px"><%= alegacao_de_pagamento.usuario.sub_agente.nome_fantasia rescue "" %></td>
           <td style="width: 170px"><%= alegacao_de_pagamento.numero_talao %></td>
           <td style="width: 200px"><%= alegacao_de_pagamento.banco.nome %></td>
-          <td><%= alegacao_de_pagamento.status_alegacao_de_pagamento.nome rescue "" %></td>
+          <td style="width: 120px"><%= alegacao_de_pagamento.status_alegacao_de_pagamento.nome rescue "" %></td>
           <td><%= link_to 'Comprovativo', alegacao_de_pagamento.comprovativo, target: "_blank" %></td>
           <td><%= link_to 'Mostrar', alegacao_de_pagamento %></td>
-          <td><%= link_to 'Editar', edit_alegacao_de_pagamento_path(alegacao_de_pagamento) %></td>
-          <td><%= link_to 'Processar', "/alegacao_de_pagamentos/#{alegacao_de_pagamento.id}/processar", method: :post, data: { confirm: 'Tem certeza?' } %></td>
+          <% if alegacao_de_pagamento.status_alegacao_de_pagamento.id != 1 && @adm.admin? || @adm.operador? %>
+            <td><%= link_to 'Editar', edit_alegacao_de_pagamento_path(alegacao_de_pagamento) %></td>
+            <td><%= link_to 'Processar', "/alegacao_de_pagamentos/#{alegacao_de_pagamento.id}/processar", method: :post, data: { confirm: 'Tem certeza?' } %></td>
+          <% end %>
         </tr>
         <% valor_total += alegacao_de_pagamento.valor_deposito %>
         <% end %>

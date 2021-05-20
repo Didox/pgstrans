@@ -31,18 +31,20 @@
     </dl>
 
     <div class="page-header">
-      <%= link_to alegacao_de_pagamentos_path, class: 'btn btn-default' do %>
+      <%= link_to alegacao_de_pagamentos_path, class: 'btn btn-dark' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Voltar
       <% end %>
       
-      <%= link_to edit_alegacao_de_pagamento_path(@alegacao_de_pagamento), class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-pencil"></span>
-        Editar
-      <% end %>
-
-      <%= link_to "/alegacao_de_pagamentos/#{@alegacao_de_pagamento.id}/processar", class: 'btn btn-success', method: :post, data: { confirm: 'Tem certeza?' } do %>
-        Processar
+      <% if @alegacao_de_pagamento.status_alegacao_de_pagamento.id != 1 && @adm.admin? || @adm.operador? %>
+        <%= link_to edit_alegacao_de_pagamento_path(@alegacao_de_pagamento), class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-pencil"></span>
+          Editar
+        <% end %>
+      
+        <%= link_to "/alegacao_de_pagamentos/#{@alegacao_de_pagamento.id}/processar", class: 'btn btn-success', method: :post, data: { confirm: 'Tem certeza?' } do %>
+          Processar
+        <% end %>
       <% end %>
 
     </div>

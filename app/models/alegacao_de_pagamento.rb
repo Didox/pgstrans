@@ -18,7 +18,7 @@ class AlegacaoDePagamento < ApplicationRecord
     conta_corrente.valor = self.valor_deposito
     conta_corrente.usuario_id = self.usuario_id
     conta_corrente.responsavel = responsavel
-    conta_corrente.lancamento = Lancamento.where(nome: Lancamento::CREDITO).first || Lancamento.first
+    conta_corrente.lancamento = Lancamento.where(nome: Lancamento::DEPOSITO).first || Lancamento.first
     conta_corrente.responsavel_aprovacao_id = responsavel.id
     conta_corrente.banco_id = self.banco_id
     conta_corrente.observacao = "Depósito para o usuário #{self.usuario.nome} (#{self.usuario_id}). #{self.observacao}"

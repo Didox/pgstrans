@@ -11,6 +11,7 @@ class Lancamento < ApplicationRecord
   ALTERACAO_PACOTE = "Alteração de pacote"
   DEBITO = "Débito"
   CREDITO = "Crédito"
+  DEPOSITO = "Depósito"
 
   ITENS_SISTEMA = [
     TRANSFERENCIA_ENTRE_USUARIOS,
@@ -20,6 +21,7 @@ class Lancamento < ApplicationRecord
     PAGAMENTO_DE_FATURA,
     DEBITO,
     CREDITO,
+    DEPOSITO,
   ]
   
   def destroy
