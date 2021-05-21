@@ -1,5 +1,6 @@
 class AlegacaoDePagamento < ApplicationRecord
   include PermissionamentoDados
+  validates :data_deposito, :valor_deposito, :numero_talao, :comprovativo, presence: true
   belongs_to :usuario
   belongs_to :banco
   belongs_to :status_alegacao_de_pagamento

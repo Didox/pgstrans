@@ -137,7 +137,7 @@
           <td style="width: 90px" class="text-right"><%= alegacao_de_pagamento.usuario.login %></td>
           <td style="width: 300px"><%= alegacao_de_pagamento.usuario.nome %></td>
           <td style="width: 170px" class="text-right"><%= number_to_currency(alegacao_de_pagamento.valor_deposito, :unit => "KZ", :precision => 2) %></td>
-          <td style="width: 170px" class="text-center"><%= alegacao_de_pagamento.data_deposito.strftime("%d/%m/%Y %H:%M:%S") %></td>
+          <td style="width: 170px" class="text-center"><%= alegacao_de_pagamento.data_deposito.strftime("%d/%m/%Y %H:%M:%S") rescue ""%></td>
           <td style="width: 200px"><%= alegacao_de_pagamento.usuario.sub_agente.nome_fantasia rescue "" %></td>
           <td style="width: 170px"><%= alegacao_de_pagamento.numero_talao %></td>
           <td style="width: 200px"><%= alegacao_de_pagamento.banco.nome %></td>
