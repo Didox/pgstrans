@@ -15,7 +15,7 @@
       <dt>Valor do Depósito:</dt>
       <dd><%= number_to_currency(@alegacao_de_pagamento.valor_deposito, :unit => "KZ", :precision => 2) %></dd>
       <dt>Data e Hora do Depósito:</dt>
-      <dd><%= @alegacao_de_pagamento.data_deposito.strftime("%d/%m/%Y %H:%M:%S") %></dd>
+      <dd><%= @alegacao_de_pagamento.data_deposito.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></dd>
       <dt>Número do Talão:</dt>
       <dd><%= @alegacao_de_pagamento.numero_talao %></dd>
       <dt>Banco:</dt>
