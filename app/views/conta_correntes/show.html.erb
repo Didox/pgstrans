@@ -9,29 +9,29 @@
   <div class="col-md-12">
     <dl class="dl-horizontal">
       <dt>ID Interno do Usuário:</dt>
-      <dd><%= @conta_corrente.usuario.id %></dd>
+      <dd><%= @conta_corrente.usuario.id rescue "" %></dd>
       <dt>Login:</dt>
-      <dd><%= @conta_corrente.usuario.login %></dd>
+      <dd><%= @conta_corrente.usuario.login rescue "" %></dd>
       <dt>Usuário:</dt>
-      <dd><%= @conta_corrente.usuario.nome %></dd>
+      <dd><%= @conta_corrente.usuario.nome rescue "" %></dd>
       <dt>Lançamento:</dt>
-      <dd><%= @conta_corrente.lancamento.nome %></dd>
+      <dd><%= @conta_corrente.lancamento.nome rescue "" %></dd>
       <% if @conta_corrente.banco_id.present? %>
         <dt>Banco:</dt>
-        <dd><%= @conta_corrente.banco.nome %></dd>
+        <dd><%= @conta_corrente.banco.nome rescue "" %></dd>
       <% end %>
       <% if @conta_corrente.banco_id.present? %>
         <dt>IBAN:</dt>
-        <dd><%= @conta_corrente.iban %></dd>
+        <dd><%= @conta_corrente.iban rescue "" %></dd>
       <% end %>
       <dt>Data da Alegação de Pagamento:</dt>
-      <dd><%= @conta_corrente.data_alegacao_pagamento resceu ""%></dd>
+      <dd><%= @conta_corrente.data_alegacao_pagamento rescue "" %></dd>
       <hr>
       <dt>
         Valor do Lançamento:
       </dt>
       <dd>
-        <%= number_to_currency(@conta_corrente.valor, :unit => "KZ") %>
+        <%= number_to_currency(@conta_corrente.valor, :unit => "KZ") rescue "" %>
       </dt>
       <dt>Saldo Anterior:</dt>
       <dd><%= number_to_currency(@conta_corrente.saldo_anterior, :unit => "KZ") %></dd>
