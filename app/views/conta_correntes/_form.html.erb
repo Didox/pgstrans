@@ -59,11 +59,11 @@
         </div>
         
         <div class="form-input col-sm-6">
-          <%= f.input :iban, :label => "IBAN" %>
+          <%= f.input :iban, :label => "IBAN ou Número do Talão" %>
         </div>
         
         <div class="form-input col-sm-6">
-          <%= f.label :data_alegacao_pagamento, :label => "Data da Movimentação" %>
+          <%= f.label :data_alegacao_pagamento, :label => "Data da Movimentação (efetivo lançamento no extracto bancário)" %>
           <%= f.datetime_field :data_alegacao_pagamento, class: "form-control" %>
         </div>
 
