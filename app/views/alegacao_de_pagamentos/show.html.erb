@@ -44,7 +44,7 @@
           Editar
         <% end %>
       
-        <%= link_to "/alegacao_de_pagamentos/#{@alegacao_de_pagamento.id}/processar", class: 'btn btn-success', method: :post, data: { confirm: 'Tem certeza?' } do %>
+        <%= link_to "/alegacao_de_pagamentos/#{@alegacao_de_pagamento.id}/processar", class: 'btn btn-success', method: :post, data: { confirm: 'Tem certeza?' } if @alegacao_de_pagamento.data_deposito.present? do %>
           Processar
         <% end %>
       <% end %>
