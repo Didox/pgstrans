@@ -1,6 +1,7 @@
 class AlegacaoDePagamentosController < ApplicationController
   before_action :set_alegacao_de_pagamento, only: [:show, :edit, :update, :destroy, :processar]
   before_action :upload_arquivo, only: [:create, :update]
+  before_action :valida_acesso, only: [:edit, :update, :destroy, :processar]
 
   # GET /alegacao_de_pagamentos
   # GET /alegacao_de_pagamentos.json
@@ -44,6 +45,8 @@ class AlegacaoDePagamentosController < ApplicationController
   # POST /alegacao_de_pagamentos
   # POST /alegacao_de_pagamentos.json
   def create
+    return;
+    
     @alegacao_de_pagamento = AlegacaoDePagamento.new(alegacao_de_pagamento_params)
     @alegacao_de_pagamento.responsavel = usuario_logado
 
@@ -62,7 +65,7 @@ class AlegacaoDePagamentosController < ApplicationController
   # PATCH/PUT /alegacao_de_pagamentos/1.json
   def update
     respond_to do |format|
-      if @alegacao_de_pagamento.update(alegacao_de_pagamento_params)
+      if @alegacao_de_pagamento.update(alegacao_de_pagamento_params_update)
         format.html { redirect_to @alegacao_de_pagamento, notice: 'Alegação de pagamento foi atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @alegacao_de_pagamento }
       else
@@ -111,5 +114,16 @@ class AlegacaoDePagamentosController < ApplicationController
     def alegacao_de_pagamento_params
       params[:alegacao_de_pagamento].delete(:observacao) unless (@adm.admin? || @adm.operador?)
       params.require(:alegacao_de_pagamento).permit(:usuario_id, :valor_deposito, :status_alegacao_de_pagamento_id, :observacao, :data_deposito, :numero_talao, :banco_id, :comprovativo)
+    end
+
+    def alegacao_de_pagamento_params_update
+      params.require(:alegacao_de_pagamento).permit(:status_alegacao_de_pagamento_id, :observacao)
+    end
+
+    def valida_acesso
+      if @alegacao_de_pagamento.status_alegacao_de_pagamento.nome == StatusAlegacaoDePagamento::PROCESSADO || (!@adm.admin? && !@adm.operador?)
+        flash[:error] = "Sem permissão para realizar esta operação"
+        redirect_to alegacao_de_pagamentos_url
+      end
     end
 end

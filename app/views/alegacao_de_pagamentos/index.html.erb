@@ -144,7 +144,7 @@
           <td style="width: 120px"><%= alegacao_de_pagamento.status_alegacao_de_pagamento.nome rescue "" %></td>
           <td><%= link_to 'Comprovativo', alegacao_de_pagamento.comprovativo, target: "_blank" %></td>
           <td><%= link_to 'Mostrar', alegacao_de_pagamento %></td>
-          <% if alegacao_de_pagamento.status_alegacao_de_pagamento.id != 1 && @adm.admin? || @adm.operador? %>
+          <% if alegacao_de_pagamento.status_alegacao_de_pagamento.nome != StatusAlegacaoDePagamento::PROCESSADO && (@adm.admin? || @adm.operador?) %>
             <td><%= link_to 'Editar', edit_alegacao_de_pagamento_path(alegacao_de_pagamento) %></td>
             <td><%= link_to 'Processar', "/alegacao_de_pagamentos/#{alegacao_de_pagamento.id}/processar", method: :post, data: { confirm: 'Tem certeza?' } if alegacao_de_pagamento.data_deposito.present? %></td>
           <% end %>

@@ -38,7 +38,7 @@
         Voltar
       <% end %>
       
-      <% if @alegacao_de_pagamento.status_alegacao_de_pagamento.id != 1 && @adm.admin? || @adm.operador? %>
+      <% if @alegacao_de_pagamento.status_alegacao_de_pagamento.nome != StatusAlegacaoDePagamento::PROCESSADO && (@adm.admin? || @adm.operador?) %>
         <%= link_to edit_alegacao_de_pagamento_path(@alegacao_de_pagamento), class: 'btn btn-danger' do %>
           <span class="glyphicon glyphicon-pencil"></span>
           Editar
