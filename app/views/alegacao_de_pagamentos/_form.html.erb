@@ -67,8 +67,8 @@
           </div>
         <% end %>
         <div class="form-input col-sm-12">
-          <%= f.label :comprovativo, "Comprovativo do Depósito (máximo de 1 MB)", class: "col-sm-8" %>
-          <%= f.file_field :comprovativo, placeholder: "  Comprovativo do Depósito (máximo de 1 MB)", class: "form-control", onchange: "if(this.files[0].size > 1048576){ alert('O arquivo deve conter menos de 1 MB!'); this.value = ''; }", accept:"image/jpeg, image/jpg, image/gif, image/bmp, image/png, application/pdf", disabled: (!@alegacao_de_pagamento.new_record? ? "disabled" : false) %>
+          <%= f.label :comprovativo, "Comprovativo do Depósito (máximo de 2 MB)", class: "col-sm-8" %>
+          <%= f.file_field :comprovativo, placeholder: "  Comprovativo do Depósito (máximo de 2 MB)", class: "form-control", onchange: "if(this.files[0].size > 2097152){ alert('O arquivo deve conter menos de 2 MB!'); this.value = ''; }", accept:"image/jpeg, image/jpg, image/gif, image/bmp, image/png, application/pdf", disabled: (!@alegacao_de_pagamento.new_record? ? "disabled" : false) %>
         </div>
         <% if @adm.admin? || @adm.operador? %>
           <div class="form-input col-sm-12">
