@@ -83,7 +83,7 @@
               <select name="status_alegacao_de_pagamento_id" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
                 <% StatusAlegacaoDePagamento.all.each do |status| %>
-                  <option value="<%= status.id %>" <% if status.id.to_s == params[:status_alegacao_de_pagamento_id] %> selected="selected" <% end %> ><%= status.nome %></option>
+                  <option value="<%= status.id %>" <% if status.id.to_s == params[:status_alegacao_de_pagamento_id].to_s %> selected="selected" <% end %> ><%= status.nome %></option>
                 <% end %>
               </select>
           </div>

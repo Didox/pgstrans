@@ -14,11 +14,15 @@ class AlegacaoDePagamentosController < ApplicationController
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.id = ?", params[:id]) if params[:id].present?
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
-    @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("alegacao_de_pagamentos.status_alegacao_de_pagamento_id = ?", params[:status_alegacao_de_pagamento_id]) if params[:status_alegacao_de_pagamento_id].present?
     
     params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
     if params[:status].present?
       @alegacao_de_pagamentos  = @alegacao_de_pagamentos.where("usuarios.status_cliente_id = ?", params[:status])
+    end
+
+    params[:status_alegacao_de_pagamento_id] = (StatusAlegacaoDePagamento.where("lower(nome) = 'pendente'").first.id rescue "") unless params.has_key?(:status_alegacao_de_pagamento_id)
+    if params[:status_alegacao_de_pagamento_id].present?
+      @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("alegacao_de_pagamentos.status_alegacao_de_pagamento_id = ?", params[:status_alegacao_de_pagamento_id]) if params[:status_alegacao_de_pagamento_id].present?
     end
 
     @valor_total  = @alegacao_de_pagamentos.sum(:valor_deposito)
@@ -45,8 +49,6 @@ class AlegacaoDePagamentosController < ApplicationController
   # POST /alegacao_de_pagamentos
   # POST /alegacao_de_pagamentos.json
   def create
-    return;
-    
     @alegacao_de_pagamento = AlegacaoDePagamento.new(alegacao_de_pagamento_params)
     @alegacao_de_pagamento.responsavel = usuario_logado
 
@@ -98,7 +100,7 @@ class AlegacaoDePagamentosController < ApplicationController
       return if params[:alegacao_de_pagamento].blank? || params[:alegacao_de_pagamento][:comprovativo].is_a?(String)
       comprovativo = params[:alegacao_de_pagamento][:comprovativo]
       if comprovativo.present?
-        params[:alegacao_de_pagamento][:comprovativo] = AwsService.upload(comprovativo.tempfile.path, comprovativo.original_filename)
+        # params[:alegacao_de_pagamento][:comprovativo] = AwsService.upload(comprovativo.tempfile.path, comprovativo.original_filename)
       else
         params[:alegacao_de_pagamento].delete(:comprovativo)
       end
