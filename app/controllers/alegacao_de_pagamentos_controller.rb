@@ -49,8 +49,6 @@ class AlegacaoDePagamentosController < ApplicationController
   # POST /alegacao_de_pagamentos
   # POST /alegacao_de_pagamentos.json
   def create
-    return;
-    
     @alegacao_de_pagamento = AlegacaoDePagamento.new(alegacao_de_pagamento_params)
     @alegacao_de_pagamento.responsavel = usuario_logado
 
@@ -102,7 +100,7 @@ class AlegacaoDePagamentosController < ApplicationController
       return if params[:alegacao_de_pagamento].blank? || params[:alegacao_de_pagamento][:comprovativo].is_a?(String)
       comprovativo = params[:alegacao_de_pagamento][:comprovativo]
       if comprovativo.present?
-        params[:alegacao_de_pagamento][:comprovativo] = AwsService.upload(comprovativo.tempfile.path, comprovativo.original_filename)
+        # params[:alegacao_de_pagamento][:comprovativo] = AwsService.upload(comprovativo.tempfile.path, comprovativo.original_filename)
       else
         params[:alegacao_de_pagamento].delete(:comprovativo)
       end
