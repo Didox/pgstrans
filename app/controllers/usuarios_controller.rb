@@ -38,8 +38,8 @@ class UsuariosController < ApplicationController
       end
     end
 
-    @usuarios = @usuarios.where("data_adesao >= ?", params[:data_adesao].to_datetime.beginning_of_day) if params[:data_adesao].present?
-    @usuarios = @usuarios.where("data_adesao < ?", params[:data_adesao].to_datetime.end_of_day) if params[:data_adesao].present?
+    @usuarios = @usuarios.where("data_adesao >= ?", params[:data_adesao_inicio].to_datetime.beginning_of_day) if params[:data_adesao_inicio].present?
+    @usuarios = @usuarios.where("data_adesao <= ?", params[:data_adesao_fim].to_datetime.end_of_day) if params[:data_adesao_fim].present?
     
     @usuarios = @usuarios.where(sub_agente_id: params[:sub_agente_id]) if params[:sub_agente_id].present?
 

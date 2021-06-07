@@ -16,6 +16,8 @@
 //= require popper
 //= require tether
 //= require bootstrap
+//= require chartkick
+//= require Chart.bundle
 //= require_tree .
 
 const pgstrans = {};

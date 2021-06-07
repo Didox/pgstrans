@@ -33,6 +33,10 @@ gem 'write_xlsx'
 
 gem "recaptcha"
 
+# Create beautiful JavaScript charts with one line of Ruby
+gem 'chartkick'
+gem 'groupdate'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

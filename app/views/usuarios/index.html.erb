@@ -195,9 +195,17 @@
         </div>
         <div class="col-sm-2">
           <div class="form-group">
-            <label>Data de Adesão</label>
+            <label>Data de Adesão (Início)</label>
             <div>
-              <input type="date" name="data_adesao" value="<%= params[:data_adesao] %>" class="form-control">
+              <input type="date" name="data_adesao_inicio" value="<%= params[:data_adesao_inicio] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Data de Adesão (Fim)</label>
+            <div>
+              <input type="date" name="data_adesao_fim" value="<%= params[:data_adesao_fim] %>" class="form-control">
             </div>
           </div>
         </div>
@@ -214,7 +222,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-6">
           <div class="form-group">
             <label>Grupo de Actividade Económica </label>
             <div>
@@ -243,15 +251,24 @@
         </div>
     </form>
   </div>
+  <% if usuario_logado.admin? %>
+    <br>
+    Demonstrativo do total de usuários cadastrados (linha do tempo)
+    <br>
+    <br>
+    <%= line_chart Usuario.group_by_day(:created_at).count %>
+    <br>
+    <hr>
+  <% end %>
   <div class="col-md-12 scroltable">
-    <h4>
-      Quantidade de usuários: <strong><%= number_to_currency(@usuarios_total, :precision => 0, :unit => "") %></strong>
-    </h4>
-    <hr>
-    <h4>
-      Usuários que foram cadastrados pelo Agente ou pelo Administrador
-    </h4>
-    <hr>
+  <h4>
+    Quantidade de usuários: <strong><%= number_to_currency(@usuarios_total, :precision => 0, :unit => "") %></strong>
+  </h4>
+  <hr>
+  <h4>
+    Usuários que foram cadastrados pelo Agente ou pelo Administrador
+  </h4>
+  <hr>
     <table class="table table-hover">
       <thead>
         <tr class="text-left">
