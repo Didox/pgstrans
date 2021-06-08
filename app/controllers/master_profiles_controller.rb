@@ -69,7 +69,7 @@ class MasterProfilesController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_master_profile
       @master_profile = MasterProfile.find(params[:id])
       @master_profile.responsavel = usuario_logado

@@ -71,7 +71,7 @@ class SubDistribuidorsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_sub_distribuidor
       @sub_distribuidor = SubDistribuidor.find(params[:id])
       @sub_distribuidor.responsavel = usuario_logado

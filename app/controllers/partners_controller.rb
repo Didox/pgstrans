@@ -118,7 +118,7 @@ class PartnersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_partner
       @partner = Partner.find(params[:id] || params[:partner_id])
       @partner.responsavel = usuario_logado

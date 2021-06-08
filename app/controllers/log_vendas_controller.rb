@@ -86,7 +86,7 @@ class LogVendasController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_log_venda
       @log_venda = LogVenda.find(params[:id])
     end

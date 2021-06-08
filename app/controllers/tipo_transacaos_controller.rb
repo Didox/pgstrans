@@ -66,7 +66,7 @@ class TipoTransacaosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_tipo_transacao
       @tipo_transacao = TipoTransacao.find(params[:id])
       @tipo_transacao.responsavel = usuario_logado

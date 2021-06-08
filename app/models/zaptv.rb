@@ -28,7 +28,7 @@ class Zaptv
 
       dados = JSON.parse(res.body)
       dados.each do |p_hash|
-        if Produto.where(produto_id_parceiro: p_hash["code"], partner_id: partner.id).where("created_at BETWEEN ? AND ?", (Time.zone.now - 2.minutes), (Time.zone.now + 2.minutes)).count == 0
+        if Produto.where(produto_id_parceiro: p_hash["code"], partner_id: partner.id).where("created_at BETWEEN ? AND ?", SqlDate.sql_parse((Time.zone.now - 2.minutes)), SqlDate.sql_parse((Time.zone.now + 2.minutes))).count == 0
           produto = Produto.new
           produto.produto_id_parceiro = p_hash["code"]
           produto.partner_id = partner.id

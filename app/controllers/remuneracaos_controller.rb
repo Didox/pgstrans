@@ -92,7 +92,7 @@ class RemuneracaosController < ApplicationController
         end
       end
     end
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_remuneracao
       @remuneracao = Remuneracao.find(params[:id])
       @remuneracao.responsavel = usuario_logado

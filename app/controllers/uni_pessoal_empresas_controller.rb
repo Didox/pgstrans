@@ -68,7 +68,7 @@ class UniPessoalEmpresasController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_uni_pessoal_empresa
       @uni_pessoal_empresa = UniPessoalEmpresa.find(params[:id])
       @uni_pessoal_empresa.responsavel = usuario_logado

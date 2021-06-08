@@ -126,7 +126,7 @@ class PerfilUsuariosController < ApplicationController
       end
     end
 
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_perfil_usuario
       @perfil_usuario = PerfilUsuario.find(params[:id] || params[:perfil_usuario_id])
     end

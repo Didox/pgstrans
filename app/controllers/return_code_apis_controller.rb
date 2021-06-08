@@ -72,7 +72,7 @@ class ReturnCodeApisController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_return_code_api
       @return_code_api = ReturnCodeApi.find(params[:id])
       @return_code_api.responsavel = usuario_logado

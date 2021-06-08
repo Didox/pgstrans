@@ -84,7 +84,7 @@ class LancamentosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_lancamento
       @lancamento = Lancamento.find(params[:id])
       @lancamento.responsavel = usuario_logado

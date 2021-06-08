@@ -68,7 +68,7 @@ class StatusClientesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_status_cliente
       @status_cliente = StatusCliente.find(params[:id])
       @status_cliente.responsavel = usuario_logado

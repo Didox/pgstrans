@@ -68,7 +68,7 @@ class StatusAlegacaoDePagamentosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_status_alegacao_de_pagamento
       @status_alegacao_de_pagamento = StatusAlegacaoDePagamento.find(params[:id])
       @status_alegacao_de_pagamento.responsavel = usuario_logado

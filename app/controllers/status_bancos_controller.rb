@@ -69,7 +69,7 @@ class StatusBancosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_status_banco
       @status_banco = StatusBanco.find(params[:id])
       @status_banco.responsavel = usuario_logado

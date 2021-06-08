@@ -68,7 +68,7 @@ class StatusProdutosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_status_produto
       @status_produto = StatusProduto.find(params[:id])
       @status_produto.responsavel = usuario_logado

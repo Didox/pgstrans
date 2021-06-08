@@ -66,7 +66,7 @@ class ParametrosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_parametro
       @parametro = Parametro.find(params[:id])
       @parametro.responsavel = usuario_logado

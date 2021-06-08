@@ -109,13 +109,8 @@ class VendasController < ApplicationController
 
       @vendas = @vendas.where("vendas.id = ?", params[:venda_id]) if params[:venda_id].present?
 
-      if params[:sql_date].present?
-        @vendas = @vendas.where("vendas.updated_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day) ) if params[:data_inicio].present?
-        @vendas = @vendas.where("vendas.updated_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day) ) if params[:data_fim].present?
-      else
-        @vendas = @vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
-        @vendas = @vendas.where("vendas.updated_at <= ?", params[:data_fim].to_datetime.end_of_day) if params[:data_fim].present?
-      end
+      @vendas = @vendas.where("vendas.updated_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day) ) if params[:data_inicio].present?
+      @vendas = @vendas.where("vendas.updated_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day) ) if params[:data_fim].present?
       
       @vendas = @vendas.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
       @vendas = @vendas.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
@@ -150,7 +145,7 @@ class VendasController < ApplicationController
       @vendas = @vendas.paginate(options)
     end
 
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_venda
       @venda = Venda.find(params[:id] || params[:venda_id])
       @venda.responsavel = usuario_logado

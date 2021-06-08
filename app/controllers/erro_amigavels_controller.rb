@@ -62,7 +62,7 @@ class ErroAmigavelsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_erro_amigavel
       @erro_amigavel = ErroAmigavel.find(params[:id])
     end

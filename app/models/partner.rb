@@ -52,16 +52,16 @@ class Partner < ApplicationRecord
       vendas = vendas.where("usuarios.status_cliente_id = ?", params[:status])
     end
 
-    vendas = vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
-    vendas = vendas.where("vendas.updated_at <= ?", params[:data_fim].to_datetime.end_of_day) if params[:data_fim].present?
+    vendas = vendas.where("vendas.updated_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)) if params[:data_inicio].present?
+    vendas = vendas.where("vendas.updated_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)) if params[:data_fim].present?
     vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id").where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
     vendas.sum(:valor_original)
   end
 
   def desconto_total_aplicado(params={}, usuario_logado)
     vendas = Venda.com_acesso(usuario_logado).where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code })
-    vendas = vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
-    vendas = vendas.where("vendas.updated_at <= ?", params[:data_fim].to_datetime.end_of_day) if params[:data_fim].present?
+    vendas = vendas.where("vendas.updated_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)) if params[:data_inicio].present?
+    vendas = vendas.where("vendas.updated_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)) if params[:data_fim].present?
     vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id")
     vendas = vendas.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
 
@@ -75,8 +75,8 @@ class Partner < ApplicationRecord
 
   def valor_total_vendido(params={}, usuario_logado)
     vendas = Venda.com_acesso(usuario_logado).where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code })
-    vendas = vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
-    vendas = vendas.where("vendas.updated_at <= ?", params[:data_fim].to_datetime.end_of_day) if params[:data_fim].present?
+    vendas = vendas.where("vendas.updated_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)) if params[:data_inicio].present?
+    vendas = vendas.where("vendas.updated_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)) if params[:data_fim].present?
     vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id")
     vendas = vendas.where("lower(usuarios.nome) ilike '%#{params[:nome]}%'") if params[:nome].present?
 

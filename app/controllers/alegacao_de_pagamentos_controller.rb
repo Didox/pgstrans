@@ -8,8 +8,8 @@ class AlegacaoDePagamentosController < ApplicationController
   def index
     @alegacao_de_pagamentos = AlegacaoDePagamento.com_acesso(usuario_logado).order(id: :asc)
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.joins("inner join usuarios on usuarios.id = alegacao_de_pagamentos.usuario_id")
-    @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("alegacao_de_pagamentos.created_at >= ?", params[:data_alegacao_pagamento_inicio].to_datetime.beginning_of_day) if params[:data_alegacao_pagamento_inicio].present?
-    @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("alegacao_de_pagamentos.created_at <= ?", params[:data_alegacao_pagamento_fim].to_datetime.end_of_day) if params[:data_alegacao_pagamento_fim].present?
+    @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("alegacao_de_pagamentos.created_at >= ?", SqlDate.sql_parse(params[:data_alegacao_pagamento_inicio].to_datetime.beginning_of_day)) if params[:data_alegacao_pagamento_inicio].present?
+    @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("alegacao_de_pagamentos.created_at <= ?", SqlDate.sql_parse(params[:data_alegacao_pagamento_fim].to_datetime.end_of_day)) if params[:data_alegacao_pagamento_fim].present?
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.id = ?", params[:id]) if params[:id].present?
@@ -106,7 +106,7 @@ class AlegacaoDePagamentosController < ApplicationController
       end
     end
 
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_alegacao_de_pagamento
       @alegacao_de_pagamento = AlegacaoDePagamento.find(params[:id] || params[:alegacao_de_pagamento_id])
       @alegacao_de_pagamento.responsavel = usuario_logado

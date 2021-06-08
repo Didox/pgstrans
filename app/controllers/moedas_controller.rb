@@ -66,7 +66,7 @@ class MoedasController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_moeda
       @moeda = Moeda.find(params[:id])
       @moeda.responsavel = usuario_logado

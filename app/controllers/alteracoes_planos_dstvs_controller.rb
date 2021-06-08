@@ -107,7 +107,7 @@ class AlteracoesPlanosDstvsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_alteracoes_planos_dstv
       @alteracoes_planos_dstv = AlteracoesPlanosDstv.find(params[:id])
     end

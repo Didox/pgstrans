@@ -66,7 +66,7 @@ class DispositivosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_dispositivo
       @dispositivo = Dispositivo.find(params[:id])
       @dispositivo.responsavel = usuario_logado

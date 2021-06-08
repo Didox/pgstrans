@@ -32,8 +32,8 @@ class VendasConciliacaoController < ApplicationController
       sql += " and usuarios.status_cliente_id = #{params[:status]}"
     end
 
-    sql += " and vendas.updated_at >= '#{params[:data_inicio].to_datetime.beginning_of_day}'" if params[:data_inicio].present?
-    sql += " and vendas.updated_at <= '#{params[:data_fim].to_datetime.end_of_day}'" if params[:data_fim].present?
+    sql += " and vendas.updated_at >= '#{SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)}'" if params[:data_inicio].present?
+    sql += " and vendas.updated_at <= '#{SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)}'" if params[:data_fim].present?
     sql += " and vendas.partner_id = #{params[:parceiro_id]}" if params[:parceiro_id].present?
 
     if params[:status_parceiro_id].present?

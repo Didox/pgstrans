@@ -101,7 +101,7 @@ class Dstv
             end
           end
 
-          if Produto.where(produto_id_parceiro: produto_id_parceiro, partner_id: partner.id).where("created_at BETWEEN ? AND ?", (Time.zone.now - 2.minutes), (Time.zone.now + 2.minutes)).count == 0
+          if Produto.where(produto_id_parceiro: produto_id_parceiro, partner_id: partner.id).where("created_at BETWEEN ? AND ?", SqlDate.sql_parse((Time.zone.now - 2.minutes)), SqlDate.sql_parse((Time.zone.now + 2.minutes))).count == 0
             produto = Produto.new
             produto.produto_id_parceiro = produto_id_parceiro
             produto.partner_id = partner.id
@@ -198,7 +198,7 @@ class Dstv
             end
           end
 
-          if SaldoParceiroDstv.where(partner_id: partner.id).where("created_at BETWEEN ? AND ?", (Time.zone.now - 2.minutes), (Time.zone.now + 2.minutes)).count == 0
+          if SaldoParceiroDstv.where(partner_id: partner.id).where("created_at BETWEEN ? AND ?", SqlDate.sql_parse((Time.zone.now - 2.minutes)), SqlDate.sql_parse((Time.zone.now + 2.minutes))).count == 0
             saldo_dstv = SaldoParceiroDstv.new
             saldo_dstv.request = body
             saldo_dstv.partner_id = partner.id

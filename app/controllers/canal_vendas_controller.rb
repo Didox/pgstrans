@@ -66,7 +66,7 @@ class CanalVendasController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_canal_venda
       @canal_venda = CanalVenda.find(params[:id])
       @canal_venda.responsavel = usuario_logado

@@ -68,7 +68,7 @@ class StatusParceirosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_status_parceiro
       @status_parceiro = StatusParceiro.find(params[:id])
       @status_parceiro.responsavel = usuario_logado

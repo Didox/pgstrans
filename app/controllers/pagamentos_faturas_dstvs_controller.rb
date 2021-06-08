@@ -94,7 +94,7 @@ class PagamentosFaturasDstvsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_pagamentos_faturas_dstv
       @pagamentos_faturas_dstv = PagamentosFaturasDstv.find(params[:id])
     end
