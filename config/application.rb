@@ -18,7 +18,7 @@ module Pgstrans
     config.i18n.default_locale = :pt
     #config.time_zone = 'West Central Africa'
     config.time_zone = "Africa/Algiers"
-    #config.active_record.default_timezone = :local
+    config.active_record.default_timezone = :utc
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
