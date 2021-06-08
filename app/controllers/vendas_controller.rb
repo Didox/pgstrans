@@ -113,8 +113,8 @@ class VendasController < ApplicationController
         @vendas = @vendas.where("vendas.updated_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day) ) if params[:data_inicio].present?
         @vendas = @vendas.where("vendas.updated_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day) ) if params[:data_fim].present?
       else
-        @vendas = @vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day.utc) if params[:data_inicio].present?
-        @vendas = @vendas.where("vendas.updated_at <= ?", params[:data_fim].to_datetime.end_of_day.utc) if params[:data_fim].present?
+        @vendas = @vendas.where("vendas.updated_at >= ?", params[:data_inicio].to_datetime.beginning_of_day) if params[:data_inicio].present?
+        @vendas = @vendas.where("vendas.updated_at <= ?", params[:data_fim].to_datetime.end_of_day) if params[:data_fim].present?
       end
       
       @vendas = @vendas.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
