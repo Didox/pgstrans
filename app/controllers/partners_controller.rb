@@ -57,7 +57,7 @@ class PartnersController < ApplicationController
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.reorder("date_time desc")
 
     if params[:csv].present?
-      filename = "relatorio_conciliacao_zaptvs-#{Time.now.strftime("%Y%m%d%H%M%S")}.csv"
+      filename = "relatorio_conciliacao_zaptvs-#{Time.zone.now.strftime("%Y%m%d%H%M%S")}.csv"
       send_data(@relatorio_conciliacao_zaptvs.to_csv, :type => "text/csv; charset=utf-8; header=present", :filename => filename)
       return
     end

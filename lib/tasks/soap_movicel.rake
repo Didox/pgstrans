@@ -6,7 +6,7 @@ namespace :soap_movicel do
     agent_key = "5CF0AC45050B030B9E3A5FC14A5D7C8B609B2BDD40119B5C32539E1F3B6CEF7F"
     user_id = "TivTechno"
     msisdn = "244998524570"
-    request_id = Time.now.strftime("%d%m%Y%H%M%S")
+    request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
     valor = 100
 
     #### MAC ####
@@ -75,7 +75,7 @@ namespace :soap_movicel do
     agent_key = "5CF0AC45050B030B9E3A5FC14A5D7C8B609B2BDD40119B5C32539E1F3B6CEF7F"
     user_id = "TivTechno"
     msisdn = "244998524570"
-    request_id = Time.now.strftime("%d%m%Y%H%M%S")
+    request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
     valor = 100
 
     #### MAC ####

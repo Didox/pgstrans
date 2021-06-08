@@ -11,7 +11,7 @@ class AwsService
   end
 
   def self.upload(file, name)
-    obj = s3.bucket(BUCKET).object("#{Time.now.to_i}-#{name}")
+    obj = s3.bucket(BUCKET).object("#{Time.zone.now.to_i}-#{name}")
     obj.upload_file(file, acl:'public-read')
     obj.public_url
   end

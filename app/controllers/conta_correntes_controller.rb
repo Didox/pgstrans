@@ -166,7 +166,7 @@ class ContaCorrentesController < ApplicationController
     @conta_correntes = @conta_correntes.reorder("created_at desc")
   
     if params[:download_xlsx].present?
-        filename = "carregamento_usuario_#{Time.now.strftime("%Y%m%d%H%M%S")}.xlsx"
+        filename = "carregamento_usuario_#{Time.zone.now.strftime("%Y%m%d%H%M%S")}.xlsx"
         workbook = WriteXLSX.new("/tmp/#{filename}")
         worksheet = workbook.add_worksheet
 

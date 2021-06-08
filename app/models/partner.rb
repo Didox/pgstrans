@@ -113,7 +113,7 @@ class Partner < ApplicationRecord
     require 'openssl'
 
     user_id = "TivTechno"
-    request_id = Time.now.strftime("%d%m%Y%H%M%S")
+    request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
 
     pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto`
     # pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' REQUESTID='#{request_id}' ./chaves/movicell/mac/encripto`

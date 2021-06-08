@@ -255,7 +255,7 @@ class Venda < ApplicationRecord
     raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
 
     telefone = params[:zaptv_cartao]
-    request_id = Time.now.strftime("%d%m%Y%H%M%S")
+    request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
 
     if Rails.env == "development"
       host = "#{parametro.url_integracao_desenvolvimento}/carregamento"
@@ -449,7 +449,7 @@ class Venda < ApplicationRecord
     # url_service = "http://wsqa.movicel.co.ao:10071"
 
     msisdn = telefone
-    request_id = Time.now.strftime("%d%m%Y%H%M%S")
+    request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
 
     cripto = "AGENTKEY='#{agent_key}' USERID='#{user_id}' MSISDN='#{msisdn}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto"
     Rails.logger.info "=========[cripto]========"

@@ -141,7 +141,7 @@ class VendasController < ApplicationController
       @vendas_graficos = @vendas.clone
 
       if params[:csv].present?
-        filename = "relatorio_vendas-#{Time.now.strftime("%Y%m%d%H%M%S")}.csv"
+        filename = "relatorio_vendas-#{Time.zone.now.strftime("%Y%m%d%H%M%S")}.csv"
         send_data(@vendas.to_csv, :type => "text/csv; charset=utf-8; header=present", :filename => filename)
         return
       end
