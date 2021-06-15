@@ -130,7 +130,7 @@
             <%= number_to_currency(desconto_total_aplicado) %><br>
             <% porcentagem = (desconto_total_aplicado.to_f / valor_total_original.to_f * 100) 
             unless porcentagem.nan? %>
-              <%= number_to_currency(porcentagem, :unit => "") %>%
+              <%= number_to_currency(porcentagem, :unit => "", precision: 3) %>%
             <% end %>
           </td>
           <td align="right">
