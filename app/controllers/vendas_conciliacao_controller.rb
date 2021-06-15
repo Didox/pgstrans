@@ -3,7 +3,7 @@ class VendasConciliacaoController < ApplicationController
   def index_vendas_conciliacao
     sql = "
       SELECT  
-        to_char(vendas.created_at, 'YYYY/MM/DD') as data_venda, 
+        to_char(vendas.created_at #{SqlDate.fix_sql_date_query}, 'YYYY/MM/DD') as data_venda, 
         sum(vendas.valor_original) as valor, 
         sum(vendas.desconto_aplicado) as lucro, 
         sum(vendas.value) as custo
