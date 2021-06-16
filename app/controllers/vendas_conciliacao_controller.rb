@@ -46,7 +46,7 @@ class VendasConciliacaoController < ApplicationController
       group by data_venda
       ORDER BY data_venda desc
     "
-    
+    @sql = sql
     @vendas = ActiveRecord::Base.connection.exec_query(sql)
     @vendas_total = @vendas.count
   end

@@ -1,0 +1,197 @@
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h4>
+      Conta Corrente -
+      Saldo Disponível para o usuário <%= usuario_logado.nome %>: 
+      <label <% if usuario_logado.saldo < 0 %>style="color:red"<% end %>>
+        <%= number_to_currency(usuario_logado.saldo, :unit => "KZ", :precision => 2) %>
+      </label>
+    </h4>
+  </div>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+  <form action="" method="get" id="formApuracao">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Data de Lançamento Inicio</label>
+        <div>
+          <input type="date" name="data_alegacao_pagamento" value="<%= params[:data_alegacao_pagamento] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Data de Lançamento Fim</label>
+        <div>
+          <input type="date" name="data_ultima_atualizacao_saldo" value="<%= params[:data_ultima_atualizacao_saldo] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Nome do Usuário</label>
+        <div>
+          <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Perfil do Usuário</label>
+        <div>
+          <select name="perfil_usuario_id" class="form-control">
+            <option value="" selected="'selected'">Todos</option>
+            <% PerfilUsuario.all.each do |perfil_usuario| %>
+              <option value="<%= perfil_usuario.id %>" <% if params[:perfil_usuario_id].to_s == perfil_usuario.id.to_s %> selected="selected" <% end %>><%= perfil_usuario.nome %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Login do Usuário</label>
+        <div>
+          <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>ID Interno Usuário</label>
+        <div>
+          <input type="text" name="id" value="<%= params[:id] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Situação do Usuário</label>
+        <div>
+          <select name="status" class="form-control">
+            <option value="" selected="'selected'">Todos</option>
+            <% StatusCliente.all.each do |status| %>
+              <option value="<%= status.id %>" <% if params[:status].to_s == status.id.to_s %> selected="selected" <% end %>><%= status.nome %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>ID do Lançamento</label>
+        <div>
+          <input type="text" name="id_lancamento" value="<%= params[:id_lancamento] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Responsável pela Aprovação</label>
+        <div>
+          <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>IBAN ou Número do Talão</label>
+        <div>
+          <input type="text" name="iban" value="<%= params[:iban] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Tipo de Lançamento
+        </label>
+          <div>
+            <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
+              <option value="" selected="'selected'">Todos</option>
+              <% Lancamento.all.each do |lancamento| %>
+                <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
+              <% end %>
+            </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Observação</label>
+          <div>
+            <input type="text" name="observacao" value="<%= params[:observacao] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div style="float: right;margin-right:10px">
+        <input type="submit" value="Buscar" class="btn btn-info">
+
+        <%= link_to new_conta_corrente_path, class: 'btn btn-success' do %>
+          <span class="glyphicon glyphicon-plus"></span>
+          Novo Registo
+        <% end %>
+
+        <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-list-alt"></span>
+          Voltar
+        <% end %>  
+      </div>
+    </div>
+  </form>
+
+  <div class="col-md-12">
+    <h4>
+      Total de Ocorrências: <strong><%= number_to_currency(@conta_correntes.length, :precision => 0, :unit => "") %></strong>
+    </h4>
+    <hr>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Data</th>
+          <th scope="col">Usuário</th>
+          <th scope="col">Lançamento</th>
+          <th scope="col" style="text-align:right">Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% valor_total = 0 %>
+        <% @conta_correntes.each do |conta_corrente| %>
+        <tr>
+          <td>
+            <%= conta_corrente["data_alegacao_pagamento"] %>
+          </td>
+          <td>
+            <%= conta_corrente["usuario"] %>
+          </td>
+          <td>
+            <%= conta_corrente["lancamento"] %>
+          </td>
+          <td style="text-align:right">
+            <%= number_to_currency(conta_corrente["valor"].to_f, :unit => "KZ") %>
+          </td>
+        </tr>
+        <% valor_total += conta_corrente["valor"].to_f %>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="text-align:right">
+            <b>Total da Página: </b> <%= number_to_currency(valor_total, :unit => "KZ") %><br>
+            <b>Total da Geral: </b> <%= number_to_currency(@valor_total, :unit => "KZ") %><br>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>
+  </div>
+</div>

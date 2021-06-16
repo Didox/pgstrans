@@ -40,6 +40,56 @@ class ContaCorrentesController < ApplicationController
     @conta_correntes = @conta_correntes.paginate(options)
   end
 
+  def conta_corrente_resumido
+    sql = "
+      select  
+        to_char((conta_correntes.data_alegacao_pagamento #{SqlDate.fix_sql_date_query}), 'DD/MM/YYYY') as data_alegacao_pagamento, 
+        usuarios.nome as usuario, 
+        lancamentos.nome as lancamento, 
+        sum(valor) as valor
+      from conta_correntes
+      inner join usuarios on usuarios.id = conta_correntes.responsavel_aprovacao_id
+      inner join lancamentos on lancamentos.id = conta_correntes.lancamento_id
+      group by 
+        data_alegacao_pagamento, 
+        usuarios.id,
+        lancamentos.id
+      limit 10
+    "
+
+    # if params[:return_code].present?
+    #   if params[:return_code] == "sucesso"
+    #     status = ReturnCodeApi.where(sucesso: true).map{|r| "'#{r.return_code}'" }.join(",") rescue ""
+    #     sql += " and vendas.status in (#{status})" if status.present?
+    #   else
+    #     ret = ReturnCodeApi.find(params[:return_code])
+    #     sql += " and vendas.status = '#{ret.return_code}' and vendas.partner_id = #{ret.partner_id}"
+    #   end
+    # end
+
+    # params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
+    # if params[:status].present?
+    #   sql += " and usuarios.status_cliente_id = #{params[:status]}"
+    # end
+
+    # sql += " and vendas.updated_at >= '#{SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)}'" if params[:data_inicio].present?
+    # sql += " and vendas.updated_at <= '#{SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)}'" if params[:data_fim].present?
+    # sql += " and vendas.partner_id = #{params[:parceiro_id]}" if params[:parceiro_id].present?
+
+    # if params[:status_parceiro_id].present?
+    #   sql += " and partners.status_parceiro_id = #{params[:status_parceiro_id]}"
+    # else
+    #   sql += " and partners.status_parceiro_id in (#{StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL.join(",")})"
+    # end
+
+    # sql += "
+    #   group by data_venda
+    #   ORDER BY data_venda desc
+    # "
+    @sql = sql
+    @conta_correntes = ActiveRecord::Base.connection.exec_query(sql)
+  end
+
   def conciliacao
     if usuario_logado.admin? || usuario_logado.operador?
       @conta_correntes = ContaCorrente.all

@@ -9,7 +9,7 @@ class SqlDate
 
 	def self.fix_sql_date_query
   	if Rails.env == "production"
-  		return " - interval '1 hour'"
+  		return " + interval '1 hour'"
   	else
   		return ""
   	end
