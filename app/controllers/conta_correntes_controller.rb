@@ -13,8 +13,8 @@ class ContaCorrentesController < ApplicationController
 
     @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
     @conta_correntes = @conta_correntes.reorder("data_alegacao_pagamento desc")
-    @conta_correntes = @conta_correntes.where("conta_correntes.data_alegacao_pagamento >= ?", params[:data_alegacao_pagamento].to_datetime.beginning_of_day) if params[:data_alegacao_pagamento].present?
-    @conta_correntes = @conta_correntes.where("conta_correntes.data_ultima_atualizacao_saldo <= ?", params[:data_ultima_atualizacao_saldo].to_datetime.end_of_day) if params[:data_ultima_atualizacao_saldo].present?
+    @conta_correntes = @conta_correntes.where("conta_correntes.data_alegacao_pagamento >= ?", SqlDate.sql_parse(params[:data_alegacao_pagamento].to_datetime.beginning_of_day)) if params[:data_alegacao_pagamento].present?
+    @conta_correntes = @conta_correntes.where("conta_correntes.data_ultima_atualizacao_saldo <= ?", SqlDate.sql_parse(params[:data_ultima_atualizacao_saldo].to_datetime.end_of_day)) if params[:data_ultima_atualizacao_saldo].present?
     @conta_correntes = @conta_correntes.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
     @conta_correntes = @conta_correntes.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
     @conta_correntes = @conta_correntes.where("usuarios.id = ?", params[:id]) if params[:id].present?
@@ -49,8 +49,8 @@ class ContaCorrentesController < ApplicationController
 
     @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
     @conta_correntes = @conta_correntes.reorder("data_alegacao_pagamento desc")
-    @conta_correntes = @conta_correntes.where("conta_correntes.data_alegacao_pagamento >= ?", params[:data_alegacao_pagamento].to_datetime.beginning_of_day) if params[:data_alegacao_pagamento].present?
-    @conta_correntes = @conta_correntes.where("conta_correntes.data_ultima_atualizacao_saldo <= ?", params[:data_ultima_atualizacao_saldo].to_datetime.end_of_day) if params[:data_ultima_atualizacao_saldo].present?
+    @conta_correntes = @conta_correntes.where("conta_correntes.data_alegacao_pagamento >= ?", SqlDate.sql_parse(params[:data_alegacao_pagamento].to_datetime.beginning_of_day)) if params[:data_alegacao_pagamento].present?
+    @conta_correntes = @conta_correntes.where("conta_correntes.data_ultima_atualizacao_saldo <= ?", SqlDate.sql_parse(params[:data_ultima_atualizacao_saldo].to_datetime.end_of_day)) if params[:data_ultima_atualizacao_saldo].present?
     @conta_correntes = @conta_correntes.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
     @conta_correntes = @conta_correntes.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
     @conta_correntes = @conta_correntes.where("usuarios.id = ?", params[:id]) if params[:id].present?

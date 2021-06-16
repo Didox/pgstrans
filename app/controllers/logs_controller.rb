@@ -23,12 +23,12 @@ class LogsController < ApplicationController
     end
 
     if params[:created_at_de].present?
-      @logs = @logs.where("created_at >= ?", params[:created_at_de].to_datetime.beginning_of_day)
+      @logs = @logs.where("created_at >= ?", SqlDate.sql_parse(params[:created_at_de].to_datetime.beginning_of_day))
       @busca = true
     end
 
     if params[:created_at_ate].present? 
-      @logs = @logs.where("created_at <= ?", params[:created_at_ate].to_datetime.end_of_day)
+      @logs = @logs.where("created_at <= ?", SqlDate.sql_parse(params[:created_at_ate].to_datetime.end_of_day))
       @busca = true
     end
 

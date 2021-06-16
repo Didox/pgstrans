@@ -67,7 +67,7 @@ class LoginController < ApplicationController
       return
     end
 
-    usuarioToken = TokenUsuarioSenha.where(token: params[:token]).where("created_at > ?", Time.zone.now - 60.minutes).first
+    usuarioToken = TokenUsuarioSenha.where(token: params[:token]).where("created_at > ?", SqlDate.sql_parse(Time.zone.now - 60.minutes)).first
     if usuarioToken.blank?
       flash[:error] = "Token inválido"
       redirect_to login_path
