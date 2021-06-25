@@ -14,7 +14,7 @@
   <form action="" method="get" id="formApuracao">
     <div class="col-sm-2">
       <div class="form-group">
-        <label>Data de Lançamento Inicio</label>
+        <label>Data e Hora de Lançamento Início</label>
         <div>
           <input type="datetime-local" name="data_inicio" value="<%= params[:data_inicio] %>" class="form-control">
         </div>
@@ -22,7 +22,7 @@
     </div>
     <div class="col-sm-2">
       <div class="form-group">
-        <label>Data de Lançamento Fim</label>
+        <label>Data e Hora de Lançamento Fim</label>
         <div>
           <input type="datetime-local" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
         </div>
@@ -30,44 +30,7 @@
     </div>
     <div class="col-sm-2">
       <div class="form-group">
-        <label>Nome do Usuário</label>
-        <div>
-          <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Perfil do Usuário</label>
-        <div>
-          <select name="perfil_usuario_id" class="form-control">
-            <option value="" selected="'selected'">Todos</option>
-            <% PerfilUsuario.all.each do |perfil_usuario| %>
-              <option value="<%= perfil_usuario.id %>" <% if params[:perfil_usuario_id].to_s == perfil_usuario.id.to_s %> selected="selected" <% end %>><%= perfil_usuario.nome %></option>
-            <% end %>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Login do Usuário</label>
-        <div>
-          <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>ID Interno Usuário</label>
-        <div>
-          <input type="text" name="id" value="<%= params[:id] %>" class="form-control">
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Situação do Usuário</label>
+        <label>Situação dos Usuários</label>
         <div>
           <select name="status" class="form-control">
             <option value="" selected="'selected'">Todos</option>
@@ -80,25 +43,9 @@
     </div>
     <div class="col-sm-2">
       <div class="form-group">
-        <label>ID do Lançamento</label>
-        <div>
-          <input type="text" name="id_lancamento" value="<%= params[:id_lancamento] %>" class="form-control">
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-2">
-      <div class="form-group">
         <label>Responsável pela Aprovação</label>
         <div>
           <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>IBAN ou Número do Talão</label>
-        <div>
-          <input type="text" name="iban" value="<%= params[:iban] %>" class="form-control">
         </div>
       </div>
     </div>
@@ -122,19 +69,13 @@
           <div>
             <input type="text" name="observacao" value="<%= params[:observacao] %>" class="form-control">
           </div>
-        </div>
       </div>
     </div>
     <div class="form-group">
       <div style="float: right;margin-right:10px">
         <input type="submit" value="Buscar" class="btn btn-info">
 
-        <%= link_to new_conta_corrente_path, class: 'btn btn-success' do %>
-          <span class="glyphicon glyphicon-plus"></span>
-          Novo Registo
-        <% end %>
-
-        <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+       <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
           <span class="glyphicon glyphicon-list-alt"></span>
           Voltar
         <% end %>  

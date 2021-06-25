@@ -57,7 +57,7 @@ class PerfilUsuario < ApplicationRecord
       novo_acesso_usuario: "Tela de criação de novo acesso do usuário",
       #resumido: "(VENDAS RESUMIDAS) Relatório de Pagamentos de Fatura DSTV",
       resumido: "(VENDAS RESUMIDAS) Relatório Vendas na Visão do Agente e do Vendedor",
-      conta_corrente_resumido: "Conta Corrente Resumido",
+      conta_corrente_resumido: "Lançamento em Conta Corrente Compilado - Operador(a) Responsável Aprovação",
       importa_produtos: "Acesso ao botão 'Atualizar portfólio de produtos ZAP'",
       importa_dados: "Acesso ao botão 'Importar dados para relatório de conciliação ZAP'",
       validacao_cliente: "Validação e consulta da situação do cliente",
