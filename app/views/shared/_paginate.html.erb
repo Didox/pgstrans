@@ -1,0 +1,21 @@
+<%
+  parametros = []
+  params.each do |key, value|
+    parametros << "#{key}=#{value}" if key.downcase != "page" && key.downcase != "controller" && key.downcase != "action"
+  end
+  parametros = parametros.join("&")
+  params[:page] ||= 1
+%>
+<div class="apple_pagination">
+    <% if params[:page].to_i == 1 %>
+        <span class="previous_page disabled">Anterior</span>
+    <% else %>
+        <a class="previous_page" rel="next" href="<%= path %>?<%= parametros %>&page=<%= params[:page].to_i - 1 %>">Anterior</a>
+    <% end %>
+
+    <% if per_page > records.length %>
+        <span class="next_page disabled">Próximo</span>
+    <% else %>
+        <a class="next_page" rel="next" href="<%= path %>?<%= parametros %>&page=<%= params[:page].to_i + 1 %>">Proximo</a>
+    <% end %>
+</div>

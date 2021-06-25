@@ -16,7 +16,7 @@
       <div class="form-group">
         <label>Data de Lançamento Inicio</label>
         <div>
-          <input type="date" name="data_alegacao_pagamento" value="<%= params[:data_alegacao_pagamento] %>" class="form-control">
+          <input type="datetime-local" name="data_inicio" value="<%= params[:data_inicio] %>" class="form-control">
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
       <div class="form-group">
         <label>Data de Lançamento Fim</label>
         <div>
-          <input type="date" name="data_ultima_atualizacao_saldo" value="<%= params[:data_ultima_atualizacao_saldo] %>" class="form-control">
+          <input type="datetime-local" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
         </div>
       </div>
     </div>
@@ -161,7 +161,7 @@
         <% @conta_correntes.each do |conta_corrente| %>
         <tr>
           <td>
-            <%= conta_corrente["data_alegacao_pagamento"] %>
+            <%=  (params[:data_inicio].present? || params[:data_fim].present?) ? conta_corrente["data_alegacao_pagamento"].to_datetime.strftime("%d/%m/%Y %H:%M:%S") :  conta_corrente["data_alegacao_pagamento"].to_datetime.strftime("%d/%m/%Y") %>
           </td>
           <td>
             <%= conta_corrente["usuario"] %>
@@ -188,6 +188,8 @@
         </tr>
       </tfoot>
     </table>
+
+    <%= render "/shared/paginate", path: "/conta_correntes/resumido", records: @conta_correntes, :per_page => @per_page %>
 
     <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>

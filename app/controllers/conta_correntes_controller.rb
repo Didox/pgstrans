@@ -41,21 +41,52 @@ class ContaCorrentesController < ApplicationController
   end
 
   def conta_corrente_resumido
+    @page = params[:page] || 1
+    @per_page = 10
+    @page = @page.to_i
+    fetch = (@page - 1) * @per_page
+
+    sqlDatas = ""
+    sqlDatas += " and conta_correntes.data_alegacao_pagamento >= '#{SqlDate.sql_parse(params[:data_inicio].to_datetime)}'" if params[:data_inicio].present?
+    sqlDatas += " and conta_correntes.data_alegacao_pagamento <= '#{SqlDate.sql_parse(params[:data_fim].to_datetime)}'" if params[:data_fim].present?
+
+    data_formatada = (params[:data_inicio].present? || params[:data_fim].present?) ? "conta_correntes.data_alegacao_pagamento" : "to_char((conta_correntes.data_alegacao_pagamento #{SqlDate.fix_sql_date_query}), 'YYYY/MM/DD')"
+
+    sqlNome = ""
+    sqlNome += " and usuarios.nome ilike '%#{params[:nome]}%'" if params[:nome].present?
+
     sql = "
       select  
-        to_char((conta_correntes.data_alegacao_pagamento #{SqlDate.fix_sql_date_query}), 'DD/MM/YYYY') as data_alegacao_pagamento, 
+        #{data_formatada} as data_alegacao_pagamento, 
         usuarios.nome as usuario, 
         lancamentos.nome as lancamento, 
         sum(valor) as valor
       from conta_correntes
       inner join usuarios on usuarios.id = conta_correntes.responsavel_aprovacao_id
       inner join lancamentos on lancamentos.id = conta_correntes.lancamento_id
+      where usuarios.id is not null
+      #{sqlDatas}
+      #{sqlNome}
       group by 
         data_alegacao_pagamento, 
         usuarios.id,
         lancamentos.id
-      limit 10
+      order by data_alegacao_pagamento desc
+      limit #{@per_page} offset #{fetch}
     "
+
+    sqlTotalGeral = "
+      select  
+        sum(valor) as valor
+      from conta_correntes
+      inner join usuarios on usuarios.id = conta_correntes.responsavel_aprovacao_id
+      inner join lancamentos on lancamentos.id = conta_correntes.lancamento_id
+      where usuarios.id is not null
+      #{sqlDatas}
+      #{sqlNome}
+    "
+
+    @valor_total = ActiveRecord::Base.connection.exec_query(sqlTotalGeral).first["valor"] rescue 0
 
     # if params[:return_code].present?
     #   if params[:return_code] == "sucesso"
@@ -72,8 +103,6 @@ class ContaCorrentesController < ApplicationController
     #   sql += " and usuarios.status_cliente_id = #{params[:status]}"
     # end
 
-    # sql += " and vendas.updated_at >= '#{SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)}'" if params[:data_inicio].present?
-    # sql += " and vendas.updated_at <= '#{SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)}'" if params[:data_fim].present?
     # sql += " and vendas.partner_id = #{params[:parceiro_id]}" if params[:parceiro_id].present?
 
     # if params[:status_parceiro_id].present?
