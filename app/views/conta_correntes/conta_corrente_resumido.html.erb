@@ -12,7 +12,7 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
   <form action="" method="get" id="formApuracao">
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <div class="form-group">
         <label>Data e Hora de Lançamento Início</label>
         <div>
@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <div class="form-group">
         <label>Data e Hora de Lançamento Fim</label>
         <div>
@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <div class="form-group">
         <label>Situação dos Usuários</label>
         <div>
@@ -41,15 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Responsável pela Aprovação</label>
-        <div>
-          <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <div class="form-group">
         <label>Tipo de Lançamento
         </label>
@@ -63,7 +55,16 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Operador(a) Responsável pela Aprovação</label>
+        <div>
+          <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-8">
       <div class="form-group">
         <label>Observação</label>
           <div>
@@ -92,7 +93,7 @@
       <thead>
         <tr>
           <th scope="col">Data</th>
-          <th scope="col">Usuário</th>
+          <th scope="col">*** Operador(a) Responsável Aprovação</th>
           <th scope="col">Lançamento</th>
           <th scope="col" style="text-align:right">Valor</th>
         </tr>
