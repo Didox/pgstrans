@@ -6,9 +6,9 @@ class ProvinciaController < ApplicationController
   def index
     @provincia = Provincium.com_acesso(usuario_logado).order(nome: :asc)
 
-    @provincia = @provincia.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
-    @provincia = @provincia.where("capital ilike '%#{params[:capital]}%'") if params[:capital].present?
-    @provincia = @provincia.where("area_km2 ilike '%#{params[:area_km2]}%'") if params[:area_km2].present?
+    @provincia = @provincia.where("nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
+    @provincia = @provincia.where("capital ilike '%#{params[:capital].remove_injection}%'") if params[:capital].present?
+    @provincia = @provincia.where("area_km2 ilike '%#{params[:area_km2].remove_injection}%'") if params[:area_km2].present?
     @provincia = @provincia.where("population = ?", params[:population]) if params[:population].present?
    
     options = {page: params[:page] || 1, per_page: 10}

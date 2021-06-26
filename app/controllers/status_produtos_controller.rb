@@ -6,7 +6,7 @@ class StatusProdutosController < ApplicationController
   def index
     @status_produtos = StatusProduto.com_acesso(usuario_logado).order(nome: :asc)
 
-    @status_produtos = @status_produtos.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @status_produtos = @status_produtos.where("nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
 
     options = {page: params[:page] || 1, per_page: 10}
     @status_produtos = @status_produtos.paginate(options)

@@ -6,8 +6,8 @@ class SubDistribuidorsController < ApplicationController
   def index
     @sub_distribuidors = SubDistribuidor.com_acesso(usuario_logado).order(nome: :asc)
 
-    @sub_distribuidors = @sub_distribuidors.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
-    @sub_distribuidors = @sub_distribuidors.where("morada ilike '%#{params[:morada]}%'") if params[:morada].present?
+    @sub_distribuidors = @sub_distribuidors.where("nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
+    @sub_distribuidors = @sub_distribuidors.where("morada ilike '%#{params[:morada].remove_injection}%'") if params[:morada].present?
     @sub_distribuidors = @sub_distribuidors.where("municipio_id = ?", params[:municipio_id]) if params[:municipio_id].present?
     @sub_distribuidors = @sub_distribuidors.where("provincia_id = ?", params[:provincia_id]) if params[:provincia_id].present?
 

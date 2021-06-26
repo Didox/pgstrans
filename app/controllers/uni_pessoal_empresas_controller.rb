@@ -6,7 +6,7 @@ class UniPessoalEmpresasController < ApplicationController
   def index
     @uni_pessoal_empresas = UniPessoalEmpresa.com_acesso(usuario_logado).order(nome: :asc)
 
-    @uni_pessoal_empresas = @uni_pessoal_empresas.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @uni_pessoal_empresas = @uni_pessoal_empresas.where("nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
 
     options = {page: params[:page] || 1, per_page: 10}
     @uni_pessoal_empresas = @uni_pessoal_empresas.paginate(options) 

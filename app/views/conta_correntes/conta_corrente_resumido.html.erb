@@ -32,10 +32,10 @@
       <div class="form-group">
         <label>Situação dos Usuários</label>
         <div>
-          <select name="status" class="form-control">
+          <select name="status_cliente_id" class="form-control">
             <option value="" selected="'selected'">Todos</option>
             <% StatusCliente.all.each do |status| %>
-              <option value="<%= status.id %>" <% if params[:status].to_s == status.id.to_s %> selected="selected" <% end %>><%= status.nome %></option>
+              <option value="<%= status.id %>" <% if params[:status_cliente_id].to_s == status.id.to_s %> selected="selected" <% end %>><%= status.nome %></option>
             <% end %>
           </select>
         </div>
@@ -93,7 +93,7 @@
       <thead>
         <tr>
           <th scope="col">Data</th>
-          <th scope="col">*** Operador(a) Responsável Aprovação</th>
+          <th scope="col">Operador(a) Responsável Aprovação</th>
           <th scope="col">Lançamento</th>
           <th scope="col" style="text-align:right">Valor</th>
         </tr>

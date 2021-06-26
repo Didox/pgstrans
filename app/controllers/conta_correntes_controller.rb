@@ -15,13 +15,13 @@ class ContaCorrentesController < ApplicationController
     @conta_correntes = @conta_correntes.reorder("data_alegacao_pagamento desc")
     @conta_correntes = @conta_correntes.where("conta_correntes.data_alegacao_pagamento >= ?", SqlDate.sql_parse(params[:data_alegacao_pagamento].to_datetime.beginning_of_day)) if params[:data_alegacao_pagamento].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.data_ultima_atualizacao_saldo <= ?", SqlDate.sql_parse(params[:data_ultima_atualizacao_saldo].to_datetime.end_of_day)) if params[:data_ultima_atualizacao_saldo].present?
-    @conta_correntes = @conta_correntes.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
-    @conta_correntes = @conta_correntes.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
+    @conta_correntes = @conta_correntes.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
+    @conta_correntes = @conta_correntes.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
     @conta_correntes = @conta_correntes.where("usuarios.id = ?", params[:id]) if params[:id].present?
     @conta_correntes = @conta_correntes.where("usuarios.perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.lancamento_id = ?", params[:lancamento_id]) if params[:lancamento_id].present?
-    @conta_correntes = @conta_correntes.where("conta_correntes.observacao ilike '%#{params[:observacao]}%'") if params[:observacao].present?
-    @conta_correntes = @conta_correntes.where("conta_correntes.iban ilike '%#{params[:iban]}%'") if params[:iban].present?
+    @conta_correntes = @conta_correntes.where("conta_correntes.observacao ilike '%#{params[:observacao].remove_injection}%'") if params[:observacao].present?
+    @conta_correntes = @conta_correntes.where("conta_correntes.iban ilike '%#{params[:iban].remove_injection}%'") if params[:iban].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.id = ?", params[:id_lancamento]) if params[:id_lancamento].present?
     
     params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
@@ -31,7 +31,7 @@ class ContaCorrentesController < ApplicationController
     
     if params[:responsavel].present?
       @conta_correntes = @conta_correntes.joins("inner join usuarios as responsavel on responsavel.id = conta_correntes.responsavel_aprovacao_id")
-      @conta_correntes = @conta_correntes.where("responsavel.nome ilike '%#{params[:responsavel]}%'")
+      @conta_correntes = @conta_correntes.where("responsavel.nome ilike '%#{params[:responsavel].remove_injection}%'")
     end
 
     @conta_correntes_total = @conta_correntes.count
@@ -51,10 +51,11 @@ class ContaCorrentesController < ApplicationController
     sqlDatas += " and conta_correntes.data_alegacao_pagamento <= '#{SqlDate.sql_parse(params[:data_fim].to_datetime)}'" if params[:data_fim].present?
 
     data_formatada = (params[:data_inicio].present? || params[:data_fim].present?) ? "conta_correntes.data_alegacao_pagamento" : "to_char((conta_correntes.data_alegacao_pagamento #{SqlDate.fix_sql_date_query}), 'YYYY/MM/DD')"
-
-    sqlNome = ""
-    sqlNome += " and usuarios.nome ilike '%#{params[:nome]}%'" if params[:nome].present?
-
+    sql_nome = params[:responsavel].present? ? " and lower(usuarios.nome) ilike '%#{params[:responsavel].remove_injection.downcase}%'" : ""
+    sql_observacao = params[:observacao].present? ? " and lower(conta_correntes.observacao) ilike '%#{params[:observacao].remove_injection.downcase}%'" : ""
+    sql_lancamento_id = params[:lancamento_id].present? ? " and conta_correntes.lancamento_id = '#{params[:lancamento_id].remove_injection}'" : ""
+    status_cliente_id = params[:status_cliente_id].present? ? " and usuarios.status_cliente_id = '#{params[:status_cliente_id].remove_injection}'" : ""
+    
     sql = "
       select  
         #{data_formatada} as data_alegacao_pagamento, 
@@ -66,9 +67,12 @@ class ContaCorrentesController < ApplicationController
       inner join lancamentos on lancamentos.id = conta_correntes.lancamento_id
       where usuarios.id is not null
       #{sqlDatas}
-      #{sqlNome}
+      #{sql_nome}
+      #{sql_observacao}
+      #{sql_lancamento_id}
+      #{status_cliente_id}
       group by 
-        data_alegacao_pagamento, 
+        #{data_formatada}, 
         usuarios.id,
         lancamentos.id
       order by data_alegacao_pagamento desc
@@ -83,39 +87,16 @@ class ContaCorrentesController < ApplicationController
       inner join lancamentos on lancamentos.id = conta_correntes.lancamento_id
       where usuarios.id is not null
       #{sqlDatas}
-      #{sqlNome}
+      #{sql_nome}
+      #{sql_observacao}
+      #{sql_lancamento_id}
+      #{status_cliente_id}
     "
 
     @valor_total = ActiveRecord::Base.connection.exec_query(sqlTotalGeral).first["valor"] rescue 0
 
-    # if params[:return_code].present?
-    #   if params[:return_code] == "sucesso"
-    #     status = ReturnCodeApi.where(sucesso: true).map{|r| "'#{r.return_code}'" }.join(",") rescue ""
-    #     sql += " and vendas.status in (#{status})" if status.present?
-    #   else
-    #     ret = ReturnCodeApi.find(params[:return_code])
-    #     sql += " and vendas.status = '#{ret.return_code}' and vendas.partner_id = #{ret.partner_id}"
-    #   end
-    # end
-
-    # params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
-    # if params[:status].present?
-    #   sql += " and usuarios.status_cliente_id = #{params[:status]}"
-    # end
-
-    # sql += " and vendas.partner_id = #{params[:parceiro_id]}" if params[:parceiro_id].present?
-
-    # if params[:status_parceiro_id].present?
-    #   sql += " and partners.status_parceiro_id = #{params[:status_parceiro_id]}"
-    # else
-    #   sql += " and partners.status_parceiro_id in (#{StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL.join(",")})"
-    # end
-
-    # sql += "
-    #   group by data_venda
-    #   ORDER BY data_venda desc
-    # "
     @sql = sql
+
     @conta_correntes = ActiveRecord::Base.connection.exec_query(sql)
   end
 
@@ -130,12 +111,12 @@ class ContaCorrentesController < ApplicationController
     @conta_correntes = @conta_correntes.reorder("data_alegacao_pagamento desc")
     @conta_correntes = @conta_correntes.where("conta_correntes.data_alegacao_pagamento >= ?", SqlDate.sql_parse(params[:data_alegacao_pagamento].to_datetime.beginning_of_day)) if params[:data_alegacao_pagamento].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.data_ultima_atualizacao_saldo <= ?", SqlDate.sql_parse(params[:data_ultima_atualizacao_saldo].to_datetime.end_of_day)) if params[:data_ultima_atualizacao_saldo].present?
-    @conta_correntes = @conta_correntes.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
-    @conta_correntes = @conta_correntes.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
+    @conta_correntes = @conta_correntes.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
+    @conta_correntes = @conta_correntes.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
     @conta_correntes = @conta_correntes.where("usuarios.id = ?", params[:id]) if params[:id].present?
     @conta_correntes = @conta_correntes.where("usuarios.perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.lancamento_id = ?", params[:lancamento_id]) if params[:lancamento_id].present?
-    @conta_correntes = @conta_correntes.where("conta_correntes.observacao ilike '%#{params[:observacao]}%'") if params[:observacao].present?
+    @conta_correntes = @conta_correntes.where("conta_correntes.observacao ilike '%#{params[:observacao].remove_injection}%'") if params[:observacao].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.id = ?", params[:conta_corrente_id]) if params[:conta_corrente_id].present?
 
     @conta_correntes = @conta_correntes.reorder("id asc")
@@ -171,10 +152,10 @@ class ContaCorrentesController < ApplicationController
   def index_morada_saldo
     @usuarios = Usuario.com_acesso(usuario_logado)
     @usuarios = @usuarios.reorder("nome asc")
-    @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
-    @usuarios = @usuarios.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
-    @usuarios = @usuarios.where("usuarios.morada ilike '%#{params[:morada]}%'") if params[:morada].present?
-    @usuarios = @usuarios.where("usuarios.bairro ilike '%#{params[:bairro]}%'") if params[:bairro].present?
+    @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
+    @usuarios = @usuarios.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
+    @usuarios = @usuarios.where("usuarios.morada ilike '%#{params[:morada].remove_injection}%'") if params[:morada].present?
+    @usuarios = @usuarios.where("usuarios.bairro ilike '%#{params[:bairro].remove_injection}%'") if params[:bairro].present?
     @usuarios = @usuarios.where("usuarios.municipio_id = ?", params[:municipio_id]) if params[:municipio_id].present?
     @usuarios = @usuarios.where("usuarios.provincia_id = ?", params[:provincia_id]) if params[:provincia_id].present?
     @usuarios = @usuarios.where("usuarios.perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
@@ -223,19 +204,19 @@ class ContaCorrentesController < ApplicationController
 
     if params[:nome].present?
       @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
-      @conta_correntes = @conta_correntes.where("usuarios.nome ilike '%#{params[:nome]}%'")
+      @conta_correntes = @conta_correntes.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'")
     end
     
     if params[:login].present?
       @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
-      @conta_correntes = @conta_correntes.where("usuarios.login ilike '%#{params[:login]}%'")
+      @conta_correntes = @conta_correntes.where("usuarios.login ilike '%#{params[:login].remove_injection}%'")
     end
     
     @conta_correntes = @conta_correntes.where("conta_correntes.lancamento_id = ?", params[:lancamento_id]) if params[:lancamento_id].present?
     
     if params[:responsavel].present?
       @conta_correntes = @conta_correntes.joins("inner join usuarios as responsavel on responsavel.id = conta_correntes.responsavel_aprovacao_id")
-      @conta_correntes = @conta_correntes.where("responsavel.nome ilike '%#{params[:responsavel]}%'")
+      @conta_correntes = @conta_correntes.where("responsavel.nome ilike '%#{params[:responsavel].remove_injection}%'")
     end
 
     @conta_correntes_total = @conta_correntes.count

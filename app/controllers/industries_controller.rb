@@ -6,9 +6,9 @@ class IndustriesController < ApplicationController
   def index
     @industries = Industry.com_acesso(usuario_logado).order(descricao_seccao: :asc, descricao_divisao: :asc, descricao_grupo: :asc)
 
-    @industries = @industries.where("descricao_seccao ilike '%#{params[:descricao_seccao]}%'") if params[:descricao_seccao].present?
-    @industries = @industries.where("descricao_divisao ilike '%#{params[:descricao_divisao]}%'") if params[:descricao_divisao].present?
-    @industries = @industries.where("descricao_grupo ilike '%#{params[:descricao_grupo]}%'") if params[:descricao_grupo].present?
+    @industries = @industries.where("descricao_seccao ilike '%#{params[:descricao_seccao].remove_injection}%'") if params[:descricao_seccao].present?
+    @industries = @industries.where("descricao_divisao ilike '%#{params[:descricao_divisao].remove_injection}%'") if params[:descricao_divisao].present?
+    @industries = @industries.where("descricao_grupo ilike '%#{params[:descricao_grupo].remove_injection}%'") if params[:descricao_grupo].present?
 
     options = {page: params[:page] || 1, per_page: 17}
     @industries = @industries.paginate(options)

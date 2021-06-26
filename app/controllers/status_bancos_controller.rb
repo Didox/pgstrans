@@ -6,7 +6,7 @@ class StatusBancosController < ApplicationController
   def index
     @status_bancos = StatusBanco.com_acesso(usuario_logado)  
 
-    @status_bancos = @status_bancos.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @status_bancos = @status_bancos.where("nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
 
     options = {page: params[:page] || 1, per_page: 10}
     @status_bancos = @status_bancos.paginate(options)

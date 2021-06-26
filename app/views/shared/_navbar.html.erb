@@ -6,17 +6,21 @@
       <div class="col-5 text-center">
         <%= link_to image_tag("PagaSo-Logo.png", class: "logo"), "https://www.pagaso.co.ao", target: "_blank" %>
       </div>
-
+      
       <div class="col-4 d-flex justify-content-end align-items-center jsmenu">
         <div class="usuario_logado_mobile">
-          <a class="text-muted jsdropdown" id="jsItensMenu" href="javascript:;">
+          <% if (@adm.admin? || @adm.operador?) && AlegacaoDePagamento.where(status_alegacao_de_pagamento_id: AlegacaoDePagamento::PENDENTE).count > 0 %>
+            <a style="margin-right: 20px;text-decoration: none;" title="Alegação de Pagamento Pendente" href="/alegacao_de_pagamentos">
+              <img src="/static/sino.png" style="width:20px;animation: shake 2.2s;animation-iteration-count: infinite;">
+            </a>  
+          <% end %>
+          <a class="text-muted jsdropdown" style="white-space: nowrap;font-size: 12px;" id="jsItensMenu" href="javascript:;">
             <span class="fa fa-user text-muted"></span> <%= usuario_logado.nome.camelize.split(" ").first rescue usuario_logado.nome.camelize %>
           </a>
           <div class="jsItensMenu mobile-menu" style="display: none; position: absolute;left: 0;">
             <div><b>Login:</b> <%= usuario_logado.login %></div>
             <div><b>Perfil do usuário:</b> <%= usuario_logado.perfil_usuario.nome %></div>
             <div><b>Seu último acesso:</b> <%= usuario_logado.ultimo_acesso.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></div>
-
             <% if usuario_logado.admin? || usuario_logado.operador? %>
               <div><a class="text-muted" href="<%= edit_usuario_path(usuario_logado) %>"><span class="fa fa-user"></span> Perfil</a></div>
             <% end %>
@@ -28,6 +32,13 @@
 
         <div class="usuario_logado_desktop">
           <div style="display: inline-block;">
+          
+            <% if (@adm.admin? || @adm.operador?) && AlegacaoDePagamento.where(status_alegacao_de_pagamento_id: AlegacaoDePagamento::PENDENTE).count > 0 %>
+              <a style="margin-right: 20px;text-decoration: none;" title="Alegação de Pagamento Pendente" href="/alegacao_de_pagamentos">
+                <img src="/static/sino.png" style="width:40px;animation: shake 2.2s;animation-iteration-count: infinite;">
+              </a>  
+            <% end %>
+            
             <a class="text-muted jsdropdown" id="jsItensMenu" style="margin-right: 20px;" href="javascript:;">
               <span class="fa fa-user"></span>
               <%= usuario_logado.nome.camelize %>

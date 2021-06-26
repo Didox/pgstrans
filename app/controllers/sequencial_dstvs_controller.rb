@@ -11,8 +11,8 @@ class SequencialDstvsController < ApplicationController
       @sequencial_dstvs = @sequencial_dstvs.where("created_at >= ?", SqlDate.sql_parse(params[:created_at].to_datetime.beginning_of_day)) 
       @sequencial_dstvs = @sequencial_dstvs.where("created_at <= ?", SqlDate.sql_parse(params[:created_at].to_datetime.end_of_day))
     end
-    @sequencial_dstvs = @sequencial_dstvs.where("request_body ilike '%#{params[:request_body]}%'") if params[:request_body].present?
-    @sequencial_dstvs = @sequencial_dstvs.where("response_body ilike '%#{params[:response_body]}%'") if params[:response_body].present?
+    @sequencial_dstvs = @sequencial_dstvs.where("request_body ilike '%#{params[:request_body].remove_injection}%'") if params[:request_body].present?
+    @sequencial_dstvs = @sequencial_dstvs.where("response_body ilike '%#{params[:response_body].remove_injection}%'") if params[:response_body].present?
 
     @sequencial_dstvs_total = @sequencial_dstvs.count
     options = {page: params[:page] || 1, per_page: 10}

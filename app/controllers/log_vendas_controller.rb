@@ -8,11 +8,11 @@ class LogVendasController < ApplicationController
 
     if params[:nome].present?
       @log_vendas = @log_vendas.joins(:usuario)
-      @log_vendas = @log_vendas.where("usuarios.nome ilike '%#{params[:nome]}%'")
+      @log_vendas = @log_vendas.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'")
     end
     
-    @log_vendas = @log_vendas.where("titulo ilike '%#{params[:titulo]}%'") if params[:titulo].present?
-    @log_vendas = @log_vendas.where("log ilike '%#{params[:log]}%'") if params[:log].present?
+    @log_vendas = @log_vendas.where("titulo ilike '%#{params[:titulo].remove_injection}%'") if params[:titulo].present?
+    @log_vendas = @log_vendas.where("log ilike '%#{params[:log].remove_injection}%'") if params[:log].present?
 
     @log_vendas_total = @log_vendas.count
 

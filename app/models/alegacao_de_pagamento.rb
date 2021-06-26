@@ -5,6 +5,8 @@ class AlegacaoDePagamento < ApplicationRecord
   belongs_to :banco
   belongs_to :status_alegacao_de_pagamento
 
+  PENDENTE = 3
+
   def destroy
     self.status_alegacao_de_pagamento = StatusAlegacaoDePagamento.where("lower(nome) = ?", StatusAlegacaoDePagamento::CANCELADO.downcase).first
     self.save!

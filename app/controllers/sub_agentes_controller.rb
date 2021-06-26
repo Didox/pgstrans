@@ -6,11 +6,11 @@ class SubAgentesController < ApplicationController
   def index
     @sub_agentes = SubAgente.com_acesso(usuario_logado).order(razao_social: :asc) 
 
-    @sub_agentes = @sub_agentes.where("razao_social ilike '%#{params[:razao_social]}%'") if params[:razao_social].present?
-    @sub_agentes = @sub_agentes.where("nome_fantasia ilike '%#{params[:nome_fantasia]}%'") if params[:nome_fantasia].present?
-    @sub_agentes = @sub_agentes.where("morada ilike '%#{params[:morada]}%'") if params[:morada].present?
-    @sub_agentes = @sub_agentes.where("bairro ilike '%#{params[:bairro]}%'") if params[:bairro].present?
-    @sub_agentes = @sub_agentes.where("contato ilike '%#{params[:contato]}%'") if params[:contato].present?
+    @sub_agentes = @sub_agentes.where("razao_social ilike '%#{params[:razao_social].remove_injection}%'") if params[:razao_social].present?
+    @sub_agentes = @sub_agentes.where("nome_fantasia ilike '%#{params[:nome_fantasia].remove_injection}%'") if params[:nome_fantasia].present?
+    @sub_agentes = @sub_agentes.where("morada ilike '%#{params[:morada].remove_injection}%'") if params[:morada].present?
+    @sub_agentes = @sub_agentes.where("bairro ilike '%#{params[:bairro].remove_injection}%'") if params[:bairro].present?
+    @sub_agentes = @sub_agentes.where("contato ilike '%#{params[:contato].remove_injection}%'") if params[:contato].present?
     @sub_agentes = @sub_agentes.where("uni_pessoal_empresa_id = ?", params[:uni_pessoal_empresa_id]) if params[:uni_pessoal_empresa_id].present?
     @sub_agentes = @sub_agentes.where("industry_id = ?", params[:industry_id]) if params[:industry_id].present?
 

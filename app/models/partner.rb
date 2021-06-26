@@ -54,7 +54,7 @@ class Partner < ApplicationRecord
 
     vendas = vendas.where("vendas.updated_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)) if params[:data_inicio].present?
     vendas = vendas.where("vendas.updated_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)) if params[:data_fim].present?
-    vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id").where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id").where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
     vendas.sum(:valor_original)
   end
 
@@ -63,7 +63,7 @@ class Partner < ApplicationRecord
     vendas = vendas.where("vendas.updated_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)) if params[:data_inicio].present?
     vendas = vendas.where("vendas.updated_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)) if params[:data_fim].present?
     vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id")
-    vendas = vendas.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    vendas = vendas.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
 
     params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
     if params[:status].present?
@@ -78,7 +78,7 @@ class Partner < ApplicationRecord
     vendas = vendas.where("vendas.updated_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)) if params[:data_inicio].present?
     vendas = vendas.where("vendas.updated_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)) if params[:data_fim].present?
     vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id")
-    vendas = vendas.where("lower(usuarios.nome) ilike '%#{params[:nome]}%'") if params[:nome].present?
+    vendas = vendas.where("lower(usuarios.nome) ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
 
     params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
     if params[:status].present?

@@ -6,12 +6,12 @@ class AlteracoesPlanosDstvsController < ApplicationController
   def index
     @alteracoes_planos_dstvs = AlteracoesPlanosDstv.all.order("id desc")
 
-    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("customer_number ilike '%#{params[:customer_number]}%'") if params[:customer_number].present?
-    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("smartcard ilike '%#{params[:smartcard]}%'") if params[:smartcard].present?
-    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("receipt_number ilike '%#{params[:receipt_number]}%'") if params[:receipt_number].present?
-    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time]}%'") if params[:transaction_date_time].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("customer_number ilike '%#{params[:customer_number].remove_injection}%'") if params[:customer_number].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("smartcard ilike '%#{params[:smartcard].remove_injection}%'") if params[:smartcard].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("receipt_number ilike '%#{params[:receipt_number].remove_injection}%'") if params[:receipt_number].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time].remove_injection}%'") if params[:transaction_date_time].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("tipo_plano = ?", params[:tipo_plano]) if params[:tipo_plano].present?
-    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_number ilike '%#{params[:transaction_number]}%'") if params[:transaction_number].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_number ilike '%#{params[:transaction_number].remove_injection}%'") if params[:transaction_number].present?
 
     @alteracoes_planos_dstvs_total = @alteracoes_planos_dstvs.count
     options = {page: params[:page] || 1, per_page: 10}
@@ -21,12 +21,12 @@ class AlteracoesPlanosDstvsController < ApplicationController
   def resumido
     @alteracoes_planos_dstvs = AlteracoesPlanosDstv.all.order("id desc")
 
-    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("customer_number ilike '%#{params[:customer_number]}%'") if params[:customer_number].present?
-    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("smartcard ilike '%#{params[:smartcard]}%'") if params[:smartcard].present?
-    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("receipt_number ilike '%#{params[:receipt_number]}%'") if params[:receipt_number].present?
-    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time]}%'") if params[:transaction_date_time].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("customer_number ilike '%#{params[:customer_number].remove_injection}%'") if params[:customer_number].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("smartcard ilike '%#{params[:smartcard].remove_injection}%'") if params[:smartcard].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("receipt_number ilike '%#{params[:receipt_number].remove_injection}%'") if params[:receipt_number].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time].remove_injection}%'") if params[:transaction_date_time].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("tipo_plano = ?", params[:tipo_plano]) if params[:tipo_plano].present?
-    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_number ilike '%#{params[:transaction_number]}%'") if params[:transaction_number].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_number ilike '%#{params[:transaction_number].remove_injection}%'") if params[:transaction_number].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.joins("inner join usuarios on alteracoes_planos_dstvs.usuario_id = usuarios.id ")
 
     if params[:login].present?

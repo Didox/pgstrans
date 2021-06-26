@@ -10,4 +10,8 @@ String.class_eval do
     return self.to_f unless self.include?(",")
     self.gsub(".", "").gsub("R$", "").gsub(",", ".").to_f
   end
+
+  def remove_injection
+    return self.to_s.gsub("'", "")
+  end
 end

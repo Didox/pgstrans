@@ -6,7 +6,7 @@ class StatusParceirosController < ApplicationController
   def index
     @status_parceiros = StatusParceiro.com_acesso(usuario_logado)  
 
-    @status_parceiros = @status_parceiros.where("nome ilike '%#{params[:nome]}%'") if params[:nome].present?
+    @status_parceiros = @status_parceiros.where("nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
 
     options = {page: params[:page] || 1, per_page: 10}
     @status_parceiros = @status_parceiros.paginate(options)

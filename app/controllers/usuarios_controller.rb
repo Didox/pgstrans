@@ -9,13 +9,13 @@ class UsuariosController < ApplicationController
     @usuarios = Usuario.com_acesso(usuario_logado).order(nome: :asc)
 
     @usuarios = @usuarios.joins(:perfil_usuario)
-    @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome]}%'") if params[:nome].present?
-    @usuarios = @usuarios.where("usuarios.login ilike '%#{params[:login]}%'") if params[:login].present?
-    @usuarios = @usuarios.where("usuarios.email ilike '%#{params[:email]}%'") if params[:email].present?
-    @usuarios = @usuarios.where("usuarios.morada ilike '%#{params[:morada]}%'") if params[:morada].present?
-    @usuarios = @usuarios.where("usuarios.bairro ilike '%#{params[:bairro]}%'") if params[:bairro].present?
-    @usuarios = @usuarios.where("usuarios.telefone ilike '%#{params[:telefone]}%'") if params[:telefone].present?
-    @usuarios = @usuarios.where("usuarios.whatsapp ilike '%#{params[:whatsapp]}%'") if params[:whatsapp].present?
+    @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
+    @usuarios = @usuarios.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
+    @usuarios = @usuarios.where("usuarios.email ilike '%#{params[:email].remove_injection}%'") if params[:email].present?
+    @usuarios = @usuarios.where("usuarios.morada ilike '%#{params[:morada].remove_injection}%'") if params[:morada].present?
+    @usuarios = @usuarios.where("usuarios.bairro ilike '%#{params[:bairro].remove_injection}%'") if params[:bairro].present?
+    @usuarios = @usuarios.where("usuarios.telefone ilike '%#{params[:telefone].remove_injection}%'") if params[:telefone].present?
+    @usuarios = @usuarios.where("usuarios.whatsapp ilike '%#{params[:whatsapp].remove_injection}%'") if params[:whatsapp].present?
     @usuarios = @usuarios.where("perfil_usuarios.admin = ?", params[:perfil_admin]) if params[:perfil_admin].present?
     @usuarios = @usuarios.where("perfil_usuarios.operador = ?", params[:perfil_operador]) if params[:perfil_operador].present?
     @usuarios = @usuarios.where("perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?

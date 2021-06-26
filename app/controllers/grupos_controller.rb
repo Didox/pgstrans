@@ -7,12 +7,12 @@ class GruposController < ApplicationController
   def index
     @grupos = Grupo.all.order(nome: :asc)
 
-    @grupos = @grupos.where("lower(grupos.nome) ilike '%#{params[:nome]}%'") if params[:nome].present?
-    @grupos = @grupos.where("lower(grupos.descricao) ilike '%#{params[:descricao]}%'") if params[:descricao].present?
+    @grupos = @grupos.where("lower(grupos.nome) ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
+    @grupos = @grupos.where("lower(grupos.descricao) ilike '%#{params[:descricao].remove_injection}%'") if params[:descricao].present?
     if params[:usuario].present?
       @grupos = @grupos.joins("inner join grupo_usuarios on grupos.id = grupo_usuarios.grupo_id")
       @grupos = @grupos.joins("inner join usuarios on grupo_usuarios.usuario_id = usuarios.id")
-      @grupos = @grupos.where("lower(usuarios.nome) ilike '%#{params[:usuario]}%'")
+      @grupos = @grupos.where("lower(usuarios.nome) ilike '%#{params[:usuario].remove_injection}%'")
       @grupos = @grupos.distinct
     end
 
@@ -20,7 +20,7 @@ class GruposController < ApplicationController
       @grupos = @grupos.joins("inner join grupo_usuarios on grupos.id = grupo_usuarios.grupo_id")
       @grupos = @grupos.joins("inner join usuarios on grupo_usuarios.usuario_id = usuarios.id")
       @grupos = @grupos.joins("inner join perfil_usuarios on perfil_usuarios.id = usuarios.perfil_usuario_id")
-      @grupos = @grupos.where("lower(perfil_usuarios.nome) ilike '%#{params[:perfil]}%'")
+      @grupos = @grupos.where("lower(perfil_usuarios.nome) ilike '%#{params[:perfil].remove_injection}%'")
       @grupos = @grupos.distinct
     end
 

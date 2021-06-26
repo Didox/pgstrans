@@ -6,9 +6,9 @@ class CountriesController < ApplicationController
   def index
     @countries = Country.com_acesso(usuario_logado).order(name_eng: :asc)
 
-    @countries = @countries.where("name_eng ilike '%#{params[:name_eng]}%'") if params[:name_eng].present?
-    @countries = @countries.where("name_pt ilike '%#{params[:name_pt]}%'") if params[:name_pt].present?
-    @countries = @countries.where("iso2 ilike '%#{params[:iso2]}%'") if params[:iso2].present?
+    @countries = @countries.where("name_eng ilike '%#{params[:name_eng].remove_injection}%'") if params[:name_eng].present?
+    @countries = @countries.where("name_pt ilike '%#{params[:name_pt].remove_injection}%'") if params[:name_pt].present?
+    @countries = @countries.where("iso2 ilike '%#{params[:iso2].remove_injection}%'") if params[:iso2].present?
     @countries = @countries.where("bacen = ?", params[:bacen]) if params[:bacen].present?
 
     options = {page: params[:page] || 1, per_page: 10}

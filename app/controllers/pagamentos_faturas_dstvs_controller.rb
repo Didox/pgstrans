@@ -6,10 +6,10 @@ class PagamentosFaturasDstvsController < ApplicationController
   def index
     @pagamentos_faturas_dstvs = PagamentosFaturasDstv.all.order("id desc")
 
-    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("customer_number ilike '%#{params[:customer_number]}%'") if params[:customer_number].present?
-    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("smartcard ilike '%#{params[:smartcard]}%'") if params[:smartcard].present?
-    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("receipt_number ilike '%#{params[:receipt_number]}%'") if params[:receipt_number].present?
-    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time]}%'") if params[:transaction_date_time].present?
+    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("customer_number ilike '%#{params[:customer_number].remove_injection}%'") if params[:customer_number].present?
+    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("smartcard ilike '%#{params[:smartcard].remove_injection}%'") if params[:smartcard].present?
+    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("receipt_number ilike '%#{params[:receipt_number].remove_injection}%'") if params[:receipt_number].present?
+    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time].remove_injection}%'") if params[:transaction_date_time].present?
 
     @pagamentos_faturas_dstvs_total = @pagamentos_faturas_dstvs.count
     options = {page: params[:page] || 1, per_page: 10}
@@ -19,10 +19,10 @@ class PagamentosFaturasDstvsController < ApplicationController
   def resumido
     @pagamentos_faturas_dstvs = PagamentosFaturasDstv.all.order("id desc")
 
-    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("customer_number ilike '%#{params[:customer_number]}%'") if params[:customer_number].present?
-    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("smartcard ilike '%#{params[:smartcard]}%'") if params[:smartcard].present?
-    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("receipt_number ilike '%#{params[:receipt_number]}%'") if params[:receipt_number].present?
-    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time]}%'") if params[:transaction_date_time].present?
+    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("customer_number ilike '%#{params[:customer_number].remove_injection}%'") if params[:customer_number].present?
+    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("smartcard ilike '%#{params[:smartcard].remove_injection}%'") if params[:smartcard].present?
+    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("receipt_number ilike '%#{params[:receipt_number].remove_injection}%'") if params[:receipt_number].present?
+    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time].remove_injection}%'") if params[:transaction_date_time].present?
 
     @pagamentos_faturas_dstvs_valor = @pagamentos_faturas_dstvs.sum(:valor)
     options = {page: params[:page] || 1, per_page: 10}

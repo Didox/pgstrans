@@ -6,7 +6,7 @@ class MasterProfilesController < ApplicationController
   def index
     @master_profiles = MasterProfile.com_acesso(usuario_logado).order(description: :asc)
 
-    @master_profiles = @master_profiles.where("description ilike '%#{params[:description]}%'") if params[:description].present?
+    @master_profiles = @master_profiles.where("description ilike '%#{params[:description].remove_injection}%'") if params[:description].present?
 
     options = {page: params[:page] || 1, per_page: 10}
     @master_profiles = @master_profiles.paginate(options)
