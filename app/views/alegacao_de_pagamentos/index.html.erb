@@ -63,7 +63,7 @@
     </div>
     <div class="col-sm-3">
       <div class="form-group">
-        <label>Data da Última Alteração ou Processamento (Início)</label>
+        <label>Última Alteração ou Processamento (Início)</label>
         <div>
           <input type="date" name="updated_at_inicio" value="<%= params[:updated_at_inicio] %>" class="form-control">
         </div>
@@ -71,7 +71,7 @@
     </div>
     <div class="col-sm-3">
       <div class="form-group">
-        <label>Data da Última Alteração ou Processamento (Fim)</label>
+        <label>Última Alteração ou Processamento (Fim)</label>
         <div>
           <input type="date" name="updated_at_fim" value="<%= params[:updated_at_fim] %>" class="form-control">
         </div>
@@ -137,7 +137,7 @@
           <th scope="col">Nome do Usuário</th>
           <th scope="col">Valor do Depósito</th>
           <th scope="col">Data Depósito</th>
-          <th scope="col">Data Ult Alteração</th>
+          <th scope="col">Data Ult Alteração ou Proces</th>
           <th scope="col">Agente</th>  
           <th scope="col">Número do Talão</th>
           <th scope="col">Banco</th>
@@ -155,7 +155,11 @@
           <td style="width: 300px"><%= alegacao_de_pagamento.usuario.nome %></td>
           <td style="width: 170px" class="text-right"><%= number_to_currency(alegacao_de_pagamento.valor_deposito, :unit => "KZ", :precision => 2) %></td>
           <td style="width: 170px" class="text-center"><%= alegacao_de_pagamento.data_deposito.strftime("%d/%m/%Y %H:%M:%S") rescue ""%></td>
-          <td style="width: 170px" class="text-center"><%= alegacao_de_pagamento.updated_at.strftime("%d/%m/%Y %H:%M:%S") rescue ""%></td>
+          <td style="width: 170px" class="text-center">
+          <% if alegacao_de_pagamento.status_alegacao_de_pagamento.nome != StatusAlegacaoDePagamento::PENDENTE %>
+            <%= alegacao_de_pagamento.updated_at.strftime("%d/%m/%Y %H:%M:%S") rescue ""%>
+          <% end %>
+          </td>
           <td style="width: 200px"><%= alegacao_de_pagamento.usuario.sub_agente.nome_fantasia rescue "" %></td>
           <td style="width: 170px"><%= alegacao_de_pagamento.numero_talao %></td>
           <td style="width: 200px"><%= alegacao_de_pagamento.banco.nome %></td>
