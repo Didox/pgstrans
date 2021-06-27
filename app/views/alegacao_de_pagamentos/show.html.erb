@@ -18,6 +18,10 @@
       <dd><%= @alegacao_de_pagamento.data_deposito.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></dd>
       <dt>Número do Talão:</dt>
       <dd><%= @alegacao_de_pagamento.numero_talao %></dd>
+      <% if @alegacao_de_pagamento.status_alegacao_de_pagamento.nome != StatusAlegacaoDePagamento::PENDENTE %>
+        <dt>Data Últ Atualiz ou Processamento:</dt>
+        <dd><%= @alegacao_de_pagamento.updated_at.strftime("%d/%m/%Y %H:%M:%S") rescue ""%></dd>
+      <% end %>
       <dt>Banco:</dt>
       <dd><%= @alegacao_de_pagamento.banco.nome %></dd>
       <dt>Nome do Agente:</dt>
