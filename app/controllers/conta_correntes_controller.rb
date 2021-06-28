@@ -50,17 +50,25 @@ class ContaCorrentesController < ApplicationController
     sqlDatas += " and conta_correntes.data_alegacao_pagamento >= '#{SqlDate.sql_parse(params[:data_inicio].to_datetime)}'" if params[:data_inicio].present?
     sqlDatas += " and conta_correntes.data_alegacao_pagamento <= '#{SqlDate.sql_parse(params[:data_fim].to_datetime)}'" if params[:data_fim].present?
 
-    data_formatada = (params[:data_inicio].present? || params[:data_fim].present?) ? "conta_correntes.data_alegacao_pagamento" : "to_char((conta_correntes.data_alegacao_pagamento #{SqlDate.fix_sql_date_query}), 'YYYY/MM/DD')"
+    if (params[:data_inicio].present? || params[:data_fim].present?)
+      data_formatada = "conta_correntes.data_alegacao_pagamento" 
+      observacao = "conta_correntes.observacao,"
+    else
+      data_formatada = "to_char((conta_correntes.data_alegacao_pagamento #{SqlDate.fix_sql_date_query}), 'YYYY/MM/DD')"
+      observacao = ""
+    end
+
     sql_nome = params[:responsavel].present? ? " and lower(usuarios.nome) ilike '%#{params[:responsavel].remove_injection.downcase}%'" : ""
     sql_observacao = params[:observacao].present? ? " and lower(conta_correntes.observacao) ilike '%#{params[:observacao].remove_injection.downcase}%'" : ""
     sql_lancamento_id = params[:lancamento_id].present? ? " and conta_correntes.lancamento_id = '#{params[:lancamento_id].remove_injection}'" : ""
     status_cliente_id = params[:status_cliente_id].present? ? " and usuarios.status_cliente_id = '#{params[:status_cliente_id].remove_injection}'" : ""
-    
+
     sql = "
       select  
         #{data_formatada} as data_alegacao_pagamento, 
         usuarios.nome as usuario, 
-        lancamentos.nome as lancamento, 
+        lancamentos.nome as lancamento,
+        #{observacao}
         sum(valor) as valor
       from conta_correntes
       inner join usuarios on usuarios.id = conta_correntes.responsavel_aprovacao_id
@@ -73,30 +81,24 @@ class ContaCorrentesController < ApplicationController
       #{status_cliente_id}
       group by 
         #{data_formatada}, 
+        #{observacao}
         usuarios.id,
         lancamentos.id
       order by data_alegacao_pagamento desc
       limit #{@per_page} offset #{fetch}
     "
+    @sql = sql.gsub(/\n/, "")
 
-    sqlTotalGeral = "
-      select  
-        sum(valor) as valor
-      from conta_correntes
-      inner join usuarios on usuarios.id = conta_correntes.responsavel_aprovacao_id
-      inner join lancamentos on lancamentos.id = conta_correntes.lancamento_id
-      where usuarios.id is not null
-      #{sqlDatas}
-      #{sql_nome}
-      #{sql_observacao}
-      #{sql_lancamento_id}
-      #{status_cliente_id}
-    "
-
+    sqlTotalGeral = "select  
+                      sum(valor) as valor
+                    from#{@sql.gsub(/select.*?from|group by.*/, "")}"
+    
+    sqlQuantidade = "select  
+                        count(1) as quantidade
+                      from#{@sql.gsub(/select.*?from|group by.*/, "")}"
+    
     @valor_total = ActiveRecord::Base.connection.exec_query(sqlTotalGeral).first["valor"] rescue 0
-
-    @sql = sql
-
+    @quantidade = ActiveRecord::Base.connection.exec_query(sqlQuantidade).first["quantidade"] rescue 0
     @conta_correntes = ActiveRecord::Base.connection.exec_query(sql)
   end
 

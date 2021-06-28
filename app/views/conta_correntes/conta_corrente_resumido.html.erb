@@ -86,7 +86,7 @@
 
   <div class="col-md-12">
     <h4>
-      Total de Ocorrências: <strong><%= number_to_currency(@conta_correntes.length, :precision => 0, :unit => "") %></strong>
+      Total de Ocorrências: <strong><%= number_to_currency(@quantidade, :precision => 0, :unit => "") %></strong>
     </h4>
     <hr>
     <table class="table table-hover">
@@ -95,6 +95,9 @@
           <th scope="col">Data</th>
           <th scope="col">Operador(a) Responsável Aprovação</th>
           <th scope="col">Lançamento</th>
+          <% if (params[:data_inicio].present? || params[:data_fim].present?) %> 
+            <th scope="col" style="width: 40%">Observação</th>
+          <% end %>
           <th scope="col" style="text-align:right">Valor</th>
         </tr>
       </thead>
@@ -103,7 +106,13 @@
         <% @conta_correntes.each do |conta_corrente| %>
         <tr>
           <td>
-            <%=  (params[:data_inicio].present? || params[:data_fim].present?) ? conta_corrente["data_alegacao_pagamento"].to_datetime.strftime("%d/%m/%Y %H:%M:%S") :  conta_corrente["data_alegacao_pagamento"].to_datetime.strftime("%d/%m/%Y") %>
+            <% if (params[:data_inicio].present? || params[:data_fim].present?) %> 
+              <%= conta_corrente["data_alegacao_pagamento"].to_datetime.strftime("%d/%m/%Y %H:%M:%S") %>
+            <% else %>
+              <a href="/conta_correntes/resumido?data_inicio=<%= conta_corrente["data_alegacao_pagamento"].to_datetime.strftime("%Y-%m-%d") %>T00:00&data_fim=<%= conta_corrente["data_alegacao_pagamento"].to_datetime.strftime("%Y-%m-%d") %>T23:59&status_cliente_id=<%= params[:status_cliente_id] %>&lancamento_id=<%= params[:lancamento_id] %>&responsavel=<%= params[:responsavel] %>&observacao=<%= params[:observacao] %>">
+                <%= conta_corrente["data_alegacao_pagamento"].to_datetime.strftime("%d/%m/%Y") %>
+              </a>
+            <% end %>
           </td>
           <td>
             <%= conta_corrente["usuario"] %>
@@ -111,6 +120,11 @@
           <td>
             <%= conta_corrente["lancamento"] %>
           </td>
+          <% if (params[:data_inicio].present? || params[:data_fim].present?) %> 
+            <td>
+              <%= conta_corrente["observacao"] %>
+            </td>
+          <% end %>
           <td style="text-align:right">
             <%= number_to_currency(conta_corrente["valor"].to_f, :unit => "KZ") %>
           </td>
@@ -123,6 +137,9 @@
           <td></td>
           <td></td>
           <td></td>
+          <% if (params[:data_inicio].present? || params[:data_fim].present?) %> 
+            <td></td>
+          <% end %>
           <td style="text-align:right">
             <b>Total da Página: </b> <%= number_to_currency(valor_total, :unit => "KZ") %><br>
             <b>Total da Geral: </b> <%= number_to_currency(@valor_total, :unit => "KZ") %><br>
