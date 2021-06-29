@@ -7,6 +7,23 @@
 <a href="<%= vendas_resumido_path %>">
   <h1 class="btn btn-sucess <% if params[:controller] == "vendas" && (params[:action] == "resumido" || params[:action] == "mostrar_resumido") %>active_menu<% end %> menu_recarga">Vendas</h1>
 </a>
+
+
+<div style="display:inline-block">
+	<a href="javascript:;" onclick="menuDSTV(this)">
+		<h1 class="btn btn-sucess menu_recarga">Transações DSTV ⤵</h1>
+	</a>
+	<div class="jsItensMenu" style="position: absolute; display: none;width: 150px;">
+		<div><a href="/vendas/rota-ver">Pagamentos de Faturas</a></div>
+		<div><a href="/vendas/rota-ver">Alteração de Pacotes de Produtos</a></div>
+		<div><a href="/vendas/rota-ver">Alteração de Planos de Cobrança</a></div>
+	</div>
+</div>
+
+<a href="/vendas/consolidado-dstv">
+  <h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "vendas" && params[:action] == "consolidado_dstv" %>active_menu<% end %>">Consolidado</h1>
+</a>
+
 <% if usuario_logado.admin? || usuario_logado.operador? || usuario_logado.agente? %>
 	<% if PerfilUsuario.tem_acesso?(usuario_logado, :BackofficeController, :index) %>
 	<a href="<%= backoffice_index_path %>">

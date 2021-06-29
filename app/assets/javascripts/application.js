@@ -261,3 +261,13 @@ $(document).ajaxStart(function() {
 $(document).ajaxComplete(function() {
   $(".modal_loader").hide();
 });
+
+var menuDSTV = function(self){
+  var menu = $(self).parent().find('.jsItensMenu');
+  if(menu.css("display") != "block"){
+    menu.show()
+  }
+  else{
+    menu.hide()
+  }
+}
