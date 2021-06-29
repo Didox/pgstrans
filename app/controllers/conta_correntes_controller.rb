@@ -52,7 +52,7 @@ class ContaCorrentesController < ApplicationController
 
     if (params[:data_inicio].present? || params[:data_fim].present?)
       data_formatada = "conta_correntes.data_alegacao_pagamento" 
-      observacao = "conta_correntes.observacao,"
+      observacao = "conta_correntes.observacao, usuarios_credito.nome as cliente, "
     else
       data_formatada = "to_char((conta_correntes.data_alegacao_pagamento #{SqlDate.fix_sql_date_query}), 'YYYY/MM/DD')"
       observacao = ""
@@ -72,6 +72,7 @@ class ContaCorrentesController < ApplicationController
         sum(valor) as valor
       from conta_correntes
       inner join usuarios on usuarios.id = conta_correntes.responsavel_aprovacao_id
+      inner join usuarios usuarios_credito on usuarios_credito.id = conta_correntes.usuario_id
       inner join lancamentos on lancamentos.id = conta_correntes.lancamento_id
       where usuarios.id is not null
       #{sqlDatas}
@@ -81,7 +82,7 @@ class ContaCorrentesController < ApplicationController
       #{status_cliente_id}
       group by 
         #{data_formatada}, 
-        #{observacao}
+        #{observacao.gsub(/as cliente/, "")}
         usuarios.id,
         lancamentos.id
       order by data_alegacao_pagamento desc

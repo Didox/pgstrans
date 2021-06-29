@@ -96,6 +96,7 @@
           <th scope="col">Operador(a) Responsável Aprovação</th>
           <th scope="col">Lançamento</th>
           <% if (params[:data_inicio].present? || params[:data_fim].present?) %> 
+            <th scope="col">Cliente</th>
             <th scope="col" style="width: 40%">Observação</th>
           <% end %>
           <th scope="col" style="text-align:right">Valor</th>
@@ -121,6 +122,9 @@
             <%= conta_corrente["lancamento"] %>
           </td>
           <% if (params[:data_inicio].present? || params[:data_fim].present?) %> 
+            <td>
+              <%= conta_corrente["cliente"] %>
+            </td>
             <td>
               <%= conta_corrente["observacao"] %>
             </td>
