@@ -201,8 +201,26 @@ label{
   overflow: hidden;
 }
 
+.menuDstv{
+  display:inline-block
+}
+
+.menuDstv .jsItensMenu{
+  position: absolute;
+  width: 370px;
+  display: none;
+}
+
 @media (max-width: 600px) 
 {
+  .menuDstv .jsItensMenu{
+    position: absolute;
+    width: 91%;
+    display: none;
+  }
+  .menuDstv{
+    width: 100%;
+  }
   .mobile-botao{
     width: 100%;
   }

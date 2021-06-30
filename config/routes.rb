@@ -60,6 +60,7 @@ Rails.application.routes.draw do
 
   resources :conta_correntes
   get 'vendas/resumido', to: 'vendas#resumido', as: "vendas_resumido"
+  get 'vendas/consolidado-dstv', to: 'vendas#consolidado_dstv', as: "consolidado_dstv"
   get 'vendas/:venda_id/resumido', to: 'vendas#mostrar_resumido', as: "vendas_mostrar_resumido"
   resources :vendas do
     delete '/reverter_venda_zaptv', to: 'vendas#reverter_venda_zaptv', as: "reverter_venda_zaptv"
