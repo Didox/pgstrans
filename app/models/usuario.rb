@@ -16,6 +16,8 @@ class Usuario < ApplicationRecord
   after_validation :senha_sha1
   before_validation :preenche_login, :senha_forte
 
+  ROOT = 2
+
   SENHA_PADRAO = "pa3g5a1so14v!2@"
 
   def saldo

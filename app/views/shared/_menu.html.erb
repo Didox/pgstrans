@@ -9,19 +9,21 @@
 </a>
 
 
-<div class="menuDstv">
-	<a href="javascript:;" onclick="menuDSTV(this)">
-		<h1 class="btn btn-sucess menu_recarga">Transações DSTV ⤵</h1>
-	</a>
-	<div class="jsItensMenu">
-		<div><a href="/pagamentos_faturas_dstvs/resumido">Pagamentos de Faturas</a></div>
-		<div><a href="/alteracoes_planos_dstvs/resumido">Alterações de Pacotes de Produtos ou Planos de Cobrança</a></div>
+<% if @adm.id == Usuario::ROOT %>
+	<div class="menuDstv">
+		<a href="javascript:;" onclick="menuDSTV(this)">
+			<h1 class="btn btn-sucess menu_recarga">Transações DSTV ⤵</h1>
+		</a>
+		<div class="jsItensMenu">
+			<div><a href="/pagamentos_faturas_dstvs/resumido">Pagamentos de Faturas</a></div>
+			<div><a href="/alteracoes_planos_dstvs/resumido">Alterações de Pacotes de Produtos ou Planos de Cobrança</a></div>
+		</div>
 	</div>
-</div>
 
-<a href="/vendas/consolidado-dstv">
-  <h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "vendas" && params[:action] == "consolidado_dstv" %>active_menu<% end %>">Consolidado</h1>
-</a>
+	<a href="/vendas/consolidado-dstv">
+		<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "vendas" && params[:action] == "consolidado_dstv" %>active_menu<% end %>">Consolidado</h1>
+	</a>
+<% end %>
 
 <% if usuario_logado.admin? || usuario_logado.operador? || usuario_logado.agente? %>
 	<% if PerfilUsuario.tem_acesso?(usuario_logado, :BackofficeController, :index) %>
