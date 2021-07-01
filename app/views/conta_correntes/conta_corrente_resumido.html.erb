@@ -63,8 +63,20 @@
         </div>
       </div>
     </div>
-
-    <div class="col-sm-8">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="perfil_usuario_id">Perfil do Usuário</label>
+        <div>
+          <select name="perfil_usuario_id" id="perfil_usuario_id" class="form-control">
+            <option value="" selected="'selected'">Todos</option>
+            <% PerfilUsuario.all.each do |perfil_usuario| %>
+              <option value="<%= perfil_usuario.id %>" <% if params[:perfil_usuario_id].to_s == perfil_usuario.id.to_s %> selected="selected" <% end %>><%= perfil_usuario.nome %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
       <div class="form-group">
         <label>Observação</label>
           <div>

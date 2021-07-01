@@ -62,11 +62,12 @@ class ContaCorrentesController < ApplicationController
     sql_observacao = params[:observacao].present? ? " and lower(conta_correntes.observacao) ilike '%#{params[:observacao].remove_injection.downcase}%'" : ""
     sql_lancamento_id = params[:lancamento_id].present? ? " and conta_correntes.lancamento_id = '#{params[:lancamento_id].remove_injection}'" : ""
     status_cliente_id = params[:status_cliente_id].present? ? " and usuarios.status_cliente_id = '#{params[:status_cliente_id].remove_injection}'" : ""
+    perfil_usuario_id = params[:perfil_usuario_id].present? ? " and usuarios.perfil_usuario_id = '#{params[:perfil_usuario_id].remove_injection}'" : ""
 
     sql = "
-      select  
-        #{data_formatada} as data_alegacao_pagamento, 
-        usuarios.nome as usuario, 
+      select
+        #{data_formatada} as data_alegacao_pagamento,
+        usuarios.nome as usuario,
         lancamentos.nome as lancamento,
         #{observacao}
         sum(valor) as valor
@@ -80,7 +81,8 @@ class ContaCorrentesController < ApplicationController
       #{sql_observacao}
       #{sql_lancamento_id}
       #{status_cliente_id}
-      group by 
+      #{perfil_usuario_id}
+      group by
         #{data_formatada}, 
         #{observacao.gsub(/as cliente/, "")}
         usuarios.id,
