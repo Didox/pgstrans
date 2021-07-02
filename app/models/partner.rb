@@ -42,6 +42,10 @@ class Partner < ApplicationRecord
     end
   end
 
+  def self.dstv
+    Partner.where(slug: "DSTv").first
+  end
+
   def valor_total_original(params={}, usuario_logado)
     vendas = Venda.com_acesso(usuario_logado).where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code })
     vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id")

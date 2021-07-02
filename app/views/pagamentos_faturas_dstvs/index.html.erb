@@ -79,7 +79,7 @@
           <td>
             <b>Customer number DSTV</b>: <%= pagamentos_faturas_dstv.customer_number %><br>
             <b>Usuário</b>: <%= pagamentos_faturas_dstv.usuario.nome rescue "" %><br>
-            <b>Valor KZ</b>: <%= pagamentos_faturas_dstv.valor %><br>
+            <b>Valor KZ</b>: <%= pagamentos_faturas_dstv.value %><br>
             <b>Smartcard/Device number</b>: <%= pagamentos_faturas_dstv.smartcard %><br>
             <b>Recibo Confirmação</b>: <%= pagamentos_faturas_dstv.receipt_number %><br>
             <b>Nro. Transação</b>: <%= pagamentos_faturas_dstv.transaction_number %><br>
@@ -92,9 +92,9 @@
           </td>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
             <td>
-              <b>Envio: </b> <%= pagamentos_faturas_dstv.response_body %><br>
+              <b>Envio: </b> <%= pagamentos_faturas_dstv.response_get %><br>
               <hr>
-              <b>Resposta: </b> <%= pagamentos_faturas_dstv.request_body %></td>
+              <b>Resposta: </b> <%= pagamentos_faturas_dstv.request_send %></td>
           </tr>
         <% end %>
         <% end %>

@@ -55,7 +55,7 @@ namespace :jobs do
           venda.created_at = pagamento.created_at
           venda.updated_at = pagamento.updated_at
           venda.usuario_id = pagamento.usuario_id
-          venda.lancamento_id = 10 #PAGAMENTO_DE_FATURA
+          venda.lancamento_id = Lancamento.where(nome: Lancamento::PAGAMENTO_DE_FATURA).first.id rescue nil
           venda.pagamentos_faturas_dstv_id = pagamento.id
           venda.partner_id = parceiro.id
           venda.responsavel = pagamento.usuario
