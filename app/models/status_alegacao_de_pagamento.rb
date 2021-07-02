@@ -6,4 +6,7 @@ class StatusAlegacaoDePagamento < ApplicationRecord
 	CANCELADO = "Cancelado"
 	PROCESSADO = "Processado"
 	PENDENTE = "Pendente" 
+	REJEITADO = "Rejeitado"
+	INVALIDO = "Inválido"
+	EM_ANALISE = "Em Análise"
 end

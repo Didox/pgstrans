@@ -28,11 +28,7 @@
         <b>Status:</b> <%= venda.status_desc.error_description_pt %><br>
       </td>
       <td>
-        <b>Agente:</b> <%= venda.agent_id %><br>
-        <b>Store:</b> <%= venda.store_id %><br>
-        <b>ID do Vendedor:</b> <%= venda.seller_id %><br>
-        <b>Terminal:</b> <%= venda.terminal_id %><br>
-        <b>Customer Number / MSIDN:</b> <%= venda.client_msisdn %>
+        <b>Customer Number /<br>Smartcard /<br> Device Number ou<br>MSIDN:</b> <%= venda.client_msisdn %>
       </td>
       <td>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
