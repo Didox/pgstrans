@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_02_095400) do
+ActiveRecord::Schema.define(version: 2021_07_02_115309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,27 +29,6 @@ ActiveRecord::Schema.define(version: 2021_07_02_095400) do
     t.index ["banco_id"], name: "index_alegacao_de_pagamentos_on_banco_id"
     t.index ["status_alegacao_de_pagamento_id"], name: "index_alegacao_de_pagamentos_on_status_alegacao_de_pagamento_id"
     t.index ["usuario_id"], name: "index_alegacao_de_pagamentos_on_usuario_id"
-  end
-
-  create_table "alteracoes_planos_dstvs", force: :cascade do |t|
-    t.text "request_body"
-    t.text "response_body"
-    t.text "customer_number"
-    t.text "smartcard"
-    t.string "produto"
-    t.string "codigo"
-    t.float "valor"
-    t.string "receipt_number"
-    t.string "transaction_number"
-    t.string "status"
-    t.string "transaction_date_time"
-    t.string "error_message"
-    t.string "audit_reference_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "usuario_id"
-    t.string "tipo_plano", default: "mensal"
-    t.integer "lancamento_id"
   end
 
   create_table "bancos", force: :cascade do |t|
@@ -274,22 +253,6 @@ ActiveRecord::Schema.define(version: 2021_07_02_095400) do
     t.string "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "pagamentos_faturas_dstvs", force: :cascade do |t|
-    t.text "request_body"
-    t.text "response_body"
-    t.string "customer_number"
-    t.float "valor"
-    t.string "smartcard"
-    t.string "receipt_number"
-    t.string "transaction_number"
-    t.string "status"
-    t.string "transaction_date_time"
-    t.string "audit_reference_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "usuario_id"
   end
 
   create_table "parametros", force: :cascade do |t|
@@ -645,8 +608,6 @@ ActiveRecord::Schema.define(version: 2021_07_02_095400) do
     t.string "error_message"
     t.string "tipo_plano", default: "mensal"
     t.string "audit_reference_number"
-    t.integer "pagamentos_faturas_dstv_id"
-    t.integer "alteracoes_planos_dstv_id"
     t.string "smartcard"
     t.string "codigos_produto"
     t.index ["lancamento_id"], name: "index_vendas_on_lancamento_id"

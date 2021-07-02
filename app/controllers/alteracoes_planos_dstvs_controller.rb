@@ -4,7 +4,7 @@ class AlteracoesPlanosDstvsController < ApplicationController
   # GET /alteracoes_planos_dstvs
   # GET /alteracoes_planos_dstvs.json
   def index
-    @alteracoes_planos_dstvs = AlteracoesPlanosDstv.all.order("id desc")
+    @alteracoes_planos_dstvs = Venda.all.order("id desc")
 
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("customer_number ilike '%#{params[:customer_number].remove_injection}%'") if params[:customer_number].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("smartcard ilike '%#{params[:smartcard].remove_injection}%'") if params[:smartcard].present?
@@ -19,7 +19,7 @@ class AlteracoesPlanosDstvsController < ApplicationController
   end
 
   def resumido
-    @alteracoes_planos_dstvs = AlteracoesPlanosDstv.all.order("id desc")
+    @alteracoes_planos_dstvs = Venda.all.order("id desc")
 
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("customer_number ilike '%#{params[:customer_number].remove_injection}%'") if params[:customer_number].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("smartcard ilike '%#{params[:smartcard].remove_injection}%'") if params[:smartcard].present?
@@ -51,7 +51,7 @@ class AlteracoesPlanosDstvsController < ApplicationController
   def new
     redirect_to "/alteracoes_planos_dstvs"
     return
-    @alteracoes_planos_dstv = AlteracoesPlanosDstv.new
+    @alteracoes_planos_dstv = Venda.new
   end
 
   # GET /alteracoes_planos_dstvs/1/edit
@@ -65,7 +65,7 @@ class AlteracoesPlanosDstvsController < ApplicationController
   def create
     redirect_to "/alteracoes_planos_dstvs"
     return
-    @alteracoes_planos_dstv = AlteracoesPlanosDstv.new(alteracoes_planos_dstv_params)
+    @alteracoes_planos_dstv = Venda.new(alteracoes_planos_dstv_params)
 
     respond_to do |format|
       if @alteracoes_planos_dstv.save
@@ -109,7 +109,7 @@ class AlteracoesPlanosDstvsController < ApplicationController
   private
     
     def set_alteracoes_planos_dstv
-      @alteracoes_planos_dstv = AlteracoesPlanosDstv.find(params[:id])
+      @alteracoes_planos_dstv = Venda.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -313,16 +313,22 @@ class Dstv
     agent_submit_payment_hash["transactionDateTime"] = agent_submit_payment.children.select{|child| child.name == "transactionDateTime"}.first.text rescue ""
     agent_submit_payment_hash["AuditReferenceNumber"] = agent_submit_payment.children.select{|child| child.name == "AuditReferenceNumber"}.first.text rescue ""
 
-    alteracoes_planos_dstv = AlteracoesPlanosDstv.new
+    alteracoes_planos_dstv = Venda.new
     alteracoes_planos_dstv.request_body = request.body
     alteracoes_planos_dstv.response_body = body
     alteracoes_planos_dstv.tipo_plano = tipo_plano
     alteracoes_planos_dstv.customer_number = customer_number
     alteracoes_planos_dstv.smartcard = smartcard
     alteracoes_planos_dstv.usuario_id = usuario_logado.id
-    alteracoes_planos_dstv.produto = agent_submit_payment_hash["produto"]
-    alteracoes_planos_dstv.codigo = agent_submit_payment_hash["codigo"]
-    alteracoes_planos_dstv.valor = agent_submit_payment_hash["valor"]
+    alteracoes_planos_dstv.product_nome = agent_submit_payment_hash["produto"]
+    alteracoes_planos_dstv.codigos_produto = agent_submit_payment_hash["codigo"]
+
+    partner = Partner.where(slug: "DSTv").first
+    desconto_aplicado, valor_original, valor = Venda.desconto_venda(usuario_logado, parceiro, agent_submit_payment_hash["valor"])
+    alteracoes_planos_dstv.desconto_aplicado = desconto_aplicado
+    alteracoes_planos_dstv.valor_original = valor_original
+    alteracoes_planos_dstv.value = valor
+
     alteracoes_planos_dstv.receipt_number = agent_submit_payment_hash["receiptNumber"]
     alteracoes_planos_dstv.transaction_number = agent_submit_payment_hash["transactionNumber"]
     alteracoes_planos_dstv.status = agent_submit_payment_hash["status"]
@@ -592,12 +598,18 @@ class Dstv
     agent_submit_payment_hash["errorMessage"] = agent_submit_payment.children.select{|child| child.name == "errorMessage"}.first.text rescue ""
     agent_submit_payment_hash["AuditReferenceNumber"] = agent_submit_payment.children.select{|child| child.name == "AuditReferenceNumber"}.first.text rescue ""
 
-    pagamentos_faturas_dstv = PagamentosFaturasDstv.new
+    pagamentos_faturas_dstv = Venda.new
     pagamentos_faturas_dstv.request_body = request.body
     pagamentos_faturas_dstv.response_body = body
     pagamentos_faturas_dstv.customer_number = customer_number
     pagamentos_faturas_dstv.smartcard = smartcard
-    pagamentos_faturas_dstv.valor = valor
+
+    partner = Partner.where(slug: "DSTv").first
+    desconto_aplicado, valor_original, valor = Venda.desconto_venda(usuario_logado, parceiro, valor)
+    pagamentos_faturas_dstv.desconto_aplicado = desconto_aplicado
+    pagamentos_faturas_dstv.valor_original = valor_original
+    pagamentos_faturas_dstv.value = valor
+
     pagamentos_faturas_dstv.usuario_id = usuario_logado.id
     pagamentos_faturas_dstv.receipt_number = agent_submit_payment_hash["receiptNumber"]
     pagamentos_faturas_dstv.transaction_number = agent_submit_payment_hash["transactionNumber"]

@@ -34,7 +34,7 @@ namespace :jobs do
   task unificacao_vendas: :environment do
     parceiro = Partner.find(3) # dstv
     
-    PagamentosFaturasDstv.all.each_with_index do |pagamento, i|
+    Venda.all.each_with_index do |pagamento, i|
       desconto_aplicado, valor_original, valor = Venda.desconto_venda(pagamento.usuario, parceiro, pagamento.valor)
     
       if Venda.where(pagamentos_faturas_dstv_id: pagamento.id).count == 0
@@ -69,7 +69,7 @@ namespace :jobs do
       puts i
     end
 
-    AlteracoesPlanosDstv.all.each_with_index do |alteracao, i|
+    Venda.all.each_with_index do |alteracao, i|
       desconto_aplicado, valor_original, valor = Venda.desconto_venda(alteracao.usuario, parceiro, alteracao.valor)
     
       if Venda.where(alteracoes_planos_dstv_id: alteracao.id).count == 0

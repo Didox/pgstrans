@@ -4,7 +4,7 @@ class PagamentosFaturasDstvsController < ApplicationController
   # GET /pagamentos_faturas_dstvs
   # GET /pagamentos_faturas_dstvs.json
   def index
-    @pagamentos_faturas_dstvs = PagamentosFaturasDstv.all.order("id desc")
+    @pagamentos_faturas_dstvs = Venda.all.order("id desc")
 
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("customer_number ilike '%#{params[:customer_number].remove_injection}%'") if params[:customer_number].present?
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("smartcard ilike '%#{params[:smartcard].remove_injection}%'") if params[:smartcard].present?
@@ -17,7 +17,7 @@ class PagamentosFaturasDstvsController < ApplicationController
   end
 
   def resumido
-    @pagamentos_faturas_dstvs = PagamentosFaturasDstv.all.order("id desc")
+    @pagamentos_faturas_dstvs = Venda.all.order("id desc")
 
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("customer_number ilike '%#{params[:customer_number].remove_injection}%'") if params[:customer_number].present?
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("smartcard ilike '%#{params[:smartcard].remove_injection}%'") if params[:smartcard].present?
@@ -38,7 +38,7 @@ class PagamentosFaturasDstvsController < ApplicationController
   def new
     redirect_to "/pagamentos_faturas_dstvs"
     return
-    @pagamentos_faturas_dstv = PagamentosFaturasDstv.new
+    @pagamentos_faturas_dstv = Venda.new
   end
 
   # GET /pagamentos_faturas_dstvs/1/edit
@@ -52,7 +52,7 @@ class PagamentosFaturasDstvsController < ApplicationController
   def create
     redirect_to "/pagamentos_faturas_dstvs"
     return
-    @pagamentos_faturas_dstv = PagamentosFaturasDstv.new(pagamentos_faturas_dstv_params)
+    @pagamentos_faturas_dstv = Venda.new(pagamentos_faturas_dstv_params)
 
     respond_to do |format|
       if @pagamentos_faturas_dstv.save
@@ -96,7 +96,7 @@ class PagamentosFaturasDstvsController < ApplicationController
   private
     
     def set_pagamentos_faturas_dstv
-      @pagamentos_faturas_dstv = PagamentosFaturasDstv.find(params[:id])
+      @pagamentos_faturas_dstv = Venda.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
