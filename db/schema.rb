@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_19_124521) do
+ActiveRecord::Schema.define(version: 2021_07_02_095400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "alegacao_de_pagamentos", force: :cascade do |t|
     t.bigint "usuario_id"
-    t.float "valor_deposito"
-    t.datetime "data_deposito"
-    t.string "numero_talao"
+    t.float "valor_deposito", null: false
+    t.datetime "data_deposito", null: false
+    t.string "numero_talao", null: false
     t.bigint "banco_id"
-    t.string "comprovativo"
+    t.string "comprovativo", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "status_alegacao_de_pagamento_id"
@@ -151,6 +151,8 @@ ActiveRecord::Schema.define(version: 2021_05_19_124521) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["grupo_id"], name: "index_grupo_registros_on_grupo_id"
+    t.index ["modelo"], name: "grupo_registros_modelo_idx"
+    t.index ["modelo_id"], name: "grupo_registros_modelo_id_idx"
   end
 
   create_table "grupo_usuarios", force: :cascade do |t|
@@ -623,7 +625,7 @@ ActiveRecord::Schema.define(version: 2021_05_19_124521) do
     t.string "seller_id"
     t.string "terminal_id"
     t.float "value"
-    t.string "client_msisdn"
+    t.string "customer_number"
     t.text "request_send"
     t.text "response_get"
     t.datetime "created_at", null: false
@@ -636,6 +638,18 @@ ActiveRecord::Schema.define(version: 2021_05_19_124521) do
     t.float "valor_original", default: 0.0
     t.string "product_nome"
     t.string "produto_id_parceiro"
+    t.bigint "lancamento_id", default: 6
+    t.string "receipt_number"
+    t.string "transaction_number"
+    t.string "transaction_date_time"
+    t.string "error_message"
+    t.string "tipo_plano", default: "mensal"
+    t.string "audit_reference_number"
+    t.integer "pagamentos_faturas_dstv_id"
+    t.integer "alteracoes_planos_dstv_id"
+    t.string "smartcard"
+    t.string "codigos_produto"
+    t.index ["lancamento_id"], name: "index_vendas_on_lancamento_id"
     t.index ["partner_id"], name: "index_vendas_on_partner_id"
     t.index ["usuario_id"], name: "index_vendas_on_usuario_id"
   end
@@ -687,6 +701,7 @@ ActiveRecord::Schema.define(version: 2021_05_19_124521) do
   add_foreign_key "usuarios", "status_clientes"
   add_foreign_key "usuarios", "sub_agentes"
   add_foreign_key "usuarios", "uni_pessoal_empresas"
+  add_foreign_key "vendas", "lancamentos"
   add_foreign_key "vendas", "partners"
   add_foreign_key "vendas", "usuarios"
 end

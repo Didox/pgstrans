@@ -32,7 +32,7 @@
         <b>Store:</b> <%= venda.store_id %><br>
         <b>ID do Vendedor:</b> <%= venda.seller_id %><br>
         <b>Terminal:</b> <%= venda.terminal_id %><br>
-        <b>Customer Number / MSIDN:</b> <%= venda.client_msisdn %>
+        <b>Customer Number / MSIDN:</b> <%= venda.customer_number %>
       </td>
       <td>
         <% if usuario_logado.admin? || usuario_logado.operador? %>

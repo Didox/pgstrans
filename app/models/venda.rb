@@ -3,6 +3,7 @@ class Venda < ApplicationRecord
   #default_scope { order(updated_at: :desc) }
   default_scope { order(id: :desc) }
   belongs_to :usuario
+  belongs_to :lancamento, optional: true
   belongs_to :partner
 
   after_save :update_product
@@ -43,7 +44,7 @@ class Venda < ApplicationRecord
           venda.store_id,
           venda.seller_id,
           venda.terminal_id,
-          venda.client_msisdn,
+          venda.customer_number,
           moeda_csv(helper.number_to_currency(venda.valor_original, :unit => "")),
           moeda_csv(helper.number_to_currency(venda.desconto_aplicado, :unit => "")),
           moeda_csv(helper.number_to_currency(porcentagem, :unit => "")),
@@ -287,7 +288,7 @@ class Venda < ApplicationRecord
       :body => body_send, timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
@@ -572,7 +573,7 @@ class Venda < ApplicationRecord
 
           last_request = request.body
 
-          venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+          venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
           venda.responsavel = usuario
           venda.save!
 
@@ -761,7 +762,7 @@ class Venda < ApplicationRecord
 
     last_request = request.body
     
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, client_msisdn: params[:dstv_customer_number], usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, customer_number: params[:dstv_customer_number], usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -831,7 +832,7 @@ class Venda < ApplicationRecord
     produto = Produto.find(product_id)
     telefone = params[:unitel_telefone]
 
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.unitel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.unitel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -845,10 +846,10 @@ class Venda < ApplicationRecord
 
     if Rails.env == "development"
       make_sale_endpoint = "#{parametro.url_integracao_desenvolvimento}/spgw/V2/makeSale"
-      dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+      dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.customer_number}' '#{make_sale_endpoint}'"
     else
       make_sale_endpoint = "#{parametro.url_integracao_producao}/spgw/V2/makeSale"
-      dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+      dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.customer_number}' '#{make_sale_endpoint}'"
     end
 
     retorno = ""

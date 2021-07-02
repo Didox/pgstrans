@@ -181,7 +181,7 @@ class VendasController < ApplicationController
       @vendas = @vendas.where("vendas.store_id = ?", params[:store]) if params[:store].present?
       @vendas = @vendas.where("vendas.seller_id = ?", params[:seller]) if params[:seller].present?
       @vendas = @vendas.where("vendas.value > ?", params[:valor].to_f) if params[:valor].present?
-      @vendas = @vendas.where("vendas.client_msisdn = ?", params[:client_msisdn]) if params[:client_msisdn].present?
+      @vendas = @vendas.where("vendas.customer_number = ?", params[:customer_number]) if params[:customer_number].present?
       @vendas = @vendas.where("vendas.request_id = '#{params[:log]}' or request_send ilike '%#{params[:log].remove_injection}%' or response_get ilike '%#{params[:log].remove_injection}%'") if params[:log].present?
 
       @vendas_graficos = @vendas.clone
@@ -215,7 +215,7 @@ class VendasController < ApplicationController
         :valor_original, 
         :desconto_aplicado,
         :value,
-        :client_msisdn, 
+        :customer_number, 
         :status,
         :status_movicel, 
       )
