@@ -16,11 +16,6 @@ class Venda < ApplicationRecord
     raise "Registro de Venda não pode ser excluído"
   end
 
-  def grupos_id
-    #TODO - Verificar como pegar os grupos de acesso de um registro
-    [].map{|g| g.id}.join(",")
-  end
-
   def self.to_csv
     attributes = "ID Venda, Usuário,Parceiro,Data da Venda,Status da Venda,Produto ID Parceiro, Produto ID Pagaso,Nome do Produto,Agente,Store,ID do Vendedor,Terminal,Customer Number/MSIDN,Valor Face,Desconto,Porcentagem Desconto,Lucro".split(",")
 
