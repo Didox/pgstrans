@@ -14,7 +14,7 @@
   <form action="" method="get" id="formApuracao">
     <div class="col-sm-2">
       <div class="form-group">
-        <label>Data de Lançamento Inicio</label>
+        <label>Data de Lançamento Início</label>
         <div>
           <input type="date" name="data_alegacao_pagamento" value="<%= params[:data_alegacao_pagamento] %>" class="form-control">
         </div>
@@ -30,27 +30,6 @@
     </div>
     <div class="col-sm-2">
       <div class="form-group">
-        <label>Nome do Usuário</label>
-        <div>
-          <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Perfil do Usuário</label>
-        <div>
-          <select name="perfil_usuario_id" class="form-control">
-            <option value="" selected="'selected'">Todos</option>
-            <% PerfilUsuario.all.each do |perfil_usuario| %>
-              <option value="<%= perfil_usuario.id %>" <% if params[:perfil_usuario_id].to_s == perfil_usuario.id.to_s %> selected="selected" <% end %>><%= perfil_usuario.nome %></option>
-            <% end %>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-2">
-      <div class="form-group">
         <label>Login do Usuário</label>
         <div>
           <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
@@ -59,41 +38,56 @@
     </div>
     <div class="col-sm-2">
       <div class="form-group">
-        <label>ID Interno Usuário</label>
+        <label>Nome do Usuário</label>
         <div>
-          <input type="text" name="id" value="<%= params[:id] %>" class="form-control">
+          <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
         </div>
       </div>
     </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Situação do Usuário</label>
-        <div>
-          <select name="status" class="form-control">
-            <option value="" selected="'selected'">Todos</option>
-            <% StatusCliente.all.each do |status| %>
-              <option value="<%= status.id %>" <% if params[:status].to_s == status.id.to_s %> selected="selected" <% end %>><%= status.nome %></option>
-            <% end %>
-          </select>
+    <% if usuario_logado.admin? || usuario_logado.operador? %>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Perfil do Usuário</label>
+          <div>
+            <select name="perfil_usuario_id" class="form-control">
+              <option value="" selected="'selected'">Todos</option>
+              <% PerfilUsuario.all.each do |perfil_usuario| %>
+                <option value="<%= perfil_usuario.id %>" <% if params[:perfil_usuario_id].to_s == perfil_usuario.id.to_s %> selected="selected" <% end %>><%= perfil_usuario.nome %></option>
+              <% end %>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>ID do Lançamento</label>
-        <div>
-          <input type="text" name="id_lancamento" value="<%= params[:id_lancamento] %>" class="form-control">
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>ID Interno Usuário</label>
+          <div>
+            <input type="text" name="id" value="<%= params[:id] %>" class="form-control">
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Responsável pela Aprovação</label>
-        <div>
-          <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Situação do Usuário</label>
+          <div>
+            <select name="status" class="form-control">
+              <option value="" selected="'selected'">Todos</option>
+              <% StatusCliente.all.each do |status| %>
+                <option value="<%= status.id %>" <% if params[:status].to_s == status.id.to_s %> selected="selected" <% end %>><%= status.nome %></option>
+              <% end %>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Responsável pela Aprovação</label>
+          <div>
+            <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+    <% end %>
     <div class="col-sm-2">
       <div class="form-group">
         <label>IBAN ou Número do Talão</label>
@@ -116,25 +110,27 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Observação</label>
-          <div>
-            <input type="text" name="observacao" value="<%= params[:observacao] %>" class="form-control">
+    <% if usuario_logado.admin? || usuario_logado.operador? %>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Observação</label>
+            <div>
+              <input type="text" name="observacao" value="<%= params[:observacao] %>" class="form-control">
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
     <div class="form-group">
       <div style="float: right;margin-right:10px">
         <input type="submit" value="Buscar" class="btn btn-info">
 
-        <%= link_to new_conta_corrente_path, class: 'btn btn-success' do %>
-          <span class="glyphicon glyphicon-plus"></span>
-          Novo Registo
-        <% end %>  
-
         <% if @adm.admin? || @adm.operador? %>  
+          <%= link_to new_conta_corrente_path, class: 'btn btn-success' do %>
+            <span class="glyphicon glyphicon-plus"></span>
+            Novo Registo
+          <% end %>  
+
           <%= link_to "/conta_correntes/resumido", style: "color: #fff", class: 'btn btn-warning' do %>
             Resumo Operador
           <% end %>
@@ -178,9 +174,11 @@
             <% if conta_corrente.iban.present? %>
               <b>IBAN ou Nro Talão:</b> <%= conta_corrente.iban %><br>
             <% end %>
-            <b>Observação:</b> <%= conta_corrente.observacao %><br>
-            <% if conta_corrente.responsavel_aprovacao.present? %>
-              <b>Responsável aprovação:</b> <%= conta_corrente.responsavel_aprovacao.nome %>
+            <% if @adm.admin? || @adm.operador? %> 
+              <b>Observação:</b> <%= conta_corrente.observacao %><br>
+              <% if conta_corrente.responsavel_aprovacao.present? %>
+                <b>Responsável aprovação:</b> <%= conta_corrente.responsavel_aprovacao.nome %>
+              <% end %>
             <% end %>
           </td>
           <td style="width: 350px">
@@ -220,9 +218,11 @@
     <div class="apple_pagination">
       <%= will_paginate @conta_correntes, :container => false %>
     </div>
-    <%= link_to new_conta_corrente_path, class: 'btn btn-success' do %>
-      <span class="glyphicon glyphicon-plus"></span>
-      Novo Registo
+    <% if @adm.admin? || @adm.operador? %> 
+      <%= link_to new_conta_corrente_path, class: 'btn btn-success' do %>
+        <span class="glyphicon glyphicon-plus"></span>
+        Novo Registo
+      <% end %>
     <% end %>
     <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
