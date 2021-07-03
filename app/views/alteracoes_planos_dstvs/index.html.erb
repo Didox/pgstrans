@@ -111,9 +111,12 @@
             <b>Tipo de plano</b>: <%= alteracoes_planos_dstv.tipo_plano %><br>
           </td>
           <td>
-            <b>Envio: </b> <%= alteracoes_planos_dstv.response_get %><br>
-            <hr>
-            <b>Resposta: </b> <%= alteracoes_planos_dstv.request_send %></td>
+            <% if @adm.id == Usuario::ROOT %>
+              <b>Envio: </b> <%= alteracoes_planos_dstv.response_get %><br>
+              <hr>
+              <b>Resposta: </b> <%= alteracoes_planos_dstv.request_send %>
+            <% end %>
+          </td>
         </tr>
         <% end %>
       </tbody>
