@@ -66,12 +66,13 @@
         </div>
         <div class="col-sm-4">
           <div class="form-group">
-            <label>Tipo Transação</label>
+            <label>Lançamentos</label>
             <div>
-              <select name="return_code" class="form-control">
-                <option value="">Todos</option>
-                <option value="">Pagamentos de Faturas DSTV</option>
-                <option value="">Alterações de Pacotes de Produtos ou Planos de Cobrança DSTV</option>
+              <select name="lancamento_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Lancamento.all.each do |lancamento| %>
+                  <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
+                <% end %>
               </select>
             </div>
           </div>

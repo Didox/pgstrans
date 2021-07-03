@@ -49,6 +49,20 @@
         </div>
         <div class="col-sm-2">
           <div class="form-group">
+            <label>Tipo de Lançamento
+            </label>
+              <div>
+                <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% Lancamento.all.each do |lancamento| %>
+                    <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
+                  <% end %>
+                </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
             <label>Data Inicial</label>
             <div>
               <input type="date" name="data_inicio" value="<%= params[:data_inicio] %>" class="form-control">
@@ -148,36 +162,6 @@
               <label>Código Produto Parceiro</label>
               <div>
                 <input type="text" name="produto_id_parceiro" value="<%= params[:produto_id_parceiro] %>" class="form-control">
-              </div>
-            </div>
-          </div>
-        <% end %>
-        <% if usuario_logado.admin? || usuario_logado.operador? %>
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label>Agente</label>
-              <div>
-                <input type="text" name="agente" value="<%= params[:agente] %>" class="form-control">
-              </div>
-            </div>
-          </div>
-        <% end %>
-        <% if usuario_logado.admin? || usuario_logado.operador? %>
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label>Store</label>
-              <div>
-                <input type="text" name="store" value="<%= params[:store] %>" class="form-control">
-              </div>
-            </div>
-          </div>
-        <% end %>
-        <% if usuario_logado.admin? || usuario_logado.operador? %>
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label>Seller</label>
-              <div>
-                <input type="text" name="seller" value="<%= params[:seller] %>" class="form-control">
               </div>
             </div>
           </div>

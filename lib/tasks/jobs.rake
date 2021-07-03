@@ -34,7 +34,7 @@ namespace :jobs do
   task unificacao_vendas: :environment do
     parceiro = Partner.find(3) # dstv
     
-    Venda.all.each_with_index do |pagamento, i|
+    PagamentosFaturasDstv.all.each_with_index do |pagamento, i|
       desconto_aplicado, valor_original, valor = Venda.desconto_venda(pagamento.usuario, parceiro, pagamento.valor)
     
       if Venda.where(pagamentos_faturas_dstv_id: pagamento.id).count == 0
@@ -55,7 +55,7 @@ namespace :jobs do
           venda.created_at = pagamento.created_at
           venda.updated_at = pagamento.updated_at
           venda.usuario_id = pagamento.usuario_id
-          venda.lancamento_id = Lancamento.where(nome: Lancamento::PAGAMENTO_DE_FATURA).first.id rescue nil
+          venda.lancamento_id = 10 #PAGAMENTO_DE_FATURA
           venda.pagamentos_faturas_dstv_id = pagamento.id
           venda.partner_id = parceiro.id
           venda.responsavel = pagamento.usuario
@@ -69,7 +69,7 @@ namespace :jobs do
       puts i
     end
 
-    Venda.all.each_with_index do |alteracao, i|
+    AlteracoesPlanosDstv.all.each_with_index do |alteracao, i|
       desconto_aplicado, valor_original, valor = Venda.desconto_venda(alteracao.usuario, parceiro, alteracao.valor)
     
       if Venda.where(alteracoes_planos_dstv_id: alteracao.id).count == 0
@@ -95,7 +95,7 @@ namespace :jobs do
           venda.updated_at = alteracao.updated_at
           venda.usuario_id = alteracao.usuario_id
           venda.tipo_plano = alteracao.tipo_plano
-          venda.lancamento_id = alteracao.lancamento_id
+          venda.lancamento_id = (alteracao.lancamento_id || 12)
           venda.responsavel = alteracao.usuario
           venda.partner_id = parceiro.id
           venda.save!

@@ -49,6 +49,7 @@ class VendasController < ApplicationController
     sql += " and vendas.updated_at >= '#{SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)}'" if params[:data_inicio].present?
     sql += " and vendas.updated_at <= '#{SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)}'" if params[:data_fim].present?
     sql += " and vendas.partner_id = #{params[:parceiro_id]}" if params[:parceiro_id].present?
+    sql += " and vendas.lancamento_id = #{params[:lancamento_id]}" if params[:lancamento_id].present?
 
     if params[:status_parceiro_id].present?
       sql += " and partners.status_parceiro_id = #{params[:status_parceiro_id]}"
@@ -57,7 +58,7 @@ class VendasController < ApplicationController
     end
 
     sql += "
-      group by data_venda
+      group by to_char(vendas.created_at #{SqlDate.fix_sql_date_query}, 'YYYY/MM/DD')
       ORDER BY data_venda desc
     "
     @sql = sql
@@ -169,6 +170,7 @@ class VendasController < ApplicationController
       @vendas = @vendas.where("vendas.product_id = ?", params[:produto_id]) if params[:produto_id].present?
       @vendas = @vendas.where("vendas.produto_id_parceiro = ?", params[:produto_id_parceiro]) if params[:produto_id_parceiro].present?
       @vendas = @vendas.where("vendas.usuario_id = ?", params[:id_interno]) if params[:id_interno].present?
+      @vendas = @vendas.where("vendas.lancamento_id = ?", params[:lancamento_id]) if params[:lancamento_id].present?
       
       @vendas = @vendas.joins("inner join partners on partners.id = vendas.partner_id")
       if params[:status_parceiro_id].present?
@@ -177,9 +179,6 @@ class VendasController < ApplicationController
         @vendas = @vendas.where("partners.status_parceiro_id in (?)", StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL)
       end
       
-      @vendas = @vendas.where("vendas.agent_id = ?", params[:agente]) if params[:agente].present?
-      @vendas = @vendas.where("vendas.store_id = ?", params[:store]) if params[:store].present?
-      @vendas = @vendas.where("vendas.seller_id = ?", params[:seller]) if params[:seller].present?
       @vendas = @vendas.where("vendas.value > ?", params[:valor].to_f) if params[:valor].present?
       @vendas = @vendas.where("vendas.customer_number = ?", params[:customer_number]) if params[:customer_number].present?
       @vendas = @vendas.where("vendas.request_id = '#{params[:log]}' or request_send ilike '%#{params[:log].remove_injection}%' or response_get ilike '%#{params[:log].remove_injection}%'") if params[:log].present?

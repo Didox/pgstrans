@@ -25,7 +25,7 @@ class AlteracoesPlanosDstvsController < ApplicationController
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time].remove_injection}%'") if params[:transaction_date_time].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("tipo_plano = ?", params[:tipo_plano]) if params[:tipo_plano].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_number ilike '%#{params[:transaction_number].remove_injection}%'") if params[:transaction_number].present?
-    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.joins("inner join usuarios on alteracoes_planos_dstvs.usuario_id = usuarios.id ")
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.joins("inner join usuarios on vendas.usuario_id = usuarios.id ")
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("partner_id = ?", Partner.dstv)
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("lancamento_id in (?) or lancamento_id is null", Lancamento.where("nome in (?)", [Lancamento::ALTERACAO_PLANO, Lancamento::ALTERACAO_PACOTE]).map{|l| l.id} )
 
