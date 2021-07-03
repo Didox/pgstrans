@@ -14,13 +14,13 @@ class VendasController < ApplicationController
   def show
   end
 
-  def consolidado_dstv
+  def consolidado
     sql = "
       SELECT  
         to_char(vendas.created_at #{SqlDate.fix_sql_date_query}, 'YYYY/MM/DD') as data_venda, 
-        sum(vendas.valor_original) as valor, 
-        sum(vendas.desconto_aplicado) as lucro, 
-        sum(vendas.value) as custo
+        sum(vendas.valor_original) as valor_original, 
+        sum(vendas.desconto_aplicado) as desconto_aplicado, 
+        sum(vendas.value) as value
       FROM vendas 
       inner join usuarios on usuarios.id = vendas.usuario_id 
       inner join partners on partners.id = vendas.partner_id 
