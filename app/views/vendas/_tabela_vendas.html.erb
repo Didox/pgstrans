@@ -20,16 +20,16 @@
     <% @vendas.each do |venda| %>
     <tr>
       <td>
-        <b>ID da Venda:</b> <%= venda.id %> <b>Login Usuário:</b> <%= venda.usuario.login %><br>
-        <b>ID Interno do Usuário</b> <%= venda.usuario_id %><br>
+        <b>ID da Venda:</b> <%= venda.id %> <b>- Login Usuário:</b> <%= venda.usuario.login %><br>
+        <b>ID Interno do Usuário:</b> <%= venda.usuario_id %><br>
         <b>Usuário:</b> <%= venda.usuario.nome %><br>
         <b>Parceiro:</b> <%= venda.partner.name %><br>
         <b>Data da Venda:</b> <%= venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %><br>
-        <b>Status:</b> <%= venda.status_desc.error_description_pt %> <%= "- #{venda.lancamento.nome}" rescue "" %><br>
+        <b>Situação:</b> <%= venda.status_desc.error_description_pt %> <%= " - #{venda.lancamento.nome}" rescue "" %><br>
       </td>
       <td>
         <% if venda.customer_number.present? %>
-          <b>Customer Number:</b> <%= venda.customer_number %><br>
+          <b>Número do Cliente:</b> <%= venda.customer_number %><br>
         <% end %>
         <% if venda.smartcard.present? %>
           <b>Smartcard:</b> <%= venda.smartcard %>

@@ -27,7 +27,7 @@
       </div> 
       <div class="col-sm-3">
         <div class="form-group">
-          <label>Customer Number/Número do Cliente DSTV</label>
+          <label>Número do Cliente DSTV</label>
           <div>
             <input type="text" name="customer_number" value="<%= params[:customer_number] %>" class="form-control">
           </div>
@@ -35,7 +35,7 @@
       </div>
       <div class="col-sm-3">
         <div class="form-group">
-          <label>Smartcard/Device Number DSTV</label>
+          <label>Smartcard</label>
           <div>
             <input type="text" name="smartcard" value="<%= params[:smartcard] %>" class="form-control">
           </div>
@@ -99,7 +99,7 @@
   <table class="table scroltable table-hover">
     <thead>
       <tr>
-        <th scope="col">Usuário</th>
+        <th scope="col">Login / Nome do Usuário</th>
         <th scope="col">Dados DSTV</th>
         <th scope="col">Produto</th>
         <th scope="col" style="width: 12%" class="text-center">Valor KZ</th>
@@ -124,7 +124,7 @@
             <%= alteracoes_planos_dstv.usuario.nome rescue "" %>
           </td>
           <td>
-              <strong>Customer Number: </strong><%= alteracoes_planos_dstv.customer_number %><br>
+              <strong>Número do Cliente: </strong><%= alteracoes_planos_dstv.customer_number %><br>
               <strong>Smartcard: </strong><%= alteracoes_planos_dstv.smartcard %>
           </td>
           <td>

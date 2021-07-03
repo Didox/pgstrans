@@ -8,8 +8,17 @@ class AlteracoesPlanosDstvsController < ApplicationController
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time].remove_injection}%'") if params[:transaction_date_time].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("tipo_plano = ?", params[:tipo_plano]) if params[:tipo_plano].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_number ilike '%#{params[:transaction_number].remove_injection}%'") if params[:transaction_number].present?
+    @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.joins("inner join usuarios on vendas.usuario_id = usuarios.id ")
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("partner_id = ?", Partner.dstv)
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("lancamento_id in (?) or lancamento_id is null", Lancamento.where("nome in (?)", [Lancamento::ALTERACAO_PLANO, Lancamento::ALTERACAO_PACOTE]).map{|l| l.id} )
+
+    if params[:login].present?
+      @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("lower(usuarios.login) like ? ", "%#{params[:login].downcase}%")
+    end
+
+    if params[:nome].present?
+      @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("lower(usuarios.nome) like ? ", "%#{params[:nome].downcase}%")
+    end
 
     @alteracoes_planos_dstvs_total = @alteracoes_planos_dstvs.count
     options = {page: params[:page] || 1, per_page: 10}
@@ -24,6 +33,7 @@ class AlteracoesPlanosDstvsController < ApplicationController
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("receipt_number ilike '%#{params[:receipt_number].remove_injection}%'") if params[:receipt_number].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time].remove_injection}%'") if params[:transaction_date_time].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("tipo_plano = ?", params[:tipo_plano]) if params[:tipo_plano].present?
+    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("usuarios.id = ?", params[:id]) if params[:id].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("transaction_number ilike '%#{params[:transaction_number].remove_injection}%'") if params[:transaction_number].present?
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.joins("inner join usuarios on vendas.usuario_id = usuarios.id ")
     @alteracoes_planos_dstvs = @alteracoes_planos_dstvs.where("partner_id = ?", Partner.dstv)

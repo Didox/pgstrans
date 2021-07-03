@@ -6,8 +6,18 @@ class PagamentosFaturasDstvsController < ApplicationController
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("smartcard ilike '%#{params[:smartcard].remove_injection}%'") if params[:smartcard].present?
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("receipt_number ilike '%#{params[:receipt_number].remove_injection}%'") if params[:receipt_number].present?
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time].remove_injection}%'") if params[:transaction_date_time].present?
+    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.joins("inner join usuarios on vendas.usuario_id = usuarios.id ")
+    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("usuarios.id = ?", params[:id]) if params[:id].present?
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("lancamento_id = ?", Lancamento.where(nome: Lancamento::PAGAMENTO_DE_FATURA).first)
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("partner_id = ?", Partner.dstv)
+
+    if params[:login].present?
+      @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("lower(usuarios.login) like ? ", "%#{params[:login].downcase}%")
+    end
+  
+    if params[:nome].present?
+      @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("lower(usuarios.nome) like ? ", "%#{params[:nome].downcase}%")
+    end
 
     @pagamentos_faturas_dstvs_total = @pagamentos_faturas_dstvs.count
     options = {page: params[:page] || 1, per_page: 10}
@@ -21,8 +31,13 @@ class PagamentosFaturasDstvsController < ApplicationController
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("smartcard ilike '%#{params[:smartcard].remove_injection}%'") if params[:smartcard].present?
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("receipt_number ilike '%#{params[:receipt_number].remove_injection}%'") if params[:receipt_number].present?
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("transaction_date_time ilike '%#{params[:transaction_date_time].remove_injection}%'") if params[:transaction_date_time].present?
+    @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.joins("inner join usuarios on vendas.usuario_id = usuarios.id ")
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("lancamento_id = ?", Lancamento.where(nome: Lancamento::PAGAMENTO_DE_FATURA).first)
     @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("partner_id = ?", Partner.dstv)
+
+    if params[:login].present?
+      @pagamentos_faturas_dstvs = @pagamentos_faturas_dstvs.where("lower(usuarios.login) like ? ", "%#{params[:login].downcase}%")
+    end
 
     @pagamentos_faturas_dstvs_valor = @pagamentos_faturas_dstvs.sum(:value)
     options = {page: params[:page] || 1, per_page: 10}

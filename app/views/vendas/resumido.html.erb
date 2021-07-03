@@ -33,7 +33,7 @@
         </div>
         <div class="col-sm-2">
           <div class="form-group">
-            <label>Status da Venda</label>
+            <label>Situação da Venda</label>
             <div>
               <select name="return_code" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
@@ -76,19 +76,21 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Status Parceiro</label>
-            <div>
-              <select name="status_parceiro_id" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% StatusParceiro.all.reorder(nome: :asc).each do |status_parceiro| %>
-                  <option value="<%= status_parceiro.id %>" <% if status_parceiro.id.to_s == params[:status_parceiro_id] %> selected="selected" <% end %> ><%= status_parceiro.nome %></option>
-                <% end %>
-              </select>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Situação do Parceiro</label>
+              <div>
+                <select name="status_parceiro_id" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% StatusParceiro.all.reorder(nome: :asc).each do |status_parceiro| %>
+                    <option value="<%= status_parceiro.id %>" <% if status_parceiro.id.to_s == params[:status_parceiro_id] %> selected="selected" <% end %> ><%= status_parceiro.nome %></option>
+                  <% end %>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
           <div class="col-sm-3">
             <div class="form-group">
@@ -132,7 +134,7 @@
         <% if usuario_logado.admin? || usuario_logado.operador? %>
           <div class="col-sm-2">
             <div class="form-group">
-              <label>Customer Number/MSISDN</label>
+              <label>Número do Cliente/Smartcard</label>
               <div>
                 <input type="text" name="customer_number" value="<%= params[:customer_number] %>" class="form-control">
               </div>
@@ -142,9 +144,11 @@
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
-          <label>
-            Exportar CSV <input type="checkbox" name="csv"> 
-          </label>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <label>
+                Exportar CSV <input type="checkbox" name="csv"> 
+              </label>
+          <% end %>
           <input type="submit" value="Buscar" class="btn btn-success">
         </div>
       </div>
@@ -212,7 +216,7 @@
           </td>
           <td>
             <% if venda.customer_number.present? %>
-              <b>Customer Number:</b> <%= venda.customer_number %><br>
+              <b>Número do Cliente:</b> <%= venda.customer_number %><br>
             <% end %>
             <% if venda.smartcard.present? %>
               <b>Smartcard:</b> <%= venda.smartcard %>

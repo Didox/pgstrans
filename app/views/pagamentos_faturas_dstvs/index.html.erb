@@ -11,31 +11,47 @@
   <div class="col-md-12" style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="form-group">
-            <label>Customer Number/Número do Cliente</label>
+            <label>Login do Usuário</label>
+            <div>
+              <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Nome do Usuário</label>
+            <div>
+              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Número do Cliente</label>
             <div>
               <input type="text" name="customer_number" value="<%= params[:customer_number] %>" class="form-control">
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="form-group">
-            <label>Smartcard/Device Number</label>
+            <label>Smartcard</label>
             <div>
               <input type="text" name="smartcard" value="<%= params[:smartcard] %>" class="form-control">
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="form-group">
-            <label>Recibo Confirmação</label>
+            <label>Recibo de Confirmação DSTV</label>
             <div>
               <input type="text" name="receipt_number" value="<%= params[:receipt_number] %>" class="form-control">
             </div>
           </div>
-        </div>
-        <div class="col-sm-3">
+        </div> 
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Data da Transação</label>
             <div>
@@ -65,8 +81,8 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col" style="width: 30%">Dados</th>
-          <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <th scope="col" style="width: 40%">Dados</th>
+          <% if @adm.id == Usuario::ROOT %>
             <th scope="col">Envio e Resposta</th>
             <th colspan="3"></th>
           <% end %>
@@ -78,10 +94,10 @@
         <tr>
           <td>
             <b>Customer number DSTV</b>: <%= pagamentos_faturas_dstv.customer_number %><br>
-            <b>Usuário</b>: <%= pagamentos_faturas_dstv.usuario.nome rescue "" %><br>
-            <b>Valor KZ</b>: <%= pagamentos_faturas_dstv.value %><br>
-            <b>Smartcard/Device number</b>: <%= pagamentos_faturas_dstv.smartcard %><br>
-            <b>Recibo Confirmação</b>: <%= pagamentos_faturas_dstv.receipt_number %><br>
+            <b>Login/Nome do Usuário</b>: <%= pagamentos_faturas_dstv.usuario.login rescue "" %>/<%= pagamentos_faturas_dstv.usuario.nome rescue "" %><br>
+            <b>Valor KZ</b>: <%= number_to_currency(pagamentos_faturas_dstv.value, :precision => 2, :unit => "") %><br>
+            <b>Smartcard DSTV</b>: <%= pagamentos_faturas_dstv.smartcard %><br>
+            <b>Recibo de Confirmação DSTV</b>: <%= pagamentos_faturas_dstv.receipt_number %><br>
             <b>Nro. Transação</b>: <%= pagamentos_faturas_dstv.transaction_number %><br>
             <b>Confirmado?</b>: <%= pagamentos_faturas_dstv.status ? "Sim" : "Não" %><br>
 

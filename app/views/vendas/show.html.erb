@@ -13,9 +13,13 @@
       <dd><%= @venda.id %></dd>
       <dt>Produto no Pagasó:</dt>
       <dd>
-        <a href="/produtos/<%= @venda.product_id %>" target="_blank">
-          <%= @venda.product_id %>
-        </a>
+        <% if @venda.product_id.present? %>
+          <a href="/produtos/<%= @venda.product_id %>" target="_blank">
+            <%= @venda.product_id %>
+          </a>
+        <% else %>
+            <%= "#{@venda.lancamento.nome}" rescue "" %>
+        <% end %>
       </dd>
       <dt>Produto no Parceiro:</dt>
       <dd>
@@ -25,14 +29,16 @@
       <dd>
         <%= @venda.product_nome %>
       </dd>
-      <dt>Agente:</dt>
-      <dd><%= @venda.agent_id %></dd>
-      <dt>Store/Loja:</dt>
-      <dd><%= @venda.store_id %></dd>
-      <dt>Seller/Vendedor:</dt>
-      <dd><%= @venda.seller_id %></dd>
-      <dt>Terminal:</dt>
-      <dd><%= @venda.terminal_id %></dd>
+      <% if @adm.id == Usuario::ROOT %>
+        <dt>Agente:</dt>
+        <dd><%= @venda.agent_id %></dd>
+        <dt>Store/Loja:</dt>
+        <dd><%= @venda.store_id %></dd>
+        <dt>Seller/Vendedor:</dt>
+        <dd><%= @venda.seller_id %></dd>
+        <dt>Terminal:</dt>
+        <dd><%= @venda.terminal_id %></dd>
+      <% end %>
       <dt>Valor:</dt>
       <dd><%= number_to_currency(@venda.valor_original) %></dd>
       <dt>Lucro:</dt>
@@ -46,7 +52,7 @@
       <dt>Custo:</dt>
       <dd><%= number_to_currency(@venda.value) %></dd>
       <% if @venda.customer_number.present? %>
-        <dt>Customer Number:</dt>
+        <dt>Número do Cliente:</dt>
         <dd><%= @venda.customer_number %></dd>
       <% end %>
       <% if @venda.smartcard.present? %>
@@ -54,7 +60,7 @@
         <dd><%= @venda.smartcard %></dd>
       <% end %>
       <dt>Situação:</dt>
-      <dd><%= @venda.status_desc.error_description_pt %> <%= "- #{venda.lancamento.nome}" rescue "" %></dd>
+      <dd><%= @venda.status_desc.error_description_pt %> - <strong><%= "#{@venda.lancamento.nome}" rescue "" %></strong></dd>
       
       <% if @adm.id == Usuario::ROOT %>
         <dt>Request send:</dt>
