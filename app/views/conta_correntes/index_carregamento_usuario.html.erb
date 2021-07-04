@@ -11,7 +11,7 @@
       <div class="row" style="padding:10px">
         <div class="col-sm-2">
           <div class="form-group">
-            <label>Login</label>
+            <label>Login do Usuário</label>
             <div>
               <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
             </div>
@@ -25,14 +25,16 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Responsável pela Aprovação</label>
-            <div>
-              <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
+        <% if @adm.admin? || @adm.operador? %>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label>Responsável pela Aprovação</label>
+              <div>
+                <input type="text" name="responsavel" value="<%= params[:responsavel] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
         <div class="col-sm-3">
           <div class="form-group">
             <label>Tipo de Lançamento</label>
@@ -49,8 +51,10 @@
         </div>
         <div class="form-group">
           <div style="float: right;margin-right:10px">
-            <input type="checkbox" name="download_xlsx" id="download_xlsx">
-            <input type="submit" value="Exportar Excel (xlsx)" onclick="$('#download_xlsx').val('ok');" class="btn btn-success navbar-btn btn-space mobile-botao">
+            <% if @adm.admin? || @adm.operador? %>
+              <input type="checkbox" name="download_xlsx" id="download_xlsx">
+              <input type="submit" value="Exportar Excel (xlsx)" onclick="$('#download_xlsx').val('ok');" class="btn btn-success navbar-btn btn-space mobile-botao">
+            <% end %>
             <input type="submit" value="Buscar" class="btn btn-space btn-info">
             <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
               <span class="glyphicon glyphicon-list-alt"></span>
@@ -69,13 +73,19 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">ID Usuário</th>
-          <th scope="col">Login</th>
+          <% if @adm.admin? || @adm.operador? %>
+            <th scope="col">ID Usuário</th>
+          <% end %>
+          <th scope="col">Login do Usuário</th>
           <th scope="col">Nome do Usuário</th>
           <th scope="col">Valor do Lançamento</th>
           <th scope="col">Data do Lançamento</th>
-          <th scope="col">Tipo de Lançamento</th>  
-          <th scope="col">Responsável Aprovação</th>    
+          <th scope="col">Tipo de Lançamento</th>
+          <% if @adm.admin? || @adm.operador? %>  
+            <th scope="col">Responsável Aprovação</th>    
+          <% else %>
+            <th></th>
+          <% end %>
           <th scope="col">Ação</th>
         </tr>
       </thead>
@@ -84,13 +94,19 @@
         <% valor_total = 0 %>
         <% @conta_correntes.each do |conta_corrente| %>
         <tr>
-          <td style="width: 100px" align="right"><%= conta_corrente.usuario.id %></td>
+          <% if @adm.admin? || @adm.operador? %>
+            <td style="width: 100px" align="right"><%= conta_corrente.usuario.id %></td>
+          <% end %>
           <td style="width: 100px"><%= conta_corrente.usuario.login %></td>
           <td style="width: 250px"><%= conta_corrente.usuario.nome %></td>
-          <td style="width: 180px" align="right"><%= number_to_currency(conta_corrente.valor, :unit => "KZ", :precision => 2) %></td>
+          <td style="width: 300px" align="right"><%= number_to_currency(conta_corrente.valor, :unit => "KZ", :precision => 2) %></td>
           <td style="width: 150px" align="center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td style="width: 200px"><%= conta_corrente.lancamento.nome rescue "" %>
-          <td style="width: 200px"><%= conta_corrente.responsavel_aprovacao.nome rescue "" %>
+          <% if @adm.admin? || @adm.operador? %>
+            <td style="width: 200px"><%= conta_corrente.responsavel_aprovacao.nome rescue "" %>
+          <% else %>
+            <td></td>
+          <% end %>
           <% valor_total += conta_corrente.valor %>
           <td>
           <%= link_to 'Mostrar', conta_corrente %>
@@ -121,14 +137,16 @@
       <%= will_paginate @conta_correntes, :container => false %>
     </div>
 
-    <%= link_to conta_correntes_path, class: 'btn btn-dark' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
-      Creditar Conta  Corrente
-    <% end %>
+    <% if @adm.admin? || @adm.operador? %>
+      <%= link_to conta_correntes_path, class: 'btn btn-dark' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Creditar Conta  Corrente
+      <% end %>
 
-    <%= link_to index_morada_saldo_path, class: 'btn btn-success' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
-      Consulta Saldo de Usuário
+      <%= link_to index_morada_saldo_path, class: 'btn btn-success' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Consulta Saldo de Usuário
+      <% end %>
     <% end %>
 
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>

@@ -1,184 +1,186 @@
-<div class="col-md-12 scroltable">
-	<div class="col-md-12">
-    <h4>
-      Conta Corrente -
-      Saldo Disponível para o usuário <%= usuario_logado.nome %>: 
-      <label <% if usuario_logado.saldo < 0 %>style="color:red"<% end %>>
-        <%= number_to_currency(usuario_logado.saldo, :unit => "KZ", :precision => 2) %>
-      </label>
-    </h4>
-  </div>
-  <!-- Page Heading/Breadcrumbs -->
-  <%= render :partial => 'shared/header_backoffice' %>
-  <!-- /.row -->
-  <div>
-    <form action="" method="get" id="formApuracao">
-      <div class="col-sm-4">
-        <div class="form-group">
-          <label>Data de Lançamento</label>
-          <div>
-            <input type="date" name="data_alegacao_pagamento" value="<%= params[:data_alegacao_pagamento] %>" class="form-control">
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="form-group">
-          <label>Última da Atualização</label>
-          <div>
-            <input type="date" name="data_ultima_atualizacao_saldo" value="<%= params[:data_ultima_atualizacao_saldo] %>" class="form-control">
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="form-group">
-          <label>Nome do Usuário</label>
-          <div>
-            <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="form-group">
-          <label>Login</label>
-          <div>
-            <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-2">
-        <div class="form-group">
-          <label>ID Interno Usuário</label>
-          <div>
-            <input type="text" name="id" value="<%= params[:id] %>" class="form-control">
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-2">
-        <div class="form-group">
-          <label>ID Conta Corrente</label>
-          <div>
-            <input type="text" name="conta_corrente_id" value="<%= params[:conta_corrente_id] %>" class="form-control">
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-2">
-        <div class="form-group">
-          <label>Tipo de Lançamento
-          </label>
+<% if @adm.id == Usuario::ROOT %>
+  <div class="col-md-12 scroltable">
+    <div class="col-md-12">
+      <h4>
+        Conta Corrente -
+        Saldo Disponível para o usuário <%= usuario_logado.nome %>: 
+        <label <% if usuario_logado.saldo < 0 %>style="color:red"<% end %>>
+          <%= number_to_currency(usuario_logado.saldo, :unit => "KZ", :precision => 2) %>
+        </label>
+      </h4>
+    </div>
+    <!-- Page Heading/Breadcrumbs -->
+    <%= render :partial => 'shared/header_backoffice' %>
+    <!-- /.row -->
+    <div>
+      <form action="" method="get" id="formApuracao">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Data de Lançamento</label>
             <div>
-              <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% Lancamento.all.each do |lancamento| %>
-                  <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
-                <% end %>
-              </select>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="form-group">
-          <label>Quantidade de registros a mostrar por página</label>
-           <div>
-              <input type="text" name="quantidade_registros" value="<%= params[:quantidade_registros] %>" class="form-control">
+              <input type="date" name="data_alegacao_pagamento" value="<%= params[:data_alegacao_pagamento] %>" class="form-control">
             </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <div style="float: right;margin-right:10px">
-          <input type="submit" value="Buscar" class="btn btn-info">
-
-          <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
-            <span class="glyphicon glyphicon-list-alt"></span>
-            Voltar
-          <% end %>  
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Última da Atualização</label>
+            <div>
+              <input type="date" name="data_ultima_atualizacao_saldo" value="<%= params[:data_ultima_atualizacao_saldo] %>" class="form-control">
+            </div>
+          </div>
         </div>
-      </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Nome do Usuário</label>
+            <div>
+              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Login</label>
+            <div>
+              <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>ID Interno Usuário</label>
+            <div>
+              <input type="text" name="id" value="<%= params[:id] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>ID Conta Corrente</label>
+            <div>
+              <input type="text" name="conta_corrente_id" value="<%= params[:conta_corrente_id] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Tipo de Lançamento
+            </label>
+              <div>
+                <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% Lancamento.all.each do |lancamento| %>
+                    <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
+                  <% end %>
+                </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Quantidade de registros a mostrar por página</label>
+            <div>
+                <input type="text" name="quantidade_registros" value="<%= params[:quantidade_registros] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div style="float: right;margin-right:10px">
+            <input type="submit" value="Buscar" class="btn btn-info">
+
+            <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+              <span class="glyphicon glyphicon-list-alt"></span>
+              Voltar
+            <% end %>  
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <form action="/conta_correntes/conciliacao/aplicar" method="post">
+      <%= render "conciliacao_params" %>
+      <h4>
+        Total de Registos: <strong><%= number_to_currency(@conta_correntes_total, :precision => 0, :unit => "") %></strong>
+      </h4>
+      <hr>
+      <table class="table table-hover" style="position:fixed;margin-top: 0px;background: #fff;">
+        <thead>
+          <tr>
+            <th style="width: 9%" class="text-center">ID Conta <br> Corrente</th>
+            <th style="width: 9%" class="text-center">Login <br> Usuário</th>
+            <th style="width: 9%" class="text-center">Lançamento</th>
+            <th style="width: 9%" class="text-center">Data da Transação</th>
+            <th style="width: 9%" class="text-center">Valor do <br> Lançamento</th>
+            <th style="width: 9%" class="text-center">Saldo Anterior</th>
+            <th style="width: 9%" class="text-center">Saldo correto <br>que irá entrar no<br> lugar do (Saldo anterior)</th>
+            <th style="width: 9%" class="text-center">Saldo Atual</th>
+            <th style="width: 9%" class="text-center">Saldo correto <br>que irá entrar no<br> lugar do (Saldo atual)</th>
+            <th style="width: 2%" class="text-center">&nbsp;</th>
+            <th style="width: 9%" class="text-center">Data da Atualização<br>do Saldo</th>
+            <th style="width: 9%">
+              <input type="button" class="btn btn-primary" onclick="checkAcessos()" value="Marcar">
+              <input type="button" class="btn btn-danger" onclick="uncheckAcessos()" value="Desmarcar">
+            </th>
+          </tr>
+        </thead>
+      </table>
+      <table class="table table-hover" style="margin-top: 100px;">
+        <tbody>
+          <% @conta_correntes.each do |conta_corrente| %>
+          <tr>
+            <td  style="width: 9%" class="text-center"><%= conta_corrente.id %></td>
+            <td  style="width: 9%"><%= conta_corrente.usuario.login %></td>
+            <td  style="width: 9%"><%= conta_corrente.lancamento_id %> / <%= conta_corrente.lancamento.nome %></td>
+            <td  style="width: 9%" class="text-center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %></td>
+            <td  style="width: 9%" class="text-right"><span <% if conta_corrente.valor < 0 %> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span></td>
+            <td  style="width: 9%" class="text-right">
+              <% if @adm.id == Usuario::ROOT %>
+                <div style="display:flex" class="flex">
+                  <input style="width:120px" type="number" name="saldo_anterior" value="<%= conta_corrente.saldo_anterior %>">
+                  <input type="button" onclick="pgstrans.salvaSaldo(this, <%= conta_corrente.id %>, 'saldo_anterior')" value="Salvar">
+                </div>
+              <% end %>
+              <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %>
+              <div style="color:green" class="sucesso"></div>
+            </td>
+            <td  style="width: 9%; background: #f3f1f2!important;" class="text-right"><%= number_to_currency(conta_corrente.saldo_atual_do_registro_anterior, :unit => "KZ") %></td>
+            <td  style="width: 9%" class="text-right">
+              <% if @adm.id == Usuario::ROOT %>
+                <div style="display:flex" class="flex">
+                  <input style="width:120px" type="number" name="saldo_atual" value="<%= conta_corrente.saldo_atual %>">
+                  <input type="button" onclick="pgstrans.salvaSaldo(this, <%= conta_corrente.id %>, 'saldo_atual')" value="Salvar">
+                </div>
+              <% end %>
+              <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %>
+              <div style="color:green" class="sucesso"></div>
+            </td>
+            <td  style="width: 9%; background: #f3f1f2!important;" class="text-right"><%= number_to_currency(conta_corrente.saldo_atual_do_registro_atual, :unit => "KZ") %></td>
+            <td class="text-center" style="width: 2%; background:<%= (conta_corrente.saldo_anterior == conta_corrente.saldo_atual_do_registro_anterior && conta_corrente.saldo_atual == conta_corrente.saldo_atual_do_registro_atual ? "green" : "red") %>">
+              &nbsp;
+              <% if @adm.id == Usuario::ROOT %>
+                <input type="button" onclick="pgstrans.salvaSaldo(this, <%= conta_corrente.id %>)" value="Salvar este">
+                <button>Salvar marcados</button>
+              <% end %>
+            </td>
+            <td  style="width: 9%" class="text-center"><%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M:%S") %></td>
+            <td  style="width: 9%">
+              <% if @primeira_entrada_id != conta_corrente.id %>
+                <input type="checkbox" class="check-acessos" checked="checked" name="conta_corrente_id[]" value="<%= conta_corrente.id %>">
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
     </form>
+    <div class="apple_pagination">
+      <%= will_paginate @conta_correntes, :container => false %>
+    </div>
+    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>    
   </div>
-</div>
-<div class="col-md-12">
-  <form action="/conta_correntes/conciliacao/aplicar" method="post">
-    <%= render "conciliacao_params" %>
-    <h4>
-      Total de Registos: <strong><%= number_to_currency(@conta_correntes_total, :precision => 0, :unit => "") %></strong>
-    </h4>
-    <hr>
-    <table class="table table-hover" style="position:fixed;margin-top: 0px;background: #fff;">
-      <thead>
-        <tr>
-          <th style="width: 9%" class="text-center">ID Conta <br> Corrente</th>
-          <th style="width: 9%" class="text-center">Login <br> Usuário</th>
-          <th style="width: 9%" class="text-center">Lançamento</th>
-          <th style="width: 9%" class="text-center">Data da Transação</th>
-          <th style="width: 9%" class="text-center">Valor do <br> Lançamento</th>
-          <th style="width: 9%" class="text-center">Saldo Anterior</th>
-          <th style="width: 9%" class="text-center">Saldo correto <br>que irá entrar no<br> lugar do (Saldo anterior)</th>
-          <th style="width: 9%" class="text-center">Saldo Atual</th>
-          <th style="width: 9%" class="text-center">Saldo correto <br>que irá entrar no<br> lugar do (Saldo atual)</th>
-          <th style="width: 2%" class="text-center">&nbsp;</th>
-          <th style="width: 9%" class="text-center">Data da Atualização<br>do Saldo</th>
-          <th style="width: 9%">
-            <input type="button" class="btn btn-primary" onclick="checkAcessos()" value="Marcar">
-            <input type="button" class="btn btn-danger" onclick="uncheckAcessos()" value="Desmarcar">
-          </th>
-        </tr>
-      </thead>
-    </table>
-    <table class="table table-hover" style="margin-top: 100px;">
-      <tbody>
-        <% @conta_correntes.each do |conta_corrente| %>
-        <tr>
-          <td  style="width: 9%" class="text-center"><%= conta_corrente.id %></td>
-          <td  style="width: 9%"><%= conta_corrente.usuario.login %></td>
-          <td  style="width: 9%"><%= conta_corrente.lancamento_id %> / <%= conta_corrente.lancamento.nome %></td>
-          <td  style="width: 9%" class="text-center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %></td>
-          <td  style="width: 9%" class="text-right"><span <% if conta_corrente.valor < 0 %> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span></td>
-          <td  style="width: 9%" class="text-right">
-            <% if @adm.id == Usuario::ROOT %>
-              <div style="display:flex" class="flex">
-                <input style="width:120px" type="number" name="saldo_anterior" value="<%= conta_corrente.saldo_anterior %>">
-                <input type="button" onclick="pgstrans.salvaSaldo(this, <%= conta_corrente.id %>, 'saldo_anterior')" value="Salvar">
-              </div>
-            <% end %>
-            <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %>
-            <div style="color:green" class="sucesso"></div>
-          </td>
-          <td  style="width: 9%; background: #f3f1f2!important;" class="text-right"><%= number_to_currency(conta_corrente.saldo_atual_do_registro_anterior, :unit => "KZ") %></td>
-          <td  style="width: 9%" class="text-right">
-            <% if @adm.id == Usuario::ROOT %>
-              <div style="display:flex" class="flex">
-                <input style="width:120px" type="number" name="saldo_atual" value="<%= conta_corrente.saldo_atual %>">
-                <input type="button" onclick="pgstrans.salvaSaldo(this, <%= conta_corrente.id %>, 'saldo_atual')" value="Salvar">
-              </div>
-            <% end %>
-            <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %>
-            <div style="color:green" class="sucesso"></div>
-          </td>
-          <td  style="width: 9%; background: #f3f1f2!important;" class="text-right"><%= number_to_currency(conta_corrente.saldo_atual_do_registro_atual, :unit => "KZ") %></td>
-          <td class="text-center" style="width: 2%; background:<%= (conta_corrente.saldo_anterior == conta_corrente.saldo_atual_do_registro_anterior && conta_corrente.saldo_atual == conta_corrente.saldo_atual_do_registro_atual ? "green" : "red") %>">
-            &nbsp;
-            <% if @adm.id == Usuario::ROOT %>
-              <input type="button" onclick="pgstrans.salvaSaldo(this, <%= conta_corrente.id %>)" value="Salvar este">
-              <button>Salvar marcados</button>
-            <% end %>
-          </td>
-          <td  style="width: 9%" class="text-center"><%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M:%S") %></td>
-          <td  style="width: 9%">
-            <% if @primeira_entrada_id != conta_corrente.id %>
-              <input type="checkbox" class="check-acessos" checked="checked" name="conta_corrente_id[]" value="<%= conta_corrente.id %>">
-            <% end %>
-          </td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </form>
-  <div class="apple_pagination">
-    <%= will_paginate @conta_correntes, :container => false %>
-  </div>
-  <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Voltar
-  <% end %>    
-</div>
+<% end %>

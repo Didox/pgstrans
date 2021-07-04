@@ -262,7 +262,7 @@
   <% end %>
   <div class="col-md-12 scroltable">
   <h4>
-    Quantidade de usuários: <strong><%= number_to_currency(@usuarios_total, :precision => 0, :unit => "") %></strong>
+    Quantidade de Usuários: <strong><%= number_to_currency(@usuarios_total, :precision => 0, :unit => "") %></strong>
   </h4>
   <hr>
   <h4>
@@ -272,14 +272,20 @@
     <table class="table table-hover">
       <thead>
         <tr class="text-left">
-          <th scope="col">ID do Usuário</th>
+          <% if @adm.admin? || @adm.operador? %>
+            <th scope="col">ID do Usuário</th>
+          <% end %>
           <th scope="col">Dados do Usuário</th>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
               <th scope="col">Admin?</th>
               <th scope="col">Operador?</th>
               <th scope="col">Agente</th>     
           <% end %>
-          <th scope="col">Subagente e Data do Cadastro e Adesão</th>
+          <th scope="col">Subagente
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            e Data de Cadastro e Adesão
+          <% end %>
+          </th>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
             <th colspan="4">Ações para o Registo</th>
           <% end %>
@@ -289,7 +295,9 @@
       <tbody>
         <% @usuarios.each do |usuario| %>
           <tr>
-            <td><%= usuario.id %></td>
+            <% if @adm.admin? || @adm.operador? %>
+              <td><%= usuario.id %></td>
+            <% end %>
             <td>
               Login: <%= usuario.login %><br>
               Nome: <%= usuario.nome %><br>
@@ -332,8 +340,10 @@
             <% end %>
             <td>
               <%= "#{usuario.sub_agente_id}/#{usuario.sub_agente.nome_fantasia}" %><br><br>
-              Data de Cadastro: <%= usuario.created_at %><br><br>
-              Data de Adesão: <%= usuario.data_adesao.strftime("%d/%m/%Y") rescue "" %>
+              <% if @adm.admin? || @adm.operador? %>             
+                Data de Cadastro: <%= usuario.created_at %><br><br>
+                Data de Adesão: <%= usuario.data_adesao.strftime("%d/%m/%Y") rescue "" %>
+              <% end %>
             </td>
             <td>
               <% if usuario_logado.admin? || usuario_logado.operador? %>
