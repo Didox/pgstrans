@@ -53,25 +53,29 @@
     </dl>
 
     <div class="page-header"> 
-    <% if @adm.admin? || @adm.operador? %>
+    
       <%= link_to "index_carregamento_usuario", class: 'btn btn-success' do %>
-          <span class="glyphicon glyphicon-list-alt"></span>
-          Lista de Carregamento
-        <% end %>
-        <%= link_to conta_correntes_path, class: 'btn btn-info' do %>
-          <span class="glyphicon glyphicon-list-alt"></span>
-          Creditar Conta  Corrente
-        <% end %>   
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Lista de Carregamento
+      <% end %>
+      
+      <%= link_to conta_correntes_path, class: 'btn btn-info' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Creditar Conta  Corrente
+      <% end %>   
+  
+      <% if @adm.admin? || @adm.operador? %>
         <%= link_to "/conta_correntes/resumido", style: "color: #fff", class: 'btn btn-warning' do %>
           Resumo Operador
-        <% end %>
-        <% if @adm.id == Usuario::ROOT %>
+      <% end %>
+      
+      <% if @adm.id == Usuario::ROOT %>
           <%= link_to edit_conta_corrente_path(@conta_corrente), class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-pencil"></span>
             Editar
           <% end %>
-        <% end %>
       <% end %>
+      
       <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Voltar

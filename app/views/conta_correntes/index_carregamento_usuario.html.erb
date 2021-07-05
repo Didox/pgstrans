@@ -137,12 +137,12 @@
       <%= will_paginate @conta_correntes, :container => false %>
     </div>
 
-    <% if @adm.admin? || @adm.operador? %>
-      <%= link_to conta_correntes_path, class: 'btn btn-dark' do %>
-        <span class="glyphicon glyphicon-list-alt"></span>
-        Creditar Conta  Corrente
-      <% end %>
+    <%= link_to conta_correntes_path, class: 'btn btn-dark' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Creditar Conta  Corrente
+    <% end %>
 
+    <% if @adm.admin? || @adm.operador? %>
       <%= link_to index_morada_saldo_path, class: 'btn btn-success' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Consulta Saldo de Usuário

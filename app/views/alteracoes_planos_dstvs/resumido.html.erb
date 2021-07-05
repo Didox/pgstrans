@@ -9,7 +9,7 @@
 
   <div style="col-md-12 margin-top:10px">
     <form action="" method="get" id="formApuracao">
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group">
           <label>Login do Usuário</label>
           <div>
@@ -17,7 +17,7 @@
           </div>
         </div>
       </div> 
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <div class="form-group">
           <label>Nome do Usuário</label>
           <div>
@@ -25,7 +25,7 @@
           </div>
         </div>
       </div> 
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group">
           <label>Número do Cliente DSTV</label>
           <div>
@@ -33,7 +33,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group">
           <label>Smartcard</label>
           <div>
@@ -41,11 +41,24 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group">
-          <label>Número do Recibo de Confirmação DSTV</label>
+          <label>Recibo de Confirmação DSTV</label>
           <div>
             <input type="text" name="receipt_number" value="<%= params[:receipt_number] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Tipo de Lançamento</label>
+            <div>
+              <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Lancamento.all.each do |lancamento| %>
+                  <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
+                <% end %>
+              </select>
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ class Venda < ApplicationRecord
   end
 
   def self.to_csv
-    attributes = "ID Venda, Usuário,Parceiro,Data da Venda,Status da Venda,Produto ID Parceiro, Produto ID Pagaso,Nome do Produto,Agente,Store,ID do Vendedor,Terminal,Customer Number/MSIDN,Valor Face,Desconto,Porcentagem Desconto,Lucro".split(",")
+    attributes = "ID Venda, Usuário, Nome do Parceiro, Data da Venda, Situação da Venda, Produto ID Parceiro, Produto ID Pagaso, Nome do Produto, Customer Number, Smartcard, Valor Face, Desconto, Porcentagem Desconto, Lucro".split(",")
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
@@ -35,11 +35,8 @@ class Venda < ApplicationRecord
           venda.produto_id_parceiro,
           venda.product_id,
           venda.product_nome,
-          venda.agent_id,
-          venda.store_id,
-          venda.seller_id,
-          venda.terminal_id,
           venda.customer_number,
+          venda.smartcard,
           moeda_csv(helper.number_to_currency(venda.valor_original, :unit => "")),
           moeda_csv(helper.number_to_currency(venda.desconto_aplicado, :unit => "")),
           moeda_csv(helper.number_to_currency(porcentagem, :unit => "")),

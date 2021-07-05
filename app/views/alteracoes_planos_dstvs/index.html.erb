@@ -105,8 +105,10 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col" style="width: 40%">Dados</th>
-          <th scope="col">Envio e Resposta</th>
+          <th>Dados</th>
+          <% if @adm.id == Usuario::ROOT %>
+            <th scope="col" style="width: 60%">Envio e Resposta</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>

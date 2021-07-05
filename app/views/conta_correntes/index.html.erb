@@ -125,21 +125,21 @@
       <div style="float: right;margin-right:10px">
         <input type="submit" value="Buscar" class="btn btn-info">
 
-        <% if @adm.admin? || @adm.operador? %>  
           <%= link_to new_conta_corrente_path, class: 'btn btn-success' do %>
             <span class="glyphicon glyphicon-plus"></span>
             Novo Registo
           <% end %>  
 
-          <%= link_to "/conta_correntes/resumido", style: "color: #fff", class: 'btn btn-warning' do %>
-            Resumo Operador
+          <% if @adm.admin? || @adm.operador? %>  
+            <%= link_to "/conta_correntes/resumido", style: "color: #fff", class: 'btn btn-warning' do %>
+              Resumo Operador
+            <% end %>
           <% end %>
-        <% end %>
 
-        <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
-          <span class="glyphicon glyphicon-list-alt"></span>
-          Voltar
-        <% end %>
+          <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>
       </div>
     </div>
   </form>
