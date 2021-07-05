@@ -67,6 +67,7 @@
       <% if @adm.admin? || @adm.operador? %>
         <%= link_to "/conta_correntes/resumido", style: "color: #fff", class: 'btn btn-warning' do %>
           Resumo Operador
+        <% end %>
       <% end %>
       
       <% if @adm.id == Usuario::ROOT %>

@@ -163,7 +163,9 @@
         <% @conta_correntes.each do |conta_corrente| %>
         <tr>
           <td style="width: 450px">
-            <b>ID Interno Usuário:</b> <%= conta_corrente.usuario.id %><br>
+            <% if @adm.admin? || @adm.operador? %> 
+              <b>ID Interno Usuário:</b> <%= conta_corrente.usuario.id %><br>
+            <% end %>
             <b>Login:</b> <%= conta_corrente.usuario.login %><br>
             <b>Nome do Usuário:</b> <%= conta_corrente.usuario.nome %><br>
             <b>Situação do Usuário:</b> <%= conta_corrente.usuario.status_cliente.nome rescue "" %><br> 
@@ -191,11 +193,13 @@
             <b>Saldo Atual:</b> <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %><br>
           </td>
           <td style="width: 300px">
-            <b>Data do Lançamento:</b><br>
+            <b>Lançamento:</b><br>
             <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %><br>
-            <hr>
-            <b>Última Atualização:</b><br>
-            <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M:%S") %><br>
+            <% if @adm.admin? || @adm.operador? %> 
+              <hr>
+              <b>Última Atualização:</b><br>
+              <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M:%S") %><br>
+            <% end %>                
           </td>
           <td><%= link_to 'Mostrar', conta_corrente %></td>
         </tr>
