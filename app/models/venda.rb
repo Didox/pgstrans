@@ -206,24 +206,28 @@ class Venda < ApplicationRecord
   end
 
   def self.desconto_venda(usuario, parceiro, valor)
-    desconto = 0
-    remuneracoes = Remuneracao.where(usuario_id: usuario.id, ativo: true)
+    if parceiro.present?
+      desconto = 0
+      remuneracoes = Remuneracao.where(usuario_id: usuario.id, ativo: true)
 
-    if remuneracoes.count > 0
-      remuneracao = remuneracoes.first
-      remuneracao_descontos = RemuneracaoDesconto.where(partner_id: parceiro.id, remuneracao_id: remuneracao.id)
-      if remuneracao_descontos.count > 0
-        remuneracao_desconto = remuneracao_descontos.first
-        if remuneracao_desconto.desconto_parceiro.present?
-          desconto = remuneracao_desconto.desconto_parceiro.porcentagem
-        else
-          desconto = parceiro.desconto
+      if remuneracoes.count > 0
+        remuneracao = remuneracoes.first
+        if remuneracao.present?
+          remuneracao_descontos = RemuneracaoDesconto.where(partner_id: parceiro.id, remuneracao_id: remuneracao.id)
+          if remuneracao_descontos.count > 0
+            remuneracao_desconto = remuneracao_descontos.first
+            if remuneracao_desconto.desconto_parceiro.present?
+              desconto = remuneracao_desconto.desconto_parceiro.porcentagem
+            else
+              desconto = parceiro.desconto
+            end
+          else
+            desconto = parceiro.desconto
+          end
         end
       else
         desconto = parceiro.desconto
       end
-    else
-      desconto = parceiro.desconto
     end
 
     desconto_aplicado = valor.to_f * desconto.to_f / 100
