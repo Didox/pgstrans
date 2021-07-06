@@ -126,7 +126,7 @@ class Venda < ApplicationRecord
   end
 
   def carregamento_venda_zaptv
-    parceiro = Partner.where("lower(slug) = 'zaptv'").first
+    parceiro = Partner.zaptv
     parametro = Parametro.where(partner_id: parceiro.id).first
     if Rails.env == "development"
       url = "#{parametro.url_integracao_desenvolvimento}/carregamento/#{self.request_id}"
@@ -162,7 +162,7 @@ class Venda < ApplicationRecord
   end
 
   def reverter_venda_zaptv
-    parceiro = Partner.where("lower(slug) = 'zaptv'").first
+    parceiro = Partner.zaptv
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"
@@ -234,7 +234,7 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_zaptv(params, usuario, ip)
-    parceiro = Partner.where("lower(slug) = 'zaptv'").first
+    parceiro = Partner.zaptv
     valor = params[:valor].to_f
 
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
@@ -336,7 +336,7 @@ class Venda < ApplicationRecord
 
     require 'openssl'
 
-    parceiro = Partner.where("lower(slug) = 'movicel'").first
+    parceiro = Partner.movicel
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"
@@ -405,7 +405,7 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_movicel(params, usuario, ip)
-    parceiro = Partner.where("lower(slug) = 'movicel'").first
+    parceiro = Partner.movicel
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
 
@@ -654,7 +654,7 @@ class Venda < ApplicationRecord
 
   def self.venda_dstv(params, usuario, ip)
     # TODO confirmar se este código é utilizado com o xml do soap
-    parceiro = Partner.where("lower(slug) = 'dstv'").first
+    parceiro = Partner.dstv
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
 
@@ -808,7 +808,7 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_unitel(params, usuario, ip)
-    parceiro = Partner.where("lower(slug) = 'unitel'").first
+    parceiro = Partner.unitel
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)

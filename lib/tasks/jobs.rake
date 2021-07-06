@@ -1,7 +1,7 @@
 namespace :jobs do
   desc "Importa rel ZAPTv"
   task importa_dados_zaptv: :environment do
-    partner = Partner.where(slug: "ZAPTv").first
+    partner = Partner.zaptv
     partner.importa_dados!
   end
 
@@ -228,7 +228,7 @@ namespace :jobs do
 
   desc "EXECUTA REST API TEST"
   task importa_produtos_zap: :environment do
-    partner = Partner.where(slug: "ZAPTv").first
+    partner = Partner.zaptv
     partner.importa_produtos!
   end
 

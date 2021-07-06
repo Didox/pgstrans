@@ -99,7 +99,7 @@ RelatorioConciliacaoZaptv.create(
 
 
 venda = Venda.find(129)
-parceiro = Partner.where("lower(slug) = 'zaptv'").first
+parceiro = Partner.zaptv
 parametro = Parametro.where(partner_id: parceiro.id).first
 
 if Rails.env == "development"
@@ -129,7 +129,7 @@ res.body
 --------------------------------------------------------
 
 
-part = Partner.where(slug: "ZAPTv").first
+part = Partner.zaptv
 
 parametro = Parametro.where(partner_id: part.id).first
 if Rails.env == "development"
@@ -158,7 +158,7 @@ res = HTTParty.get(
 
 venda = Venda.find(129)
 
-parceiro = Partner.where("lower(slug) = 'zaptv'").first
+parceiro = Partner.zaptv
 parametro = Parametro.where(partner_id: parceiro.id).first
 
 if Rails.env == "development"

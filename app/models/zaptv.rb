@@ -1,6 +1,6 @@
 class Zaptv
   def self.importa_produtos
-    partner = Partner.where(slug: "ZAPTv").first
+    partner = Partner.zaptv
 
     parametro = Parametro.where(partner_id: partner.id).first
 
@@ -59,7 +59,7 @@ class Zaptv
   end
 
   def self.importa_dados!
-    partner = Partner.where(slug: "ZAPTv").first
+    partner = Partner.zaptv
 
     parametro = Parametro.where(partner_id: partner.id).first
     if Rails.env == "development"

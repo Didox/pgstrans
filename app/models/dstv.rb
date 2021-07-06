@@ -650,7 +650,7 @@ class Dstv
   end
 
   def self.parametros
-    parceiro = Partner.where("lower(slug) = 'dstv'").first
+    parceiro = Partner.dstv
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     raise "Parâmetros não localizados" if parametro.blank?

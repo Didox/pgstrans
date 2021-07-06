@@ -43,7 +43,19 @@ class Partner < ApplicationRecord
   end
 
   def self.dstv
-    Partner.where(slug: "DSTv").first
+    Partner.where("lower(slug) = 'dstv'").first
+  end
+
+  def self.movicel
+    Partner.where("lower(slug) = 'movicel'").first
+  end
+
+  def self.zaptv
+    Partner.where("lower(slug) = 'zaptv'").first
+  end
+
+  def self.unitel
+    Partner.where("lower(slug) = 'unitel'").first
   end
 
   def valor_total_original(params={}, usuario_logado)
@@ -101,7 +113,7 @@ class Partner < ApplicationRecord
   end
 
   def saldo_atual_movicel(ip="?")
-    parceiro = Partner.where("lower(slug) = 'movicel'").first
+    parceiro = Partner.movicel
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"
@@ -186,7 +198,7 @@ class Partner < ApplicationRecord
   end
 
   def saldo_atual_zaptv(ip="?")
-    parceiro = Partner.where("lower(slug) = 'zaptv'").first
+    parceiro = Partner.zaptv
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"
