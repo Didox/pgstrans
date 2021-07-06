@@ -324,6 +324,7 @@ class Dstv
     alteracoes_planos_dstv.customer_number = customer_number
     alteracoes_planos_dstv.smartcard = smartcard
     alteracoes_planos_dstv.usuario_id = usuario_logado.id
+    alteracoes_planos_dstv.responsavel = usuario_logado
     alteracoes_planos_dstv.product_nome = agent_submit_payment_hash["produto"]
     alteracoes_planos_dstv.codigos_produto = agent_submit_payment_hash["codigo"]
     alteracoes_planos_dstv.partner_id = Partner.dstv.id
@@ -627,6 +628,7 @@ class Dstv
     pagamentos_faturas_dstv.value = valor
 
     pagamentos_faturas_dstv.usuario_id = usuario_logado.id
+    pagamentos_faturas_dstv.responsavel = usuario_logado
     pagamentos_faturas_dstv.receipt_number = agent_submit_payment_hash["receiptNumber"]
     pagamentos_faturas_dstv.transaction_number = agent_submit_payment_hash["transactionNumber"]
     pagamentos_faturas_dstv.status = agent_submit_payment_hash["status"]
