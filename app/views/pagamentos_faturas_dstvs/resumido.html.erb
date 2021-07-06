@@ -103,7 +103,7 @@
           </td>
           <td class="text-center"><%= pagamentos_faturas_dstv.customer_number %></td>
           <td class="text-center"><%= pagamentos_faturas_dstv.smartcard %></td>
-          <td class="text-right"><%= number_to_currency(pagamentos_faturas_dstv.value, :unit => "KZ") %></td>
+          <td class="text-right"><%= number_to_currency(pagamentos_faturas_dstv.valor_original, :unit => "KZ") %></td>
           <td class="text-center"><%= pagamentos_faturas_dstv.receipt_number %></td>
           <td class="text-center"><%= pagamentos_faturas_dstv.transaction_number %></td>
           <td class="text-center"><%= pagamentos_faturas_dstv.status ? "Sim" : "Não" %></td>

@@ -144,7 +144,7 @@
               <%= alteracoes_planos_dstv.codigos_produto %> /
               <%= alteracoes_planos_dstv.product_nome %>
           </td>
-          <td class="text-right"><%= number_to_currency(alteracoes_planos_dstv.value, :unit => "KZ") %></td>
+          <td class="text-right"><%= number_to_currency(alteracoes_planos_dstv.valor_original, :unit => "KZ") %></td>
           <td class="text-right"><%= alteracoes_planos_dstv.receipt_number %></td>
           <td><%= alteracoes_planos_dstv.lancamento.nome rescue "" %></td>
           <td class="text-center"><%= alteracoes_planos_dstv.transaction_number %></td>
