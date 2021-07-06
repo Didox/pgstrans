@@ -57,10 +57,8 @@
   
         <div class="form-input col-sm-5">
           <%= f.label :sub_agente_id, :label => "Subagente" %>
-          <% if @adm.admin? %>
+          <% if @adm.admin? || @adm.operador? %>
               <%= f.select :sub_agente_id, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
-          <% elsif @adm.operador? %>
-              <%= f.select :sub_agente_id, SubAgente.where(admin: false).collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% else %>
               <%= f.select :perfil_usuario_id, SubAgente.where("lower(nome_fantasia) ilike '#{usuario_logado.nome}'").collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% end %>

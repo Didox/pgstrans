@@ -249,6 +249,7 @@ class Dstv
     raise "Valor da fatura é insuficiente para pagamento" if produto.valor_compra_telemovel.to_f < 0.1
     raise "Saldo insuficiente para realizar a operação, seu saldo atual é de KZ #{usuario_logado.saldo.round(2)}" if usuario_logado.saldo < produto.valor_compra_telemovel.to_f
     
+    paymentDescription = "Pagaso - #{usuario_logado.nome}".truncate(49)
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"  xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
       <soapenv:Header/>
@@ -262,7 +263,7 @@ class Dstv
             <sel1:amount>#{produto.valor_compra_telemovel}</sel1:amount>
             <sel1:invoicePeriod>#{tipo_plano == "mensal" ? "1" : "12"}</sel1:invoicePeriod>
             <sel1:currency>#{currency}</sel1:currency>
-            <sel1:paymentDescription>Pagaso Payment System (#{usuario_logado.nome.truncate(18)})</sel1:paymentDescription>
+            <sel1:paymentDescription>#{paymentDescription}</sel1:paymentDescription>
             <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
             <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>
@@ -286,6 +287,9 @@ class Dstv
     xml_doc = Nokogiri::XML(request.body)
 
     mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
+    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+
+    mensagem = xml_doc.child.child.child.children.select{|child| child.name == "faultstring"}.first.text rescue ""
     raise ErroAmigavel.traducao(mensagem) if mensagem.present?
 
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
@@ -383,6 +387,7 @@ class Dstv
       sequencial.numero += 1
     end
     
+    paymentDescription = "Pagaso - #{usuario_logado.nome}".truncate(49)
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"  xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
       <soapenv:Header/>
@@ -396,7 +401,7 @@ class Dstv
             <sel1:amount>#{valor_total}</sel1:amount>
             <sel1:invoicePeriod>1</sel1:invoicePeriod>
             <sel1:currency>#{currency}</sel1:currency>
-            <sel1:paymentDescription>Pagaso Payment System (#{usuario_logado.nome.truncate(18)})</sel1:paymentDescription>
+            <sel1:paymentDescription>#{paymentDescription}</sel1:paymentDescription>
             <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
             <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>
@@ -418,6 +423,9 @@ class Dstv
     xml_doc = Nokogiri::XML(request.body)
 
     mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
+    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+
+    mensagem = xml_doc.child.child.child.children.select{|child| child.name == "faultstring"}.first.text rescue ""
     raise ErroAmigavel.traducao(mensagem) if mensagem.present?
 
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
@@ -514,6 +522,9 @@ class Dstv
     if get_due_amountand_date.blank? || request.body.scan(/<\/faultcode><faultstring/).length > 0
       mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
       raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+      
+      mensagem = xml_doc.child.child.child.children.select{|child| child.name == "faultstring"}.first.text rescue ""
+      raise ErroAmigavel.traducao(mensagem) if mensagem.present?
     end
 
     detail_hash = {}
@@ -547,6 +558,8 @@ class Dstv
     else
       sequencial.numero += 1
     end
+
+    paymentDescription = "Pagaso - #{usuario_logado.nome}".truncate(49)
     body = "
     <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"  xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
       <soapenv:Header/>
@@ -560,7 +573,7 @@ class Dstv
             <sel1:amount>#{valor}</sel1:amount>
             <sel1:invoicePeriod>1</sel1:invoicePeriod>
             <sel1:currency>#{currency}</sel1:currency>
-            <sel1:paymentDescription>Pagaso Payment System (#{usuario_logado.nome.truncate(18)})</sel1:paymentDescription>
+            <sel1:paymentDescription>#{paymentDescription}</sel1:paymentDescription>
             <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
             <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>
@@ -584,6 +597,9 @@ class Dstv
     xml_doc = Nokogiri::XML(request.body)
 
     mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
+    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+
+    mensagem = xml_doc.child.child.child.children.select{|child| child.name == "faultstring"}.first.text rescue ""
     raise ErroAmigavel.traducao(mensagem) if mensagem.present?
 
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
