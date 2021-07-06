@@ -330,7 +330,7 @@ class Dstv
 
     desconto_aplicado, valor_original, valor = Venda.desconto_venda(usuario_logado, Partner.dstv, agent_submit_payment_hash["valor"])
     alteracoes_planos_dstv.desconto_aplicado = desconto_aplicado
-    alteracoes_planos_dstv.value_original = valor_original
+    alteracoes_planos_dstv.valor_original = valor_original
     alteracoes_planos_dstv.value = valor
 
     alteracoes_planos_dstv.receipt_number = agent_submit_payment_hash["receiptNumber"]
@@ -623,7 +623,7 @@ class Dstv
 
     desconto_aplicado, valor_original, valor = Venda.desconto_venda(usuario_logado, Partner.dstv, valor)
     pagamentos_faturas_dstv.desconto_aplicado = desconto_aplicado
-    pagamentos_faturas_dstv.value_original = valor_original
+    pagamentos_faturas_dstv.valor_original = valor_original
     pagamentos_faturas_dstv.value = valor
 
     pagamentos_faturas_dstv.usuario_id = usuario_logado.id
