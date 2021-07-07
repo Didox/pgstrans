@@ -42,6 +42,22 @@ class Partner < ApplicationRecord
     end
   end
 
+  def self.dstv
+    Partner.where("lower(slug) = 'dstv'").first
+  end
+
+  def self.movicel
+    Partner.where("lower(slug) = 'movicel'").first
+  end
+
+  def self.zaptv
+    Partner.where("lower(slug) = 'zaptv'").first
+  end
+
+  def self.unitel
+    Partner.where("lower(slug) = 'unitel'").first
+  end
+
   def valor_total_original(params={}, usuario_logado)
     vendas = Venda.com_acesso(usuario_logado).where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code })
     vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id")
@@ -97,7 +113,7 @@ class Partner < ApplicationRecord
   end
 
   def saldo_atual_movicel(ip="?")
-    parceiro = Partner.where("lower(slug) = 'movicel'").first
+    parceiro = Partner.movicel
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"
@@ -182,7 +198,7 @@ class Partner < ApplicationRecord
   end
 
   def saldo_atual_zaptv(ip="?")
-    parceiro = Partner.where("lower(slug) = 'zaptv'").first
+    parceiro = Partner.zaptv
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"

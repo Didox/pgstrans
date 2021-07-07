@@ -15,7 +15,7 @@ terminal_id=00244TP00221
 #product_id=586
 product_id=9
 value=500
-client_msisdn=943046358
+customer_number=943046358
 sale_timestamp=`date +%s%3N`
 
 ## A chave privada
@@ -50,14 +50,14 @@ make_sale_request='
 ## Preparar o pedido makeSale
 tmp_make_sale_request=`echo "$make_sale_request" | sed "s/#AGENT_ID#/$agent_id/g" | sed "s/#SEQUENCE_ID#/$sequence_id/g" | sed "s/#STORE_ID#/$store_id/g" | \
 sed "s/#SELLER_ID#/$seller_id/g" | sed "s/#TERMINAL_ID#/$terminal_id/g" | sed "s/#PRODUCT_ID#/$product_id/g" | sed "s/#VALUE#/$value/g" | \
-sed "s/#CLIENT_MSISDN#/$client_msisdn/g" | sed "s/#SALE_TIMESTAMP#/$sale_timestamp/g"`
+sed "s/#CLIENT_MSISDN#/$customer_number/g" | sed "s/#SALE_TIMESTAMP#/$sale_timestamp/g"`
 
 #
 ## Criação do TOKEN para o pedido makeSale
 #
 
 # 1 - Concatenar APENAS os dados dos campos por ordem alfabética!
-tmp_token_data=$agent_id$client_msisdn$product_id$sale_timestamp$seller_id$sequence_id$store_id$terminal_id$value
+tmp_token_data=$agent_id$customer_number$product_id$sale_timestamp$seller_id$sequence_id$store_id$terminal_id$value
 
 
 # 2 - Encriptar com a chave privada e converter o resultado em Base64
@@ -89,7 +89,7 @@ echo $tmp_make_sale_request
 echo "==========================[Enviar no request]===================================="
 
 # Executar o pedido
-# echo -n "Parceiro [$agent_id], com vendedor [$seller_id] da loja [$store_id] e terminal [$terminal_id], está a tentar fazer um makeSale do produto [$product_id] de valor [$value] Akz para o msisdn [$client_msisdn]..."
+# echo -n "Parceiro [$agent_id], com vendedor [$seller_id] da loja [$store_id] e terminal [$terminal_id], está a tentar fazer um makeSale do produto [$product_id] de valor [$value] Akz para o msisdn [$customer_number]..."
 tmp_make_sale_response=`curl -vs -X POST \
 	--max-time $max_time --connect-timeout $connect_timeout \
  	$make_sale_endpoint \

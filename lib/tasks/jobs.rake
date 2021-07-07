@@ -1,7 +1,7 @@
 namespace :jobs do
   desc "Importa rel ZAPTv"
   task importa_dados_zaptv: :environment do
-    partner = Partner.where(slug: "ZAPTv").first
+    partner = Partner.zaptv
     partner.importa_dados!
   end
 
@@ -28,6 +28,85 @@ namespace :jobs do
       dado += "#{cc.to_json}\n"
     end
     File.open("#{Rails.root}/bkp/banco.data", "w") { |f| f.write dado }
+  end
+
+  desc "Unificação tabela vendas"
+  task unificacao_vendas: :environment do
+    parceiro = Partner.find(3) # dstv
+    
+    PagamentosFaturasDstv.all.each_with_index do |pagamento, i|
+      desconto_aplicado, valor_original, valor = Venda.desconto_venda(pagamento.usuario, parceiro, pagamento.valor)
+    
+      if Venda.where(pagamentos_faturas_dstv_id: pagamento.id).count == 0
+        begin
+          venda = Venda.new
+          venda.desconto_aplicado = desconto_aplicado
+          venda.valor_original = valor_original
+          venda.value = valor
+          venda.request_send = pagamento.request_body
+          venda.response_get = pagamento.response_body
+          venda.customer_number = pagamento.customer_number
+          venda.smartcard = pagamento.smartcard
+          venda.receipt_number = pagamento.receipt_number
+          venda.transaction_number = pagamento.transaction_number
+          venda.status = pagamento.status
+          venda.transaction_date_time = pagamento.transaction_date_time
+          venda.audit_reference_number = pagamento.audit_reference_number
+          venda.created_at = pagamento.created_at
+          venda.updated_at = pagamento.updated_at
+          venda.usuario_id = pagamento.usuario_id
+          venda.lancamento_id = 10 #PAGAMENTO_DE_FATURA
+          venda.pagamentos_faturas_dstv_id = pagamento.id
+          venda.partner_id = parceiro.id
+          venda.responsavel = pagamento.usuario
+          venda.save!
+        rescue Exception => erro
+          debugger
+          x = ""
+        end
+      end
+
+      puts i
+    end
+
+    AlteracoesPlanosDstv.all.each_with_index do |alteracao, i|
+      desconto_aplicado, valor_original, valor = Venda.desconto_venda(alteracao.usuario, parceiro, alteracao.valor)
+    
+      if Venda.where(alteracoes_planos_dstv_id: alteracao.id).count == 0
+        begin
+          venda = Venda.new
+          venda.desconto_aplicado = desconto_aplicado
+          venda.valor_original = valor_original
+          venda.value = valor
+          venda.alteracoes_planos_dstv_id = alteracao.id
+          venda.request_send = alteracao.request_body
+          venda.response_get = alteracao.response_body
+          venda.customer_number = alteracao.customer_number
+          venda.smartcard = alteracao.smartcard
+          venda.product_nome = alteracao.produto
+          venda.codigos_produto = alteracao.codigo
+          venda.receipt_number = alteracao.receipt_number
+          venda.transaction_number = alteracao.transaction_number
+          venda.status = alteracao.status
+          venda.transaction_date_time = alteracao.transaction_date_time
+          venda.error_message = alteracao.error_message
+          venda.audit_reference_number = alteracao.audit_reference_number
+          venda.created_at = alteracao.created_at
+          venda.updated_at = alteracao.updated_at
+          venda.usuario_id = alteracao.usuario_id
+          venda.tipo_plano = alteracao.tipo_plano
+          venda.lancamento_id = (alteracao.lancamento_id || 12)
+          venda.responsavel = alteracao.usuario
+          venda.partner_id = parceiro.id
+          venda.save!
+        rescue Exception => erro
+          debugger
+          x = ""
+        end
+      end
+
+      puts i
+    end
   end
 
   desc "Banco import"
@@ -149,7 +228,7 @@ namespace :jobs do
 
   desc "EXECUTA REST API TEST"
   task importa_produtos_zap: :environment do
-    partner = Partner.where(slug: "ZAPTv").first
+    partner = Partner.zaptv
     partner.importa_produtos!
   end
 

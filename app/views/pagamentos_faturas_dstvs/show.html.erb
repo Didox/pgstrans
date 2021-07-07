@@ -8,14 +8,16 @@
 
   <div class="col-md-12 scroltable">
     <dl class="dl-horizontal">
-      <dt>Envio:</dt>
-      <dd><%= @pagamentos_faturas_dstv.request_body %></dd>
-      <dt>Resposta:</dt>
-      <dd><%= @pagamentos_faturas_dstv.response_body %></dd>
+      <% if @adm.id == Usuario::ROOT %>
+        <dt>Envio:</dt>
+        <dd><%= @pagamentos_faturas_dstv.request_send %></dd>
+        <dt>Resposta:</dt>
+        <dd><%= @pagamentos_faturas_dstv.response_get %></dd>
+      <% end %>
       <dt>Customer number:</dt>
       <dd><%= @pagamentos_faturas_dstv.customer_number %></dd>
       <dt>Valor:</dt>
-      <dd><%= @pagamentos_faturas_dstv.valor %></dd>
+      <dd><%= @pagamentos_faturas_dstv.value %></dd>
       <dt>Smartcard:</dt>
       <dd><%= @pagamentos_faturas_dstv.smartcard %></dd>
       <dt>Administrador:</dt>

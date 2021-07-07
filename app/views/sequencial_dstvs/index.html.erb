@@ -80,9 +80,11 @@
           <td><%= sequencial_dstv.numero %></td>
           <td><%= sequencial_dstv.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td>
-            <b>Envio: </b><%= sequencial_dstv.response_body %><br>
-            <hr>
-            <b>Resposta: </b><%= sequencial_dstv.request_body %>
+            <% if @adm.id == Usuario::ROOT %>
+              <b>Envio: </b><%= sequencial_dstv.request_body %><br>
+              <hr>
+              <b>Resposta: </b><%= sequencial_dstv.request_body %>
+            <% end %>
           </td>
           <td><%= link_to 'Mostrar', sequencial_dstv %></td>
         </tr>

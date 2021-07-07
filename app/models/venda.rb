@@ -1,8 +1,8 @@
 class Venda < ApplicationRecord
   include PermissionamentoDados
-  #default_scope { order(updated_at: :desc) }
-  default_scope { order(id: :desc) }
+  default_scope { order(created_at: :desc) }
   belongs_to :usuario
+  belongs_to :lancamento, optional: true
   belongs_to :partner
 
   after_save :update_product
@@ -15,13 +15,8 @@ class Venda < ApplicationRecord
     raise "Registro de Venda não pode ser excluído"
   end
 
-  def grupos_id
-    #TODO - Verificar como pegar os grupos de acesso de um registro
-    [].map{|g| g.id}.join(",")
-  end
-
   def self.to_csv
-    attributes = "ID Venda, Usuário,Parceiro,Data da Venda,Status da Venda,Produto ID Parceiro, Produto ID Pagaso,Nome do Produto,Agente,Store,ID do Vendedor,Terminal,Customer Number/MSIDN,Valor Face,Desconto,Porcentagem Desconto,Lucro".split(",")
+    attributes = "ID Venda, Usuário, Nome do Parceiro, Data da Venda, Situação da Venda, Produto ID Parceiro, Produto ID Pagaso, Nome do Produto, Customer Number, Smartcard, Valor Face, Desconto, Porcentagem Desconto, Lucro".split(",")
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
@@ -39,11 +34,8 @@ class Venda < ApplicationRecord
           venda.produto_id_parceiro,
           venda.product_id,
           venda.product_nome,
-          venda.agent_id,
-          venda.store_id,
-          venda.seller_id,
-          venda.terminal_id,
-          venda.client_msisdn,
+          venda.customer_number,
+          venda.smartcard,
           moeda_csv(helper.number_to_currency(venda.valor_original, :unit => "")),
           moeda_csv(helper.number_to_currency(venda.desconto_aplicado, :unit => "")),
           moeda_csv(helper.number_to_currency(porcentagem, :unit => "")),
@@ -95,23 +87,25 @@ class Venda < ApplicationRecord
   end
 
   def self.total_acesso(usuario_logado, vendas_filtrada=nil)
-    unless vendas_filtrada.nil?
-      vendas = vendas_filtrada.clone
-    else
-      vendas = Venda.com_acesso(usuario_logado)
-    end
-    vendas = vendas.where(status: ReturnCodeApi.all.map{|r| r.return_code } )
-    vendas.sum(:valor_original)
+    total_acesso_geral(usuario_logado, :valor_original, vendas_filtrada)
   end
 
   def self.total_lucros_acesso(usuario_logado, vendas_filtrada=nil)
+    total_acesso_geral(usuario_logado, :desconto_aplicado, vendas_filtrada)
+  end
+
+  def self.total_custo_acesso(usuario_logado, vendas_filtrada=nil)
+    total_acesso_geral(usuario_logado, :value, vendas_filtrada)
+  end
+
+  def self.total_acesso_geral(usuario_logado, coluna, vendas_filtrada=nil)
     unless vendas_filtrada.nil?
       vendas = vendas_filtrada.clone
     else
       vendas = Venda.com_acesso(usuario_logado)
     end
     vendas = vendas.where(status: ReturnCodeApi.all.map{|r| r.return_code } )
-    vendas.sum(:desconto_aplicado)
+    vendas.sum(coluna)
   end
 
   def sucesso?
@@ -132,7 +126,7 @@ class Venda < ApplicationRecord
   end
 
   def carregamento_venda_zaptv
-    parceiro = Partner.where("lower(slug) = 'zaptv'").first
+    parceiro = Partner.zaptv
     parametro = Parametro.where(partner_id: parceiro.id).first
     if Rails.env == "development"
       url = "#{parametro.url_integracao_desenvolvimento}/carregamento/#{self.request_id}"
@@ -168,7 +162,7 @@ class Venda < ApplicationRecord
   end
 
   def reverter_venda_zaptv
-    parceiro = Partner.where("lower(slug) = 'zaptv'").first
+    parceiro = Partner.zaptv
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"
@@ -212,24 +206,28 @@ class Venda < ApplicationRecord
   end
 
   def self.desconto_venda(usuario, parceiro, valor)
-    desconto = 0
-    remuneracoes = Remuneracao.where(usuario_id: usuario.id, ativo: true)
+    if parceiro.present?
+      desconto = 0
+      remuneracoes = Remuneracao.where(usuario_id: usuario.id, ativo: true)
 
-    if remuneracoes.count > 0
-      remuneracao = remuneracoes.first
-      remuneracao_descontos = RemuneracaoDesconto.where(partner_id: parceiro.id, remuneracao_id: remuneracao.id)
-      if remuneracao_descontos.count > 0
-        remuneracao_desconto = remuneracao_descontos.first
-        if remuneracao_desconto.desconto_parceiro.present?
-          desconto = remuneracao_desconto.desconto_parceiro.porcentagem
-        else
-          desconto = parceiro.desconto
+      if remuneracoes.count > 0
+        remuneracao = remuneracoes.first
+        if remuneracao.present?
+          remuneracao_descontos = RemuneracaoDesconto.where(partner_id: parceiro.id, remuneracao_id: remuneracao.id)
+          if remuneracao_descontos.count > 0
+            remuneracao_desconto = remuneracao_descontos.first
+            if remuneracao_desconto.desconto_parceiro.present?
+              desconto = remuneracao_desconto.desconto_parceiro.porcentagem
+            else
+              desconto = parceiro.desconto
+            end
+          else
+            desconto = parceiro.desconto
+          end
         end
       else
         desconto = parceiro.desconto
       end
-    else
-      desconto = parceiro.desconto
     end
 
     desconto_aplicado = valor.to_f * desconto.to_f / 100
@@ -240,7 +238,7 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_zaptv(params, usuario, ip)
-    parceiro = Partner.where("lower(slug) = 'zaptv'").first
+    parceiro = Partner.zaptv
     valor = params[:valor].to_f
 
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
@@ -287,7 +285,7 @@ class Venda < ApplicationRecord
       :body => body_send, timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
@@ -342,7 +340,7 @@ class Venda < ApplicationRecord
 
     require 'openssl'
 
-    parceiro = Partner.where("lower(slug) = 'movicel'").first
+    parceiro = Partner.movicel
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"
@@ -411,7 +409,7 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_movicel(params, usuario, ip)
-    parceiro = Partner.where("lower(slug) = 'movicel'").first
+    parceiro = Partner.movicel
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
 
@@ -572,7 +570,7 @@ class Venda < ApplicationRecord
 
           last_request = request.body
 
-          venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+          venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
           venda.responsavel = usuario
           venda.save!
 
@@ -660,7 +658,7 @@ class Venda < ApplicationRecord
 
   def self.venda_dstv(params, usuario, ip)
     # TODO confirmar se este código é utilizado com o xml do soap
-    parceiro = Partner.where("lower(slug) = 'dstv'").first
+    parceiro = Partner.dstv
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
 
@@ -761,7 +759,7 @@ class Venda < ApplicationRecord
 
     last_request = request.body
     
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, client_msisdn: params[:dstv_customer_number], usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, customer_number: params[:dstv_customer_number], usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -814,7 +812,7 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_unitel(params, usuario, ip)
-    parceiro = Partner.where("lower(slug) = 'unitel'").first
+    parceiro = Partner.unitel
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
@@ -831,7 +829,7 @@ class Venda < ApplicationRecord
     produto = Produto.find(product_id)
     telefone = params[:unitel_telefone]
 
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.unitel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, client_msisdn: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.unitel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -845,10 +843,10 @@ class Venda < ApplicationRecord
 
     if Rails.env == "development"
       make_sale_endpoint = "#{parametro.url_integracao_desenvolvimento}/spgw/V2/makeSale"
-      dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+      dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.customer_number}' '#{make_sale_endpoint}'"
     else
       make_sale_endpoint = "#{parametro.url_integracao_producao}/spgw/V2/makeSale"
-      dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.client_msisdn}' '#{make_sale_endpoint}'"
+      dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.customer_number}' '#{make_sale_endpoint}'"
     end
 
     retorno = ""

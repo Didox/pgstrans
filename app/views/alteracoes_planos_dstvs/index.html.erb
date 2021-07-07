@@ -11,64 +11,80 @@
   <div class="col-md-12" style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-4">
+        <div class="col-sm-2">
           <div class="form-group">
-            <label>Customer Number/Número do Cliente</label>
+            <label>Login do Usuário</label>
             <div>
-              <input type="text" name="customer_number" value="<%= params[:customer_number] %>" class="form-control">
+              <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
             </div>
           </div>
-        </div>
+        </div> 
         <div class="col-sm-4">
           <div class="form-group">
-            <label>Smartcard/Device Number</label>
+            <label>Nome do Usuário</label>
             <div>
-              <input type="text" name="smartcard" value="<%= params[:smartcard] %>" class="form-control">
+              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
             </div>
           </div>
-        </div>
-        <div class="col-sm-4">
+        </div> 
+        <div class="col-sm-2">
           <div class="form-group">
-            <label>Receipt Number DSTV</label>
-            <div>
-              <input type="text" name="receipt_number" value="<%= params[:receipt_number] %>" class="form-control">
+              <label>Número do Cliente</label>
+              <div>
+                <input type="text" name="customer_number" value="<%= params[:customer_number] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Data da Transação</label>
-            <div>
-              <input type="date" name="transaction_date_time" value="<%= params[:transaction_date_time] %>" class="form-control">
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Smartcard</label>
+              <div>
+                <input type="text" name="smartcard" value="<%= params[:smartcard] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Tipo de Plano</label>
-            <div>
-              <select name="tipo_plano" id="tipo_plano" class="form-control" style="width100%;max-width: 500px;">
-                <option value="" <% if params[:tipo_plano].blank? %> selected="selected" <% end %>>
-                  Todos
-                </option>
-                <option value="mensal" <% if params[:tipo_plano] == "mensal" %> selected="selected" <% end %>>
-                  Mensal
-                </option>
-                <option value="anual" <% if params[:tipo_plano] == "anual" %> selected="selected" <% end %>>
-                  Anual
-                </option>
-              </select>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Número do Recibo DSTV</label>
+              <div>
+                <input type="text" name="receipt_number" value="<%= params[:receipt_number] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Transaction Number Pagasó</label>
-            <div>
-              <input type="text" name="transaction_number" value="<%= params[:transaction_number] %>" class="form-control">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Data da Transação</label>
+              <div>
+                <input type="date" name="transaction_date_time" value="<%= params[:transaction_date_time] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Tipo de Plano</label>
+              <div>
+                <select name="tipo_plano" id="tipo_plano" class="form-control" style="width100%;max-width: 500px;">
+                  <option value="" <% if params[:tipo_plano].blank? %> selected="selected" <% end %>>
+                    Todos
+                  </option>
+                  <option value="mensal" <% if params[:tipo_plano] == "mensal" %> selected="selected" <% end %>>
+                    Mensal
+                  </option>
+                  <option value="anual" <% if params[:tipo_plano] == "anual" %> selected="selected" <% end %>>
+                    Anual
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Transação Pagasó</label>
+              <div>
+                <input type="text" name="transaction_number" value="<%= params[:transaction_number] %>" class="form-control">
+              </div>
+            </div>
+          </div>
         <div>
         <div class="form-group">
           <div style="float: right;margin-right:10px">
@@ -89,31 +105,36 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col" style="width: 30%">Dados</th>
-          <th scope="col">Envio e Resposta</th>
+          <th>Dados</th>
+          <% if @adm.id == Usuario::ROOT %>
+            <th scope="col" style="width: 60%">Envio e Resposta</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
         <% @alteracoes_planos_dstvs.each do |alteracoes_planos_dstv| %>
         <tr>
           <td>
-            <b>Customer number</b>: <%= alteracoes_planos_dstv.customer_number %><br>
+            <b>Número do Cliente DSTV</b>: <%= alteracoes_planos_dstv.customer_number %><br>
             <b>Smartcard</b>: <%= alteracoes_planos_dstv.smartcard %><br>
-            <b>Produto</b>: <%= alteracoes_planos_dstv.produto %><br>
-            <b>Usuário</b>: <%= alteracoes_planos_dstv.usuario.nome rescue "" %><br>
-            <b>Codigo</b>: <%= alteracoes_planos_dstv.codigo %><br>
-            <b>Valor</b>: <%= alteracoes_planos_dstv.valor %><br>
-            <b>Receipt number</b>: <%= alteracoes_planos_dstv.receipt_number %><br>
-            <b>Transaction number</b>: <%= alteracoes_planos_dstv.transaction_number %><br>
-            <b>Status</b>: <%= alteracoes_planos_dstv.status %><br>
-            <b>Transaction date time</b>: <%= alteracoes_planos_dstv.transaction_date_time %><br>
+            <b>Código do Produto</b>: <%= alteracoes_planos_dstv.codigos_produto %><br>
+            <b>Nome do Produto</b>: <%= alteracoes_planos_dstv.product_nome %><br>
+            <b>Nome do Usuário</b>: <%= alteracoes_planos_dstv.usuario.login rescue "" %>/<%= alteracoes_planos_dstv.usuario.nome rescue "" %><br>
+            <b>Valor KZ</b>: <%= number_to_currency(alteracoes_planos_dstv.value, :precision => 2, :unit => "") %><br>
+            <b>Número do Recibo DSTV</b>: <%= alteracoes_planos_dstv.receipt_number %><br>
+            <b>Transação Pagasó</b>: <%= alteracoes_planos_dstv.transaction_number %><br>
+            <b>Situação</b>: <%= alteracoes_planos_dstv.status %><br>
+            <b>Data e Hora da Transação</b>: <%= alteracoes_planos_dstv.transaction_date_time %><br>
             <b>Audit reference number</b>: <%= alteracoes_planos_dstv.audit_reference_number %><br>
-            <b>Tipo de plano</b>: <%= alteracoes_planos_dstv.tipo_plano %><br>
+            <b>Tipo de Plano</b>: <%= alteracoes_planos_dstv.tipo_plano.capitalize %><br>
           </td>
           <td>
-            <b>Envio: </b> <%= alteracoes_planos_dstv.response_body %><br>
-            <hr>
-            <b>Resposta: </b> <%= alteracoes_planos_dstv.request_body %></td>
+            <% if @adm.id == Usuario::ROOT %>
+              <b>Envio: </b> <%= alteracoes_planos_dstv.response_get %><br>
+              <hr>
+              <b>Resposta: </b> <%= alteracoes_planos_dstv.request_send %>
+            <% end %>
+          </td>
         </tr>
         <% end %>
       </tbody>

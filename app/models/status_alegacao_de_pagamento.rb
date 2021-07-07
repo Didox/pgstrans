@@ -4,6 +4,8 @@ class StatusAlegacaoDePagamento < ApplicationRecord
 
 	PADRAO = "Pendente"
 	CANCELADO = "Cancelado"
+	REJEITADO = "Rejeitado"
+	INVALIDO = "Inválido"
 	PROCESSADO = "Processado"
 	PENDENTE = "Pendente" 
 	REJEITADO = "Rejeitado"

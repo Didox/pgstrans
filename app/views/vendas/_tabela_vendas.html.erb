@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th scope="col" style="width: 25%">Dados</th>
-      <th scope="col" style="width: 25%">Agente</th>
+      <th scope="col" style="width: 25%">Cliente</th>
       <th scope="col">Produto</th>
       <th scope="col">Valor</th>
       <th scope="col">Lucro</th>
@@ -20,15 +20,20 @@
     <% @vendas.each do |venda| %>
     <tr>
       <td>
-        <b>ID da Venda:</b> <%= venda.id %> <b>Login Usuário:</b> <%= venda.usuario.login %><br>
-        <b>ID Interno do Usuário</b> <%= venda.usuario_id %><br>
+        <b>ID da Venda:</b> <%= venda.id %> <b>- Login Usuário:</b> <%= venda.usuario.login %><br>
+        <b>ID Interno do Usuário:</b> <%= venda.usuario_id %><br>
         <b>Usuário:</b> <%= venda.usuario.nome %><br>
         <b>Parceiro:</b> <%= venda.partner.name %><br>
         <b>Data da Venda:</b> <%= venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %><br>
-        <b>Status:</b> <%= venda.status_desc.error_description_pt %><br>
+        <b>Situação:</b> <%= venda.status_desc.error_description_pt %> <%= " - #{venda.lancamento.nome}" rescue "" %><br>
       </td>
       <td>
-        <b>Customer Number /<br>Smartcard /<br> Device Number ou<br>MSIDN:</b> <%= venda.client_msisdn %>
+        <% if venda.customer_number.present? %>
+          <b>Número do Cliente:</b> <%= venda.customer_number %><br>
+        <% end %>
+        <% if venda.smartcard.present? %>
+          <b>Smartcard:</b> <%= venda.smartcard %>
+        <% end %>
       </td>
       <td>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
@@ -44,7 +49,7 @@
         <%= number_to_currency(venda.desconto_aplicado) %><br>
         <% porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
         unless porcentagem.nan? %>
-          <%= number_to_currency(porcentagem, :unit => "") %>%
+          <%= number_to_currency(porcentagem, :unit => "", :precision => 3) %>%
         <% end %>
       </td>
       <td style="width:110px" align="right"><%= number_to_currency(venda.value) %></td>
@@ -84,10 +89,13 @@
 </table>
 
 <h4>
-  Total de recargas ou transações: <strong><%= number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
+  Total geral: <strong><%= number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
 </h4>
 <h4>
   Total de lucro: <strong><%= number_to_currency(Venda.total_lucros_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
+</h4>
+<h4>
+  Total de custo: <strong><%= number_to_currency(Venda.total_custo_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
 </h4>
 
 <div class="apple_pagination">

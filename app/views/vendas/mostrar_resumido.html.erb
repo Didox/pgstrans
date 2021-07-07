@@ -22,14 +22,22 @@
           <dd><%= @venda.terminal_id %></dd>
           <dt>Valor KZ:</dt>
           <dd><%= @venda.value %></dd>
-          <dt>Customer Number/MSISDN/Telemóvel:</dt>
-          <dd><%= @venda.client_msisdn %></dd>
+          <% if @venda.customer_number.present? %>
+            <dt>Customer Number:</dt>
+            <dd><%= @venda.customer_number %></dd>
+          <% end %>
+          <% if @venda.smartcard.present? %>
+            <dt>Smartcard:</dt>
+            <dd><%= @venda.smartcard %></dd>
+          <% end %>
           <dt>Situação:</dt>
           <dd><%= @venda.status %></dd>
-          <dt>Request send:</dt>
-          <dd><%= @venda.request_send %></dd>
-          <dt>Response get:</dt>
-          <dd><%= @venda.response_get %></dd>
+          <% if @adm.id == Usuario::ROOT %>
+            <dt>Request send:</dt>
+            <dd><%= @venda.request_send %></dd>
+            <dt>Response get:</dt>
+            <dd><%= @venda.response_get %></dd>
+          <% end %>
           <dt>Status do processamento na operadora:</dt>
           <dd><%= @venda.status_movicel %></dd>
         </dl>

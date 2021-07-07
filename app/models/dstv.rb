@@ -24,7 +24,7 @@ class Dstv
   }
 
   def self.produtos
-    partner = Partner.where(slug: "DSTv").first
+    partner = Partner.dstv
     Produto.produtos.where(partner_id: partner.id)
   end
 
@@ -44,7 +44,7 @@ class Dstv
     customer_number = customer_number.to_s.strip
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language,customer_number_default = parametros
     customer_number = customer_number || customer_number_default
-    partner = Partner.where(slug: "DSTv").first
+    partner = Partner.dstv
     customer_number = 0 if customer_number.blank?
    
     body = "
@@ -131,7 +131,7 @@ class Dstv
 
   def self.consulta_saldo(ip="?")
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language,customer_number_default = parametros
-    partner = Partner.where(slug: "DSTv").first
+    partner = Partner.dstv
    
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
@@ -249,6 +249,7 @@ class Dstv
     raise "Valor da fatura é insuficiente para pagamento" if produto.valor_compra_telemovel.to_f < 0.1
     raise "Saldo insuficiente para realizar a operação, seu saldo atual é de KZ #{usuario_logado.saldo.round(2)}" if usuario_logado.saldo < produto.valor_compra_telemovel.to_f
     
+    paymentDescription = "Pagaso - #{usuario_logado.nome}".truncate(49)
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"  xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
       <soapenv:Header/>
@@ -262,7 +263,7 @@ class Dstv
             <sel1:amount>#{produto.valor_compra_telemovel}</sel1:amount>
             <sel1:invoicePeriod>#{tipo_plano == "mensal" ? "1" : "12"}</sel1:invoicePeriod>
             <sel1:currency>#{currency}</sel1:currency>
-            <sel1:paymentDescription>Pagaso Payment System (#{usuario_logado.nome.truncate(18)})</sel1:paymentDescription>
+            <sel1:paymentDescription>#{paymentDescription}</sel1:paymentDescription>
             <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
             <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>
@@ -286,6 +287,9 @@ class Dstv
     xml_doc = Nokogiri::XML(request.body)
 
     mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
+    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+
+    mensagem = xml_doc.child.child.child.children.select{|child| child.name == "faultstring"}.first.text rescue ""
     raise ErroAmigavel.traducao(mensagem) if mensagem.present?
 
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
@@ -313,16 +317,23 @@ class Dstv
     agent_submit_payment_hash["transactionDateTime"] = agent_submit_payment.children.select{|child| child.name == "transactionDateTime"}.first.text rescue ""
     agent_submit_payment_hash["AuditReferenceNumber"] = agent_submit_payment.children.select{|child| child.name == "AuditReferenceNumber"}.first.text rescue ""
 
-    alteracoes_planos_dstv = AlteracoesPlanosDstv.new
-    alteracoes_planos_dstv.request_body = request.body
-    alteracoes_planos_dstv.response_body = body
+    alteracoes_planos_dstv = Venda.new
+    alteracoes_planos_dstv.request_send = request.body
+    alteracoes_planos_dstv.response_get = body
     alteracoes_planos_dstv.tipo_plano = tipo_plano
     alteracoes_planos_dstv.customer_number = customer_number
     alteracoes_planos_dstv.smartcard = smartcard
     alteracoes_planos_dstv.usuario_id = usuario_logado.id
-    alteracoes_planos_dstv.produto = agent_submit_payment_hash["produto"]
-    alteracoes_planos_dstv.codigo = agent_submit_payment_hash["codigo"]
-    alteracoes_planos_dstv.valor = agent_submit_payment_hash["valor"]
+    alteracoes_planos_dstv.responsavel = usuario_logado
+    alteracoes_planos_dstv.product_nome = agent_submit_payment_hash["produto"]
+    alteracoes_planos_dstv.codigos_produto = agent_submit_payment_hash["codigo"]
+    alteracoes_planos_dstv.partner_id = Partner.dstv.id
+
+    desconto_aplicado, valor_original, valor = Venda.desconto_venda(usuario_logado, Partner.dstv, agent_submit_payment_hash["valor"])
+    alteracoes_planos_dstv.desconto_aplicado = desconto_aplicado
+    alteracoes_planos_dstv.valor_original = valor_original
+    alteracoes_planos_dstv.value = valor
+
     alteracoes_planos_dstv.receipt_number = agent_submit_payment_hash["receiptNumber"]
     alteracoes_planos_dstv.transaction_number = agent_submit_payment_hash["transactionNumber"]
     alteracoes_planos_dstv.status = agent_submit_payment_hash["status"]
@@ -332,7 +343,7 @@ class Dstv
     alteracoes_planos_dstv.save!
     
     conta_corrente_retirada = ContaCorrente.new
-    conta_corrente_retirada.valor = "-#{alteracoes_planos_dstv.valor.to_f.abs}"
+    conta_corrente_retirada.valor = "-#{alteracoes_planos_dstv.value.to_f.abs}"
     conta_corrente_retirada.usuario = usuario_logado
     conta_corrente_retirada.responsavel = usuario_logado
     conta_corrente_retirada.lancamento = Lancamento.where(nome: lancamento).first || Lancamento.first
@@ -377,6 +388,7 @@ class Dstv
       sequencial.numero += 1
     end
     
+    paymentDescription = "Pagaso - #{usuario_logado.nome}".truncate(49)
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"  xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
       <soapenv:Header/>
@@ -390,7 +402,7 @@ class Dstv
             <sel1:amount>#{valor_total}</sel1:amount>
             <sel1:invoicePeriod>1</sel1:invoicePeriod>
             <sel1:currency>#{currency}</sel1:currency>
-            <sel1:paymentDescription>Pagaso Payment System (#{usuario_logado.nome.truncate(18)})</sel1:paymentDescription>
+            <sel1:paymentDescription>#{paymentDescription}</sel1:paymentDescription>
             <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
             <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>
@@ -412,6 +424,9 @@ class Dstv
     xml_doc = Nokogiri::XML(request.body)
 
     mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
+    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+
+    mensagem = xml_doc.child.child.child.children.select{|child| child.name == "faultstring"}.first.text rescue ""
     raise ErroAmigavel.traducao(mensagem) if mensagem.present?
 
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
@@ -508,6 +523,9 @@ class Dstv
     if get_due_amountand_date.blank? || request.body.scan(/<\/faultcode><faultstring/).length > 0
       mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
       raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+      
+      mensagem = xml_doc.child.child.child.children.select{|child| child.name == "faultstring"}.first.text rescue ""
+      raise ErroAmigavel.traducao(mensagem) if mensagem.present?
     end
 
     detail_hash = {}
@@ -541,6 +559,8 @@ class Dstv
     else
       sequencial.numero += 1
     end
+
+    paymentDescription = "Pagaso - #{usuario_logado.nome}".truncate(49)
     body = "
     <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"  xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
       <soapenv:Header/>
@@ -554,7 +574,7 @@ class Dstv
             <sel1:amount>#{valor}</sel1:amount>
             <sel1:invoicePeriod>1</sel1:invoicePeriod>
             <sel1:currency>#{currency}</sel1:currency>
-            <sel1:paymentDescription>Pagaso Payment System (#{usuario_logado.nome.truncate(18)})</sel1:paymentDescription>
+            <sel1:paymentDescription>#{paymentDescription}</sel1:paymentDescription>
             <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
             <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>
@@ -580,6 +600,9 @@ class Dstv
     mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
     raise ErroAmigavel.traducao(mensagem) if mensagem.present?
 
+    mensagem = xml_doc.child.child.child.children.select{|child| child.name == "faultstring"}.first.text rescue ""
+    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
     raise "Pagamento não processado" if agent_submit_payment.blank?
 
@@ -592,18 +615,26 @@ class Dstv
     agent_submit_payment_hash["errorMessage"] = agent_submit_payment.children.select{|child| child.name == "errorMessage"}.first.text rescue ""
     agent_submit_payment_hash["AuditReferenceNumber"] = agent_submit_payment.children.select{|child| child.name == "AuditReferenceNumber"}.first.text rescue ""
 
-    pagamentos_faturas_dstv = PagamentosFaturasDstv.new
-    pagamentos_faturas_dstv.request_body = request.body
-    pagamentos_faturas_dstv.response_body = body
+    pagamentos_faturas_dstv = Venda.new
+    pagamentos_faturas_dstv.request_send = request.body
+    pagamentos_faturas_dstv.response_get = body
     pagamentos_faturas_dstv.customer_number = customer_number
     pagamentos_faturas_dstv.smartcard = smartcard
-    pagamentos_faturas_dstv.valor = valor
+    pagamentos_faturas_dstv.partner_id = Partner.dstv.id
+
+    desconto_aplicado, valor_original, valor = Venda.desconto_venda(usuario_logado, Partner.dstv, valor)
+    pagamentos_faturas_dstv.desconto_aplicado = desconto_aplicado
+    pagamentos_faturas_dstv.valor_original = valor_original
+    pagamentos_faturas_dstv.value = valor
+
     pagamentos_faturas_dstv.usuario_id = usuario_logado.id
+    pagamentos_faturas_dstv.responsavel = usuario_logado
     pagamentos_faturas_dstv.receipt_number = agent_submit_payment_hash["receiptNumber"]
     pagamentos_faturas_dstv.transaction_number = agent_submit_payment_hash["transactionNumber"]
     pagamentos_faturas_dstv.status = agent_submit_payment_hash["status"]
     pagamentos_faturas_dstv.transaction_date_time = agent_submit_payment_hash["transactionDateTime"]
     pagamentos_faturas_dstv.audit_reference_number = agent_submit_payment_hash["AuditReferenceNumber"]
+    pagamentos_faturas_dstv.lancamento_id = Lancamento.where(nome: Lancamento::PAGAMENTO_DE_FATURA).first.id rescue nil
     pagamentos_faturas_dstv.save!
 
     raise ErroAmigavel.traducao(agent_submit_payment_hash["errorMessage"]) if agent_submit_payment_hash["errorMessage"].present?
@@ -621,7 +652,7 @@ class Dstv
   end
 
   def self.parametros
-    parceiro = Partner.where("lower(slug) = 'dstv'").first
+    parceiro = Partner.dstv
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     raise "Parâmetros não localizados" if parametro.blank?

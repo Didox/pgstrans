@@ -14,7 +14,7 @@ class PartnersController < ApplicationController
   end
 
   def importa_dados
-    partner = Partner.where(slug: "ZAPTv").first
+    partner = Partner.zaptv
     partner.importa_dados!
 
     flash[:notice] = 'Dados importados com sucesso.'

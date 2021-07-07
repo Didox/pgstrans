@@ -8,6 +8,12 @@ class SaldosController < ApplicationController
     @conta_correntes = @conta_correntes.where("conta_correntes.data_alegacao_pagamento <= ?", SqlDate.sql_parse(params[:data_alegacao_pagamento_fim].to_datetime.end_of_day)) if params[:data_alegacao_pagamento_fim].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.lancamento_id = ?", params[:lancamento_id]) if params[:lancamento_id].present?
 
+    @valor_total = @conta_correntes.sum(:valor)
+
+    @total_ocorrencias = @conta_correntes.count
+    @soma_saldo_anterior = @conta_correntes.sum(:saldo_anterior)
+    @soma_valor = @conta_correntes.sum(:valor)
+    @soma_saldo_atual = @conta_correntes.sum(:saldo_atual)
     options = {page: params[:page] || 1, per_page: 10}
     @conta_correntes = @conta_correntes.paginate(options)
   end

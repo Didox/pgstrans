@@ -156,7 +156,7 @@
           <td style="width: 170px" class="text-right"><%= number_to_currency(alegacao_de_pagamento.valor_deposito, :unit => "KZ", :precision => 2) %></td>
           <td style="width: 170px" class="text-center"><%= alegacao_de_pagamento.data_deposito.strftime("%d/%m/%Y %H:%M:%S") rescue ""%></td>
           <td style="width: 170px" class="text-center">
-          <% if alegacao_de_pagamento.status_alegacao_de_pagamento.nome != StatusAlegacaoDePagamento::PENDENTE %>
+          <% if [StatusAlegacaoDePagamento::PENDENTE].include?(alegacao_de_pagamento.status_alegacao_de_pagamento.nome) %>
             <%= alegacao_de_pagamento.updated_at.strftime("%d/%m/%Y %H:%M:%S") rescue ""%>
           <% end %>
           </td>
@@ -166,8 +166,7 @@
           <td style="width: 120px"><%= alegacao_de_pagamento.status_alegacao_de_pagamento.nome rescue "" %></td>
           <td><%= link_to 'Comprovativo', alegacao_de_pagamento.comprovativo, target: "_blank" %></td>
           <td><%= link_to 'Mostrar', alegacao_de_pagamento %></td>
-
-          <% if alegacao_de_pagamento.status_alegacao_de_pagamento.nome != StatusAlegacaoDePagamento::CANCELADO.downcase || StatusAlegacaoDePagamento::INVALIDO.downcase || StatusAlegacaoDePagamento::REJEITADO.downcase || StatusAlegacaoDePagamento::PROCESSADO.downcase && (@adm.admin? || @adm.operador?) %>
+          <% if ![StatusAlegacaoDePagamento::PROCESSADO, StatusAlegacaoDePagamento::REJEITADO, StatusAlegacaoDePagamento::INVALIDO].include?(alegacao_de_pagamento.status_alegacao_de_pagamento.nome) && (@adm.admin? || @adm.operador?) %>
             <td><%= link_to 'Editar', edit_alegacao_de_pagamento_path(alegacao_de_pagamento) %></td>
           <% end %>
 

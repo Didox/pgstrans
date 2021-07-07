@@ -9,7 +9,7 @@
 
   <div style="col-md-12 margin-top:10px">
     <form action="" method="get" id="formApuracao">
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group">
           <label>Login do Usuário</label>
           <div>
@@ -17,7 +17,7 @@
           </div>
         </div>
       </div> 
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <div class="form-group">
           <label>Nome do Usuário</label>
           <div>
@@ -25,27 +25,40 @@
           </div>
         </div>
       </div> 
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group">
-          <label>Customer Number/Número do Cliente DSTV</label>
+          <label>Número do Cliente DSTV</label>
           <div>
             <input type="text" name="customer_number" value="<%= params[:customer_number] %>" class="form-control">
           </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group">
-          <label>Smartcard/Device Number DSTV</label>
+          <label>Smartcard</label>
           <div>
             <input type="text" name="smartcard" value="<%= params[:smartcard] %>" class="form-control">
           </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group">
-          <label>Número do Recibo de Confirmação DSTV</label>
+          <label>Recibo de Confirmação DSTV</label>
           <div>
             <input type="text" name="receipt_number" value="<%= params[:receipt_number] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Tipo de Lançamento</label>
+            <div>
+              <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Lancamento.all.each do |lancamento| %>
+                  <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
+                <% end %>
+              </select>
           </div>
         </div>
       </div>
@@ -99,7 +112,7 @@
   <table class="table scroltable table-hover">
     <thead>
       <tr>
-        <th scope="col">Usuário</th>
+        <th scope="col">Login / Nome do Usuário</th>
         <th scope="col">Dados DSTV</th>
         <th scope="col">Produto</th>
         <th scope="col" style="width: 12%" class="text-center">Valor KZ</th>
@@ -116,7 +129,7 @@
       <% 
         valor_total = 0 
         @alteracoes_planos_dstvs.each do |alteracoes_planos_dstv| 
-          valor_total += alteracoes_planos_dstv.valor
+          valor_total += alteracoes_planos_dstv.value
       %>
         <tr>
           <td>
@@ -124,14 +137,14 @@
             <%= alteracoes_planos_dstv.usuario.nome rescue "" %>
           </td>
           <td>
-              <strong>Customer Number: </strong><%= alteracoes_planos_dstv.customer_number %><br>
+              <strong>Número do Cliente: </strong><%= alteracoes_planos_dstv.customer_number %><br>
               <strong>Smartcard: </strong><%= alteracoes_planos_dstv.smartcard %>
           </td>
           <td>
-              <%= alteracoes_planos_dstv.codigo %> /
-              <%= alteracoes_planos_dstv.produto %>
+              <%= alteracoes_planos_dstv.codigos_produto %> /
+              <%= alteracoes_planos_dstv.product_nome %>
           </td>
-          <td class="text-right"><%= number_to_currency(alteracoes_planos_dstv.valor, :unit => "KZ") %></td>
+          <td class="text-right"><%= number_to_currency(alteracoes_planos_dstv.valor_original, :unit => "KZ") %></td>
           <td class="text-right"><%= alteracoes_planos_dstv.receipt_number %></td>
           <td><%= alteracoes_planos_dstv.lancamento.nome rescue "" %></td>
           <td class="text-center"><%= alteracoes_planos_dstv.transaction_number %></td>

@@ -13,9 +13,13 @@
       <dd><%= @venda.id %></dd>
       <dt>Produto no Pagasó:</dt>
       <dd>
-        <a href="/produtos/<%= @venda.product_id %>" target="_blank">
-          <%= @venda.product_id %>
-        </a>
+        <% if @venda.product_id.present? %>
+          <a href="/produtos/<%= @venda.product_id %>" target="_blank">
+            <%= @venda.product_id %>
+          </a>
+        <% else %>
+            <%= "#{@venda.lancamento.nome}" rescue "" %>
+        <% end %>
       </dd>
       <dt>Produto no Parceiro:</dt>
       <dd>
@@ -37,14 +41,24 @@
       </dd>
       <dt>Custo:</dt>
       <dd><%= number_to_currency(@venda.value) %></dd>
-      <dt>Customer Number/Card Number/MSISDN:</dt>
-      <dd><%= @venda.client_msisdn %></dd>
+      <% if @venda.customer_number.present? %>
+        <dt>Número do Cliente:</dt>
+        <dd><%= @venda.customer_number %></dd>
+      <% end %>
+      <% if @venda.smartcard.present? %>
+        <dt>Smartcard:</dt>
+        <dd><%= @venda.smartcard %></dd>
+      <% end %>
       <dt>Situação:</dt>
-      <dd><%= @venda.status %></dd>
-      <dt>Request send:</dt>
-      <dd><%= @venda.request_send %></dd>
-      <dt>Response get:</dt>
-      <dd><%= @venda.response_get %></dd>
+      <dd><%= @venda.status_desc.error_description_pt %> - <strong><%= "#{@venda.lancamento.nome}" rescue "" %></strong></dd>
+      
+      <% if @adm.id == Usuario::ROOT %>
+        <dt>Request send:</dt>
+        <dd><%= @venda.request_send %></dd>
+        <dt>Response get:</dt>
+        <dd><%= @venda.response_get %></dd>
+      <% end %>
+      
       <dt>Status do processamento na operadora:</dt>
       <dd><%= @venda.status_movicel %></dd>
       <dt>Data criação:</dt>

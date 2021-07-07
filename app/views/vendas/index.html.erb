@@ -1,6 +1,6 @@
 <div class="col-md-12">
   <div class="col-md-12">
-    <h3>Vendas</h3>
+    <h3>Relatório de Vendas e Serviços</h3>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -19,7 +19,7 @@
             </div>
           </div>
         <% end %>
-        <% if usuario_logado.admin? || usuario_logado.operador? %>
+        <% if @adm.id == Usuario::ROOT %>
           <div class="col-sm-10">
             <div class="form-group">
               <label>Log transação Ex: (Request_ID, saleTimestamp)</label>
@@ -44,6 +44,19 @@
                   </optgroup>
                 <% end %>
               </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Tipo de Lançamento</label>
+              <div>
+                <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% Lancamento.all.each do |lancamento| %>
+                    <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
+                  <% end %>
+                </select>
             </div>
           </div>
         </div>
@@ -92,7 +105,7 @@
         <% if usuario_logado.admin? || usuario_logado.operador? %>
           <div class="col-sm-2">
             <div class="form-group">
-              <label>Status do Usuário</label>
+              <label>Situação do Usuário</label>
               <div>
                 <select name="status" class="form-control">
                   <option value="" selected="'selected'">Todos</option>
@@ -120,7 +133,7 @@
         <% if usuario_logado.admin? || usuario_logado.operador? %>
           <div class="col-sm-2">
             <div class="form-group">
-              <label>Status Parceiro</label>
+              <label>Situação do Parceiro</label>
               <div>
                 <select name="status_parceiro_id" class="form-control">
                   <option value="" selected="'selected'">Todos</option>
@@ -164,18 +177,20 @@
         <% end %>
         <div class="col-sm-4">
           <div class="form-group">
-            <label>Customer Number / Smartcard / Device Number / MSIDN</label>
+            <label>Número do Cliente/Smartcard</label>
             <div>
-              <input type="text" name="client_msisdn" value="<%= params[:client_msisdn] %>" class="form-control">
+              <input type="text" name="customer_number" value="<%= params[:customer_number] %>" class="form-control">
             </div>
           </div>
         </div>
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
-          <label>
-            Exportar CSV <input type="checkbox" name="csv"> 
-          </label>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <label>
+              Exportar CSV <input type="checkbox" name="csv"> 
+            </label>
+          <% end %>
           <input type="submit" value="Buscar" class="btn btn-success">
           <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-list-alt"></span>

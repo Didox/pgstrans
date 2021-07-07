@@ -46,6 +46,11 @@
         </div>
       </form>
       
+      <h4>
+        Total de Ocorrências: <strong><%= number_to_currency(@total_ocorrencias, :precision => 0, :unit => "") %></strong>
+      </h4>
+     <hr>
+
       <table class="scroltable table table-hover">
         <thead>
           <tr>
@@ -86,6 +91,23 @@
             </tr>
           <% end %>
         </tbody>
+        <tfoot>
+          <tr class="text-right">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b>Total Geral</b></td>
+            <td>
+              <%= number_to_currency(@soma_saldo_anterior, :unit => "KZ") %>
+            </td>
+            <td>
+              <%= number_to_currency(@soma_valor, :unit => "KZ") %>
+            </td>
+            <td>
+              <%= number_to_currency(@soma_saldo_atual, :unit => "KZ") %><br>
+            </td>
+          </tr>
+        </tfoot>
       </table>
       <div class="apple_pagination">
         <%= will_paginate @conta_correntes, :container => false %>

@@ -8,8 +8,10 @@
 
   <div class="col-md-12">
     <dl class="dl-horizontal">
-      <dt>ID Interno do Usuário:</dt>
-      <dd><%= @conta_corrente.usuario.id rescue "" %></dd>
+      <% if @adm.admin? || @adm.operador? %> 
+        <dt>ID Interno do Usuário:</dt>
+        <dd><%= @conta_corrente.usuario.id rescue "" %></dd>
+      <% end %>
       <dt>Login:</dt>
       <dd><%= @conta_corrente.usuario.login rescue "" %></dd>
       <dt>Usuário:</dt>
@@ -24,7 +26,7 @@
         <dt>IBAN:</dt>
         <dd><%= @conta_corrente.iban rescue "" %></dd>
       <% end %>
-      <dt>Data da Alegação de Pagamento:</dt>
+      <dt>Data:</dt>
       <dd><%= @conta_corrente.data_alegacao_pagamento rescue "" %></dd>
       <hr>
       <dt>
@@ -38,34 +40,43 @@
       <dt>Saldo Atual:</dt>
       <dd><%= number_to_currency(@conta_corrente.saldo_atual, :unit => "KZ") %></dd>
       <hr>
-      <dt>Data da Última Atualização de Saldo:</dt>
-      <dd><%= @conta_corrente.data_ultima_atualizacao_saldo %></dd>
-      <% if @conta_corrente.responsavel_aprovacao.present? %>
-         <dt>Responsável aprovação:</dt> 
-         <dd><%= @conta_corrente.responsavel_aprovacao.nome %></dd>
+      <% if @adm.admin? || @adm.operador? %> 
+        <dt>Data da Última Atualização de Saldo:</dt>
+        <dd><%= @conta_corrente.data_ultima_atualizacao_saldo %></dd>
+        <% if @conta_corrente.responsavel_aprovacao.present? %>
+          <dt>Responsável aprovação:</dt> 
+          <dd><%= @conta_corrente.responsavel_aprovacao.nome %></dd>
+        <% end %>
+        <dt>Observação:</dt>
+        <dd><%= @conta_corrente.observacao %></dd>
       <% end %>
-      <dt>Observação:</dt>
-      <dd><%= @conta_corrente.observacao %></dd>
     </dl>
 
     <div class="page-header"> 
+    
       <%= link_to "index_carregamento_usuario", class: 'btn btn-success' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Lista de Carregamento
       <% end %>
+      
       <%= link_to conta_correntes_path, class: 'btn btn-info' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Creditar Conta  Corrente
-      <% end %> 
-      <% if @adm.admin? || @adm.operador? %>  
+      <% end %>   
+  
+      <% if @adm.admin? || @adm.operador? %>
         <%= link_to "/conta_correntes/resumido", style: "color: #fff", class: 'btn btn-warning' do %>
           Resumo Operador
         <% end %>
       <% end %>
-      <%= link_to edit_conta_corrente_path(@conta_corrente), class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-pencil"></span>
-        Editar
+      
+      <% if @adm.id == Usuario::ROOT %>
+          <%= link_to edit_conta_corrente_path(@conta_corrente), class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-pencil"></span>
+            Editar
+          <% end %>
       <% end %>
+      
       <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Voltar

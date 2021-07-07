@@ -40,7 +40,7 @@
           <%= f.label :senha, "Palavra-passe" %>
           <%= f.password_field :senha, class: "form-control", disabled: @usuario.new_record? %>
           <% if @usuario.new_record? %>
-            Palavra-passe padrão "<%= Usuario::SENHA_PADRAO %>", a mesma será redefinina pelo usuário no primeiro acesso
+            Palavra-passe será definina pelo usuário no primeiro acesso
           <% end %>
         </div>
 
@@ -57,11 +57,15 @@
   
         <div class="form-input col-sm-5">
           <%= f.label :sub_agente_id, :label => "Subagente" %>
-          <%= f.select :sub_agente_id, SubAgente.all.order("nome_fantasia asc").collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <% if @adm.admin? || @adm.operador? %>
+              <%= f.select :sub_agente_id, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <% else %>
+              <%= f.select :perfil_usuario_id, SubAgente.where("lower(nome_fantasia) ilike '#{usuario_logado.nome}'").collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <% end %>
         </div>
 
         <div class="form-input col-sm-3">
-          <%= f.label :status_cliente_id, :label => "Status do Usuário" %>
+          <%= f.label :status_cliente_id, :label => "Situação do Usuário" %>
           <% if @adm.agente? %>
             <%= f.select :status_cliente_id, StatusCliente.where("lower(nome) ilike '%inativo%'").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% else %>

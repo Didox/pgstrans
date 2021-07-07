@@ -26,7 +26,7 @@ class MovicelLoop < ApplicationRecord
 		Thread.new do
 			begin
 				sleep(2)
-				parceiro = Partner.where("lower(slug) = 'movicel'").first
+				parceiro = Partner.movicel
 				valor_original = self.valor
 				parametro = Parametro.where(partner_id: parceiro.id).first
 
