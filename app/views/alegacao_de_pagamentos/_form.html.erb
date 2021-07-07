@@ -41,7 +41,7 @@
 
         <div class="form-input col-sm-4">
           <%= f.label :valor_deposito, :label => "Valor do Depósito", class: "col-sm-6" %>
-          <%= f.text_field :valor_deposito, placeholder: "  Valor do Depósito", class: "form-control", disabled: (!@alegacao_de_pagamento.new_record? ? "disabled" : false) %>
+          <%= f.text_field :valor_deposito, placeholder: "  Valor do Depósito", class: "form-control" %>
         </div>
         <div class="form-input col-sm-4">
           <%= f.label :data_deposito, "Data e Hora do Depósito", class: "col-sm-8" %>

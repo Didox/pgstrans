@@ -46,6 +46,7 @@ class AlegacaoDePagamentosController < ApplicationController
 
   # GET /alegacao_de_pagamentos/1/edit
   def edit
+    return redirect_to "/alegacao_de_pagamentos" if [StatusAlegacaoDePagamento::PROCESSADO,StatusAlegacaoDePagamento::CANCELADO,StatusAlegacaoDePagamento::INVALIDO,StatusAlegacaoDePagamento::REJEITADO].include?(@alegacao_de_pagamento.status_alegacao_de_pagamento.nome) 
   end
 
   # POST /alegacao_de_pagamentos
@@ -53,6 +54,7 @@ class AlegacaoDePagamentosController < ApplicationController
   def create
     @alegacao_de_pagamento = AlegacaoDePagamento.new(alegacao_de_pagamento_params)
     @alegacao_de_pagamento.responsavel = usuario_logado
+    @alegacao_de_pagamento.comprovativo = "https://st2.depositphotos.com/6544740/9337/i/600/depositphotos_93376372-stock-photo-sunset-over-sea-pier.jpg"
 
     respond_to do |format|
       if @alegacao_de_pagamento.save
@@ -68,6 +70,8 @@ class AlegacaoDePagamentosController < ApplicationController
   # PATCH/PUT /alegacao_de_pagamentos/1
   # PATCH/PUT /alegacao_de_pagamentos/1.json
   def update
+    return redirect_to "/alegacao_de_pagamentos" if [StatusAlegacaoDePagamento::PROCESSADO,StatusAlegacaoDePagamento::CANCELADO,StatusAlegacaoDePagamento::INVALIDO,StatusAlegacaoDePagamento::REJEITADO].include?(@alegacao_de_pagamento.status_alegacao_de_pagamento.nome) 
+
     respond_to do |format|
       if @alegacao_de_pagamento.update(alegacao_de_pagamento_params_update)
         format.html { redirect_to @alegacao_de_pagamento, notice: 'Alegação de pagamento foi atualizada com sucesso.' }
@@ -82,6 +86,8 @@ class AlegacaoDePagamentosController < ApplicationController
   # DELETE /alegacao_de_pagamentos/1
   # DELETE /alegacao_de_pagamentos/1.json
   def destroy
+    return redirect_to "/alegacao_de_pagamentos" if [StatusAlegacaoDePagamento::PROCESSADO,StatusAlegacaoDePagamento::CANCELADO,StatusAlegacaoDePagamento::INVALIDO,StatusAlegacaoDePagamento::REJEITADO].include?(@alegacao_de_pagamento.status_alegacao_de_pagamento.nome) 
+    
     @alegacao_de_pagamento.destroy
     respond_to do |format|
       format.html { redirect_to alegacao_de_pagamentos_url, notice: 'Alegação de pagamento foi apagada com sucesso.' }
@@ -90,6 +96,8 @@ class AlegacaoDePagamentosController < ApplicationController
   end
 
   def processar
+    return redirect_to "/alegacao_de_pagamentos" if [StatusAlegacaoDePagamento::PROCESSADO,StatusAlegacaoDePagamento::CANCELADO,StatusAlegacaoDePagamento::INVALIDO,StatusAlegacaoDePagamento::REJEITADO].include?(@alegacao_de_pagamento.status_alegacao_de_pagamento.nome) 
+    
     @alegacao_de_pagamento.processar(usuario_logado)
     respond_to do |format|
       format.html { redirect_to alegacao_de_pagamentos_url, notice: 'Alegação de pagamento foi processada com sucesso.' }
@@ -121,7 +129,7 @@ class AlegacaoDePagamentosController < ApplicationController
     end
 
     def alegacao_de_pagamento_params_update
-      params.require(:alegacao_de_pagamento).permit(:status_alegacao_de_pagamento_id, :observacao)
+      params.require(:alegacao_de_pagamento).permit(:valor_deposito, :status_alegacao_de_pagamento_id, :observacao, :data_deposito, :numero_talao, :banco_id, :comprovativo)
     end
 
     def valida_acesso

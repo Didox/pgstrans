@@ -5,6 +5,23 @@ class AlegacaoDePagamento < ApplicationRecord
   belongs_to :banco
   belongs_to :status_alegacao_de_pagamento
 
+  validate :validar_duplicado
+
+  def validar_duplicado
+    alegacoes = AlegacaoDePagamento.where(
+      usuario_id: self.usuario_id,
+      valor_deposito: self.valor_deposito,
+      numero_talao: self.numero_talao,
+      status_alegacao_de_pagamento_id: StatusAlegacaoDePagamento.where("lower(nome) = ?", StatusAlegacaoDePagamento::PENDENTE.downcase).first.id
+    )
+
+    if alegacoes.count > 0
+      if alegacoes.first.data_deposito.end_of_day == self.data_deposito.end_of_day
+        errors.add(" ", "Pedido já cadastrado. Aguarde o processamento")
+      end
+    end
+  end
+
   PROCESSADO = 1
   EM_ANALISE = 2
   PENDENTE = 3
