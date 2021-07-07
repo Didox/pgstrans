@@ -54,7 +54,6 @@ class AlegacaoDePagamentosController < ApplicationController
   def create
     @alegacao_de_pagamento = AlegacaoDePagamento.new(alegacao_de_pagamento_params)
     @alegacao_de_pagamento.responsavel = usuario_logado
-    @alegacao_de_pagamento.comprovativo = "https://st2.depositphotos.com/6544740/9337/i/600/depositphotos_93376372-stock-photo-sunset-over-sea-pier.jpg"
 
     respond_to do |format|
       if @alegacao_de_pagamento.save
