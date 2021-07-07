@@ -14,6 +14,7 @@ class SaldosController < ApplicationController
     @soma_saldo_anterior = @conta_correntes.sum(:saldo_anterior)
     @soma_valor = @conta_correntes.sum(:valor)
     @soma_saldo_atual = @conta_correntes.sum(:saldo_atual)
+
     options = {page: params[:page] || 1, per_page: 10}
     @conta_correntes = @conta_correntes.paginate(options)
   end

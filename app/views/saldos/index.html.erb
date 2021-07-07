@@ -64,6 +64,11 @@
           </tr>
         </thead>
         <tbody>
+          <%
+          soma_saldo_anterior_da_pagina = 0
+          soma_valor_da_pagina = 0
+          soma_saldo_atual_da_pagina = 0
+          %>
           <% @conta_correntes.each do |conta_corrente| %>
             <tr>
               <td>
@@ -89,9 +94,29 @@
                 <%= number_to_currency(conta_corrente.saldo_atual, :unit => "Kz") %>
               </td>
             </tr>
+            <%
+            soma_saldo_anterior_da_pagina += conta_corrente.saldo_anterior
+            soma_valor_da_pagina += conta_corrente.valor
+            soma_saldo_atual_da_pagina += conta_corrente.saldo_atual
+            %>
           <% end %>
         </tbody>
         <tfoot>
+          <tr class="text-right">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b>Total da Página</b></td>
+            <td>
+              <%= number_to_currency(soma_saldo_anterior_da_pagina, :unit => "KZ") %>
+            </td>
+            <td>
+              <%= number_to_currency(soma_valor_da_pagina, :unit => "KZ") %>
+            </td>
+            <td>
+              <%= number_to_currency(soma_saldo_atual_da_pagina, :unit => "KZ") %><br>
+            </td>
+          </tr>
           <tr class="text-right">
             <td></td>
             <td></td>

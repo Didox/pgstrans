@@ -102,14 +102,20 @@
           <td style="width: 300px" align="right"><%= number_to_currency(conta_corrente.valor, :unit => "KZ", :precision => 2) %></td>
           <td style="width: 150px" align="center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td style="width: 200px"><%= conta_corrente.lancamento.nome rescue "" %>
-          <% if @adm.admin? || @adm.operador? %>
-            <td style="width: 200px"><%= conta_corrente.responsavel_aprovacao.nome rescue "" %>
+          <% if (@adm.admin? || @adm.operador?) %>  
+            <td style="width: 200px">
+              <% if ![Lancamento::PAGAMENTO_DE_FATURA, Lancamento::ALTERACAO_PLANO, Lancamento::ALTERACAO_PACOTE].include?(conta_corrente.lancamento.nome) %>  
+                <%= conta_corrente.responsavel_aprovacao.nome rescue "" %>
+              <% else %>
+                <td></td>
+              <% end %>
+            </td>
           <% else %>
             <td></td>
           <% end %>
           <% valor_total += conta_corrente.valor %>
           <td>
-          <%= link_to 'Mostrar', conta_corrente %>
+            <%= link_to 'Mostrar', conta_corrente %>
           </td>
         </tr>
         <% end %>
