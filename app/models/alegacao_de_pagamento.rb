@@ -16,7 +16,8 @@ class AlegacaoDePagamento < ApplicationRecord
     )
 
     if alegacoes.count > 0
-      if alegacoes.first.data_deposito.end_of_day == self.data_deposito.end_of_day
+      alegacao = alegacoes.first
+      if alegacao.id != self.id && alegacao.first.data_deposito.end_of_day == self.data_deposito.end_of_day
         errors.add(" ", "Pedido já cadastrado. Aguarde o processamento")
       end
     end
