@@ -281,6 +281,9 @@ class Dstv
         </soapenv:Body>
       </soapenv:Envelope>
     "
+
+    raise "Transação duplicada" if SequencialDstv.where(response_body: body).count > 0
+
     request = fazer_request(url_service, body, "AgentSubmitPayment")
     SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
     
@@ -418,6 +421,9 @@ class Dstv
         </soapenv:Body>
       </soapenv:Envelope>
     "
+
+    raise "Transação duplicada" if SequencialDstv.where(response_body: body).count > 0
+
     request = fazer_request(url_service, body, "AgentSubmitPayment")
     SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
     
@@ -592,6 +598,9 @@ class Dstv
         </soapenv:Body>
       </soapenv:Envelope>
     "
+
+    raise "Transação duplicada" if SequencialDstv.where(response_body: body).count > 0
+
     request = fazer_request(url_service, body, "AgentSubmitPayment")
     SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
     
