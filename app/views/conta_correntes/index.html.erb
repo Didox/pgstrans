@@ -16,7 +16,7 @@
       <div class="form-group">
         <label>Data de Lançamento Início</label>
         <div>
-          <input type="date" name="data_alegacao_pagamento" value="<%= params[:data_alegacao_pagamento] %>" class="form-control">
+          <input type="date" name="data_alegacao_pagamento_inicio" value="<%= params[:data_alegacao_pagamento_inicio] %>" class="form-control">
         </div>
       </div>
     </div>
@@ -24,7 +24,23 @@
       <div class="form-group">
         <label>Data de Lançamento Fim</label>
         <div>
-          <input type="date" name="data_ultima_atualizacao_saldo" value="<%= params[:data_ultima_atualizacao_saldo] %>" class="form-control">
+          <input type="date" name="data_alegacao_pagamento_fim" value="<%= params[:data_alegacao_pagamento_fim] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Data da Última Atualização Início</label>
+        <div>
+          <input type="date" name="data_ultima_atualizacao_saldo_inicio" value="<%= params[:data_ultima_atualizacao_saldo_inicio] %>" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Data da Última Atualização Fim</label>
+        <div>
+          <input type="date" name="data_ultima_atualizacao_saldo_fim" value="<%= params[:data_ultima_atualizacao_saldo_fim] %>" class="form-control">
         </div>
       </div>
     </div>
