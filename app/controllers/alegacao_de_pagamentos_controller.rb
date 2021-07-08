@@ -32,6 +32,8 @@ class AlegacaoDePagamentosController < ApplicationController
     
     options = {page: params[:page] || 1, per_page: 10}
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.paginate(options)   
+
+    sql = @alegacao_de_pagamentos.to_sql
   end
 
   # GET /alegacao_de_pagamentos/1
