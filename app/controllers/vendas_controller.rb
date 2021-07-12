@@ -63,6 +63,19 @@ class VendasController < ApplicationController
     "
     @sql = sql
     @vendas = ActiveRecord::Base.connection.exec_query(sql)
+
+    sql_ano = sql.gsub("to_char(vendas.created_at #{SqlDate.fix_sql_date_query}, 'YYYY/MM/DD')", "to_char(vendas.created_at #{SqlDate.fix_sql_date_query}, 'YYYY')")
+    
+    if params[:data_inicio].present? && params[:data_fim].present?
+      if Time.zone.parse(params[:data_inicio]).month == Time.zone.parse(params[:data_fim]).month
+        @grafico_dia = true
+        sql_ano = sql.gsub("to_char(vendas.created_at #{SqlDate.fix_sql_date_query}, 'YYYY/MM/DD')", "to_char(vendas.created_at #{SqlDate.fix_sql_date_query}, 'DD/MM/YYYY')")
+      elsif Time.zone.parse(params[:data_inicio]).year == Time.zone.parse(params[:data_fim]).year
+        sql_ano = sql.gsub("to_char(vendas.created_at #{SqlDate.fix_sql_date_query}, 'YYYY/MM/DD')", "to_char(vendas.created_at #{SqlDate.fix_sql_date_query}, 'MM/YYYY')")
+      end
+    end
+    @vendas_data = ActiveRecord::Base.connection.exec_query(sql_ano)
+
     @vendas_total = @vendas.count
   end
 
