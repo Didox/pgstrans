@@ -406,6 +406,12 @@ class Venda < ApplicationRecord
     raise "Timeout. Sem resposta da operadora"
   rescue Net::OpenTimeout => e
     raise "Timeout. Sem resposta da operadora"
+  rescue Exception => e
+    raise "Timeout ou erro inesperado - #{e.message}"
+    puts "========================================="
+    puts e.message
+    puts e.backtrace
+    puts "========================================="
   end
 
   def self.venda_movicel(params, usuario, ip)
