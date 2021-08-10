@@ -15,6 +15,12 @@ class VendasController < ApplicationController
   end
 
   def consolidado
+    @page = params[:page] || 1
+    @page = @page.to_i
+    @per_page = params[:per_page] || 10
+    @per_page = @per_page.to_i
+    fetch = (@page - 1) * @per_page
+
     sql = "
       SELECT  
         to_char(vendas.created_at #{SqlDate.fix_sql_date_query}, 'YYYY/MM/DD') as data_venda, 
@@ -57,15 +63,21 @@ class VendasController < ApplicationController
       sql += " and partners.status_parceiro_id in (#{StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL.join(",")})"
     end
 
+    com_acesso_query = Venda.com_acesso_query(@adm)
+    sql += "and #{com_acesso_query}" if com_acesso_query.present?
+
     sql += "
       group by to_char(vendas.created_at #{SqlDate.fix_sql_date_query}, 'YYYY/MM/DD')
       ORDER BY data_venda desc
+      limit #{@per_page} offset #{fetch}
     "
     @sql = sql
+
     @vendas = ActiveRecord::Base.connection.exec_query(sql)
 
     sql_ano = sql.gsub("to_char(vendas.created_at #{SqlDate.fix_sql_date_query}, 'YYYY/MM/DD')", "to_char(vendas.created_at #{SqlDate.fix_sql_date_query}, 'YYYY')")
-    
+    sql_ano = sql_ano.gsub(/\n/, "").gsub(/limit.*/, "")
+
     if params[:data_inicio].present? && params[:data_fim].present?
       if Time.zone.parse(params[:data_inicio]).month == Time.zone.parse(params[:data_fim]).month
         @grafico_dia = true

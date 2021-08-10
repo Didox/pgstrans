@@ -52,7 +52,19 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Quantidade por página</label>
+            <div>
+              <select name="per_page" class="form-control">
+                <% [31, 40, 50, 100, 200, 300, 400, 1000, 2000, 3000].each do |per_page| %>
+                  <option value="<%= per_page %>" <% if @per_page.to_s == per_page.to_s %> selected="selected" <% end %>><%= per_page %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Situação do Usuário</label>
             <div>
@@ -111,7 +123,8 @@
 
   <!-- Grafico de barras -->
   <div style="float:left;overflow:hidden;width:100%;clear:both;margin-bottom:20px">
-    <div style="width: 100%">
+    <h2>Total geral de vendas para o período<h2>
+    <div style="width: 100%; overflow:auto">
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
       <script type="text/javascript">
         google.charts.load("current", {packages:['corechart']});
@@ -194,7 +207,7 @@
         <% end %>
         <tfoot>
           <tr>
-            <td align="right"><b>Total:</b></td>
+            <td align="right"><b>Total da página:</b></td>
             <td align="right">
               <b><%= number_to_currency(valor_original_total) %></b>
             </td>    
@@ -210,6 +223,9 @@
         </tfoot>
       </tbody>
     </table>
+
+    <%= render "/shared/paginate", path: "/vendas/consolidado", records: @vendas, :per_page => @per_page %>
+
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar

@@ -10,6 +10,14 @@ module PermissionamentoDados
         if(usuario.admin? || usuario.operador?)
           self.all
         else
+          self.where(self.com_acesso_query(usuario))
+        end
+      end
+
+      def self.com_acesso_query(usuario)
+        if(usuario.admin? || usuario.operador?)
+          return ""
+        else
           sql_where = ""
 
           if self.new.respond_to?(:usuario_id)
@@ -47,7 +55,7 @@ module PermissionamentoDados
 
           sql_where = "(#{sql_where})"
 
-          self.where(sql_where)
+          return sql_where
         end
       end
 

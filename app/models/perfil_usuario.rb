@@ -55,7 +55,7 @@ class PerfilUsuario < ApplicationRecord
       apaga_acesso_usuario: "Apaga grupo de acesso de usuário",
       cria_acesso_usuario: "Cria grupo de acesso de usuário",
       novo_acesso_usuario: "Tela de criação de novo acesso do usuário",
-      consolidado: "Consolidado Financeiro",
+      consolidado: "Consolidado Financeiro Visão do Cliente",
       resumido: "(VENDAS RESUMIDAS) Relatório Vendas na Visão do Agente e do Vendedor",
       conta_corrente_resumido: "Resumo de Lançamento em Conta Corrente por Operador(a) Responsável Aprovação",
       importa_produtos: "Acesso ao botão 'Atualizar portfólio de produtos ZAP'",
