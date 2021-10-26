@@ -112,6 +112,7 @@ Rails.application.routes.draw do
   get 'logout', to: 'login#logout'
   post 'autentica', to: 'login#autentica'
   post 'recarga/confirma', to: 'recarga#confirma', as: "recarga_confirma"
+  post 'api/recarga/confirma', to: 'recarga#confirma', as: "api_recarga_confirma"
 
   get 'alterar-senha', to: 'login#alterar_senha'
   post 'alterar-senha', to: 'login#mudar_senha'

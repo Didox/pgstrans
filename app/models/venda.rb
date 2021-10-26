@@ -113,6 +113,10 @@ class Venda < ApplicationRecord
   end
 
   def self.fazer_venda(params, usuario, slug_parceiro, ip)
+    debugger
+    # <ActionController::Parameters {"tipo_venda"=>"Unitel", "unitel_produto_id"=>"53- 200.00", "movicel_produto_id"=>"", "dstv_produto_id"=>"", "zaptv_produto_id"=>"", "valor"=>"", "movicel_telefone"=>"", "dstv_customer_number"=>"", "zaptv_cartao"=>"", "unitel_telefone"=>"23323223", "talao_sms"=>"232323232332", "controller"=>"recarga", "action"=>"confirma"} permitted: false>
+    # <Usuario id: 2, nome: "Rosi Volgarin", email: "rosi.volgarin@gmail.com", senha: "9391bc9410e0ff35fcab59f592d63690c485656a", created_at: "2019-11-19 22:38:51", updated_at: "2021-02-15 18:58:36", perfil_usuario_id: 1, sub_agente_id: 3, status_cliente_id: 1, morada: "Rua Domingos do Ó, 62 SAI MANT", bairro: "Centro", municipio_id: 2, provincia_id: 2, industry_id: 3, uni_pessoal_empresa_id: 1, logado: true, login: "1342381", telefone: nil, whatsapp: nil, data_adesao: nil>
+    # "Unitel"
     slug_parceiro = slug_parceiro.downcase.strip
     self.send("venda_#{slug_parceiro}", params, usuario, ip)
   end
