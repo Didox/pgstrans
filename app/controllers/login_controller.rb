@@ -79,7 +79,8 @@ class LoginController < ApplicationController
         payload = {
           id: usuario.id,
           nome: usuario.nome,
-          email: usuario.email
+          email: usuario.email,
+          senha: usuario.senha
         }
 
         payload[:token] = JWT.encode(payload, SECRET_JWT, 'HS256')
