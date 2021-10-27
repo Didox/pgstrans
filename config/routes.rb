@@ -111,6 +111,7 @@ Rails.application.routes.draw do
   get 'login', to: 'login#index'
   get 'logout', to: 'login#logout'
   post 'autentica', to: 'login#autentica'
+  post 'api/login', to: 'login#autentica_api'
   post 'recarga/confirma', to: 'recarga#confirma', as: "recarga_confirma"
   post 'api/recarga/confirma', to: 'recarga#confirma', as: "api_recarga_confirma"
 

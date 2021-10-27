@@ -1,6 +1,6 @@
 class LoginController < ApplicationController
   layout = "login"
-  skip_before_action :verify_authenticity_token, only: [:autentica, :mudar_senha, :password_esquecida, :recuperar_password_esquecida]
+  skip_before_action :verify_authenticity_token, only: [:autentica, :autentica_api, :mudar_senha, :password_esquecida, :recuperar_password_esquecida]
   skip_before_action :validate_login
 
   def index;end
@@ -52,6 +52,45 @@ class LoginController < ApplicationController
     #  flash[:error] = "Clique na opção \"Não sou um robô\" (Captcha inválido)"
     #  redirect_to login_path
     #end
+  end
+
+  def autentica_api
+    if params[:email].present? && params[:senha].present?
+      senha = Digest::SHA1.hexdigest(params[:senha])
+      usuarios = Usuario.ativo.where("email = ? or login = ?", params[:email], params[:email]).where(senha: senha, status_cliente_id: StatusCliente.where("lower(nome) = 'ativo'"))
+      if usuarios.count > 0
+        usuario = usuarios.first
+        Usuario.where(id: usuario.id).update_all(logado: true)
+
+        if usuario.senha_padrao?
+          require 'securerandom'
+          token = SecureRandom.uuid
+          TokenUsuarioSenha.where(usuario_id: usuario.id).destroy_all
+          TokenUsuarioSenha.create(usuario_id: usuario.id, token: token)
+
+          return render json: {
+            mensagem: "Sua senha padrão precisa ser alterada, acesse o path '/alterar-senha?token=#{token}' e faça a modificação", 
+            status:401
+          }, status: 401
+        end
+
+        UsuarioAcesso.create(usuario: usuario, mac_adress: request.ip)
+
+        payload = {
+          id: usuario.id,
+          nome: usuario.nome,
+          email: usuario.email
+        }
+
+        payload[:token] = JWT.encode(payload, SECRET_JWT, 'HS256')
+        return render json: payload, status: 401
+      end
+    end
+
+    return render json: {
+      mensagem: "E-mail ou palavra-passe inválidos' e faça a modificação", 
+      status:401
+    }, status: 401
   end
 
   def logout

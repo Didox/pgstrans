@@ -4,6 +4,7 @@ DEFAULT_TIMEOUT = ENV["DEFAULT_TIMEOUT"] || 60
 AWS_ID=ENV["AWS_ID"]
 AWS_KEY=ENV["AWS_KEY"]
 AWS_BUCKET=ENV["AWS_BUCKET"]
+SECRET_JWT = '!p@a##g$a%s%o^ro&s*i(())'
 
 String.class_eval do
   def to_f_ptBR
