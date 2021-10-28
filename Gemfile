@@ -17,7 +17,7 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 
 gem 'swagger-blocks'
-gem 'swagger_ui_engine'
+gem 'swagger_ui_engine' # https://petstore.swagger.io/ para validar interface mais nova
 
 gem 'jwt'
 
