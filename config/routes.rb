@@ -113,15 +113,18 @@ Rails.application.routes.draw do
   get 'login', to: 'login#index'
   get 'logout', to: 'login#logout'
   post 'autentica', to: 'login#autentica'
-  post 'api/login', to: 'login#autentica_api'
   post 'recarga/confirma', to: 'recarga#confirma', as: "recarga_confirma"
-  post 'api/recarga/confirma', to: 'recarga#confirma', as: "api_recarga_confirma"
 
   get 'alterar-senha', to: 'login#alterar_senha'
   post 'alterar-senha', to: 'login#mudar_senha'
   get 'password-esquecida', to: 'login#password_esquecida'
   post 'password-esquecida', to: 'login#recuperar_password_esquecida'
   get 'primeiro-acesso', to: 'login#primeiro_acesso'
+
+
+  get 'api/usuarios/:id', to: 'usuarios#show'
+  post 'api/login', to: 'login#autentica_api'
+  post 'api/recarga/confirma', to: 'recarga#confirma', as: "api_recarga_confirma"
   
   resources :return_code_apis
   resources :matrix_users
