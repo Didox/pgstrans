@@ -17,11 +17,11 @@ ActiveRecord::Schema.define(version: 2021_07_02_115309) do
 
   create_table "alegacao_de_pagamentos", force: :cascade do |t|
     t.bigint "usuario_id"
-    t.float "valor_deposito", null: false
-    t.datetime "data_deposito", null: false
-    t.string "numero_talao", null: false
+    t.float "valor_deposito"
+    t.datetime "data_deposito"
+    t.string "numero_talao"
     t.bigint "banco_id"
-    t.string "comprovativo", null: false
+    t.string "comprovativo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "status_alegacao_de_pagamento_id"
@@ -130,8 +130,6 @@ ActiveRecord::Schema.define(version: 2021_07_02_115309) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["grupo_id"], name: "index_grupo_registros_on_grupo_id"
-    t.index ["modelo"], name: "grupo_registros_modelo_idx"
-    t.index ["modelo_id"], name: "grupo_registros_modelo_id_idx"
   end
 
   create_table "grupo_usuarios", force: :cascade do |t|

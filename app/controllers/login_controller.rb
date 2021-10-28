@@ -79,7 +79,7 @@ class LoginController < ApplicationController
         payload = {
           id: usuario.id,
           nome: usuario.nome,
-          email: usuario.email,
+          updated_at: usuario.updated_at,
           senha: usuario.senha
         }
 
