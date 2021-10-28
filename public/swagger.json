@@ -9,8 +9,7 @@
       "email": "rosi.volgarin@gmail.com"
     }
   },
-  "host": "aoa.recarga.pagaso.co.ao",
-  "basePath": "/v2",
+  "host": "localhost:3000",
   "tags": [
     {
       "name": "Recarga",
@@ -22,7 +21,8 @@
     }
   ],
   "schemes": [
-    "https"
+    "https",
+    "http"
   ],
   "paths": {
     "/api/recarga/confirma.json": {
@@ -130,13 +130,13 @@
         "parameters": [
           {
             "name": "email",
-            "description": "Email para login",
+            "description": "Email ou login para acesso",
             "required": true,
             "type": "string"
           },
           {
             "name": "senha",
-            "description": "Senha para login",
+            "description": "Senha de acesso",
             "required": true,
             "type": "string"
           }
@@ -152,6 +152,123 @@
             "description": "Ação não autorizada",
             "schema": {
               "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/usuarios.json": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Cadastro de novo usuário",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "nome",
+            "description": "Nome do usuário",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "description": "Email para login",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "senha",
+            "description": "Senha para login",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perfil_usuario_id",
+            "description": "Id do perfil do usuário",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "sub_agente_id",
+            "description": "Id do subagente",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "status_cliente_id",
+            "description": "Id do status do cliente",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "morada",
+            "description": "morada",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bairro",
+            "description": "bairro",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "municipio_id",
+            "description": "municipio_id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "provincia_id",
+            "description": "provincia_id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "industry_id",
+            "description": "industry_id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "uni_pessoal_empresa_id",
+            "description": "uni_pessoal_empresa_id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "data_adesao",
+            "description": "data_adesao",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "telefone",
+            "description": "telefone",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "whatsapp",
+            "description": "whatsapp",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/usuario_create"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_usuario"
             }
           }
         }
@@ -173,15 +290,29 @@
         "status": { "type": "string" }
       }
     },
+    "falha_usuario": {
+      "type": "object",
+      "properties": {
+        "mensagem": { "type": "string" }
+      }
+    },
     "usuario": {
       "type": "object",
       "properties": {
-
         "id": { "type": "integer" },
         "nome": { "type": "string" },
         "email": { "type": "string" },
         "updated_at": { "type": "string" },
         "token": { "type": "string" }
+      }
+    },
+    "usuario_create": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "email": { "type": "string" },
+        "saldo": { "type": "string" }
       }
     }
   }

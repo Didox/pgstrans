@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
       unless @adm.logado
         cookies[:usuario_pgstrans_oauth] = nil
         @adm = nil
+
+        if request.path_parameters[:format] == 'json'
+          render json: {mensagem: "Área restrita. Digite o login e palavra-passe para entrar."}, status: 401
+          return
+        end
+
         redirect_to login_path
         return
       end
@@ -24,12 +30,14 @@ class ApplicationController < ActionController::Base
     def validate_login
       if request.path_parameters[:format] == 'json'
         authorization = request.headers['Authorization']
-        bearer, token = authorization.split(" ")
-        if bearer.to_s.downcase == "bearer" && token.present?
-          begin
-            usuario, algoritmo = JWT.decode(token, SECRET_JWT, true, { algorithm: 'HS256' })
-            @adm = Usuario.find(usuario["id"])
-          rescue;end
+        if authorization.present?
+          bearer, token = authorization.split(" ")
+          if bearer.to_s.downcase == "bearer" && token.present?
+            begin
+              usuario, algoritmo = JWT.decode(token, SECRET_JWT, true, { algorithm: 'HS256' })
+              @adm = Usuario.find(usuario["id"])
+            rescue;end
+          end
         end
       end
 
@@ -37,7 +45,7 @@ class ApplicationController < ActionController::Base
         if cookies[:usuario_pgstrans_oauth].blank? || cookies[:usuario_pgstrans_oauth_time].blank?
           flash[:error] = "Área restrita. Digite o login e palavra-passe para entrar."
 
-          if self.class.to_s == "RecargaController" 
+          if request.path_parameters[:format] == 'json'
             render json: {mensagem: "Área restrita. Digite o login e palavra-passe para entrar."}, status: 401
             return
           end
@@ -66,24 +74,22 @@ class ApplicationController < ActionController::Base
 	      return true if self.class.to_s == "WelcomeController" || self.class.to_s == "GrupoUsuariosController"
 
         if administrador.acessos.blank?
-          flash[:erro] = "Usuário sem permissão de acesso a página"
-
-          if self.class.to_s == "RecargaController"
+          if request.path_parameters[:format] == 'json'
             render json: {mensagem: "Usuário sem permissão de acesso a página"}, status: 401
             return
           end
 
+          flash[:erro] = "Usuário sem permissão de acesso a página"
           redirect_to "/"
           return false
         else
           unless administrador.acessos.include? "#{self.class}::#{params[:action]}"
-            flash[:erro] = "Usuário sem permissão de acesso a página"
-
-            if self.class.to_s == "RecargaController"
+            if request.path_parameters[:format] == 'json'
               render json: {mensagem: "Usuário sem permissão de acesso a página"}, status: 401
               return
             end
             
+            flash[:erro] = "Usuário sem permissão de acesso a página"
             redirect_to "/"
             return false
           end

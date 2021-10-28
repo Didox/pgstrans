@@ -122,6 +122,7 @@ Rails.application.routes.draw do
   get 'primeiro-acesso', to: 'login#primeiro_acesso'
 
 
+  post 'api/usuarios/', to: 'usuarios#create_api'
   get 'api/usuarios/:id', to: 'usuarios#show'
   post 'api/login', to: 'login#autentica_api'
   post 'api/recarga/confirma', to: 'recarga#confirma', as: "api_recarga_confirma"

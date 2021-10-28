@@ -46,6 +46,7 @@ class PerfilUsuario < ApplicationRecord
       index: "(INDEX) Mostrar a lista de todos os registos ou serviços dessa sessão",
       update: "(UPDATE) Permitir a atualização de registo",
       create: "(CREATE) Pemitir a efetivação da criação de um novo registo",
+      create_api: "(CREATE) Pemitir a efetivação da criação de um novo registo pela API",
       destroy: "(DELETE) Permitir apagar registo",
       show: "(SHOW) Permitir mostrar detalhes do registo",
       edit: "(EDIT) Permitir mostrar tela de edição do registo",
