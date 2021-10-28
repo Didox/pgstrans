@@ -16,6 +16,9 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 
+gem 'swagger-blocks'
+gem 'swagger_ui_engine'
+
 gem 'jwt'
 
 # Use CoffeeScript for .coffee assets and views

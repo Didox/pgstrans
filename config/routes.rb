@@ -104,6 +104,8 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
+  mount SwaggerUiEngine::Engine, at: "/api_docs"
+
   get 'descontos', to: 'descontos#index'
   get 'descontos/lucros', to: 'descontos#lucros', as: "descontos_lucros"
 
