@@ -273,6 +273,31 @@
           }
         }
       }
+    },
+    "/api/usuarios/{id}.json": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Mostra de novo usuário",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/usuario_create"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_usuario"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
