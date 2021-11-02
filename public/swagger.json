@@ -73,7 +73,7 @@
             "name": "valor",
             "description": "Valor de compra",
             "required": true,
-            "type": "float"
+            "type": "number"
           },
           {
             "name": "movicel_telefone",
@@ -303,7 +303,7 @@
         }
       }
     },
-    "/api/adicionar-saldo-conta-corrente.json": {
+    "/api/conta-corrente/adicionar-saldo.json": {
       "post": {
         "tags": [
           "ContaCorrente"
@@ -371,7 +371,121 @@
           }
         }
       }
+    },
+    "/api/conta-corrente/extrato.json": {
+      "post": {
+        "tags": [
+          "ContaCorrente"
+        ],
+        "description": "Retorna extrato do usuário",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "description": "Pagina corrente, paginação - Padrão (1)",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "data_alegacao_pagamento_inicio",
+            "description": "Data de Lançamento Início",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "data_alegacao_pagamento_fim",
+            "description": "Data de Lançamento Fim",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "data_ultima_atualizacao_saldo_inicio",
+            "description": "Data da Última Atualiz. Início",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "data_ultima_atualizacao_saldo_fim",
+            "description": "Data da Última Atualiz. Fim",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "login",
+            "description": "Login do Usuário",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "nome",
+            "description": "Nome do Usuário",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "perfil_usuario_id",
+            "description": "Perfil do Usuário",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "ID Interno Usuário",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "description": "Situação do Usuário",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "responsavel",
+            "description": "Responsável pela Aprovação",
+            "required": false,
+            "type": "string"
+          },
+            {
+              "name": "iban",
+            "description": "IBAN ou Número do Talão",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "lancamento_id",
+            "description": "Tipo de Lançamento",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "observacao",
+            "description": "Observação",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/conta_corrente_index"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
     }
+
+
+
   },
   "definitions": {
     "recarga": {
@@ -429,6 +543,12 @@
         "observacao": { "type": "string" },
         "created_at": { "type": "string" },
         "updated_at": { "type": "string" }
+      }
+    },
+    "conta_corrente_index": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/conta_corrente"
       }
     }
   }

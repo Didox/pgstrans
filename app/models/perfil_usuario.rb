@@ -44,6 +44,7 @@ class PerfilUsuario < ApplicationRecord
     nomes = {
       new: "Mostrar a tela que permite a inclusão de um novo registo",
       index: "(INDEX) Mostrar a lista de todos os registos ou serviços dessa sessão",
+      index_api: "(INDEX) Mostrar a lista de todos os registos ou serviços dessa sessão pela API",
       update: "(UPDATE) Permitir a atualização de registo",
       create: "(CREATE) Pemitir a efetivação da criação de um novo registo",
       create_api: "(CREATE) Pemitir a efetivação da criação de um novo registo pela API",
