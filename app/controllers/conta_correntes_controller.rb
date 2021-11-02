@@ -2,8 +2,10 @@ class ContaCorrentesController < ApplicationController
   before_action :set_conta_corrente, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
 
-  # GET /conta_correntes
-  # GET /conta_correntes.json
+  def index_api
+    index
+  end
+
   def index
     if usuario_logado.admin? || usuario_logado.operador?
       @conta_correntes = ContaCorrente.all

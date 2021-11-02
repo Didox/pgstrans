@@ -124,9 +124,10 @@ Rails.application.routes.draw do
 
   post 'api/usuarios/', to: 'usuarios#create_api'
   get 'api/usuarios/:id', to: 'usuarios#show_api'
-  post 'api/adicionar-saldo-conta-corrente', to: 'conta_correntes#create_api'
   post 'api/login', to: 'login#autentica_api'
   post 'api/recarga/confirma', to: 'recarga#confirma_api', as: "api_recarga_confirma"
+  post 'api/conta-corrente/adicionar-saldo', to: 'conta_correntes#create_api'
+  get 'api/conta-corrente/extrato', to: 'conta_correntes#index_api'
   
   resources :return_code_apis
   resources :matrix_users
