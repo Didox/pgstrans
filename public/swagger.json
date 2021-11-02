@@ -1,12 +1,15 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Está é a documentação da API",
+    "description": "A plataforma
+    Pagasó prevê a resposta a requisições no formato JSON (um formato
+    compacto, de padrão aberto independente, de troca de dados simples
+    e rápida (parsing) entre sistemas. Esta é a documentação da Pagasó API.",
     "version": "1.0.5",
     "title": "Pagasó API",
-    "termsOfService": "http://swagger.io/terms/",
+    "termsOfService": "https://www.pagaso.co.ao/pages/policies?locale=pt",
     "contact": {
-      "email": "rosi.volgarin@gmail.com"
+      "email": "rosi.volgarin@tiv-tecnologia.com"
     }
   },
   "host": "localhost:3000",
@@ -17,7 +20,7 @@
     },
     {
       "name": "Usuarios",
-      "description": "Para itens relacionados a usuários"
+      "description": "Para itens relacionados a usuários (consumidor final)"
     },
     {
       "name": "ContaCorrente",
@@ -41,31 +44,31 @@
         "parameters": [
           {
             "name": "tipo_venda",
-            "description": "Ex: Unitel, Movicel ...",
+            "description": "Ex: Unitel, Movicel, DSTV, ZAPTV ...",
             "required": true,
             "type": "string"
           },
           {
             "name": "unitel_produto_id",
-            "description": "{ID}- {Valor}",
+            "description": "{ID}- {Valor} - Conforme tabela de produtos",
             "required": false,
             "type": "string"
           },
           {
             "name": "movicel_produto_id",
-            "description": "{ID}- {Valor}",
+            "description": "{ID}- {Valor} - Conforme tabela de produtos",
             "required": false,
             "type": "string"
           },
           {
             "name": "dstv_produto_id",
-            "description": "{ID}- {Valor}",
+            "description": "{ID}- {Valor} - Conforme tabela de produtos",
             "required": false,
             "type": "string"
           },
           {
             "name": "zaptv_produto_id",
-            "description": "{ID}- {Valor}",
+            "description": "{ID}- {Valor} - Conforme tabela de produtos",
             "required": false,
             "type": "string"
           },
@@ -73,35 +76,35 @@
             "name": "valor",
             "description": "Valor de compra",
             "required": true,
-            "type": "float"
+            "type": "number"
           },
           {
             "name": "movicel_telefone",
-            "description": "Telefone recarga",
+            "description": "Telefone recarga, caso seja uma recarga da Movicel",
             "required": false,
             "type": "string"
           },
           {
             "name": "dstv_customer_number",
-            "description": "DSTV customer number",
+            "description": "DSTV customer number, caso seja uma recarga da DSTV",
             "required": false,
             "type": "string"
           },
           {
             "name": "zaptv_cartao",
-            "description": "ZAP Cartão",
+            "description": "ZAP Cartão, caso seja uma recarga da ZAP",
             "required": false,
             "type": "string"
           },
           {
             "name": "unitel_telefone",
-            "description": "Unitel Telefone",
+            "description": "Unitel Telefone, caso seja uma recarga da Unitel",
             "required": false,
             "type": "string"
           },
           {
             "name": "talao_sms",
-            "description": "Talão SMS",
+            "description": "Talão SMS, para envio da confirmação da recarga, caso o serviço esteja disponível",
             "required": false,
             "type": "string"
           }
@@ -134,13 +137,13 @@
         "parameters": [
           {
             "name": "email",
-            "description": "Email ou login para acesso",
+            "description": "E-mail ou login para acesso",
             "required": true,
             "type": "string"
           },
           {
             "name": "senha",
-            "description": "Senha de acesso",
+            "description": "Palavra-passe de acesso",
             "required": true,
             "type": "string"
           }
