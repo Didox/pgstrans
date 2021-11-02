@@ -3,6 +3,10 @@ class MunicipiosController < ApplicationController
   
   # GET /municipios
   # GET /municipios.json
+  def index_api
+    index
+  end
+
   def index
     @municipios = Municipio.com_acesso(usuario_logado).order(nome: :asc)  
     

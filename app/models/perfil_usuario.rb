@@ -44,6 +44,9 @@ class PerfilUsuario < ApplicationRecord
     nomes = {
       new: "Mostrar a tela que permite a inclusão de um novo registo",
       produtos_api: "Mostrar produtos para ser utilizados na API",
+      produtos_zap_api: "Mostrar produtos ZAP para ser utilizados na API",
+      produtos_movicel_api: "Mostrar produtos Movicel para ser utilizados na API",
+      produtos_unitel_api: "Mostrar produtos Unitel para ser utilizados na API",
       index: "(INDEX) Mostrar a lista de todos os registos ou serviços dessa sessão",
       index_api: "(INDEX) Mostrar a lista de todos os registos ou serviços dessa sessão pela API",
       update: "(UPDATE) Permitir a atualização de registo",

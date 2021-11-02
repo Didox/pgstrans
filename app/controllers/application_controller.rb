@@ -25,6 +25,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def formata_numero_duas_casas(numero)
+    helper.number_to_currency(numero.to_f, :precision => 2).downcase.gsub(/kz|\./,"").gsub(",",".")
+  end
+
+  def helper
+    @helper ||= Class.new do
+      include ActionView::Helpers::NumberHelper
+    end.new
+  end
+
   private
 
     def validate_login

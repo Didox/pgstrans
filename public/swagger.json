@@ -123,7 +123,7 @@
       }
     },
     "/api/recarga/dstv-produtos.json": {
-      "post": {
+      "get": {
         "tags": [
           "Recarga"
         ],
@@ -137,6 +137,84 @@
             "description": "Operação de sucesso",
             "schema": {
               "$ref": "#/definitions/produtos_dstv"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/unitel-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos Unitel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_dstv"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/movicel-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos Movicel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/zap-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos ZAPTV",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga"
             }
           },
           "401": {
@@ -176,6 +254,84 @@
             "description": "Operação de sucesso",
             "schema": {
               "$ref": "#/definitions/usuario"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/municipios.json": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Municípios para cadastro de usuários",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/objs_simples"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/provincias.json": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Províncias para cadastro de usuários",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/provincias"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/industries.json": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Municípios para cadastro de usuários",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/industries"
             }
           },
           "401": {
@@ -399,7 +555,7 @@
       }
     },
     "/api/conta-corrente/extrato.json": {
-      "post": {
+      "get": {
         "tags": [
           "ContaCorrente"
         ],
@@ -583,11 +739,69 @@
         "$ref" : "#/definitions/produto_dstv"
       }
     },
+    "produtos_recarga": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/produto_recarga"
+      }
+    },
     "produto_recarga": {
       "type": "object",
       "properties": {
         "nome": { "type": "string" },
         "valor": { "type": "string" }
+      }
+    },
+    "objs_simples": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/obj_simples"
+      }
+    },
+    "obj_simples": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "created_at": { "type": "string" },
+        "updated_at": { "type": "string" }
+      }
+    },
+    "provincias": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/provincia"
+      }
+    },
+    "provincia": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "capital": { "type": "string" },
+        "area_km2": { "type": "string" },
+        "population": { "type": "integer" },
+        "image_map": { "type": "string" },
+        "country_id": { "type": "integer" },
+        "created_at": { "type": "string" },
+        "updated_at": { "type": "string" }
+      }
+    },
+    "industries": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/industry"
+      }
+    },
+    "industry": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "descricao_seccao": { "type": "string" },
+        "descricao_divisao": { "type": "string" },
+        "descricao_grupo": { "type": "string" },
+        "created_at": { "type": "string" },
+        "updated_at": { "type": "string" }
       }
     },
     "produto_dstv": {

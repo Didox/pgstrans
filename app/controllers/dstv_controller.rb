@@ -51,7 +51,6 @@ class DstvController < ApplicationController
     return render json: produtos_api.to_json, status: 200
   end
 
-
   def alteracao_pacote;end
   def alteracao_pacote_fazer
     return flash[:error] = "Selecione pelo menos um produto" if params[:produtos].blank?
@@ -70,16 +69,6 @@ class DstvController < ApplicationController
     @info = Dstv.alteracao_plano_mensal_anual(params[:produto_id_parceiro], params[:customer_number], params[:tipo_plano], request.remote_ip, usuario_logado)
   rescue Exception => e
     flash[:mensagem_erro_fatura] = e.message
-  end
-
-  def formata_numero_duas_casas(numero)
-    helper.number_to_currency(numero.to_f, :precision => 2).downcase.gsub(/kz|\./,"").gsub(",",".")
-  end
-
-  def helper
-    @helper ||= Class.new do
-      include ActionView::Helpers::NumberHelper
-    end.new
   end
   
 end

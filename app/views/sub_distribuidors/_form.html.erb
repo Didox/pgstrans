@@ -50,7 +50,20 @@
           <%= f.select :provincia_id, Provincium.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
 
-        <div class="form-actions col-sm-12">
+        <div class="form-input col-sm-6">
+          <%= f.input :ramo_negociacao, placeholder: "Ramo Negociação" %>
+        </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.input :site, placeholder: "Site" %>
+        </div>
+
+        <div class="form-input col-sm-6">
+          <%= f.label :interface_operacao, "Interface Operação" %>
+          <%= f.select :interface_operacao, ["API", "Web"].map{|d| [d, d]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
+        </div>
+
+        <div class="form-actions col-sm-12"><br>
           <%= f.button :button, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-ok"></span>
             Confirmar

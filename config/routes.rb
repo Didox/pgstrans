@@ -125,12 +125,19 @@ Rails.application.routes.draw do
   post 'api/usuarios/', to: 'usuarios#create_api'
   get 'api/usuarios/:id', to: 'usuarios#show_api'
   post 'api/login', to: 'login#autentica_api'
-  
+
   post 'api/recarga/confirma', to: 'recarga#confirma_api', as: "api_recarga_confirma"
   get 'api/recarga/dstv-produtos', to: 'dstv#produtos_api'
+  get 'api/recarga/zap-produtos', to: 'produtos#produtos_zap_api'
+  get 'api/recarga/movicel-produtos', to: 'produtos#produtos_movicel_api'
+  get 'api/recarga/unitel-produtos', to: 'produtos#produtos_unitel_api'
 
   post 'api/conta-corrente/adicionar-saldo', to: 'conta_correntes#create_api'
   get 'api/conta-corrente/extrato', to: 'conta_correntes#index_api'
+
+  get 'api/municipios', to: 'municipios#index_api'
+  get 'api/provincias', to: 'provincia#index_api'
+  get 'api/industries', to: 'industries#index_api'
   
   resources :return_code_apis
   resources :matrix_users

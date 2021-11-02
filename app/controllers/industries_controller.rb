@@ -3,6 +3,10 @@ class IndustriesController < ApplicationController
 
   # GET /industries
   # GET /industries.json
+  def index_api
+    index
+  end
+
   def index
     @industries = Industry.com_acesso(usuario_logado).order(descricao_seccao: :asc, descricao_divisao: :asc, descricao_grupo: :asc)
 
