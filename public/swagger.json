@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "A plataforma Pagasó prevê a resposta requisições no formato JSON, um formato compacto, de padrão aberto independente, de troca de dados simples e rápida (parsing) entre sistemas. Esta é a documentação da Pagasó API.",
+    "description": "A plataforma Pagasó prevê a resposta requisições no formato JSON, que é um formato compacto, de padrão aberto independente, para troca de dados simples e rápida (parsing) entre sistemas. Esta é a documentação da Pagasó API.",
     "version": "1.0.5",
     "title": "Pagasó API",
     "termsOfService": "https://www.pagaso.co.ao/pages/policies?locale=pt",
@@ -13,7 +13,7 @@
   "tags": [
     {
       "name": "Recarga",
-      "description": "Para compras de créditos"
+      "description": "Para compras de recarga"
     },
     {
       "name": "Usuarios",
@@ -71,7 +71,7 @@
           },
           {
             "name": "valor",
-            "description": "Valor de compra",
+            "description": "Valor de compra (KZ)",
             "required": true,
             "type": "number"
           },
@@ -179,7 +179,7 @@
           },
           {
             "name": "email",
-            "description": "Email para login",
+            "description": "E-mail para login",
             "required": true,
             "type": "string"
           },
@@ -333,7 +333,7 @@
           },
           {
             "name": "Valor",
-            "description": "Valor a ser acrescentado",
+            "description": "Valor a ser acrescentado (KZ)",
             "required": true,
             "type": "string"
           },
