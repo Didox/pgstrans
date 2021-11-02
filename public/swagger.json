@@ -18,6 +18,10 @@
     {
       "name": "Usuarios",
       "description": "Para itens relacionados a usuários"
+    },
+    {
+      "name": "ContaCorrente",
+      "description": "Para alterações em conta corrente"
     }
   ],
   "schemes": [
@@ -298,6 +302,75 @@
           }
         }
       }
+    },
+    "/api/adicionar-saldo-conta-corrente.json": {
+      "post": {
+        "tags": [
+          "ContaCorrente"
+        ],
+        "description": "Adiciona saldo na conta corrente",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "usuario_id",
+            "description": "ID do Usuário que será acrescentado o saldo",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "lancamento_id",
+            "description": "Tipo do lançamento",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "banco_id",
+            "description": "Id do banco",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "Valor",
+            "description": "Valor a ser acrescentado",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Iban",
+            "description": "Iban da operação",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "data_alegacao_pagamento",
+            "description": "Data movimentação",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "observacao",
+            "description": "Observação",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/conta_corrente"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -338,6 +411,24 @@
         "nome": { "type": "string" },
         "email": { "type": "string" },
         "saldo": { "type": "string" }
+      }
+    },
+    "conta_corrente": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "usuario_id": { "type": "string" },
+        "lancamento_id": { "type": "string" },
+        "banco_id": { "type": "string" },
+        "valor": { "type": "number" },
+        "iban": { "type": "string" },
+        "data_alegacao_pagamento": { "type": "string" },
+        "saldo_anterior": { "type": "number" },
+        "saldo_atual": { "type": "number" },
+        "data_ultima_atualizacao_saldo": { "type": "string" },
+        "observacao": { "type": "string" },
+        "created_at": { "type": "string" },
+        "updated_at": { "type": "string" }
       }
     }
   }

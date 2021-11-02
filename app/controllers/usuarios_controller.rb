@@ -1,7 +1,7 @@
 class UsuariosController < ApplicationController
-  before_action :set_usuario, only: [:show, :edit, :update, :destroy]
+  before_action :set_usuario, only: [:show, :show_api, :edit, :update, :destroy]
   before_action :verifica_permissao, only: [:edit, :create, :update, :destroy]
-  skip_before_action :verify_authenticity_token, only: [:zerar_saldo, :create_api]
+  skip_before_action :verify_authenticity_token, only: [:zerar_saldo, :create_api, :show_api]
   
   # GET /usuarios
   # GET /usuarios.json
@@ -97,6 +97,10 @@ class UsuariosController < ApplicationController
   def show
   end
 
+  def show_api
+    show
+  end
+
   # GET /usuarios/new
   def new
     @usuario = Usuario.new
@@ -185,16 +189,10 @@ class UsuariosController < ApplicationController
       @usuario.responsavel = usuario_logado
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def usuario_params
-      if request.path_parameters[:format] == 'json'
-        params.permit(:nome, :email, :senha, :perfil_usuario_id, 
+      parametros = request.path_parameters[:format] == 'json' ? params : params.require(:usuario)
+      parametros.permit(:nome, :email, :senha, :perfil_usuario_id, 
           :sub_agente_id, :status_cliente_id, :morada, :bairro, :municipio_id, 
           :provincia_id, :industry_id, :uni_pessoal_empresa_id, :data_adesao, :telefone, :whatsapp)
-      else
-        params.require(:usuario).permit(:nome, :email, :senha, :perfil_usuario_id, 
-          :sub_agente_id, :status_cliente_id, :morada, :bairro, :municipio_id, 
-          :provincia_id, :industry_id, :uni_pessoal_empresa_id, :data_adesao, :telefone, :whatsapp)
-      end
     end
 end
