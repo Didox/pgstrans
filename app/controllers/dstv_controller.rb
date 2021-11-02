@@ -33,6 +33,25 @@ class DstvController < ApplicationController
     flash[:mensagem_erro_fatura] = e.message
   end
 
+  def produtos_api
+    produtos_api = []
+    produtos = Dstv.produtos_ativos_box_office
+    (produtos.map{|p| p.subtipo}.compact.uniq.sort.select{|s| s.present?} rescue []).each do |subtipo|
+      produtos_api << {
+        subtipo: subtipo,
+        produtos: produtos.where(subtipo: subtipo).map do |produto|
+          {
+            nome: "#{produto.nome_comercial} - #{helper.number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2)}",
+            valor: "#{produto.id}-#{formata_numero_duas_casas(produto.valor_compra_telemovel)}"
+          }
+        end
+      }
+    end
+
+    return render json: produtos_api.to_json, status: 200
+  end
+
+
   def alteracao_pacote;end
   def alteracao_pacote_fazer
     return flash[:error] = "Selecione pelo menos um produto" if params[:produtos].blank?
@@ -51,6 +70,16 @@ class DstvController < ApplicationController
     @info = Dstv.alteracao_plano_mensal_anual(params[:produto_id_parceiro], params[:customer_number], params[:tipo_plano], request.remote_ip, usuario_logado)
   rescue Exception => e
     flash[:mensagem_erro_fatura] = e.message
+  end
+
+  def formata_numero_duas_casas(numero)
+    helper.number_to_currency(numero.to_f, :precision => 2).downcase.gsub(/kz|\./,"").gsub(",",".")
+  end
+
+  def helper
+    @helper ||= Class.new do
+      include ActionView::Helpers::NumberHelper
+    end.new
   end
   
 end

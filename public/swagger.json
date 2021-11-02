@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "A plataforma Pagasó prevê a resposta requisições no formato JSON, que é um formato compacto, de padrão aberto independente, para troca de dados simples e rápida (parsing) entre sistemas. Esta é a documentação da Pagasó API.",
+    "description": "A plataforma Pagasó prevê a resposta a requisições no formato JSON (um formato compacto, de padrão aberto independente, de troca de dados simples e rápida (parsing) entre sistemas. Esta é a documentação da Pagasó API.",
     "version": "1.0.5",
     "title": "Pagasó API",
     "termsOfService": "https://www.pagaso.co.ao/pages/policies?locale=pt",
@@ -111,6 +111,32 @@
             "description": "Operação de sucesso",
             "schema": {
               "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/dstv-produtos.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos DSTV",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_dstv"
             }
           },
           "401": {
@@ -550,6 +576,32 @@
       "items" : {
         "$ref" : "#/definitions/conta_corrente"
       }
+    },
+    "produtos_dstv": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/produto_dstv"
+      }
+    },
+    "produto_recarga": {
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" },
+        "valor": { "type": "string" }
+      }
+    },
+    "produto_dstv": {
+      "type": "object",
+      "properties": {
+        "subtipo": { "type": "string" },
+        "produtos": {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/produto_recarga"
+          }
+        }
+      }
     }
+
   }
 }

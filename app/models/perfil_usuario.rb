@@ -43,6 +43,7 @@ class PerfilUsuario < ApplicationRecord
   def self.action_amigavel(action)
     nomes = {
       new: "Mostrar a tela que permite a inclusão de um novo registo",
+      produtos_api: "Mostrar produtos para ser utilizados na API",
       index: "(INDEX) Mostrar a lista de todos os registos ou serviços dessa sessão",
       index_api: "(INDEX) Mostrar a lista de todos os registos ou serviços dessa sessão pela API",
       update: "(UPDATE) Permitir a atualização de registo",
