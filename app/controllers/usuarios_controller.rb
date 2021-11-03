@@ -193,7 +193,7 @@ class UsuariosController < ApplicationController
       if request.path_parameters[:format] == 'json'
         parametros = params 
         parametros[:perfil_usuario_id] = PerfilUsuario.consumidor_final.id
-        # parametros[:perfil_usuario_id] = usuario_logado.
+        parametros[:sub_agente_id] = usuario_logado.sub_agente_id
       else
         parametros = params.require(:usuario)
       end
