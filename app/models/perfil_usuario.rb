@@ -7,6 +7,15 @@ class PerfilUsuario < ApplicationRecord
 	 []
   end
 
+  def consumidor_final
+    PerfilUsuario.where("lower(nome) = 'consumidor final'").first
+  end
+
+  def destroy
+    rescue "Exclusão não permitida" if self.id == PerfilUsuario.consumidor_final.id
+    super
+  end
+
   def acessos_actions
     acessos_parse.map{|a|a["acesso"]}
   rescue

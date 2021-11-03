@@ -190,7 +190,13 @@ class UsuariosController < ApplicationController
     end
 
     def usuario_params
-      parametros = request.path_parameters[:format] == 'json' ? params : params.require(:usuario)
+      if request.path_parameters[:format] == 'json'
+        parametros = params 
+        parametros[:perfil_usuario_id] = PerfilUsuario.consumidor_final.id
+      else
+        parametros = params.require(:usuario)
+      end
+
       parametros.permit(:nome, :email, :senha, :perfil_usuario_id, 
           :sub_agente_id, :status_cliente_id, :morada, :bairro, :municipio_id, 
           :provincia_id, :industry_id, :uni_pessoal_empresa_id, :data_adesao, :telefone, :whatsapp)

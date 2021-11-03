@@ -372,12 +372,6 @@
             "type": "string"
           },
           {
-            "name": "perfil_usuario_id",
-            "description": "Id do perfil do usuário",
-            "required": false,
-            "type": "integer"
-          },
-          {
             "name": "sub_agente_id",
             "description": "Id do subagente",
             "required": false,
