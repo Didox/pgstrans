@@ -208,9 +208,10 @@
     <br>
     <script>
       $(document).ready(function(){
+        var params = window.location.href.split("?")[1]
         $.ajax({
           type: "GET",
-          url: "/vendas_grafico",
+          url: "/vendas_grafico?" + params,
           success: function(data){
             $("#grafico").html(data);
           }
