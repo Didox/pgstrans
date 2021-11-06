@@ -201,38 +201,6 @@
     </form>
   </div>
 
-  <div class="scroltable col-md-12" style="overflow:hidden">
-    <% if Venda.total_acesso(@adm, @vendas_graficos) > 0 %>
-      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-      <script type="text/javascript">
-        google.charts.load("current", {packages:["corechart"]});
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Operadora', 'Vendas'],
-            <% 
-            if params[:status_parceiro_id].blank?
-              @partners = Partner.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL)
-            else
-              @partners = Partner.where(status_parceiro_id: params[:status_parceiro_id])
-            end
-            @partners.each do |partner| %>
-              ['<%= partner.name %>',  <%= partner.total_vendas_acesso(@adm, @vendas_graficos) %>],
-            <% end %>
-          ]);
-
-          var options = {
-            title: 'TOTAL DE RECARGAS OU TRANSAÇÕES',
-            is3D: true,
-          };
-
-          var chart = new google.visualization.PieChart(document.getElementById('grafico_vendas'));
-          chart.draw(data, options);
-        }
-      </script>
-      <div id="grafico_vendas" style="width: 100%; height: 300px;"></div>
-    <% end %>
-  </div>
   <div class="scroltable col-md-12">
     <h4>
       Quantidade de recargas ou transações: <%= number_to_currency(@vendas_total, :precision => 0, :unit => "") %>
