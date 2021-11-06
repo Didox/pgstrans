@@ -12,7 +12,7 @@ class PerfilUsuario < ApplicationRecord
   end
 
   def destroy
-    rescue "Exclusão não permitida" if self.id == PerfilUsuario.consumidor_final.id
+    raise "Exclusão não permitida" if self.id == PerfilUsuario.consumidor_final.id
     super
   end
 
