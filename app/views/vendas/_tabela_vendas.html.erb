@@ -88,15 +88,23 @@
   </tbody>
 </table>
 
-<h4>
-  Total geral: <strong><%= number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
-</h4>
-<h4>
-  Total de lucro: <strong><%= number_to_currency(Venda.total_lucros_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
-</h4>
-<h4>
-  Total de custo: <strong><%= number_to_currency(Venda.total_custo_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
-</h4>
+<div id="resumo_vendas">
+  Carregando resumo ...
+  <br>
+  <br>
+  <script>
+    $(document).ready(function(){
+      $.ajax({
+        type: "GET",
+        url: "/vendas_resumo",
+        success: function(data){
+          $("#resumo_vendas").html(data);
+        }
+      });
+      $(".modal_loader").hide();
+    });
+  </script>
+</div>
 
 <div class="apple_pagination">
   <%= will_paginate @usuarios, :container => false %>

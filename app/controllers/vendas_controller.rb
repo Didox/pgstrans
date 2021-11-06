@@ -1,5 +1,6 @@
 class VendasController < ApplicationController
   before_action :set_venda, only: [:show, :edit, :update, :destroy, :mostrar_resumido]
+  layout "blank", only: [:index_grafico, :index_resumo]
 
   # GET /vendas
   # GET /vendas.json
@@ -7,6 +8,14 @@ class VendasController < ApplicationController
     @vendas = Venda.com_acesso(usuario_logado)
     vendas_busca
     @vendas_total = @vendas.count
+  end
+
+  def index_resumo
+    index
+  end
+
+  def index_grafico
+    index
   end
 
   # GET /vendas/1
