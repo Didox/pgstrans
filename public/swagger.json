@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "A plataforma Pagasó prevê a resposta a requisições no formato JSON (um formato compacto, de padrão aberto independente, de troca de dados simples e rápida (parsing) entre sistemas. Esta é a documentação da Pagasó API.",
+    "description": "A plataforma Pagasó prevê a resposta a requisições no formato JSON, um formato compacto, de padrão aberto independente, para a troca de dados entre sistemas. Esta é a documentação da Pagasó API.",
     "version": "1.0.5",
     "title": "Pagasó API",
     "termsOfService": "https://www.pagaso.co.ao/pages/policies?locale=pt",
@@ -17,7 +17,7 @@
     },
     {
       "name": "Usuarios",
-      "description": "Para itens relacionados a usuários (consumidor final)"
+      "description": "Para login e itens relacionados a usuários (consumidor final)"
     },
     {
       "name": "ContaCorrente",
