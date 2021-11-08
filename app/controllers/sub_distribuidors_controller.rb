@@ -79,6 +79,6 @@ class SubDistribuidorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sub_distribuidor_params
-      params.require(:sub_distribuidor).permit(:nome, :bi, :telefone, :morada, :municipio_id, :provincia_id)
+      params.require(:sub_distribuidor).permit(:nome, :bi, :telefone, :morada, :municipio_id, :provincia_id, :interface_operacao, :site, :ramo_negociacao)
     end
 end
