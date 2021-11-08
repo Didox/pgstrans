@@ -32,7 +32,18 @@
       <strong>Provincia:</strong>
       <%= @sub_distribuidor.provincia.nome %>
     </p>
-
+    <p>
+      <strong>Interface de Operação:</strong>
+      <%= @sub_distribuidor.interface_operacao.nome rescue "" %>
+    </p>
+    <p>
+      <strong>Site:</strong>
+      <%= @sub_distribuidor.site %>
+    </p>
+    <p>
+      <strong>Ramo de Negociação:</strong>
+      <%= @sub_distribuidor.ramo_negociacao %>
+    </p>
     <div class="page-header">
       <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
