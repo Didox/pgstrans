@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_02_205606) do
+ActiveRecord::Schema.define(version: 2021_11_09_105107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -575,12 +575,14 @@ ActiveRecord::Schema.define(version: 2021_11_02_205606) do
     t.string "telefone"
     t.string "whatsapp"
     t.datetime "data_adesao"
+    t.bigint "sub_distribuidor_id", default: 8
     t.index ["industry_id"], name: "index_usuarios_on_industry_id"
     t.index ["municipio_id"], name: "index_usuarios_on_municipio_id"
     t.index ["perfil_usuario_id"], name: "index_usuarios_on_perfil_usuario_id"
     t.index ["provincia_id"], name: "index_usuarios_on_provincia_id"
     t.index ["status_cliente_id"], name: "index_usuarios_on_status_cliente_id"
     t.index ["sub_agente_id"], name: "index_usuarios_on_sub_agente_id"
+    t.index ["sub_distribuidor_id"], name: "index_usuarios_on_sub_distribuidor_id"
     t.index ["uni_pessoal_empresa_id"], name: "index_usuarios_on_uni_pessoal_empresa_id"
   end
 
@@ -664,6 +666,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_205606) do
   add_foreign_key "usuarios", "provincia", column: "provincia_id"
   add_foreign_key "usuarios", "status_clientes"
   add_foreign_key "usuarios", "sub_agentes"
+  add_foreign_key "usuarios", "sub_distribuidors"
   add_foreign_key "usuarios", "uni_pessoal_empresas"
   add_foreign_key "vendas", "lancamentos"
   add_foreign_key "vendas", "partners"

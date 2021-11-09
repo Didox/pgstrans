@@ -143,7 +143,7 @@ class PerfilUsuario < ApplicationRecord
       industries: "Backoffice - Sessão de Tabelas Auxiliares - Tabela de Actividades Económicas",
       usuarios: "Backoffice - Sessão de Usuarios - Tabela de Usuários",
       sub_agentes: "Backoffice - Sessão de Usuários - Tabela de Subagentes",
-      sub_distribuidors: "Backoffice - Sessão de Usuários - Tabela de Subdistribuidores",
+      sub_distribuidors: "Backoffice - Sessão de Usuários - Tabela de Distribuidores",
       master_profiles: "Backoffice - Sessão de Usuários - Tabela de Perfil Master do Usuário",
       partners: "Backoffice - Sessão de Parceiros e Produtos - Tabela de Parceiros",
       welcome: "MENU DO BACKOFFICE",
