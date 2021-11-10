@@ -4,17 +4,16 @@ class MatrixUsersController < ApplicationController
   # GET /matrix_users
   # GET /matrix_users.json
   def index
-    @matrix_users = MatrixUser.com_acesso(usuario_logado).order(usuario_id: :asc)  
+    @usuarios = Usuario.com_acesso(usuario_logado).order(nome: :asc)
 
-    @matrix_users = @matrix_users.joins(:usuario)
-    @matrix_users = @matrix_users.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
-    @matrix_users = @matrix_users.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
-    @matrix_users = @matrix_users.where("matrix_users.master_profile = ?", params[:master_profile_id]) if params[:master_profile_id].present?
-    @matrix_users = @matrix_users.where("matrix_users.sub_distribuidor = ?", params[:sub_distribuidor_id]) if params[:sub_distribuidor_id].present?
-    @matrix_users = @matrix_users.where("matrix_users.sub_agente = ?", params[:sub_agente_id]) if params[:sub_agente_id].present?
+    @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
+    @usuarios = @usuarios.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
+    @usuarios = @usuarios.where("usuarios.perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
+    @usuarios = @usuarios.where("usuarios.sub_distribuidor = ?", params[:sub_distribuidor_id]) if params[:sub_distribuidor_id].present?
+    @usuarios = @usuarios.where("usuarios.sub_agente = ?", params[:sub_agente_id]) if params[:sub_agente_id].present?
 
     options = {page: params[:page] || 1, per_page: 10}
-    @matrix_users = @matrix_users.paginate(options)
+    @usuarios = @usuarios.paginate(options)
   end
 
   # GET /matrix_users/1
