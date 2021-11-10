@@ -41,6 +41,7 @@ class UsuariosController < ApplicationController
     @usuarios = @usuarios.where("data_adesao >= ?", SqlDate.sql_parse(params[:data_adesao_inicio].to_datetime.beginning_of_day)) if params[:data_adesao_inicio].present?
     @usuarios = @usuarios.where("data_adesao <= ?", SqlDate.sql_parse(params[:data_adesao_fim].to_datetime.end_of_day)) if params[:data_adesao_fim].present?
     
+    @usuarios = @usuarios.where(sub_distribuidor_id: params[:sub_distribuidor_id]) if params[:sub_distribuidor_id].present?
     @usuarios = @usuarios.where(sub_agente_id: params[:sub_agente_id]) if params[:sub_agente_id].present?
 
     @usuarios_total = @usuarios.count
@@ -194,12 +195,13 @@ class UsuariosController < ApplicationController
         parametros = params 
         parametros[:perfil_usuario_id] = PerfilUsuario.consumidor_final.id
         parametros[:sub_agente_id] = usuario_logado.sub_agente_id
+        parametros[:sub_distribuidor_id] = usuario_logado.sub_distribuidor_id
       else
         parametros = params.require(:usuario)
       end
 
       parametros.permit(:nome, :email, :senha, :perfil_usuario_id, 
-          :sub_agente_id, :status_cliente_id, :morada, :bairro, :municipio_id, 
+          :sub_agente_id, :sub_distribuidor_id, :status_cliente_id, :morada, :bairro, :municipio_id, 
           :provincia_id, :industry_id, :uni_pessoal_empresa_id, :data_adesao, :telefone, :whatsapp)
     end
 end

@@ -182,7 +182,20 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Subagente</label>
+            <label>Distribuidor</label>
+            <div>
+              <select name="sub_distribuidor_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% SubDistribuidor.all.reorder(nome: :asc).each do |sub_distribuidor| %>
+                  <option value="<%= sub_distribuidor.id %>" <% if sub_distribuidor.id.to_s == params[:sub_distribuidor_id] %> selected="selected" <% end %> ><%= sub_distribuidor.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Agente</label>
             <div>
               <select name="sub_agente_id" onchange="pgstrans.carregaSubAgente(this)" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
@@ -222,7 +235,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Grupo de Actividade Económica </label>
             <div>

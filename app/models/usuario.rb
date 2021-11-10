@@ -8,9 +8,10 @@ class Usuario < ApplicationRecord
   belongs_to :sub_agente
   belongs_to :municipio
   belongs_to :status_cliente
+  belongs_to :sub_distribuidor
   
   validates :email, :login, presence: true, uniqueness: true
-  validates :nome, :email, presence: true
+  validates :nome, :email, :sub_distribuidor_id, :sub_agente_id, presence: true
 
   validate :verifica_tamanho_senha
   after_validation :senha_sha1

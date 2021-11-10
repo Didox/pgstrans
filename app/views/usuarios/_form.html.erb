@@ -55,16 +55,25 @@
           <% end %>
         </div>
   
-        <div class="form-input col-sm-5">
-          <%= f.label :sub_agente_id, :label => "Subagente" %>
+        <div class="form-input col-sm-4">
+          <%= f.label :sub_distribuidor_id, :label => "Distribuidor" %>
+          <% if @adm.admin? || @adm.operador? %>
+              <%= f.select :sub_distribuidor_id, SubDistribuidor.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <% else %>
+              <%= f.select :sub_distribuidor_id, SubDistribuidor.where("id = '#{usuario_logado.sub_distribuidor_id}").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <% end %>
+        </div>
+  
+        <div class="form-input col-sm-4">
+          <%= f.label :sub_agente_id, :label => "Agente" %>
           <% if @adm.admin? || @adm.operador? %>
               <%= f.select :sub_agente_id, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% else %>
-              <%= f.select :perfil_usuario_id, SubAgente.where("lower(nome_fantasia) ilike '#{usuario_logado.nome}'").collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+              <%= f.select :sub_agente_id, SubAgente.where("lower(nome_fantasia) ilike '#{usuario_logado.nome}'").collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% end %>
         </div>
 
-        <div class="form-input col-sm-3">
+        <div class="form-input col-sm-2">
           <%= f.label :status_cliente_id, :label => "Situação do Usuário" %>
           <% if @adm.agente? %>
             <%= f.select :status_cliente_id, StatusCliente.where("lower(nome) ilike '%inativo%'").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
@@ -73,7 +82,7 @@
           <% end %>
         </div>
 
-        <div class="form-input col-sm-4">
+        <div class="form-input col-sm-2">
           <%= f.label :data_adesao, "Data da Adesão" %>
           <%= f.date_field :data_adesao, class:"form-control" %>
         </div>
