@@ -109,7 +109,7 @@
           <%= f.input :telefone, :label => "Telefone", placeholder: "Informe o telefone do usuário" %>
         </div>
 
-        <div class="form-input col-sm-4">
+        <div class="form-input col-sm-2">
           <%= f.input :whatsapp, :label => "WhatsApp", placeholder: "Informe o whatsApp do usuário" %>
         </div>
 
@@ -118,9 +118,14 @@
           <%= f.select :uni_pessoal_empresa_id, UniPessoalEmpresa.all.reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
-        <div class="form-input col-sm-5">
+        <div class="form-input col-sm-4">
           <%= f.label :industry_id, "Grupo de Atividade Económica" %>
           <%= f.select :industry_id, Industry.all.reorder("descricao_grupo asc").collect{|d| [d.descricao_grupo, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
+        </div>
+
+        <div class="form-input col-sm-3">
+          <%= f.label :master_profile_id, "Empresa Padrão" %>
+          <%= f.select :master_profile_id, MasterProfile.all.reorder("description asc").collect{|d| [d.description, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
       </div>
 
