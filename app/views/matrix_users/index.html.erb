@@ -84,6 +84,7 @@
           <th scope="col">Empresa Padrão</th>
           <th scope="col">Distribuidor</th>
           <th scope="col">Agente</th>
+          <th scope="col">Grupos de Acesso</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -103,6 +104,13 @@
             </td>
             <td>
               <%= usuario.sub_agente.nome_fantasia %>
+            </td>
+            <td>
+              <ul>
+                <% usuario.grupo_usuarios.each do |gu| %>
+                  <li><%= gu.grupo.nome %></li>
+                <% end %>
+              </ul>
             </td>
             <td><%= link_to 'Mostrar', usuario %></td>
           </tr>
