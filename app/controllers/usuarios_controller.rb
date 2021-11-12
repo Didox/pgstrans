@@ -34,7 +34,7 @@ class UsuariosController < ApplicationController
 
     if params[:select_usuarios_not_self].present?
       if !usuario_logado.admin? && !usuario_logado.operador?
-        @usuarios = @usuarios.where("usuarios.id not in (?)", usuario_logado.id)
+        @usuarios = @usuarios.where("usuarios.id not in (?) and sub_distribuidor_id = ?", usuario_logado.id, usuario_logado.sub_distribuidor_id)
       end
     end
 
