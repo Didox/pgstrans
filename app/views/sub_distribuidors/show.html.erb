@@ -44,6 +44,26 @@
       <strong>Ramo de Negociação:</strong>
       <%= @sub_distribuidor.ramo_negociacao %>
     </p>
+    
+    <dt>Margem Padrão de Descontos:</dt>
+    <dd>
+      <% Partner.all.each do |partner| %>
+        <div>
+          <b>
+            <%= partner.name %>: 
+          </b>
+          <% 
+          porcentagem = partner.desconto
+          rd = DistribuidorDesconto.where(sub_distribuidor_id: @sub_distribuidor.id, partner_id: partner.id, desconto_parceiro: DescontoParceiro.where(partner_id: partner.id)).first
+          if rd.present?
+            porcentagem = rd.desconto_parceiro.porcentagem
+          end
+          %>
+          <%= porcentagem %>%
+        </div>
+      <% end %>
+    </dd>
+    
     <div class="page-header">
       <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-list-alt"></span>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_111457) do
+ActiveRecord::Schema.define(version: 2021_11_12_104740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,17 @@ ActiveRecord::Schema.define(version: 2021_11_10_111457) do
     t.string "so"
     t.string "ram_rom"
     t.string "conectividade"
+  end
+
+  create_table "distribuidor_descontos", force: :cascade do |t|
+    t.bigint "sub_distribuidor_id"
+    t.bigint "partner_id"
+    t.bigint "desconto_parceiro_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["desconto_parceiro_id"], name: "index_distribuidor_descontos_on_desconto_parceiro_id"
+    t.index ["partner_id"], name: "index_distribuidor_descontos_on_partner_id"
+    t.index ["sub_distribuidor_id"], name: "index_distribuidor_descontos_on_sub_distribuidor_id"
   end
 
   create_table "erro_amigavels", force: :cascade do |t|
@@ -621,6 +632,9 @@ ActiveRecord::Schema.define(version: 2021_11_10_111457) do
   add_foreign_key "conta_correntes", "partners"
   add_foreign_key "conta_correntes", "usuarios"
   add_foreign_key "desconto_parceiros", "partners"
+  add_foreign_key "distribuidor_descontos", "desconto_parceiros"
+  add_foreign_key "distribuidor_descontos", "partners"
+  add_foreign_key "distribuidor_descontos", "sub_distribuidors"
   add_foreign_key "grupo_registros", "grupos"
   add_foreign_key "grupo_usuarios", "grupos"
   add_foreign_key "grupo_usuarios", "usuarios"
