@@ -14,7 +14,6 @@ ActiveRecord::Schema.define(version: 2021_11_12_104740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "unaccent"
 
   create_table "alegacao_de_pagamentos", force: :cascade do |t|
     t.bigint "usuario_id"
