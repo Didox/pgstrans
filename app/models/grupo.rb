@@ -1,5 +1,5 @@
 class Grupo < ApplicationRecord
-  default_scope { order('id asc') }
+  default_scope { order("unaccent(grupos.nome) asc") }
 
   def hierarquia
     self.get_pai

@@ -13,6 +13,8 @@ class RemuneracaosController < ApplicationController
     @remuneracaos = @remuneracaos.where("ativo = ?", params[:ativo]) if params[:ativo].present?
     @remuneracaos = @remuneracaos.where("remuneracaos.vigencia_inicio >= ?", SqlDate.sql_parse(params[:vigencia_inicio_de].to_datetime.beginning_of_day)) if params[:vigencia_inicio_de].present?
     @remuneracaos = @remuneracaos.where("remuneracaos.vigencia_inicio <= ?", SqlDate.sql_parse(params[:vigencia_inicio_ate].to_datetime.end_of_day)) if params[:vigencia_inicio_ate].present?
+    @remuneracaos = @remuneracaos.where("usuarios.sub_distribuidor_id = ?", params[:sub_distribuidor_id]) if params[:sub_distribuidor_id].present?
+    @remuneracaos = @remuneracaos.where("usuarios.sub_agente_id = ?", params[:sub_agente_id]) if params[:sub_agente_id].present?
 
     #@remuneracaos = @remuneracaos.joins(:usuario)
     #@remuneracaos = @remuneracaos.reorder("remuneracao.usuario.nome asc")
