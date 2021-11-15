@@ -61,7 +61,6 @@ namespace :jobs do
           venda.responsavel = pagamento.usuario
           venda.save!
         rescue Exception => erro
-          debugger
           x = ""
         end
       end
@@ -100,7 +99,6 @@ namespace :jobs do
           venda.partner_id = parceiro.id
           venda.save!
         rescue Exception => erro
-          debugger
           x = ""
         end
       end

@@ -92,6 +92,29 @@ class PerfilUsuariosController < ApplicationController
 
     def load_access
       @controllers = []
+
+      @controllers << {
+        nome_amigavel: "Acesso a documentação da API",
+        nome: "SwaggerUiEngine::SwaggerDocsController",
+        actions: [
+          {
+            nome: "index",
+            nome_amigavel: "Doc API",
+            views: []
+          },
+          {
+            nome: "single_doc",
+            nome_amigavel: "Página principal Doc API",
+            views: []
+          },
+          {
+            nome: "show",
+            nome_amigavel: "Mostrar item API",
+            views: []
+          }
+        ]
+      }
+
       controllers = Rails.application.routes.routes.map{|route|route.defaults[:controller]}.uniq
       controllers.each do |controller|
         begin
