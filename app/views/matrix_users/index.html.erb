@@ -39,7 +39,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Distribuidor</label>
             <div>
@@ -52,7 +52,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Agente</label>
             <div>
@@ -60,6 +60,32 @@
                 <option value="" selected="'selected'">Todos</option>
                 <% SubAgente.all.reorder("nome_fantasia asc").each do |sub_agente| %>
                   <option value="<%= sub_agente.id %>" <% if sub_agente.id.to_s == params[:sub_agente_id] %> selected="selected" <% end %> ><%= sub_agente.nome_fantasia %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Empresa Padrão</label>
+            <div>
+              <select name="master_profile_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% MasterProfile.all.reorder("description asc").each do |master_profile| %>
+                  <option value="<%= master_profile.id %>" <% if master_profile.id.to_s == params[:master_profile_id] %> selected="selected" <% end %> ><%= master_profile.description %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Grupo de Acesso</label>
+            <div>
+              <select name="grupo_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Grupo.all.reorder("unaccent(nome) asc").each do |grupo| %>
+                  <option value="<%= grupo.id %>" <% if grupo.id.to_s == params[:grupo_id] %> selected="selected" <% end %> ><%= grupo.nome %></option>
                 <% end %>
               </select>
             </div>

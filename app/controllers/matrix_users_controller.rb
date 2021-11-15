@@ -10,7 +10,12 @@ class MatrixUsersController < ApplicationController
     @usuarios = @usuarios.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
     @usuarios = @usuarios.where("usuarios.perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
     @usuarios = @usuarios.where("usuarios.sub_distribuidor = ?", params[:sub_distribuidor_id]) if params[:sub_distribuidor_id].present?
+    if params[:grupo_id].present?
+      @usuarios = @usuarios.joins("inner join grupo_usuarios on usuarios.id = grupo_usuarios.usuario_id")
+      @usuarios = @usuarios.where("grupo_usuarios.grupo_id = ?", params[:grupo_id])
+    end
     @usuarios = @usuarios.where("usuarios.sub_agente = ?", params[:sub_agente_id]) if params[:sub_agente_id].present?
+    @usuarios = @usuarios.where("usuarios.master_profile_id = ?", params[:master_profile_id]) if params[:master_profile_id].present?
 
     options = {page: params[:page] || 1, per_page: 10}
     @usuarios = @usuarios.paginate(options)
