@@ -94,7 +94,7 @@ class PerfilUsuariosController < ApplicationController
       @controllers = []
 
       @controllers << {
-        nome_amigavel: "Acesso a documentação da API",
+        nome_amigavel: "Acesso à documentação da API",
         nome: "SwaggerUiEngine::SwaggerDocsController",
         actions: [
           {
