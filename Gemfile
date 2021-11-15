@@ -17,8 +17,7 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 
 gem 'swagger-blocks'
-gem 'swagger_ui_engine' # https://petstore.swagger.io/ para validar interface mais nova
-
+gem 'swagger_ui_engine', '2.1.4', :path => "vendor/gems/swagger_ui_engine-1.1.3"
 gem 'jwt'
 
 # Use CoffeeScript for .coffee assets and views
