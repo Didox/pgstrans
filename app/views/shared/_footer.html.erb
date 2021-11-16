@@ -13,3 +13,8 @@
     </div>
  </nav>
  <h3 style="font-size: 25px;margin-top: 10px;"></h3>
+ <% if AMBIENTE_QA.present? %>
+	 <footer class="bg-warning fixed-bottom align-middle w-25 p-3">
+		 <h4>Ambiente de Q&A/Homologação</h4>
+	</nav>
+<% end %>
