@@ -47,7 +47,7 @@
 		  <%= @usuario.created_at %>
 		<hr>
 		  <strong>Tipo de Estabelecimento:</strong>
-		  <%= @usuario.uni_pessoal_empresa.nome %>
+		  <%= @usuario.uni_pessoal_empresa.nome rescue "" %>
 		<hr>
 		  <strong>Grupo de Actvidade Económica:</strong>
 		  <%= @usuario.industry.descricao_grupo rescue "" %>
