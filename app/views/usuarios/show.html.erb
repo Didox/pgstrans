@@ -52,10 +52,6 @@
 		  <strong>Grupo de Actvidade Económica:</strong>
 		  <%= @usuario.industry.descricao_grupo rescue "" %>
 		<hr>
-		  <strong>Agente:</strong>
-		  <%= @usuario.sub_agente_id %> - 
-		  <%= @usuario.sub_agente.nome_fantasia %>
-		<hr>
 		  <strong>Empresa Padrão:</strong>
 		  <%= @usuario.master_profile.id %> - 
 		  <%= @usuario.master_profile.description %>
