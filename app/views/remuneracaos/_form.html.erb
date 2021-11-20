@@ -30,7 +30,7 @@
             <input type="text" id="usuario" class="form-control autocomplete" style="width:30%">
             <%
             usuarios_select = @usuarios.limit(100).map{|u| u}
-            usuarios_select << @remuneracao.usuario unless usuarios_select.map{|u| u.id}.include?(@remuneracao.usuario_id) && @remuneracao.usuario.present?
+            usuarios_select << @remuneracao.usuario if !usuarios_select.map{|u| u.id}.include?(@remuneracao.usuario_id) && @remuneracao.usuario.present?
             %>
             <%= f.select :usuario_id, usuarios_select.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%" %>
           </div>
