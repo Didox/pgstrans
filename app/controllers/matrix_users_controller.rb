@@ -9,7 +9,7 @@ class MatrixUsersController < ApplicationController
     @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
     @usuarios = @usuarios.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
     @usuarios = @usuarios.where("usuarios.perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
-    @usuarios = @usuarios.where("usuarios.sub_distribuidor = ?", params[:sub_distribuidor_id]) if params[:sub_distribuidor_id].present?
+    @usuarios = @usuarios.where("usuarios.sub_distribuidor_id = ?", params[:sub_distribuidor_id]) if params[:sub_distribuidor_id].present?
     if params[:grupo_id].present?
       @usuarios = @usuarios.joins("inner join grupo_usuarios on usuarios.id = grupo_usuarios.usuario_id")
       @usuarios = @usuarios.where("grupo_usuarios.grupo_id = ?", params[:grupo_id])
