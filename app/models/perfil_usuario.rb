@@ -13,6 +13,12 @@ class PerfilUsuario < ApplicationRecord
     []
   end
 
+  def acessos_links
+    self.links_externos.split(",")
+  rescue
+    []
+  end
+
   def acessos_views
     acessos_parse.map{|a|a["views"]}.uniq.compact.flatten
   rescue
@@ -28,13 +34,14 @@ class PerfilUsuario < ApplicationRecord
   def self.menu(administrador)
     controllers = administrador.acessos.map{|a| a.split("::")[0] }
     actions = administrador.acessos.map{|a| a.split("::")[1] }
-    menus = Menu.where(controller: controllers, action: actions)
+    acessos_links = administrador.acessos_links
+    menus = Menu.where("nome in (?) or (controller in (?) and action in (?))", acessos_links, controllers, actions)
     return [] if menus.count == 0
 
     secoes = menus.pluck(:secao).compact.uniq
     menu = {}
     secoes.each do |secao|
-      menu[secao] = Menu.where(secao: secao, controller: controllers, action: actions)
+      menu[secao] = Menu.where("nome in (?) or (controller in (?) and action in (?))", acessos_links, controllers, actions).where(secao: secao)
     end
 
     menu

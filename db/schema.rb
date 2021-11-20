@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_12_104740) do
+ActiveRecord::Schema.define(version: 2021_11_20_102437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "alegacao_de_pagamentos", force: :cascade do |t|
     t.bigint "usuario_id"
@@ -314,6 +315,7 @@ ActiveRecord::Schema.define(version: 2021_11_12_104740) do
     t.text "acessos"
     t.boolean "operador", default: false
     t.boolean "agente"
+    t.text "links_externos"
   end
 
   create_table "produtos", force: :cascade do |t|

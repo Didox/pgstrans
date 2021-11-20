@@ -105,6 +105,25 @@
             <% end %>
           </ul>
         </div>
+
+        <div class="col-sm-10" style="height: 514px;overflow:scroll;">
+          <ul>
+            <li>
+              <label>Links externos para acesso ao menu</label>
+              <ul>
+                <% Menu.where("controller is null or controller = ''").each do |menu| %>
+                  <li>
+                    <label><a href="<%= menu.link %>" target="_blank"><%= menu.nome %></a></label>
+                    <% 
+                    checked = @perfil_usuario.acessos_links.include?(menu.nome) ? "checked='checked'" : "" 
+                    %>
+                    <input type="checkbox" name="links_externos[]" <%= checked %> class="check-acessos" value="<%= menu.nome %>">
+                  </li>
+                <% end %>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="form-actions col-sm-12">
         <%= f.button :button, class: 'btn btn-danger' do %>

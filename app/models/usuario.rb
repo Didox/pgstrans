@@ -42,6 +42,11 @@ class Usuario < ApplicationRecord
     @acessos = perfil_usuario.acessos_actions
   end
 
+  def acessos_links
+    return @acessos_links if @acessos_links.present?
+    @acessos_links = perfil_usuario.acessos_links
+  end
+
   def self.gerar_login
     numero = 0
     while (numero.to_s.length < 7)

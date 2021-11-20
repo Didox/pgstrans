@@ -34,7 +34,8 @@ class PerfilUsuariosController < ApplicationController
   # POST /perfil_usuarios.json
   def create
     @perfil_usuario = PerfilUsuario.new(perfil_usuario_params)
-    @perfil_usuario.acessos = parseAcesso
+    @perfil_usuario.acessos = parse_acesso
+    @perfil_usuario.links_externos = parseLink_acessos
 
     respond_to do |format|
       if @perfil_usuario.save
@@ -52,7 +53,9 @@ class PerfilUsuariosController < ApplicationController
   def update
     respond_to do |format|
       @perfil_usuario.update(perfil_usuario_params)
-      @perfil_usuario.acessos = parseAcesso
+      @perfil_usuario.acessos = parse_acesso
+      @perfil_usuario.links_externos = parse_link_acessos
+
       if @perfil_usuario.save
         format.html { redirect_to @perfil_usuario, notice: 'Perfil de usuário foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @perfil_usuario }
@@ -74,7 +77,11 @@ class PerfilUsuariosController < ApplicationController
   end
 
   private
-    def parseAcesso
+    def parse_link_acessos
+      params[:links_externos].join(",") rescue ""
+    end
+
+    def parse_acesso
       acessos = []
       params["grupo_acesso"]["actions"].each do |acesso|
         views = params[:grupo_acesso][acesso.to_s.gsub("::", "_")]
@@ -149,7 +156,6 @@ class PerfilUsuariosController < ApplicationController
       end
     end
 
-    
     def set_perfil_usuario
       @perfil_usuario = PerfilUsuario.find(params[:id] || params[:perfil_usuario_id])
     end
