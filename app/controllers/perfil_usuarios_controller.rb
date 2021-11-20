@@ -35,7 +35,7 @@ class PerfilUsuariosController < ApplicationController
   def create
     @perfil_usuario = PerfilUsuario.new(perfil_usuario_params)
     @perfil_usuario.acessos = parse_acesso
-    @perfil_usuario.links_externos = parseLink_acessos
+    @perfil_usuario.links_externos = parse_link_acessos
 
     respond_to do |format|
       if @perfil_usuario.save
