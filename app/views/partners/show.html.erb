@@ -44,6 +44,10 @@
       <strong>Status do parceiro:</strong>
       <%= @partner.status_parceiro.nome rescue "" %>
     </p>
+    <p>
+      <strong>Imagem:</strong>
+      <img src="<%= @partner.imagem %>" style="width:200px">
+    </p>
     <% if !["unitel", "dstv"].include?(@partner.slug.downcase)  %>
       <p>
         <strong>Saldo atual:</strong><br>

@@ -1,5 +1,6 @@
 class PartnersController < ApplicationController
   before_action :set_partner, only: [:show, :edit, :update, :destroy, :atualiza_saldo, :importa_produtos, :importa_dados]
+  before_action :upload_arquivo, only: [:create, :update]
 
   # GET /partners
   # GET /partners.json
@@ -118,6 +119,15 @@ class PartnersController < ApplicationController
   end
 
   private
+    def upload_arquivo
+      return if params[:partner].blank? || params[:partner][:imagem].is_a?(String)
+      imagem = params[:partner][:imagem]
+      if imagem.present?
+        params[:partner][:imagem] = AwsService.upload(imagem.tempfile.path, imagem.original_filename)
+      else
+        params[:partner].delete(:imagem)
+      end
+    end
     
     def set_partner
       @partner = Partner.find(params[:id] || params[:partner_id])
@@ -126,6 +136,6 @@ class PartnersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def partner_params
-      params.require(:partner).permit(:name, :desconto, :slug, :status_parceiro_id, :order)
+      params.require(:partner).permit(:name, :desconto, :imagem, :slug, :status_parceiro_id, :order)
     end
 end

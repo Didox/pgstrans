@@ -44,6 +44,11 @@
 				<%= f.input :desconto, label: "Desconto padrão do parceiro", placeholder: "Porcentagem de desconto" %>
 				</div>
 
+        <div class="form-input col-sm-6">
+          <%= f.label :imagem, "Imagem", class: "col-sm-8" %>
+          <%= f.file_field :imagem, placeholder: "Imagem", class: "form-control", accept:"image/jpeg, image/jpg, image/gif, image/bmp, image/png, application/pdf" %>
+        </div>
+
 				<div class="form-actions col-sm-12" style="margin-top: 20px;">
 					<%= f.button :button, class: 'btn btn-danger' do %>
 						<span class="glyphicon glyphicon-ok"></span>

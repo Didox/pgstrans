@@ -18,13 +18,13 @@
           <!--<%= partner.slug %>-->
           <div class="col-md-3 menu-icon" style="text-align: center;">
             <a href="javascript:;" onclick="pgstrans.displayRecarga('<%= partner.slug %>')">
-              <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;") rescue "" %>
+              <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;") rescue partner.name %>
             </a>
           </div>
         <% else %>
           <!--<%= partner.slug %>-->
           <div class="col-md-3 menu-icon" style="text-align: center;">
-            <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu img_#{partner.slug}", style: "display: inline-block;") rescue "" %>
+            <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu img_#{partner.slug}", style: "display: inline-block;") rescue partner.name %>
           </div>
         <% end %>
       <% end %>

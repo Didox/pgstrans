@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_20_102437) do
+ActiveRecord::Schema.define(version: 2021_11_22_103616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -304,6 +304,7 @@ ActiveRecord::Schema.define(version: 2021_11_20_102437) do
     t.bigint "status_parceiro_id"
     t.integer "order"
     t.float "desconto", default: 0.0
+    t.string "imagem"
     t.index ["status_parceiro_id"], name: "index_partners_on_status_parceiro_id"
   end
 
