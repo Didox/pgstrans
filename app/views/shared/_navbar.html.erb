@@ -5,6 +5,9 @@
       </div>
       <div class="col-5 text-center">
         <%= link_to image_tag("PagaSo-Logo.png", class: "logo"), "https://www.pagaso.co.ao", target: "_blank" %>
+        <% if AMBIENTE_QA.present? %>
+          <h3>Ambiente de Q&A/Homologação</h3>
+        <% end %>
       </div>
       
       <div class="col-4 d-flex justify-content-end align-items-center jsmenu">

@@ -8,7 +8,7 @@ Usuários:
   Perfil Master:
     - MasterProfilesController
     - index
-  Subdistribuidores:
+  Distribuidores:
     - SubDistribuidorsController
     - index
   Subagentes:

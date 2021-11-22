@@ -52,9 +52,24 @@
 		  <strong>Grupo de Actvidade Económica:</strong>
 		  <%= @usuario.industry.descricao_grupo rescue "" %>
 		<hr>
-		  <strong>Subagente:</strong>
-		  <%= @usuario.sub_agente_id %>
+		  <strong>Empresa Padrão:</strong>
+		  <%= @usuario.master_profile.id %> - 
+		  <%= @usuario.master_profile.description %>
+		<hr>
+		  <strong>Distribuidor:</strong>
+		  <%= @usuario.sub_distribuidor_id %> - 
+		  <%= @usuario.sub_distribuidor.nome %>
+		<hr>
+		  <strong>Agente:</strong>
+		  <%= @usuario.sub_agente.id %> - 
 		  <%= @usuario.sub_agente.nome_fantasia %>
+		<hr>
+		  <strong>Grupos de Acesso:</strong>
+		  <ul>
+				<% @usuario.grupo_usuarios.each do |gu| %>
+					<li><%= gu.grupo.id %> - <%= gu.grupo.nome %></li>
+				<% end %>
+			</ul>
 		<hr>
 		  <div class="page-header">
 	      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>

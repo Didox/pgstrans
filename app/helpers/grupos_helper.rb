@@ -32,7 +32,7 @@ module GruposHelper
       "Partner" => "Parceiros",
       "Banco" => "Bancos",
       "SubAgente" => "Subagentes",
-      "SubDistribuidor" => "Subdistribuidores",
+      "SubDistribuidor" => "Distribuidores",
       "Moeda" => "Moedas",
       "TipoTransacao" => "Tipos de Transação",
       "ContaCorrente" => "Conta Corrente",

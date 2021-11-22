@@ -8,17 +8,28 @@ class Usuario < ApplicationRecord
   belongs_to :sub_agente
   belongs_to :municipio
   belongs_to :status_cliente
+  belongs_to :master_profile
+  belongs_to :sub_distribuidor
+  belongs_to :uni_pessoal_empresa
+  belongs_to :industry
   
   validates :email, :login, presence: true, uniqueness: true
-  validates :nome, :email, presence: true
+  validates :nome, :email, :sub_distribuidor_id, :sub_agente_id, presence: true
 
   validate :verifica_tamanho_senha
   after_validation :senha_sha1
   before_validation :preenche_login, :senha_forte
 
+
   ROOT = 2
 
   SENHA_PADRAO = "pa3g5a1so14v!2@"
+
+  def provincia
+    Provincium.find(self.provincia_id)
+  rescue
+	  nil
+  end
 
   def saldo
     ContaCorrente.where(usuario_id: self.id).order("data_ultima_atualizacao_saldo desc").first.saldo_atual
@@ -29,6 +40,11 @@ class Usuario < ApplicationRecord
   def acessos
     return @acessos if @acessos.present?
     @acessos = perfil_usuario.acessos_actions
+  end
+
+  def acessos_links
+    return @acessos_links if @acessos_links.present?
+    @acessos_links = perfil_usuario.acessos_links
   end
 
   def self.gerar_login

@@ -61,7 +61,6 @@ namespace :jobs do
           venda.responsavel = pagamento.usuario
           venda.save!
         rescue Exception => erro
-          debugger
           x = ""
         end
       end
@@ -100,7 +99,6 @@ namespace :jobs do
           venda.partner_id = parceiro.id
           venda.save!
         rescue Exception => erro
-          debugger
           x = ""
         end
       end
@@ -186,6 +184,11 @@ namespace :jobs do
         puts "==============="
       end
     end
+  end
+
+  desc "Apaga logs antigos"
+  task apaga_logs_antigos: :environment do
+    ActiveRecord::Base.connection.exec_query("delete from logs where created_at < '#{(Time.zone.now - 3.months).strftime("%Y-%m-%d %H:%M:%S")}'")
   end
 
   desc "Adiciona grupo rosi"

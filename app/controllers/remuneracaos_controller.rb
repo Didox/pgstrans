@@ -1,6 +1,7 @@
 class RemuneracaosController < ApplicationController
   before_action :set_remuneracao, only: [:show, :edit, :update, :destroy]
-
+  before_action :usuarios_distribuidor, only: [:edit, :new]
+  
   # GET /remuneracaos
   # GET /remuneracaos.json
   def index
@@ -12,6 +13,8 @@ class RemuneracaosController < ApplicationController
     @remuneracaos = @remuneracaos.where("ativo = ?", params[:ativo]) if params[:ativo].present?
     @remuneracaos = @remuneracaos.where("remuneracaos.vigencia_inicio >= ?", SqlDate.sql_parse(params[:vigencia_inicio_de].to_datetime.beginning_of_day)) if params[:vigencia_inicio_de].present?
     @remuneracaos = @remuneracaos.where("remuneracaos.vigencia_inicio <= ?", SqlDate.sql_parse(params[:vigencia_inicio_ate].to_datetime.end_of_day)) if params[:vigencia_inicio_ate].present?
+    @remuneracaos = @remuneracaos.where("usuarios.sub_distribuidor_id = ?", params[:sub_distribuidor_id]) if params[:sub_distribuidor_id].present?
+    @remuneracaos = @remuneracaos.where("usuarios.sub_agente_id = ?", params[:sub_agente_id]) if params[:sub_agente_id].present?
 
     #@remuneracaos = @remuneracaos.joins(:usuario)
     #@remuneracaos = @remuneracaos.reorder("remuneracao.usuario.nome asc")
@@ -98,6 +101,13 @@ class RemuneracaosController < ApplicationController
       @remuneracao.responsavel = usuario_logado
     end
 
+    def usuarios_distribuidor
+      @usuarios = Usuario.com_acesso(usuario_logado)
+      if !usuario_logado.admin? && !usuario_logado.operador?
+        @usuarios = @usuarios.where("usuarios.id not in (?) and sub_distribuidor_id = ?", usuario_logado.id, usuario_logado.sub_distribuidor_id)
+      end
+    end
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def remuneracao_params
       params.require(:remuneracao).permit(:usuario_id, :ativo, :vigencia_inicio, :vigencia_fim)

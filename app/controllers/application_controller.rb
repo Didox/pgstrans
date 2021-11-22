@@ -6,12 +6,18 @@ class ApplicationController < ActionController::Base
   end
 
   def administrador
-    if cookies[:usuario_pgstrans_oauth].present?
+    if @adm.present? || cookies[:usuario_pgstrans_oauth].present?
       return @adm if @adm.present?
       @adm = Usuario.find(JSON.parse(cookies[:usuario_pgstrans_oauth])["id"])
       unless @adm.logado
         cookies[:usuario_pgstrans_oauth] = nil
         @adm = nil
+
+        if request.path_parameters[:format] == 'json'
+          render json: {mensagem: "Área restrita. Digite o login e palavra-passe para entrar."}, status: 401
+          return
+        end
+
         redirect_to login_path
         return
       end
@@ -19,34 +25,57 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def formata_numero_duas_casas(numero)
+    helper.number_to_currency(numero.to_f, :precision => 2).downcase.gsub(/kz|\./,"").gsub(",",".")
+  end
+
+  def helper
+    @helper ||= Class.new do
+      include ActionView::Helpers::NumberHelper
+    end.new
+  end
+
   private
 
     def validate_login
-      # return if request.path_parameters[:format] == 'json'
-
-      if cookies[:usuario_pgstrans_oauth].blank? || cookies[:usuario_pgstrans_oauth_time].blank?
-        flash[:error] = "Área restrita. Digite o login e palavra-passe para entrar."
-
-        if self.class.to_s == "RecargaController" 
-          render json: {mensagem: "Área restrita. Digite o login e palavra-passe para entrar."}, status: 401
-          return
+      if request.path_parameters[:format] == 'json'
+        authorization = request.headers['Authorization']
+        if authorization.present?
+          bearer, token = authorization.split(" ")
+          if bearer.to_s.downcase == "bearer" && token.present?
+            begin
+              usuario, algoritmo = JWT.decode(token, SECRET_JWT, true, { algorithm: 'HS256' })
+              @adm = Usuario.find(usuario["id"])
+            rescue;end
+          end
         end
+      end
 
-        redirect_to login_path
-      else
-        time = cookies[:usuario_pgstrans_oauth_time].to_time + 5.seconds
+      if @adm.blank?
+        if cookies[:usuario_pgstrans_oauth].blank? || cookies[:usuario_pgstrans_oauth_time].blank?
+          flash[:error] = "Área restrita. Digite o login e palavra-passe para entrar."
 
-        cookies[:usuario_pgstrans_oauth] = { 
-          value: cookies[:usuario_pgstrans_oauth], 
-          expires: time, 
-          httponly: true
-        }
+          if request.path_parameters[:format] == 'json'
+            render json: {mensagem: "Área restrita. Digite o login e palavra-passe para entrar."}, status: 401
+            return
+          end
 
-        cookies[:usuario_pgstrans_oauth_time] = { 
-          value: time, 
-          expires: time, 
-          httponly: true 
-        }
+          redirect_to login_path
+        else
+          time = cookies[:usuario_pgstrans_oauth_time].to_time + 5.seconds
+
+          cookies[:usuario_pgstrans_oauth] = { 
+            value: cookies[:usuario_pgstrans_oauth], 
+            expires: time, 
+            httponly: true
+          }
+
+          cookies[:usuario_pgstrans_oauth_time] = { 
+            value: time, 
+            expires: time, 
+            httponly: true 
+          }
+        end
       end
 
       if administrador.present?
@@ -55,24 +84,22 @@ class ApplicationController < ActionController::Base
 	      return true if self.class.to_s == "WelcomeController" || self.class.to_s == "GrupoUsuariosController"
 
         if administrador.acessos.blank?
-          flash[:erro] = "Usuário sem permissão de acesso a página"
-
-          if self.class.to_s == "RecargaController"
+          if request.path_parameters[:format] == 'json'
             render json: {mensagem: "Usuário sem permissão de acesso a página"}, status: 401
             return
           end
 
+          flash[:erro] = "Usuário sem permissão de acesso a página"
           redirect_to "/"
           return false
         else
           unless administrador.acessos.include? "#{self.class}::#{params[:action]}"
-            flash[:erro] = "Usuário sem permissão de acesso a página"
-
-            if self.class.to_s == "RecargaController"
+            if request.path_parameters[:format] == 'json'
               render json: {mensagem: "Usuário sem permissão de acesso a página"}, status: 401
               return
             end
             
+            flash[:erro] = "Usuário sem permissão de acesso a página"
             redirect_to "/"
             return false
           end

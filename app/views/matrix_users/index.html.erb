@@ -28,38 +28,64 @@
         </div>    
         <div class="col-sm-5">
           <div class="form-group">
-            <label>Master Profile</label>
+            <label>Perfil Usuário</label>
             <div>
-              <select name="master_profile_id" onchange="pgstrans.carregaMasterProfile(this)" class="form-control">
+              <select name="perfil_usuario_id" onchange="pgstrans.carregaMasterProfile(this)" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
-                <% MasterProfile.all.each do |master_profile| %>
-                  <option value="<%= master_profile.id %>" <% if master_profile.id.to_s == params[:master_profile_id] %> selected="selected" <% end %> ><%= master_profile.description %></option>
+                <% PerfilUsuario.all.reorder("nome asc").each do |perfil_usuario| %>
+                  <option value="<%= perfil_usuario.id %>" <% if perfil_usuario.id.to_s == params[:perfil_usuario_id] %> selected="selected" <% end %> ><%= perfil_usuario.nome %></option>
                 <% end %>
               </select>
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <div class="form-group">
-            <label>Subdistribuidor</label>
+            <label>Distribuidor</label>
             <div>
               <select name="sub_distribuidor_id" onchange="pgstrans.carregaSubDistribuidor(this)" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
-                <% SubDistribuidor.all.each do |sub_distribuidor| %>
+                <% SubDistribuidor.all.reorder("nome asc").each do |sub_distribuidor| %>
                   <option value="<%= sub_distribuidor.id %>" <% if sub_distribuidor.id.to_s == params[:sub_distribuidor_id] %> selected="selected" <% end %> ><%= sub_distribuidor.nome %></option>
                 <% end %>
               </select>
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <div class="form-group">
-            <label>Sugagente</label>
+            <label>Agente</label>
             <div>
               <select name="sub_agente_id" onchange="pgstrans.carregaSubAgente(this)" class="form-control">
                 <option value="" selected="'selected'">Todos</option>
-                <% SubAgente.all.each do |sub_agente| %>
+                <% SubAgente.all.reorder("nome_fantasia asc").each do |sub_agente| %>
                   <option value="<%= sub_agente.id %>" <% if sub_agente.id.to_s == params[:sub_agente_id] %> selected="selected" <% end %> ><%= sub_agente.nome_fantasia %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Empresa Padrão</label>
+            <div>
+              <select name="master_profile_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% MasterProfile.all.reorder("description asc").each do |master_profile| %>
+                  <option value="<%= master_profile.id %>" <% if master_profile.id.to_s == params[:master_profile_id] %> selected="selected" <% end %> ><%= master_profile.description %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Grupo de Acesso</label>
+            <div>
+              <select name="grupo_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Grupo.all.reorder("unaccent(nome) asc").each do |grupo| %>
+                  <option value="<%= grupo.id %>" <% if grupo.id.to_s == params[:grupo_id] %> selected="selected" <% end %> ><%= grupo.nome %></option>
                 <% end %>
               </select>
             </div>
@@ -73,47 +99,50 @@
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
           <% end %>
-          <%= link_to new_matrix_user_path, class: 'btn btn-danger' do %>
-            <span class="glyphicon glyphicon-plus"></span>
-            Novo Registo
-          <% end %>    
         </div>
     </form>
   </div>  
   <div class="col-sm-12">
+    <h4>
+      Total de ocorrências: <%= @usuarios.count %> registo(s)
+    </h4>
+    <hr>
     <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">Usuário</th>
-          <th scope="col">Master Profile</th>
-          <th scope="col">Subdistribuidor</th>
-          <th scope="col">Subagente</th>
-          <th scope="col">Filial</th>
-          <th scope="col">PDV</th>
-          <th colspan="3">Ações para o Registo</th>
+          <th scope="col">Empresa Padrão</th>
+          <th scope="col">Distribuidor/Empresa</th>
+          <th scope="col">Agente</th>
+          <th scope="col">Hierarquia de Acesso aos Dados</th>
+          <th colspan="3"></th>
         </tr>
       </thead>
       <tbody>
-        <% @matrix_users.each do |matrix_user| %>
+        <% @usuarios.each do |usuario| %>
           <tr>
             <td>
-              <b>Login: </b><%= matrix_user.usuario.login rescue "" %><br>
-              <b>Nome: </b><%= matrix_user.usuario.nome rescue "" %>
+              <b>Login: </b><%= usuario.login rescue "" %><br>
+              <b>Nome: </b><%= usuario.nome rescue "" %><br>
+              <b>Perfil: </b><%= usuario.perfil_usuario.nome rescue "" %>
             </td>
             <td>
-              <%= "#{matrix_user.master_profile}/#{matrix_user.master_profile_obj.description}" %>
+              <%= usuario.master_profile.description %>
             </td>
             <td>
-              <%= "#{matrix_user.sub_distribuidor}/#{matrix_user.sub_distribuidor_obj.nome}" %>
+              <%= usuario.sub_distribuidor.nome %>
             </td>
             <td>
-              <%= "#{matrix_user.sub_agente}/#{matrix_user.sub_agente_obj.nome_fantasia}" %>
+              <%= usuario.sub_agente.nome_fantasia %>
             </td>
-            <td><%= matrix_user.filial %></td>
-            <td><%= matrix_user.pdv %></td>
-            <td><%= link_to 'Mostrar', matrix_user %></td>
-            <td><%= link_to 'Editar', edit_matrix_user_path(matrix_user) %></td>
-            <td><%= link_to 'Apagar', matrix_user, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+            <td>
+              <ul>
+                <% usuario.grupo_usuarios.each do |gu| %>
+                  <li><%= "#{gu.grupo.grupo_pai.nome} -> " rescue "" %><%= gu.grupo.nome %></li>
+                <% end %>
+              </ul>
+            </td>
+            <td><%= link_to 'Mostrar', usuario %></td>
           </tr>
         <% end %>
       </tbody>
@@ -122,13 +151,8 @@
 
   <div class="col-sm-12">
     <div class="apple_pagination">
-      <%= will_paginate @matrix_users, :container => false %>
+      <%= will_paginate @usuarios, :container => false %>
     </div> 
-
-    <%= link_to new_matrix_user_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-plus"></span>
-      Novo Registo
-    <% end %>    
 
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>

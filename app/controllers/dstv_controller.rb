@@ -33,6 +33,24 @@ class DstvController < ApplicationController
     flash[:mensagem_erro_fatura] = e.message
   end
 
+  def produtos_api
+    produtos_api = []
+    produtos = Dstv.produtos_ativos_box_office
+    (produtos.map{|p| p.subtipo}.compact.uniq.sort.select{|s| s.present?} rescue []).each do |subtipo|
+      produtos_api << {
+        subtipo: subtipo,
+        produtos: produtos.where(subtipo: subtipo).map do |produto|
+          {
+            nome: "#{produto.nome_comercial} - #{helper.number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2)}",
+            valor: "#{produto.id}-#{formata_numero_duas_casas(produto.valor_compra_telemovel)}"
+          }
+        end
+      }
+    end
+
+    return render json: produtos_api.to_json, status: 200
+  end
+
   def alteracao_pacote;end
   def alteracao_pacote_fazer
     return flash[:error] = "Selecione pelo menos um produto" if params[:produtos].blank?

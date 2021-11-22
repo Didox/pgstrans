@@ -33,7 +33,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Data da Vigência (DE)</label>
             <div>
@@ -41,7 +41,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
           <div class="form-group">
             <label>Data da Vigência (ATÉ)</label>
             <div>
@@ -49,36 +49,64 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
-        <div class="form-group">
-          <label>Status do Plano de Remuneração</label>
-          <div>
-            <select name="ativo" id="ativo" class="form-control" style="width100%;max-width: 500px;">
-              <option value="" <% if params[:ativo].blank? %> selected="selected" <% end %>>
-                Todos
-              </option>
-              <option value="true" <% if params[:ativo] == "true" %> selected="selected" <% end %>>
-                Ativo
-              </option>
-              <option value="false" <% if params[:ativo] == "false" %> selected="selected" <% end %>>
-                Inativo
-              </option>
-            </select>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Distribuidor</label>
+            <div>
+              <select name="sub_distribuidor_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% SubDistribuidor.all.reorder(nome: :asc).each do |sub_distribuidor| %>
+                  <option value="<%= sub_distribuidor.id %>" <% if sub_distribuidor.id.to_s == params[:sub_distribuidor_id] %> selected="selected" <% end %> ><%= sub_distribuidor.nome %></option>
+                <% end %>
+              </select>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <div style="float: right;margin-right:10px">
-            <input type="submit" value="Buscar" class="btn btn-info">
-            <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-              <span class="glyphicon glyphicon-list-alt"></span>
-              Voltar
-            <% end %>        
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Agente</label>
+            <div>
+              <select name="sub_agente_id" onchange="pgstrans.carregaSubAgente(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% SubAgente.all.reorder(nome_fantasia: :asc).each do |sub_agente| %>
+                  <option value="<%= sub_agente.id %>" <% if sub_agente.id.to_s == params[:sub_agente_id] %> selected="selected" <% end %> ><%= sub_agente.nome_fantasia %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Status do Plano de Remuneração</label>
+            <div>
+              <select name="ativo" id="ativo" class="form-control" style="width100%;max-width: 500px;">
+                <option value="" <% if params[:ativo].blank? %> selected="selected" <% end %>>
+                  Todos
+                </option>
+                <option value="true" <% if params[:ativo] == "true" %> selected="selected" <% end %>>
+                  Ativo
+                </option>
+                <option value="false" <% if params[:ativo] == "false" %> selected="selected" <% end %>>
+                  Inativo
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div style="float: right;margin-right:10px">
+              <input type="submit" value="Buscar" class="btn btn-info">
+              <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+                <span class="glyphicon glyphicon-list-alt"></span>
+                Voltar
+              <% end %>        
 
-            <%= link_to new_remuneracao_path, class: 'btn btn-danger' do %>
-              <span class="glyphicon glyphicon-plus"></span>
-                Novo Registo
+              <%= link_to new_remuneracao_path, class: 'btn btn-danger' do %>
+                <span class="glyphicon glyphicon-plus"></span>
+                  Novo Registo
               <% end %>    
             </div>
+          </div>
+        </div>
       </div>
     </form>
   </div>

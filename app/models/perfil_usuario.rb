@@ -13,6 +13,12 @@ class PerfilUsuario < ApplicationRecord
     []
   end
 
+  def acessos_links
+    self.links_externos.split(",")
+  rescue
+    []
+  end
+
   def acessos_views
     acessos_parse.map{|a|a["views"]}.uniq.compact.flatten
   rescue
@@ -28,13 +34,14 @@ class PerfilUsuario < ApplicationRecord
   def self.menu(administrador)
     controllers = administrador.acessos.map{|a| a.split("::")[0] }
     actions = administrador.acessos.map{|a| a.split("::")[1] }
-    menus = Menu.where(controller: controllers, action: actions)
+    acessos_links = administrador.acessos_links
+    menus = Menu.where("nome in (?) or (controller in (?) and action in (?))", acessos_links, controllers, actions)
     return [] if menus.count == 0
 
     secoes = menus.pluck(:secao).compact.uniq
     menu = {}
     secoes.each do |secao|
-      menu[secao] = Menu.where(secao: secao, controller: controllers, action: actions)
+      menu[secao] = Menu.where("nome in (?) or (controller in (?) and action in (?))", acessos_links, controllers, actions).where(secao: secao)
     end
 
     menu
@@ -43,16 +50,24 @@ class PerfilUsuario < ApplicationRecord
   def self.action_amigavel(action)
     nomes = {
       new: "Mostrar a tela que permite a inclusão de um novo registo",
+      produtos_api: "Mostrar produtos para ser utilizados na API",
+      produtos_zap_api: "Mostrar produtos ZAP para ser utilizados na API",
+      produtos_movicel_api: "Mostrar produtos Movicel para ser utilizados na API",
+      produtos_unitel_api: "Mostrar produtos Unitel para ser utilizados na API",
       index: "(INDEX) Mostrar a lista de todos os registos ou serviços dessa sessão",
       index_grafico: "Gráfico de vendas",
       index_resumo: "Resumo de vendas",
+      index_api: "(INDEX) Mostrar a lista de todos os registos ou serviços dessa sessão pela API",
       update: "(UPDATE) Permitir a atualização de registo",
       create: "(CREATE) Pemitir a efetivação da criação de um novo registo",
+      create_api: "(CREATE) Pemitir a efetivação da criação de um novo registo pela API",
       destroy: "(DELETE) Permitir apagar registo",
       show: "(SHOW) Permitir mostrar detalhes do registo",
+      show_api: "(SHOW) Permitir mostrar detalhes do registo pela API",
       edit: "(EDIT) Permitir mostrar tela de edição do registo",
       atualiza_saldo: "Fazer consulta de saldo no parceiro, caso o parceiro ofereça esse serviço",
       confirma: "Efectuar recarga, fazer pagamento e outras transações disponíveis na operadora",
+      confirma_api: "Efectuar recarga, fazer pagamento e outras transações disponíveis na operadora pela API",
       usuarios: "Usuários",
       apaga_acesso_usuario: "Apaga grupo de acesso de usuário",
       cria_acesso_usuario: "Cria grupo de acesso de usuário",
@@ -128,7 +143,7 @@ class PerfilUsuario < ApplicationRecord
       industries: "Backoffice - Sessão de Tabelas Auxiliares - Tabela de Actividades Económicas",
       usuarios: "Backoffice - Sessão de Usuarios - Tabela de Usuários",
       sub_agentes: "Backoffice - Sessão de Usuários - Tabela de Subagentes",
-      sub_distribuidors: "Backoffice - Sessão de Usuários - Tabela de Subdistribuidores",
+      sub_distribuidors: "Backoffice - Sessão de Usuários - Tabela de Distribuidores",
       master_profiles: "Backoffice - Sessão de Usuários - Tabela de Perfil Master do Usuário",
       partners: "Backoffice - Sessão de Parceiros e Produtos - Tabela de Parceiros",
       welcome: "MENU DO BACKOFFICE",

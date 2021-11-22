@@ -2,8 +2,10 @@ class ContaCorrentesController < ApplicationController
   before_action :set_conta_corrente, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
 
-  # GET /conta_correntes
-  # GET /conta_correntes.json
+  def index_api
+    index
+  end
+
   def index
     if usuario_logado.admin? || usuario_logado.operador?
       @conta_correntes = ContaCorrente.all
@@ -282,6 +284,10 @@ class ContaCorrentesController < ApplicationController
 
   # POST /conta_correntes
   # POST /conta_correntes.json
+  def create_api
+    create
+  end
+
   def create
     ActiveRecord::Base.transaction do
       if !usuario_logado.admin? && !usuario_logado.operador? && !usuario_logado.agente?
@@ -353,10 +359,10 @@ class ContaCorrentesController < ApplicationController
     @conta_corrente = ContaCorrente.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def conta_corrente_params
-    params.require(:conta_corrente).permit(:usuario_id, :lancamento_id, :banco_id, :valor, :iban,
-    :data_alegacao_pagamento, :observacao, :morada, :bairro, :municipio_id, 
-    :provincia_id)
+    parametros = request.path_parameters[:format] == 'json' ? params : params.require(:conta_corrente)
+    parametros.permit(:usuario_id, :lancamento_id, :banco_id, :valor, :iban,
+        :data_alegacao_pagamento, :observacao, :morada, :bairro, :municipio_id, 
+        :provincia_id)
   end
 end

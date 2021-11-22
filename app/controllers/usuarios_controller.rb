@@ -1,7 +1,7 @@
 class UsuariosController < ApplicationController
-  before_action :set_usuario, only: [:show, :edit, :update, :destroy]
+  before_action :set_usuario, only: [:show, :show_api, :edit, :update, :destroy]
   before_action :verifica_permissao, only: [:edit, :create, :update, :destroy]
-  skip_before_action :verify_authenticity_token, only: [:zerar_saldo]
+  skip_before_action :verify_authenticity_token, only: [:zerar_saldo, :create_api, :show_api]
   
   # GET /usuarios
   # GET /usuarios.json
@@ -34,13 +34,14 @@ class UsuariosController < ApplicationController
 
     if params[:select_usuarios_not_self].present?
       if !usuario_logado.admin? && !usuario_logado.operador?
-        @usuarios = @usuarios.where("usuarios.id not in (?)", usuario_logado.id)
+        @usuarios = @usuarios.where("usuarios.id not in (?) and sub_distribuidor_id = ?", usuario_logado.id, usuario_logado.sub_distribuidor_id)
       end
     end
 
     @usuarios = @usuarios.where("data_adesao >= ?", SqlDate.sql_parse(params[:data_adesao_inicio].to_datetime.beginning_of_day)) if params[:data_adesao_inicio].present?
     @usuarios = @usuarios.where("data_adesao <= ?", SqlDate.sql_parse(params[:data_adesao_fim].to_datetime.end_of_day)) if params[:data_adesao_fim].present?
     
+    @usuarios = @usuarios.where(sub_distribuidor_id: params[:sub_distribuidor_id]) if params[:sub_distribuidor_id].present?
     @usuarios = @usuarios.where(sub_agente_id: params[:sub_agente_id]) if params[:sub_agente_id].present?
 
     @usuarios_total = @usuarios.count
@@ -97,6 +98,10 @@ class UsuariosController < ApplicationController
   def show
   end
 
+  def show_api
+    show
+  end
+
   # GET /usuarios/new
   def new
     @usuario = Usuario.new
@@ -108,6 +113,10 @@ class UsuariosController < ApplicationController
 
   # POST /usuarios
   # POST /usuarios.json
+  def create_api
+    create
+  end
+
   def create
     @usuario = Usuario.new(usuario_params)
     @usuario.responsavel = usuario_logado
@@ -181,10 +190,18 @@ class UsuariosController < ApplicationController
       @usuario.responsavel = usuario_logado
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def usuario_params
-      params.require(:usuario).permit(:nome, :email, :senha, :perfil_usuario_id, 
-      :sub_agente_id, :status_cliente_id, :morada, :bairro, :municipio_id, 
-      :provincia_id, :industry_id, :uni_pessoal_empresa_id, :data_adesao, :telefone, :whatsapp)
+      if request.path_parameters[:format] == 'json'
+        parametros = params 
+        parametros[:perfil_usuario_id] = usuario_logado.perfil_usuario_id
+        parametros[:sub_agente_id] = usuario_logado.sub_agente_id
+        parametros[:sub_distribuidor_id] = usuario_logado.sub_distribuidor_id
+      else
+        parametros = params.require(:usuario)
+      end
+
+      parametros.permit(:nome, :email, :senha, :perfil_usuario_id, 
+          :sub_agente_id, :sub_distribuidor_id, :status_cliente_id, :morada, :bairro, :municipio_id, 
+          :provincia_id, :industry_id, :uni_pessoal_empresa_id, :data_adesao, :telefone, :whatsapp)
     end
 end

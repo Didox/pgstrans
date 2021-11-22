@@ -47,33 +47,42 @@
         <div class="form-input col-sm-12">
           <%= f.label :perfil_usuario_id, "Perfil do Usuário" %>
           <% if @adm.admin? %>
-            <%= f.select :perfil_usuario_id, PerfilUsuario.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+            <%= f.select :perfil_usuario_id, PerfilUsuario.all.reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% elsif @adm.operador? %>
-            <%= f.select :perfil_usuario_id, PerfilUsuario.where(admin: false).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+            <%= f.select :perfil_usuario_id, PerfilUsuario.where(admin: false).reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% else %>
-            <%= f.select :perfil_usuario_id, PerfilUsuario.where("lower(nome) ilike '%vendedor%'").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+            <%= f.select :perfil_usuario_id, PerfilUsuario.where("lower(nome) ilike '%vendedor%'").reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% end %>
         </div>
   
-        <div class="form-input col-sm-5">
-          <%= f.label :sub_agente_id, :label => "Subagente" %>
+        <div class="form-input col-sm-4">
+          <%= f.label :sub_distribuidor_id, :label => "Distribuidor" %>
           <% if @adm.admin? || @adm.operador? %>
-              <%= f.select :sub_agente_id, SubAgente.all.collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+              <%= f.select :sub_distribuidor_id, SubDistribuidor.all.reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% else %>
-              <%= f.select :perfil_usuario_id, SubAgente.where("lower(nome_fantasia) ilike '#{usuario_logado.nome}'").collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+              <%= f.select :sub_distribuidor_id, SubDistribuidor.where("id = '#{usuario_logado.sub_distribuidor_id}").reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <% end %>
+        </div>
+  
+        <div class="form-input col-sm-4">
+          <%= f.label :sub_agente_id, :label => "Agente" %>
+          <% if @adm.admin? || @adm.operador? %>
+              <%= f.select :sub_agente_id, SubAgente.all.reorder("nome_fantasia asc").collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <% else %>
+              <%= f.select :sub_agente_id, SubAgente.where("lower(nome_fantasia) ilike '#{usuario_logado.nome}'").reorder("nome_fantasia asc").collect{|d| [d.nome_fantasia, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% end %>
         </div>
 
-        <div class="form-input col-sm-3">
+        <div class="form-input col-sm-2">
           <%= f.label :status_cliente_id, :label => "Situação do Usuário" %>
           <% if @adm.agente? %>
-            <%= f.select :status_cliente_id, StatusCliente.where("lower(nome) ilike '%inativo%'").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+            <%= f.select :status_cliente_id, StatusCliente.where("lower(nome) ilike '%inativo%'").reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% else %>
-            <%= f.select :status_cliente_id, StatusCliente.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+            <%= f.select :status_cliente_id, StatusCliente.all.reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% end %>
         </div>
 
-        <div class="form-input col-sm-4">
+        <div class="form-input col-sm-2">
           <%= f.label :data_adesao, "Data da Adesão" %>
           <%= f.date_field :data_adesao, class:"form-control" %>
         </div>
@@ -88,30 +97,35 @@
 
         <div class="form-input col-sm-4">
           <%= f.label :municipio_id, :label => "Município" %>
-          <%= f.select :municipio_id, Municipio.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <%= f.select :municipio_id, Municipio.all.reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
         <div class="form-input col-sm-4">
           <%= f.label :provincia_id, :label => "Província" %>
-          <%= f.select :provincia_id, Provincium.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <%= f.select :provincia_id, Provincium.all.reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
         <div class="form-input col-sm-4">
           <%= f.input :telefone, :label => "Telefone", placeholder: "Informe o telefone do usuário" %>
         </div>
 
-        <div class="form-input col-sm-4">
+        <div class="form-input col-sm-2">
           <%= f.input :whatsapp, :label => "WhatsApp", placeholder: "Informe o whatsApp do usuário" %>
         </div>
 
         <div class="form-input col-sm-3">
           <%= f.label :uni_pessoal_empresa_id, :label => "Tipo" %>
-          <%= f.select :uni_pessoal_empresa_id, UniPessoalEmpresa.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <%= f.select :uni_pessoal_empresa_id, UniPessoalEmpresa.all.reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
-        <div class="form-input col-sm-5">
+        <div class="form-input col-sm-4">
           <%= f.label :industry_id, "Grupo de Atividade Económica" %>
-          <%= f.select :industry_id, Industry.all.collect{|d| [d.descricao_grupo, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
+          <%= f.select :industry_id, Industry.all.reorder("descricao_grupo asc").collect{|d| [d.descricao_grupo, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
+        </div>
+
+        <div class="form-input col-sm-3">
+          <%= f.label :master_profile_id, "Empresa Padrão" %>
+          <%= f.select :master_profile_id, MasterProfile.all.reorder("description asc").collect{|d| [d.description, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
       </div>
 
@@ -126,7 +140,7 @@
           <br><hr>
           <div class="col-sm-10" style="height: 280px;overflow: scroll;">
             <ul>
-              <% Grupo.all.each do |grupo| %>
+              <% Grupo.all.reorder("unaccent(nome) asc").each do |grupo| %>
                 <li>
                   <label><%= grupo.nome %></label>
                   <% checked = @usuario.grupo_usuarios.where(grupo_id: grupo.id).count > 0 ? "checked='checked'" : "" %>

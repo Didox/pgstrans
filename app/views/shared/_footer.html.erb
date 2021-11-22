@@ -13,3 +13,44 @@
     </div>
  </nav>
  <h3 style="font-size: 25px;margin-top: 10px;"></h3>
+ <% if AMBIENTE_QA.present? %>
+	 <footer class="bg-warning fixed-bottom align-middle w-25 p-3">
+		 <h4>Ambiente de Q&A/Homologação</h4>
+	</footer>
+<% end %>
+
+<div id="cookie" class="bg-warning fixed-bottom" style="text-align:center;display:none">
+	<h3>Atenção! Este site utiliza cookies para melhorar a sua navegação. Ao navegar, você concorda com o armazenamento de cookies no seu dispositivo para melhorar a sua experiência no site, para possibilitar a análise de utilização do site e ajudar nas nossas iniciativas de marketing e comunicação. By using this website, you automatically accept that we use cookies.</h3>
+	<button class="btn btn-danger" onclick="setCookie('aceito_pagina');$('#cookie').hide()">Aceito</button>
+	<br>
+	<br>
+	<br>
+</div>
+
+<script>
+	function setCookie(cname, cvalue, exdays) {
+		const d = new Date();
+		d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		let expires = "expires="+ d.toUTCString();
+		document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	}
+
+	function getCookie(cname) {
+		let name = cname + "=";
+		let decodedCookie = decodeURIComponent(document.cookie);
+		let ca = decodedCookie.split(';');
+		for(let i = 0; i <ca.length; i++) {
+			let c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
+	if(getCookie("aceito_pagina") == ""){
+		$("#cookie").show()
+	}
+</script>

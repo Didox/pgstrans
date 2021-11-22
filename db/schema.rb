@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_02_115309) do
+ActiveRecord::Schema.define(version: 2021_11_20_102437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "alegacao_de_pagamentos", force: :cascade do |t|
     t.bigint "usuario_id"
@@ -116,6 +117,17 @@ ActiveRecord::Schema.define(version: 2021_07_02_115309) do
     t.string "conectividade"
   end
 
+  create_table "distribuidor_descontos", force: :cascade do |t|
+    t.bigint "sub_distribuidor_id"
+    t.bigint "partner_id"
+    t.bigint "desconto_parceiro_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["desconto_parceiro_id"], name: "index_distribuidor_descontos_on_desconto_parceiro_id"
+    t.index ["partner_id"], name: "index_distribuidor_descontos_on_partner_id"
+    t.index ["sub_distribuidor_id"], name: "index_distribuidor_descontos_on_sub_distribuidor_id"
+  end
+
   create_table "erro_amigavels", force: :cascade do |t|
     t.string "de"
     t.string "para"
@@ -197,18 +209,6 @@ ActiveRecord::Schema.define(version: 2021_07_02_115309) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "matrix_users", force: :cascade do |t|
-    t.integer "master_profile"
-    t.integer "sub_distribuidor"
-    t.integer "sub_agente"
-    t.integer "filial"
-    t.integer "pdv"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "usuario_id"
-    t.index ["usuario_id"], name: "index_matrix_users_on_usuario_id"
   end
 
   create_table "menus", force: :cascade do |t|
@@ -315,6 +315,7 @@ ActiveRecord::Schema.define(version: 2021_07_02_115309) do
     t.text "acessos"
     t.boolean "operador", default: false
     t.boolean "agente"
+    t.text "links_externos"
   end
 
   create_table "produtos", force: :cascade do |t|
@@ -497,6 +498,9 @@ ActiveRecord::Schema.define(version: 2021_07_02_115309) do
     t.datetime "updated_at", null: false
     t.bigint "provincia_id"
     t.bigint "municipio_id"
+    t.string "ramo_negociacao"
+    t.string "site"
+    t.string "interface_operacao"
     t.index ["municipio_id"], name: "index_sub_distribuidors_on_municipio_id"
     t.index ["provincia_id"], name: "index_sub_distribuidors_on_provincia_id"
   end
@@ -572,12 +576,16 @@ ActiveRecord::Schema.define(version: 2021_07_02_115309) do
     t.string "telefone"
     t.string "whatsapp"
     t.datetime "data_adesao"
+    t.bigint "sub_distribuidor_id", default: 8
+    t.bigint "master_profile_id", default: 1
     t.index ["industry_id"], name: "index_usuarios_on_industry_id"
+    t.index ["master_profile_id"], name: "index_usuarios_on_master_profile_id"
     t.index ["municipio_id"], name: "index_usuarios_on_municipio_id"
     t.index ["perfil_usuario_id"], name: "index_usuarios_on_perfil_usuario_id"
     t.index ["provincia_id"], name: "index_usuarios_on_provincia_id"
     t.index ["status_cliente_id"], name: "index_usuarios_on_status_cliente_id"
     t.index ["sub_agente_id"], name: "index_usuarios_on_sub_agente_id"
+    t.index ["sub_distribuidor_id"], name: "index_usuarios_on_sub_distribuidor_id"
     t.index ["uni_pessoal_empresa_id"], name: "index_usuarios_on_uni_pessoal_empresa_id"
   end
 
@@ -625,11 +633,13 @@ ActiveRecord::Schema.define(version: 2021_07_02_115309) do
   add_foreign_key "conta_correntes", "partners"
   add_foreign_key "conta_correntes", "usuarios"
   add_foreign_key "desconto_parceiros", "partners"
+  add_foreign_key "distribuidor_descontos", "desconto_parceiros"
+  add_foreign_key "distribuidor_descontos", "partners"
+  add_foreign_key "distribuidor_descontos", "sub_distribuidors"
   add_foreign_key "grupo_registros", "grupos"
   add_foreign_key "grupo_usuarios", "grupos"
   add_foreign_key "grupo_usuarios", "usuarios"
   add_foreign_key "loop_logs", "movicel_loops"
-  add_foreign_key "matrix_users", "usuarios"
   add_foreign_key "moedas", "countries"
   add_foreign_key "parametros", "partners"
   add_foreign_key "partners", "status_parceiros"
@@ -656,11 +666,13 @@ ActiveRecord::Schema.define(version: 2021_07_02_115309) do
   add_foreign_key "unitel_sequences", "vendas"
   add_foreign_key "usuario_acessos", "usuarios"
   add_foreign_key "usuarios", "industries"
+  add_foreign_key "usuarios", "master_profiles"
   add_foreign_key "usuarios", "municipios"
   add_foreign_key "usuarios", "perfil_usuarios"
   add_foreign_key "usuarios", "provincia", column: "provincia_id"
   add_foreign_key "usuarios", "status_clientes"
   add_foreign_key "usuarios", "sub_agentes"
+  add_foreign_key "usuarios", "sub_distribuidors"
   add_foreign_key "usuarios", "uni_pessoal_empresas"
   add_foreign_key "vendas", "lancamentos"
   add_foreign_key "vendas", "partners"

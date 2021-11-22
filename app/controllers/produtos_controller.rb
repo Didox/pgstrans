@@ -60,6 +60,49 @@ class ProdutosController < ApplicationController
     end
   end
 
+  def produtos_zap_api
+    produtos_api = []
+    produtos = Produto.produtos.where(partner_id: Partner.where(slug: Partner.zaptv.slug)).reorder("valor_compra_telemovel asc, nome_comercial asc")
+    produtos.each do |produto|
+      produtos_api << {
+        nome: "#{produto.nome_comercial} - #{helper.number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2)}",
+        valor: "#{produto.id}-#{formata_numero_duas_casas(produto.valor_compra_telemovel)}"
+      }
+    end
+
+    return render json: produtos_api.to_json, status: 200
+  end
+
+  def produtos_movicel_api
+    produtos_api = []
+    produtos = Produto.produtos.where(partner_id: Partner.where(slug: Partner.movicel.slug)).reorder("valor_compra_telemovel asc, nome_comercial asc")
+    produtos.each do |produto|
+      produtos_api << {
+        nome: "#{produto.id} - #{helper.number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2)}",
+        valor: produto.nome_comercial
+      }
+    end
+
+    return render json: produtos_api.to_json, status: 200
+  end
+
+  def produtos_unitel_api
+    produtos_api = []
+    ["VOZ", "PLANO MAIS", "DADOS", "SMS"].each do |subtipo|
+      produtos_api << {
+        subtipo: subtipo,
+        produtos: Produto.produtos.where(partner_id: Partner.where(slug: Partner.unitel.slug), subtipo: subtipo).reorder("nome_comercial asc, valor_compra_telemovel asc").map do |produto|
+          {
+            nome: "#{produto.nome_comercial} - #{helper.number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2)}",
+            valor: "#{produto.id}-#{formata_numero_duas_casas(produto.valor_compra_telemovel)}"
+          }
+        end
+      }
+    end
+
+    return render json: produtos_api.to_json, status: 200
+  end
+
   # PATCH/PUT /produtos/1
   # PATCH/PUT /produtos/1.json
   def update

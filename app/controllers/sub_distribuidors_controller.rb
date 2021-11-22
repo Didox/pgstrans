@@ -37,6 +37,7 @@ class SubDistribuidorsController < ApplicationController
 
     respond_to do |format|
       if @sub_distribuidor.save
+        salvar_remuneracao_desconto
         format.html { redirect_to @sub_distribuidor, notice: 'Subdistribuidor foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @sub_distribuidor }
       else
@@ -51,6 +52,7 @@ class SubDistribuidorsController < ApplicationController
   def update
     respond_to do |format|
       if @sub_distribuidor.update(sub_distribuidor_params)
+        salvar_remuneracao_desconto
         format.html { redirect_to @sub_distribuidor, notice: 'Subdistribuidor foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @sub_distribuidor }
       else
@@ -71,6 +73,19 @@ class SubDistribuidorsController < ApplicationController
   end
 
   private
+
+    def salvar_remuneracao_desconto
+      DistribuidorDesconto.where(sub_distribuidor_id: @sub_distribuidor.id).destroy_all
+      if params[:partner_descontos].present?
+        params[:partner_descontos].each do |partner_desconto|
+          DistribuidorDesconto.create(
+            partner_id: partner_desconto["id"],
+            sub_distribuidor_id: @sub_distribuidor.id,
+            desconto_parceiro_id: params["parceiro_desconto_id_partner_id_#{partner_desconto["id"]}"]
+          )
+        end
+      end
+    end
     
     def set_sub_distribuidor
       @sub_distribuidor = SubDistribuidor.find(params[:id])
@@ -79,6 +94,6 @@ class SubDistribuidorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sub_distribuidor_params
-      params.require(:sub_distribuidor).permit(:nome, :bi, :telefone, :morada, :municipio_id, :provincia_id)
+      params.require(:sub_distribuidor).permit(:nome, :bi, :telefone, :morada, :municipio_id, :provincia_id, :interface_operacao, :site, :ramo_negociacao)
     end
 end

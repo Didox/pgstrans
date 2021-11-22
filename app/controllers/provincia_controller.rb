@@ -3,6 +3,10 @@ class ProvinciaController < ApplicationController
 
   # GET /provincia
   # GET /provincia.json
+  def index_api
+    index
+  end
+
   def index
     @provincia = Provincium.com_acesso(usuario_logado).order(nome: :asc)
 

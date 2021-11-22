@@ -1,0 +1,815 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "A plataforma Pagasó prevê a resposta a requisições no formato JSON, um formato compacto, de padrão aberto independente, para a troca de dados entre sistemas. Esta é a documentação da Pagasó API.",
+    "version": "1.0.5",
+    "title": "Pagasó API",
+    "termsOfService": "https://www.pagaso.co.ao/pages/policies?locale=pt",
+    "contact": {
+      "email": "rosi.volgarin@tiv-tecnologia.com"
+    }
+  },
+  "host": "localhost:3000",
+  "tags": [
+    {
+      "name": "Recarga",
+      "description": "Para compras de recarga"
+    },
+    {
+      "name": "Usuarios",
+      "description": "Para login e itens relacionados a usuários (distribuidor)"
+    },
+    {
+      "name": "ContaCorrente",
+      "description": "Para alterações em conta corrente"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/api/recarga/confirma.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tipo_venda",
+            "description": "Ex: Unitel, Movicel, DSTV, ZAPTV ...",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "unitel_produto_id",
+            "description": "{ID}- {Valor} - Conforme tabela de produtos",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "movicel_produto_id",
+            "description": "{ID}- {Valor} - Conforme tabela de produtos",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "dstv_produto_id",
+            "description": "{ID}- {Valor} - Conforme tabela de produtos",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "zaptv_produto_id",
+            "description": "{ID}- {Valor} - Conforme tabela de produtos",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "movicel_telefone",
+            "description": "Telefone recarga, caso seja uma recarga da Movicel",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "dstv_customer_number",
+            "description": "DSTV customer number, caso seja uma recarga da DSTV",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "zaptv_cartao",
+            "description": "ZAP Cartão, caso seja uma recarga da ZAP",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "unitel_telefone",
+            "description": "Unitel Telefone, caso seja uma recarga da Unitel",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "talao_sms",
+            "description": "Talão SMS, para envio da confirmação da recarga, caso o serviço esteja disponível",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/dstv-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos DSTV",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_dstv"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/unitel-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos Unitel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_dstv"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/movicel-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos Movicel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/zap-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos ZAPTV",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/login.json": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Login com usuário e senha",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "description": "E-mail ou login para acesso",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "senha",
+            "description": "Palavra-passe de acesso",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/usuario"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/municipios.json": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Municípios para cadastro de usuários",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/objs_simples"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/provincias.json": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Províncias para cadastro de usuários",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/provincias"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/industries.json": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Municípios para cadastro de usuários",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/industries"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/usuarios.json": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Cadastro de novo usuário",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "nome",
+            "description": "Nome do usuário",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "description": "E-mail para login",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "senha",
+            "description": "Senha para login",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sub_agente_id",
+            "description": "Id do subagente",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "status_cliente_id",
+            "description": "Id do status do cliente",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "morada",
+            "description": "morada",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bairro",
+            "description": "bairro",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "municipio_id",
+            "description": "municipio_id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "provincia_id",
+            "description": "provincia_id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "industry_id",
+            "description": "industry_id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "uni_pessoal_empresa_id",
+            "description": "uni_pessoal_empresa_id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "data_adesao",
+            "description": "data_adesao",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "telefone",
+            "description": "telefone",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "whatsapp",
+            "description": "whatsapp",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/usuario_create"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_usuario"
+            }
+          }
+        }
+      }
+    },
+    "/api/usuarios/{id}.json": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Mostra de novo usuário",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/usuario_create"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_usuario"
+            }
+          }
+        }
+      }
+    },
+    "/api/conta-corrente/adicionar-saldo.json": {
+      "post": {
+        "tags": [
+          "ContaCorrente"
+        ],
+        "description": "Adiciona saldo na conta corrente",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "usuario_id",
+            "description": "ID do Usuário que será acrescentado o saldo",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "lancamento_id",
+            "description": "Tipo do lançamento",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "banco_id",
+            "description": "Id do banco",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "Valor",
+            "description": "Valor a ser acrescentado (KZ)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Iban",
+            "description": "Iban da operação",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "data_alegacao_pagamento",
+            "description": "Data movimentação",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "observacao",
+            "description": "Observação",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/conta_corrente"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/conta-corrente/extrato.json": {
+      "get": {
+        "tags": [
+          "ContaCorrente"
+        ],
+        "description": "Retorna extrato do usuário",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "description": "Pagina corrente, paginação - Padrão (1)",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "data_alegacao_pagamento_inicio",
+            "description": "Data de Lançamento Início",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "data_alegacao_pagamento_fim",
+            "description": "Data de Lançamento Fim",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "data_ultima_atualizacao_saldo_inicio",
+            "description": "Data da Última Atualiz. Início",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "data_ultima_atualizacao_saldo_fim",
+            "description": "Data da Última Atualiz. Fim",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "login",
+            "description": "Login do Usuário",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "nome",
+            "description": "Nome do Usuário",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "perfil_usuario_id",
+            "description": "Perfil do Usuário",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "ID Interno Usuário",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "description": "Situação do Usuário",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "responsavel",
+            "description": "Responsável pela Aprovação",
+            "required": false,
+            "type": "string"
+          },
+            {
+              "name": "iban",
+            "description": "IBAN ou Número do Talão",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "lancamento_id",
+            "description": "Tipo de Lançamento",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "observacao",
+            "description": "Observação",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/conta_corrente_index"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    }
+
+
+
+  },
+  "definitions": {
+    "recarga": {
+      "type": "object",
+      "properties": {
+        "mensagem": { "type": "string" },
+        "status": { "type": "string" }
+      }
+    },
+    "falha": {
+      "type": "object",
+      "properties": {
+        "mensagem": { "type": "string" },
+        "status": { "type": "string" }
+      }
+    },
+    "falha_usuario": {
+      "type": "object",
+      "properties": {
+        "mensagem": { "type": "string" }
+      }
+    },
+    "usuario": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "email": { "type": "string" },
+        "updated_at": { "type": "string" },
+        "token": { "type": "string" }
+      }
+    },
+    "usuario_create": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "email": { "type": "string" },
+        "saldo": { "type": "string" }
+      }
+    },
+    "conta_corrente": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "usuario_id": { "type": "string" },
+        "lancamento_id": { "type": "string" },
+        "banco_id": { "type": "string" },
+        "valor": { "type": "number" },
+        "iban": { "type": "string" },
+        "data_alegacao_pagamento": { "type": "string" },
+        "saldo_anterior": { "type": "number" },
+        "saldo_atual": { "type": "number" },
+        "data_ultima_atualizacao_saldo": { "type": "string" },
+        "observacao": { "type": "string" },
+        "created_at": { "type": "string" },
+        "updated_at": { "type": "string" }
+      }
+    },
+    "conta_corrente_index": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/conta_corrente"
+      }
+    },
+    "produtos_dstv": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/produto_dstv"
+      }
+    },
+    "produtos_recarga": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/produto_recarga"
+      }
+    },
+    "produto_recarga": {
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" },
+        "valor": { "type": "string" }
+      }
+    },
+    "objs_simples": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/obj_simples"
+      }
+    },
+    "obj_simples": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "created_at": { "type": "string" },
+        "updated_at": { "type": "string" }
+      }
+    },
+    "provincias": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/provincia"
+      }
+    },
+    "provincia": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "capital": { "type": "string" },
+        "area_km2": { "type": "string" },
+        "population": { "type": "integer" },
+        "image_map": { "type": "string" },
+        "country_id": { "type": "integer" },
+        "created_at": { "type": "string" },
+        "updated_at": { "type": "string" }
+      }
+    },
+    "industries": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/industry"
+      }
+    },
+    "industry": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "descricao_seccao": { "type": "string" },
+        "descricao_divisao": { "type": "string" },
+        "descricao_grupo": { "type": "string" },
+        "created_at": { "type": "string" },
+        "updated_at": { "type": "string" }
+      }
+    },
+    "produto_dstv": {
+      "type": "object",
+      "properties": {
+        "subtipo": { "type": "string" },
+        "produtos": {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/produto_recarga"
+          }
+        }
+      }
+    }
+
+  }
+}
