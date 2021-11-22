@@ -85,7 +85,11 @@
                         Recarga<span class="required">&nbsp;*</span>
                     </div>
                     <div>
-                      <%= render "/shared/select_#{partner.slug.to_s.downcase}", partner: partner %>
+                      <% begin %>
+                        <%= render "/shared/select_#{partner.slug.to_s.downcase}", partner: partner %>
+                      <% rescue %>
+                        <%= render "/shared/select_default", partner: partner %>
+                      <% end %>
                     </div>
                   </div>
                 </div>
