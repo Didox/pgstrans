@@ -250,4 +250,7 @@ class Partner < ApplicationRecord
     Log.save_log("Exclusão de registro (#{self.class.to_s})", self.attributes)
   end
 
+  before_validation do
+    self.slug = this.title.parameterize if self.slug.blank?
+  end
 end
