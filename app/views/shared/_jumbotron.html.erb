@@ -14,19 +14,17 @@
           @partner_default = partner
           ativo = "menu-ativo"
         end %>
-        <% if partner.status_parceiro_id == 1 %>
-          <!--<%= partner.slug %>-->
-          <div class="col-md-3 menu-icon" style="text-align: center;">
-            <a href="javascript:;" onclick="pgstrans.displayRecarga('<%= partner.slug %>')">
-              <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;") rescue partner.name %>
-            </a>
-          </div>
-        <% else %>
-          <!--<%= partner.slug %>-->
-          <div class="col-md-3 menu-icon" style="text-align: center;">
-            <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu img_#{partner.slug}", style: "display: inline-block;") rescue partner.name %>
-          </div>
-        <% end %>
+        
+        <!--<%= partner.slug %>-->
+        <div class="menu-icon" style="text-align: center; margin: 0px 10px 0px 10px">
+          <a <% if partner.status_parceiro_id == 1 %> href="javascript:;" onclick="pgstrans.displayRecarga('<%= partner.slug %>')" <% end %>>
+            <% if partner.imagem.present? %>
+              <%= image_tag(partner.imagem, alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 160px;") %>
+            <% else %>
+              <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 160px;") rescue partner.name %>
+            <% end %>
+          </a>
+        </div>
       <% end %>
     </div>
     <form action="<%= recarga_confirma_path %>" id="recargaForm" method="post">
@@ -94,7 +92,7 @@
                   </div>
                 </div>
               <% end %>
-              <div class="campos Unitel Movicel DSTv ZAPTv">
+              <div class="campos <%= Partner.where(status_parceiro_id: StatusParceiro::ATIVO).map{|p| p.slug}.join(" ") %>">
                 <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
                   <div class="p16Bold editDiv" style="text-align: left;">
                     Valor
