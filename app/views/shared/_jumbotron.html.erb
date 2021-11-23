@@ -16,12 +16,16 @@
         end %>
         
         <!--<%= partner.slug %>-->
-        <div class="menu-icon" style="text-align: center; margin: 0px 10px 0px 10px">
+        <div class="menu-icon" style="text-align: center; margin: 0px 3% 0px 3%">
           <a <% if partner.status_parceiro_id == 1 %> href="javascript:;" onclick="pgstrans.displayRecarga('<%= partner.slug %>')" <% end %>>
             <% if partner.imagem.present? %>
               <%= image_tag(partner.imagem, alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 160px;") %>
             <% else %>
-              <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 160px;") rescue partner.name %>
+              <% begin %>
+                <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 160px;") %>
+              <% rescue %>
+                <%= image_tag("partner/default_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 160px;") %>
+              <% end %>
             <% end %>
           </a>
         </div>
@@ -108,7 +112,7 @@
                     Telemóvel<span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" name="movicel_telefone" class="form-control vMovicel validate clearFieldjs" data-message="Informe o número" value="" placeholder="Telemóvel..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" name="movicel_telefone" class="form-control vMovicel validate clearFieldjs" data-message="Informe o número do Telemóvel para Recarga" value="" placeholder="Número do Telemóvel" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
@@ -118,7 +122,7 @@
                     Nº Cliente/Customer Number <span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" id="dstvNr"  name="dstv_customer_number" class="form-control vDSTv validate clearFieldjs" data-message="Informe o número" value="" placeholder="Customer Number..." maxlength="11" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" id="dstvNr"  name="dstv_customer_number" class="form-control vDSTv validate clearFieldjs" data-message="Informe o número do Dispositivo ou do Cliente" value="" placeholder="Customer Number ou Device Id" maxlength="11" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
@@ -128,7 +132,7 @@
                     Nº do Cartão ZAP <span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" id="zapNr" name="zaptv_cartao" class="form-control vZAPTv validate clearFieldjs" data-message="Informe o número" value="" placeholder="Nº do Cartão ZAP..." maxlength="12" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" id="zapNr" name="zaptv_cartao" class="form-control vZAPTv validate clearFieldjs" data-message="Informe o número do Cartão ZAP" value="" placeholder="Número do Cartão ZAP" maxlength="12" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
@@ -138,17 +142,27 @@
                     Telemóvel <span class="required">*</span>
                   </div>
                   <div>
-                    <input type="text" id="unitelNr" name="unitel_telefone" class="form-control vUnitel validate clearFieldjs" data-message="Informe o número" value="" placeholder="Telemóvel..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" id="unitelNr" name="unitel_telefone" class="form-control vUnitel validate clearFieldjs" data-message="Informe o Número do Telemóvel" value="" placeholder="Número do Telemóvel para Recarga" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
-              <div class="campos talaoUnitel talaoMovicel talaoDSTv talaoZAPTv" id="divAditionalFieldsSMS" style="display: none;margin-top: 10px">
+              <div class="campos ENDE " id="divAditionalFieldsENDE">
                 <div class="editArea editAreaDiv">
                   <div class="p16Bold editDiv" style="text-align: left;">
-                    Talão p/SMS <span class="required">&nbsp;*</span>
+                    Número do Contador ou Medidor<span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" id="SMSNr" name="talao_sms" class="form-control talaoUnitel talaoMovicel talaoDSTv talaoZAPTv vUnitel vMovicel vDSTv vZAPTv validate clearFieldjs" data-message="Informe o número" value="" placeholder="Talão p/SMS..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" name="ende_telefone" class="form-control vENDE validate clearFieldjs" data-message="Informe o número" value="" placeholder="Digite ..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                  </div>
+                </div>
+              </div>
+              <div class="campos <%= Partner.where(status_parceiro_id: StatusParceiro::ATIVO).map{|p| "talao#{p.slug}"}.join(" ") %>" id="divAditionalFieldsSMS" style="display: none;margin-top: 10px">
+                <div class="editArea editAreaDiv">
+                  <div class="p16Bold editDiv" style="text-align: left;">
+                    Talão para SMS <span class="required">&nbsp;*</span>
+                  </div>
+                  <div>
+                    <input type="text" id="SMSNr" name="talao_sms" class="form-control <%= Partner.where(status_parceiro_id: StatusParceiro::ATIVO).map{|p| "talao#{p.slug} v#{p.slug}"}.join(" ") %> validate clearFieldjs" data-message="Informe o Número para Talão para SMS" value="" placeholder="Talão para SMS " maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
