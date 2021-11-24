@@ -117,7 +117,7 @@ class Dstv
         end
       end
     else
-      raise "API DSTV Não retornou 200, sem dados para atualização"
+      raise PagasoError.new("API DSTV Não retornou 200, sem dados para atualização")
     end
 
     item = UltimaAtualizacaoProduto.where(partner_id: partner.id).first
@@ -215,7 +215,7 @@ class Dstv
         end
       end
     else
-      raise "API DSTV Não retornou 200, sem dados para atualização"
+      raise PagasoError.new("API DSTV Não retornou 200, sem dados para atualização")
     end
 
     item = SaldoParceiroDstv.where(partner_id: partner.id).first
@@ -228,11 +228,11 @@ class Dstv
   end
 
   def self.alteracao_plano_mensal_anual(produto_id_parceiro, customer_number, tipo_plano, ip, usuario_logado)
-    raise "Selecione o produto" if produto_id_parceiro.blank?
-    raise "Customer number não pode ser vazio" if customer_number.blank?
-    raise "Tipo de plano não pode ser vazio" if tipo_plano.blank?
+    raise PagasoError.new("Selecione o produto") if produto_id_parceiro.blank?
+    raise PagasoError.new("Customer number não pode ser vazio") if customer_number.blank?
+    raise PagasoError.new("Tipo de plano não pode ser vazio") if tipo_plano.blank?
     produto = Dstv.produtos.where(produto_id_parceiro: produto_id_parceiro).first
-    raise "Selecione um produto válido" if produto.blank?
+    raise PagasoError.new("Selecione um produto válido") if produto.blank?
 
     customer_number = customer_number.strip
 
@@ -246,8 +246,8 @@ class Dstv
       sequencial.numero += 1
     end
 
-    raise "Valor da fatura é insuficiente para pagamento" if produto.valor_compra_telemovel.to_f < 0.1
-    raise "Saldo insuficiente para realizar a operação, seu saldo atual é de KZ #{usuario_logado.saldo.round(2)}" if usuario_logado.saldo < produto.valor_compra_telemovel.to_f
+    raise PagasoError.new("Valor da fatura é insuficiente para pagamento") if produto.valor_compra_telemovel.to_f < 0.1
+    raise PagasoError.new("Saldo insuficiente para realizar a operação, seu saldo atual é de KZ #{usuario_logado.saldo.round(2)}") if usuario_logado.saldo < produto.valor_compra_telemovel.to_f
     
     paymentDescription = "Pagaso - #{usuario_logado.nome}".truncate(49)
     body = "
@@ -282,7 +282,7 @@ class Dstv
       </soapenv:Envelope>
     "
 
-    raise "Transação duplicada" if SequencialDstv.where(response_body: body).count > 0
+    raise PagasoError.new("Transação duplicada") if SequencialDstv.where(response_body: body).count > 0
 
     request = fazer_request(url_service, body, "AgentSubmitPayment")
     SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
@@ -290,13 +290,13 @@ class Dstv
     xml_doc = Nokogiri::XML(request.body)
 
     mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
-    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+    raise PagasoError.new(ErroAmigavel.traducao(mensagem)) if mensagem.present?
 
     mensagem = xml_doc.child.child.child.children.select{|child| child.name == "faultstring"}.first.text rescue ""
-    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+    raise PagasoError.new(ErroAmigavel.traducao(mensagem)) if mensagem.present?
 
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
-    raise "Pagamento não processado" if agent_submit_payment.blank?
+    raise PagasoError.new("Pagamento não processado") if agent_submit_payment.blank?
 
     return agent_submit_payment_hash_parse(produto.description, produto.produto_id_parceiro, produto.valor_compra_telemovel, agent_submit_payment, request, body, customer_number, usuario_logado, nil, tipo_plano, Lancamento::ALTERACAO_PLANO)
   end
@@ -312,7 +312,7 @@ class Dstv
     agent_submit_payment_hash["errorMessage"] = agent_submit_payment.children.select{|child| child.name == "errorMessage"}.first.text rescue ""
     agent_submit_payment_hash["errorMessage"] ||= agent_submit_payment.children.select{|child| child.name == "Message"}.first.text rescue ""
     
-    raise ErroAmigavel.traducao(agent_submit_payment_hash["errorMessage"]) if agent_submit_payment_hash["errorMessage"].present?
+    raise PagasoError.new(ErroAmigavel.traducao(agent_submit_payment_hash["errorMessage"])) if agent_submit_payment_hash["errorMessage"].present?
 
     agent_submit_payment_hash["receiptNumber"] = agent_submit_payment.children.select{|child| child.name == "receiptNumber"}.first.text rescue ""
     agent_submit_payment_hash["transactionNumber"] = agent_submit_payment.children.select{|child| child.name == "transactionNumber"}.first.text rescue ""
@@ -358,8 +358,8 @@ class Dstv
   end
 
   def self.alterar_pacote(customer_number, smartcard, produtos, ip, usuario_logado)
-    raise "Selecione pelo menos um produto" if produtos.blank?
-    raise "Customer number não pode ser vazio" if customer_number.blank?
+    raise PagasoError.new("Selecione pelo menos um produto") if produtos.blank?
+    raise PagasoError.new("Customer number não pode ser vazio") if customer_number.blank?
 
     customer_number = customer_number.strip
     smartcard = smartcard.strip
@@ -378,8 +378,8 @@ class Dstv
       produtos_api += "</sel1:Product>";
     end
 
-    raise "Valor da fatura é insuficiente para pagamento" if valor_total.to_f < 0.1
-    raise "Saldo insuficiente para realizar a operação, seu saldo atual é de KZ #{usuario_logado.saldo.round(2)}" if usuario_logado.saldo < valor_total.to_f
+    raise PagasoError.new("Valor da fatura é insuficiente para pagamento") if valor_total.to_f < 0.1
+    raise PagasoError.new("Saldo insuficiente para realizar a operação, seu saldo atual é de KZ #{usuario_logado.saldo.round(2)}") if usuario_logado.saldo < valor_total.to_f
 
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
@@ -422,7 +422,7 @@ class Dstv
       </soapenv:Envelope>
     "
 
-    raise "Transação duplicada" if SequencialDstv.where(response_body: body).count > 0
+    raise PagasoError.new("Transação duplicada") if SequencialDstv.where(response_body: body).count > 0
 
     request = fazer_request(url_service, body, "AgentSubmitPayment")
     SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
@@ -430,19 +430,19 @@ class Dstv
     xml_doc = Nokogiri::XML(request.body)
 
     mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
-    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+    raise PagasoError.new(ErroAmigavel.traducao(mensagem)) if mensagem.present?
 
     mensagem = xml_doc.child.child.child.children.select{|child| child.name == "faultstring"}.first.text rescue ""
-    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+    raise PagasoError.new(ErroAmigavel.traducao(mensagem)) if mensagem.present?
 
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
-    raise "Pagamento não processado" if agent_submit_payment.blank?
+    raise PagasoError.new("Pagamento não processado") if agent_submit_payment.blank?
 
     return agent_submit_payment_hash_parse(produtos_enviados.map{|produto| produto.description}.join(", "), produtos_enviados.map{|produto| produto.produto_id_parceiro}.join(", "), valor_total, agent_submit_payment, request, body, customer_number, usuario_logado, smartcard, "mensal", Lancamento::ALTERACAO_PACOTE)
   end
 
   def self.informacoes_device_number(smartcard, ip)
-    raise "Por favor digite o smartcard" if smartcard.blank?
+    raise PagasoError.new("Por favor digite o smartcard") if smartcard.blank?
 
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
@@ -469,7 +469,7 @@ class Dstv
   end
 
   def self.informacoes_customer_number(customer_number, ip)
-    raise "Por favor digite o customer number" if customer_number.blank?
+    raise PagasoError.new("Por favor digite o customer number") if customer_number.blank?
     customer_number = customer_number.strip
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
@@ -496,8 +496,8 @@ class Dstv
   end
 
   def self.consulta_fatura(smartcard, customer_number, ip)
-    raise "Por favor digite o smartcard" if smartcard.blank?
-    raise "Por favor digite o customer_number" if customer_number.blank?
+    raise PagasoError.new("Por favor digite o smartcard") if smartcard.blank?
+    raise PagasoError.new("Por favor digite o customer_number") if customer_number.blank?
 
     customer_number = customer_number.strip
     smartcard = smartcard.strip
@@ -528,10 +528,10 @@ class Dstv
     get_due_amountand_date = xml_doc.child.child.child.children rescue nil
     if get_due_amountand_date.blank? || request.body.scan(/<\/faultcode><faultstring/).length > 0
       mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
-      raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+      raise PagasoError.new(ErroAmigavel.traducao(mensagem)) if mensagem.present?
       
       mensagem = xml_doc.child.child.child.children.select{|child| child.name == "faultstring"}.first.text rescue ""
-      raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+      raise PagasoError.new(ErroAmigavel.traducao(mensagem)) if mensagem.present?
     end
 
     detail_hash = {}
@@ -547,11 +547,11 @@ class Dstv
   end
 
   def self.pagar_fatura(customer_number, valor, ip, usuario_logado, smartcard)
-    raise "Por favor digite o customer_number" if customer_number.blank?
-    raise "Smartcard é obrigatório" if smartcard.blank?
-    raise "Por favor digite o valor" if valor.blank?
-    raise "Valor da fatura é insuficiente para pagamento" if valor.to_f < 0.1
-    raise "Saldo insuficiente para realizar a operação, seu saldo atual é de KZ #{usuario_logado.saldo.round(2)}" if usuario_logado.saldo < valor.to_f
+    raise PagasoError.new("Por favor digite o customer_number") if customer_number.blank?
+    raise PagasoError.new("Smartcard é obrigatório") if smartcard.blank?
+    raise PagasoError.new("Por favor digite o valor") if valor.blank?
+    raise PagasoError.new("Valor da fatura é insuficiente para pagamento") if valor.to_f < 0.1
+    raise PagasoError.new("Saldo insuficiente para realizar a operação, seu saldo atual é de KZ #{usuario_logado.saldo.round(2)}") if usuario_logado.saldo < valor.to_f
     
     customer_number = customer_number.strip
     smartcard = smartcard.strip
@@ -599,7 +599,7 @@ class Dstv
       </soapenv:Envelope>
     "
 
-    raise "Transação duplicada" if SequencialDstv.where(response_body: body).count > 0
+    raise PagasoError.new("Transação duplicada") if SequencialDstv.where(response_body: body).count > 0
 
     request = fazer_request(url_service, body, "AgentSubmitPayment")
     SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
@@ -607,13 +607,13 @@ class Dstv
     xml_doc = Nokogiri::XML(request.body)
 
     mensagem = request.body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
-    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+    raise PagasoError.new(ErroAmigavel.traducao(mensagem)) if mensagem.present?
 
     mensagem = xml_doc.child.child.child.children.select{|child| child.name == "faultstring"}.first.text rescue ""
-    raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+    raise PagasoError.new(ErroAmigavel.traducao(mensagem)) if mensagem.present?
 
     agent_submit_payment = xml_doc.child.child.child.children rescue nil
-    raise "Pagamento não processado" if agent_submit_payment.blank?
+    raise PagasoError.new("Pagamento não processado") if agent_submit_payment.blank?
 
     agent_submit_payment_hash = {}
 
@@ -646,7 +646,7 @@ class Dstv
     pagamentos_faturas_dstv.lancamento_id = Lancamento.where(nome: Lancamento::PAGAMENTO_DE_FATURA).first.id rescue nil
     pagamentos_faturas_dstv.save!
 
-    raise ErroAmigavel.traducao(agent_submit_payment_hash["errorMessage"]) if agent_submit_payment_hash["errorMessage"].present?
+    raise PagasoError.new(ErroAmigavel.traducao(agent_submit_payment_hash["errorMessage"])) if agent_submit_payment_hash["errorMessage"].present?
 
     conta_corrente_retirada = ContaCorrente.new
     conta_corrente_retirada.valor = "-#{valor.to_f.abs}"
@@ -664,8 +664,8 @@ class Dstv
     parceiro = Partner.dstv
     parametro = Parametro.where(partner_id: parceiro.id).first
 
-    raise "Parâmetros não localizados" if parametro.blank?
-    raise "Parceiro não localizado" if parceiro.blank?
+    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
+    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
 
     if Rails.env == "development"
       url_service = parametro.url_integracao_desenvolvimento
@@ -718,10 +718,14 @@ class Dstv
     Rails.logger.info "=========================================="
 
     return request
+  rescue PagasoError => e
+    raise "#{e.message} - #{e.backtrace}"
   rescue Net::ReadTimeout => e
-    raise "Timeout. Sem resposta da operadora"
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
-    raise "Timeout. Sem resposta da operadora"
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Exception => e
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
   end
 
   def self.informacoes_parse(body)
@@ -733,7 +737,7 @@ class Dstv
 
     if customer_details.blank? || accounts_xml.blank?
       mensagem = body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
-      raise ErroAmigavel.traducao(mensagem) if mensagem.present?
+      raise PagasoError.new(ErroAmigavel.traducao(mensagem)) if mensagem.present?
     end
 
     if customer_details

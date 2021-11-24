@@ -42,7 +42,7 @@ class Zaptv
         end
       end
     else
-      raise "API ZAPTV Não retornou 200, sem dados para atualização"
+      raise PagasoError.new("API ZAPTV Não retornou 200, sem dados para atualização")
     end
 
     item = UltimaAtualizacaoProduto.where(partner_id: partner.id).first
@@ -52,10 +52,14 @@ class Zaptv
     else
       UltimaAtualizacaoProduto.create(partner_id: partner.id)
     end
+  rescue PagasoError => e
+    raise "#{e.message} - #{e.backtrace}"
   rescue Net::ReadTimeout => e
-    raise "Timeout. Sem resposta da operadora"
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
-    raise "Timeout. Sem resposta da operadora"
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Exception => e
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
   end
 
   def self.importa_dados!
@@ -119,10 +123,13 @@ class Zaptv
     else
       UltimaAtualizacaoReconciliacao.create(partner_id: partner.id)
     end
+  rescue PagasoError => e
+    raise "#{e.message} - #{e.backtrace}"
   rescue Net::ReadTimeout => e
-    raise "Timeout. Sem resposta da operadora"
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
-    raise "Timeout. Sem resposta da operadora"
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Exception => e
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
   end
-
 end

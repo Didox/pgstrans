@@ -2,6 +2,6 @@ class Unitel
   require 'openssl'
 
   def self.importa_produtos
-    raise "Não importado, verificar"
+    raise PagasoError.new("Não importado, verificar")
   end
 end

@@ -70,7 +70,7 @@ module PermissionamentoDados
         end
 
         def salvar_responsavel
-          raise "Responsável não definido" if self.responsavel.blank?
+          raise PagasoError.new("Responsável não definido") if self.responsavel.blank?
 
           return if self.responsavel.admin? || self.responsavel.operador?
           

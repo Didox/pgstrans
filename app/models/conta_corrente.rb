@@ -27,11 +27,11 @@ class ContaCorrente < ApplicationRecord
   end
 
   def destroy
-    raise "Registro de Conta Corrente não pode ser excluído"
+    raise PagasoError.new("Registro de Conta Corrente não pode ser excluído")
   end
 
   def self.destroy_all
-    raise "Registro de Conta Corrente não pode ser excluído"
+    raise PagasoError.new("Registro de Conta Corrente não pode ser excluído")
   end
 
   def responsavel_aprovacao

@@ -8,11 +8,11 @@ class Venda < ApplicationRecord
   after_save :update_product
   
   def destroy
-    raise "Registro de Venda não pode ser excluído"
+    raise PagasoError.new("Registro de Venda não pode ser excluído")
   end
 
   def self.destroy_all
-    raise "Registro de Venda não pode ser excluído"
+    raise PagasoError.new("Registro de Venda não pode ser excluído")
   end
 
   def self.to_csv
@@ -245,12 +245,12 @@ class Venda < ApplicationRecord
     
     parametro = Parametro.where(partner_id: parceiro.id).first
 
-    raise "Saldo insuficiente para recarga" if usuario.saldo < valor
-    raise "Parceiro não localizado" if parceiro.blank?
-    raise "Parâmetros não localizados" if parametro.blank?
-    raise "Selecione o valor" if params[:valor].blank?
-    raise "Digite o telemovel" if params[:zaptv_cartao].blank?
-    raise "Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador" if usuario.sub_agente.blank?
+    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
+    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
+    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
+    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
+    raise PagasoError.new("Digite o telemovel") if params[:zaptv_cartao].blank?
+    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
 
     telefone = params[:zaptv_cartao]
     request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
@@ -263,7 +263,7 @@ class Venda < ApplicationRecord
       api_key = parametro.api_key_zaptv_producao
     end
 
-    raise "Produto não selecionado" if params[:zaptv_produto_id].blank?
+    raise PagasoError.new("Produto não selecionado") if params[:zaptv_produto_id].blank?
     product_id = params[:zaptv_produto_id].split("-").first
     produto = Produto.find(product_id)
 
@@ -329,10 +329,14 @@ class Venda < ApplicationRecord
     end
 
     return venda
+  rescue PagasoError => e
+    raise "#{e.message} - #{e.backtrace}"
   rescue Net::ReadTimeout => e
-    raise "Timeout. Sem resposta da operadora"
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
-    raise "Timeout. Sem resposta da operadora"
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Exception => e
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
   end
 
   def status_movicel
@@ -402,16 +406,14 @@ class Venda < ApplicationRecord
       return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue nil
       # return "#{request_id} - #{Nokogiri::XML(request.body).children.children.children.children.children.text}" rescue nil
     end
+  rescue PagasoError => e
+    raise "#{e.message} - #{e.backtrace}"
   rescue Net::ReadTimeout => e
-    raise "Timeout. Sem resposta da operadora"
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
-    raise "Timeout. Sem resposta da operadora"
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Exception => e
-    raise "Timeout ou erro inesperado - #{e.message}"
-    puts "========================================="
-    puts e.message
-    puts e.backtrace
-    puts "========================================="
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
   end
 
   def self.venda_movicel(params, usuario, ip)
@@ -421,16 +423,16 @@ class Venda < ApplicationRecord
 
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
 
-    raise "Parâmetros não localizados" if parametro.blank?
-    raise "Saldo insuficiente para recarga" if usuario.saldo < valor
-    raise "Parceiro não localizado" if parceiro.blank?
-    raise "Selecione o valor" if params[:valor].blank?
-    raise "Digite o telemóvel" if params[:movicel_telefone].blank?
-    raise "Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador." if usuario.sub_agente.blank?
+    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
+    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
+    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
+    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
+    raise PagasoError.new("Digite o telemóvel") if params[:movicel_telefone].blank?
+    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
 
     telefone = params[:movicel_telefone]
 
-    raise "Produto não selecionado" if params[:movicel_produto_id].blank?
+    raise PagasoError.new("Produto não selecionado") if params[:movicel_produto_id].blank?
     product_id = params[:movicel_produto_id].split("-").first
     produto = Produto.find(product_id)
 
@@ -627,15 +629,15 @@ class Venda < ApplicationRecord
             timeout: DEFAULT_TIMEOUT.to_i.seconds,
             body: body
           }
-          raise "#{err.message} - Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - backtrace = #{err.backtrace}"
+          raise PagasoError.new("#{err.message} - Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - backtrace = #{err.backtrace}")
         end
       else
         return_message = request.body.scan(/<ReturnMessage.*?ReturnMessage>/)
         if return_message.present?
           return_message = return_message.first.gsub(/<[^>]*>/, "") rescue return_message
-          raise "Erro no envio do pedido ou resposta da  - (#{return_message})"
+          raise PagasoError.new("Erro no envio do pedido ou resposta da  - (#{return_message})")
         end
-        raise "Erro no envio do pedido ou resposta da operadora - Timeout"
+        raise PagasoError.new("Erro no envio do pedido ou resposta da operadora - Timeout")
       end
     rescue Exception => err
       url = "#{url_service}/DirectTopupService/Topup/"
@@ -647,12 +649,16 @@ class Venda < ApplicationRecord
         timeout: DEFAULT_TIMEOUT.to_i.seconds,
         body: body
       }
-      raise "#{err.message} - Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - backtrace = #{err.backtrace}"
+      raise PagasoError.new("#{err.message} - Erro ao enviar dados para api - URL = #{url} - payload = #{payload} - backtrace = #{err.backtrace}")
     end
+  rescue PagasoError => e
+    raise "#{e.message} - #{e.backtrace}"
   rescue Net::ReadTimeout => e
-    raise "Timeout. Sem resposta da operadora"
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
-    raise "Timeout. Sem resposta da operadora"
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Exception => e
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
   end
 
   def status_dstv
@@ -670,14 +676,14 @@ class Venda < ApplicationRecord
 
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
 
-    raise "Parâmetros não localizados" if parametro.blank?
-    raise "Saldo insuficiente para recarga" if usuario.saldo < valor
-    raise "Parceiro não localizado" if parceiro.blank?
-    raise "Selecione o valor" if params[:valor].blank?
-    raise "Digite o número do cliente/customer number" if params[:dstv_customer_number].blank?
-    raise "Talão p/SMS" if params[:talao_sms].blank?
-    raise "Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador." if usuario.sub_agente.blank?
-    raise "Produto não selecionado" if params[:dstv_produto_id].blank?
+    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
+    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
+    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
+    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
+    raise PagasoError.new("Digite o número do cliente/customer number") if params[:dstv_customer_number].blank?
+    raise PagasoError.new("Talão p/SMS") if params[:talao_sms].blank?
+    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
+    raise PagasoError.new("Produto não selecionado") if params[:dstv_produto_id].blank?
 
     product_id = params[:dstv_produto_id].split("-").first
     produto = Produto.find(product_id)
@@ -823,13 +829,13 @@ class Venda < ApplicationRecord
     parametro = Parametro.where(partner_id: parceiro.id).first
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
 
-    raise "Parâmetros não localizados" if parametro.blank?
-    raise "Saldo insuficiente para recarga" if usuario.saldo < valor
-    raise "Parceiro não localizado" if parceiro.blank?
-    raise "Produto não selecionado" if params[:unitel_produto_id].blank?
-    raise "Selecione o valor" if params[:valor].blank?
-    raise "Digite o telemóvel" if params[:unitel_telefone].blank?
-    raise "Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador." if usuario.sub_agente.blank?
+    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
+    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
+    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
+    raise PagasoError.new("Produto não selecionado") if params[:unitel_produto_id].blank?
+    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
+    raise PagasoError.new("Digite o telemóvel") if params[:unitel_telefone].blank?
+    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
 
     product_id = params[:unitel_produto_id].split("-").first
     produto = Produto.find(product_id)
