@@ -76,7 +76,8 @@ class ParametrosController < ApplicationController
     def parametro_params
       params.require(:parametro).permit(
         :url_integracao_desenvolvimento, :unitel_agente_id, :zaptv_agente_id, :movicel_agente_id, :dstv_agente_id, 
-        :url_integracao_producao, :partner_id, :api_key_zaptv_desenvolvimento, :api_key_zaptv_producao, :agent_key_movicel_desenvolvimento, 
+        :url_integracao_producao, :partner_id, :api_key_zaptv_desenvolvimento, :api_key_ende_desenvolvimento, 
+        :api_key_ende_producao, :api_key_zaptv_producao, :agent_key_movicel_desenvolvimento, 
         :agent_key_movicel_producao, :user_id_movicel_desenvolvimento, :user_id_movicel_producao, :data_source_dstv_desenvolvimento, 
         :data_source_dstv_producao, :payment_vendor_code_dstv_desenvolvimento, :payment_vendor_code_dstv_producao, :vendor_code_dstv_desenvolvimento, 
         :vendor_code_dstv_producao, :agent_account_dstv_desenvolvimento, :agent_account_dstv_producao, :currency_dstv_desenvolvimento, 

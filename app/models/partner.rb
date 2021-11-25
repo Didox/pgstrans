@@ -46,6 +46,10 @@ class Partner < ApplicationRecord
     Partner.where("lower(slug) = 'dstv'").first
   end
 
+  def self.ende
+    Partner.where("lower(slug) = 'ende'").first
+  end
+
   def self.movicel
     Partner.where("lower(slug) = 'movicel'").first
   end

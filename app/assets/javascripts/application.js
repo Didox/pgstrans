@@ -193,6 +193,16 @@ $(function(){
       }
     });
 
+    $(".validate.cOpcional" + $("#tipo_ativo").val()).each(function(){
+      if($(this).val() != "" && $(this).attr("type") == "email"){
+        if( $(this).val().indexOf("@") == -1 || $(this).val().indexOf(".") == -1 ){
+          message = $(this).data("message");
+          $(this).focus();
+          return;
+        }
+      }
+    });
+
     if(message !== ""){
       $.alert({
         title: 'Validação!',

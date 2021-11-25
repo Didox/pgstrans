@@ -339,6 +339,109 @@ class Venda < ApplicationRecord
     raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
   end
 
+  def self.venda_ende(params, usuario, ip)
+    parceiro = Partner.ende
+    valor = params[:valor].to_f
+  
+    desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
+    
+    parametro = Parametro.where(partner_id: parceiro.id).first
+  
+    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
+    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
+    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
+    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
+    raise PagasoError.new("Digite o Número do Contador ou Medidor") if params[:ende_telefone].blank?
+    raise PagasoError.new("Digite o Número SMS para envio do token de recarga") if params[:talao_sms_ende].blank?
+    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
+  
+    telefone = params[:ende_telefone]
+    request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
+  
+    if Rails.env == "development"
+      host = "#{parametro.url_integracao_desenvolvimento}/carregamento"
+      api_key = parametro.api_key_ende_desenvolvimento
+    else
+      host = "#{parametro.url_integracao_producao}/carregamento"
+      api_key = parametro.api_key_ende_producao
+    end
+  
+    raise PagasoError.new("Produto não selecionado") if params[:ende_produto_id].blank?
+    product_id = params[:ende_produto_id].split("-").first
+    produto = Produto.find(product_id)
+  
+    body_send = {
+      :price => valor_original, 
+      :product_code => produto.produto_id_parceiro, #produto importado zap
+      :product_quantity => 1, 
+      :source_reference => request_id, #meu código 
+      :zappi => telefone #Iremos receber este numero
+    }.to_json
+  
+  
+    res = HTTParty.post(
+      host, 
+      headers: {
+        "apikey" => api_key,
+        "Content-Type" => "application/json"
+      },
+      :body => body_send, timeout: DEFAULT_TIMEOUT.to_i.seconds
+    )
+  
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.ende_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda.responsavel = usuario
+    venda.save!
+    
+    venda.store_id = usuario.sub_agente.store_id_parceiro
+    venda.seller_id = usuario.sub_agente.seller_id_parceiro
+    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+  
+    venda.request_send = "#{host} ------ api_key=#{api_key} -------- body=#{body_send}"
+    venda.response_get = res.body
+  
+    begin
+      venda.status = JSON.parse(res.body)["status_code"]
+    rescue;end
+    venda.status ||= res.code
+    venda.save!
+  
+    if venda.sucesso?
+      cc = ContaCorrente.where(usuario_id: usuario.id).first
+      if cc.blank?
+        banco = Banco.first
+        iban = ""
+      else
+        iban = cc.iban
+        banco = cc.banco
+      end
+  
+      lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first
+      lancamento = Lancamento.first if lancamento.blank?
+  
+      conta_corrente = ContaCorrente.new(
+        usuario_id: usuario.id,
+        valor: "-#{valor}",
+        observacao: "Compra de recarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+        lancamento_id: lancamento.id,
+        banco_id: (banco.id rescue Banco.first.id),
+        partner_id: parceiro.id,
+        iban: iban
+      )
+      conta_corrente.responsavel = usuario
+      conta_corrente.save!
+    end
+  
+    return venda
+  rescue PagasoError => e
+    raise "#{e.message} - #{e.backtrace}"
+  rescue Net::ReadTimeout => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Net::OpenTimeout => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Exception => e
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
+  end
+
   def status_movicel
     return if self.partner.name.downcase != "movicel"
 
