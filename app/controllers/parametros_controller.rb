@@ -32,7 +32,7 @@ class ParametrosController < ApplicationController
 
     respond_to do |format|
       if @parametro.save
-        format.html { redirect_to @parametro, notice: 'Parametro foi criado com sucesso.' }
+        format.html { redirect_to edit_parametro_url(@parametro), notice: 'Parametro foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @parametro }
       else
         format.html { render :new }

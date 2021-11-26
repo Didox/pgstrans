@@ -34,24 +34,28 @@
       </div>
     </div>
     <hr>
-    <div class="row h-50 p-3">
-      <div class="col-md-4">
-          AGENT_ID Unitel:
+    <% if @parametro.partner.slug.downcase == "unitel" %>
+      <div class="row h-50 p-3">
+        <div class="col-md-4">
+            AGENT_ID Unitel:
+        </div>
+        <div class="col-md-8">
+            <%= @parametro.unitel_agente_id %>
+        </div>
       </div>
-      <div class="col-md-8">
-          <%= @parametro.unitel_agente_id %>
+      <hr>
+    <% end %>
+    <% if @parametro.partner.slug.downcase == "zaptv" %>
+      <div class="row bg-light h-50 p-3">
+        <div class="col-md-4">
+            AGENT_ID ZAPTV:
+        </div>
+        <div class="col-md-8">
+            <%= @parametro.zaptv_agente_id %>
+        </div>
       </div>
-    </div>
-    <hr>
-    <div class="row bg-light h-50 p-3">
-      <div class="col-md-4">
-          AGENT_ID ZAPTV:
-      </div>
-      <div class="col-md-8">
-          <%= @parametro.zaptv_agente_id %>
-      </div>
-    </div>
-    <hr>
+      <hr>
+    <% end %>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           AGENT_ID Movicel:
@@ -88,24 +92,26 @@
       </div>
     </div>
     <hr>
-    <div class="row h-50 p-3">
-      <div class="col-md-4">
-          Api key ZAPTV desenvolvimento:
+    <% if @parametro.partner.slug.downcase == "zaptv" %>
+      <div class="row h-50 p-3">
+        <div class="col-md-4">
+            Api key ZAPTV desenvolvimento:
+        </div>
+        <div class="col-md-8">
+            <%= @parametro.api_key_zaptv_desenvolvimento %>
+        </div>
       </div>
-      <div class="col-md-8">
-          <%= @parametro.api_key_zaptv_desenvolvimento %>
+      <hr>
+      <div class="row bg-light h-50 p-3">
+        <div class="col-md-4">
+            Api key ZAPTV produção:
+        </div>
+        <div class="col-md-8">
+            <%= @parametro.api_key_zaptv_producao %>
+        </div>
       </div>
-    </div>
-    <hr>
-    <div class="row bg-light h-50 p-3">
-      <div class="col-md-4">
-          Api key ZAPTV produção:
-      </div>
-      <div class="col-md-8">
-          <%= @parametro.api_key_zaptv_producao %>
-      </div>
-    </div>
-    <hr>
+      <hr>
+    <% end %>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           Api key ENDE desenvolvimento:
