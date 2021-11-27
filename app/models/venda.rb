@@ -784,7 +784,6 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o número do cliente/customer number") if params[:dstv_customer_number].blank?
-    raise PagasoError.new("Talão p/SMS") if params[:talao_sms].blank?
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
     raise PagasoError.new("Produto não selecionado") if params[:dstv_produto_id].blank?
 
