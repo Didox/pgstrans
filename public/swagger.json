@@ -394,6 +394,32 @@
         }
       }
     },
+    "/api/recarga/ende-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos ENDE",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
     "/api/login.json": {
       "post": {
         "tags": [

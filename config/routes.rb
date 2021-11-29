@@ -134,6 +134,7 @@ Rails.application.routes.draw do
   get 'api/recarga/zap-produtos', to: 'produtos#produtos_zap_api'
   get 'api/recarga/movicel-produtos', to: 'produtos#produtos_movicel_api'
   get 'api/recarga/unitel-produtos', to: 'produtos#produtos_unitel_api'
+  get 'api/recarga/ende-produtos', to: 'produtos#produtos_ende_api'
 
   post 'api/conta-corrente/adicionar-saldo', to: 'conta_correntes#create_api'
   get 'api/conta-corrente/extrato', to: 'conta_correntes#index_api'
