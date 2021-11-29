@@ -165,7 +165,6 @@ $(function(){
   });
   
   $(".recarga .rechargeType").change(function(){
-    debugger
     $(".recarga #rechargeValue").val($(this).find("option[value=" + this.value + "]").data("valor"));
     $(".recarga .talao" + $("#tipo_ativo").val() + "").show();
 
