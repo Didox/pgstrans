@@ -29,7 +29,7 @@
     "http"
   ],
   "paths": {
-    "/api/recarga/confirma.json": {
+    "/api/recarga/confirma/dstv.json": {
       "post": {
         "tags": [
           "Recarga"
@@ -40,33 +40,111 @@
         ],
         "parameters": [
           {
-            "name": "tipo_venda",
-            "description": "Ex: Unitel, Movicel, DSTV, ZAPTV ...",
+            "name": "dstv_produto_id",
+            "description": "ID do produto",
             "required": true,
             "type": "string"
           },
           {
-            "name": "unitel_produto_id",
-            "description": "{ID}- {Valor} - Conforme tabela de produtos",
-            "required": false,
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "dstv_customer_number",
+            "description": "DSTV customer number, caso seja uma recarga da DSTV",
+            "required": true,
             "type": "string"
           },
+          {
+            "name": "talao_sms",
+            "description": "Talão SMS, para envio da confirmação da recarga, caso o serviço esteja disponível",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/confirma/unitel.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "unitel_produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "unitel_telefone",
+            "description": "Unitel Telefone, caso seja uma recarga da Unitel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "talao_sms",
+            "description": "Talão SMS, para envio da confirmação da recarga, caso o serviço esteja disponível",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/confirma/movicel.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
           {
             "name": "movicel_produto_id",
-            "description": "{ID}- {Valor} - Conforme tabela de produtos",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "dstv_produto_id",
-            "description": "{ID}- {Valor} - Conforme tabela de produtos",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "zaptv_produto_id",
-            "description": "{ID}- {Valor} - Conforme tabela de produtos",
-            "required": false,
+            "description": "ID do produto",
+            "required": true,
             "type": "string"
           },
           {
@@ -78,30 +156,120 @@
           {
             "name": "movicel_telefone",
             "description": "Telefone recarga, caso seja uma recarga da Movicel",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "dstv_customer_number",
-            "description": "DSTV customer number, caso seja uma recarga da DSTV",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "zaptv_cartao",
-            "description": "ZAP Cartão, caso seja uma recarga da ZAP",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "unitel_telefone",
-            "description": "Unitel Telefone, caso seja uma recarga da Unitel",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
             "name": "talao_sms",
             "description": "Talão SMS, para envio da confirmação da recarga, caso o serviço esteja disponível",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/confirma/zaptv.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "zaptv_produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "zaptv_cartao",
+            "description": "ZAP Cartão, caso seja uma recarga da ZAP",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "talao_sms",
+            "description": "Talão SMS, para envio da confirmação da recarga, caso o serviço esteja disponível",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/confirma/ende.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ende_produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "ende_medidor",
+            "description": "Número do Contador ou Medidor",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "talao_sms_ende",
+            "description": "Número SMS para envio do token de recarga",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "description": "E-mail para envio do token de recarga",
             "required": false,
             "type": "string"
           }

@@ -3,7 +3,7 @@
   <option value="">Escolher</option>
   <% produtos = Produto.produtos.where(partner_id: Partner.where(slug: partner.slug)).reorder("valor_compra_telemovel asc, nome_comercial asc") %>
   <% produtos.each do |produto| %>
-    <option value="<%= produto.id %>-<%= formata_numero_duas_casas(produto.valor_compra_telemovel) %>">
+    <option value="<%= produto.id %>" data-valor="<%= formata_numero_duas_casas(produto.valor_compra_telemovel) %>">
       <%= produto.nome_comercial %> - <%= number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2) %>
     </option>
   <% end %>

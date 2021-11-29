@@ -66,7 +66,7 @@ class ProdutosController < ApplicationController
     produtos.each do |produto|
       produtos_api << {
         nome: "#{produto.nome_comercial} - #{helper.number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2)}",
-        valor: "#{produto.id}-#{formata_numero_duas_casas(produto.valor_compra_telemovel)}"
+        valor: formata_numero_duas_casas(produto.valor_compra_telemovel)
       }
     end
 
@@ -94,7 +94,7 @@ class ProdutosController < ApplicationController
         produtos: Produto.produtos.where(partner_id: Partner.where(slug: Partner.unitel.slug), subtipo: subtipo).reorder("nome_comercial asc, valor_compra_telemovel asc").map do |produto|
           {
             nome: "#{produto.nome_comercial} - #{helper.number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2)}",
-            valor: "#{produto.id}-#{formata_numero_duas_casas(produto.valor_compra_telemovel)}"
+            valor: formata_numero_duas_casas(produto.valor_compra_telemovel)
           }
         end
       }

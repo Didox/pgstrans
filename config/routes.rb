@@ -129,7 +129,7 @@ Rails.application.routes.draw do
   get 'api/usuarios/:id', to: 'usuarios#show_api'
   post 'api/login', to: 'login#autentica_api'
 
-  post 'api/recarga/confirma', to: 'recarga#confirma_api', as: "api_recarga_confirma"
+  post 'api/recarga/confirma/:tipo_venda', to: 'recarga#confirma_api', as: "api_recarga_confirma"
   get 'api/recarga/dstv-produtos', to: 'dstv#produtos_api'
   get 'api/recarga/zap-produtos', to: 'produtos#produtos_zap_api'
   get 'api/recarga/movicel-produtos', to: 'produtos#produtos_movicel_api'

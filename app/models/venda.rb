@@ -245,6 +245,7 @@ class Venda < ApplicationRecord
     
     parametro = Parametro.where(partner_id: parceiro.id).first
 
+    raise PagasoError.new("Produto não selecionado") if params[:zaptv_produto_id].blank?
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
@@ -263,8 +264,7 @@ class Venda < ApplicationRecord
       api_key = parametro.api_key_zaptv_producao
     end
 
-    raise PagasoError.new("Produto não selecionado") if params[:zaptv_produto_id].blank?
-    product_id = params[:zaptv_produto_id].split("-").first
+    product_id = params[:zaptv_produto_id]
     produto = Produto.find(product_id)
 
     body_send = {
@@ -347,15 +347,16 @@ class Venda < ApplicationRecord
     
     parametro = Parametro.where(partner_id: parceiro.id).first
   
+    raise PagasoError.new("Produto não selecionado") if params[:ende_produto_id].blank?
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
-    raise PagasoError.new("Digite o Número do Contador ou Medidor") if params[:ende_telefone].blank?
+    raise PagasoError.new("Digite o Número do Contador ou Medidor") if params[:ende_medidor].blank?
     raise PagasoError.new("Digite o Número SMS para envio do token de recarga") if params[:talao_sms_ende].blank?
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
   
-    telefone = params[:ende_telefone]
+    telefone = params[:ende_medidor]
     request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
   
     if Rails.env == "development"
@@ -366,8 +367,7 @@ class Venda < ApplicationRecord
       api_key = parametro.api_key_ende_producao
     end
   
-    raise PagasoError.new("Produto não selecionado") if params[:ende_produto_id].blank?
-    product_id = params[:ende_produto_id].split("-").first
+    product_id = params[:ende_produto_id]
     produto = Produto.find(product_id)
   
     body_send = {
@@ -526,6 +526,7 @@ class Venda < ApplicationRecord
 
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
 
+    raise PagasoError.new("Produto não selecionado") if params[:movicel_produto_id].blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
@@ -535,8 +536,7 @@ class Venda < ApplicationRecord
 
     telefone = params[:movicel_telefone]
 
-    raise PagasoError.new("Produto não selecionado") if params[:movicel_produto_id].blank?
-    product_id = params[:movicel_produto_id].split("-").first
+    product_id = params[:movicel_produto_id]
     produto = Produto.find(product_id)
 
     require 'openssl'
@@ -779,15 +779,15 @@ class Venda < ApplicationRecord
 
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
 
+    raise PagasoError.new("Produto não selecionado") if params[:dstv_produto_id].blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o número do cliente/customer number") if params[:dstv_customer_number].blank?
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
-    raise PagasoError.new("Produto não selecionado") if params[:dstv_produto_id].blank?
 
-    product_id = params[:dstv_produto_id].split("-").first
+    product_id = params[:dstv_produto_id]
     produto = Produto.find(product_id)
 
     require 'openssl'
@@ -931,15 +931,15 @@ class Venda < ApplicationRecord
     parametro = Parametro.where(partner_id: parceiro.id).first
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
 
+    raise PagasoError.new("Produto não selecionado") if params[:unitel_produto_id].blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
-    raise PagasoError.new("Produto não selecionado") if params[:unitel_produto_id].blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o telemóvel") if params[:unitel_telefone].blank?
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
 
-    product_id = params[:unitel_produto_id].split("-").first
+    product_id = params[:unitel_produto_id]
     produto = Produto.find(product_id)
     telefone = params[:unitel_telefone]
 
