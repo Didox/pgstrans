@@ -9,7 +9,7 @@
   </div>
   <div class="card-body recarga">
     <div class="col-md-12 row justify-content-center mobile-container-icones">
-      <% Partner.all.each_with_index do |partner, index| 
+      <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO).each_with_index do |partner, index| 
         if index == 0
           @partner_default = partner
           ativo = "menu-ativo"

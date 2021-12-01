@@ -41,6 +41,7 @@ class DstvController < ApplicationController
         subtipo: subtipo,
         produtos: produtos.where(subtipo: subtipo).map do |produto|
           {
+            id: produto.id,
             nome: "#{produto.nome_comercial} - #{helper.number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2)}",
             valor: formata_numero_duas_casas(produto.valor_compra_telemovel)
           }

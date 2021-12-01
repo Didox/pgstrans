@@ -170,6 +170,21 @@
           <div class="form-input col-sm-3">
             <%= f.input :language_producao, :label => "Language produção" %>
           </div>
+
+          <% if @parametro.partner.slug.downcase == "ende" %>
+            <div class="form-input col-sm-3">
+              <%= f.input :client_id, :label => "ClientId" %>
+            </div>
+            <div class="form-input col-sm-3">
+              <%= f.input :terminal_id, :label => "TerminalId" %>
+            </div>
+            <div class="form-input col-sm-3">
+              <%= f.input :operator_id, :label => "OperatorId" %>
+            </div>
+            <div class="form-input col-sm-3">
+              <%= f.input :password, :label => "Password" %>
+            </div>
+          <% end %>
         <% end %>
 
         <div class="form-actions col-sm-12" style="margin-top: 20px">

@@ -936,6 +936,7 @@
     "produto_recarga": {
       "type": "object",
       "properties": {
+        "id": { "type": "integer" },
         "nome": { "type": "string" },
         "valor": { "type": "string" }
       }
