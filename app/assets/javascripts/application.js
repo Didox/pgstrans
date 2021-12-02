@@ -50,9 +50,14 @@ pgstrans.salvaSaldo = function(self, cc_id, elenValue){
   });
 }
 
-
 pgstrans.displayRecargaDstv = (tipo) => {
   $(".recarga #DSTVMenu").hide();
+  $(".recarga #recarga").show();
+  $(".clearFieldjs").val("")
+}
+
+pgstrans.displayRecargaEnde = (tipo) => {
+  $(".recarga #ENDEMenu").hide();
   $(".recarga #recarga").show();
   $(".clearFieldjs").val("")
 }
@@ -95,12 +100,17 @@ pgstrans.displayRecarga = (tipo) => {
   $(".recarga .rechargeType").val("");
   $(".recarga #tipo_ativo").val(tipo);
 
-  if(tipo == "DSTv"){
+  if(tipo.toLowerCase() == "dstv"){
     $(".recarga #DSTVMenu").show();
+    $(".recarga #recarga").hide();
+  }
+  else if(tipo.toLowerCase() == "ende"){
+    $(".recarga #ENDEMenu").show();
     $(".recarga #recarga").hide();
   }
   else{
     $("#DSTVMenu").hide();
+    $("#ENDEMenu").hide();
     $(".recarga #recarga").show();
   }
   

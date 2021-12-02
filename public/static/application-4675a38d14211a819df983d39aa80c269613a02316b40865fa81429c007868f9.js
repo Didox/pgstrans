@@ -9030,6 +9030,12 @@ pgstrans.displayRecargaDstv = (tipo) => {
   $(".clearFieldjs").val("")
 }
 
+pgstrans.displayRecargaEnde = (tipo) => {
+  $(".recarga #ENDEMenu").hide();
+  $(".recarga #recarga").show();
+  $(".clearFieldjs").val("")
+}
+
 pgstrans.displayRecarga = (tipo) => {
   $(".icone-menu").removeClass("menu-ativo");
   $(".recarga .img_" + tipo).addClass("menu-ativo");
@@ -9040,12 +9046,17 @@ pgstrans.displayRecarga = (tipo) => {
   $(".recarga .rechargeType").val("");
   $(".recarga #tipo_ativo").val(tipo);
 
-  if(tipo == "DSTv"){
+  if(tipo.toLowerCase() == "dstv"){
     $(".recarga #DSTVMenu").show();
+    $(".recarga #recarga").hide();
+  }
+  else if(tipo.toLowerCase() == "ende"){
+    $(".recarga #ENDEMenu").show();
     $(".recarga #recarga").hide();
   }
   else{
     $("#DSTVMenu").hide();
+    $("#ENDEMenu").hide();
     $(".recarga #recarga").show();
   }
   
