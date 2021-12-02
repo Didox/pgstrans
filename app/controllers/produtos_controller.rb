@@ -79,7 +79,7 @@ class ProdutosController < ApplicationController
     produtos = Produto.produtos.where(partner_id: Partner.where(slug: Partner.movicel.slug)).reorder("valor_compra_telemovel asc, nome_comercial asc")
     produtos.each do |produto|
       produtos_api << {
-        nome: produto.id,
+        id: produto.id,
         nome: "#{helper.number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2)}",
         valor: produto.nome_comercial
       }
