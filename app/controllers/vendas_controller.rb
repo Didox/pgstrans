@@ -188,9 +188,16 @@ class VendasController < ApplicationController
       end
 
       params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
-      if params[:status].present?
+      if params[:status].present? || params[:sub_distribuidor_id].present?
         @vendas = @vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id")
+      end
+
+      if params[:status].present?
         @vendas = @vendas.where("usuarios.status_cliente_id = ?", params[:status])
+      end
+
+      if params[:sub_distribuidor_id].present?
+        @vendas = @vendas.where("usuarios.sub_distribuidor_id = ?", params[:sub_distribuidor_id])
       end
 
       @vendas = @vendas.where("vendas.id = ?", params[:venda_id]) if params[:venda_id].present?
@@ -205,7 +212,7 @@ class VendasController < ApplicationController
       @vendas = @vendas.where("vendas.produto_id_parceiro = ?", params[:produto_id_parceiro]) if params[:produto_id_parceiro].present?
       @vendas = @vendas.where("vendas.usuario_id = ?", params[:id_interno]) if params[:id_interno].present?
       @vendas = @vendas.where("vendas.lancamento_id = ?", params[:lancamento_id]) if params[:lancamento_id].present?
-      
+
       @vendas = @vendas.joins("inner join partners on partners.id = vendas.partner_id")
       if params[:status_parceiro_id].present?
         @vendas = @vendas.where("partners.status_parceiro_id = ?", params[:status_parceiro_id])
