@@ -78,6 +78,8 @@ class ApplicationController < ActionController::Base
         end
       end
 
+      # return acesso_as_paginas
+
       if acesso_as_paginas
         return false if ip_invalido
       else
