@@ -1,0 +1,36 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h4>IpApiAutorizado</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="container scroltable">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Ip</th>
+          <th scope="col">Sub distribuidor</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @ip_api_autorizados.each do |ip_api_autorizado| %>
+        <tr>
+          <td><%= ip_api_autorizado.ip %></td>
+          <td><%= ip_api_autorizado.sub_distribuidor.nome %></td>
+          <td><%= link_to 'Mostrar', ip_api_autorizado %></td>
+          <td><%= link_to 'Editar', edit_ip_api_autorizado_path(ip_api_autorizado) %></td>
+          <td><%= link_to 'Apagar', ip_api_autorizado, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to "Novo Registo", new_ip_api_autorizado_path, class: 'btn btn-danger' %>
+    <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
+  </div>
+</div>

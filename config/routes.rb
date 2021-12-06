@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :ip_api_autorizados
   resources :alegacao_de_pagamentos do
     post '/processar', to: 'alegacao_de_pagamentos#processar'
   end
