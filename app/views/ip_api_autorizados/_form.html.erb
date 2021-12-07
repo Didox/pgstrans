@@ -25,10 +25,11 @@
         <% end %>
 
           <div class="form-input col-sm-12">
-            <%= f.label :ip %>
+            <%= f.label :ip, :label => "IP Autorizado" %>
             <%= f.text_field :ip, class: "form-control" %>
+            <h4>Se houver mais de um IP por Distribuidor, insira um novo registo</h4>
+            <br>
           </div>
-  
           <div class="form-input col-sm-12">
             <%= f.label :sub_distribuidor_id, :label => "Distribuidor" %>
             <% if @adm.admin? || @adm.operador? %>

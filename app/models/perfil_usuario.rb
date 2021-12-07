@@ -112,7 +112,7 @@ class PerfilUsuario < ApplicationRecord
   def self.nome_amigavel_controller(controller)
     nomes = {
       vendas: "Backoffice - Relatório de Vendas - Geral",
-      ip_api_autorizados: "Bloqueio de IPs API",
+      ip_api_autorizados: "Cadastro de IPs com permissão de acesso à API (Habilitar somente para Administradores)",
       vendas_conciliacao: "Backoffice - Relatório de Vendas por Dia - Conciliação",
       logs: "Log do sistema",
       menus: "Composição de Menus do Backoffice",

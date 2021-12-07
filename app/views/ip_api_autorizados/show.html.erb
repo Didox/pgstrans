@@ -1,16 +1,16 @@
-<div class="container">
-
-  <h4>Mostrar IpApiAutorizado</h4>
-
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+      <h4>Mostrar IP Autorizado a acessar a Documentação da Pagasó API</h4>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->  
 
-  <div class="container">
+  <div class="col-md-12">
     <dl class="dl-horizontal">
-      <dt>Ip:</dt>
+      <dt>IP Autorizado:</dt>
       <dd><%= @ip_api_autorizado.ip %></dd>
-      <dt>Sub distribuidor:</dt>
+      <dt>Distribuidor:</dt>
       <dd><%= @ip_api_autorizado.sub_distribuidor.nome %></dd>
     </dl>
 

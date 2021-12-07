@@ -4,6 +4,9 @@ class IpApiAutorizadosController < ApplicationController
   # GET /ip_api_autorizados or /ip_api_autorizados.json
   def index
     @ip_api_autorizados = IpApiAutorizado.all
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @ip_api_autorizados = @ip_api_autorizados.paginate(options)  
   end
 
   # GET /ip_api_autorizados/1 or /ip_api_autorizados/1.json
