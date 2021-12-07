@@ -49,6 +49,7 @@ class PerfilUsuario < ApplicationRecord
 
   def self.action_amigavel(action)
     nomes = {
+      validacao_cliente_api: "Validação de cliente DSTV pela API",
       new: "Mostrar a tela que permite a inclusão de um novo registo",
       produtos_api: "Mostrar produtos para serem utilizados na API",
       produtos_zap_api: "Mostrar produtos ZAP para serem utilizados na API",
