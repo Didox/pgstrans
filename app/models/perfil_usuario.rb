@@ -49,6 +49,7 @@ class PerfilUsuario < ApplicationRecord
 
   def self.action_amigavel(action)
     nomes = {
+      validacao_cliente_api: "Validação de cliente DSTV pela API",
       new: "Mostrar a tela que permite a inclusão de um novo registo",
       produtos_api: "Mostrar produtos para serem utilizados na API",
       produtos_zap_api: "Mostrar produtos ZAP para serem utilizados na API",
@@ -112,6 +113,7 @@ class PerfilUsuario < ApplicationRecord
   def self.nome_amigavel_controller(controller)
     nomes = {
       vendas: "Backoffice - Relatório de Vendas - Geral",
+      ip_api_autorizados: "Cadastro de IPs com permissão de acesso à API (Habilitar somente para Administradores)",
       vendas_conciliacao: "Backoffice - Relatório de Vendas por Dia - Conciliação",
       logs: "Log do sistema",
       menus: "Composição de Menus do Backoffice",

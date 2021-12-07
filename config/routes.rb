@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :ip_api_autorizados
   resources :alegacao_de_pagamentos do
     post '/processar', to: 'alegacao_de_pagamentos#processar'
   end
@@ -142,6 +143,8 @@ Rails.application.routes.draw do
   get 'api/municipios', to: 'municipios#index_api'
   get 'api/provincias', to: 'provincia#index_api'
   get 'api/industries', to: 'industries#index_api'
+
+  get 'api/dstv/validacao-cliente', to: 'dstv#validacao_cliente_api'
   
   resources :return_code_apis
   resources :matrix_users

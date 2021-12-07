@@ -78,33 +78,63 @@ class ApplicationController < ActionController::Base
         end
       end
 
-      if administrador.present?
-        Log.responsavel_log = administrador.nome
+      # return acesso_as_paginas
 
-	      return true if self.class.to_s == "WelcomeController" || self.class.to_s == "GrupoUsuariosController"
+      if acesso_as_paginas
+        return false unless ip_validado
+      else
+        return true
+      end
+    end
 
-        if administrador.acessos.blank?
-          if request.path_parameters[:format] == 'json'
-            render json: {mensagem: "Usuário sem permissão de acesso a página"}, status: 401
-            return
-          end
-
-          flash[:erro] = "Usuário sem permissão de acesso a página"
-          redirect_to "/"
-          return false
-        else
-          unless administrador.acessos.include? "#{self.class}::#{params[:action]}"
+    private
+      def acesso_as_paginas
+        if administrador.present?
+          Log.responsavel_log = administrador.nome
+  
+          return true if paginas_autorizadas
+          
+          if administrador.acessos.blank?
             if request.path_parameters[:format] == 'json'
               render json: {mensagem: "Usuário sem permissão de acesso a página"}, status: 401
               return
             end
-            
+  
             flash[:erro] = "Usuário sem permissão de acesso a página"
             redirect_to "/"
             return false
+          else
+            unless administrador.acessos.include? "#{self.class}::#{params[:action]}"
+              if request.path_parameters[:format] == 'json'
+                render json: {mensagem: "Usuário sem permissão de acesso a página"}, status: 401
+                return
+              end
+              
+              flash[:erro] = "Usuário sem permissão de acesso a página"
+              redirect_to "/"
+              return false
+            end
           end
         end
+
+        return true
+      end
+      
+      def paginas_autorizadas
+        self.class.to_s == "WelcomeController" || self.class.to_s == "GrupoUsuariosController"
       end
 
-    end
+      def ip_validado
+        return true if paginas_autorizadas
+
+        if request.path_parameters[:format] == 'json'
+          ips = IpApiAutorizado.where(sub_distribuidor_id: administrador.sub_distribuidor_id, ip: request.remote_ip)
+          if ips.count == 0
+            render json: {mensagem: "IP não autorizado"}, status: 403
+            return false
+          end
+        end
+
+        return true
+      end
 end

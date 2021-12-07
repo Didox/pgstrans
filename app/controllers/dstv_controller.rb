@@ -1,12 +1,24 @@
 class DstvController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:validacao_cliente_api]
+
   def validacao_cliente
     if params[:smartcard].present?
       @info = Dstv.informacoes_device_number(params[:smartcard], request.remote_ip)
     elsif params[:customer_number].present?
       @info = Dstv.informacoes_customer_number(params[:customer_number], request.remote_ip)
     end
+    return [true, nil]
   rescue Exception => e
     flash[:error] = e.message
+    return [false, e]
+  end
+
+
+  def validacao_cliente_api
+    sucesso, erro = validacao_cliente
+    if !sucesso
+      return render json: {mensagem: "Erro ao retornar status da operadora - #{erro.message}"}, status: 401
+    end
   end
 
   def consulta_fatura
