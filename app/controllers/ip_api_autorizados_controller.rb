@@ -28,7 +28,7 @@ class IpApiAutorizadosController < ApplicationController
 
     respond_to do |format|
       if @ip_api_autorizado.save
-        format.html { redirect_to @ip_api_autorizado, notice: "Ip api autorizado foi criado com sucesso." }
+        format.html { redirect_to @ip_api_autorizado, notice: "IP API autorizado foi criado com sucesso." }
         format.json { render :show, status: :created, location: @ip_api_autorizado }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ class IpApiAutorizadosController < ApplicationController
   def update
     respond_to do |format|
       if @ip_api_autorizado.update(ip_api_autorizado_params)
-        format.html { redirect_to @ip_api_autorizado, notice: "Ip api autorizado foi atualizado com sucesso." }
+        format.html { redirect_to @ip_api_autorizado, notice: "IP API autorizado foi atualizado com sucesso." }
         format.json { render :show, status: :ok, location: @ip_api_autorizado }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class IpApiAutorizadosController < ApplicationController
   def destroy
     @ip_api_autorizado.destroy
     respond_to do |format|
-      format.html { redirect_to ip_api_autorizados_url, notice: "Ip api autorizado foi apagado com sucesso." }
+      format.html { redirect_to ip_api_autorizados_url, notice: "IP API autorizado foi apagado com sucesso." }
       format.json { head :no_content }
     end
   end
