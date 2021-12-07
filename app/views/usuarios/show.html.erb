@@ -29,7 +29,7 @@
 		  <%= @usuario.bairro %>
 		<hr>
 		  <strong>Município:</strong>
-		  <%= @usuario.municipio.nome %>
+		  <%= @usuario.municipio.nome rescue "" %>
 		<hr>
 		  <strong>Província:</strong>
 		  <%= @usuario.provincia.nome rescue "" %>

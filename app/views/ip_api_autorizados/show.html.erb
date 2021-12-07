@@ -1,0 +1,28 @@
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+      <h4>Mostrar IP Autorizado a acessar a Documentação da Pagasó API</h4>
+  </div>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="col-md-12">
+    <dl class="dl-horizontal">
+      <dt>IP Autorizado:</dt>
+      <dd><%= @ip_api_autorizado.ip %></dd>
+      <dt>Distribuidor:</dt>
+      <dd><%= @ip_api_autorizado.sub_distribuidor.nome %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to ip_api_autorizados_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_ip_api_autorizado_path(@ip_api_autorizado), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>

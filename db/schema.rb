@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_01_111415) do
+ActiveRecord::Schema.define(version: 2021_12_06_103249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,6 +171,14 @@ ActiveRecord::Schema.define(version: 2021_12_01_111415) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "descricao_grupo"
+  end
+
+  create_table "ip_api_autorizados", force: :cascade do |t|
+    t.string "ip"
+    t.bigint "sub_distribuidor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sub_distribuidor_id"], name: "index_ip_api_autorizados_on_sub_distribuidor_id"
   end
 
   create_table "lancamentos", force: :cascade do |t|
@@ -646,6 +654,7 @@ ActiveRecord::Schema.define(version: 2021_12_01_111415) do
   add_foreign_key "grupo_registros", "grupos"
   add_foreign_key "grupo_usuarios", "grupos"
   add_foreign_key "grupo_usuarios", "usuarios"
+  add_foreign_key "ip_api_autorizados", "sub_distribuidors"
   add_foreign_key "loop_logs", "movicel_loops"
   add_foreign_key "moedas", "countries"
   add_foreign_key "parametros", "partners"
