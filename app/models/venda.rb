@@ -829,7 +829,7 @@ class Venda < ApplicationRecord
             <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
             <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
             <sel1:dataSource>#{data_source}</sel1:dataSource>
-            <sel1:deviceNumber>#{params[:dstv_customer_number]}</sel1:deviceNumber>
+            <sel1:customerNumber>#{params[:dstv_customer_number]}</sel1:customerNumber>
             <sel1:amount>#{valor_original}</sel1:amount>
             <sel1:invoicePeriod>1</sel1:invoicePeriod>
             <sel1:currency>AOA</sel1:currency>
