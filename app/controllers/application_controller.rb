@@ -81,7 +81,7 @@ class ApplicationController < ActionController::Base
       # return acesso_as_paginas
 
       if acesso_as_paginas
-        return false if ip_invalido
+        return false unless ip_validado
       else
         return true
       end
@@ -124,7 +124,7 @@ class ApplicationController < ActionController::Base
         self.class.to_s == "WelcomeController" || self.class.to_s == "GrupoUsuariosController"
       end
 
-      def ip_invalido
+      def ip_validado
         return true if paginas_autorizadas
 
         if request.path_parameters[:format] == 'json'
