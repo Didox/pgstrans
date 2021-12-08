@@ -15,6 +15,8 @@
 *sprockets-manifest*
 tmp/*
 
+public/assets
+
 database.yml
 
 # Ignore uploaded files in development
