@@ -132,7 +132,7 @@ class ApplicationController < ActionController::Base
           if ips.count == 0
             Rails.logger.info("==============[IP Bloqueado: #{request.remote_ip}]===============")
             puts("==============[IP Bloqueado: #{request.remote_ip}]===============")
-            render json: {mensagem: "IP não autorizado"}, status: 403
+            render json: {mensagem: "IP não autorizado", ip: request.remote_ip}, status: 403
             return false
           end
         end
