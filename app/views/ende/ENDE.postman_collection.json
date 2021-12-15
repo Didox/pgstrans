@@ -1,0 +1,46 @@
+{
+	"info": {
+		"_postman_id": "0df96fa0-6808-4e7f-8caa-1958339384f5",
+		"name": "ENDE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://20.87.88.102:17300/GatewayServiceASP.asmx",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/soap+xml;charset=UTF-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:sch=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\" xmlns:sch1=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">\n   <soap:Header/>\n   <soap:Body>\n      <sch:trialCreditVendReq>\n         <sch1:vendingServerID>1</sch1:vendingServerID>\n         <sch1:clientID>PAGASO</sch1:clientID>\n         <sch1:terminalID>00000000000003</sch1:terminalID>\n         <sch1:msgID dateTime=\"20211214130716\" uniqueNumber=\"729\" sequenceNumber=\"729\"/>\n         <sch1:authCred>\n            <sch1:opName>PAGASO</sch1:opName>\n            <sch1:password>P@GA$0</sch1:password>\n         </sch1:authCred>\n         <sch1:resource/>\n         <sch1:idMethod>\n            <sch1:meterIdentifier>04040404040</sch1:meterIdentifier>\n         </sch1:idMethod>\n         <sch1:tokenDeliveryMethod/>\n         <sch:purchaseValue/>\n         <sch:payType/>\n      </sch:trialCreditVendReq>\n   </soap:Body>\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://20.87.88.102:17300/GatewayServiceASP.asmx",
+					"protocol": "http",
+					"host": [
+						"20",
+						"87",
+						"88",
+						"102"
+					],
+					"port": "17300",
+					"path": [
+						"GatewayServiceASP.asmx"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
