@@ -1,0 +1,87 @@
+<CreditVendResp
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<clientID
+		xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="EANDeviceID" ean="PAGASO" />
+		<serverID
+			xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="GenericDeviceID" id="1" />
+			<terminalID
+				xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="EANDeviceID" ean="0000000000003" />
+				<reqMsgID
+					xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" dateTime="20211214130820" uniqueNumber="320" />
+					<respDateTime
+						xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2021-12-14T13:08:23.1273165+00:00
+					</respDateTime>
+					<dispHeader
+						xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase
+					</dispHeader>
+					<operatorMsg
+						xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful
+					</operatorMsg>
+					<custMsg
+						xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase
+					</custMsg>
+					<utility
+						xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" name="ENDE" address="Angola" taxRef="0" />
+						<clientStatus
+							xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+							<availCredit value="99999550" symbol="AOA" />
+							<batchStatus banking="open" sales="open" shift="open" />
+						</clientStatus>
+						<vendor
+							xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" />
+							<custVendDetail
+								xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" name="John     Smith" address="Physical, KZN, Durban, Overport, Brickfield" contactNo="Cell:0812345678" accNo="ACC001" locRef="ERF001" utilityType="Electricity" daysLastPurchase="" />
+								<creditVendReceipt
+									xmlns="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema" receiptNo="19">
+									<transactions>
+										<tx xsi:type="CreditVendTx" receiptNo="19">
+											<amt value="87.72" symbol="AOA" />
+											<creditTokenIssue
+												xmlns:q1="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="q1:SaleCredTokenIssue">
+												<q1:desc>Credit Token</q1:desc>
+												<q1:meterDetail unitOfMeasurement="kWh" msno="04040404040" sgc="901047" krn="1" ti="1">
+													<q1:meterType tt="02" />
+												</q1:meterDetail>
+												<q1:token xsi:type="q1:STS1Token">
+													<q1:stsCipher>04040404040000000357</q1:stsCipher>
+												</q1:token>
+												<q1:units value="35.7" siUnit="kWh" />
+												<q1:resource xsi:type="q1:Electricity" />
+											</creditTokenIssue>
+											<tariff>
+												<name
+													xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMÉSTICA SOCIAL -I (BT DSI)
+												</name>
+												<desc
+													xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMÉSTICA SOCIAL -I (BT DSI)
+												</desc>
+											</tariff>
+											<tariffBreakdown
+												xmlns:q2="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema" xsi:type="q2:StepTariffBreakdown">
+												<q2:steps>
+													<q2:Step>
+														<q2:units value="35.7" siUnit="kWh" />
+														<q2:rate value="2.46000" symbol="AOA" />
+													</q2:Step>
+													<q2:Step>
+														<q2:units value="0" siUnit="kWh" />
+														<q2:rate value="6.41000" symbol="AOA" />
+													</q2:Step>
+													<q2:Step>
+														<q2:units value="0" siUnit="kWh" />
+														<q2:rate value="10.89000" symbol="AOA" />
+													</q2:Step>
+												</q2:steps>
+											</tariffBreakdown>
+										</tx>
+										<tx xsi:type="ServiceChrgTx">
+											<amt value="12.28" symbol="AOA" />
+											<accDesc>VAT</accDesc>
+										</tx>
+										<tenderAmt value="100" symbol="AOA" />
+										<change value="0" symbol="AOA" />
+									</transactions>
+									<MonthlyTotals xsi:nil="true" />
+								</creditVendReceipt>
+							</CreditVendResp>

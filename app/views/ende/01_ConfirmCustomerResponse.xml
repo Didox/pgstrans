@@ -1,0 +1,43 @@
+<ConfirmCustomerResp
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<clientID
+		xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="EANDeviceID" ean="PAGASO" />
+		<serverID
+			xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="GenericDeviceID" id="1" />
+			<terminalID
+				xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="EANDeviceID" ean="0000000000003" />
+				<reqMsgID
+					xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" dateTime="20211214130716" uniqueNumber="729" />
+					<respDateTime
+						xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2021-12-14T13:07:35.4876211+00:00
+					</respDateTime>
+					<dispHeader
+						xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Confirm Customer
+					</dispHeader>
+					<operatorMsg
+						xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Confirm Customer
+					</operatorMsg>
+					<custMsg
+						xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Confirm Customer
+					</custMsg>
+					<utility
+						xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" name="ENDE" address="Angola" taxRef="0" />
+						<confirmCustResult
+							xmlns="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema">
+							<custVendDetail name="John     Smith" address="Physical, KZN, Durban, Overport, Brickfield" contactNo="Cell:0812345678" accNo="ACC001" locRef="ERF001" utilityType="Electricity" daysLastPurchase="" />
+							<custVendConfig>
+								<canVend>true</canVend>
+								<maxVendAmt value="100000.000000" symbol="AOA" />
+								<minVendAmt value="0" symbol="AOA" />
+							</custVendConfig>
+							<meterDetail unitOfMeasurement="kWh" msno="04040404040" sgc="901047" krn="1" ti="1">
+								<meterType
+									xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" tt="02" />
+								</meterDetail>
+								<custAccountDetail>
+									<accountStatus
+										xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" />
+									</custAccountDetail>
+								</confirmCustResult>
+							</ConfirmCustomerResp>

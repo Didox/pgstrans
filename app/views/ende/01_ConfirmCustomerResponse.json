@@ -1,0 +1,87 @@
+{
+	"ConfirmCustomerResp": {
+		"clientID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_xsi:type": "EANDeviceID",
+			"_ean": "PAGASO"
+		},
+		"serverID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_xsi:type": "GenericDeviceID",
+			"_id": "1"
+		},
+		"terminalID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_xsi:type": "EANDeviceID",
+			"_ean": "0000000000003"
+		},
+		"reqMsgID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_dateTime": "20211214130716",
+			"_uniqueNumber": "729"
+		},
+		"respDateTime": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"__text": "2021-12-14T13:07:35.4876211+00:00"
+		},
+		"dispHeader": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"__text": "Confirm Customer"
+		},
+		"operatorMsg": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"__text": "Confirm Customer"
+		},
+		"custMsg": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"__text": "Confirm Customer"
+		},
+		"utility": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_name": "ENDE",
+			"_address": "Angola",
+			"_taxRef": "0"
+		},
+		"confirmCustResult": {
+			"custVendDetail": {
+				"_name": "John     Smith",
+				"_address": "Physical, KZN, Durban, Overport, Brickfield",
+				"_contactNo": "Cell:0812345678",
+				"_accNo": "ACC001",
+				"_locRef": "ERF001",
+				"_utilityType": "Electricity",
+				"_daysLastPurchase": ""
+			},
+			"custVendConfig": {
+				"canVend": "true",
+				"maxVendAmt": {
+					"_value": "100000.000000",
+					"_symbol": "AOA"
+				},
+				"minVendAmt": {
+					"_value": "0",
+					"_symbol": "AOA"
+				}
+			},
+			"meterDetail": {
+				"meterType": {
+					"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+					"_tt": "02"
+				},
+				"_unitOfMeasurement": "kWh",
+				"_msno": "04040404040",
+				"_sgc": "901047",
+				"_krn": "1",
+				"_ti": "1"
+			},
+			"custAccountDetail": {
+				"accountStatus": {
+					"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"
+				}
+			},
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema"
+		},
+		"_xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+		"_xmlns:xsd": "http://www.w3.org/2001/XMLSchema"
+	}
+}

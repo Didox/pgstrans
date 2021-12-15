@@ -1,0 +1,107 @@
+{
+	"PayAccResp": {
+		"clientID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_xsi:type": "EANDeviceID",
+			"_ean": "PAGASO"
+		},
+		"serverID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_xsi:type": "GenericDeviceID",
+			"_id": "1"
+		},
+		"terminalID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_xsi:type": "EANDeviceID",
+			"_ean": "0000000000003"
+		},
+		"reqMsgID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_dateTime": "20211214131222",
+			"_uniqueNumber": "12"
+		},
+		"respDateTime": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"__text": "2021-12-14T13:10:23.9863547+00:00"
+		},
+		"dispHeader": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"__text": "Pay Account"
+		},
+		"operatorMsg": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"__text": "Pay Account Successfull"
+		},
+		"custMsg": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"__text": "Pay Account"
+		},
+		"utility": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_name": "ENDE",
+			"_address": "Angola",
+			"_taxRef": "0"
+		},
+		"clientStatus": {
+			"availCredit": {
+				"_value": "99998550",
+				"_symbol": "AOA"
+			},
+			"batchStatus": {
+				"_banking": "open",
+				"_sales": "open",
+				"_shift": "open"
+			},
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"
+		},
+		"vendor": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"
+		},
+		"custVendDetail": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_name": "Isabelle     Ringing",
+			"_address": "Physical, NC, Upington, Van De Merwe Street",
+			"_contactNo": "",
+			"_accNo": "ACC005",
+			"_locRef": "ERF005",
+			"_utilityType": "Electricity",
+			"_daysLastPurchase": ""
+		},
+		"payAccReceipt": {
+			"transactions": {
+				"tx": {
+					"amt": {
+						"_value": "1000",
+						"_symbol": "AOA"
+					},
+					"accDesc": "Arrears Debt Collection",
+					"accNo": "ARREARACC005_2",
+					"balance": {
+						"_value": "1019000.000",
+						"_symbol": "AOA"
+					},
+					"_xsi:type": "DebtRecoveryTx",
+					"_receiptNo": "21"
+				}
+			},
+			"MonthlyTotals": {
+				"_xsi:nil": "true"
+			},
+			"meterDetail": {
+				"meterType": {
+					"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+					"_tt": "02"
+				},
+				"_unitOfMeasurement": "kWh",
+				"_msno": "04040404065",
+				"_sgc": "901047",
+				"_krn": "1",
+				"_ti": "2"
+			},
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema",
+			"_receiptNo": "21"
+		},
+		"_xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+		"_xmlns:xsd": "http://www.w3.org/2001/XMLSchema"
+	}
+}

@@ -1,0 +1,36 @@
+{
+	"ReprintReq": {
+		"clientID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_xsi:type": "EANDeviceID",
+			"_ean": "PAGASO"
+		},
+		"terminalID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_xsi:type": "EANDeviceID",
+			"_ean": "0000000000003"
+		},
+		"msgID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_dateTime": "20211214130916",
+			"_uniqueNumber": "539"
+		},
+		"authCred": {
+			"opName": "PAGASO",
+			"password": "02A89A29140EEBF685CCBD6B4397F1E9169917A3",
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"
+		},
+		"idMethod": {
+			"meterIdentifier": {
+				"_xsi:type": "q1:MeterNumber",
+				"_msno": "04040404040",
+				"__prefix": "q1"
+			},
+			"_xmlns:q1": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema",
+			"_xsi:type": "q1:VendIDMethod"
+		},
+		"_xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+		"_xmlns:xsd": "http://www.w3.org/2001/XMLSchema"
+	}
+}

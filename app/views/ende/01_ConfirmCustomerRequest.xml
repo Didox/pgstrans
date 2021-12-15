@@ -1,0 +1,20 @@
+<ConfirmCustomerReq
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<clientID
+		xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="EANDeviceID" ean="PAGASO" />
+		<terminalID
+			xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="EANDeviceID" ean="0000000000003" />
+			<msgID
+				xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" dateTime="20211214130716" uniqueNumber="729" />
+				<authCred
+					xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+					<opName>PAGASO</opName>
+					<password>02A89A29140EEBF685CCBD6B4397F1E9169917A3</password>
+				</authCred>
+				<idMethod
+					xmlns:q1="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"
+					xmlns="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema" xsi:type="q1:VendIDMethod">
+					<q1:meterIdentifier xsi:type="q1:MeterNumber" msno="04040404040" />
+				</idMethod>
+			</ConfirmCustomerReq>

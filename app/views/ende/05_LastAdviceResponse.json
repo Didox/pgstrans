@@ -1,0 +1,223 @@
+{
+	"LastRespAdviceResp": {
+		"clientID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_xsi:type": "EANDeviceID",
+			"_ean": "PAGASO"
+		},
+		"serverID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_xsi:type": "GenericDeviceID",
+			"_id": "1"
+		},
+		"terminalID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_xsi:type": "EANDeviceID",
+			"_ean": "0000000000003"
+		},
+		"reqMsgID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_dateTime": "20211214131006",
+			"_uniqueNumber": "860"
+		},
+		"respDateTime": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"__text": "2021-12-14T13:10:07.5045254+00:00"
+		},
+		"dispHeader": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"__text": "Last Response Advice"
+		},
+		"operatorMsg": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"__text": "Last Response Advice"
+		},
+		"custMsg": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"
+		},
+		"adviceReqMsgID": {
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_dateTime": "20211214130820",
+			"_uniqueNumber": "320"
+		},
+		"lastResponse": {
+			"clientID": {
+				"_xsi:type": "EANDeviceID",
+				"_ean": "PAGASO"
+			},
+			"serverID": {
+				"_xsi:type": "GenericDeviceID",
+				"_id": "1"
+			},
+			"terminalID": {
+				"_xsi:type": "EANDeviceID",
+				"_ean": "0000000000003"
+			},
+			"reqMsgID": {
+				"_dateTime": "20211214130820",
+				"_uniqueNumber": "320"
+			},
+			"respDateTime": "2021-12-14T13:08:23.1273165+00:00",
+			"dispHeader": "Credit Purchase",
+			"operatorMsg": "Credit Purchase Successful",
+			"custMsg": "Credit Purchase",
+			"utility": {
+				"_name": "ENDE",
+				"_address": "Angola",
+				"_taxRef": "0"
+			},
+			"clientStatus": {
+				"availCredit": {
+					"_value": "99999550",
+					"_symbol": "AOA"
+				},
+				"batchStatus": {
+					"_banking": "open",
+					"_sales": "open",
+					"_shift": "open"
+				}
+			},
+			"vendor": "",
+			"custVendDetail": {
+				"_name": "John     Smith",
+				"_address": "Physical, KZN, Durban, Overport, Brickfield",
+				"_contactNo": "Cell:0812345678",
+				"_accNo": "ACC001",
+				"_locRef": "ERF001",
+				"_utilityType": "Electricity",
+				"_daysLastPurchase": ""
+			},
+			"creditVendReceipt": {
+				"transactions": {
+					"tx": [
+						{
+							"amt": {
+								"_value": "87.72",
+								"_symbol": "AOA",
+								"__prefix": "q1"
+							},
+							"creditTokenIssue": {
+								"desc": "Credit Token",
+								"meterDetail": {
+									"meterType": {
+										"_tt": "02"
+									},
+									"_unitOfMeasurement": "kWh",
+									"_msno": "04040404040",
+									"_sgc": "901047",
+									"_krn": "1",
+									"_ti": "1"
+								},
+								"token": {
+									"stsCipher": "04040404040000000357",
+									"_xsi:type": "STS1Token"
+								},
+								"units": {
+									"_value": "35.7",
+									"_siUnit": "kWh"
+								},
+								"resource": {
+									"_xsi:type": "Electricity"
+								},
+								"_xsi:type": "SaleCredTokenIssue",
+								"__prefix": "q1"
+							},
+							"tariff": {
+								"name": "BT DOMÉSTICA SOCIAL -I (BT DSI)",
+								"desc": "BT DOMÉSTICA SOCIAL -I (BT DSI)",
+								"__prefix": "q1"
+							},
+							"tariffBreakdown": {
+								"steps": {
+									"Step": [
+										{
+											"units": {
+												"_value": "35.7",
+												"_siUnit": "kWh",
+												"__prefix": "q2"
+											},
+											"rate": {
+												"_value": "2.46000",
+												"_symbol": "AOA",
+												"__prefix": "q2"
+											},
+											"__prefix": "q2"
+										},
+										{
+											"units": {
+												"_value": "0",
+												"_siUnit": "kWh",
+												"__prefix": "q2"
+											},
+											"rate": {
+												"_value": "6.41000",
+												"_symbol": "AOA",
+												"__prefix": "q2"
+											},
+											"__prefix": "q2"
+										},
+										{
+											"units": {
+												"_value": "0",
+												"_siUnit": "kWh",
+												"__prefix": "q2"
+											},
+											"rate": {
+												"_value": "10.89000",
+												"_symbol": "AOA",
+												"__prefix": "q2"
+											},
+											"__prefix": "q2"
+										}
+									],
+									"__prefix": "q2"
+								},
+								"_xmlns:q2": "http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema",
+								"_xsi:type": "q2:StepTariffBreakdown",
+								"__prefix": "q1"
+							},
+							"_xsi:type": "q1:CreditVendTx",
+							"_receiptNo": "19",
+							"__prefix": "q1"
+						},
+						{
+							"amt": {
+								"_value": "12.28",
+								"_symbol": "AOA",
+								"__prefix": "q1"
+							},
+							"accDesc": {
+								"__prefix": "q1",
+								"__text": "VAT"
+							},
+							"_xsi:type": "q1:ServiceChrgTx",
+							"__prefix": "q1"
+						}
+					],
+					"tenderAmt": {
+						"_value": "100",
+						"_symbol": "AOA",
+						"__prefix": "q1"
+					},
+					"change": {
+						"_value": "0",
+						"_symbol": "AOA",
+						"__prefix": "q1"
+					},
+					"__prefix": "q1"
+				},
+				"MonthlyTotals": {
+					"_xsi:nil": "true",
+					"__prefix": "q1"
+				},
+				"_receiptNo": "19",
+				"__prefix": "q1"
+			},
+			"_xmlns:q1": "http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema",
+			"_xmlns": "http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema",
+			"_xsi:type": "q1:CreditVendResp"
+		},
+		"_xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+		"_xmlns:xsd": "http://www.w3.org/2001/XMLSchema"
+	}
+}
