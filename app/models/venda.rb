@@ -779,6 +779,8 @@ class Venda < ApplicationRecord
 
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
 
+    smartcard = params[:transacao_smartcard].blank? ? true : ActiveModel::Type::Boolean.new.cast(params[:transacao_smartcard])
+    
     raise PagasoError.new("Produto não selecionado") if params[:dstv_produto_id].blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
@@ -820,41 +822,73 @@ class Venda < ApplicationRecord
     response_get = ""
     last_request = ""
 
-    body = "
-      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
-        <soapenv:Header/>
-        <soapenv:Body>
-        <sel:AgentSubmitPayment>
-          <sel:agentPaymentRequest>
-            <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
-            <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
-            <sel1:dataSource>#{data_source}</sel1:dataSource>
-            <sel1:customerNumber>#{params[:dstv_customer_number]}</sel1:customerNumber>
-            <sel1:amount>#{valor_original}</sel1:amount>
-            <sel1:invoicePeriod>1</sel1:invoicePeriod>
-            <sel1:currency>AOA</sel1:currency>
-            <sel1:paymentDescription>Pagasó Payment System</sel1:paymentDescription>
-            <sel1:methodofPayment>CASH</sel1:methodofPayment>
-            <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
-            <sel1:productCollection>
-              <sel1:Product>
-                <sel1:productUserkey>#{produto.produto_id_parceiro}</sel1:productUserkey>
-              </sel1:Product>
-            </sel1:productCollection>
-            <sel1:baskedId>0</sel1:baskedId>
-          </sel:agentPaymentRequest>
-          <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-          <sel:language>Portuguese</sel:language>
-          <sel:ipAddress>#{ip}</sel:ipAddress>
-          <sel:businessUnit>DStv</sel:businessUnit>
-        </sel:AgentSubmitPayment>
-        </soapenv:Body>
-      </soapenv:Envelope>
-    "
+    if smartcard
+      body = "
+        <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
+          <soapenv:Header/>
+          <soapenv:Body>
+            <sel:SubmitPaymentBySmartCard>
+              <sel:VendorCode>#{vendor_code}</sel:VendorCode>
+                <sel:DataSource>#{data_source}</sel:DataSource>
+                <sel:PaymentVendorCode>#{payment_vendor_code}</sel:PaymentVendorCode>
+                <sel:TransactionNumber>#{transaction_number}</sel:TransactionNumber>
+                <sel:SmartCardNumber>#{params[:dstv_customer_number]}</sel:SmartCardNumber>
+                <sel:Amount>#{valor_original}</sel:Amount>
+                <sel:InvoicePeriod>1</sel:InvoicePeriod>
+                <sel:Currency>AOA</sel:Currency>
+                <sel:PaymentDescription>Pagasó Payment System</sel:PaymentDescription>
+                <sel:ProductCollection>
+                  <sel1:PaymentProduct>
+                      <sel1:ProductUserKey>#{produto.produto_id_parceiro}</sel1:ProductUserKey>
+                  </sel1:PaymentProduct>
+                </sel:ProductCollection>
+                <sel:MethodOfPayment>CASH</sel:MethodOfPayment>
+                <sel:Language>Portuguese</sel:Language>
+                <sel:IpAddress>#{ip}</sel:IpAddress>
+                <sel:BusinessUnit>DStv</sel:BusinessUnit>
+            </sel:SubmitPaymentBySmartCard>
+          </soapenv:Body>
+        </soapenv:Envelope>
+      "
+      @source = "SubmitPaymentBySmartCard"
+    else
+      body = "
+        <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
+          <soapenv:Header/>
+          <soapenv:Body>
+          <sel:AgentSubmitPayment>
+            <sel:agentPaymentRequest>
+              <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
+              <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
+              <sel1:dataSource>#{data_source}</sel1:dataSource>
+              <sel1:customerNumber>#{params[:dstv_customer_number]}</sel1:customerNumber>
+              <sel1:amount>#{valor_original}</sel1:amount>
+              <sel1:invoicePeriod>1</sel1:invoicePeriod>
+              <sel1:currency>AOA</sel1:currency>
+              <sel1:paymentDescription>Pagasó Payment System</sel1:paymentDescription>
+              <sel1:methodofPayment>CASH</sel1:methodofPayment>
+              <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
+              <sel1:productCollection>
+                <sel1:Product>
+                  <sel1:productUserkey>#{produto.produto_id_parceiro}</sel1:productUserkey>
+                </sel1:Product>
+              </sel1:productCollection>
+              <sel1:baskedId>0</sel1:baskedId>
+            </sel:agentPaymentRequest>
+            <sel:VendorCode>#{vendor_code}</sel:VendorCode>
+            <sel:language>Portuguese</sel:language>
+            <sel:ipAddress>#{ip}</sel:ipAddress>
+            <sel:businessUnit>DStv</sel:businessUnit>
+          </sel:AgentSubmitPayment>
+          </soapenv:Body>
+        </soapenv:Envelope>
+      "
+      @source = "AgentSubmitPayment"
+    end
 
-    request_send += "=========[SubmitPaymentBySmartCard]========"
+    request_send += "=========[SubmitPaymentBySmartCard_AgentSubmitPayment]========"
     request_send += body
-    request_send += "=========[SubmitPaymentBySmartCard]========"
+    request_send += "=========[SubmitPaymentBySmartCard]_AgentSubmitPayment========"
 
     #http://uat.mcadigitalmedia.com/VendorSelfCare/SelfCareService.svc?wsdl
     url = "#{url_service}/VendorSelfCare/SelfCareService.svc"
@@ -862,14 +896,14 @@ class Venda < ApplicationRecord
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',
-        'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/AgentSubmitPayment",
+        'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/#{@source}",
       },
       :body => body
     )
     
-    response_get += "=========[SubmitPaymentBySmartCard]========"
+    response_get += "=========[SubmitPaymentBySmartCard_AgentSubmitPayment]========"
     response_get += request.body
-    response_get += "=========[SubmitPaymentBySmartCard]========"
+    response_get += "=========[SubmitPaymentBySmartCard_AgentSubmitPayment]========"
 
     last_request = request.body
     
@@ -883,7 +917,7 @@ class Venda < ApplicationRecord
 
     venda.request_send = request_send
     venda.response_get = response_get
-    erro_message = last_request.scan(/faultstring.*?<\/faultstring/).first.scan(/>.*?</).first rescue ""
+    erro_message = last_request.to_s.gsub("\n", "").downcase.scan(/faultstring.*?<\/faultstring/).first.scan(/>.*?</).first.gsub(/<|>/, "") rescue ""
 
     if erro_message.present? 
       erro_message = erro_message.downcase
@@ -899,7 +933,8 @@ class Venda < ApplicationRecord
         venda.status = "35"
       end
     else
-      status = last_request.scan(/status.*?<\/a\:status/).first.gsub(/status|\>|\<|a|\:|\//, "") rescue "false"
+      status = last_request.downcase.scan(/status.*?<\/a\:status/).first.gsub(/status|\>|\<|a|\:|\//, "") rescue ""
+      status = last_request.downcase.scan(/status.*?<\/b\:status/).first.gsub(/status|\>|\<|b|\:|\//, "") rescue "false" if status.blank?
       venda.status = (status == "true" ? "1" : "3")
     end
 

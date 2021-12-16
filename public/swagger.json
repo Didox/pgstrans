@@ -40,6 +40,12 @@
         ],
         "parameters": [
           {
+            "name": "transacao_smartcard",
+            "description": "Se envio de transação é smartcard",
+            "required": true,
+            "type": "boolean"
+          },
+          {
             "name": "dstv_produto_id",
             "description": "ID do produto",
             "required": true,
