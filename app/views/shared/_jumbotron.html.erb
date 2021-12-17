@@ -148,13 +148,13 @@
                   <div class="divSmartcard">
                     <input type="radio" class="smartSim" id="transacao_smartcard_sim" onclick="$('.transacao_smartcard_sim').hide();$('.transacao_smartcard_nao').show();" name="transacao_smartcard" class="form-control vDSTv radio-menor" checked="checked" value="true">
                     <label for="transacao_smartcard_sim">
-                      Nº Cliente/SmartCard
+                      SmartCard
                     </label>
                   </div>
                   <div class="divDeviceId">
                     <input type="radio" class="smartNao" id="transacao_smartcard_nao" onclick="$('.transacao_smartcard_sim').show();$('.transacao_smartcard_nao').hide();" name="transacao_smartcard" class="form-control vDSTv radio-menor" value="false">
                     <label for="transacao_smartcard_nao">
-                      Nº Cliente/Customer Number
+                      Customer Number
                     </label>
                   </div>
                 </div>
@@ -162,13 +162,13 @@
               <div class="campos DSTv" id="divAditionalFieldsDSTV">
                 <div class="editArea editAreaDiv">
                   <div class="p16Bold editDiv transacao_smartcard_nao" style="text-align: left">
-                    Nº Cliente/SmartCard <span class="required">&nbsp;*</span>
+                    SmartCard <span class="required">&nbsp;*</span>
                   </div>
                   <div class="p16Bold editDiv transacao_smartcard_sim" style="text-align: left;display:none;">
-                    Nº Cliente/Customer Number <span class="required">&nbsp;*</span>
+                    Customer Number <span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" id="dstvNr"  name="dstv_customer_number" class="form-control vDSTv validate clearFieldjs" data-message="Informe o número do Dispositivo ou do Cliente" value="" placeholder="Customer Number" maxlength="11" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" id="dstvNr"  name="dstv_customer_number" class="form-control vDSTv validate clearFieldjs" data-message="Informe o número do Dispositivo ou do Cliente" value="" placeholder="" maxlength="11" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
