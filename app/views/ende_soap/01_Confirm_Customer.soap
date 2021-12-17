@@ -1,0 +1,70 @@
+SOAP REQUEST
+
+
+<soapenv:Envelope
+	xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:sch="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema"
+	xmlns:sch1="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"
+	xmlns:sch2="http://www.nrs.eskom.co.za/xmlvend/meter/2.1/schema">
+	<soapenv:Header/>
+	<soapenv:Body>
+		<sch:confirmCustomerReq
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<vendingServerID
+				xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">1
+			</vendingServerID>
+			<clientID
+				xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="EANDeviceID" ean="PAGASO" />
+				<terminalID
+					xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="EANDeviceID" ean="0000000000003" />
+					<msgID
+						xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" dateTime="20210121101922" uniqueNumber="022" />
+						<authCred
+							xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+							<opName>PAGASO</opName>
+							<password>P@GA$0</password>
+						</authCred>
+						<idMethod
+							xmlns:q1="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"
+							xmlns="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema" xsi:type="q1:VendIDMethod">
+							<q1:meterIdentifier xsi:type="q1:MeterNumber" msno="04040404040" />
+						</idMethod>
+		</sch:confirmCustomerReq>
+	</soapenv:Body>
+</soapenv:Envelope>
+
+
+
+SOAP RESPONSE
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap:Body>
+      <confirmCustomerResp xmlns="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema">
+         <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <serverID xsi:type="GenericDeviceID" id="1" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <reqMsgID dateTime="20210121101922" uniqueNumber="022" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2021-12-17T18:29:34.2348426+00:00</respDateTime>
+         <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Confirm Customer</dispHeader>
+         <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Confirm Customer</operatorMsg>
+         <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Confirm Customer</custMsg>
+         <utility name="ENDE" address="Angola" taxRef="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <confirmCustResult>
+            <custVendDetail name="John     Smith" address="Physical, KZN, Durban, Overport, Brickfield" contactNo="Cell:0812345678" accNo="ACC001" locRef="ERF001" utilityType="Electricity" daysLastPurchase="0"/>
+            <custVendConfig>
+               <canVend>true</canVend>
+               <maxVendAmt value="100000.000000" symbol="AOA"/>
+               <minVendAmt value="0" symbol="AOA"/>
+            </custVendConfig>
+            <meterDetail krn="1" ti="1" sgc="901047" unitOfMeasurement="kWh" msno="04040404040">
+               <meterType tt="02" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            </meterDetail>
+            <custAccountDetail>
+               <accountStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            </custAccountDetail>
+         </confirmCustResult>
+      </confirmCustomerResp>
+   </soap:Body>
+</soap:Envelope>
+

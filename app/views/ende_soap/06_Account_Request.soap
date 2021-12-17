@@ -1,0 +1,68 @@
+SOAP REQUEST
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ <soap:Body>
+  <payAccReq xmlns="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema">
+   <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+   <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+   <msgID dateTime="20211217125729" uniqueNumber="369" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+   <authCred xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+    <opName>PAGASO</opName>
+    <password>P@GA$0</password>
+   </authCred>
+   <reqAmt value="100" symbol="AOA"/>
+   <payType xmlns:q1="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="q1:Cash">
+    <q1:tenderAmt value="100" symbol="AOA"/>
+   </payType>
+   <payAccount xsi:type="DebtRecovery">
+    <idMethod xmlns:q2="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="q2:CustIDMethod">
+     <q2:custIdentifier xsi:type="q2:CustAccountNo" accNo="ARREARACC005_2"/>
+    </idMethod>
+   </payAccount>
+   <vendingServerId>1</vendingServerId>
+  </payAccReq>
+ </soap:Body>
+</soap:Envelope>
+
+
+
+
+SOAP RESPONSE
+
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap:Body>
+      <payAccResp xmlns="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema">
+         <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <serverID xsi:type="GenericDeviceID" id="1" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <reqMsgID dateTime="20211217185000" uniqueNumber="369" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2021-12-17T18:48:01.4679763+00:00</respDateTime>
+         <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Pay Account</dispHeader>
+         <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Pay Account Successfull</operatorMsg>
+         <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Pay Account</custMsg>
+         <utility name="ENDE" address="Angola" taxRef="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+            <availCredit value="99997850" symbol="AOA"/>
+            <batchStatus banking="open" sales="open" shift="open"/>
+         </clientStatus>
+         <vendor xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <custVendDetail name="Isabelle     Ringing" address="Physical, NC, Upington, Van De Merwe Street" contactNo="" accNo="ACC005" locRef="ERF005" utilityType="Electricity" daysLastPurchase="" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <payAccReceipt receiptNo="45">
+            <transactions>
+               <tx xsi:type="DebtRecoveryTx" receiptNo="45">
+                  <amt value="100" symbol="AOA"/>
+                  <accDesc>Arrears Debt Collection</accDesc>
+                  <accNo>ARREARACC005_2</accNo>
+                  <balance value="1018600.000" symbol="AOA"/>
+               </tx>
+            </transactions>
+            <MonthlyTotals xsi:nil="true"/>
+            <meterDetail krn="1" ti="2" sgc="901047" unitOfMeasurement="kWh" msno="04040404065">
+               <meterType tt="02" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            </meterDetail>
+         </payAccReceipt>
+      </payAccResp>
+   </soap:Body>
+</soap:Envelope>
+
