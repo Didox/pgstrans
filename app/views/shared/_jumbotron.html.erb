@@ -145,17 +145,26 @@
               </div>
               <div class="campos DSTv" id="divAditionalFieldsDSTV">
                 <div class="editArea editAreaDiv">
-                  <div>
-                    SmartCard: 
-                    <input type="radio" id="transacao_smartcard_sim"  name="transacao_smartcard" class="form-control vDSTv" checked="checked" value="true">
-                    DeviceId: 
-                    <input type="radio" id="transacao_smartcard_nao"  name="transacao_smartcard" class="form-control vDSTv" value="false">
+                  <div class="divSmartcard">
+                    <input type="radio" class="smartSim" id="transacao_smartcard_sim" onclick="$('.transacao_smartcard_sim').hide();$('.transacao_smartcard_nao').show();" name="transacao_smartcard" class="form-control vDSTv radio-menor" checked="checked" value="true">
+                    <label for="transacao_smartcard_sim">
+                      Nº Cliente/SmartCard
+                    </label>
+                  </div>
+                  <div class="divDeviceId">
+                    <input type="radio" class="smartNao" id="transacao_smartcard_nao" onclick="$('.transacao_smartcard_sim').show();$('.transacao_smartcard_nao').hide();" name="transacao_smartcard" class="form-control vDSTv radio-menor" value="false">
+                    <label for="transacao_smartcard_nao">
+                      Nº Cliente/Customer Number
+                    </label>
                   </div>
                 </div>
               </div>
               <div class="campos DSTv" id="divAditionalFieldsDSTV">
                 <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv" style="text-align: left;">
+                  <div class="p16Bold editDiv transacao_smartcard_nao" style="text-align: left">
+                    Nº Cliente/SmartCard <span class="required">&nbsp;*</span>
+                  </div>
+                  <div class="p16Bold editDiv transacao_smartcard_sim" style="text-align: left;display:none;">
                     Nº Cliente/Customer Number <span class="required">&nbsp;*</span>
                   </div>
                   <div>

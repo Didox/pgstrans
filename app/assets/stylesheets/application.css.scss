@@ -19,6 +19,28 @@
   right: 0px;
 }
 
+.divSmartcard{
+  display:flex!important;height: 54px;margin-top: 20px;border: 0px;
+}
+.divSmartcard label, .divDeviceId label {
+  padding-left: 10px;
+}
+.divDeviceId{
+  display:flex!important;height: 54px;margin-top: -8px;
+}
+.smartSim{
+  display:inline-block!important;border: 0px!important;
+}
+.smartNao{
+  display:inline-block!important;border: 0px!important;
+}
+
+.radio-menor{
+  width: 10px!important;
+  height: 10px!important;
+  display: inline-block!important;
+}
+
 .alert > p, .alert > ul{
   list-style-type: none;
 }
