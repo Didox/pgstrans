@@ -360,35 +360,65 @@ class Venda < ApplicationRecord
     request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
   
     if Rails.env == "development"
-      host = "#{parametro.url_integracao_desenvolvimento}/carregamento"
+      host = "#{parametro.url_integracao_desenvolvimento}"
       api_key = parametro.api_key_ende_desenvolvimento
     else
-      host = "#{parametro.url_integracao_producao}/carregamento"
+      host = "#{parametro.url_integracao_producao}"
       api_key = parametro.api_key_ende_producao
     end
   
     product_id = params[:ende_produto_id]
     produto = Produto.find(product_id)
-  
-    body_send = {
-      :price => valor_original, 
-      :product_code => produto.produto_id_parceiro, #produto importado zap
-      :product_quantity => 1, 
-      :source_reference => request_id, #meu código 
-      :zappi => telefone #Iremos receber este numero
-    }.to_json
-  
-  
-    res = HTTParty.post(
-      host, 
-      headers: {
-        "apikey" => api_key,
-        "Content-Type" => "application/json"
+
+    body = "
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
+         <soapenv:Header>
+            <int:QueryTransactionReqHeader>
+               <mid:RequestId>#{request_id}</mid:RequestId>
+               <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
+               <mid:SourceSystem>#{user_id}</mid:SourceSystem>
+               <mid:Credentials>
+                  <mid:User>#{user_id}</mid:User>
+                  <mid:Password>#{pass}</mid:Password>
+               </mid:Credentials>
+               <mid:Attributes>
+                  <mid:Attribute>
+                     <mid:Name>?</mid:Name>
+                     <mid:Value>?</mid:Value>
+                  </mid:Attribute>
+               </mid:Attributes>
+            </int:QueryTransactionReqHeader>
+         </soapenv:Header>
+         <soapenv:Body>
+            <int:QueryTransactionReq>
+               <int:QueryTransactionReqBody>
+                  <mid1:TransactionNumber>?</mid1:TransactionNumber>
+               </int:QueryTransactionReqBody>
+            </int:QueryTransactionReq>
+         </soapenv:Body>
+      </soapenv:Envelope>
+    "
+
+    debugger
+
+
+    url = "#{url_service}/DirectTopupService/Topup/"
+    uri = URI.parse(URI.escape(url))
+    request = HTTParty.post(uri, 
+      :headers => {
+        'Content-Type' => 'text/xml;charset=UTF-8',
+        'SOAPAction' => "http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryTransaction",
       },
-      :body => body_send, timeout: DEFAULT_TIMEOUT.to_i.seconds
+      :body => body, timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
+
+    if (200...300).include?(request.code.to_i)
+      # return request.body
+      return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue nil
+      # return "#{request_id} - #{Nokogiri::XML(request.body).children.children.children.children.children.text}" rescue nil
+    end  
   
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.ende_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
