@@ -701,7 +701,7 @@ class Dstv
   def self.fazer_request(url_service, body, resource)
     #http://uat.mcadigitalmedia.com/VendorSelfCare/SelfCareService.svc?wsdl
     url = "#{url_service}/VendorSelfCare/SelfCareService.svc"
-    uri = URI.parse(URI.escape(url))
+    uri = URI.parse(URI::Parser.new.escape(url))
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',

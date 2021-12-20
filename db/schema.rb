@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_06_103249) do
+ActiveRecord::Schema.define(version: 2021_12_20_212844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,6 +126,12 @@ ActiveRecord::Schema.define(version: 2021_12_06_103249) do
     t.index ["desconto_parceiro_id"], name: "index_distribuidor_descontos_on_desconto_parceiro_id"
     t.index ["partner_id"], name: "index_distribuidor_descontos_on_partner_id"
     t.index ["sub_distribuidor_id"], name: "index_distribuidor_descontos_on_sub_distribuidor_id"
+  end
+
+  create_table "ende_uniq_numbers", force: :cascade do |t|
+    t.datetime "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "erro_amigavels", force: :cascade do |t|

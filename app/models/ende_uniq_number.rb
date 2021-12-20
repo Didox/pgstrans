@@ -1,0 +1,2 @@
+class EndeUniqNumber < ApplicationRecord
+end

@@ -96,7 +96,7 @@ class MovicelLoop < ApplicationRecord
 				request_send += "<strong>========[Enviando para operadora Movicel - #{data_envio.to_s}]==========</strong>"
 
 				url = "#{url_service}/DirectTopupService/Topup/"
-				uri = URI.parse(URI.escape(url))
+				uri = URI.parse(URI::Parser.new.escape(url))
 				request_send += "<div>=========[URI]========</div>"
 				request_send += "<strong>#{url}</strong>"
 				request_send += "<div>=========[URI]========</div>"
@@ -162,7 +162,7 @@ class MovicelLoop < ApplicationRecord
 						request_send += "<strong>#{url}</strong>"
 						request_send += "<div>=========[URI]========</div>"
 
-						uri = URI.parse(URI.escape(url))
+						uri = URI.parse(URI::Parser.new.escape(url))
 						begin
 							payload = {
 								headers: {

@@ -370,97 +370,107 @@ class Venda < ApplicationRecord
     product_id = params[:ende_produto_id]
     produto = Produto.find(product_id)
 
+    uniq_number = EndeUniqNumber.create(data: Time.zone.now)
+
+    request_send = ""
+    response_get = ""
+    last_request = ""
+
     body = "
-      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface\" xmlns:mid=\"http://schemas.datacontract.org/2004/07/Middleware.Common.Common\" xmlns:mid1=\"http://schemas.datacontract.org/2004/07/Middleware.Adapter.DirectTopup.Resources.Messages.DirectTopupAdapter\">
-         <soapenv:Header>
-            <int:QueryTransactionReqHeader>
-               <mid:RequestId>#{request_id}</mid:RequestId>
-               <mid:Timestamp>#{Time.zone.now.strftime("%Y-%m-%d")}</mid:Timestamp>
-               <mid:SourceSystem>#{user_id}</mid:SourceSystem>
-               <mid:Credentials>
-                  <mid:User>#{user_id}</mid:User>
-                  <mid:Password>#{pass}</mid:Password>
-               </mid:Credentials>
-               <mid:Attributes>
-                  <mid:Attribute>
-                     <mid:Name>?</mid:Name>
-                     <mid:Value>?</mid:Value>
-                  </mid:Attribute>
-               </mid:Attributes>
-            </int:QueryTransactionReqHeader>
-         </soapenv:Header>
-         <soapenv:Body>
-            <int:QueryTransactionReq>
-               <int:QueryTransactionReqBody>
-                  <mid1:TransactionNumber>?</mid1:TransactionNumber>
-               </int:QueryTransactionReqBody>
-            </int:QueryTransactionReq>
-         </soapenv:Body>
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\" xmlns:sch1=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xmlns:sch2=\"http://www.nrs.eskom.co.za/xmlvend/meter/2.1/schema\">
+      <soapenv:Header/>
+      <soapenv:Body>
+      <sch:creditVendReq xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">
+        <clientID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\"/>
+        <terminalID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\"/>
+        <msgID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.id}\"/>
+        <authCred xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
+        <opName>#{parametro.operator_id}</opName>
+        <password>#{parametro.password}</password>
+        </authCred>
+                            
+        <idMethod xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
+        <meterIdentifier xsi:type=\"MeterNumber\" msno=\"#{params[:ende_medidor]}\"/>
+        </idMethod>
+        <purchaseValue xmlns=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\" xsi:type=\"PurchaseValueCurrency\">
+        <amt value=\"#{valor}\" symbol=\"AOA\"/>
+        </purchaseValue>
+      </sch:creditVendReq>
+      </soapenv:Body>
       </soapenv:Envelope>
     "
 
-    debugger
+    request_send += "=========[creditVendReq]========"
+    request_send += body
+    request_send += "=========[creditVendReq]========"
 
+    url = "#{host}"
 
-    url = "#{url_service}/DirectTopupService/Topup/"
-    uri = URI.parse(URI.escape(url))
+    uri = URI.parse(URI::Parser.new.escape(url))
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',
-        'SOAPAction' => "http://ws.movicel.co.ao/middleware/adapter/DirectTopup/interface/DirectTopupService_Outbound/QueryTransaction",
+        'SOAPAction' => "",
       },
-      :body => body, timeout: DEFAULT_TIMEOUT.to_i.seconds
+      :body => body
     )
+    
+    response_get += "=========[creditVendReq]========"
+    response_get += request.body
+    response_get += "=========[creditVendReq]========"
 
-    if (200...300).include?(request.code.to_i)
-      # return request.body
-      return Nokogiri::XML(request.body).children.children.children.children.children.children.text rescue nil
-      # return "#{request_id} - #{Nokogiri::XML(request.body).children.children.children.children.children.text}" rescue nil
-    end  
-  
-    venda = Venda.new(product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    last_request = request.body
+
+    venda = Venda.new(product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: uniq_number.id, customer_number: params[:ende_medidor], usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
-    
+
     venda.store_id = usuario.sub_agente.store_id_parceiro
     venda.seller_id = usuario.sub_agente.seller_id_parceiro
     venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
-  
-    venda.request_send = "#{host} ------ api_key=#{api_key} -------- body=#{body_send}"
-    venda.response_get = res.body
-  
-    begin
-      venda.status = JSON.parse(res.body)["status_code"]
-    rescue;end
-    venda.status ||= res.code
-    venda.save!
-  
-    if venda.sucesso?
-      cc = ContaCorrente.where(usuario_id: usuario.id).first
-      if cc.blank?
-        banco = Banco.first
-        iban = ""
-      else
-        iban = cc.iban
-        banco = cc.banco
+
+    venda.request_send = request_send
+    venda.response_get = response_get
+    erro_message = last_request.to_s.gsub("\n", "").downcase.scan(/faultstring.*?<\/faultstring/).first.scan(/>.*?</).first.gsub(/<|>/, "") rescue ""
+
+    if erro_message.present? 
+      erro_message = erro_message.downcase
+      if erro_message.include?("duplicate transaction")
+        venda.status = "31"
+      elsif erro_message.include?("incorrect customernumber")
+        venda.status = "32"
+      elsif erro_message.include?("must be greater than zero")
+        venda.status = "33"
+      elsif erro_message.include?("insufficient agent funds. payment amount is greater")
+        venda.status = "34"
+      elsif erro_message.include?("customers who have not been active on any principal package")
+        venda.status = "35"
       end
-  
+    else
+      status = last_request.downcase.scan(/status.*?<\/a\:status/).first.gsub(/status|\>|\<|a|\:|\//, "") rescue ""
+      status = last_request.downcase.scan(/status.*?<\/b\:status/).first.gsub(/status|\>|\<|b|\:|\//, "") rescue "false" if status.blank?
+      venda.status = (status == "true" ? "1" : "3")
+    end
+
+    venda.save!
+
+    if venda.sucesso?
       lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first
       lancamento = Lancamento.first if lancamento.blank?
-  
+
       conta_corrente = ContaCorrente.new(
         usuario_id: usuario.id,
         valor: "-#{valor}",
         observacao: "Compra de recarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
         lancamento_id: lancamento.id,
-        banco_id: (banco.id rescue Banco.first.id),
+        banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
         partner_id: parceiro.id,
-        iban: iban
+        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
       )
       conta_corrente.responsavel = usuario
       conta_corrente.save!
     end
-  
+
     return venda
   rescue PagasoError => e
     raise "#{e.message} - #{e.backtrace}"
@@ -525,7 +535,7 @@ class Venda < ApplicationRecord
     "
 
     url = "#{url_service}/DirectTopupService/Topup/"
-    uri = URI.parse(URI.escape(url))
+    uri = URI.parse(URI::Parser.new.escape(url))
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',
@@ -637,7 +647,7 @@ class Venda < ApplicationRecord
     Rails.logger.info "========[Enviando para operadora Movicel - #{data_envio.to_s}]=========="
 
     url = "#{url_service}/DirectTopupService/Topup/"
-    uri = URI.parse(URI.escape(url))
+    uri = URI.parse(URI::Parser.new.escape(url))
     begin
       request = HTTParty.post(uri, 
         headers: {
@@ -691,7 +701,7 @@ class Venda < ApplicationRecord
         Rails.logger.info "========[Enviando confirmação para operadora Movicel]=========="
 
         url = "#{url_service}/DirectTopupService/Topup/"
-        uri = URI.parse(URI.escape(url))
+        uri = URI.parse(URI::Parser.new.escape(url))
         begin
           request = HTTParty.post(uri, 
             headers: {
@@ -922,7 +932,7 @@ class Venda < ApplicationRecord
 
     #http://uat.mcadigitalmedia.com/VendorSelfCare/SelfCareService.svc?wsdl
     url = "#{url_service}/VendorSelfCare/SelfCareService.svc"
-    uri = URI.parse(URI.escape(url))
+    uri = URI.parse(URI::Parser.new.escape(url))
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',

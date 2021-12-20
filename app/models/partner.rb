@@ -173,7 +173,7 @@ class Partner < ApplicationRecord
     Rails.logger.info "========[Enviando consulta de saldo operadora Movicel]=========="
     
     url = "#{url_service}/DirectTopupService/Topup/"
-    uri = URI.parse(URI.escape(url))
+    uri = URI.parse(URI::Parser.new.escape(url))
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',

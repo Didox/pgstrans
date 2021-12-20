@@ -38,7 +38,7 @@ Password: senha do banco de dados da aplicação
 
 url = "https://address/spgw/#{VERSION}/query_string"
 
-uri = URI.parse(URI.escape(url))
+uri = URI.parse(URI::Parser.new.escape(url))
 request = HTTParty.get(uri, :query => query)
 if (200...300).include?(request.code.to_i)
   if request.body.present?

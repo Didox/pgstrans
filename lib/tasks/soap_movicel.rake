@@ -47,7 +47,7 @@ namespace :soap_movicel do
 
     url_service = "http://wsqa.movicel.co.ao:10071"
     url = "#{url_service}/DirectTopupService/Topup/"
-    uri = URI.parse(URI.escape(url))
+    uri = URI.parse(URI::Parser.new.escape(url))
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',
@@ -87,7 +87,7 @@ namespace :soap_movicel do
 
     url_service = "http://wsqa.movicel.co.ao:10071"
     url = "#{url_service}/DirectTopupService/Topup/"
-    uri = URI.parse(URI.escape(url))
+    uri = URI.parse(URI::Parser.new.escape(url))
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',
