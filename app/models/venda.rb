@@ -383,7 +383,7 @@ class Venda < ApplicationRecord
       <sch:creditVendReq xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">
         <clientID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\"/>
         <terminalID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\"/>
-        <msgID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.id}\"/>
+        <msgID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\"/>
         <authCred xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
         <opName>#{parametro.operator_id}</opName>
         <password>#{parametro.password}</password>
@@ -431,6 +431,7 @@ class Venda < ApplicationRecord
 
     venda.request_send = request_send
     venda.response_get = response_get
+
     erro_message = last_request.to_s.gsub("\n", "").downcase.scan(/faultstring.*?<\/faultstring/).first.scan(/>.*?</).first.gsub(/<|>/, "") rescue ""
 
     if erro_message.present? 
@@ -447,9 +448,8 @@ class Venda < ApplicationRecord
         venda.status = "35"
       end
     else
-      status = last_request.downcase.scan(/status.*?<\/a\:status/).first.gsub(/status|\>|\<|a|\:|\//, "") rescue ""
-      status = last_request.downcase.scan(/status.*?<\/b\:status/).first.gsub(/status|\>|\<|b|\:|\//, "") rescue "false" if status.blank?
-      venda.status = (status == "true" ? "1" : "3")
+      status = last_request.downcase.scan(/stscipher.*?stscipher/).length > 0
+      venda.status = (status ? "1" : "3")
     end
 
     venda.save!

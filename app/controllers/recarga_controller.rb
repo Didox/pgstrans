@@ -9,7 +9,7 @@ class RecargaController < ApplicationController
     venda = Venda.fazer_venda(params, usuario_logado, params[:tipo_venda], request.ip)
     begin
       if venda.sucesso?
-        render json: {mensagem: venda.status_desc.error_description_pt, status: venda.status}, status: 200
+        render json: {mensagem: venda.status_desc.error_description_pt, status: venda.status, venda_id: venda.id}, status: 200
       else
         LogVenda.create(usuario_id: usuario_logado.id, titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{venda.status_desc.error_description_pt} - #{venda.status} - #{venda.response_get}")
         render json: {mensagem: venda.status_desc.error_description_pt, status: venda.status}, status: 401

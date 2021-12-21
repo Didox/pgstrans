@@ -52,6 +52,127 @@
       <dt>Situação:</dt>
       <dd><%= @venda.status_desc.error_description_pt %> - <strong><%= "#{@venda.lancamento.nome}" rescue "" %></strong></dd>
       
+      <% if @venda.partner.id == Partner.ende.id %>
+        <% 
+        xml = @venda.response_get.gsub(/===.*?</, "<").gsub(/>===.*/, ">")
+        data = Nokogiri::XML(xml)
+        data.children.children.children.children.each do |children|
+        %>
+          <dt><%= children.name %>:</dt>
+          <dd>
+            <% if children.attributes["name"].present? %>
+              <b>name: </b> <%= children.attributes["name"].value %><br>
+            <% end %>
+            <% if children.attributes["address"].present? %>
+              <b>address: </b> <%= children.attributes["address"].value %><br>
+            <% end %>
+            <% if children.attributes["taxRef"].present? %>
+              <b>taxRef: </b> <%= children.attributes["taxRef"].value %><br>
+            <% end %>
+            <% if children.attributes["type"].present? %>
+              <b>Type: </b> <%= children.attributes["type"].value %><br>
+            <% end %>
+            <% if children.attributes["ean"].present? %>
+              <b>Ean: </b> <%= children.attributes["ean"].value %><br>
+            <% end %>
+            <% if children.attributes["dateTime"].present? %>
+              <b>DateTime: </b> <%= children.attributes["dateTime"] %><br>
+            <% end %>
+            <% if children.attributes["availCredit"].present? %>
+              <b>availCredit: </b> <%= children.attributes["availCredit"] %><br>
+            <% end %>
+            <% if children.attributes["contactNo"].present? %>
+              <b>contactNo: </b> <%= children.attributes["contactNo"] %><br>
+            <% end %>
+            <% if children.attributes["accNo"].present? %>
+              <b>accNo: </b> <%= children.attributes["accNo"] %><br>
+            <% end %>
+            <% if children.attributes["locRef"].present? %>
+              <b>locRef: </b> <%= children.attributes["locRef"] %><br>
+            <% end %>
+            <% if children.attributes["utilityType"].present? %>
+              <b>utilityType: </b> <%= children.attributes["utilityType"] %><br>
+            <% end %>
+            <% if children.attributes["daysLastPurchase"].present? %>
+              <b>daysLastPurchase: </b> <%= children.attributes["daysLastPurchase"] %><br>
+            <% end %>
+            <% if children.attributes["receiptNo"].present? %>
+              <b>receiptNo: </b> <%= children.attributes["receiptNo"] %><br>
+            <% end %>
+            <% if children.attributes["uniqueNumber"].present? %>
+              <b>UniqueNumber: </b> <%= children.attributes["uniqueNumber"] %><br>
+            <% end %>
+            <% if children.attributes["krn"].present? %>
+              <b>krn: </b> <%= children.attributes["krn"] %><br>
+            <% end %>
+            <% if children.attributes["ti"].present? %>
+              <b>ti: </b> <%= children.attributes["ti"] %><br>
+            <% end %>
+            <% if children.attributes["sgc"].present? %>
+              <b>sgc: </b> <%= children.attributes["sgc"] %><br>
+            <% end %>
+            <% if children.attributes["unitOfMeasurement"].present? %>
+              <b>unitOfMeasurement: </b> <%= children.attributes["unitOfMeasurement"] %><br>
+            <% end %>
+            <% if children.attributes["msno"].present? %>
+              <b>msno: </b> <%= children.attributes["msno"] %><br>
+            <% end %>
+            <% if children.attributes["tt"].present? %>
+              <b>tt: </b> <%= children.attributes["tt"] %><br>
+            <% end %>
+            <% if children.attributes["siUnit"].present? %>
+              <b>siUnit: </b> <%= children.attributes["siUnit"] %><br>
+            <% end %>
+            <% if (children.children rescue nil).present? %>
+              <% children.children.each do |children1| %>
+                <b>name:</b> <%= children1.name %><br>
+                <% if children1.attributes["value"].present? %>
+                  <b>value:</b> <%= children1.attributes["value"].value %><br>
+                <% end %>
+                <% if children1.attributes["symbol"].present? %>
+                  <b>symbol:</b> <%= children1.attributes["symbol"].value %><br>
+                <% end %>
+
+                <% children1.children.each do |children2| %>
+                  <b>name:</b> <%= children2.name %><br>
+                  <% if children2.attributes["value"].present? %>
+                    <b>value:</b> <%= children2.attributes["value"].value %><br>
+                  <% end %>
+                  <% if children2.attributes["symbol"].present? %>
+                    <b>symbol:</b> <%= children2.attributes["symbol"].value %><br>
+                  <% end %>
+
+                  <% children2.children.each do |children3| %>
+                    <b>name:</b> <%= children3.name %><br>
+                    <% if children3.attributes["value"].present? %>
+                      <b>value:</b> <%= children3.attributes["value"].value %><br>
+                    <% end %>
+                    <% if children3.attributes["symbol"].present? %>
+                      <b>symbol:</b> <%= children3.attributes["symbol"].value %><br>
+                    <% end %>
+
+                    <% children3.children.each do |children4| %>
+                      <b>name:</b> <%= children4.name %><br>
+                      <% if children4.attributes["value"].present? %>
+                        <b>value:</b> <%= children4.attributes["value"].value %><br>
+                      <% end %>
+                      <% if children4.attributes["symbol"].present? %>
+                        <b>symbol:</b> <%= children4.attributes["symbol"].value %><br>
+                      <% end %>
+                    <% end %>
+                    
+                  <% end %>
+                  
+                <% end %>
+              <% end %>
+            <% end %>
+            <% if (children.children rescue nil).present? %>
+              <%= children.children.text %><br>
+            <% end %>
+          </dd>
+        <% end %>
+      <% end %>
+      
       <% if @adm.id == Usuario::ROOT %>
         <dt>Request send:</dt>
         <dd><%= @venda.request_send %></dd>

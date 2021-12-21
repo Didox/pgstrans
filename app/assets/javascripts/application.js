@@ -248,6 +248,10 @@ $(function(){
                 pagamentoProcessando = false;
                 $.alert(data.mensagem);
                 $(".clearFieldjs").val("")
+
+                if(data.venda_id){
+                  window.location.href="/vendas/" + data.venda_id;
+                }
               },
               error: function(xhr, ajaxOptions, thrownError){
                 $(".modal_loader").hide();
