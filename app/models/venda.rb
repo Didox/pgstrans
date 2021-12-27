@@ -359,13 +359,7 @@ class Venda < ApplicationRecord
     telefone = params[:ende_medidor]
     request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
   
-    if Rails.env == "development"
-      host = "#{parametro.url_integracao_desenvolvimento}"
-      api_key = parametro.api_key_ende_desenvolvimento
-    else
-      host = "#{parametro.url_integracao_producao}"
-      api_key = parametro.api_key_ende_producao
-    end
+    host = Rails.env == "development" ? "#{parametro.url_integracao_desenvolvimento}" : "#{parametro.url_integracao_producao}"
   
     product_id = params[:ende_produto_id]
     produto = Produto.find(product_id)
