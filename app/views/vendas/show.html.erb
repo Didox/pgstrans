@@ -54,7 +54,7 @@
       
       <% if @venda.partner.id == Partner.ende.id %>
         <dt>Detalhes:</dt>
-        <dd>
+        <dd style="overflow:scroll; max-height: 400px">
           <% 
           xml = @venda.response_get.gsub(/===.*?</, "<").gsub(/>===.*/, ">")
           data = Nokogiri::XML(xml)
