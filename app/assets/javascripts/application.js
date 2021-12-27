@@ -180,11 +180,11 @@ $(function(){
 
     $("#rechargeValue").attr("readonly", "readonly")
 
-    if($(".rechargeType.vDSTv").length > 0 && $(".rechargeType.vDSTv").val() && $(".rechargeType.vDSTv").val().toLowerCase().indexOf("boxoffice") !== -1){
+    if($(".rechargeType.vdstv").length > 0 && $(".rechargeType.vdstv").val() && $(".rechargeType.vdstv").val().toLowerCase().indexOf("boxoffice") !== -1){
       $("#rechargeValue").removeAttr("readonly")
     }
 
-    if($(".rechargeType.vUnitel").length > 0 && $(".rechargeType.vUnitel").val() && $(".rechargeType.vUnitel option:selected").html().toLowerCase().indexOf("variável") !== -1){
+    if($(".rechargeType.vunitel").length > 0 && $(".rechargeType.vunitel").val() && $(".rechargeType.vunitel option:selected").html().toLowerCase().indexOf("variável") !== -1){
       $("#rechargeValue").removeAttr("readonly")
     }
   })

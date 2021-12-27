@@ -30,6 +30,13 @@ namespace :jobs do
     File.open("#{Rails.root}/bkp/banco.data", "w") { |f| f.write dado }
   end
 
+  desc "slug lowercase partners"
+  task slug_lowercase: :environment do
+    Partner.all.each do |partner|
+      Partner.where(id: partner.id).update_all(slug: partner.slug.downcase)
+    end
+  end
+
   desc "Unificação tabela vendas"
   task unificacao_vendas: :environment do
     parceiro = Partner.find(3) # dstv

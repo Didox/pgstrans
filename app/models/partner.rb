@@ -255,6 +255,6 @@ class Partner < ApplicationRecord
   end
 
   before_validation do
-    self.slug = self.name.parameterize if self.slug.blank?
+    self.slug = self.name.parameterize.downcase if self.slug.blank?
   end
 end

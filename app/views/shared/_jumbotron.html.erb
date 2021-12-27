@@ -133,7 +133,7 @@
                   </div>
                 </div>
               </div>
-              <div class="campos Movicel " id="divAditionalFieldsMovicel">
+              <div class="campos movicel " id="divAditionalFieldsMovicel">
                 <div class="editArea editAreaDiv">
                   <div class="p16Bold editDiv" style="text-align: left;">
                     Telemóvel<span class="required">&nbsp;*</span>
@@ -143,7 +143,7 @@
                   </div>
                 </div>
               </div>
-              <div class="campos DSTv" id="divAditionalFieldsDSTV">
+              <div class="campos dstv" id="divAditionalFieldsDSTV">
                 <div class="editArea editAreaDiv">
                   <div class="divSmartcard">
                     <input type="radio" class="smartSim" id="transacao_smartcard_sim" onclick="$('.transacao_smartcard_sim').hide();$('.transacao_smartcard_nao').show();" name="transacao_smartcard" class="form-control vDSTv radio-menor" checked="checked" value="true">
@@ -159,7 +159,7 @@
                   </div>
                 </div>
               </div>
-              <div class="campos DSTv" id="divAditionalFieldsDSTV">
+              <div class="campos dstv" id="divAditionalFieldsDSTV">
                 <div class="editArea editAreaDiv">
                   <div class="p16Bold editDiv transacao_smartcard_nao" style="text-align: left">
                     SmartCard <span class="required">&nbsp;*</span>
@@ -172,7 +172,7 @@
                   </div>
                 </div>
               </div>
-              <div class="campos ZAPTv" id="divAditionalFieldsZAP">
+              <div class="campos zaptv" id="divAditionalFieldsZAP">
                 <div class="editArea editAreaDiv">
                   <div class="p16Bold editDiv" style="text-align: left;">
                     Nº do Cartão ZAP <span class="required">&nbsp;*</span>
@@ -182,7 +182,7 @@
                   </div>
                 </div>
               </div>
-              <div class="campos Unitel" id="divAditionalFieldsUnitel">
+              <div class="campos unitel" id="divAditionalFieldsUnitel">
                 <div class="editArea editAreaDiv">
                   <div class="p16Bold editDiv" style="text-align: left;">
                     Telemóvel <span class="required">*</span>
@@ -192,7 +192,7 @@
                   </div>
                 </div>
               </div>
-              <div class="campos ENDE " id="divAditionalFieldsENDE">
+              <div class="campos ende" id="divAditionalFieldsENDE">
                 <div class="editArea editAreaDiv">
                   <div class="p16Bold editDiv" style="text-align: left;">
                     Número do Contador ou Medidor<span class="required">&nbsp;*</span>
@@ -202,7 +202,7 @@
                   </div>
                 </div>
               </div>
-              <div class="campos <%= Partner.where(status_parceiro_id: StatusParceiro::ATIVO).where("slug not in ('ENDE')").map{|p| "talao#{p.slug}"}.join(" ") %>" id="divAditionalFieldsSMS" style="display: none;margin-top: 10px">
+              <div class="campos <%= Partner.where(status_parceiro_id: StatusParceiro::ATIVO).where("slug not in ('ende')").map{|p| "talao#{p.slug}"}.join(" ") %>" id="divAditionalFieldsSMS" style="display: none;margin-top: 10px">
                 <div class="editArea editAreaDiv">
                   <div class="p16Bold editDiv" style="text-align: left;">
                     Talão para SMS
@@ -212,7 +212,7 @@
                   </div>
                 </div>
               </div>
-              <div class="campos ENDE id="divAditionalFieldsENDEsms" style="display: none;margin-top: 10px">
+              <div class="campos ende id="divAditionalFieldsENDEsms" style="display: none;margin-top: 10px">
                 <div class="editArea editAreaDiv">
                   <div class="p16Bold editDiv" style="text-align: left;">
                     Número SMS para envio do token de recarga <span class="required">&nbsp;*</span>
@@ -223,7 +223,7 @@
                 </div>
               </div>
               
-              <div class="campos ENDE" id="divAditionalFieldsEmail" style="display: none;margin-top: 10px">
+              <div class="campos ende" id="divAditionalFieldsEmail" style="display: none;margin-top: 10px">
                 <div class="editArea editAreaDiv">
                   <div class="p16Bold editDiv" style="text-align: left;">
                     E-mail para envio do token de recarga

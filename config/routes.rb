@@ -125,7 +125,6 @@ Rails.application.routes.draw do
   post 'password-esquecida', to: 'login#recuperar_password_esquecida'
   get 'primeiro-acesso', to: 'login#primeiro_acesso'
 
-
   post 'api/usuarios/', to: 'usuarios#create_api'
   get 'api/usuarios/:id', to: 'usuarios#show_api'
   post 'api/login', to: 'login#autentica_api'
