@@ -49,6 +49,7 @@ class PerfilUsuario < ApplicationRecord
 
   def self.action_amigavel(action)
     nomes = {
+      confirmar_cliente: "Confirmar Cliente ENDE - Menu de Venda HOME",  
       validacao_cliente_api: "Validação de cliente DSTV pela API",
       new: "Mostrar a tela que permite a inclusão de um novo registo",
       produtos_api: "Mostrar produtos para serem utilizados na API",
@@ -154,6 +155,7 @@ class PerfilUsuario < ApplicationRecord
       matrix_users: "Backoffice - Sessão de Usuários - Matriz de Usuários",
       grupos: "Grupos de Acesso",
       dstv: "DSTV",
+      ende: "ENDE",
       sequencial_dstvs: "Backoffice - Sessão de Transações - Controle de Sequência de Vendas da DSTV",
       log_vendas: "Log de vendas não realizadas",
       pagamentos_faturas_dstvs: "Pagamentos de fatura DSTV",
