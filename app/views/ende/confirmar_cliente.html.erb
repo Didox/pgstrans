@@ -36,19 +36,36 @@
           </div>
         <% else %>
           <div class="col-md-12">
-                <div style="font-weight: bold;font-size: 15px;"> Número do Cliente: <%= params[:customer_number] %> </div>
+                <div style="font-weight: bold;font-size: 15px;"> Número do Medidor: <%= params[:customer_number] %> </div>
                 <% end %>
             </div>
-            
             <div class="col-md-12">
               <div style="font-weight: bold;font-size: 15px;"> DADOS DO CLIENTE</div>
-                <div>
                   <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-                </div>
-
+                    <li>Nome do Cliente (name)</li>
+                    <li>Morada (address)</li>
+                    <li>Contacto (contactNo)</li>
+                    <li>Número da Conta (accNo)</li>
+                    <li>Utilitário (utilityType)</li>
+                    <li>Pode vender? (canVend)? TRUE (Sim) FALSE (Não)</li>
+                    <li>Número do Medidor (msno)</li>
+                  </ul>
+              </div><br>
               <div class="col-md-12" >
                 <div style="font-weight: bold;font-size: 15px;">DADOS DA CONTA</div>
+                  <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+                    <li>Cliente com dédito ou taxas de serviço pendente</li>
+                    <li>Valor Mínimo (minVendAmt value) - KZ</li>
+                  </ul>
+                </div>
+                <br>
+                <div class="col-md-12" >
                   <%=  @info %>
+                </div>
+                <div class="col-md-12" >
+                  <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+                   <li>Medidor não encontrado (xsi:type="SystemEx"> <desc>Meter not found</desc>)</li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -56,9 +73,13 @@
 
           <br>
           <br>
-          <br>
 
           <div style="display: inline-block;margin-bottom: 10px;width: 100%;margin-bottom: 5px;">
+            <%= link_to root_path, class: 'btn btn-success', style: "width: 100%;text-align: center;" do %>
+              <span class="glyphicon glyphicon-list-alt"></span>
+              Venda de Crédito (se canVend = true)
+            <% end %>
+            <br><br>
             <%= link_to root_path, class: 'btn btn-danger', style: "width: 100%;text-align: center;" do %>
               <span class="glyphicon glyphicon-list-alt"></span>
               Voltar
