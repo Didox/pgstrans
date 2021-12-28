@@ -296,6 +296,19 @@ class Ende
     @info["maxVendAmt"] = Nokogiri::XML(xml_itens.to_xml.scan(/<maxVendAmt.*?>/).first).children.first.to_h rescue {}
     @info["respDateTime"] = Nokogiri::XML(body.scan(/<respDateTime .*?<\/respDateTime>/).first).text.to_datetime rescue nil
     @info["unique_number"] = uniq_number.unique_number
+    @info["receiptNo"] = Nokogiri::XML(xml_itens.to_xml.scan(/<receiptNo.*?>/).first).children.first.to_h rescue {}
+    @info["amtvalue"] = Nokogiri::XML(xml_itens.to_xml.scan(/<amtvalue.*?>/).first).children.first.to_h rescue {}
+    @info["symbol"] = Nokogiri::XML(xml_itens.to_xml.scan(/<symbol.*?>/).first).children.first.to_h rescue {}
+    @info["krn"] = Nokogiri::XML(xml_itens.to_xml.scan(/<krn.*?>/).first).children.first.to_h rescue {}
+    @info["msno"] = Nokogiri::XML(xml_itens.to_xml.scan(/<msno.*?>/).first).children.first.to_h rescue {}
+    @info["ti"] = Nokogiri::XML(xml_itens.to_xml.scan(/<ti.*?>/).first).children.first.to_h rescue {}
+    @info["sgc"] = Nokogiri::XML(xml_itens.to_xml.scan(/<sgc.*?>/).first).children.first.to_h rescue {}
+    @info["unitOfMeasurement"] = Nokogiri::XML(xml_itens.to_xml.scan(/<unitOfMeasurement.*?>/).first).children.first.to_h rescue {}
+    @info["tt"] = Nokogiri::XML(xml_itens.to_xml.scan(/<tt.*?>/).first).children.first.to_h rescue {}
+    @info["siUnit"] = Nokogiri::XML(xml_itens.to_xml.scan(/<siUnit.*?>/).first).children.first.to_h rescue {}
+    @info["rate_value"] = Nokogiri::XML(xml_itens.to_xml.scan(/<rate_value.*?>/).first).children.first.to_h rescue {}
+    @info["units_value"] = Nokogiri::XML(xml_itens.to_xml.scan(/<units_value.*?>/).first).children.first.to_h rescue {}
+    @info["type"] = Nokogiri::XML(xml_itens.to_xml.scan(/<type.*?>/).first).children.first.to_h rescue {}
 
     @info
   end
