@@ -157,6 +157,7 @@ class PerfilUsuario < ApplicationRecord
       dstv: "DSTV",
       ende: "ENDE",
       sequencial_dstvs: "Backoffice - Sessão de Transações - Controle de Sequência de Vendas da DSTV",
+      ende_uniq_numbers: "Backoffice - Sessão de Transações - Controle de Sequência de Transações da ENDE",
       log_vendas: "Log de vendas não realizadas",
       pagamentos_faturas_dstvs: "Pagamentos de fatura DSTV",
       alteracoes_planos_dstvs: "Alteração de planos DSTV",

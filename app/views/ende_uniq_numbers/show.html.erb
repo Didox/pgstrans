@@ -1,0 +1,34 @@
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Detalhes do Sequencial de Transação ENDE</h3>
+  </div>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="col-md-12">
+    <dl class="dl-horizontal">
+      <dt>Número do Transação:</dt>
+      <dd><%= @ende_uniq_number.id %></dd>
+    </dl>
+
+    <% if @adm.id == Usuario::ROOT %>
+      <dl class="dl-horizontal">
+        <dt>Envio - Request body:</dt>
+        <dd><%= @ende_uniq_number.data %></dd>
+      </dl>
+
+      <dl class="dl-horizontal">
+        <dt>Resposta - Response body:</dt>
+        <dd><%= @ende_uniq_number.data %></dd>
+      </dl>
+    <% end %>
+
+    <div class="page-header">
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+    </div>
+  </div>
+</div>
