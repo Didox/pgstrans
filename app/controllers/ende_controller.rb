@@ -21,9 +21,23 @@ class EndeController < ApplicationController
   end
 
   def reprint
+    if params[:customer_number].present?
+      @info = Ende.reprint(params[:customer_number], request.remote_ip)
+    end
+    return [true, nil]
+  rescue Exception => e
+    flash[:error] = e.message
+    return [false, e]
   end
 
   def last_advice
+    if params[:customer_number].present?
+      @info = Ende.last_advice(params[:customer_number], request.remote_ip)
+    end
+    return [true, nil]
+  rescue Exception => e
+    flash[:error] = e.message
+    return [false, e]
   end
 
 end
