@@ -36,9 +36,9 @@
           </div>
         <% else %>
           <div class="col-md-12">
-                <div style="font-weight: bold;font-size: 15px;"> Número do Medidor: <%= params[:customer_number] %> </div>
-                <% end %>
-            </div>
+            <div style="font-weight: bold;font-size: 15px;"> Número do Medidor: <%= params[:customer_number] %> </div>
+          </div>
+        <% end %>
             <% if @info.present? %>
               <% if @info["erro"].blank? %>
                 <div class="col-md-12">

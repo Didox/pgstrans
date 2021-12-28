@@ -47,6 +47,45 @@ class Ende
     return informacoes_parse(request.body, uniq_number)
   end
 
+  def self.venda_teste(ende_produto_id, ende_medidor)
+    raise PagasoError.new("Por favor digite o Produto Recarga") if ende_produto_id.blank?
+    raise PagasoError.new("Por favor digite o Número do Contador ou Medidor") if ende_medidor.blank?
+    
+    ende_medidor = ende_medidor.strip
+    parceiro,parametro,url_service = parametros
+
+    uniq_number = EndeUniqNumber.create(data: Time.zone.now)
+
+    valor = Produto.find(ende_produto_id).valor_compra_telemovel
+
+    body = "
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\" xmlns:sch1=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xmlns:sch2=\"http://www.nrs.eskom.co.za/xmlvend/meter/2.1/schema\">
+      <soapenv:Header/>
+      <soapenv:Body>
+      <sch:creditVendReq xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">
+        <clientID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\"/>
+        <terminalID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\"/>
+        <msgID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\"/>
+        <authCred xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
+        <opName>#{parametro.operator_id}</opName>
+        <password>#{parametro.password}</password>
+        </authCred>
+                            
+        <idMethod xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
+        <meterIdentifier xsi:type=\"MeterNumber\" msno=\"#{ende_medidor}\"/>
+        </idMethod>
+        <purchaseValue xmlns=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\" xsi:type=\"PurchaseValueCurrency\">
+        <amt value=\"#{valor}\" symbol=\"AOA\"/>
+        </purchaseValue>
+      </sch:creditVendReq>
+      </soapenv:Body>
+      </soapenv:Envelope>
+    "
+
+    request = fazer_request(url_service, body, uniq_number)
+    return request.body
+  end
+
   def self.parametros
     parceiro = Partner.ende
     parametro = Parametro.where(partner_id: parceiro.id).first

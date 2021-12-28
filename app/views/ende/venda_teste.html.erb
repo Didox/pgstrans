@@ -1,0 +1,67 @@
+<div class="container scroltable">
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="container">
+    
+    <div class="card" style="margin-top: 5px;">
+      <div class="card-header">
+        <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold">
+          Venda de Teste ENDE
+        </div>
+        <% if @info.blank? %>
+          <div class="card-body">
+            <form action="/ende/venda-teste" method="get">
+              <div class="col-md-12">
+                <% partner = Partner.ende %>
+                <div class="campos">
+                  <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
+                    <div class="p16Bold editDiv" style="text-align: left;">
+                      Recarga<span class="required">&nbsp;*</span>
+                    </div>
+                    <div>
+                      <%= render "/shared/select_default", partner: partner %>
+                    </div>
+                  </div>
+                </div>
+                <div class="campos ende" id="divAditionalFieldsENDE">
+                  <div class="editArea editAreaDiv">
+                    <div class="p16Bold editDiv" style="text-align: left;">
+                      Número do Contador ou Medidor<span class="required">&nbsp;*</span>
+                    </div>
+                    <div>
+                      <input type="text" name="ende_medidor" class="form-control validate clearFieldjs" data-message="Informe o número" placeholder="Digite ..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: right;">
+                  <div style="display: inline-block;margin-bottom: 10px;">
+                    <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="SUBMETER PEDIDO">
+                  </div>
+                  <div style="display: inline-block;margin-bottom: 10px;">
+                    <%= link_to root_path, class: 'btn btn-space btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+                      <span class="glyphicon glyphicon-list-alt"></span>
+                      VOLTAR
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        <% elsif @info.present? %>
+          <%= @info %>
+          <br>
+          <br>
+          <div style="display: inline-block;margin-bottom: 10px;width: 100%;margin-bottom: 5px;">
+            <%= link_to root_path, class: 'btn btn-danger', style: "width: 100%;text-align: center;" do %>
+              <span class="glyphicon glyphicon-list-alt"></span>
+              Voltar
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
   resources :ende_uniq_numbers
   get 'ende/confirmar-cliente', to: 'ende#confirmar_cliente'
+  get 'ende/venda-teste', to: 'ende#venda_teste'
   get 'ende/reprint', to: 'ende#reprint'
   get 'ende/last-advice', to: 'ende#last_advice'
 

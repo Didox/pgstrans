@@ -50,6 +50,7 @@ class PerfilUsuario < ApplicationRecord
   def self.action_amigavel(action)
     nomes = {
       confirmar_cliente: "Confirmar Cliente ENDE - Menu de Venda HOME", 
+      venda_teste: "Venda de Teste ENDE - Menu de Venda HOME", 
       reprint: "Opção de Reimpressão - Menu de Venda HOME",
       last_advice: "Opção de Last Advice - Menu de Venda HOME",
       validacao_cliente_api: "Validação de cliente DSTV pela API",

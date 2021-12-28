@@ -85,7 +85,7 @@
             </li>
             <hr>
             <li>
-              <a href="javascript:pgstrans.displayVendaTesteEnde()">
+              <a href="/ende/venda-teste">
                 Venda Teste
               </a>
             </li>
@@ -129,7 +129,7 @@
                 <div class="campos <%= partner.slug %>">
                   <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
                     <div class="p16Bold editDiv" style="text-align: left;">
-                        Recarga<span class="required">&nbsp;*</span>
+                      Recarga<span class="required">&nbsp;*</span>
                     </div>
                     <div>
                       <% begin %>
@@ -281,20 +281,5 @@
         <% end %>
       </script>
     <% end %>
-
-     <% if params[:recarga].present? %>
-      <script type="text/javascript">
-        pgstrans.displayVendaTesteEnde('<%= params[:recarga] %>')
-
-        <% if params[:recarga] == "ende" %>
-          pgstrans.displayRecargaEnde();
-          $("input[name=ende_medidor]").val("<%= params[:customer_number] %>");
-          $("input[name=talao_sms_ende]").val("<%= params[:customer_number] %>");
-        <% elsif params[:displayrecarga].present? %>
-          pgstrans.displayRecargaDstv();
-        <% end %>
-      </script>
-    <% end %>
-
   </div>
 </div>
