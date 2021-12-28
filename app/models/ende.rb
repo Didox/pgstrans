@@ -1,7 +1,7 @@
 class Ende
   require 'openssl'
 
-  def self.informacoes_customer_number(customer_number, ip)
+  def self.informacoes_customer_number(customer_number)
     raise PagasoError.new("Por favor digite o customer number") if customer_number.blank?
     customer_number = customer_number.strip
     parceiro,parametro,url_service = parametros
@@ -86,7 +86,7 @@ class Ende
     return request.body
   end
 
-  def self.reprint(ende_medidor, remote_ip)
+  def self.reprint(ende_medidor)
     raise PagasoError.new("Por favor digite o Número do Contador ou Medidor") if ende_medidor.blank?
     
     ende_medidor = ende_medidor.strip
@@ -111,6 +111,32 @@ class Ende
       </reprintReq>
       </soap:Body>
     </soap:Envelope>
+    "
+
+    request = fazer_request(url_service, body, uniq_number)
+    return request.body
+  end
+
+  def self.last_advice
+    parceiro,parametro,url_service = parametros
+
+    uniq_number = EndeUniqNumber.create(data: Time.zone.now)
+
+    body = "
+      <soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">
+      <soap:Body>
+        <adviceReq xsi:type=\"LastRespAdviceReq\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
+        <clientID xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\"/>
+        <terminalID xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\"/>
+        <msgID dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\"/>
+        <authCred>
+          <opName>#{parametro.operator_id}</opName>
+          <password>#{parametro.password}</password>
+        </authCred>
+        <adviceReqMsgID dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\"/>
+        </adviceReq>
+      </soap:Body>
+      </soap:Envelope>
     "
 
     request = fazer_request(url_service, body, uniq_number)

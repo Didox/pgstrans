@@ -13,13 +13,8 @@
         <% if @info.blank? %>
           <div class="card-body">
             <form action="/ende/last-advice" method="get">
-
               <div class="col-md-12">
-                <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
-                  <h3>Informe o</h3>
-                  <div style="margin-left: 4%;">Número do Medidor do Cliente</div>
-                  <input type="text" class="form-control" value="<%= params[:customer_number] %>" name="customer_number" placeholder="Número do Medidor do Cliente" style="margin-left: 4%;max-width: 300px;">
-                </div>
+                <input type="hidden" class="form-control" value="ok" name="consulta">
                 <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: right;">
                   <div style="display: inline-block;margin-bottom: 10px;">
                     <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="VALIDAR">

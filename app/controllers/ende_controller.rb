@@ -2,7 +2,7 @@ class EndeController < ApplicationController
     
   def confirmar_cliente
     if params[:customer_number].present?
-      @info = Ende.informacoes_customer_number(params[:customer_number], request.remote_ip)
+      @info = Ende.informacoes_customer_number(params[:customer_number])
     end
     return [true, nil]
   rescue Exception => e
@@ -22,7 +22,7 @@ class EndeController < ApplicationController
 
   def reprint
     if params[:customer_number].present?
-      @info = Ende.reprint(params[:customer_number], request.remote_ip)
+      @info = Ende.reprint(params[:customer_number])
     end
     return [true, nil]
   rescue Exception => e
@@ -31,8 +31,8 @@ class EndeController < ApplicationController
   end
 
   def last_advice
-    if params[:customer_number].present?
-      @info = Ende.last_advice(params[:customer_number], request.remote_ip)
+    if params[:consulta].present?
+      @info = Ende.last_advice
     end
     return [true, nil]
   rescue Exception => e
