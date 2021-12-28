@@ -51,6 +51,57 @@
             </form>
           </div>
         <% elsif @info.present? %>
+          <div class="col-md-12">
+            <div style="font-weight: bold;font-size: 15px;">DADOS DO CLIENTE</div>
+              <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+                <li><b>ID da Transação:</b> <%= @info["unique_number"] %></li>
+                <li><b>Nome do Cliente:</b> <%= @info["name"] %></li>
+                <li><b>Morada:</b> <%= @info["address"] %></li>
+                <li><b>Contacto:</b> <%= @info["contactNo"] %></li>
+                <li><b>Número da Conta:</b> <%= @info["accNo"] %></li>
+                <li><b>Dias desde a última compra:</b> <%= @info["daysLastPurchase"] %></li>
+                <li><b>LocRef erf:</b> <%= @info["locRef"] %></li>
+                <li><b>Utilitário:</b> <%= @info["utilityType"] %></li>
+                <li><b>Pode vender?</b> <%= @info["canVend"] ? "Sim" : "Não" %></li>
+                <li><b>Número do Medidor:</b> <%= @info["msno"] %></li>
+                <li><b>Data:</b> <%= @info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") %></li>
+              </ul>
+            </div>
+            <div style="font-weight: bold;font-size: 15px;">DADOS DO RECIBO</div>
+              <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+                <li><b>Número do Recibo:</b> <%= @info["receiptNo"] %></li>
+                <div style="font-weight: bold;font-size: 15px;">Transações</div>
+                    <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+                      <li><b>Montante:</b> <%= @info["amtvalue"] %></li>
+                      <li><b>Símbolo:</b> <%= @info["symbol"] %></li>
+                    </ul>
+                </div>
+                <div style="font-weight: bold;font-size: 15px;">Datalhes do Medidor</div>
+                    <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+                      <li><b>krn:</b> <%= @info["krn"] %></li>
+                      <li><b>msno:</b> <%= @info["msno"] %></li>
+                      <li><b>ti:</b> <%= @info["ti"] %></li>
+                      <li><b>sgc:</b> <%= @info["sgc"] %></li>
+                      <li><b>Unidade de Medida:</b> <%= @info["unitOfMeasurement"] %></li>
+                    </ul>
+                </div>
+                <div style="font-weight: bold;font-size: 15px;">Tipo do Medidor</div>
+                    <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+                      <li><b>tt:</b> <%= @info["tt"] %></li>
+                    </ul>
+                </div>
+                <div style="font-weight: bold;font-size: 15px;">Unidades</div>
+                    <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+                      <li><b>siUnit:</b> <%= @info["siUnit"] %></li>
+                      <li><b>Valor:</b> <%= @info["rate_value"] %></li>
+                      <li><b>Símbolo:</b> <%= @info["symbol"] %></li>
+                      <li><b>Unidade Valor:</b> <%= @info["units_value"] %></li>
+                      <li><b>Tipo de Recurso:</b> <%= @info["symbol"] %></li>
+                    </ul>
+                </div>
+              </ul>
+            </div>
+          </div>
           <%= raw Ende.children_text(Nokogiri::XML(@info)) %>
           <br>
           <%= @info %>
