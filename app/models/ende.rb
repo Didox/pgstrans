@@ -61,6 +61,9 @@ class Ende
   def self.children_text(children)
     return "" if children.blank?
 
+    @index ||= 0
+    @index += 1
+
     # return children.to_xml
 
     html = ""
@@ -83,14 +86,14 @@ class Ende
         html += attributes_xml(children)
 
         childs = children.children rescue nil
-        html += children_text(childs) if childs.present?
+        html += children_text(childs) if childs.present? && @index < 38
       end
     else
       html += "<b>text:</b> #{children.text}<br>" if children.text.present?
       html += attributes_xml(children)
       
       childs = children.children rescue nil
-      html += children_text(childs) if childs.present?
+      html += children_text(childs) if childs.present? && @index < 38
     end
 
     return html
