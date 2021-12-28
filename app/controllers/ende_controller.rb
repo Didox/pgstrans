@@ -31,8 +31,8 @@ class EndeController < ApplicationController
   end
 
   def last_advice
-    if params[:consulta].present?
-      @info = Ende.last_advice
+    if params[:date_time].present? && params[:unique_number].present?
+      @info = Ende.last_advice(params[:date_time], params[:unique_number])
     end
     return [true, nil]
   rescue Exception => e

@@ -117,7 +117,7 @@ class Ende
     return request.body
   end
 
-  def self.last_advice
+  def self.last_advice(date_time, unique_number_enviado)
     parceiro,parametro,url_service = parametros
 
     uniq_number = EndeUniqNumber.create(data: Time.zone.now)
@@ -133,7 +133,7 @@ class Ende
           <opName>#{parametro.operator_id}</opName>
           <password>#{parametro.password}</password>
         </authCred>
-        <adviceReqMsgID dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\"/>
+        <adviceReqMsgID dateTime=\"#{date_time.to_datetime.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{unique_number_enviado}\"/>
         </adviceReq>
       </soap:Body>
       </soap:Envelope>
