@@ -198,7 +198,7 @@
                     Número do Contador ou Medidor<span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" name="ende_medidor" class="form-control vENDE validate clearFieldjs" data-message="Informe o número" value="" placeholder="Digite ..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" name="ende_medidor" class="form-control vENDE validate clearFieldjs" data-message="Informe o número" placeholder="Digite ..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
@@ -253,9 +253,13 @@
     <% if params[:recarga].present? %>
       <script type="text/javascript">
         pgstrans.displayRecarga('<%= params[:recarga] %>')
-        
-        <% if params[:displayrecarga].present? %>
-          pgstrans.displayRecargaDstv()
+
+        <% if params[:recarga] == "ende" %>
+          pgstrans.displayRecargaEnde();
+          $("input[name=ende_medidor]").val("<%= params[:customer_number] %>");
+          $("input[name=talao_sms_ende]").val("<%= params[:customer_number] %>");
+        <% elsif params[:displayrecarga].present? %>
+          pgstrans.displayRecargaDstv();
         <% end %>
       </script>
     <% end %>

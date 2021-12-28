@@ -53,13 +53,13 @@ pgstrans.salvaSaldo = function(self, cc_id, elenValue){
 pgstrans.displayRecargaDstv = (tipo) => {
   $(".recarga #DSTVMenu").hide();
   $(".recarga #recarga").show();
-  $(".clearFieldjs").val("")
+  $(".clearFieldjs").val("");
 }
 
 pgstrans.displayRecargaEnde = (tipo) => {
   $(".recarga #ENDEMenu").hide();
   $(".recarga #recarga").show();
-  $(".clearFieldjs").val("")
+  $(".clearFieldjs").val("");
 }
 
 pgstrans.alteraCompartilha = (grupo_usuario_id, self) => {

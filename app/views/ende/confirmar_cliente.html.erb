@@ -80,7 +80,7 @@
 
           <div style="display: inline-block;margin-bottom: 10px;width: 100%;margin-bottom: 5px;">
             <% if @info.present? && @info["canVend"] %>
-              <%= link_to root_path, class: 'btn btn-success', style: "width: 100%;text-align: center;" do %>
+              <%= link_to "/?recarga=ende&customer_number=#{params[:customer_number]}", class: 'btn btn-success', style: "width: 100%;text-align: center;" do %>
                 <span class="glyphicon glyphicon-list-alt"></span>
                 Venda de Crédito
               <% end %>
