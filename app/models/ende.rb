@@ -175,8 +175,29 @@ class Ende
   end
 
   def self.informacoes_parse(body)
+    if body.scan(/<fault .*?<\/fault>/).length > 0
+      return {
+        "erro" => Nokogiri::XML(body.scan(/<fault .*?<\/fault>/).first).text,
+        "respDateTime" => Nokogiri::XML(body.scan(/<respDateTime .*?<\/respDateTime>/).first).text.to_datetime
+      }
+    end
+
     xml_doc = Nokogiri::XML(body)
-    children_text(xml_doc)
+
+    @info = {}
+    xml_itens = xml_doc.children.children.children.children.children
+    xml_itens.each do |info|
+      info.each do |key, value|
+        @info[key] = value
+      end
+    end
+
+    @info["canVend"] = xml_itens.to_xml.scan(/canVend.*?true<\/canVend/).length > 0 ? true : false
+    @info["minVendAmt"] = Nokogiri::XML(xml_itens.to_xml.scan(/<minVendAmt.*?>/).first).children.first.to_h rescue {}
+    @info["maxVendAmt"] = Nokogiri::XML(xml_itens.to_xml.scan(/<maxVendAmt.*?>/).first).children.first.to_h rescue {}
+    @info["respDateTime"] = Nokogiri::XML(body.scan(/<respDateTime .*?<\/respDateTime>/).first).text.to_datetime rescue nil
+
+    @info
   end
 
   def self.fazer_request(url, body)
