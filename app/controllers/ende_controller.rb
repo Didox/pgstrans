@@ -10,4 +10,7 @@ class EndeController < ApplicationController
     return [false, e]
   end
 
+  def reprint
+  end
+
 end
