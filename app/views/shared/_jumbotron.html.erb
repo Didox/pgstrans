@@ -85,7 +85,7 @@
             </li>
             <hr>
             <li>
-              <a href="/ende/venda-teste">
+              <a href="javascript:pgstrans.displayVendaTesteEnde()">
                 Venda Teste
               </a>
             </li>
@@ -93,6 +93,24 @@
             <li>
               <a href="javascript:pgstrans.displayRecargaEnde()">
                 Venda de Crédito
+              </a>
+            </li>
+            <hr>
+            <li>
+              <a href="/ende/reprint">
+                Reimpressão
+              </a>
+            </li>
+            <hr>
+            <li>
+              <a href="/ende/last-advice">
+                Last Advice
+              </a>
+            </li>
+             <hr>
+            <li>
+              <a href="/ende/pagamento-de-conta">
+                Pagamento de Conta
               </a>
             </li>
           </ul>
@@ -263,5 +281,20 @@
         <% end %>
       </script>
     <% end %>
+
+     <% if params[:recarga].present? %>
+      <script type="text/javascript">
+        pgstrans.displayVendaTesteEnde('<%= params[:recarga] %>')
+
+        <% if params[:recarga] == "ende" %>
+          pgstrans.displayRecargaEnde();
+          $("input[name=ende_medidor]").val("<%= params[:customer_number] %>");
+          $("input[name=talao_sms_ende]").val("<%= params[:customer_number] %>");
+        <% elsif params[:displayrecarga].present? %>
+          pgstrans.displayRecargaDstv();
+        <% end %>
+      </script>
+    <% end %>
+
   </div>
 </div>
