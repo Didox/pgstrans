@@ -61,7 +61,7 @@ class Ende
   def self.children_text(children)
     return "" if children.blank?
 
-    return children.to_xml
+    # return children.to_xml
 
     html = ""
 

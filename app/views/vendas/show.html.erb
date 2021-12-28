@@ -52,6 +52,19 @@
       <dt>Situação:</dt>
       <dd><%= @venda.status_desc.error_description_pt %> - <strong><%= "#{@venda.lancamento.nome}" rescue "" %></strong></dd>
       
+      <% if @venda.partner.id == Partner.ende.id %>
+        <dt>Detalhes:</dt>
+        <dd style="overflow:scroll; max-height: 400px">
+          <% 
+          xml = @venda.response_get.gsub(/===.*?</, "<").gsub(/>===.*/, ">")
+          data = Nokogiri::XML(xml)
+          data.children.children.children.children.each do |children|
+          %>
+            <%= raw Ende.children_text(children) %>
+          <% end %>
+        </dd>
+      <% end %>
+
       <% if @adm.id == Usuario::ROOT %>
         <dt>Request send:</dt>
         <dd><%= @venda.request_send %></dd>
