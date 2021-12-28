@@ -13,4 +13,7 @@ class EndeController < ApplicationController
   def reprint
   end
 
+  def last_advice
+  end
+
 end

@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   resources :ende_uniq_numbers
   get 'ende/confirmar-cliente', to: 'ende#confirmar_cliente'
   get 'ende/reprint', to: 'ende#reprint'
+  get 'ende/last-advice', to: 'ende#last_advice'
 
   get '/controle-acessos/:modelo/:modelo_id/grupos', to: 'grupos#controle_acessos_modelo'
   get '/controle-acessos/:modelo/:modelo_id/grupos/novo', to: 'grupos#controle_acessos_modelo_novo'
