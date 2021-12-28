@@ -393,6 +393,9 @@ class Venda < ApplicationRecord
       </soapenv:Body>
       </soapenv:Envelope>
     "
+    
+    uniq_number.xml_enviado = body
+    uniq_number.save
 
     request_send += "=========[creditVendReq]========"
     request_send += body
@@ -414,6 +417,9 @@ class Venda < ApplicationRecord
     response_get += "=========[creditVendReq]========"
 
     last_request = request.body
+    
+    uniq_number.xml_recebido = last_request
+    uniq_number.save
 
     venda = Venda.new(product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: uniq_number.id, customer_number: params[:ende_medidor], usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario

@@ -43,8 +43,8 @@ class Ende
       </soapenv:Envelope>
     "
 
-    request = fazer_request(url_service, body)
-    return informacoes_parse(request.body)
+    request = fazer_request(url_service, body, uniq_number)
+    return informacoes_parse(request.body, uniq_number)
   end
 
   def self.parametros
@@ -177,7 +177,7 @@ class Ende
     return html
   end
 
-  def self.informacoes_parse(body)
+  def self.informacoes_parse(body, uniq_number)
     if body.scan(/<fault .*?<\/fault>/).length > 0
       return {
         "erro" => Nokogiri::XML(body.scan(/<fault .*?<\/fault>/).first).text,
@@ -199,11 +199,15 @@ class Ende
     @info["minVendAmt"] = Nokogiri::XML(xml_itens.to_xml.scan(/<minVendAmt.*?>/).first).children.first.to_h rescue {}
     @info["maxVendAmt"] = Nokogiri::XML(xml_itens.to_xml.scan(/<maxVendAmt.*?>/).first).children.first.to_h rescue {}
     @info["respDateTime"] = Nokogiri::XML(body.scan(/<respDateTime .*?<\/respDateTime>/).first).text.to_datetime rescue nil
+    @info["unique_number"] = uniq_number.unique_number
 
     @info
   end
 
-  def self.fazer_request(url, body)
+  def self.fazer_request(url, body, uniq_number)
+    uniq_number.xml_enviado = body
+    uniq_number.save
+
     uri = URI.parse(URI::Parser.new.escape(url))
     request = HTTParty.post(uri, 
       :headers => {
@@ -212,6 +216,9 @@ class Ende
       },
       :body => body
     )
+
+    uniq_number.xml_recebido = request.body
+    uniq_number.save
 
     Rails.logger.info "=========================================="
     Rails.logger.info body

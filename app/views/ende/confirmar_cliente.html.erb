@@ -44,7 +44,7 @@
                 <div class="col-md-12">
                   <div style="font-weight: bold;font-size: 15px;"> DADOS DO CLIENTE </div>
                       <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-                        <li><b>ID da Transação:</b> ENDE_UNIQ_NUMBER<%= @info["id"] %></li>
+                        <li><b>ID da Transação:</b> <%= @info["unique_number"] %></li>
                         <li><b>Nome do Cliente:</b> <%= @info["name"] %></li>
                         <li><b>Morada:</b> <%= @info["address"] %></li>
                         <li><b>Contacto:</b> <%= @info["contactNo"] %></li>
@@ -85,7 +85,7 @@
           </div>
           <br>
           <div style="display: inline-block;margin-bottom: 10px;width: 100%;margin-bottom: 5px;">
-            <% if @info.present? && @info["canVend"] %>
+            <% if @info.present? && @info["canVend"] && @info["minVendAmt"]["value"].to_i < 1 %>
                 <%= link_to "/?recarga=ende&customer_number=#{params[:customer_number]}", class: 'btn btn-success', style: "width: 100%;text-align: center;" do %>
                   <span class="glyphicon glyphicon-list-alt"></span>
                   Venda de Crédito

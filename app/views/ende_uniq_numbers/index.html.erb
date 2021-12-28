@@ -82,9 +82,9 @@
           <td><%= ende_uniq_number.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td>
             <% if @adm.id == Usuario::ROOT %>
-              <b>Envio: </b><%= ende_uniq_number.data %><br>
+              <b>Envio: </b><%= ende_uniq_number.xml_enviado %><br>
               <hr>
-              <b>Resposta: </b><%= ende_uniq_number.data %>
+              <b>Resposta: </b><%= ende_uniq_number.xml_recebido %>
             <% end %>
           </td>
           <td><%= link_to 'Mostrar', ende_uniq_number %></td>
