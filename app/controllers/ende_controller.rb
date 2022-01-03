@@ -12,7 +12,7 @@ class EndeController < ApplicationController
   
   def venda_teste
     if params[:ende_medidor].present?
-      @info = Ende.venda_teste(params[:ende_produto_id], params[:ende_medidor])
+      @info, @xml = Ende.venda_teste(params[:ende_produto_id], params[:ende_medidor])
     end
     return [true, nil]
   rescue Exception => e

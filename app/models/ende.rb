@@ -83,7 +83,7 @@ class Ende
     "
 
     request = fazer_request(url_service, body, uniq_number)
-    return request.body
+    return [informacoes_parse(request.body, uniq_number), request.body]
   end
 
   def self.reprint(ende_medidor)
@@ -291,24 +291,57 @@ class Ende
       end
     end
 
+    cliente_xml = Nokogiri::XML(body.scan(/<custVendDetail .*?\/>/).first).children.first
+    @info["name"] = cliente_xml["name"] rescue nil
+    @info["address"] = cliente_xml["address"] rescue nil
+    @info["contactNo"] = cliente_xml["contactNo"] rescue nil
+    @info["accNo"] = cliente_xml["accNo"] rescue nil
+    @info["daysLastPurchase"] = cliente_xml["daysLastPurchase"] rescue nil
+    @info["locRef"] = cliente_xml["locRef"] rescue nil
+    @info["utilityType"] = cliente_xml["utilityType"] rescue nil
+
+    @info["msno"] = body.scan(/msno=\".*?\"/).first.remove(/msno=\"|\"/) rescue nil
     @info["canVend"] = xml_itens.to_xml.scan(/canVend.*?true<\/canVend/).length > 0 ? true : false
-    @info["minVendAmt"] = Nokogiri::XML(xml_itens.to_xml.scan(/<minVendAmt.*?>/).first).children.first.to_h rescue {}
-    @info["maxVendAmt"] = Nokogiri::XML(xml_itens.to_xml.scan(/<maxVendAmt.*?>/).first).children.first.to_h rescue {}
+    @info["minVendAmt"] = body.scan(/minVendAmt=\".*?\"/).first.remove(/minVendAmt=\"|\"/) rescue nil
+    @info["maxVendAmt"] = body.scan(/maxVendAmt=\".*?\"/).first.remove(/maxVendAmt=\"|\"/) rescue nil
     @info["respDateTime"] = Nokogiri::XML(body.scan(/<respDateTime .*?<\/respDateTime>/).first).text.to_datetime rescue nil
     @info["unique_number"] = uniq_number.unique_number
-    @info["receiptNo"] = Nokogiri::XML(xml_itens.to_xml.scan(/<receiptNo.*?>/).first).children.first.to_h rescue {}
-    @info["amtvalue"] = Nokogiri::XML(xml_itens.to_xml.scan(/<amtvalue.*?>/).first).children.first.to_h rescue {}
-    @info["symbol"] = Nokogiri::XML(xml_itens.to_xml.scan(/<symbol.*?>/).first).children.first.to_h rescue {}
-    @info["krn"] = Nokogiri::XML(xml_itens.to_xml.scan(/<krn.*?>/).first).children.first.to_h rescue {}
-    @info["msno"] = Nokogiri::XML(xml_itens.to_xml.scan(/<msno.*?>/).first).children.first.to_h rescue {}
-    @info["ti"] = Nokogiri::XML(xml_itens.to_xml.scan(/<ti.*?>/).first).children.first.to_h rescue {}
-    @info["sgc"] = Nokogiri::XML(xml_itens.to_xml.scan(/<sgc.*?>/).first).children.first.to_h rescue {}
-    @info["unitOfMeasurement"] = Nokogiri::XML(xml_itens.to_xml.scan(/<unitOfMeasurement.*?>/).first).children.first.to_h rescue {}
-    @info["tt"] = Nokogiri::XML(xml_itens.to_xml.scan(/<tt.*?>/).first).children.first.to_h rescue {}
-    @info["siUnit"] = Nokogiri::XML(xml_itens.to_xml.scan(/<siUnit.*?>/).first).children.first.to_h rescue {}
-    @info["rate_value"] = Nokogiri::XML(xml_itens.to_xml.scan(/<rate_value.*?>/).first).children.first.to_h rescue {}
-    @info["units_value"] = Nokogiri::XML(xml_itens.to_xml.scan(/<units_value.*?>/).first).children.first.to_h rescue {}
-    @info["type"] = Nokogiri::XML(xml_itens.to_xml.scan(/<type.*?>/).first).children.first.to_h rescue {}
+    @info["receiptNo"] = body.scan(/receiptNo=\".*?\"/).first.remove(/receiptNo=\"|\"/) rescue nil
+    @info["amtvalue"] = body.scan(/amtvalue=\".*?\"/).first.remove(/amtvalue=\"|\"/) rescue nil
+    @info["symbol"] = body.scan(/symbol=\".*?\"/).first.remove(/symbol=\"|\"/) rescue nil
+    @info["krn"] = body.scan(/krn=\".*?\"/).first.remove(/krn=\"|\"/) rescue nil
+    @info["ti"] = body.scan(/ti=\".*?\"/).first.remove(/ti=\"|\"/) rescue nil
+    @info["sgc"] = body.scan(/sgc=\".*?\"/).first.remove(/sgc=\"|\"/) rescue nil
+    @info["unitOfMeasurement"] = body.scan(/unitOfMeasurement=\".*?\"/).first.remove(/unitOfMeasurement=\"|\"/) rescue nil
+    @info["tt"] = body.scan(/tt=\".*?\"/).first.remove(/tt=\"|\"/) rescue nil
+    @info["siUnit"] = body.scan(/siUnit=\".*?\"/).first.remove(/siUnit=\"|\"/) rescue nil
+    @info["rate_value"] = body.scan(/rate_value=\".*?\"/).first.remove(/rate_value=\"|\"/) rescue nil
+    @info["units_value"] = body.scan(/units_value=\".*?\"/).first.remove(/units_value=\"|\"/) rescue nil
+    @info["type"] = body.scan(/type=\".*?\"/).first.remove(/type=\"|\"/) rescue nil
+
+    tariff_breakdown_xml = []
+    steps = Nokogiri::XML(body.scan(/<tariffBreakdown .*?<\/tariffBreakdown>/).first).children.first.xpath("//q2:Step") rescue []
+    steps.each do |step|
+      step.children.each do |item|
+        tariff_breakdown_xml << { 
+          "name" => item.name,
+          "value" => item.to_h 
+        }
+      end
+    end
+
+    @info["tariffBreakdown"] = tariff_breakdown_xml rescue []
+
+    # cliente_xml = Nokogiri::XML(body.scan(/<custVendDetail .*?\/>/).first).children.first
+    # <tx xsi:type="ServiceChrgTx">
+    #     <amt value="110.52" symbol="AOA"/>
+    #     <accDesc>VAT</accDesc>
+    # </tx>
+    # <tenderAmt value="900.00000000" symbol="AOA"/>
+    # <change value="0.00000000" symbol="AOA"/>
+
+    # tenderAmt
+    # change
 
     @info
   end
