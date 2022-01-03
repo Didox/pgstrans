@@ -7,71 +7,68 @@
     
     <div class="card" style="margin-top: 5px;">
       <div class="card-header">
-        <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold">
-          Venda de Teste ENDE
+        <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold; text-align: center">
+          <h3>ENDE</h3>
+          <h4>Recibo Duplicado</h4>
+          <h5>Empresa Nacional de</h5>
+          <h5>Distribuição de Electricidade</h5>
         </div>
-        <% if @info.blank? %>
-          <div class="card-body">
-            <form action="/ende/venda-teste" method="get">
-              <div class="col-md-12">
-                <% partner = Partner.ende %>
-                <div class="campos">
-                  <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
-                    <div class="p16Bold editDiv" style="text-align: left;">
-                      Recarga<span class="required">&nbsp;*</span>
-                    </div>
-                    <div>
-                      <%= render "/shared/select_default", partner: partner %>
-                    </div>
-                  </div>
-                </div>
-                <div class="campos ende" id="divAditionalFieldsENDE">
-                  <div class="editArea editAreaDiv">
-                    <div class="p16Bold editDiv" style="text-align: left;">
-                      Número do Contador ou Medidor<span class="required">&nbsp;*</span>
-                    </div>
-                    <div>
-                      <input type="text" name="ende_medidor" class="form-control validate clearFieldjs" data-message="Informe o número" placeholder="Digite ..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: right;">
-                  <div style="display: inline-block;margin-bottom: 10px;">
-                    <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="SUBMETER PEDIDO">
-                  </div>
-                  <div style="display: inline-block;margin-bottom: 10px;">
-                    <%= link_to root_path, class: 'btn btn-space btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
-                      <span class="glyphicon glyphicon-list-alt"></span>
-                      VOLTAR
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-        <% elsif @info.present? %>
-          <div class="col-md-12">
-            <h2>DADOS DO CLIENTE</h2>
+        <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold; text-align: left">
+          <h5>Rua Cónego Manual das Neves, 234</h5>
+          <h5>Caixa Postal: 43</h5>
+          <h5>NIF: 5410778170</h5>
+          <br>
+          <h5>EM CASO DE RECLAMAÇÕES:</h5>
+          <h5>TEL: 222 642700 - CALL CENTER</h5>
+        </div>
+        <b>Data:</b> <%= @info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
+        <div class="col-md-12">
             <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
               <li><b>ID da Transação:</b> <%= @info["unique_number"] %></li>
               <li><b>Cliente:</b> <%= @info["name"] %></li>
+              <li><b>NIF:</b> <%= @info["contactNo"] %></li>
               <li><b>Endereço de Cliente:</b> <%= @info["address"] %></li>
-              <li><b>Contacto:</b> <%= @info["contactNo"] %></li>
+              <hr>
               <li><b>N. de Conta:</b> <%= @info["accNo"] %></li>
               <li><b>N. de Medidor:</b> <%= @info["msno"] %></li>
+              <li><b>Tarifa:</b> <%= @info["tariff"] %></li>
+              <li><b>Endereço de Local de Consumo:</b> <%= @info["address"] %></li>
+              <br>
               <li><b>Dias desde a última compra:</b> <%= @info["daysLastPurchase"] %></li>
               <li><b>LocRef erf:</b> <%= @info["locRef"] %></li>
               <li><b>Utilitário:</b> <%= @info["utilityType"] %></li>
-              <li><b>Tarifa:</b> <%= @info["tariff"] %></li>
               <li><b>Pode vender?</b> <%= @info["canVend"] ? "Sim" : "Não" %></li>
-              <li><b>Data:</b> <%= @info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
             </ul>
-            <br>
+            <hr>
+            <h2>Inserir este código no Contador</h2>
+            <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+              <li>
+                <h3><%= @info["stsCipher"] %></h3>
+              </li>
+            </ul>
+            <hr>
+            <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+              <li><b>Energia:</b> <%= @info["krn"] %></li> <q2:units value="0" siUnit="kWh"/>
+              <li><b>Preço Unitário:</b> <%= @info["msno"] %></li> <amt value="87.72" symbol="AOA" />
+              <li><b>Custo de Energia:</b> <%= @info["ti"] %></li>
+              <li><b>6.6 KVA BTDM:</b> <%= @info["sgc"] %></li>
+              <li><b>IVA:</b> <%= @info["unitOfMeasurement"] %></li>
+              <hr>
+              <li><b>T o t a l :</b> <%= @info["tt"] %></li> <q2:rate value="10.89000" symbol="AOA"/>
+              <hr>
+              <b>Número de Recibo:</b> <%= @info["receiptNo"] %>
+              <hr>
+              <b>Operador:</b> Icone + "PAGASO"
+              <b>Terminal ID:</b> Login usuario
+              <b>Agente:</b> Nome do Agente (30 caract)
+              <li><b>sgc:</b> <%= @info["sgc"] %></li>
+              <hr>
+            </ul>            
+
             <h2>DADOS DO RECIBO</h2>
             <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
               <li>
-                <b>Número de Recibo:</b> <%= @info["receiptNo"] %>
+                
               </li>
             </ul>
             <br>
@@ -80,7 +77,7 @@
               <li><b>krn:</b> <%= @info["krn"] %></li>
               <li><b>msno:</b> <%= @info["msno"] %></li>
               <li><b>ti:</b> <%= @info["ti"] %></li>
-              <li><b>sgc:</b> <%= @info["sgc"] %></li>
+              
               <li><b>Unidade de Medida:</b> <%= @info["unitOfMeasurement"] %></li>
               <li><b>Tipo de Medidor tt:</b> <%= @info["tt"] %></li>
             </ul>
