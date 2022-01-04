@@ -40,4 +40,14 @@ class EndeController < ApplicationController
     return [false, e]
   end
 
+  def pagamento_de_conta
+    if params[:numero_conta].present? && params[:valor_pagamento].present?
+      @info = Ende.pagamento_de_conta(params[:numero_conta], params[:valor_pagamento])
+    end
+    return [true, nil]
+  rescue Exception => e
+    flash[:error] = e.message
+    return [false, e]
+  end
+
 end

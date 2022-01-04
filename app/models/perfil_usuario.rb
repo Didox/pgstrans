@@ -53,6 +53,7 @@ class PerfilUsuario < ApplicationRecord
       venda_teste: "Venda de Teste ENDE - Menu de Venda HOME", 
       reprint: "Opção de Reimpressão - Menu de Venda HOME",
       last_advice: "Opção de Last Advice - Menu de Venda HOME",
+      pagamento_de_conta: "Opção de Pagamento de Conta - Menu de Venda HOME",
       validacao_cliente_api: "Validação de cliente DSTV pela API",
       new: "Mostrar a tela que permite a inclusão de um novo registo",
       produtos_api: "Mostrar produtos para serem utilizados na API",

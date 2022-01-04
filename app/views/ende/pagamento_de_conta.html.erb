@@ -8,7 +8,7 @@
     <div class="card" style="margin-top: 5px;">
       <div class="card-header">
         <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold">
-          Last Advice - ENDE
+          Pagamento de Conta - ENDE
         </div>
         <% if @info.blank? %>
           <div class="card-body">
@@ -17,11 +17,11 @@
               <div class="col-md-12">
                 <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
                   <h3>Informe o</h3>
-                  <div style="margin-left: 4%;">Data da Venda</div>
-                  <input type="date" class="form-control" value="<%= params[:date_time] %>" name="date_time" placeholder="Data da Venda" style="margin-left: 4%;max-width: 300px;">
+                  <div style="margin-left: 4%;">Número da Conta</div>
+                  <input type="text" class="form-control" value="<%= params[:numero_conta] %>" name="numero_conta" placeholder="Número da Conta" style="margin-left: 4%;max-width: 300px;">
                   <br>
-                  <div style="margin-left: 4%;">Número Único de Identificação</div>
-                  <input type="text" class="form-control" value="<%= params[:unique_number] %>" name="unique_number" placeholder="Número Único de Identificação" style="margin-left: 4%;max-width: 300px;">
+                  <div style="margin-left: 4%;">Valor do Pagamento - AKz</div>
+                  <input type="text" class="form-control" value="<%= params[:valor_pagamento] %>" name="valor_pagamento" placeholder="Valor do Pagamento" style="margin-left: 4%;max-width: 300px;">
                 </div>
                 <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: right;">
                   <div style="display: inline-block;margin-bottom: 10px;">
