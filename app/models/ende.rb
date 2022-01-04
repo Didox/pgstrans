@@ -275,7 +275,7 @@ class Ende
   def self.informacoes_parse(body, uniq_number)
     if body.scan(/<fault .*?<\/fault>/).length > 0
       return {
-        "erro" => Nokogiri::XML(body.scan(/<fault .*?<\/fault>/).first).text,
+        "erro" => ErroAmigavel.traducao(Nokogiri::XML(body.scan(/<fault .*?<\/fault>/).first).text),
         "respDateTime" => Nokogiri::XML(body.scan(/<respDateTime .*?<\/respDateTime>/).first).text.to_datetime
       }
     end
@@ -318,6 +318,12 @@ class Ende
     @info["units_value"] = body.scan(/units_value=\".*?\"/).first.remove(/units_value=\"|\"/) rescue nil
     @info["type"] = body.scan(/type=\".*?\"/).first.remove(/type=\"|\"/) rescue nil
    
+    tariff = Nokogiri::XML(body.scan(/<tariff.*?<\/tariff>/).first).children.first.to_xml rescue nil
+    if tariff.present?
+      tariff = Nokogiri::XML(tariff.scan(/<name.*?<\/name>/).first).children.first.text rescue ""
+      @info["tariff"] = tariff
+    end
+   
     tariff_breakdown_xml = []
     steps = Nokogiri::XML(body.scan(/<tariffBreakdown .*?<\/tariffBreakdown>/).first).children.first.xpath("//q2:Step") rescue []
     steps.each do |step|
@@ -331,16 +337,33 @@ class Ende
 
     @info["tariffBreakdown"] = tariff_breakdown_xml rescue []
 
-    # cliente_xml = Nokogiri::XML(body.scan(/<custVendDetail .*?\/>/).first).children.first
-    # <tx xsi:type="ServiceChrgTx">
-    #     <amt value="110.52" symbol="AOA"/>
-    #     <accDesc>VAT</accDesc>
-    # </tx>
-    # <tenderAmt value="900.00000000" symbol="AOA"/>
-    # <change value="0.00000000" symbol="AOA"/>
+    tx = Nokogiri::XML(body.scan(/<tx xsi:type=\"ServiceChrgTx\">.*?<\/tx>/).first) rescue nil
+    if tx.present?
+      symbol = tx.children.first.xpath("//amt").first.attributes["symbol"].value rescue ""
+      value = tx.children.first.xpath("//amt").first.attributes["value"].value rescue ""
+      accDesc = tx.children.first.xpath("//accDesc").first.text rescue ""
+      @info["ServiceChrgTx"] = {
+        "symbol" => symbol,
+        "value" => value,
+        "accDesc" => accDesc
+      }
+    end
 
-    # tenderAmt
-    # change
+    attributes = Nokogiri::XML(body.scan(/<tenderAmt .*?\/>/).first).children.first.attributes rescue nil
+    if attributes.present?
+      @info["tenderAmt"] = {
+        "symbol" => attributes["symbol"],
+        "value" => attributes["value"]
+      }
+    end
+
+    attributes = Nokogiri::XML(body.scan(/<change .*?\/>/).first).children.first.attributes rescue nil
+    if attributes.present?
+      @info["change"] = {
+        "symbol" => attributes["symbol"],
+        "value" => attributes["value"]
+      }
+    end
 
     @info
   end

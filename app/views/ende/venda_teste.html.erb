@@ -50,6 +50,9 @@
               </div>
             </form>
           </div>
+        <% elsif @info.present? && @info["erro"].present? %>
+          <h2><%= @info["erro"] %></h2>
+          <h3><%= @info["respDateTime"].to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></h3>
         <% elsif @info.present? %>
           <div class="col-md-12">
             <h2>DADOS DO CLIENTE</h2>
@@ -87,24 +90,57 @@
             <br>
             <h2>Repartição Tarifária</h2>
             <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-              <li>
-                <b>Tipos de Recurso:</b> 
-                <ul>
-                  <% @info["tariffBreakdown"].each do |tariff_breakdown| %>
+              <% if @info["tariffBreakdown"].present? %>
+                <li>
+                  <b>Tipos de Recurso:</b> 
+                  <ul>
+                    <% @info["tariffBreakdown"].each do |tariff_breakdown| %>
+                      <li>
+                        <b><%= tariff_breakdown["name"].capitalize %></b> - 
+                        <% if tariff_breakdown["value"]["siUnit"].present? %>
+                          <%= tariff_breakdown["value"]["value"] %> <%= tariff_breakdown["value"]["siUnit"] %>
+                        <% end %>
+                        <% if tariff_breakdown["value"]["symbol"].present? %>
+                          <%= number_to_currency(tariff_breakdown["value"]["value"], :precision => 2, :unit => akz_parse(tariff_breakdown["value"]["symbol"])) %>
+                        <% end %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </li>
+              <% end %>
+              
+              <% if @info["ServiceChrgTx"].present? %>
+                <li>
+                  <b>ServiceChrgTx:</b> 
+                  <ul>
                     <li>
-                      <b><%= tariff_breakdown["name"].capitalize %></b> - 
-                      <% if tariff_breakdown["value"]["value"].present? %>
-                        <b>Value:</b> <%= tariff_breakdown["value"]["value"] %>
+                      <% if @info["ServiceChrgTx"]["value"].present? %>
+                        <b>Value:</b> <%= number_to_currency(@info["ServiceChrgTx"]["value"], :precision => 2, :unit => akz_parse(@info["ServiceChrgTx"]["symbol"])) %>
                       <% end %>
-                      <% if tariff_breakdown["value"]["siUnit"].present? %>
-                        <b>SiUnit:</b> <%= tariff_breakdown["value"]["siUnit"] %>
-                      <% end %>
-                      <% if tariff_breakdown["value"]["symbol"].present? %>
-                        <b>Symbol:</b> <%= tariff_breakdown["value"]["symbol"] %>
+                      <% if @info["ServiceChrgTx"]["accDesc"].present? %>
+                        <br><b>AccDesc:</b> <%= @info["ServiceChrgTx"]["accDesc"] %>
                       <% end %>
                     </li>
+                  </ul>
+                </li>
+              <% end %>
+
+              <% if @info["tenderAmt"].present? %>
+                <li>
+                  <% if @info["tenderAmt"]["value"].present? %>
+                    <b>TenderAmt:</b> <%= number_to_currency(@info["tenderAmt"]["value"], :precision => 2, :unit => akz_parse(@info["tenderAmt"]["symbol"])) %>
                   <% end %>
-                </ul>
+                </li>
+              <% end %>
+
+              <% if @info["change"].present? %>
+                <li>
+                  <% if @info["change"]["value"].present? %>
+                    <b>Change:</b> <%=number_to_currency(@info["change"]["value"], :precision => 2, :unit => akz_parse(@info["change"]["symbol"])) %>
+                  <% end %>
+                </li>
+              <% end %>
+
               </li>
             </ul>
             <br>

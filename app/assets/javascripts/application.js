@@ -187,6 +187,10 @@ $(function(){
     if($(".rechargeType.vunitel").length > 0 && $(".rechargeType.vunitel").val() && $(".rechargeType.vunitel option:selected").html().toLowerCase().indexOf("variável") !== -1){
       $("#rechargeValue").removeAttr("readonly")
     }
+
+    if($(".rechargeType.vende").val() == "0"){
+      $(".recarga #rechargeValue").removeAttr("readonly")
+    }
   })
 
   $(".recarga #recargaForm").submit(function(e) {

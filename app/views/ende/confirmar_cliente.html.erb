@@ -58,7 +58,7 @@
                 <div style="font-weight: bold;font-size: 15px;">DADOS DA CONTA</div>
                   <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
                     <li>Cliente com dédito ou taxa de serviço pendente</li>
-                    <% if @info.present? && (@info["minVendAmt"]["value"].to_i) > 0 %>
+                    <% if @info.present? && @info["minVendAmt"].present? && @info["minVendAmt"]["value"].to_i > 0 %>
                       <li><b>Valor: </b><%= number_to_currency(@info["minVendAmt"]["value"], :unit => "") %> - <%= @info["minVendAmt"]["symbol"] %></li>
                       <li><hr></li>
                       <li><b>Valor Máximo de Compra: </b><%= number_to_currency(@info["maxVendAmt"]["value"], :unit => "") %> - <%= @info["maxVendAmt"]["symbol"] %></li>
@@ -81,7 +81,7 @@
           <% end %>
           <br>
           <div style="display: inline-block;margin-bottom: 10px;width: 100%;margin-bottom: 5px;">
-            <% if @info.present? && @info["canVend"] && @info["minVendAmt"]["value"].to_i < 1 %>
+            <% if @info.present? && @info["canVend"] && @info["minVendAmt"].present? && @info["minVendAmt"]["value"].to_i < 1 %>
                 <%= link_to "/?recarga=ende&customer_number=#{params[:customer_number]}", class: 'btn btn-success', style: "width: 100%;text-align: center;" do %>
                   <span class="glyphicon glyphicon-list-alt"></span>
                   Venda de Crédito
