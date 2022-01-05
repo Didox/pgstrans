@@ -175,21 +175,19 @@ $(function(){
   });
   
   $(".recarga .rechargeType").change(function(){
-    $(".recarga #rechargeValue").val($(this).find("option[value=" + this.value + "]").data("valor"));
+    let valor = $(this).find("option[value=" + this.value + "]").data("valor").trim();
+    $("#rechargeValue").val(valor);
+    $("#rechargeValue").attr("readonly", "readonly")
     $(".recarga .talao" + $("#tipo_ativo").val() + "").show();
 
-    $("#rechargeValue").attr("readonly", "readonly")
-
-    if($(".rechargeType.vdstv").length > 0 && $(".rechargeType.vdstv").val() && $(".rechargeType.vdstv").val().toLowerCase().indexOf("boxoffice") !== -1){
+    if($(this).hasClass("vdstv") > 0 && $(this).find("option:selected").html().toLowerCase().indexOf("boxoffice") !== -1){
       $("#rechargeValue").removeAttr("readonly")
     }
-
-    if($(".rechargeType.vunitel").length > 0 && $(".rechargeType.vunitel").val() && $(".rechargeType.vunitel option:selected").html().toLowerCase().indexOf("variável") !== -1){
+    else if($(this).hasClass("vunitel") > 0 && $(this).find("option:selected").html().toLowerCase().indexOf("variável") !== -1){
       $("#rechargeValue").removeAttr("readonly")
     }
-
-    if($(".rechargeType.vende").val() == "0"){
-      $(".recarga #rechargeValue").removeAttr("readonly")
+    else if(parseFloat(valor) < 1){
+      $("#rechargeValue").removeAttr("readonly")
     }
   })
 
