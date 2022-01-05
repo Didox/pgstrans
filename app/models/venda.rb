@@ -470,13 +470,23 @@ class Venda < ApplicationRecord
       conta_corrente.responsavel = usuario
       conta_corrente.save!
 
-      stscipher = last_request.to_s.downcase.scan(/<q1:stscipher.*?<\/q1:stscipher>/).first.gsub(/<[^>]*>/, "") rescue ""
-      respdatetime = last_request.to_s.downcase.scan(/<respdatetime.*?<\/respdatetime>/).first.gsub(/<[^>]*>/, "") rescue ""
+      info = Ende.informacoes_parse(last_request, uniq_number)
+      stscipher = info["stsCipher"]
+      respdatetime = info["respDateTime"]
       respdatetime = respdatetime.to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue respdatetime
-      
-      envia, resposta = Sms.enviar(params[:talao_sms_ende], "ENDE-Inserir este codigo no contador #{stscipher} para o medidor #{params[:ende_medidor]} / #{respdatetime} PAGASO")
+
+      mensagem = "ENDE-Inserir este codigo no contador #{stscipher} para o medidor #{params[:ende_medidor]} / #{respdatetime} PAGASO"
+      envia, resposta = Sms.enviar(params[:talao_sms_ende], mensagem)
       LogVenda.create(usuario_id: usuario.id, titulo: "SMS não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: resposta.inspect) if !envia
-      
+
+      if params[:email].present?
+        info["venda"] = venda
+        begin
+          UsuarioMailer.notificacao_de_venda(mensagem, params[:email], info).deliver
+        rescue Exception => erro
+          LogVenda.create(usuario_id: usuario.id, titulo: "Email não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: erro.backtrace)
+        end
+      end
     end
 
     return venda
