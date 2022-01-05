@@ -1,0 +1,48 @@
+public static bool LuhnCheck(string serialNumber)
+{
+/* check that the string is not null*/
+if (serialNumber == null)
+throw new LuhnException(null, ErrorType.NullString);
+/* check that the string is not empty*/
+if (serialNumber == "")
+throw new LuhnException(null, ErrorType.EmptyString);
+char[] characters = serialNumber.Trim().ToCharArray();
+/* check that the serial number consists only of numeric characters */
+try
+{
+Int64.Parse(serialNumber);
+}
+catch (Exception ex)
+{
+throw new LuhnException(ex, ErrorType.InvalidCharacters);
+}
+bool isOdd = false;
+int sum = 0;
+/* run through serial number string from right to left */
+for (int i = (characters.Length - 1); i >= 0; i--)
+{
+int currentDigit = int.Parse(characters[i].ToString());
+if (isOdd)
+{
+/* multiply odd digit by 2 */
+int doubled = currentDigit * 2;
+/*parse component digits of resulting number and add them to the sum */
+char[] doubledDigits = doubled.ToString().ToCharArray();
+foreach (char c in doubledDigits)
+{
+sum += int.Parse(c.ToString());
+}
+}
+else
+{
+/* even digits are just added to the sum as is */
+sum += currentDigit;
+}
+isOdd = !isOdd;
+}
+/* if sum is divisible by 10, then Luhn check passes */
+if (sum % 10 == 0)
+return true;
+else
+return false;
+}
