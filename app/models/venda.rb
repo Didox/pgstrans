@@ -469,6 +469,14 @@ class Venda < ApplicationRecord
       )
       conta_corrente.responsavel = usuario
       conta_corrente.save!
+
+      stscipher = last_request.to_s.downcase.scan(/<q1:stscipher.*?<\/q1:stscipher>/).first.gsub(/<[^>]*>/, "") rescue ""
+      respdatetime = last_request.to_s.downcase.scan(/<respdatetime.*?<\/respdatetime>/).first.gsub(/<[^>]*>/, "") rescue ""
+      respdatetime = respdatetime.to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue respdatetime
+      
+      envia, resposta = Sms.enviar(params[:talao_sms_ende], "ENDE-Inserir este codigo no contador #{stscipher} para o medidor #{params[:ende_medidor]} / #{respdatetime} PAGASO")
+      LogVenda.create(usuario_id: usuario.id, titulo: "SMS não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: resposta.inspect) if !envia
+      
     end
 
     return venda
