@@ -7,8 +7,8 @@
     
     <div class="card" style="margin-top: 5px;">
       <div class="card-header">
-        <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold">
-          Simulação de Venda ENDE - Esta transação simula uma venda, mas não gera o token de recarga. Caso o usuário opte pela compra, utilize a opção Venda de Crédito do Menu.
+        <div class="col-md-12" style="margin-bottom: 20px">
+          <strong>Simulação de Venda ENDE</strong> - Esta transação simula uma venda, mas não gera o token de recarga. Para uma transação de venda completa, com a geração do token, utilize a opção <strong>Venda de Crédito</strong> do Menu.
         </div>
         <% if @info.blank? %>
           <div class="card-body">
@@ -37,7 +37,7 @@
                 </div>
                 <div class="campos ende" id="divAditionalFieldsENDE">
                   <div class="editArea editAreaDiv">
-                    <div class="p16Bold editDiv" style="text-align: left;">
+                    <div class="p16Bold editDiv" style="text-align: left; margin-top: 11px;">
                       Valor<span class="required">&nbsp;*</span>
                     </div>
                     <div>
@@ -62,8 +62,15 @@
             </form>
           </div>
         <% elsif @info.present? && @info["erro"].present? %>
-          <h2><%= @info["erro"] %></h2>
+          <h3>Número do Medidor: <%= params[:meter_number] %></h3>
+          <h3><%= @info["erro"] %></h3>
           <h3><%= @info["respDateTime"].to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></h3>
+          <div class="row justify-content-md-center">
+            <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+              <span class="glyphicon glyphicon-list-alt"></span>
+              Voltar
+            <% end %>
+          </div>
         <% elsif @info.present? %>
           <div class="col-md-12">
             <h2>DADOS DO CLIENTE</h2>
