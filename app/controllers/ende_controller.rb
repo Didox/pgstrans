@@ -1,8 +1,8 @@
 class EndeController < ApplicationController
     
   def confirmar_cliente
-    if params[:customer_number].present?
-      @info = Ende.informacoes_customer_number(params[:customer_number])
+    if params[:meter_number].present?
+      @info = Ende.informacoes_meter_number(params[:meter_number])
     end
     return [true, nil]
   rescue Exception => e
@@ -11,8 +11,8 @@ class EndeController < ApplicationController
   end
   
   def venda_teste
-    if params[:ende_medidor].present?
-      @info, @xml = Ende.venda_teste(params[:ende_produto_id], params[:ende_medidor])
+    if params[:meter_number].present?
+      @info, @xml = Ende.venda_teste(usuario_logado, params[:ende_produto_id], params[:meter_number], params[:valor])
     end
     return [true, nil]
   rescue Exception => e
@@ -21,8 +21,8 @@ class EndeController < ApplicationController
   end
 
   def reprint
-    if params[:customer_number].present?
-      @info = Ende.reprint(params[:customer_number])
+    if params[:meter_number].present?
+      @info = Ende.reprint(params[:meter_number])
     end
     return [true, nil]
   rescue Exception => e

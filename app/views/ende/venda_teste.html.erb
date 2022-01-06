@@ -15,7 +15,7 @@
             <form action="/ende/venda-teste" method="get">
               <div class="col-md-12">
                 <% partner = Partner.ende %>
-                <div class="campos">
+                <div class="campos recarga">
                   <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
                     <div class="p16Bold editDiv" style="text-align: left;">
                       Recarga<span class="required">&nbsp;*</span>
@@ -28,10 +28,22 @@
                 <div class="campos ende" id="divAditionalFieldsENDE">
                   <div class="editArea editAreaDiv">
                     <div class="p16Bold editDiv" style="text-align: left;">
-                      Número do Contador ou Medidor<span class="required">&nbsp;*</span>
+                      Número do Medidor<span class="required">&nbsp;*</span>
                     </div>
                     <div>
-                      <input type="text" name="ende_medidor" class="form-control validate clearFieldjs" data-message="Informe o número" placeholder="Digite ..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                      <input type="text" name="meter_number" value="<%= params[:meter_number] %>" class="form-control validate clearFieldjs" data-message="Informe o número" placeholder="Digite ..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="campos ende" id="divAditionalFieldsENDE">
+                  <div class="editArea editAreaDiv">
+                    <div class="p16Bold editDiv" style="text-align: left;">
+                      Valor<span class="required">&nbsp;*</span>
+                    </div>
+                    <div>
+                      <input type="number" step="0.01" id="rechargeValue" class="form-control clearFieldjs" value="<%= params[:valor] %>" name="valor" <% if params[:valor_customizado].blank? %> readonly="" <% end %> placeholder="Valor...">
+                      <input type="hidden" id="valor_customizado" value="<%= params[:valor_customizado] %>" name="valor_customizado">
                     </div>
                   </div>
                 </div>

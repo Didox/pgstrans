@@ -176,16 +176,20 @@ $(function(){
     let valor = $(this).find("option[value=" + this.value + "]").data("valor").trim();
     $("#rechargeValue").val(valor);
     $("#rechargeValue").attr("readonly", "readonly")
+    $("#valor_customizado").val("")
     $(".recarga .talao" + $("#tipo_ativo").val() + "").show();
 
     if($(this).hasClass("vdstv") > 0 && $(this).find("option:selected").html().toLowerCase().indexOf("boxoffice") !== -1){
       $("#rechargeValue").removeAttr("readonly")
+      $("#valor_customizado").val("true")
     }
     else if($(this).hasClass("vunitel") > 0 && $(this).find("option:selected").html().toLowerCase().indexOf("variável") !== -1){
       $("#rechargeValue").removeAttr("readonly")
+      $("#valor_customizado").val("true")
     }
     else if(parseFloat(valor) < 1){
       $("#rechargeValue").removeAttr("readonly")
+      $("#valor_customizado").val("true")
     }
   })
 

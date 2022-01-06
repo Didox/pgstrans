@@ -262,8 +262,8 @@
             "type": "number"
           },
           {
-            "name": "ende_medidor",
-            "description": "Número do Contador ou Medidor",
+            "name": "meter_number",
+            "description": "Número do Medidor",
             "required": true,
             "type": "string"
           },

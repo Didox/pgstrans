@@ -213,10 +213,10 @@
               <div class="campos ende" id="divAditionalFieldsENDE">
                 <div class="editArea editAreaDiv">
                   <div class="p16Bold editDiv" style="text-align: left;">
-                    Número do Contador ou Medidor<span class="required">&nbsp;*</span>
+                    Número do Medidor<span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" name="ende_medidor" class="form-control vENDE validate clearFieldjs" data-message="Informe o número" placeholder="Digite ..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" name="meter_number" class="form-control vENDE validate clearFieldjs" data-message="Informe o número" placeholder="Digite ..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
@@ -274,7 +274,7 @@
 
         <% if params[:recarga] == "ende" %>
           pgstrans.displayRecargaEnde();
-          $("input[name=ende_medidor]").val("<%= params[:customer_number] %>");
+          $("input[name=meter_number]").val("<%= params[:customer_number] %>");
           $("input[name=talao_sms_ende]").val("<%= params[:customer_number] %>");
         <% elsif params[:displayrecarga].present? %>
           pgstrans.displayRecargaDstv();

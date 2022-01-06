@@ -1,9 +1,36 @@
 class Ende
   require 'openssl'
 
-  def self.informacoes_customer_number(customer_number)
-    raise PagasoError.new("Por favor digite o customer number") if customer_number.blank?
-    customer_number = customer_number.strip
+  def self.validate_meter_number(meter_number)
+    return false if meter_number.nil? || meter_number.empty?
+    meter_number = meter_number.to_i.to_s
+    return false if meter_number.length < 2
+
+    is_odd = false;
+    sum = 0;
+  
+    meter_number.reverse.scan(/\d/).each do |charactere|
+      current_digit = charactere.to_i
+      if is_odd
+        doubled = current_digit * 2
+        doubled_digits = doubled.to_s.scan(/\d/)
+        doubled_digits.each do |c|
+          sum += c.to_i
+        end
+      else
+        sum += current_digit;
+      end
+      is_odd = !is_odd;
+    end
+    
+    return (sum % 10 == 0);
+  end
+
+  def self.informacoes_meter_number(meter_number)
+    raise PagasoError.new("Por favor digite o Número do Medidor") if meter_number.blank?
+    raise PagasoError.new("Número do Medidor inválido") if !Ende.validate_meter_number(meter_number)
+    
+    meter_number = meter_number.strip
     parceiro,parametro,url_service = parametros
 
     uniq_number = EndeUniqNumber.create(data: Time.zone.now)
@@ -36,7 +63,7 @@ class Ende
                   <idMethod
                     xmlns:q1=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"
                     xmlns=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\" xsi:type=\"q1:VendIDMethod\">
-                    <q1:meterIdentifier xsi:type=\"q1:MeterNumber\" msno=\"#{customer_number}\" />
+                    <q1:meterIdentifier xsi:type=\"q1:MeterNumber\" msno=\"#{meter_number}\" />
                   </idMethod>
           </sch:confirmCustomerReq>
         </soapenv:Body>
@@ -47,16 +74,22 @@ class Ende
     return informacoes_parse(request.body, uniq_number)
   end
 
-  def self.venda_teste(ende_produto_id, ende_medidor)
-    raise PagasoError.new("Por favor digite o Produto Recarga") if ende_produto_id.blank?
-    raise PagasoError.new("Por favor digite o Número do Contador ou Medidor") if ende_medidor.blank?
+  def self.venda_teste(usuario, ende_produto_id, meter_number, valor)
+    valor = valor.to_f
     
-    ende_medidor = ende_medidor.strip
+    raise PagasoError.new("Por favor digite o Produto Recarga") if ende_produto_id.blank?
+    raise PagasoError.new("Por favor digite o Número do Medidor") if meter_number.blank?
+    raise PagasoError.new("Valor é obrigatório") if valor < 0.1
+    raise PagasoError.new("Número do Medidor inválido") if !Ende.validate_meter_number(meter_number)
+
+    meter_number = meter_number.strip
     parceiro,parametro,url_service = parametros
 
-    uniq_number = EndeUniqNumber.create(data: Time.zone.now)
+    desconto_aplicado, valor_original, valor = Venda.desconto_venda(usuario, parceiro, valor)
 
-    valor = Produto.find(ende_produto_id).valor_compra_telemovel
+    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
+
+    uniq_number = EndeUniqNumber.create(data: Time.zone.now)
 
     body = 
     "
@@ -71,7 +104,7 @@ class Ende
        <password>#{parametro.password}</password>
       </authCred>
       <idMethod xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
-       <meterIdentifier xsi:type=\"MeterNumber\" msno=\"#{ende_medidor}\"/>
+       <meterIdentifier xsi:type=\"MeterNumber\" msno=\"#{meter_number}\"/>
       </idMethod>
       <purchaseValue xsi:type=\"PurchaseValueCurrency\">
        <amt value=\"#{valor}\" symbol=\"AOA\"/>
@@ -85,10 +118,11 @@ class Ende
     return [informacoes_parse(request.body, uniq_number), request.body]
   end
 
-  def self.reprint(ende_medidor)
-    raise PagasoError.new("Por favor digite o Número do Contador ou Medidor") if ende_medidor.blank?
+  def self.reprint(meter_number)
+    raise PagasoError.new("Por favor digite o Número do Medidor") if meter_number.blank?
+    raise PagasoError.new("Número do Medidor inválido") if !Ende.validate_meter_number(meter_number)
     
-    ende_medidor = ende_medidor.strip
+    meter_number = meter_number.strip
     parceiro,parametro,url_service = parametros
 
     uniq_number = EndeUniqNumber.create(data: Time.zone.now)
@@ -105,7 +139,7 @@ class Ende
         <password>#{parametro.password}</password>
         </authCred>
         <idMethod xmlns:q1=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"q1:VendIDMethod\">
-        <q1:meterIdentifier xsi:type=\"q1:MeterNumber\" msno=\"#{ende_medidor}\"/>
+        <q1:meterIdentifier xsi:type=\"q1:MeterNumber\" msno=\"#{meter_number}\"/>
         </idMethod>
       </reprintReq>
       </soap:Body>
