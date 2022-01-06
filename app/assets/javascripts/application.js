@@ -99,6 +99,9 @@ pgstrans.displayRecarga = (tipo) => {
   $(".recarga #rechargeValue").val("");
   $(".recarga .rechargeType").val("");
   $(".recarga #tipo_ativo").val(tipo);
+  $(".recarga #DSTVMenu").hide();
+  $(".recarga #ENDEMenu").hide();
+  $(".recarga #recarga").show();
 
   if(tipo.toLowerCase() == "dstv"){
     $(".recarga #DSTVMenu").show();
@@ -107,11 +110,6 @@ pgstrans.displayRecarga = (tipo) => {
   else if(tipo.toLowerCase() == "ende"){
     $(".recarga #ENDEMenu").show();
     $(".recarga #recarga").hide();
-  }
-  else{
-    $("#DSTVMenu").hide();
-    $("#ENDEMenu").hide();
-    $(".recarga #recarga").show();
   }
   
   $(".clearFieldjs").val("")
