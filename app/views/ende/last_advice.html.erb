@@ -16,9 +16,9 @@
 
               <div class="col-md-12">
                 <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
-                  <h3>Informe o</h3>
-                  <div style="margin-left: 4%;">Data da Venda</div>
-                  <input type="date" class="form-control" value="<%= params[:date_time] %>" name="date_time" placeholder="Data da Venda" style="margin-left: 4%;max-width: 300px;">
+                  <h3>Informe</h3>
+                  <div style="margin-left: 4%;">Data e Hora da Venda</div>
+                  <input type="datetime-local" class="form-control" value="<%= params[:date_time] %>" name="date_time" placeholder="Data da Venda" style="margin-left: 4%;max-width: 300px;">
                   <br>
                   <div style="margin-left: 4%;">Número Único de Identificação</div>
                   <input type="text" class="form-control" value="<%= params[:unique_number] %>" name="unique_number" placeholder="Número Único de Identificação" style="margin-left: 4%;max-width: 300px;">
