@@ -339,6 +339,29 @@ class Venda < ApplicationRecord
     raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
   end
 
+  def self.confirma_venda!(meter_number)
+    info = Ende.informacoes_meter_number(meter_number)
+
+    raise PagasoError.new("Venda não autorizada") if info.blank?
+
+    if info["erro"].present?
+      raise PagasoError.new("Medidor não encontrado (#{info["erro"]}) - Data envio: #{info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S")}")
+    elsif info["minVendAmt"].present? && info["minVendAmt"]["value"].to_i > 0
+      raise PagasoError.new("Valor Máximo de Compra: #{Ende.akz_parse(info["minVendAmt"]["symbol"])} #{info["minVendAmt"]["value"]} - Data envio: #{info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S")}")
+    elsif !info["canVend"]
+      raise PagasoError.new("Cliente com débito - #{info["accountName"]}")
+    end
+  rescue Exception => e
+    last_advice!(info["unique_number"], Time.zone.now) if e.message.downcase.include?("timeout")
+    raise PagasoError.new(e.message)
+  end
+
+  def self.last_advice!(unique_number, data)
+    xml = Ende.last_advice(data, unique_number)
+    erro = ErroAmigavel.traducao(Nokogiri::XML(xml.scan(/<fault .*?<\/fault>/).first).text)
+    raise PagasoError.new(erro)
+  end
+
   def self.venda_ende(params, usuario, ip)
     parceiro = Partner.ende
     
@@ -358,8 +381,8 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Digite o Número SMS para envio do token de recarga") if params[:talao_sms_ende].blank?
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
   
-    request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
-  
+    confirma_venda!(params[:meter_number])
+
     host = Rails.env == "development" ? "#{parametro.url_integracao_desenvolvimento}" : "#{parametro.url_integracao_producao}"
   
     product_id = params[:ende_produto_id]
@@ -410,8 +433,12 @@ class Venda < ApplicationRecord
         'Content-Type' => 'text/xml;charset=UTF-8',
         'SOAPAction' => "",
       },
-      :body => body
+      :body => body,
+      :timeout => 120.seconds
     )
+    
+    debugger
+    # last_advice!(info["unique_number"], info["respDateTime"])
     
     response_get += "=========[creditVendReq]========"
     response_get += request.body

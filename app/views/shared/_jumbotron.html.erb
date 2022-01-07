@@ -79,36 +79,32 @@
         <div class="menuENDE" style="padding: 2%">
           <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
             <li>
-              <a href="/ende/confirmar-cliente">
-                Confirmar Cliente
-              </a>
-            </li>
-            <hr>
-            <li>
               <a href="/ende/venda-teste">
                 Venda Teste / Simulação
               </a>
             </li>
-            <hr>
             <li>
+              <hr>
               <a href="javascript:pgstrans.displayRecargaEnde()">
                 Venda de Crédito
               </a>
             </li>
-            <hr>
             <li>
+              <hr>
               <a href="/ende/reprint">
                 Reimpressão
               </a>
             </li>
-            <hr>
+            <% if @adm.id == Usuario::ROOT %>
+              <li>
+                <hr>
+                <a href="/ende/last-advice">
+                  Last Advice
+                </a>
+              </li>
+            <% end %>
             <li>
-              <a href="/ende/last-advice">
-                Last Advice
-              </a>
-            </li>
-             <hr>
-            <li>
+              <hr>
               <a href="/ende/pagamento-de-conta">
                 Pagamento de Conta
               </a>

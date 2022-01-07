@@ -31,6 +31,7 @@ gem "httparty"
 gem "will_paginate"
 
 gem 'bootstrap-generators', '~> 3.3.4'
+gem 'activerecord-session_store'
 
 # Exportação de dados para o Excel
 gem 'write_xlsx'

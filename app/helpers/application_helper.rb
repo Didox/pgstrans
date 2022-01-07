@@ -8,6 +8,6 @@ module ApplicationHelper
   end
 
   def akz_parse(symbol)
-    return symbol.to_s.upcase.strip == "AOA" ? "AKz" : symbol
+    return Ende.akz_parse(symbol)
   end
 end

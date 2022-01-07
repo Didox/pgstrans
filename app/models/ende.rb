@@ -26,6 +26,10 @@ class Ende
     return (sum % 10 == 0);
   end
 
+  def self.akz_parse(symbol)
+    return symbol.to_s.upcase.strip == "AOA" ? "AKz" : symbol
+  end
+
   def self.informacoes_meter_number(meter_number)
     raise PagasoError.new("Por favor digite o Número do Medidor") if meter_number.blank?
     raise PagasoError.new("Número do Medidor inválido") if !Ende.validate_meter_number(meter_number)
@@ -49,22 +53,19 @@ class Ende
             <vendingServerID
               xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">1
             </vendingServerID>
-            <clientID
-              xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\" />
-              <terminalID
-                xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\" />
-                <msgID
-                  xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\" />
-                  <authCred
-                    xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
-                    <opName>#{parametro.operator_id}</opName>
-                    <password>#{parametro.password}</password>
-                  </authCred>
-                  <idMethod
-                    xmlns:q1=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"
-                    xmlns=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\" xsi:type=\"q1:VendIDMethod\">
-                    <q1:meterIdentifier xsi:type=\"q1:MeterNumber\" msno=\"#{meter_number}\" />
-                  </idMethod>
+            <clientID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\" />
+            <terminalID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\" />
+            <msgID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\" />
+            <authCred
+              xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
+              <opName>#{parametro.operator_id}</opName>
+              <password>#{parametro.password}</password>
+            </authCred>
+            <idMethod
+              xmlns:q1=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"
+              xmlns=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\" xsi:type=\"q1:VendIDMethod\">
+              <q1:meterIdentifier xsi:type=\"q1:MeterNumber\" msno=\"#{meter_number}\" />
+            </idMethod>
           </sch:confirmCustomerReq>
         </soapenv:Body>
       </soapenv:Envelope>
@@ -93,26 +94,26 @@ class Ende
 
     body = 
     "
-    <soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">
-    <soap:Body>
-     <trialCreditVendReq xmlns=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\">
-      <clientID xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
-      <terminalID xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
-      <msgID dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
-      <authCred xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
-       <opName>#{parametro.operator_id}</opName>
-       <password>#{parametro.password}</password>
-      </authCred>
-      <idMethod xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
-       <meterIdentifier xsi:type=\"MeterNumber\" msno=\"#{meter_number}\"/>
-      </idMethod>
-      <purchaseValue xsi:type=\"PurchaseValueCurrency\">
-       <amt value=\"#{valor}\" symbol=\"AOA\"/>
-      </purchaseValue>
-     </trialCreditVendReq>
-    </soap:Body>
-   </soap:Envelope>
-  "
+      <soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">
+        <soap:Body>
+        <trialCreditVendReq xmlns=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\">
+          <clientID xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
+          <terminalID xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
+          <msgID dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
+          <authCred xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
+          <opName>#{parametro.operator_id}</opName>
+          <password>#{parametro.password}</password>
+          </authCred>
+          <idMethod xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
+          <meterIdentifier xsi:type=\"MeterNumber\" msno=\"#{meter_number}\"/>
+          </idMethod>
+          <purchaseValue xsi:type=\"PurchaseValueCurrency\">
+          <amt value=\"#{valor}\" symbol=\"AOA\"/>
+          </purchaseValue>
+        </trialCreditVendReq>
+        </soap:Body>
+      </soap:Envelope>
+    "
 
     request = fazer_request(url_service, body, uniq_number)
     return [informacoes_parse(request.body, uniq_number), request.body]
@@ -332,7 +333,8 @@ class Ende
     @info["daysLastPurchase"] = cliente_xml["daysLastPurchase"] rescue nil
     @info["locRef"] = cliente_xml["locRef"] rescue nil
     @info["utilityType"] = cliente_xml["utilityType"] rescue nil
-
+    
+    @info["accountName"] = body.to_s.downcase.scan(/<accountname.*?<\/accountname>/).first.gsub(/<[^>]*>/, "") rescue ""
     @info["stsCipher"] = body.to_s.downcase.scan(/<q1:stscipher.*?<\/q1:stscipher>/).first.gsub(/<[^>]*>/, "") rescue ""
     @info["msno"] = body.scan(/msno=\".*?\"/).first.remove(/msno=\"|\"/) rescue nil
     @info["canVend"] = xml_itens.to_xml.scan(/canVend.*?true<\/canVend/).length > 0 ? true : false
@@ -411,9 +413,10 @@ class Ende
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'text/xml;charset=UTF-8',
-        'SOAPAction' => "",
+        'SOAPAction' => ""
       },
-      :body => body
+      :body => body,
+      :timeout => 120.seconds
     )
 
     uniq_number.xml_recebido = request.body

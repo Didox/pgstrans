@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_28_182737) do
+ActiveRecord::Schema.define(version: 2022_01_07_101857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -457,6 +457,15 @@ ActiveRecord::Schema.define(version: 2021_12_28_182737) do
     t.datetime "updated_at", null: false
     t.text "request_body"
     t.text "response_body"
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string "session_id", null: false
+    t.text "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
+    t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
   create_table "status_alegacao_de_pagamentos", force: :cascade do |t|
