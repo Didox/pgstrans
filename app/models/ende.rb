@@ -308,6 +308,8 @@ class Ende
   end
 
   def self.informacoes_parse(body, uniq_number)
+    body.remove!(/=========.*?========/)
+    
     if body.scan(/<fault .*?<\/fault>/).length > 0
       return {
         "erro" => ErroAmigavel.traducao(Nokogiri::XML(body.scan(/<fault .*?<\/fault>/).first).text),
@@ -333,6 +335,7 @@ class Ende
     @info["daysLastPurchase"] = cliente_xml["daysLastPurchase"] rescue nil
     @info["locRef"] = cliente_xml["locRef"] rescue nil
     @info["utilityType"] = cliente_xml["utilityType"] rescue nil
+    @info["taxReferenceNo"] = cliente_xml["taxReferenceNo"] rescue nil
     
     @info["accountName"] = body.to_s.downcase.scan(/<accountname.*?<\/accountname>/).first.gsub(/<[^>]*>/, "") rescue ""
     @info["stsCipher"] = body.to_s.downcase.scan(/<q1:stscipher.*?<\/q1:stscipher>/).first.gsub(/<[^>]*>/, "") rescue ""
@@ -383,6 +386,79 @@ class Ende
         "symbol" => symbol,
         "value" => value,
         "accDesc" => accDesc
+      }
+    end
+
+    tx = Nokogiri::XML(body.scan(/<tx xsi:type=\"CreditVendTx\".*?<\/tx>/).first) rescue nil
+    if tx.present?
+      symbol = tx.children.first.xpath("//amt").first.attributes["symbol"].value rescue ""
+      value = tx.children.first.xpath("//amt").first.attributes["value"].value rescue ""
+      @info["CreditVendTx"] = {
+        "symbol" => symbol,
+        "value" => value,
+      }
+    end
+
+    tx = Nokogiri::XML(body.scan(/<tx xsi:type=\"DebtRecoveryTx\".*?<\/tx>/).first) rescue nil
+    if tx.present?
+      amt_symbol = tx.children.first.xpath("//amt").first.attributes["symbol"].value rescue ""
+      amt_value = tx.children.first.xpath("//amt").first.attributes["value"].value rescue ""
+      balance_symbol = tx.children.first.xpath("//balance").first.attributes["symbol"].value rescue ""
+      balance_value = tx.children.first.xpath("//balance").first.attributes["value"].value rescue ""
+      accDesc = tx.children.first.xpath("//accDesc").first.text rescue ""
+      accNo = tx.children.first.xpath("//accNo").first.text rescue ""
+
+      @info["DebtRecoveryTx"] = {
+        "amt" => {
+          "symbol" => amt_symbol,
+          "value" => amt_value,
+        },
+        "balance" => {
+          "symbol" => balance_symbol,
+          "value" => balance_value,
+        },
+        "accDesc" => accDesc,
+        "accNo" => accNo
+      }
+    end
+
+    @info["ServiceChrgTx"] = []
+    body.scan(/<tx xsi:type=\"ServiceChrgTx\".*?<\/tx>/).each do |xml|
+      tx = Nokogiri::XML(xml) rescue nil
+      if tx.present?
+        amt_symbol = tx.children.first.xpath("//amt").first.attributes["symbol"].value rescue ""
+        amt_value = tx.children.first.xpath("//amt").first.attributes["value"].value rescue ""
+        balance_symbol = tx.children.first.xpath("//balance").first.attributes["symbol"].value rescue ""
+        balance_value = tx.children.first.xpath("//balance").first.attributes["value"].value rescue ""
+        accDesc = tx.children.first.xpath("//accDesc").first.text rescue ""
+        accNo = tx.children.first.xpath("//accNo").first.text rescue ""
+
+        @info["ServiceChrgTx"] << {
+          "amt" => {
+            "symbol" => amt_symbol,
+            "value" => amt_value,
+          },
+          "balance" => {
+            "symbol" => balance_symbol,
+            "value" => balance_value,
+          },
+          "accDesc" => accDesc,
+          "accNo" => accNo
+        }
+      end
+    end
+
+    creditTokenIssue = Nokogiri::XML(body.scan(/<creditTokenIssue.*?<\/creditTokenIssue>/).first) rescue nil
+    if creditTokenIssue.present?
+      siUnit = creditTokenIssue.children.first.xpath("//q1:units").first.attributes["siUnit"].value rescue ""
+      value = creditTokenIssue.children.first.xpath("//q1:units").first.attributes["value"].value rescue ""
+      desc = creditTokenIssue.children.first.xpath("//q1:desc").first.text rescue ""
+      @info["creditTokenIssue"] = {
+        "desc" => desc,
+        "units" => {
+          "siUnit" => siUnit,
+          "value" => value,
+        },
       }
     end
 

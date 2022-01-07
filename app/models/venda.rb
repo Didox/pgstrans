@@ -437,9 +437,6 @@ class Venda < ApplicationRecord
       :timeout => 120.seconds
     )
     
-    #debugger
-    # last_advice!(info["unique_number"], info["respDateTime"])
-    
     response_get += "=========[creditVendReq]========"
     response_get += request.body
     response_get += "=========[creditVendReq]========"
@@ -479,7 +476,7 @@ class Venda < ApplicationRecord
       status = last_request.downcase.scan(/stscipher.*?stscipher/).length > 0
       venda.status = (status ? "1" : "3")
     end
-
+    
     venda.save!
 
     if venda.sucesso?
