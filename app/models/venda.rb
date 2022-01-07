@@ -354,7 +354,7 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Digite o Número do Medidor") if params[:meter_number].blank?
-    raise PagasoError.new("Número do Medidor inválido") if !Ende.validate_meter_number(params[:meter_number])
+    raise PagasoError.new("Número do Medidor Inválido") if !Ende.validate_meter_number(params[:meter_number])
     raise PagasoError.new("Digite o Número SMS para envio do token de recarga") if params[:talao_sms_ende].blank?
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
   
@@ -476,7 +476,7 @@ class Venda < ApplicationRecord
       respdatetime = info["respDateTime"]
       respdatetime = respdatetime.to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue respdatetime
 
-      mensagem = "ENDE-Inserir este codigo no contador #{stscipher} para o medidor #{params[:meter_number]} Compra #{respdatetime} PAGASO"
+      mensagem = "PAGASO ENDE-Inserir este codigo no contador #{stscipher}. Medidor #{params[:meter_number]}. #{respdatetime}"
       envia, resposta = Sms.enviar(params[:talao_sms_ende], mensagem)
       LogVenda.create(usuario_id: usuario.id, titulo: "SMS não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: resposta.inspect) if !envia
 

@@ -26,18 +26,13 @@
             <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
               <li><b>ID da Transação:</b> <%= @info["unique_number"] %></li>
               <li><b>Cliente:</b> <%= @info["name"] %></li>
-              <li><b>NIF:</b> <%= @info["contactNo"] %></li>
+              <li><b>NIF:</b> <%= @info["taxReferenceNo"] %></li>
               <li><b>Endereço de Cliente:</b> <%= @info["address"] %></li>
               <hr>
               <li><b>N. de Conta:</b> <%= @info["accNo"] %></li>
-              <li><b>N. de Medidor:</b> <%= @info["msno"] %></li>
+              <li><b>N. de Contador:</b> <%= @info["msno"] %></li>
               <li><b>Tarifa:</b> <%= @info["tariff"] %></li>
-              <li><b>Endereço de Local de Consumo:</b> <%= @info["address"] %></li>
-              <br>
-              <li><b>Dias desde a última compra:</b> <%= @info["daysLastPurchase"] %></li>
-              <li><b>LocRef erf:</b> <%= @info["locRef"] %></li>
-              <li><b>Utilitário:</b> <%= @info["utilityType"] %></li>
-              <li><b>Pode vender?</b> <%= @info["canVend"] ? "Sim" : "Não" %></li>
+              <li><b>Endereço de Local de Consumo:</b> <%= @info["address"] @info["locRef"]%></li>
             </ul>
             <hr>
             <h2>Inserir este código no Contador</h2>
@@ -48,63 +43,68 @@
             </ul>
             <hr>
             <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-              <li><b>Energia:</b> <%= @info["krn"] %></li> <q2:units value="0" siUnit="kWh"/>
+
+              <tx xsi:type="DebtRecoveryTx" receiptNo="331">                    
+                <amt value="10" symbol="AOA" />
+                <accDesc>Arrears Debt Collection (Subaccount)</accDesc>
+                <accNo>ARREARACC011_2</accNo>
+                <balance value="9970.00000000" symbol="AOA" />
+              </tx>
+
+              Débitos
+              Arrears Debt Collection (Subaccount)
+              ARREARACC011_2            Akz 10
+              Balance                   Akz 9970.00
+
+              <li><b>Energia:</b> <%= <q1:units value="4.6" siUnit="kWh" /> <q1:resource xsi:type="q1:Electricity" /> %>
+              
               <li><b>Preço Unitário:</b> <%= @info["msno"] %></li> <amt value="87.72" symbol="AOA" />
-              <li><b>Custo de Energia:</b> <%= @info["ti"] %></li>
-              <li><b>6.6 KVA BTDM:</b> <%= @info["sgc"] %></li>
-              <li><b>IVA:</b> <%= @info["unitOfMeasurement"] %></li>
+
+                  <q2:steps>
+                    <q2:Step>
+                      <q2:units value="4.6" siUnit="kWh" />      4.6 kWh @ 6.41 Akz
+                      <q2:rate value="6.41000" symbol="AOA" />
+                    </q2:Step>
+                    <q2:Step>
+                      <q2:units value="0" siUnit="kWh" />         0 kWh @ 10.89 Akz
+                      <q2:rate value="10.89000" symbol="AOA" />
+                    </q2:Step>
+                  </q2:steps>
+
+              <li><b>Custo de Energia:</b> <%= @info<CreditVendTx amt value="28.95" symbol="AOA" /> %></li>
+              
+              <tx xsi:type="ServiceChrgTx" receiptNo="331">
+                <amt value="Tariff Charge" symbol="AOA" />
+                <accDesc>Tariff Charge</accDesc>
+                <accNo>TARCHG</accNo>
+              </tx>
+
+              Tariff Charge       50 Akz
+
+              <tx xsi:type="ServiceChrgTx">
+                <amt value="11.05" symbol="AOA" />
+                <accDesc>VAT</accDesc>
+              </tx>
+              <li><b>IVA:</b> <%= @info[" "] %></li>
+
+              IVA             11.05 Akz
+
               <hr>
-              <li><b>T o t a l :</b> <%= @info["tt"] %></li> <q2:rate value="10.89000" symbol="AOA"/>
+              <li><b>T o t a l :</b> <%= @info["tenderAmt"] %></li> 
+
+              <tenderAmt value="100" symbol="AOA" />
+
+
               <hr>
               <b>Número de Recibo:</b> <%= @info["receiptNo"] %>
               <hr>
-              <b>Operador:</b> Icone + "PAGASO"
-              <b>Terminal ID:</b> Login usuario
-              <b>Agente:</b> Nome do Agente (30 caract)
-              <li><b>sgc:</b> <%= @info["sgc"] %></li>
+              <b>Operador:</b> "pagaso_icone.png" + "PAGASO"
+              <b>ID:</b> Login usuario
+              <li><b>SGC/Indice de Tarifa:</b> <%= @info["sgc"]/@info["ti"] %></li>
               <hr>
             </ul>            
 
-            <h2>DADOS DO RECIBO</h2>
-            <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-              <li>
-                
-              </li>
-            </ul>
-            <br>
-            <h2>Datalhes de Medidor</h2>
-            <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-              <li><b>krn:</b> <%= @info["krn"] %></li>
-              <li><b>msno:</b> <%= @info["msno"] %></li>
-              <li><b>ti:</b> <%= @info["ti"] %></li>
-              
-              <li><b>Unidade de Medida:</b> <%= @info["unitOfMeasurement"] %></li>
-              <li><b>Tipo de Medidor tt:</b> <%= @info["tt"] %></li>
-            </ul>
-            <br>
-            <h2>Repartição Tarifária</h2>
-            <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-              <li>
-                <b>Tipos de Recurso:</b> 
-                <ul>
-                  <% @info["tariffBreakdown"].each do |tariff_breakdown| %>
-                    <li>
-                      <b><%= tariff_breakdown["name"].capitalize %></b> - 
-                      <% if tariff_breakdown["value"]["value"].present? %>
-                        <b>Value:</b> <%= tariff_breakdown["value"]["value"] %>
-                      <% end %>
-                      <% if tariff_breakdown["value"]["siUnit"].present? %>
-                        <b>SiUnit:</b> <%= tariff_breakdown["value"]["siUnit"] %>
-                      <% end %>
-                      <% if tariff_breakdown["value"]["symbol"].present? %>
-                        <b>Symbol:</b> <%= tariff_breakdown["value"]["symbol"] %>
-                      <% end %>
-                    </li>
-                  <% end %>
-                </ul>
-              </li>
-            </ul>
-            <br>
+                        <br>
             <% if @adm.id == Usuario::ROOT %>
               <%= @xml %>
             <% end %>
