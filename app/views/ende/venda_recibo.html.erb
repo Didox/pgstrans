@@ -24,7 +24,7 @@
         <b>Data:</b> <%= @info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
         <div class="col-md-12">
             <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-              <li><b>ID da Transação:</b> <%= @info["unique_number"] %></li>
+              <li><b>Nro. Único Pagasó:</b> <%= @info["unique_number"] %></li>
               <li><b>Cliente:</b> <%= @info["name"] %></li>
               <li><b>NIF:</b> <%= @info["taxReferenceNo"] %></li>
               <li><b>Endereço de Cliente:</b> <%= @info["address"] %></li>
