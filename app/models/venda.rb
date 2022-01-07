@@ -349,7 +349,7 @@ class Venda < ApplicationRecord
     elsif info["minVendAmt"].present? && info["minVendAmt"]["value"].to_i > 0
       raise PagasoError.new("Valor Máximo de Compra: #{Ende.akz_parse(info["minVendAmt"]["symbol"])} #{info["minVendAmt"]["value"]} - Data envio: #{info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S")}")
     elsif !info["canVend"]
-      raise PagasoError.new("Cliente com débito - #{info["accountName"]}")
+      raise PagasoError.new("Cliente com débito. É necessário efectuar a quitação. #{info["accountName"]}")
     end
   rescue Exception => e
     last_advice!(info["unique_number"], Time.zone.now) if e.message.downcase.include?("timeout")
@@ -437,7 +437,7 @@ class Venda < ApplicationRecord
       :timeout => 120.seconds
     )
     
-    debugger
+    #debugger
     # last_advice!(info["unique_number"], info["respDateTime"])
     
     response_get += "=========[creditVendReq]========"
