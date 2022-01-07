@@ -58,116 +58,118 @@
             <% @info = Ende.informacoes_parse(@venda.response_get, EndeUniqNumber.find(@venda.request_id)) %>
             <div class="card" style="margin-top: 5px;">
               <div class="card-header">
-                <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold; text-align: center">
-                  <h3>ENDE</h3>
-                  <h4>Recibo Duplicado</h4>
-                  <h5>Empresa Nacional de</h5>
-                  <h5>Distribuição de Electricidade</h5>
+                <div class="col-md-12" style="margin-bottom: 20px; font-weight: bold; text-align: center">
+                  <ul style="list-style-type: none;">
+                    <li><h2>ENDE</h2></li>
+                    <li>Recibo Duplicado</li>
+                    <li>Empresa Nacional de</li>
+                    <li>Distribuição de Electricidade</li>
+                  </ul>
                 </div>
-                <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold; text-align: left">
-                  <h5>Rua Cónego Manual das Neves, 234</h5>
-                  <h5>Caixa Postal: 43</h5>
-                  <h5>NIF: 5410778170</h5>
-                  <br>
-                  <h5>EM CASO DE RECLAMAÇÕES:</h5>
-                  <h5>TEL: 222 642700 - CALL CENTER</h5>
+                <div class="col-md-12" style="margin: 0px; font-weight: bold; text-align: left">
+                  <ul style="list-style-type: none;">
+                    <li>Rua Cónego Manual das Neves, 234</li>
+                    <li>Caixa Postal: 43</li>
+                    <li>NIF: 5410778170</li>
+                    <li>EM CASO DE RECLAMAÇÕES:</li>
+                    <li>TEL: 222 642700 - CALL CENTER</li>
+                    <li>Data:</b> <%= @info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
+                  </ul>
                 </div>
-
-                <div class="col-md-12">
-                  <b>Data:</b> <%= @info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
-                </div>
-
-                <div class="col-md-12">
-                    <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-                      <li><b>Nro. Único Pagasó:</b> <%= @info["unique_number"] %></li>
-                      <li><b>Cliente:</b> <%= @info["name"] %></li>
-                      <li><b>NIF:</b> <%= @info["taxReferenceNo"] %></li>
-                      <li><b>Endereço de Cliente:</b> <%= @info["address"] %></li>
-                      <hr>
-                      <li><b>N. de Conta:</b> <%= @info["accNo"] %></li>
-                      <li><b>N. de Contador:</b> <%= @info["msno"] %></li>
-                      <li><b>Tarifa:</b> <%= @info["tariff"] %></li>
-                      <li><b>Endereço de Local de Consumo:</b> <%= "#{@info["address"]} #{@info["locRef"]}" %></li>
-                    </ul>
+                <div class="col-md-12" style="margin: 0px; text-align: left">
+                  <ul style="list-style-type: none">
+                    <li><b>Nro. Único Pagasó:</b> <%= @info["unique_number"] %></li>
+                    <li><b>Cliente:</b> <%= @info["name"] %></li>
+                    <li><b>NIF:</b> <%= @info["taxReferenceNo"] %></li>
+                    <li><b>Endereço de Cliente:</b> <%= @info["address"] %></li>
                     <hr>
-                    <h2>Inserir este código no Contador</h2>
-                    <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-                      <li>
-                        <h3><%= @info["stsCipher"] %></h3>
-                      </li>
-                    </ul>
+                    <li><b>N. de Conta:</b> <%= @info["accNo"] %></li>
+                    <li><b>N. de Contador:</b> <%= @info["msno"] %></li>
+                    <li><b>Tarifa:</b> <%= @info["tariff"] %></li>
+                    <li><b>Endereço de Local de Consumo:</b> <%= "#{@info["address"]} #{@info["locRef"]}" %></li>
+                  </ul>
+                </div>
+                <div class="col-md-12" style="margin: 0px; text-align: left">
+                  <ul style="list-style-type: none">
                     <hr>
-                    <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-                      <li>
-                        <div><b style="font-size:16px">Débitos</b></div>
-                        <% if @info["DebtRecoveryTx"]["accDesc"].present? %>
-                          <div><b><%= @info["DebtRecoveryTx"]["accDesc"] %></b></div>
-                        <% end %>
-                        <% if @info["DebtRecoveryTx"]["amt"]["value"].present? %>
-                          <div><% if @info["DebtRecoveryTx"]["accNo"].present? %><b><%= @info["DebtRecoveryTx"]["accNo"] %>:</b><% end %> <%= number_to_currency(@info["DebtRecoveryTx"]["amt"]["value"], :precision => 2, :unit => akz_parse(@info["DebtRecoveryTx"]["amt"]["symbol"])) %></div>
-                        <% end %>
-                        <% if @info["DebtRecoveryTx"]["balance"]["value"].present? %>
-                          <div><b>Balance:</b> <%= number_to_currency(@info["DebtRecoveryTx"]["balance"]["value"], :precision => 2, :unit => akz_parse(@info["DebtRecoveryTx"]["balance"]["symbol"])) %></div>
-                        <% end %>
-                        <hr>
-                      </li>
-
-                      <li>
-                        <b>Energia:</b> <%= @info["creditTokenIssue"]["units"]["value"] %> <%= @info["creditTokenIssue"]["units"]["siUnit"] %>
-                      </li>
-
-                      <li>
-                        <b>Preço Unitário:</b>
-                        <ul>
-                          <% @info["tariffBreakdown"].each do |tariff_breakdown| %>
-                            <li>
-                              <b><%= tariff_breakdown["name"].capitalize %></b> - 
-                              <% if tariff_breakdown["value"]["siUnit"].present? %>
-                                <%= tariff_breakdown["value"]["value"] %> <%= tariff_breakdown["value"]["siUnit"] %>
-                              <% end %>
-                              <% if tariff_breakdown["value"]["symbol"].present? %>
-                                <%= number_to_currency(tariff_breakdown["value"]["value"], :precision => 2, :unit => akz_parse(tariff_breakdown["value"]["symbol"])) %>
-                              <% end %>
-                            </li>
-                          <% end %>
-                        </ul>
-
-                      </li> 
-
-                      <li>
-                        <b>Custo de Energia:</b> <%= number_to_currency(@info["CreditVendTx"]["value"], :precision => 2, :unit => akz_parse(@info["CreditVendTx"]["symbol"])) %>
-                        <hr>
-                      </li>
-
-                      <% @info["ServiceChrgTx"].each do |serviceChrgTx| %>
-                        <li>
-                          <% if serviceChrgTx["accDesc"].present? %>
-                            <div><b><%= serviceChrgTx["accDesc"] %></b></div>
-                          <% end %>
-                          <% if serviceChrgTx["amt"]["value"].present? %>
-                            <div><% if serviceChrgTx["accNo"].present? %><b><%= serviceChrgTx["accNo"] %>:</b><% end %> <%= number_to_currency(serviceChrgTx["amt"]["value"], :precision => 2, :unit => akz_parse(serviceChrgTx["amt"]["symbol"])) %></div>
-                          <% end %>
-                          <% if serviceChrgTx["balance"]["value"].present? %>
-                            <div><b>Balance:</b> <%= number_to_currency(serviceChrgTx["balance"]["value"], :precision => 2, :unit => akz_parse(serviceChrgTx["balance"]["symbol"])) %></div>
-                          <% end %>
-                          <hr>
-                        </li>
+                    <li><h2>Inserir este código no Contador</h2></li>
+                    <li style="letter-spacing: 3px"><h3><%= @info["stsCipher"] %></h3></li>
+                    <hr>
+                  </ul>
+                </div>
+                <div class="col-md-12" style="margin: 0px; text-align: left">
+                  <ul style="list-style-type: none">
+                    <li><b>Débitos</b></li>
+                    <% if @info["DebtRecoveryTx"]["accDesc"].present? %>
+                      <li><b><%= @info["DebtRecoveryTx"]["accDesc"] %></b></li>
+                    <% end %>
+                    <% if @info["DebtRecoveryTx"]["amt"]["value"].present? %>
+                      <li><% if @info["DebtRecoveryTx"]["accNo"].present? %><b><%= @info["DebtRecoveryTx"]["accNo"] %>:</b><% end %> <%= number_to_currency(@info["DebtRecoveryTx"]["amt"]["value"], :precision => 2, :unit => akz_parse(@info["DebtRecoveryTx"]["amt"]["symbol"])) %></li>
+                    <% end %>
+                    <% if @info["DebtRecoveryTx"]["balance"]["value"].present? %>
+                      <li><b>Balance:</b> <%= number_to_currency(@info["DebtRecoveryTx"]["balance"]["value"], :precision => 2, :unit => akz_parse(@info["DebtRecoveryTx"]["balance"]["symbol"])) %></li>
+                    <% end %>
+                    <hr>
+                  </li>
+                </div>
+                <div class="col-md-12" style="margin: 0px; text-align: left"> 
+                  <ul style="list-style-type: none">
+                    <li>
+                      <b>Energia:</b> <%= @info["creditTokenIssue"]["units"]["value"] %> <%= @info["creditTokenIssue"]["units"]["siUnit"] %>
+                    </li>
+                    <hr>
+                  </ul>
+                </div>
+                <div class="col-md-12" style="margin: 0px; text-align: left"> 
+                  <ul style="list-style-type: none">
+                    <li><b>Preço Unitário:</b><br>
+                    <% @info["tariffBreakdown"].each do |tariff_breakdown| %> 
+                      <% if tariff_breakdown["value"]["siUnit"].present? %>
+                        <%= tariff_breakdown["value"]["value"] %> 
+                        <%= tariff_breakdown["value"]["siUnit"] %>
                       <% end %>
-                      
-                      <li>
-                        <b>T o t a l :</b> <%= number_to_currency(@info["tenderAmt"]["value"], :precision => 2, :unit => akz_parse(@info["tenderAmt"]["symbol"])) %>
-                        <hr>
-                      </li> 
+                      <% if tariff_breakdown["value"]["symbol"].present? %>
+                        @                      
+                        <%= number_to_currency(tariff_breakdown["value"]["value"], :precision => 2, :unit => akz_parse(tariff_breakdown["value"]["symbol"])) %><br>
+                      <% end %>
+                    <% end %>
+                  </ul>
+                </div>
+                <div class="col-md-12" style="margin: 0px; text-align: left">
+                  <ul style="list-style-type: none">
+                    <li>
+                      <hr>
+                      <b>Custo de Energia:</b> <%= number_to_currency(@info["CreditVendTx"]["value"], :precision => 2, :unit => akz_parse(@info["CreditVendTx"]["symbol"])) %>
+                      <hr>
+                    </li>
 
-                      <li>
-                        <b>Número de Recibo:</b> <%= @info["receiptNo"] %>
-                        <hr>
-                        <div><b>Operador:</b> <img style="width: 24px;" src="<%= asset_path('favicon.png') %>"> PAGASÓ</div>
-                        <div><b>ID:</b> <%= @venda.usuario.login %></div>
-                        <div><b>SGC/Indice de Tarifa:</b> <%= "#{@info["sgc"]}/#{@info["ti"]}" %></div>
-                      </li> 
-                    </ul>            
-                  </div>
+                    <% @info["ServiceChrgTx"].each do |serviceChrgTx| %>
+                      <% if serviceChrgTx["accDesc"].present? %>
+                        <li><b><%= serviceChrgTx["accDesc"] %></b>
+                      <% end %>
+                      <% if serviceChrgTx["amt"]["value"].present? %>
+                        <% if serviceChrgTx["accNo"].present? %><b><%= serviceChrgTx["accNo"] %>:</b><% end %> <%= number_to_currency(serviceChrgTx["amt"]["value"], :precision => 2, :unit => akz_parse(serviceChrgTx["amt"]["symbol"])) %></li>
+                      <% end %>
+                      <% if serviceChrgTx["balance"]["value"].present? %>
+                        <li><b>Balance:</b> <%= number_to_currency(serviceChrgTx["balance"]["value"], :precision => 2, :unit => akz_parse(serviceChrgTx["balance"]["symbol"])) %></li>
+                      <% end %>
+                      <hr>
+                    <% end %>
+                    
+                    <li>
+                      <b>T o t a l :</b> <%= number_to_currency(@info["tenderAmt"]["value"], :precision => 2, :unit => akz_parse(@info["tenderAmt"]["symbol"])) %>
+                      <hr>
+                    </li> 
+
+                    <li>
+                      <b>Número de Recibo:</b> <%= @info["receiptNo"] %>
+                      <hr>
+                      <div><b>Operador:</b> <img style="width: 24px;" src="<%= asset_path('favicon.png') %>"> PAGASÓ</div>
+                      <div><b>ID:</b> <%= @venda.usuario.login %></div>
+                      <div><b>SGC/Índice de Tarifa:</b> <%= "#{@info["sgc"]}/#{@info["ti"]}" %></div>
+                    </li> 
+                  </ul>            
+                </div>
               </div>
             </div>
           </div>
