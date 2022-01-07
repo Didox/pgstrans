@@ -2,6 +2,7 @@
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
+  <!-- Exemplo 04040404107 -->
 
   <div class="container">
     
@@ -50,16 +51,16 @@
                 <accNo>ARREARACC011_2</accNo>
                 <balance value="9970.00000000" symbol="AOA" />
               </tx>
-
               Débitos
               Arrears Debt Collection (Subaccount)
               ARREARACC011_2            Akz 10
               Balance                   Akz 9970.00
 
+
+
               <li><b>Energia:</b> <%= <q1:units value="4.6" siUnit="kWh" /> <q1:resource xsi:type="q1:Electricity" /> %>
               
               <li><b>Preço Unitário:</b> <%= @info["msno"] %></li> <amt value="87.72" symbol="AOA" />
-
                   <q2:steps>
                     <q2:Step>
                       <q2:units value="4.6" siUnit="kWh" />      4.6 kWh @ 6.41 Akz
@@ -73,22 +74,21 @@
 
               <li><b>Custo de Energia:</b> <%= @info<CreditVendTx amt value="28.95" symbol="AOA" /> %></li>
               
+              Tariff Charge       50 Akz
               <tx xsi:type="ServiceChrgTx" receiptNo="331">
                 <amt value="Tariff Charge" symbol="AOA" />
                 <accDesc>Tariff Charge</accDesc>
                 <accNo>TARCHG</accNo>
               </tx>
+              
 
-              Tariff Charge       50 Akz
-
+              <li><b>IVA:</b> <%= @info[" "] %></li>
+              IVA             11.05 Akz
               <tx xsi:type="ServiceChrgTx">
                 <amt value="11.05" symbol="AOA" />
                 <accDesc>VAT</accDesc>
               </tx>
-              <li><b>IVA:</b> <%= @info[" "] %></li>
-
-              IVA             11.05 Akz
-
+              
               <hr>
               <li><b>T o t a l :</b> <%= @info["tenderAmt"] %></li> 
 
