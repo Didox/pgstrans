@@ -473,10 +473,11 @@ class Venda < ApplicationRecord
 
       info = Ende.informacoes_parse(last_request, uniq_number)
       stscipher = info["stsCipher"]
+      receiptNo = info["receiptNo"]
       respdatetime = info["respDateTime"]
       respdatetime = respdatetime.to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue respdatetime
 
-      mensagem = "PAGASO ENDE-Inserir este codigo no contador #{stscipher}. Medidor #{params[:meter_number]}. #{respdatetime}"
+      mensagem = "PAGASO ENDE-Inserir este codigo no contador #{stscipher}. Medidor #{params[:meter_number]}. N. de Recibo #{receiptNo}. #{respdatetime}"
       envia, resposta = Sms.enviar(params[:talao_sms_ende], mensagem)
       LogVenda.create(usuario_id: usuario.id, titulo: "SMS não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: resposta.inspect) if !envia
 
