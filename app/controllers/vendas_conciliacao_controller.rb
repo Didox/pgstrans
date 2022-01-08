@@ -8,7 +8,7 @@ class VendasConciliacaoController < ApplicationController
         sum(vendas.desconto_aplicado) as lucro, 
         sum(vendas.value) as custo
       FROM vendas 
-      inner join usuarios on usuarios.id = vendas.usuario_id 
+      inner join usuarios on usuarios.id = vendas.usuario_id
       inner join partners on partners.id = vendas.partner_id 
       WHERE vendas.created_at is not null
     "
@@ -31,7 +31,10 @@ class VendasConciliacaoController < ApplicationController
     if params[:status].present?
       sql += " and usuarios.status_cliente_id = #{params[:status]}"
     end
-
+    if params[:nome].present?
+      sql += " and usuarios.nome ilike '%#{params[:nome].remove_injection}%'"
+    end
+ 
     sql += " and vendas.updated_at >= '#{SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)}'" if params[:data_inicio].present?
     sql += " and vendas.updated_at <= '#{SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)}'" if params[:data_fim].present?
     sql += " and vendas.partner_id = #{params[:parceiro_id]}" if params[:parceiro_id].present?
