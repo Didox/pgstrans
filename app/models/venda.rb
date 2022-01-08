@@ -473,6 +473,8 @@ class Venda < ApplicationRecord
         venda.status = "ende-35"
       elsif erro_message.include?("system.web.services.protocols.soapexception: soap exception from server")
         venda.status = "ende-36"
+      else
+        venda.status = "ende-37"
       end
     else
       status = last_request.downcase.scan(/stscipher.*?stscipher/).length > 0
