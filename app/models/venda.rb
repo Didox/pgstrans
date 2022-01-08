@@ -478,7 +478,7 @@ class Venda < ApplicationRecord
       end
     else
       status = last_request.downcase.scan(/stscipher.*?stscipher/).length > 0
-      venda.status = (status ? "1" : "3")
+      venda.status = (status ? "1" : "ende-3")
     end
     
     venda.save!
