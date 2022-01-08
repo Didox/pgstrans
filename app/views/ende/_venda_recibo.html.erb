@@ -41,7 +41,7 @@
                 <h2>Inserir este código no Contador</h2>
               </li>
               <li style="letter-spacing: 3px">
-                <h3><%= info["stsCipher"] %></h3>
+                <h2><%= info["stsCipher"] %></h2>
               </li>
             </ul>
           </div>
@@ -62,7 +62,6 @@
               <% if info["DebtRecoveryTx"]["balance"]["value"].present? %>
                 <li><b>Balance:</b> <%= number_to_currency(info["DebtRecoveryTx"]["balance"]["value"], :precision => 2, :unit => akz_parse(info["DebtRecoveryTx"]["balance"]["symbol"])) %></li>
               <% end %>
-              <hr>
             </li>
           </div>
         <% end %>

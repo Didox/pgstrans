@@ -35,6 +35,8 @@
             </form>
           </div>
         <% elsif @info.present? %>
+          <%= render "/ende/venda_recibo", info: @info %>
+          <hr>
           <%= raw Ende.children_text(Nokogiri::XML(@info)) %>
           <br>
           <%= @info %>

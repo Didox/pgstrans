@@ -58,8 +58,10 @@
       <% end %>
 
       <% if @adm.id == Usuario::ROOT %>
+        <br>
         <dt>Request send:</dt>
         <dd><%= @venda.request_send %></dd>
+        <br>
         <dt>Response get:</dt>
         <dd><%= @venda.response_get %></dd>
       <% end %>
