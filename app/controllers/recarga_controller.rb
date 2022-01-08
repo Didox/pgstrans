@@ -9,21 +9,21 @@ class RecargaController < ApplicationController
     venda = Venda.fazer_venda(params, usuario_logado, params[:tipo_venda], request.ip)
     begin
       if venda.sucesso?
-        render json: {mensagem: venda.status_desc.error_description_pt, status: venda.status, venda_id: venda.id}, status: 200
+        render json: {mensagem: venda.status_desc.error_description_pt, status: venda.status, venda_id: venda.id, sucesso: venda.sucesso?, redirect: venda.partner_id == Partner.ende.id}, status: 200
       else
         LogVenda.create(usuario_id: usuario_logado.id, titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{venda.status_desc.error_description_pt} - #{venda.status} - #{venda.response_get}")
-        render json: {mensagem: venda.status_desc.error_description_pt, status: venda.status}, status: 401
+        render json: {mensagem: venda.status_desc.error_description_pt, status: venda.status, sucesso: false}, status: 401
       end
     rescue Exception => erro
       LogVenda.create(usuario_id: usuario_logado.id,titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{erro.message} - #{erro.backtrace}")
       mensagem = erro.message
       mensagem = erro.message.to_s.split("-").first if Rails.env == "production" && (erro.message.to_s.split("-").length rescue 0) > 0
-      render json: {mensagem: mensagem, status:401}, status: 401
+      render json: {mensagem: mensagem, status:401, sucesso: false}, status: 401
     end
   rescue Exception => erro
     LogVenda.create(usuario_id: usuario_logado.id,titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{erro.message} - #{erro.backtrace}")
     mensagem = erro.message
     mensagem = erro.message.to_s.split("-").first if Rails.env == "production" && (erro.message.to_s.split("-").length rescue 0) > 0
-    render json: {mensagem: mensagem, status:401}, status: 401
+    render json: {mensagem: mensagem, status:401, sucesso: false}, status: 401
   end
 end

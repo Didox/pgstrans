@@ -72,101 +72,13 @@
             <% end %>
           </div>
         <% elsif @info.present? %>
-          <div class="col-md-12">
-            <h2>DADOS DO CLIENTE</h2>
-            <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-              <li><b>ID da Transação:</b> <%= @info["unique_number"] %></li>
-              <li><b>Cliente:</b> <%= @info["name"] %></li>
-              <li><b>Endereço de Cliente:</b> <%= @info["address"] %></li>
-              <li><b>Contacto:</b> <%= @info["contactNo"] %></li>
-              <li><b>N. de Conta:</b> <%= @info["accNo"] %></li>
-              <li><b>N. de Medidor:</b> <%= @info["msno"] %></li>
-              <li><b>Dias desde a última compra:</b> <%= @info["daysLastPurchase"] %></li>
-              <li><b>LocRef erf:</b> <%= @info["locRef"] %></li>
-              <li><b>Utilitário:</b> <%= @info["utilityType"] %></li>
-              <li><b>Tarifa:</b> <%= @info["tariff"] %></li>
-              <li><b>Pode vender?</b> <%= @info["canVend"] ? "Sim" : "Não" %></li>
-              <li><b>Data:</b> <%= @info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
-            </ul>
-            <br>
-            <h2>DADOS DO RECIBO</h2>
-            <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-              <li>
-                <b>Número de Recibo:</b> <%= @info["receiptNo"] %>
-              </li>
-            </ul>
-            <br>
-            <h2>Datalhes de Medidor</h2>
-            <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-              <li><b>krn:</b> <%= @info["krn"] %></li>
-              <li><b>msno:</b> <%= @info["msno"] %></li>
-              <li><b>ti:</b> <%= @info["ti"] %></li>
-              <li><b>sgc:</b> <%= @info["sgc"] %></li>
-              <li><b>Unidade de Medida:</b> <%= @info["unitOfMeasurement"] %></li>
-              <li><b>Tipo de Medidor tt:</b> <%= @info["tt"] %></li>
-            </ul>
-            <br>
-            <h2>Repartição Tarifária</h2>
-            <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-              <% if @info["tariffBreakdown"].present? %>
-                <li>
-                  <b>Tipos de Recurso:</b> 
-                  <ul>
-                    <% @info["tariffBreakdown"].each do |tariff_breakdown| %>
-                      <li>
-                        <b><%= tariff_breakdown["name"].capitalize %></b> - 
-                        <% if tariff_breakdown["value"]["siUnit"].present? %>
-                          <%= tariff_breakdown["value"]["value"] %> <%= tariff_breakdown["value"]["siUnit"] %>
-                        <% end %>
-                        <% if tariff_breakdown["value"]["symbol"].present? %>
-                          <%= number_to_currency(tariff_breakdown["value"]["value"], :precision => 2, :unit => akz_parse(tariff_breakdown["value"]["symbol"])) %>
-                        <% end %>
-                      </li>
-                    <% end %>
-                  </ul>
-                </li>
-              <% end %>
-              
-              <% if @info["ServiceChrgTx"].present? %>
-                <li>
-                  <b>ServiceChrgTx:</b> 
-                  <ul>
-                    <li>
-                      <% if @info["ServiceChrgTx"]["value"].present? %>
-                        <b>Value:</b> <%= number_to_currency(@info["ServiceChrgTx"]["value"], :precision => 2, :unit => akz_parse(@info["ServiceChrgTx"]["symbol"])) %>
-                      <% end %>
-                      <% if @info["ServiceChrgTx"]["accDesc"].present? %>
-                        <br><b>AccDesc:</b> <%= @info["ServiceChrgTx"]["accDesc"] %>
-                      <% end %>
-                    </li>
-                  </ul>
-                </li>
-              <% end %>
-
-              <% if @info["tenderAmt"].present? %>
-                <li>
-                  <% if @info["tenderAmt"]["value"].present? %>
-                    <b>TenderAmt:</b> <%= number_to_currency(@info["tenderAmt"]["value"], :precision => 2, :unit => akz_parse(@info["tenderAmt"]["symbol"])) %>
-                  <% end %>
-                </li>
-              <% end %>
-
-              <% if @info["change"].present? %>
-                <li>
-                  <% if @info["change"]["value"].present? %>
-                    <b>Change:</b> <%=number_to_currency(@info["change"]["value"], :precision => 2, :unit => akz_parse(@info["change"]["symbol"])) %>
-                  <% end %>
-                </li>
-              <% end %>
-
-              </li>
-            </ul>
-            <br>
-            <% if @adm.id == Usuario::ROOT %>
-              <%= @xml %>
-            <% end %>
-            <br>
-          </div>
+          <%= render "/ende/venda_recibo", info: @info %>
+          <br>
+          <br>
+          <% if @adm.id == Usuario::ROOT %>
+            <%= @xml %>
+          <% end %>
+          <br>
           <br>
           <br>
           <div style="display: inline-block;margin-bottom: 10px;width: 100%;margin-bottom: 5px;">

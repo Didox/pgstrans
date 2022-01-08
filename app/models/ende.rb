@@ -1,6 +1,15 @@
 class Ende
   require 'openssl'
 
+  TRADUCAO_DADOS = {
+    "VAT" => "IVA"
+  }
+
+  def self.traducao(sigla)
+    tra = TRADUCAO_DADOS[sigla]
+    return tra || sigla
+  end
+
   def self.validate_meter_number(meter_number)
     return false if meter_number.nil? || meter_number.empty?
     meter_number = meter_number.to_i.to_s

@@ -462,15 +462,17 @@ class Venda < ApplicationRecord
     if erro_message.present? 
       erro_message = erro_message.downcase
       if erro_message.include?("duplicate transaction")
-        venda.status = "31"
+        venda.status = "ende-31"
       elsif erro_message.include?("incorrect customernumber")
-        venda.status = "32"
+        venda.status = "ende-32"
       elsif erro_message.include?("must be greater than zero")
-        venda.status = "33"
+        venda.status = "ende-33"
       elsif erro_message.include?("insufficient agent funds. payment amount is greater")
-        venda.status = "34"
+        venda.status = "ende-34"
       elsif erro_message.include?("customers who have not been active on any principal package")
-        venda.status = "35"
+        venda.status = "ende-35"
+      elsif erro_message.include?("system.web.services.protocols.soapexception: soap exception from server")
+        venda.status = "ende-36"
       end
     else
       status = last_request.downcase.scan(/stscipher.*?stscipher/).length > 0

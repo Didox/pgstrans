@@ -250,11 +250,18 @@ $(function(){
               success: function(data){
                 $(".modal_loader").hide();
                 pagamentoProcessando = false;
-                $.alert(data.mensagem);
                 $(".clearFieldjs").val("")
 
-                if(data.venda_id){
-                  window.location.href="/vendas/" + data.venda_id;
+                if(!data.redirect){
+                  $.alert(data.mensagem);
+                }
+                else{
+                  if(data.sucesso && data.redirect){
+                    window.location.href="/vendas/" + data.venda_id;
+                  }
+                  else{
+                    $.alert(data.mensagem);
+                  }
                 }
               },
               error: function(xhr, ajaxOptions, thrownError){
