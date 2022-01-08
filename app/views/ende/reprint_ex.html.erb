@@ -1,0 +1,1209 @@
+
+<!-- Primeiro caso de reprint  04040404057    -->
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap:Body>
+      <soap:Fault>
+         <faultcode>soap:Server</faultcode>
+         <faultstring>System.Web.Services.Protocols.SoapException: Soap Exception From Server
+   at Conlog.PowerHub.Gateway.Web.Api.XMLVendService.ReprintRequest(ReprintReq request) in D:\a\1\s\src\Gateway.Web.Api\GatewayServiceASP.asmx.cs:line 639</faultstring>
+         <faultactor>url</faultactor>
+         <detail>
+            <XMLVendFaultResp>
+               <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+               <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+               <reqMsgID dateTime="20220108224120" uniqueNumber="0291" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+               <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-08T21:41:52.3376567+00:00</respDateTime>
+               <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Vending Server Cluster Error</dispHeader>
+               <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">There was a fault at the server processing the request</operatorMsg>
+               <fault xsi:type="SystemEx" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                  <desc>Uknown Exception</desc>
+               </fault>
+            </XMLVendFaultResp>
+         </detail>
+      </soap:Fault>
+   </soap:Body>
+</soap:Envelope>
+
+
+<!-- Segundo caso de reprint  04040404073    -->
+
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap:Body>
+      <reprintResp xmlns="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema">
+         <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <serverID xsi:type="GenericDeviceID" id="1" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <reqMsgID dateTime="20220108223707" uniqueNumber="0290" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-08T21:39:28.0176131+00:00</respDateTime>
+         <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</dispHeader>
+         <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</operatorMsg>
+         <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</custMsg>
+         <utility name="ENDE" address="Angola" taxRef="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20211206110717" uniqueNumber="907" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2021-12-06T12:07:18.5710867Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="Ray     Sin" address="" contactNo="" accNo="ACC006" locRef="ERF006" utilityType="Electricity" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="10">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="10">
+                     <amt value="219.3" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q1:SaleCredTokenIssue" xmlns:q1="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q1:desc>Credit Token</q1:desc>
+                        <q1:meterDetail krn="1" ti="3" sgc="901047" unitOfMeasurement="kWh" msno="04040404073">
+                           <q1:meterType tt="02"/>
+                        </q1:meterDetail>
+                        <q1:token xsi:type="q1:STS1Token">
+                           <q1:stsCipher>04040404073000000172</q1:stsCipher>
+                        </q1:token>
+                        <q1:units value="17.2" siUnit="kWh"/>
+                        <q1:resource xsi:type="q1:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT - ILUMINACAO PUBLICA (BT IP)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT - ILUMINACAO PUBLICA (BT IP)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q2:StepTariffBreakdown" xmlns:q2="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q2:steps>
+                           <q2:Step>
+                              <q2:units value="17.2" siUnit="kWh"/>
+                              <q2:rate value="12.82000" symbol="AOA"/>
+                           </q2:Step>
+                        </q2:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="30.7" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="250" symbol="AOA"/>
+                  <change value="0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20211206110144" uniqueNumber="907" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2021-12-06T12:07:07.9282933Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="Ray     Sin" address="" contactNo="" accNo="ACC006" locRef="ERF006" utilityType="Electricity" daysLastPurchase="" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="9">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="9">
+                     <amt value="87.72" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q3:SaleCredTokenIssue" xmlns:q3="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q3:desc>Credit Token</q3:desc>
+                        <q3:meterDetail krn="1" ti="3" sgc="901047" unitOfMeasurement="kWh" msno="04040404073">
+                           <q3:meterType tt="02"/>
+                        </q3:meterDetail>
+                        <q3:token xsi:type="q3:STS1Token">
+                           <q3:stsCipher>04040404073000000069</q3:stsCipher>
+                        </q3:token>
+                        <q3:units value="6.9" siUnit="kWh"/>
+                        <q3:resource xsi:type="q3:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT - ILUMINACAO PUBLICA (BT IP)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT - ILUMINACAO PUBLICA (BT IP)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q4:StepTariffBreakdown" xmlns:q4="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q4:steps>
+                           <q4:Step>
+                              <q4:units value="6.9" siUnit="kWh"/>
+                              <q4:rate value="12.82000" symbol="AOA"/>
+                           </q4:Step>
+                        </q4:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="12.28" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="100" symbol="AOA"/>
+                  <change value="0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+      </reprintResp>
+   </soap:Body>
+</soap:Envelope>
+
+
+<!-- Terceiro caso de reprint  04040404040    -->
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap:Body>
+      <reprintResp xmlns="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema">
+         <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <serverID xsi:type="GenericDeviceID" id="1" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <reqMsgID dateTime="20220108224359" uniqueNumber="0292" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-08T21:44:22.9039409+00:00</respDateTime>
+         <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</dispHeader>
+         <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</operatorMsg>
+         <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</custMsg>
+         <utility name="ENDE" address="Angola" taxRef="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220108220633" uniqueNumber="0289" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-08T22:06:38.5471043Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="John     Smith" address="Postal, KZN, Durban, Overport, Felix Dlamini Road, Physical, KZN, Durban, Overport, Brickfield" contactNo="Cell:0812345678" accNo="ACC001" locRef="ERF001" utilityType="Electricity" taxReferenceNo="456123" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="572">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="572">
+                     <amt value="8.77" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q1:SaleCredTokenIssue" xmlns:q1="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q1:desc>Credit Token</q1:desc>
+                        <q1:meterDetail krn="1" ti="1" sgc="901047" unitOfMeasurement="kWh" msno="04040404040">
+                           <q1:meterType tt="02"/>
+                        </q1:meterDetail>
+                        <q1:token xsi:type="q1:STS1Token">
+                           <q1:stsCipher>04040404040000000009</q1:stsCipher>
+                        </q1:token>
+                        <q1:units value="0.9" siUnit="kWh"/>
+                        <q1:resource xsi:type="q1:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMÉSTICA SOCIAL -I (BT DSI)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMÉSTICA SOCIAL -I (BT DSI)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q2:StepTariffBreakdown" xmlns:q2="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q2:steps>
+                           <q2:Step>
+                              <q2:units value="0" siUnit="kWh"/>
+                              <q2:rate value="2.46000" symbol="AOA"/>
+                           </q2:Step>
+                           <q2:Step>
+                              <q2:units value="0" siUnit="kWh"/>
+                              <q2:rate value="6.41000" symbol="AOA"/>
+                           </q2:Step>
+                           <q2:Step>
+                              <q2:units value="0.9" siUnit="kWh"/>
+                              <q2:rate value="10.89000" symbol="AOA"/>
+                           </q2:Step>
+                        </q2:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="1.23" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="10.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220108181830" uniqueNumber="0287" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-08T18:18:34.1700425Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="John     Smith" address="Postal, KZN, Durban, Overport, Felix Dlamini Road, Physical, KZN, Durban, Overport, Brickfield" contactNo="Cell:0812345678" accNo="ACC001" locRef="ERF001" utilityType="Electricity" taxReferenceNo="456123" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="570">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="570">
+                     <amt value="87.72" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q3:SaleCredTokenIssue" xmlns:q3="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q3:desc>Credit Token</q3:desc>
+                        <q3:meterDetail krn="1" ti="1" sgc="901047" unitOfMeasurement="kWh" msno="04040404040">
+                           <q3:meterType tt="02"/>
+                        </q3:meterDetail>
+                        <q3:token xsi:type="q3:STS1Token">
+                           <q3:stsCipher>04040404040000000081</q3:stsCipher>
+                        </q3:token>
+                        <q3:units value="8.1" siUnit="kWh"/>
+                        <q3:resource xsi:type="q3:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMÉSTICA SOCIAL -I (BT DSI)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMÉSTICA SOCIAL -I (BT DSI)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q4:StepTariffBreakdown" xmlns:q4="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q4:steps>
+                           <q4:Step>
+                              <q4:units value="0" siUnit="kWh"/>
+                              <q4:rate value="2.46000" symbol="AOA"/>
+                           </q4:Step>
+                           <q4:Step>
+                              <q4:units value="0" siUnit="kWh"/>
+                              <q4:rate value="6.41000" symbol="AOA"/>
+                           </q4:Step>
+                           <q4:Step>
+                              <q4:units value="8.1" siUnit="kWh"/>
+                              <q4:rate value="10.89000" symbol="AOA"/>
+                           </q4:Step>
+                        </q4:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="12.28" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="100.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220108143219" uniqueNumber="0250" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-08T14:32:23.968225Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="John     Smith" address="Postal, KZN, Durban, Overport, Felix Dlamini Road, Physical, KZN, Durban, Overport, Brickfield" contactNo="Cell:0812345678" accNo="ACC001" locRef="ERF001" utilityType="Electricity" taxReferenceNo="456123" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="533">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="533">
+                     <amt value="87.72" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q5:SaleCredTokenIssue" xmlns:q5="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q5:desc>Credit Token</q5:desc>
+                        <q5:meterDetail krn="1" ti="1" sgc="901047" unitOfMeasurement="kWh" msno="04040404040">
+                           <q5:meterType tt="02"/>
+                        </q5:meterDetail>
+                        <q5:token xsi:type="q5:STS1Token">
+                           <q5:stsCipher>04040404040000000081</q5:stsCipher>
+                        </q5:token>
+                        <q5:units value="8.1" siUnit="kWh"/>
+                        <q5:resource xsi:type="q5:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMÉSTICA SOCIAL -I (BT DSI)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMÉSTICA SOCIAL -I (BT DSI)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q6:StepTariffBreakdown" xmlns:q6="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q6:steps>
+                           <q6:Step>
+                              <q6:units value="0" siUnit="kWh"/>
+                              <q6:rate value="2.46000" symbol="AOA"/>
+                           </q6:Step>
+                           <q6:Step>
+                              <q6:units value="0" siUnit="kWh"/>
+                              <q6:rate value="6.41000" symbol="AOA"/>
+                           </q6:Step>
+                           <q6:Step>
+                              <q6:units value="8.1" siUnit="kWh"/>
+                              <q6:rate value="10.89000" symbol="AOA"/>
+                           </q6:Step>
+                        </q6:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="12.28" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="100.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220107225516" uniqueNumber="0234" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-07T22:55:20.5049138Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="John     Smith" address="Postal, KZN, Durban, Overport, Felix Dlamini Road, Physical, KZN, Durban, Overport, Brickfield" contactNo="Cell:0812345678" accNo="ACC001" locRef="ERF001" utilityType="Electricity" taxReferenceNo="456123" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="477">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="477">
+                     <amt value="87.72" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q7:SaleCredTokenIssue" xmlns:q7="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q7:desc>Credit Token</q7:desc>
+                        <q7:meterDetail krn="1" ti="1" sgc="901047" unitOfMeasurement="kWh" msno="04040404040">
+                           <q7:meterType tt="02"/>
+                        </q7:meterDetail>
+                        <q7:token xsi:type="q7:STS1Token">
+                           <q7:stsCipher>04040404040000000081</q7:stsCipher>
+                        </q7:token>
+                        <q7:units value="8.1" siUnit="kWh"/>
+                        <q7:resource xsi:type="q7:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMÉSTICA SOCIAL -I (BT DSI)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMÉSTICA SOCIAL -I (BT DSI)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q8:StepTariffBreakdown" xmlns:q8="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q8:steps>
+                           <q8:Step>
+                              <q8:units value="0" siUnit="kWh"/>
+                              <q8:rate value="2.46000" symbol="AOA"/>
+                           </q8:Step>
+                           <q8:Step>
+                              <q8:units value="0" siUnit="kWh"/>
+                              <q8:rate value="6.41000" symbol="AOA"/>
+                           </q8:Step>
+                           <q8:Step>
+                              <q8:units value="8.1" siUnit="kWh"/>
+                              <q8:rate value="10.89000" symbol="AOA"/>
+                           </q8:Step>
+                        </q8:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="12.28" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="100.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220107213655" uniqueNumber="0230" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-07T21:36:58.36161Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="John     Smith" address="Postal, KZN, Durban, Overport, Felix Dlamini Road, Physical, KZN, Durban, Overport, Brickfield" contactNo="Cell:0812345678" accNo="ACC001" locRef="ERF001" utilityType="Electricity" taxReferenceNo="456123" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="473">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="473">
+                     <amt value="87.72" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q9:SaleCredTokenIssue" xmlns:q9="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q9:desc>Credit Token</q9:desc>
+                        <q9:meterDetail krn="1" ti="1" sgc="901047" unitOfMeasurement="kWh" msno="04040404040">
+                           <q9:meterType tt="02"/>
+                        </q9:meterDetail>
+                        <q9:token xsi:type="q9:STS1Token">
+                           <q9:stsCipher>04040404040000000081</q9:stsCipher>
+                        </q9:token>
+                        <q9:units value="8.1" siUnit="kWh"/>
+                        <q9:resource xsi:type="q9:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMÉSTICA SOCIAL -I (BT DSI)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMÉSTICA SOCIAL -I (BT DSI)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q10:StepTariffBreakdown" xmlns:q10="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q10:steps>
+                           <q10:Step>
+                              <q10:units value="0" siUnit="kWh"/>
+                              <q10:rate value="2.46000" symbol="AOA"/>
+                           </q10:Step>
+                           <q10:Step>
+                              <q10:units value="0" siUnit="kWh"/>
+                              <q10:rate value="6.41000" symbol="AOA"/>
+                           </q10:Step>
+                           <q10:Step>
+                              <q10:units value="8.1" siUnit="kWh"/>
+                              <q10:rate value="10.89000" symbol="AOA"/>
+                           </q10:Step>
+                        </q10:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="12.28" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="100.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+      </reprintResp>
+   </soap:Body>
+</soap:Envelope>
+
+
+<!-- Quarto caso de reprint  04040404461    -->
+
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap:Body>
+      <reprintResp xmlns="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema">
+         <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <serverID xsi:type="GenericDeviceID" id="1" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <reqMsgID dateTime="20220108225308" uniqueNumber="0294" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-08T21:54:22.0632357+00:00</respDateTime>
+         <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</dispHeader>
+         <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</operatorMsg>
+         <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</custMsg>
+         <utility name="ENDE" address="Angola" taxRef="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220108173534" uniqueNumber="0263" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-08T17:35:38.1407804Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="Jane     Smith" address="Physical, Gauteng, Midrand, Main Street" contactNo="" accNo="ACC002" locRef="ERF002" utilityType="Electricity" daysLastPurchase="" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="548">
+               <transactions>
+                  <tx xsi:type="CreditVendTx">
+                     <creditTokenIssue xsi:type="q1:SaleCredTokenIssue" xmlns:q1="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q1:desc>KeyChange Token1</q1:desc>
+                        <q1:meterDetail krn="1" ti="2" sgc="901047" msno="04040404461">
+                           <q1:meterType tt="02"/>
+                        </q1:meterDetail>
+                        <q1:token xsi:type="q1:STS1Token">
+                           <q1:stsCipher>02901047021163537875</q1:stsCipher>
+                        </q1:token>
+                        <q1:units value="0" siUnit="kWh"/>
+                        <q1:resource xsi:type="q1:Electricity"/>
+                     </creditTokenIssue>
+                  </tx>
+                  <tx xsi:type="CreditVendTx">
+                     <creditTokenIssue xsi:type="q2:SaleCredTokenIssue" xmlns:q2="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q2:desc>KeyChange Token2</q2:desc>
+                        <q2:meterDetail krn="1" ti="2" sgc="901047" msno="04040404461">
+                           <q2:meterType tt="02"/>
+                        </q2:meterDetail>
+                        <q2:token xsi:type="q2:STS1Token">
+                           <q2:stsCipher>02901047011163537875</q2:stsCipher>
+                        </q2:token>
+                        <q2:units value="0" siUnit="kWh"/>
+                        <q2:resource xsi:type="q2:Electricity"/>
+                     </creditTokenIssue>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx" receiptNo="548">
+                     <amt value="1000" symbol="AOA"/>
+                     <accDesc>Fixed Transaction Charge</accDesc>
+                     <accNo>FIXEDTX</accNo>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="140" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="1140.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+      </reprintResp>
+   </soap:Body>
+</soap:Envelope>
+
+
+<!-- Quinto caso de reprint  04040404099    -->
+
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap:Body>
+      <reprintResp xmlns="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema">
+         <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <serverID xsi:type="GenericDeviceID" id="1" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <reqMsgID dateTime="20220108225620" uniqueNumber="0295" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-08T21:58:54.3827528+00:00</respDateTime>
+         <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</dispHeader>
+         <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</operatorMsg>
+         <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</custMsg>
+         <utility name="ENDE" address="Angola" taxRef="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220108144755" uniqueNumber="0252" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-08T14:47:59.27415Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="Saul     Goodmate" address="Postal, KZN, Stanger, Dawnview Road, Physical, KZN, Kwa Dukuza, Dawnview street" contactNo="" accNo="ACC010" locRef="ERF010" utilityType="Electricity" taxReferenceNo="789123" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="535">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="535">
+                     <amt value="37.72" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q1:SaleCredTokenIssue" xmlns:q1="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q1:desc>Credit Token</q1:desc>
+                        <q1:meterDetail krn="1" ti="4" sgc="901047" unitOfMeasurement="kWh" msno="04040404099">
+                           <q1:meterType tt="02"/>
+                        </q1:meterDetail>
+                        <q1:token xsi:type="q1:STS1Token">
+                           <q1:stsCipher>04040404099000000035</q1:stsCipher>
+                        </q1:token>
+                        <q1:units value="3.5" siUnit="kWh"/>
+                        <q1:resource xsi:type="q1:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q2:StepTariffBreakdown" xmlns:q2="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q2:steps>
+                           <q2:Step>
+                              <q2:units value="0" siUnit="kWh"/>
+                              <q2:rate value="6.41000" symbol="AOA"/>
+                           </q2:Step>
+                           <q2:Step>
+                              <q2:units value="3.5" siUnit="kWh"/>
+                              <q2:rate value="10.89000" symbol="AOA"/>
+                           </q2:Step>
+                        </q2:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx" receiptNo="535">
+                     <amt value="50" symbol="AOA"/>
+                     <accDesc>Tariff Charge</accDesc>
+                     <accNo>TARCHG</accNo>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="12.28" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="100.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220107231638" uniqueNumber="0240" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-07T23:16:41.9076637Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="Saul     Goodmate" address="Postal, KZN, Stanger, Dawnview Road, Physical, KZN, Kwa Dukuza, Dawnview street" contactNo="" accNo="ACC010" locRef="ERF010" utilityType="Electricity" taxReferenceNo="789123" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="483">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="483">
+                     <amt value="37.72" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q3:SaleCredTokenIssue" xmlns:q3="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q3:desc>Credit Token</q3:desc>
+                        <q3:meterDetail krn="1" ti="4" sgc="901047" unitOfMeasurement="kWh" msno="04040404099">
+                           <q3:meterType tt="02"/>
+                        </q3:meterDetail>
+                        <q3:token xsi:type="q3:STS1Token">
+                           <q3:stsCipher>04040404099000000035</q3:stsCipher>
+                        </q3:token>
+                        <q3:units value="3.5" siUnit="kWh"/>
+                        <q3:resource xsi:type="q3:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q4:StepTariffBreakdown" xmlns:q4="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q4:steps>
+                           <q4:Step>
+                              <q4:units value="0" siUnit="kWh"/>
+                              <q4:rate value="6.41000" symbol="AOA"/>
+                           </q4:Step>
+                           <q4:Step>
+                              <q4:units value="3.5" siUnit="kWh"/>
+                              <q4:rate value="10.89000" symbol="AOA"/>
+                           </q4:Step>
+                        </q4:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx" receiptNo="483">
+                     <amt value="50" symbol="AOA"/>
+                     <accDesc>Tariff Charge</accDesc>
+                     <accNo>TARCHG</accNo>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="12.28" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="100.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220107230829" uniqueNumber="0236" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-07T23:08:32.9446512Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="Saul     Goodmate" address="Postal, KZN, Stanger, Dawnview Road, Physical, KZN, Kwa Dukuza, Dawnview street" contactNo="" accNo="ACC010" locRef="ERF010" utilityType="Electricity" taxReferenceNo="789123" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="479">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="479">
+                     <amt value="37.72" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q5:SaleCredTokenIssue" xmlns:q5="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q5:desc>Credit Token</q5:desc>
+                        <q5:meterDetail krn="1" ti="4" sgc="901047" unitOfMeasurement="kWh" msno="04040404099">
+                           <q5:meterType tt="02"/>
+                        </q5:meterDetail>
+                        <q5:token xsi:type="q5:STS1Token">
+                           <q5:stsCipher>04040404099000000035</q5:stsCipher>
+                        </q5:token>
+                        <q5:units value="3.5" siUnit="kWh"/>
+                        <q5:resource xsi:type="q5:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q6:StepTariffBreakdown" xmlns:q6="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q6:steps>
+                           <q6:Step>
+                              <q6:units value="0" siUnit="kWh"/>
+                              <q6:rate value="6.41000" symbol="AOA"/>
+                           </q6:Step>
+                           <q6:Step>
+                              <q6:units value="3.5" siUnit="kWh"/>
+                              <q6:rate value="10.89000" symbol="AOA"/>
+                           </q6:Step>
+                        </q6:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx" receiptNo="479">
+                     <amt value="50" symbol="AOA"/>
+                     <accDesc>Tariff Charge</accDesc>
+                     <accNo>TARCHG</accNo>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="12.28" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="100.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220107212031" uniqueNumber="0331" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-07T21:20:31.7167509Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="Saul     Goodmate" address="Postal, KZN, Stanger, Dawnview Road, Physical, KZN, Kwa Dukuza, Dawnview street" contactNo="" accNo="ACC010" locRef="ERF010" utilityType="Electricity" taxReferenceNo="789123" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="470">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="470">
+                     <amt value="827.19" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q7:SaleCredTokenIssue" xmlns:q7="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q7:desc>Credit Token</q7:desc>
+                        <q7:meterDetail krn="1" ti="4" sgc="901047" unitOfMeasurement="kWh" msno="04040404099">
+                           <q7:meterType tt="02"/>
+                        </q7:meterDetail>
+                        <q7:token xsi:type="q7:STS1Token">
+                           <q7:stsCipher>04040404099000000760</q7:stsCipher>
+                        </q7:token>
+                        <q7:units value="76" siUnit="kWh"/>
+                        <q7:resource xsi:type="q7:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q8:StepTariffBreakdown" xmlns:q8="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q8:steps>
+                           <q8:Step>
+                              <q8:units value="0" siUnit="kWh"/>
+                              <q8:rate value="6.41000" symbol="AOA"/>
+                           </q8:Step>
+                           <q8:Step>
+                              <q8:units value="76" siUnit="kWh"/>
+                              <q8:rate value="10.89000" symbol="AOA"/>
+                           </q8:Step>
+                        </q8:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx" receiptNo="470">
+                     <amt value="50" symbol="AOA"/>
+                     <accDesc>Tariff Charge</accDesc>
+                     <accNo>TARCHG</accNo>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="122.81" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="1000.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220107212006" uniqueNumber="0329" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-07T21:20:07.4336743Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="Saul     Goodmate" address="Postal, KZN, Stanger, Dawnview Road, Physical, KZN, Kwa Dukuza, Dawnview street" contactNo="" accNo="ACC010" locRef="ERF010" utilityType="Electricity" taxReferenceNo="789123" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="468">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="468">
+                     <amt value="827.19" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q9:SaleCredTokenIssue" xmlns:q9="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q9:desc>Credit Token</q9:desc>
+                        <q9:meterDetail krn="1" ti="4" sgc="901047" unitOfMeasurement="kWh" msno="04040404099">
+                           <q9:meterType tt="02"/>
+                        </q9:meterDetail>
+                        <q9:token xsi:type="q9:STS1Token">
+                           <q9:stsCipher>04040404099000000979</q9:stsCipher>
+                        </q9:token>
+                        <q9:units value="97.9" siUnit="kWh"/>
+                        <q9:resource xsi:type="q9:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q10:StepTariffBreakdown" xmlns:q10="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q10:steps>
+                           <q10:Step>
+                              <q10:units value="53.2" siUnit="kWh"/>
+                              <q10:rate value="6.41000" symbol="AOA"/>
+                           </q10:Step>
+                           <q10:Step>
+                              <q10:units value="44.7" siUnit="kWh"/>
+                              <q10:rate value="10.89000" symbol="AOA"/>
+                           </q10:Step>
+                        </q10:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx" receiptNo="468">
+                     <amt value="50" symbol="AOA"/>
+                     <accDesc>Tariff Charge</accDesc>
+                     <accNo>TARCHG</accNo>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="122.81" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="1000.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+      </reprintResp>
+   </soap:Body>
+</soap:Envelope>
+
+
+<!-- Quinto caso de reprint  04040404107    -->
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap:Body>
+      <reprintResp xmlns="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema">
+         <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <serverID xsi:type="GenericDeviceID" id="1" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <reqMsgID dateTime="20220108230029" uniqueNumber="0296" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-08T22:01:40.6988536+00:00</respDateTime>
+         <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</dispHeader>
+         <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</operatorMsg>
+         <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Transaction Reprint</custMsg>
+         <utility name="ENDE" address="Angola" taxRef="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220108145549" uniqueNumber="0254" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-08T14:55:52.6406809Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="Emma     Grate" address="Postal, KZN, Umdloti, Boardwalk, Physical, KZN, Umdloti, Beach road" contactNo="Cell:0812345678" accNo="ACC011" locRef="ERF011" utilityType="Electricity" taxReferenceNo="123987" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="537">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="537">
+                     <amt value="28.95" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q1:SaleCredTokenIssue" xmlns:q1="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q1:desc>Credit Token</q1:desc>
+                        <q1:meterDetail krn="1" ti="4" sgc="901047" unitOfMeasurement="kWh" msno="04040404107">
+                           <q1:meterType tt="02"/>
+                        </q1:meterDetail>
+                        <q1:token xsi:type="q1:STS1Token">
+                           <q1:stsCipher>04040404107000000046</q1:stsCipher>
+                        </q1:token>
+                        <q1:units value="4.6" siUnit="kWh"/>
+                        <q1:resource xsi:type="q1:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q2:StepTariffBreakdown" xmlns:q2="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q2:steps>
+                           <q2:Step>
+                              <q2:units value="4.6" siUnit="kWh"/>
+                              <q2:rate value="6.41000" symbol="AOA"/>
+                           </q2:Step>
+                           <q2:Step>
+                              <q2:units value="0" siUnit="kWh"/>
+                              <q2:rate value="10.89000" symbol="AOA"/>
+                           </q2:Step>
+                        </q2:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="DebtRecoveryTx" receiptNo="537">
+                     <amt value="10" symbol="AOA"/>
+                     <accDesc>Arrears Debt Collection (Subaccount)</accDesc>
+                     <accNo>ARREARACC011_2</accNo>
+                     <balance value="9890.00000000" symbol="AOA"/>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx" receiptNo="537">
+                     <amt value="50" symbol="AOA"/>
+                     <accDesc>Tariff Charge</accDesc>
+                     <accNo>TARCHG</accNo>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="11.05" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="100.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220107231433" uniqueNumber="0238" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-07T23:14:36.8068521Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="Emma     Grate" address="Postal, KZN, Umdloti, Boardwalk, Physical, KZN, Umdloti, Beach road" contactNo="Cell:0812345678" accNo="ACC011" locRef="ERF011" utilityType="Electricity" taxReferenceNo="123987" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="481">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="481">
+                     <amt value="28.95" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q3:SaleCredTokenIssue" xmlns:q3="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q3:desc>Credit Token</q3:desc>
+                        <q3:meterDetail krn="1" ti="4" sgc="901047" unitOfMeasurement="kWh" msno="04040404107">
+                           <q3:meterType tt="02"/>
+                        </q3:meterDetail>
+                        <q3:token xsi:type="q3:STS1Token">
+                           <q3:stsCipher>04040404107000000046</q3:stsCipher>
+                        </q3:token>
+                        <q3:units value="4.6" siUnit="kWh"/>
+                        <q3:resource xsi:type="q3:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q4:StepTariffBreakdown" xmlns:q4="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q4:steps>
+                           <q4:Step>
+                              <q4:units value="4.6" siUnit="kWh"/>
+                              <q4:rate value="6.41000" symbol="AOA"/>
+                           </q4:Step>
+                           <q4:Step>
+                              <q4:units value="0" siUnit="kWh"/>
+                              <q4:rate value="10.89000" symbol="AOA"/>
+                           </q4:Step>
+                        </q4:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="DebtRecoveryTx" receiptNo="481">
+                     <amt value="10" symbol="AOA"/>
+                     <accDesc>Arrears Debt Collection (Subaccount)</accDesc>
+                     <accNo>ARREARACC011_2</accNo>
+                     <balance value="9900.00000000" symbol="AOA"/>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx" receiptNo="481">
+                     <amt value="50" symbol="AOA"/>
+                     <accDesc>Tariff Charge</accDesc>
+                     <accNo>TARCHG</accNo>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="11.05" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="100.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220107223248" uniqueNumber="0232" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-07T22:32:52.851896Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="Emma     Grate" address="Postal, KZN, Umdloti, Boardwalk, Physical, KZN, Umdloti, Beach road" contactNo="Cell:0812345678" accNo="ACC011" locRef="ERF011" utilityType="Electricity" taxReferenceNo="123987" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="475">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="475">
+                     <amt value="28.95" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q5:SaleCredTokenIssue" xmlns:q5="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q5:desc>Credit Token</q5:desc>
+                        <q5:meterDetail krn="1" ti="4" sgc="901047" unitOfMeasurement="kWh" msno="04040404107">
+                           <q5:meterType tt="02"/>
+                        </q5:meterDetail>
+                        <q5:token xsi:type="q5:STS1Token">
+                           <q5:stsCipher>04040404107000000046</q5:stsCipher>
+                        </q5:token>
+                        <q5:units value="4.6" siUnit="kWh"/>
+                        <q5:resource xsi:type="q5:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q6:StepTariffBreakdown" xmlns:q6="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q6:steps>
+                           <q6:Step>
+                              <q6:units value="4.6" siUnit="kWh"/>
+                              <q6:rate value="6.41000" symbol="AOA"/>
+                           </q6:Step>
+                           <q6:Step>
+                              <q6:units value="0" siUnit="kWh"/>
+                              <q6:rate value="10.89000" symbol="AOA"/>
+                           </q6:Step>
+                        </q6:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="DebtRecoveryTx" receiptNo="475">
+                     <amt value="10" symbol="AOA"/>
+                     <accDesc>Arrears Debt Collection (Subaccount)</accDesc>
+                     <accNo>ARREARACC011_2</accNo>
+                     <balance value="9910.00000000" symbol="AOA"/>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx" receiptNo="475">
+                     <amt value="50" symbol="AOA"/>
+                     <accDesc>Tariff Charge</accDesc>
+                     <accNo>TARCHG</accNo>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="11.05" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="100.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220107193211" uniqueNumber="0325" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-07T19:32:14.3292492Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="Emma     Grate" address="Postal, KZN, Umdloti, Boardwalk, Physical, KZN, Umdloti, Beach road" contactNo="Cell:0812345678" accNo="ACC011" locRef="ERF011" utilityType="Electricity" taxReferenceNo="123987" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="464">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="464">
+                     <amt value="818.42" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q7:SaleCredTokenIssue" xmlns:q7="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q7:desc>Credit Token</q7:desc>
+                        <q7:meterDetail krn="1" ti="4" sgc="901047" unitOfMeasurement="kWh" msno="04040404107">
+                           <q7:meterType tt="02"/>
+                        </q7:meterDetail>
+                        <q7:token xsi:type="q7:STS1Token">
+                           <q7:stsCipher>04040404107000001277</q7:stsCipher>
+                        </q7:token>
+                        <q7:units value="127.7" siUnit="kWh"/>
+                        <q7:resource xsi:type="q7:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q8:StepTariffBreakdown" xmlns:q8="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q8:steps>
+                           <q8:Step>
+                              <q8:units value="127.7" siUnit="kWh"/>
+                              <q8:rate value="6.41000" symbol="AOA"/>
+                           </q8:Step>
+                           <q8:Step>
+                              <q8:units value="0" siUnit="kWh"/>
+                              <q8:rate value="10.89000" symbol="AOA"/>
+                           </q8:Step>
+                        </q8:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="DebtRecoveryTx" receiptNo="464">
+                     <amt value="10" symbol="AOA"/>
+                     <accDesc>Arrears Debt Collection (Subaccount)</accDesc>
+                     <accNo>ARREARACC011_2</accNo>
+                     <balance value="9920.00000000" symbol="AOA"/>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx" receiptNo="464">
+                     <amt value="50" symbol="AOA"/>
+                     <accDesc>Tariff Charge</accDesc>
+                     <accNo>TARCHG</accNo>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="121.58" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="1000.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+         <reprint xsi:type="CreditVendResp">
+            <clientID xsi:type="EANDeviceID" ean="PAGASO" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <serverID xsi:type="GenericDeviceID" id="4" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <terminalID xsi:type="EANDeviceID" ean="0000000000003" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <reqMsgID dateTime="20220107135942" uniqueNumber="0220" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-07T13:59:46.2387345Z</respDateTime>
+            <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+            <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+            <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+            <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+               <availCredit value="0" symbol="AOA"/>
+            </clientStatus>
+            <custVendDetail name="Emma     Grate" address="Postal, KZN, Umdloti, Boardwalk, Physical, KZN, Umdloti, Beach road" contactNo="Cell:0812345678" accNo="ACC011" locRef="ERF011" utilityType="Electricity" taxReferenceNo="123987" daysLastPurchase="0" xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema"/>
+            <creditVendReceipt receiptNo="454">
+               <transactions>
+                  <tx xsi:type="CreditVendTx" receiptNo="454">
+                     <amt value="28.95" symbol="AOA"/>
+                     <creditTokenIssue xsi:type="q9:SaleCredTokenIssue" xmlns:q9="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+                        <q9:desc>Credit Token</q9:desc>
+                        <q9:meterDetail krn="1" ti="4" sgc="901047" unitOfMeasurement="kWh" msno="04040404107">
+                           <q9:meterType tt="02"/>
+                        </q9:meterDetail>
+                        <q9:token xsi:type="q9:STS1Token">
+                           <q9:stsCipher>04040404107000000046</q9:stsCipher>
+                        </q9:token>
+                        <q9:units value="4.6" siUnit="kWh"/>
+                        <q9:resource xsi:type="q9:Electricity"/>
+                     </creditTokenIssue>
+                     <tariff>
+                        <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</name>
+                        <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT DOMESTICA TRIFASICO (BT DT)</desc>
+                     </tariff>
+                     <tariffBreakdown xsi:type="q10:StepTariffBreakdown" xmlns:q10="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema">
+                        <q10:steps>
+                           <q10:Step>
+                              <q10:units value="4.6" siUnit="kWh"/>
+                              <q10:rate value="6.41000" symbol="AOA"/>
+                           </q10:Step>
+                           <q10:Step>
+                              <q10:units value="0" siUnit="kWh"/>
+                              <q10:rate value="10.89000" symbol="AOA"/>
+                           </q10:Step>
+                        </q10:steps>
+                     </tariffBreakdown>
+                  </tx>
+                  <tx xsi:type="DebtRecoveryTx" receiptNo="454">
+                     <amt value="10" symbol="AOA"/>
+                     <accDesc>Arrears Debt Collection (Subaccount)</accDesc>
+                     <accNo>ARREARACC011_2</accNo>
+                     <balance value="9930.00000000" symbol="AOA"/>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx" receiptNo="454">
+                     <amt value="50" symbol="AOA"/>
+                     <accDesc>Tariff Charge</accDesc>
+                     <accNo>TARCHG</accNo>
+                  </tx>
+                  <tx xsi:type="ServiceChrgTx">
+                     <amt value="11.05" symbol="AOA"/>
+                     <accDesc>VAT</accDesc>
+                  </tx>
+                  <tenderAmt value="100.0" symbol="AOA"/>
+                  <change value="0.0" symbol="AOA"/>
+               </transactions>
+               <MonthlyTotals xsi:nil="true"/>
+            </creditVendReceipt>
+         </reprint>
+      </reprintResp>
+   </soap:Body>
+</soap:Envelope>
+
+
