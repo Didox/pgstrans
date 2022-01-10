@@ -157,7 +157,7 @@ class Ende
     "
 
     request = fazer_request(url_service, body, uniq_number)
-    return request.body
+    return [informacoes_parse(request.body, uniq_number), request.body]
   end
 
   def self.last_advice(date_time, unique_number_enviado)
@@ -398,14 +398,21 @@ class Ende
       }
     end
 
-    tx = Nokogiri::XML(body.scan(/<tx xsi:type=\"CreditVendTx\".*?<\/tx>/).first) rescue nil
-    if tx.present?
-      symbol = tx.children.first.xpath("//amt").first.attributes["symbol"].value rescue ""
-      value = tx.children.first.xpath("//amt").first.attributes["value"].value rescue ""
-      @info["CreditVendTx"] = {
-        "symbol" => symbol,
-        "value" => value,
-      }
+    creditVendTx = body.scan(/<tx xsi:type=\"CreditVendTx\".*?<\/tx>/)
+    if creditVendTx.present?
+      @info["CreditVendTx"] = []
+      creditVendTx.each do |xml|
+        tx = Nokogiri::XML(xml) rescue nil
+
+        symbol = tx.children.first.xpath("//amt").first.attributes["symbol"].value rescue ""
+        value = tx.children.first.xpath("//amt").first.attributes["value"].value rescue ""
+        stsCipher = xml.downcase.scan(/<q1:stscipher.*?<\/q1:stscipher>/).first.gsub(/<[^>]*>/, "") rescue ""
+        @info["CreditVendTx"] << {
+          "symbol" => symbol,
+          "value" => value,
+          "stsCipher" => stsCipher
+        }
+      end
     end
 
     tx = Nokogiri::XML(body.scan(/<tx xsi:type=\"DebtRecoveryTx\".*?<\/tx>/).first) rescue nil

@@ -22,7 +22,7 @@ class EndeController < ApplicationController
 
   def reprint
     if params[:meter_number].present?
-      @info = Ende.reprint(params[:meter_number])
+      @info, @xml = Ende.reprint(params[:meter_number])
     end
     return [true, nil]
   rescue Exception => e

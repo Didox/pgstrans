@@ -6,8 +6,4 @@ module ApplicationHelper
   def formata_numero_duas_casas(numero)
     number_to_currency(numero.to_f, :precision => 2).downcase.gsub(/kz|\./,"").gsub(",",".")
   end
-
-  def akz_parse(symbol)
-    return Ende.akz_parse(symbol)
-  end
 end

@@ -54,7 +54,7 @@
       
       <% if @venda.partner.id == Partner.ende.id %>
         <% info = Ende.informacoes_parse(@venda.response_get, EndeUniqNumber.find(@venda.request_id)) %>
-        <%= render "/ende/venda_recibo", info: info %>
+        <%= render "/ende/venda_recibo", info: info, title: "Venda de Crédito" %>
       <% end %>
 
       <% if @adm.id == Usuario::ROOT %>

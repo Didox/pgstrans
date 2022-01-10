@@ -5,7 +5,7 @@
         <div class="col-md-12" style="margin-bottom: 20px; font-weight: bold; text-align: center">
           <ul style="list-style-type: none;">
             <li><h2>ENDE</h2></li>
-            <li>Recibo Duplicado</li>
+            <li><%= title %></li>
             <li>Empresa Nacional de</li>
             <li>Distribuição de Electricidade</li>
           </ul>
@@ -20,124 +20,142 @@
             <li>Data:</b> <%= info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
           </ul>
         </div>
-        <div class="col-md-12" style="margin: 0px; text-align: left">
-          <ul style="list-style-type: none">
-            <li><b>Nro. Único Pagasó:</b> <%= info["unique_number"] %></li>
-            <li><b>Cliente:</b> <%= info["name"] %></li>
-            <li><b>NIF:</b> <%= info["taxReferenceNo"] %></li>
-            <li><b>Endereço de Cliente:</b> <%= info["address"] %></li>
-            <hr>
-            <li><b>N. de Conta:</b> <%= info["accNo"] %></li>
-            <li><b>N. de Contador:</b> <%= info["msno"] %></li>
-            <li><b>Tarifa:</b> <%= info["tariff"] %></li>
-            <li><b>Endereço de Local de Consumo:</b> <%= "#{info["address"]} #{info["locRef"]}" %></li>
-          </ul>
-        </div>
-        <% if info["stsCipher"].present? %>
+        <% if info["erro"].present? %>
           <div class="col-md-12" style="margin: 0px; text-align: left">
-            <ul style="list-style-type: none">
+            <ul style="list-style-type: none;">
               <li>
-                <hr>
-                <h2>Inserir este código no Contador</h2>
-              </li>
-              <li style="letter-spacing: 3px">
-                <h2><%= info["stsCipher"] %></h2>
+                <h1><%= info["erro"] %></h1>
               </li>
             </ul>
           </div>
-        <% end %>
-        <% if info["DebtRecoveryTx"].present? && (info["DebtRecoveryTx"]["accDesc"].present? || info["DebtRecoveryTx"]["amt"]["value"].present? || info["DebtRecoveryTx"]["balance"]["value"].present?) %>
+        <% else %>
           <div class="col-md-12" style="margin: 0px; text-align: left">
             <ul style="list-style-type: none">
-              <li>
-                <hr>
-                <b>Débitos</b>
-              </li>
-              <% if info["DebtRecoveryTx"]["accDesc"].present? %>
-                <li><b><%= info["DebtRecoveryTx"]["accDesc"] %></b></li>
-              <% end %>
-              <% if info["DebtRecoveryTx"]["amt"]["value"].present? %>
-                <li><% if info["DebtRecoveryTx"]["accNo"].present? %><b><%= info["DebtRecoveryTx"]["accNo"] %>:</b><% end %> <%= number_to_currency(info["DebtRecoveryTx"]["amt"]["value"], :precision => 2, :unit => akz_parse(info["DebtRecoveryTx"]["amt"]["symbol"])) %></li>
-              <% end %>
-              <% if info["DebtRecoveryTx"]["balance"]["value"].present? %>
-                <li><b>Balance:</b> <%= number_to_currency(info["DebtRecoveryTx"]["balance"]["value"], :precision => 2, :unit => akz_parse(info["DebtRecoveryTx"]["balance"]["symbol"])) %></li>
-              <% end %>
-            </li>
-          </div>
-        <% end %>
-        <% if info["creditTokenIssue"].present? %>
-          <div class="col-md-12" style="margin: 0px; text-align: left"> 
-            <ul style="list-style-type: none">
-              <li>
-                <hr>
-                <b>Energia:</b> <%= info["creditTokenIssue"]["units"]["value"] %> <%= info["creditTokenIssue"]["units"]["siUnit"] %>
-              </li>
+              <li><b>Nro. Único Pagasó:</b> <%= info["unique_number"] %></li>
+              <li><b>Cliente:</b> <%= info["name"] %></li>
+              <li><b>NIF:</b> <%= info["taxReferenceNo"] %></li>
+              <li><b>Endereço de Cliente:</b> <%= info["address"] %></li>
               <hr>
+              <li><b>N. de Conta:</b> <%= info["accNo"] %></li>
+              <li><b>N. de Contador:</b> <%= info["msno"] %></li>
+              <li><b>Tarifa:</b> <%= info["tariff"] %></li>
+              <li><b>Endereço de Local de Consumo:</b> <%= "#{info["address"]} #{info["locRef"]}" %></li>
             </ul>
           </div>
-        <% end %>
-        <% if info["tariffBreakdown"].present? %>
-          <div class="col-md-12" style="margin: 0px; text-align: left"> 
-            <ul style="list-style-type: none">
-              <li><b>Preço Unitário:</b><br>
-              <% info["tariffBreakdown"].each do |tariff_breakdown| %> 
-                <% if tariff_breakdown["value"]["siUnit"].present? %>
-                  <%= tariff_breakdown["value"]["value"] %> 
-                  <%= tariff_breakdown["value"]["siUnit"] %>
+          <% if info["stsCipher"].present? %>
+            <div class="col-md-12" style="margin: 0px; text-align: left">
+              <ul style="list-style-type: none">
+                <li>
+                  <hr>
+                  <h2>Inserir este código no Contador</h2>
+                </li>
+                <li style="letter-spacing: 3px">
+                  <% if info["CreditVendTx"].present? %>
+                    <% info["CreditVendTx"].each do |creditVendTx| %>
+                      <h2><%= info["stsCipher"] %></h2>
+                    <% end %>
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+          <% end %>
+          <% if info["DebtRecoveryTx"].present? && (info["DebtRecoveryTx"]["accDesc"].present? || info["DebtRecoveryTx"]["amt"]["value"].present? || info["DebtRecoveryTx"]["balance"]["value"].present?) %>
+            <div class="col-md-12" style="margin: 0px; text-align: left">
+              <ul style="list-style-type: none">
+                <li>
+                  <hr>
+                  <b>Débitos</b>
+                </li>
+                <% if info["DebtRecoveryTx"]["accDesc"].present? %>
+                  <li><b><%= info["DebtRecoveryTx"]["accDesc"] %></b></li>
                 <% end %>
-                <% if tariff_breakdown["value"]["symbol"].present? %>
-                  @                      
-                  <%= number_to_currency(tariff_breakdown["value"]["value"], :precision => 2, :unit => akz_parse(tariff_breakdown["value"]["symbol"])) %><br>
+                <% if info["DebtRecoveryTx"]["amt"]["value"].present? %>
+                  <li><% if info["DebtRecoveryTx"]["accNo"].present? %><b><%= info["DebtRecoveryTx"]["accNo"] %>:</b><% end %> <%= number_to_currency(info["DebtRecoveryTx"]["amt"]["value"], :precision => 2, :unit => Ende.akz_parse(info["DebtRecoveryTx"]["amt"]["symbol"])) %></li>
                 <% end %>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-        <div class="col-md-12" style="margin: 0px; text-align: left">
-          <ul style="list-style-type: none">
-            <% if info["CreditVendTx"].present? %>
-              <li>
-                <hr>
-                <b>Custo de Energia:</b> <%= number_to_currency(info["CreditVendTx"]["value"], :precision => 2, :unit => akz_parse(info["CreditVendTx"]["symbol"])) %>
-                <hr>
+                <% if info["DebtRecoveryTx"]["balance"]["value"].present? %>
+                  <li><b>Balance:</b> <%= number_to_currency(info["DebtRecoveryTx"]["balance"]["value"], :precision => 2, :unit => Ende.akz_parse(info["DebtRecoveryTx"]["balance"]["symbol"])) %></li>
+                <% end %>
               </li>
-            <% end %>
-
-            <% if info["ServiceChrgTx"].present? %>
-              <% info["ServiceChrgTx"].each do |serviceChrgTx| %>
-                <% if serviceChrgTx["accDesc"].present? %>
-                  <li><b><%= Ende.traducao(serviceChrgTx["accDesc"]) %></b>
-                <% end %>
-                <% if serviceChrgTx["amt"]["value"].present? %>
-                  <% if serviceChrgTx["accNo"].present? %><b><%= serviceChrgTx["accNo"] %>:</b><% end %> <%= number_to_currency(serviceChrgTx["amt"]["value"], :precision => 2, :unit => akz_parse(serviceChrgTx["amt"]["symbol"])) %></li>
-                <% end %>
-                <% if serviceChrgTx["balance"]["value"].present? %>
-                  <li><b>Balance:</b> <%= number_to_currency(serviceChrgTx["balance"]["value"], :precision => 2, :unit => akz_parse(serviceChrgTx["balance"]["symbol"])) %></li>
-                <% end %>
+            </div>
+          <% end %>
+          <% if info["creditTokenIssue"].present? %>
+            <div class="col-md-12" style="margin: 0px; text-align: left"> 
+              <ul style="list-style-type: none">
+                <li>
+                  <hr>
+                  <b>Energia:</b> <%= info["creditTokenIssue"]["units"]["value"] %> <%= info["creditTokenIssue"]["units"]["siUnit"] %>
+                </li>
                 <hr>
+              </ul>
+            </div>
+          <% end %>
+          <% if info["tariffBreakdown"].present? %>
+            <div class="col-md-12" style="margin: 0px; text-align: left"> 
+              <ul style="list-style-type: none">
+                <li><b>Preço Unitário:</b><br>
+                <% info["tariffBreakdown"].each do |tariff_breakdown| %> 
+                  <% if tariff_breakdown["value"]["siUnit"].present? %>
+                    <%= tariff_breakdown["value"]["value"] %> 
+                    <%= tariff_breakdown["value"]["siUnit"] %>
+                  <% end %>
+                  <% if tariff_breakdown["value"]["symbol"].present? %>
+                    @                      
+                    <%= number_to_currency(tariff_breakdown["value"]["value"], :precision => 2, :unit => Ende.akz_parse(tariff_breakdown["value"]["symbol"])) %><br>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="col-md-12" style="margin: 0px; text-align: left">
+            <ul style="list-style-type: none">
+              <% if info["CreditVendTx"].present? %>
+                <% info["CreditVendTx"].each do |creditVendTx| %>
+                  <% if creditVendTx["value"].present? %>
+                  <li>
+                    <hr>
+                    <b>Custo de Energia:</b> <%= number_to_currency(creditVendTx["value"], :precision => 2, :unit => Ende.akz_parse(creditVendTx["symbol"])) %>
+                    <hr>
+                  </li>
+                  <% end %>
+                <% end %>
               <% end %>
-            <% end %>
-            
-            <% if info["tenderAmt"].present? %>
+
+              <% if info["ServiceChrgTx"].present? %>
+                <% info["ServiceChrgTx"].each do |serviceChrgTx| %>
+                  <% if serviceChrgTx["accDesc"].present? %>
+                    <li><b><%= Ende.traducao(serviceChrgTx["accDesc"]) %></b>
+                  <% end %>
+                  <% if serviceChrgTx["amt"]["value"].present? %>
+                    <% if serviceChrgTx["accNo"].present? %><b><%= serviceChrgTx["accNo"] %>:</b><% end %> <%= number_to_currency(serviceChrgTx["amt"]["value"], :precision => 2, :unit => Ende.akz_parse(serviceChrgTx["amt"]["symbol"])) %></li>
+                  <% end %>
+                  <% if serviceChrgTx["balance"]["value"].present? %>
+                    <li><b>Balance:</b> <%= number_to_currency(serviceChrgTx["balance"]["value"], :precision => 2, :unit => Ende.akz_parse(serviceChrgTx["balance"]["symbol"])) %></li>
+                  <% end %>
+                  <hr>
+                <% end %>
+              <% end %>
+              
+              <% if info["tenderAmt"].present? %>
+                <li>
+                  <b>T o t a l :</b> <%= number_to_currency(info["tenderAmt"]["value"], :precision => 2, :unit => Ende.akz_parse(info["tenderAmt"]["symbol"])) %>
+                  <hr>
+                </li> 
+              <% end %>
+
               <li>
-                <b>T o t a l :</b> <%= number_to_currency(info["tenderAmt"]["value"], :precision => 2, :unit => akz_parse(info["tenderAmt"]["symbol"])) %>
-                <hr>
+                <% if info["receiptNo"].present? %>
+                  <b>Número de Recibo:</b> <%= info["receiptNo"] %>
+                  <hr>
+                <% end %>
+                <div><b>Operador:</b> <img style="width: 24px;" src="<%= asset_path('favicon.png') %>"> PAGASÓ</div>
+                <div><b>ID:</b> <%= (info["venda"]&.usuario || @adm).login %></div>
+                <% if info["sgc"].present? %>
+                  <div><b>SGC/Índice de Tarifa:</b> <%= "#{info["sgc"]}/#{info["ti"]}" %></div>
+                <% end %>
               </li> 
-            <% end %>
-
-            <li>
-              <% if info["receiptNo"].present? %>
-                <b>Número de Recibo:</b> <%= info["receiptNo"] %>
-                <hr>
-              <% end %>
-              <div><b>Operador:</b> <img style="width: 24px;" src="<%= asset_path('favicon.png') %>"> PAGASÓ</div>
-              <div><b>ID:</b> <%= (info["venda"]&.usuario || @adm).login %></div>
-              <% if info["sgc"].present? %>
-                <div><b>SGC/Índice de Tarifa:</b> <%= "#{info["sgc"]}/#{info["ti"]}" %></div>
-              <% end %>
-            </li> 
-          </ul>            
-        </div>
+            </ul>            
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
