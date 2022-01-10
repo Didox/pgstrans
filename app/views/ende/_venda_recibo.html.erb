@@ -35,8 +35,7 @@
               <li><b>Cliente:</b> <%= info["name"] %></li>
               <li><b>NIF:</b> <%= info["taxReferenceNo"] %></li>
               <li><b>Endereço de Cliente:</b> <%= info["address"] %></li>
-              <hr>
-              <li><b>N. de Conta:</b> <%= info["accNo"] %></li>
+              <li><hr><b>N. de Conta:</b> <%= info["accNo"] %></li>
               <li><b>N. de Contador:</b> <%= info["msno"] %></li>
               <li><b>Tarifa:</b> <%= info["tariff"] %></li>
               <li><b>Endereço de Local de Consumo:</b> <%= "#{info["address"]} #{info["locRef"]}" %></li>
@@ -84,8 +83,8 @@
                 <li>
                   <hr>
                   <b>Energia:</b> <%= info["creditTokenIssue"]["units"]["value"] %> <%= info["creditTokenIssue"]["units"]["siUnit"] %>
+                  <hr>
                 </li>
-                <hr>
               </ul>
             </div>
           <% end %>
@@ -103,6 +102,7 @@
                     <%= number_to_currency(tariff_breakdown["value"]["value"], :precision => 2, :unit => Ende.akz_parse(tariff_breakdown["value"]["symbol"])) %><br>
                   <% end %>
                 <% end %>
+                </li>
               </ul>
             </div>
           <% end %>
@@ -131,7 +131,7 @@
                   <% if serviceChrgTx["balance"]["value"].present? %>
                     <li><b>Balance:</b> <%= number_to_currency(serviceChrgTx["balance"]["value"], :precision => 2, :unit => Ende.akz_parse(serviceChrgTx["balance"]["symbol"])) %></li>
                   <% end %>
-                  <hr>
+                  <li><hr></li>
                 <% end %>
               <% end %>
               
