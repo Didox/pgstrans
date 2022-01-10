@@ -345,6 +345,8 @@ class Ende
     @info["locRef"] = cliente_xml["locRef"] rescue nil
     @info["utilityType"] = cliente_xml["utilityType"] rescue nil
     @info["taxReferenceNo"] = cliente_xml["taxReferenceNo"] rescue nil
+    @info["minVendAmt"] = cliente_xml(/minVendAmt=\".*?\"/).first.remove(/minVendAmt=\"|\"/) rescue nil
+    @info["maxVendAmt"] = cliente_xml(/maxVendAmt=\".*?\"/).first.remove(/maxVendAmt=\"|\"/) rescue nil
     
     @info["accountName"] = body.to_s.downcase.scan(/<accountname.*?<\/accountname>/).first.gsub(/<[^>]*>/, "") rescue ""
     @info["stsCipher"] = body.to_s.downcase.scan(/<q1:stscipher.*?<\/q1:stscipher>/).first.gsub(/<[^>]*>/, "") rescue ""

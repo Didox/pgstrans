@@ -57,7 +57,7 @@
                 <br>
                 <div style="font-weight: bold;font-size: 15px;">DADOS DA CONTA</div>
                   <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-                    <li>Cliente com dédito ou taxa de serviço pendente</li>
+                    <li>Cliente com débito ou taxa de serviço pendente</li>
                     <% if @info.present? && @info["minVendAmt"].present? && @info["minVendAmt"]["value"].to_i > 0 %>
                       <li><b>Valor: </b><%= number_to_currency(@info["minVendAmt"]["value"], :unit => "") %> - <%= @info["minVendAmt"]["symbol"] %></li>
                       <li><hr></li>
