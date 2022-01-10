@@ -83,6 +83,14 @@
                 Venda Teste / Simulação
               </a>
             </li>
+            <% if @adm.id == Usuario::ROOT %>
+              <li>
+                <hr>
+                <a href="/ende/confirmar-cliente">
+                  Confirmar Cliente
+                </a>
+              </li>
+            <% end %>
             <li>
               <hr>
               <a href="javascript:pgstrans.displayRecargaEnde()">
