@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <creditVendResp xmlns="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema">
+         <clientID xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="EANDeviceID" ean="PAGASO" />
+         <serverID xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="GenericDeviceID" id="1" />
+         <terminalID xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="EANDeviceID" ean="0000000000003" />
+         <reqMsgID xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" dateTime="20220110115024" uniqueNumber="0417" />
+         <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-10T10:50:26.6140748+00:00</respDateTime>
+         <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</dispHeader>
+         <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase Successful</operatorMsg>
+         <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Credit Purchase</custMsg>
+         <utility xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" name="ENDE" address="Angola" taxRef="0" />
+         <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+            <availCredit value="99875538.95" symbol="AOA" />
+            <batchStatus banking="open" sales="open" shift="open" />
+         </clientStatus>
+         <vendor xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" />
+         <custVendDetail xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" name="Simon Sais" address="Physical, KZN, La Mercy, Mzimkulu drive" contactNo="" accNo="ACC008" locRef="ERF008" utilityType="Electricity" daysLastPurchase="1" />
+         <creditVendReceipt receiptNo="626">
+            <transactions>
+               <tx xsi:type="CreditVendTx">
+                  <creditTokenIssue xmlns:q1="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="q1:SaleCredTokenIssue">
+                     <q1:desc>KeyChange Token1</q1:desc>
+                     <q1:meterDetail krn="1" ti="1" sgc="901047" msno="04040404198">
+                        <q1:meterType tt="02" />
+                     </q1:meterDetail>
+                     <q1:token xsi:type="q1:STS1Token">
+                        <q1:stsCipher>02901047011105026251</q1:stsCipher>
+                     </q1:token>
+                     <q1:units value="0" siUnit="kWh" />
+                     <q1:resource xsi:type="q1:Electricity" />
+                  </creditTokenIssue>
+               </tx>
+               <tx xsi:type="CreditVendTx">
+                  <creditTokenIssue xmlns:q2="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="q2:SaleCredTokenIssue">
+                     <q2:desc>KeyChange Token2</q2:desc>
+                     <q2:meterDetail krn="1" ti="1" sgc="901047" msno="04040404198">
+                        <q2:meterType tt="02" />
+                     </q2:meterDetail>
+                     <q2:token xsi:type="q2:STS1Token">
+                        <q2:stsCipher>02901047021105026251</q2:stsCipher>
+                     </q2:token>
+                     <q2:units value="0" siUnit="kWh" />
+                     <q2:resource xsi:type="q2:Electricity" />
+                  </creditTokenIssue>
+               </tx>
+               <tx xsi:type="CreditVendTx" receiptNo="626">
+                  <amt value="877.19" symbol="AOA" />
+                  <creditTokenIssue xmlns:q3="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="q3:SaleCredTokenIssue">
+                     <q3:desc>Credit Token</q3:desc>
+                     <q3:meterDetail krn="1" ti="1" sgc="901047" unitOfMeasurement="kWh" msno="04040404198">
+                        <q3:meterType tt="02" />
+                     </q3:meterDetail>
+                     <q3:token xsi:type="q3:STS1Token">
+                        <q3:stsCipher>04040404198000000596</q3:stsCipher>
+                     </q3:token>
+                     <q3:units value="59.6" siUnit="kWh" />
+                     <q3:resource xsi:type="q3:Electricity" />
+                  </creditTokenIssue>
+                  <tariff>
+                     <name xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT COMERCIO E SERVIÇOS (BT CS)</name>
+                     <desc xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">BT COMERCIO E SERVIÇOS (BT CS)</desc>
+                  </tariff>
+                  <tariffBreakdown xmlns:q4="http://www.conlog.co.za/xmlvend/base-ext/2.1.1/schema" xsi:type="q4:StepTariffBreakdown">
+                     <q4:steps>
+                        <q4:Step>
+                           <q4:units value="59.6" siUnit="kWh" />
+                           <q4:rate value="14.74000" symbol="AOA" />
+                        </q4:Step>
+                     </q4:steps>
+                  </tariffBreakdown>
+               </tx>
+               <tx xsi:type="ServiceChrgTx">
+                  <amt value="122.81" symbol="AOA" />
+                  <accDesc>VAT</accDesc>
+               </tx>
+               <tenderAmt value="1000.0" symbol="AOA" />
+               <change value="0.0" symbol="AOA" />
+            </transactions>
+            <MonthlyTotals xsi:nil="true" />
+         </creditVendReceipt>
+      </creditVendResp>
+   </soap:Body>
+</soap:Envelope>
