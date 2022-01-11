@@ -41,6 +41,26 @@
               <li><b>Endereço de Local de Consumo:</b> <%= "#{info["address"]} #{info["locRef"]}" %></li>
             </ul>
           </div>
+
+          <% if venda.present? && venda.error_message.present? %>
+            <div class="col-md-12" style="text-align: left">
+              <ul style="list-style-type: none;">
+                <li>
+                  <h1><%= venda.error_message %></h1>
+                </li>
+                <% if venda.error_message.downcase.include?("com débito") %>
+                  <li>
+                    <h1>
+                      <%= link_to "/ende/pagamento-de-conta?numero_conta=#{info["accNo"]}", class: 'btn btn-success', style: "width: 100%;text-align: center;" do %>
+                        Pagar débito
+                      <% end %>
+                    </h1>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
           <% if info["stsCipher"].present? %>
             <div class="col-md-12" style="text-align: left">
               <ul style="list-style-type: none">

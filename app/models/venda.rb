@@ -345,12 +345,12 @@ class Venda < ApplicationRecord
 
     venda.request_send = xml_enviado
     venda.response_get = xml_recebido
-    venda.error_message = "Venda não autorizada" 
     venda.save!
 
-    return PagasoEndeError.new(venda.error_message) if info.blank?
-
-    if info["erro"].present?
+    if info.blank?
+      venda.error_message = "Venda não autorizada" 
+      return PagasoEndeError.new(venda.error_message) 
+    elsif info["erro"].present?
       venda.error_message = "Medidor não encontrado (#{info["erro"]}) - Data envio: #{info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S")}"
     elsif info["minVendAmt"].present? && info["minVendAmt"]["value"].to_i > 0
       venda.error_message = "Valor Máximo de Compra: #{Ende.akz_parse(info["minVendAmt"]["symbol"])} #{info["minVendAmt"]["value"]} - Data envio: #{info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S")}"

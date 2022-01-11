@@ -72,7 +72,7 @@
             <% end %>
           </div>
         <% elsif @info.present? %>
-          <%= render "/ende/venda_recibo", info: @info, title: "Venda de Teste" %>
+          <%= render "/ende/venda_recibo", info: @info, title: "Venda de Teste", venda: nil %>
           <br>
           <br>
           <% if @adm.id == Usuario::ROOT %>

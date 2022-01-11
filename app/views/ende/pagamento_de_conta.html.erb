@@ -48,7 +48,7 @@
             <% end %>
           </div>
           <% elsif @info.present? %>
-            <%= render "/ende/venda_recibo", info: @info, title: "Pagamento de Conta" %>
+            <%= render "/ende/venda_recibo", info: @info, title: "Pagamento de Conta", venda: nil %>
             <% if @adm.id == Usuario::ROOT %>
               <br>
               <%= raw Ende.children_text(Nokogiri::XML(@info)) %>
