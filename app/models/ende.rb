@@ -186,6 +186,41 @@ class Ende
     return request.body
   end
 
+  def self.pagamento_de_conta(numero_conta, valor_pagamento)
+    parceiro,parametro,url_service = parametros
+
+    uniq_number = EndeUniqNumber.create(data: Time.zone.now)
+
+    body = "
+    <soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">
+    <soap:Body>
+     <payAccReq xmlns=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\">
+      <clientID xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
+      <terminalID xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
+      <msgID dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
+      <authCred xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
+      <opName>#{parametro.operator_id}</opName>
+      <password>#{parametro.password}</password>
+      </authCred>
+      <reqAmt value=\"#{valor_pagamento}\" symbol=\"AOA\"/>
+      <payType xmlns:q1=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"q1:Cash\">
+       <q1:tenderAmt value=\"100\" symbol=\"AOA\"/>
+      </payType>
+      <payAccount xsi:type=\"DebtRecovery\">
+       <idMethod xmlns:q2=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"q2:CustIDMethod\">
+        <q2:custIdentifier xsi:type=\"q2:CustAccountNo\" accNo=\"#{numero_conta}\"/>
+       </idMethod>
+      </payAccount>
+      <vendingServerId>1</vendingServerId>
+     </payAccReq>
+    </soap:Body>
+  </soap:Envelope>
+  "
+   
+    request = fazer_request(url_service, body, uniq_number)
+    return request.body
+  end
+
   def self.parametros
     parceiro = Partner.ende
     parametro = Parametro.where(partner_id: parceiro.id).first
