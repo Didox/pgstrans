@@ -10,7 +10,7 @@
         <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold">
           Last Advice - ENDE
         </div>
-        <% if @info.blank? %>
+        <% if @xml_recebido.blank? %>
           <div class="card-body">
             <form action="/ende/last-advice" method="get">
 
@@ -37,10 +37,10 @@
               </div>
             </form>
           </div>
-        <% elsif @info.present? %>
-          <%= raw Ende.children_text(Nokogiri::XML(@info)) %>
+        <% elsif @xml_recebido.present? %>
+          <%= raw Ende.children_text(Nokogiri::XML(@xml_recebido)) %>
           <br>
-          <%= @info %>
+          <%= @xml_recebido %>
           <br>
           <br>
           <div style="display: inline-block;margin-bottom: 10px;width: 100%;margin-bottom: 5px;">

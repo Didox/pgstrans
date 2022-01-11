@@ -48,11 +48,18 @@
                   <hr>
                   <h2>Inserir este código no Contador</h2>
                 </li>
-                <li style="letter-spacing: 3px">
-                  <% if info["CreditVendTx"].present? %>
+                <li>
+                  <% if info["CreditVendTx"].present? && info["CreditVendTx"].length > 1 %>
                     <% info["CreditVendTx"].each do |creditVendTx| %>
-                      <h2><%= info["stsCipher"] %></h2>
+                      <h2 style="letter-spacing: 3px"><%= creditVendTx["stsCipher"] %></h2>
+                      <div><b>Sqc:</b> <%= creditVendTx["meterDetail"]["sgc"] %></div>
+                      <div><b>Msno:</b> <%= creditVendTx["meterDetail"]["msno"] %></div>
+                      <div><b>Units:</b> <%= creditVendTx["units"]["value"] %> <%= creditVendTx["units"]["siUnit"] %></div>
+                      <hr>
                     <% end %>
+                  <% else %>
+                    <h2 style="letter-spacing: 3px"><%= info["stsCipher"] %></h2>
+                    <hr>
                   <% end %>
                 </li>
               </ul>
@@ -81,7 +88,6 @@
             <div class="col-md-12" style="text-align: left"> 
               <ul style="list-style-type: none">
                 <li>
-                  <hr>
                   <b>Energia:</b> <%= info["creditTokenIssue"]["units"]["value"] %> <%= info["creditTokenIssue"]["units"]["siUnit"] %>
                   <hr>
                 </li>
@@ -112,7 +118,6 @@
                 <% info["CreditVendTx"].each do |creditVendTx| %>
                   <% if creditVendTx["value"].present? %>
                   <li>
-                    <hr>
                     <b>Custo de Energia:</b> <%= number_to_currency(creditVendTx["value"], :precision => 2, :unit => Ende.akz_parse(creditVendTx["symbol"])) %>
                     <hr>
                   </li>

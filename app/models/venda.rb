@@ -299,6 +299,7 @@ class Venda < ApplicationRecord
     begin
       venda.status = JSON.parse(res.body)["status_code"]
     rescue;end
+
     venda.status ||= res.code
     venda.save!
 
@@ -339,27 +340,43 @@ class Venda < ApplicationRecord
     raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
   end
 
-  def self.confirma_venda!(meter_number)
-    info = Ende.informacoes_meter_number(meter_number)
+  def self.confirma_venda!(venda, uniq_number, meter_number, produto, valor, desconto_aplicado, valor_original, usuario, parceiro)
+    info, xml_enviado, xml_recebido = Ende.informacoes_meter_number(meter_number, uniq_number)
 
-    raise PagasoError.new("Venda não autorizada") if info.blank?
+    venda.request_send = xml_enviado
+    venda.response_get = xml_recebido
+    venda.error_message = "Venda não autorizada" 
+    venda.save!
+
+    return PagasoEndeError.new(venda.error_message) if info.blank?
 
     if info["erro"].present?
-      raise PagasoError.new("Medidor não encontrado (#{info["erro"]}) - Data envio: #{info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S")}")
+      venda.error_message = "Medidor não encontrado (#{info["erro"]}) - Data envio: #{info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S")}"
     elsif info["minVendAmt"].present? && info["minVendAmt"]["value"].to_i > 0
-      raise PagasoError.new("Valor Máximo de Compra: #{Ende.akz_parse(info["minVendAmt"]["symbol"])} #{info["minVendAmt"]["value"]} - Data envio: #{info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S")}")
+      venda.error_message = "Valor Máximo de Compra: #{Ende.akz_parse(info["minVendAmt"]["symbol"])} #{info["minVendAmt"]["value"]} - Data envio: #{info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S")}"
     elsif !info["canVend"]
-      raise PagasoError.new("Cliente com débito. É necessário efectuar a quitação. #{info["accountName"]}")
+      venda.error_message = "Cliente com débito. É necessário efectuar a quitação. #{info["accountName"]}"
     end
-  rescue Exception => e
-    last_advice!(info["unique_number"], Time.zone.now) if e.message.downcase.include?("timeout")
-    raise PagasoError.new(e.message)
-  end
 
-  def self.last_advice!(unique_number, data)
-    xml = Ende.last_advice(data, unique_number)
-    erro = ErroAmigavel.traducao(Nokogiri::XML(xml.scan(/<fault .*?<\/fault>/).first).text)
-    raise PagasoError.new(erro)
+    venda.save!
+    raise PagasoEndeError.new(venda.error_message)
+  rescue PagasoEndeError => e
+    raise PagasoEndeError.new(e.message)
+  rescue Exception => e
+    if e.message.downcase.include?("timeout")
+      begin
+        xml_enviado, xml_recebido = Ende.last_advice(data, unique_number)
+        venda.error_message = ErroAmigavel.traducao(Nokogiri::XML(xml_recebido.scan(/<fault .*?<\/fault>/).first).text)
+        venda.request_send = xml_enviado
+        venda.response_get = xml_recebido
+        venda.save!
+        raise PagasoEndeError.new(venda.error_message)
+      rescue Exception => er
+        raise PagasoError.new(er.message)
+      end
+    end
+
+    raise PagasoError.new(e.message)
   end
 
   def self.venda_ende(params, usuario, ip)
@@ -371,24 +388,35 @@ class Venda < ApplicationRecord
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
     
     parametro = Parametro.where(partner_id: parceiro.id).first
+    meter_number = params[:meter_number]
   
     raise PagasoError.new("Produto não selecionado") if params[:ende_produto_id].blank?
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
-    raise PagasoError.new("Digite o Número do Medidor") if params[:meter_number].blank?
-    raise PagasoError.new("Número do Medidor Inválido") if !Ende.validate_meter_number(params[:meter_number])
+    raise PagasoError.new("Digite o Número do Medidor") if meter_number.blank?
+    raise PagasoError.new("Número do Medidor Inválido") if !Ende.validate_meter_number(meter_number)
     raise PagasoError.new("Digite o Número SMS para envio do token de recarga") if params[:talao_sms_ende].blank?
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
   
-    confirma_venda!(params[:meter_number])
-
     host = Rails.env == "development" ? "#{parametro.url_integracao_desenvolvimento}" : "#{parametro.url_integracao_producao}"
-  
-    product_id = params[:ende_produto_id]
-    produto = Produto.find(product_id)
+    produto = Produto.find(params[:ende_produto_id])
 
     uniq_number = EndeUniqNumber.create(data: Time.zone.now)
+    venda = Venda.new(product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: uniq_number.id, customer_number: meter_number, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda.responsavel = usuario
+    venda.store_id = usuario.sub_agente.store_id_parceiro
+    venda.seller_id = usuario.sub_agente.seller_id_parceiro
+    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+    venda.save!
+
+    begin
+      confirma_venda!(venda, EndeUniqNumber.create(data: Time.zone.now, venda_id: venda.id), meter_number, produto, valor, desconto_aplicado, valor_original, usuario, parceiro)
+    rescue PagasoEndeError => e
+      venda.status = "ende-0"
+      venda.save!
+      return venda
+    end
 
     request_send = ""
     response_get = ""
@@ -408,7 +436,7 @@ class Venda < ApplicationRecord
         </authCred>
                             
         <idMethod xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
-        <meterIdentifier xsi:type=\"MeterNumber\" msno=\"#{params[:meter_number]}\"/>
+        <meterIdentifier xsi:type=\"MeterNumber\" msno=\"#{meter_number}\"/>
         </idMethod>
         <purchaseValue xmlns=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\" xsi:type=\"PurchaseValueCurrency\">
         <amt value=\"#{valor}\" symbol=\"AOA\"/>
@@ -419,7 +447,8 @@ class Venda < ApplicationRecord
     "
     
     uniq_number.xml_enviado = body
-    uniq_number.save
+    uniq_number.vanda_id = venda.id
+    uniq_number.save!
 
     request_send += "=========[creditVendReq]========"
     request_send += body
@@ -444,16 +473,9 @@ class Venda < ApplicationRecord
     last_request = request.body
     
     uniq_number.xml_recebido = last_request
-    uniq_number.save
+    uniq_number.save!
 
-    venda = Venda.new(product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: uniq_number.id, customer_number: params[:meter_number], usuario_id: usuario.id, partner_id: parceiro.id)
-    venda.responsavel = usuario
-    venda.save!
-
-    venda.store_id = usuario.sub_agente.store_id_parceiro
-    venda.seller_id = usuario.sub_agente.seller_id_parceiro
-    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
-
+    venda.request_id = uniq_number.id
     venda.request_send = request_send
     venda.response_get = response_get
 
@@ -505,7 +527,7 @@ class Venda < ApplicationRecord
       respdatetime = info["respDateTime"]
       respdatetime = respdatetime.to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue respdatetime
 
-      mensagem = "PAGASO ENDE-Inserir este codigo no contador #{stscipher}. Medidor #{params[:meter_number]}. N. de Recibo #{receiptNo}. #{respdatetime}"
+      mensagem = "PAGASO ENDE-Inserir este codigo no contador #{stscipher}. Medidor #{meter_number}. N. de Recibo #{receiptNo}. #{respdatetime}"
       envia, resposta = Sms.enviar(params[:talao_sms_ende], mensagem)
       LogVenda.create(usuario_id: usuario.id, titulo: "SMS não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: resposta.inspect) if !envia
 

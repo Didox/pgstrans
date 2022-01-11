@@ -2,7 +2,7 @@ class EndeController < ApplicationController
     
   def confirmar_cliente
     if params[:meter_number].present?
-      @info = Ende.informacoes_meter_number(params[:meter_number])
+      @info, @xml_enviado, @xml_recebido = Ende.informacoes_meter_number(params[:meter_number])
     end
     return [true, nil]
   rescue Exception => e
@@ -32,7 +32,7 @@ class EndeController < ApplicationController
 
   def last_advice
     if params[:date_time].present? && params[:unique_number].present?
-      @info = Ende.last_advice(params[:date_time], params[:unique_number])
+      @xml_enviado, @xml_recebido = Ende.last_advice(params[:date_time], params[:unique_number])
     end
     return [true, nil]
   rescue Exception => e

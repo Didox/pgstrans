@@ -1,0 +1,2 @@
+class PagasoEndeError < Exception
+end

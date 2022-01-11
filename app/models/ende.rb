@@ -39,14 +39,14 @@ class Ende
     return symbol.to_s.upcase.strip == "AOA" ? "AKz" : symbol
   end
 
-  def self.informacoes_meter_number(meter_number)
+  def self.informacoes_meter_number(meter_number, uniq_number = nil)
     raise PagasoError.new("Por favor digite o Número do Medidor") if meter_number.blank?
     raise PagasoError.new("Número do Medidor inválido") if !Ende.validate_meter_number(meter_number)
     
     meter_number = meter_number.strip
     parceiro,parametro,url_service = parametros
 
-    uniq_number = EndeUniqNumber.create(data: Time.zone.now)
+    uniq_number = EndeUniqNumber.create(data: Time.zone.now) if uniq_number.blank?
 
     body = "
       <soapenv:Envelope
@@ -81,7 +81,7 @@ class Ende
     "
 
     request = fazer_request(url_service, body, uniq_number)
-    return informacoes_parse(request.body, uniq_number)
+    return [informacoes_parse(request.body, uniq_number), body, request.body]
   end
 
   def self.venda_teste(usuario, ende_produto_id, meter_number, valor)
@@ -183,7 +183,7 @@ class Ende
     "
 
     request = fazer_request(url_service, body, uniq_number)
-    return request.body
+    return [body, request.body]
   end
 
   def self.pagamento_de_conta(numero_conta, valor_pagamento)
@@ -443,11 +443,24 @@ class Ende
 
         symbol = tx.children.first.xpath("//amt").first.attributes["symbol"].value rescue ""
         value = tx.children.first.xpath("//amt").first.attributes["value"].value rescue ""
-        stsCipher = xml.downcase.scan(/<q1:stscipher.*?<\/q1:stscipher>/).first.gsub(/<[^>]*>/, "") rescue ""
+        stsCipher = xml.downcase.scan(/<q\d:stscipher.*?<\/q\d:stscipher>/).first.gsub(/<[^>]*>/, "") rescue ""
+        desc = xml.scan(/<q\d\:desc.*?<\/q\d:desc>/).first.gsub(/<[^>]*>/, "") rescue ""
+        meterDetail = Nokogiri::XML(xml.downcase.scan(/<q\d:meterdetail.*?<\/q\d:meterdetail>/).first).children.first.attributes rescue {}
+        units = Nokogiri::XML(xml.downcase.scan(/<q\d:units.*?\/>/).first).children.first.attributes rescue {}
+        
         @info["CreditVendTx"] << {
           "symbol" => symbol,
           "value" => value,
-          "stsCipher" => stsCipher
+          "stsCipher" => stsCipher,
+          "desc" => desc,
+          "meterDetail" => {
+            "sgc" => (meterDetail["sgc"].value rescue ""),
+            "msno" => (meterDetail["msno"].value rescue ""),
+          },
+          "units" => {
+            "value" => (units["value"].value rescue ""),
+            "siUnit" => (units["siunit"].value rescue ""),
+          }
         }
       end
     end

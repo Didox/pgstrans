@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_07_101857) do
+ActiveRecord::Schema.define(version: 2022_01_11_111218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 2022_01_07_101857) do
     t.datetime "updated_at", null: false
     t.text "xml_enviado"
     t.text "xml_recebido"
+    t.integer "venda_id"
   end
 
   create_table "erro_amigavels", force: :cascade do |t|

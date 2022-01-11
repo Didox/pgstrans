@@ -152,7 +152,110 @@ var uncheckAcessos = function(){
   });
 }
 
-var pagamentoProcessando = false;
+var timerPagamentoProcessando = false;
+const processarPagamento = function(){
+  var form = $(".recarga #recargaForm");
+  var url = form.attr('action');
+
+  $(".modal_loader").show();
+
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: form.serialize(),
+    success: function(data){
+      $(".modal_loader").hide();
+      $(".clearFieldjs").val("")
+
+      if(!data.redirect){
+        $.alert(data.mensagem);
+      }
+      else{
+        if(data.sucesso && data.redirect){
+          window.location.href="/vendas/" + data.venda_id;
+        }
+        else{
+          $.alert(data.mensagem);
+        }
+      }
+    },
+    error: function(xhr, ajaxOptions, thrownError){
+      $(".modal_loader").hide();
+      var data = JSON.parse(xhr.responseText);
+      var erroObject = JSON.parse(xhr.responseText)
+      var stackthrow = (erroObject && erroObject.erro ? ' - ' + erroObject.erro : "")
+
+      if(!erroObject.redirect){
+        $.alert(data.mensagem + stackthrow);
+      }
+      else{
+        window.location.href="/vendas/" + erroObject.venda_id;
+      }
+
+    },
+    timeout: 120000 // sets timeout to 120 seconds
+  });
+}
+
+var timerSubmeterRecarga = null;
+const submeterRecarga = function() {
+  let message = "";
+  $(".validate.v" + $("#tipo_ativo").val()).each(function(){
+    if($(this).val() == ""){
+      if(message == ""){
+        message = $(this).data("message");
+        $(this).focus();
+        return;
+      }
+    }
+  });
+
+  $(".validate.cOpcional" + $("#tipo_ativo").val()).each(function(){
+    if($(this).val() != "" && $(this).attr("type") == "email"){
+      if( $(this).val().indexOf("@") == -1 || $(this).val().indexOf(".") == -1 ){
+        message = $(this).data("message");
+        $(this).focus();
+        return;
+      }
+    }
+  });
+
+  if(message !== ""){
+    $.alert({
+      title: 'Validação!',
+      content: message,
+    });
+    return;
+  }
+
+  $(".recarga .talao" + $("#tipo_ativo").val() + "").show();
+
+  $.confirm({
+    title: 'Confirmação!',
+    content: 'TEM A CERTEZA QUE DESEJA EFECTUAR A RECARGA?',
+    buttons: {
+      confirmar: {
+        text: 'Confirmar',
+        btnClass: 'btn-warning',
+        action: function(){
+          clearInterval(timerPagamentoProcessando)
+          timerPagamentoProcessando = setInterval(function(){
+            processarPagamento()
+            clearInterval(timerPagamentoProcessando)
+          }, 300);
+        }
+      },
+      cancelar: {
+        text: 'Cancelar',
+        btnClass: 'btn-danger',
+        action: function(){
+          $.alert('cancelado!');
+        }
+      }
+    }
+  });
+};
+
 $(function(){
   $( ".autocomplete" ).autocomplete({
     source: function( request, response ) {
@@ -191,103 +294,17 @@ $(function(){
       $("#rechargeValue").removeAttr("readonly")
       $("#valor_customizado").val("true")
     }
-  })
+  });
 
   $(".recarga #recargaForm").submit(function(e) {
     e.preventDefault();
-    pagamentoProcessando = false;
-    let message = "";
-    $(".validate.v" + $("#tipo_ativo").val()).each(function(){
-      if($(this).val() == ""){
-        if(message == ""){
-          message = $(this).data("message");
-          $(this).focus();
-          return;
-        }
-      }
-    });
-
-    $(".validate.cOpcional" + $("#tipo_ativo").val()).each(function(){
-      if($(this).val() != "" && $(this).attr("type") == "email"){
-        if( $(this).val().indexOf("@") == -1 || $(this).val().indexOf(".") == -1 ){
-          message = $(this).data("message");
-          $(this).focus();
-          return;
-        }
-      }
-    });
-
-    if(message !== ""){
-      $.alert({
-        title: 'Validação!',
-        content: message,
-      });
-      return;
-    }
-
-    $(".recarga .talao" + $("#tipo_ativo").val() + "").show();
-
-    $.confirm({
-      title: 'Confirmação!',
-      content: 'TEM A CERTEZA QUE DESEJA EFECTUAR A RECARGA?',
-      buttons: {
-        confirmar: {
-          text: 'Confirmar',
-          btnClass: 'btn-warning',
-          action: function(){
-            if(pagamentoProcessando) return;
-
-            var form = $(".recarga #recargaForm");
-            var url = form.attr('action');
-            pagamentoProcessando = true;
-
-            $(".modal_loader").show();
-
-            $.ajax({
-              type: "POST",
-              url: url,
-              data: form.serialize(),
-              success: function(data){
-                $(".modal_loader").hide();
-                pagamentoProcessando = false;
-                $(".clearFieldjs").val("")
-
-                if(!data.redirect){
-                  $.alert(data.mensagem);
-                }
-                else{
-                  if(data.sucesso && data.redirect){
-                    window.location.href="/vendas/" + data.venda_id;
-                  }
-                  else{
-                    $.alert(data.mensagem);
-                  }
-                }
-              },
-              error: function(xhr, ajaxOptions, thrownError){
-                $(".modal_loader").hide();
-                pagamentoProcessando = false;
-                var data = JSON.parse(xhr.responseText);
-                var erroObject = JSON.parse(xhr.responseText)
-                var stackthrow = (erroObject && erroObject.erro ? ' - ' + erroObject.erro : "")
-                $.alert(data.mensagem + stackthrow);
-              },
-              timeout: 120000 // sets timeout to 120 seconds
-            });
-          }
-        },
-        cancelar: {
-          text: 'Cancelar',
-          btnClass: 'btn-danger',
-          action: function(){
-            pagamentoProcessando = false;
-            $.alert('cancelado!');
-          }
-        }
-      }
-    });
+    
+    clearInterval(timerSubmeterRecarga)
+    timerSubmeterRecarga = setInterval(function(){
+      submeterRecarga()
+      clearInterval(timerSubmeterRecarga)
+    }, 300)
   });
-
 });
 
 $(document).ajaxStart(function() {
