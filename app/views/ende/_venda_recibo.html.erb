@@ -20,7 +20,7 @@
             <li>Data:</b> <%= info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
           </ul>
         </div>
-        <% if info["erro"].present? %>
+        <% if info["erro"].present? && (venda.blank? || venda.error_message.blank?) %>
           <div class="col-md-12" style="text-align: left">
             <ul style="list-style-type: none;">
               <li>
@@ -31,14 +31,30 @@
         <% else %>
           <div class="col-md-12" style="text-align: left">
             <ul style="list-style-type: none">
-              <li><b>Nro. Único Pagasó:</b> <%= info["unique_number"] %></li>
-              <li><b>Cliente:</b> <%= info["name"] %></li>
-              <li><b>NIF:</b> <%= info["taxReferenceNo"] %></li>
-              <li><b>Endereço de Cliente:</b> <%= info["address"] %></li>
-              <li><hr><b>N. de Conta:</b> <%= info["accNo"] %></li>
-              <li><b>N. de Contador:</b> <%= info["msno"] %></li>
-              <li><b>Tarifa:</b> <%= info["tariff"] %></li>
-              <li><b>Endereço de Local de Consumo:</b> <%= "#{info["address"]} #{info["locRef"]}" %></li>
+              <% if info["unique_number"].present? %>
+                <li><b>Nro. Único Pagasó:</b> <%= info["unique_number"] %></li>
+              <% end %>
+              <% if info["name"].present? %>
+                <li><b>Cliente:</b> <%= info["name"] %></li>
+              <% end %>
+              <% if info["taxReferenceNo"].present? %>
+                <li><b>NIF:</b> <%= info["taxReferenceNo"] %></li>
+              <% end %>
+              <% if info["address"].present? %>
+                <li><b>Endereço de Cliente:</b> <%= info["address"] %></li>
+              <% end %>
+              <% if info["accNo"].present? %>
+                <li><hr><b>N. de Conta:</b> <%= info["accNo"] %></li>
+              <% end %>
+              <% if info["msno"].present? %>
+                <li><b>N. de Contador:</b> <%= info["msno"] %></li>
+              <% end %>
+              <% if info["tariff"].present? %>
+                <li><b>Tarifa:</b> <%= info["tariff"] %></li>
+              <% end %>
+              <% if info["address"].present? || info["locRef"].present? %>
+                <li><b>Endereço de Local de Consumo:</b> <%= "#{info["address"]} #{info["locRef"]}" %></li>
+              <% end %>
             </ul>
           </div>
 
@@ -47,8 +63,9 @@
               <ul style="list-style-type: none;">
                 <li>
                   <h1><%= venda.error_message %></h1>
+                  <h3><%= venda.status %></h3>
                 </li>
-                <% if venda.error_message.downcase.include?("com débito") %>
+                <% if venda.error_message.downcase.include?("electricity sales are blocked until subaccounts paid off") %>
                   <li>
                     <h1>
                       <%= link_to "/ende/pagamento-de-conta?numero_conta=#{info["accNo"]}", class: 'btn btn-success', style: "width: 100%;text-align: center;" do %>
@@ -104,7 +121,7 @@
               </li>
             </div>
           <% end %>
-          <% if info["creditTokenIssue"].present? %>
+          <% if info["creditTokenIssue"].present? && info["creditTokenIssue"]["units"]["value"].present? %>
             <div class="col-md-12" style="text-align: left"> 
               <ul style="list-style-type: none">
                 <li>

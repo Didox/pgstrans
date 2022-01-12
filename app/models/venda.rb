@@ -348,18 +348,25 @@ class Venda < ApplicationRecord
     venda.save!
 
     if info.blank?
-      venda.error_message = "Venda não autorizada" 
+      venda.status = "ende-0"
+      venda.error_message = ErroAmigavel.traducao("Venda não autorizada")
       return PagasoEndeError.new(venda.error_message) 
     elsif info["erro"].present?
-      venda.error_message = "Medidor não encontrado (#{info["erro"]}) - Data envio: #{info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S")}"
+      venda.status = "ende-1"
+      venda.error_message = ErroAmigavel.traducao(info["erro"])
     elsif info["minVendAmt"].present? && info["minVendAmt"]["value"].to_i > 0
+      venda.status = "ende-2"
       venda.error_message = "Valor Máximo de Compra: #{Ende.akz_parse(info["minVendAmt"]["symbol"])} #{info["minVendAmt"]["value"]} - Data envio: #{info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S")}"
     elsif !info["canVend"]
-      venda.error_message = "Cliente com débito. É necessário efectuar a quitação. #{info["accountName"]}"
+      xml_enviado, xml_recebido = Ende.venda_teste(usuario, produto.id, meter_number, valor)
+      venda.error_message = ErroAmigavel.traducao(Nokogiri::XML(xml_recebido.scan(/<fault .*?<\/fault>/).first).text)
+      venda.status = "ende-3"
+      venda.request_send = xml_enviado
+      venda.response_get = xml_recebido
     end
 
     venda.save!
-    raise PagasoEndeError.new(venda.error_message)
+    raise PagasoEndeError.new(venda.error_message) if venda.status.present?
   rescue PagasoEndeError => e
     raise PagasoEndeError.new(e.message)
   rescue Exception => e
@@ -367,6 +374,7 @@ class Venda < ApplicationRecord
       begin
         xml_enviado, xml_recebido = Ende.last_advice(data, unique_number)
         venda.error_message = ErroAmigavel.traducao(Nokogiri::XML(xml_recebido.scan(/<fault .*?<\/fault>/).first).text)
+        venda.status = "ende-4"
         venda.request_send = xml_enviado
         venda.response_get = xml_recebido
         venda.save!
@@ -413,8 +421,6 @@ class Venda < ApplicationRecord
     begin
       confirma_venda!(venda, EndeUniqNumber.create(data: Time.zone.now, venda_id: venda.id), meter_number, produto, valor, desconto_aplicado, valor_original, usuario, parceiro)
     rescue PagasoEndeError => e
-      venda.status = "ende-0"
-      venda.save!
       return venda
     end
 
@@ -447,7 +453,7 @@ class Venda < ApplicationRecord
     "
     
     uniq_number.xml_enviado = body
-    uniq_number.vanda_id = venda.id
+    uniq_number.venda_id = venda.id
     uniq_number.save!
 
     request_send += "=========[creditVendReq]========"
@@ -479,28 +485,17 @@ class Venda < ApplicationRecord
     venda.request_send = request_send
     venda.response_get = response_get
 
-    erro_message = last_request.to_s.gsub("\n", "").downcase.scan(/faultstring.*?<\/faultstring/).first.scan(/>.*?</).first.gsub(/<|>/, "") rescue ""
-
-    if erro_message.present? 
-      erro_message = erro_message.downcase
-      if erro_message.include?("duplicate transaction")
-        venda.status = "ende-31"
-      elsif erro_message.include?("incorrect customernumber")
-        venda.status = "ende-32"
-      elsif erro_message.include?("must be greater than zero")
-        venda.status = "ende-33"
-      elsif erro_message.include?("insufficient agent funds. payment amount is greater")
-        venda.status = "ende-34"
-      elsif erro_message.include?("customers who have not been active on any principal package")
-        venda.status = "ende-35"
-      elsif erro_message.include?("system.web.services.protocols.soapexception: soap exception from server")
-        venda.status = "ende-36"
-      else
-        venda.status = "ende-37"
-      end
+    venda.error_message = ErroAmigavel.traducao(Nokogiri::XML(last_request.scan(/<fault .*?<\/fault>/).first).text) rescue ""
+    if venda.error_message.present?
+      venda.status = "ende-5"
     else
       status = last_request.downcase.scan(/stscipher.*?stscipher/).length > 0
-      venda.status = (status ? "1" : "ende-3")
+      if status 
+        venda.status = "1" # sucesso
+      else
+        venda.error_message = ErroAmigavel.traducao("Token não localizado")
+        venda.status = "ende-99"
+      end
     end
     
     venda.save!

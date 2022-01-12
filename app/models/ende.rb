@@ -354,8 +354,10 @@ class Ende
   def self.informacoes_parse(body, uniq_number)
     body.remove!(/=========.*?========/)
     
+    @info = {}
+
     if body.scan(/<fault .*?<\/fault>/).length > 0
-      return {
+      @info = {
         "erro" => ErroAmigavel.traducao(Nokogiri::XML(body.scan(/<fault .*?<\/fault>/).first).text),
         "respDateTime" => Nokogiri::XML(body.scan(/<respDateTime .*?<\/respDateTime>/).first).text.to_datetime
       }
@@ -363,7 +365,7 @@ class Ende
 
     xml_doc = Nokogiri::XML(body)
 
-    @info = {}
+    
     xml_itens = xml_doc.children.children.children.children.children
     xml_itens.each do |info|
       info.each do |key, value|
