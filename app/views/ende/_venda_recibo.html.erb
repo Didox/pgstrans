@@ -65,7 +65,7 @@
                   <h1><%= venda.error_message %></h1>
                 </li>
                 <li>
-                  <h3>Código de erro: <%= venda.status %></h3>
+                  <p>Código de erro: <%= venda.status %></p>
                 </li>
                 <% if venda.error_message.downcase.include?("electricity sales are blocked until subaccounts paid off") %>
                   <li>
