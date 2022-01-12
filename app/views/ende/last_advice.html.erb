@@ -38,9 +38,13 @@
             </form>
           </div>
         <% elsif @xml_recebido.present? %>
-          <%= raw Ende.children_text(Nokogiri::XML(@xml_recebido)) %>
-          <br>
-          <%= @xml_recebido %>
+          <%= render "/ende/venda_recibo", info: @info, title: "Last Advice", venda: nil %>
+          <hr>
+          <% if @adm.id == Usuario::ROOT %>
+            <%= raw Ende.children_text(Nokogiri::XML(@xml_recebido)) %>
+            <br>
+            <%= @xml_recebido %>
+          <% end %>
           <br>
           <br>
           <div style="display: inline-block;margin-bottom: 10px;width: 100%;margin-bottom: 5px;">

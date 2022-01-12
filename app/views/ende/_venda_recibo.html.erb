@@ -157,6 +157,7 @@
                 <% info["CreditVendTx"].each do |creditVendTx| %>
                   <% if creditVendTx["value"].present? %>
                   <li>
+                    <hr>
                     <b>Custo de Energia:</b> <%= number_to_currency(creditVendTx["value"], :precision => 2, :unit => Ende.akz_parse(creditVendTx["symbol"])) %>
                     <hr>
                   </li>
