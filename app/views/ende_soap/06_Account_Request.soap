@@ -66,3 +66,45 @@ SOAP RESPONSE
    </soap:Body>
 </soap:Envelope>
 
+
+
+==== Resposta pagamento de conta
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <payAccResp xmlns="http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema">
+         <clientID xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="EANDeviceID" ean="PAGASO" />
+         <serverID xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="GenericDeviceID" id="1" />
+         <terminalID xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" xsi:type="EANDeviceID" ean="0000000000003" />
+         <reqMsgID xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" dateTime="20220112211643" uniqueNumber="0382" />
+         <respDateTime xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">2022-01-12T21:14:43.262909+00:00</respDateTime>
+         <dispHeader xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Pay Account</dispHeader>
+         <operatorMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Pay Account Successfull</operatorMsg>
+         <custMsg xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">Pay Account</custMsg>
+         <utility xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" name="ENDE" address="Angola" taxRef="0" />
+         <clientStatus xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema">
+            <availCredit value="99856698.95" symbol="AOA" />
+            <batchStatus banking="open" sales="open" shift="open" />
+         </clientStatus>
+         <vendor xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" />
+         <custVendDetail xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" name="Isabelle Ringing" address="Physical, NC, Upington, Van De Merwe Street" contactNo="" accNo="ACC005" locRef="ERF005" utilityType="Electricity" daysLastPurchase="" />
+         <payAccReceipt receiptNo="846">
+            <transactions>
+               <tx xsi:type="DebtRecoveryTx" receiptNo="846">
+                  <amt value="100" symbol="AOA" />
+                  <accDesc>Arrears Debt Collection</accDesc>
+                  <accNo>ARREARACC005_2</accNo>
+                  <balance value="1015900.000" symbol="AOA" />
+               </tx>
+            </transactions>
+            <MonthlyTotals xsi:nil="true" />
+            <meterDetail krn="1" ti="2" sgc="901047" unitOfMeasurement="kWh" msno="04040404065">
+               <meterType xmlns="http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema" tt="02" />
+            </meterDetail>
+         </payAccReceipt>
+      </payAccResp>
+   </soap:Body>
+</soap:Envelope>
+
