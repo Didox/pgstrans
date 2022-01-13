@@ -357,12 +357,6 @@ class Venda < ApplicationRecord
     elsif info["minVendAmt"].present? && info["minVendAmt"]["value"].to_i > 0
       venda.status = "ende-2"
       venda.error_message = "Valor Máximo de Compra: #{Ende.akz_parse(info["minVendAmt"]["symbol"])} #{info["minVendAmt"]["value"]} - Data envio: #{info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S")}"
-    elsif !info["canVend"]
-      xml_enviado, xml_recebido = Ende.venda_teste(usuario, produto.id, meter_number, valor)
-      venda.error_message = ErroAmigavel.traducao(Nokogiri::XML(xml_recebido.scan(/<fault .*?<\/fault>/).first).text)
-      venda.status = "ende-3"
-      venda.request_send = xml_enviado
-      venda.response_get = xml_recebido
     end
 
     venda.save!

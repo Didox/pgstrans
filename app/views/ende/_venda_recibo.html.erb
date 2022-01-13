@@ -48,6 +48,8 @@
               <% end %>
               <% if info["msno"].present? %>
                 <li><b>N. de Contador:</b> <%= info["msno"] %></li>
+              <% elsif venda.present? %>
+                <li><b>N. de Contador:</b> <%= venda.request_send.scan(/msno=\".*?\"/).first.remove(/msno=|\"/) rescue "" %></li>
               <% end %>
               <% if info["tariff"].present? %>
                 <li><b>Tarifa:</b> <%= info["tariff"] %></li>
