@@ -413,9 +413,12 @@ class Venda < ApplicationRecord
     venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
     venda.save!
 
+    uniq_number_confirma = EndeUniqNumber.create(data: Time.zone.now, venda_id: venda.id)
     begin
-      confirma_venda!(venda, EndeUniqNumber.create(data: Time.zone.now, venda_id: venda.id), meter_number, produto, valor, desconto_aplicado, valor_original, usuario, parceiro)
+      confirma_venda!(venda, uniq_number_confirma, meter_number, produto, valor, desconto_aplicado, valor_original, usuario, parceiro)
     rescue PagasoEndeError => e
+      venda.request_id = uniq_number_confirma.id
+      venda.save!
       return venda
     end
 
