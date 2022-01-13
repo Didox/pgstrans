@@ -35,64 +35,70 @@
             </form>
           </div>
         <% elsif @info.present? %>
-          <div class="col-md-12">
-            <div style="font-weight: bold;font-size: 15px;"> Número do Medidor: <%= params[:meter_number] %> </div>
-          </div>
-          <% if @info["erro"].blank? %>
+          <% @info.each do |info| %>
             <div class="col-md-12">
-              <div style="font-weight: bold;font-size: 15px;"> DADOS DO CLIENTE </div>
-                  <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-                    <li><b>ID da Transação:</b> <%= @info["unique_number"] %></li>
-                    <li><b>Nome do Cliente:</b> <%= @info["name"] %></li>
-                    <li><b>Morada:</b> <%= @info["address"] %></li>
-                    <li><b>Contacto:</b> <%= @info["contactNo"] %></li>
-                    <li><b>Número da Conta:</b> <%= @info["accNo"] %></li>
-                    <li><b>Utilitário:</b> <%= @info["utilityType"] %></li>
-                    <li><b>Pode vender?</b> <%= @info["canVend"] ? "Sim" : "Não" %></li>
-                    <li><b>Número do Medidor:</b> <%= @info["msno"] %></li>
-                    <li><b>Data:</b> <%= @info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") %></li>
-                  </ul>
-              </div>
-              <div class="col-md-12" >
-                <br>
-                <div style="font-weight: bold;font-size: 15px;">DADOS DA CONTA</div>
-                  <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-                    <li>Cliente com débito ou taxa de serviço pendente</li>
-                    <% if @info.present? && @info["minVendAmt"].present? && @info["minVendAmt"]["value"].to_i > 0 %>
-                      <li><b>Valor: </b><%= number_to_currency(@info["minVendAmt"]["value"], :unit => "") %> - <%= @info["minVendAmt"]["symbol"] %></li>
-                      <li><hr></li>
-                      <li><b>Valor Máximo de Compra: </b><%= number_to_currency(@info["maxVendAmt"]["value"], :unit => "") %> - <%= @info["maxVendAmt"]["symbol"] %></li>
-                    <% end %>
-                  </ul>
+              <div style="font-weight: bold;font-size: 15px;"> Número do Medidor: <%= params[:meter_number] %> </div>
+            </div>
+            <% if info["erro"].blank? %>
+              <div class="col-md-12">
+                <div style="font-weight: bold;font-size: 15px;"> DADOS DO CLIENTE </div>
+                    <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+                      <li><b>ID da Transação:</b> <%= info["unique_number"] %></li>
+                      <li><b>Nome do Cliente:</b> <%= info["name"] %></li>
+                      <li><b>Morada:</b> <%= info["address"] %></li>
+                      <li><b>Contacto:</b> <%= info["contactNo"] %></li>
+                      <li><b>Número da Conta:</b> <%= info["accNo"] %></li>
+                      <li><b>Utilitário:</b> <%= info["utilityType"] %></li>
+                      <li><b>Pode vender?</b> <%= info["canVend"] ? "Sim" : "Não" %></li>
+                      <li><b>Número do Medidor:</b> <%= info["msno"] %></li>
+                      <li><b>Data:</b> <%= info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") %></li>
+                    </ul>
+                </div>
+                <div class="col-md-12" >
+                  <br>
+                  <div style="font-weight: bold;font-size: 15px;">DADOS DA CONTA</div>
+                    <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+                      <li>Cliente com débito ou taxa de serviço pendente</li>
+                      <% if info.present? && info["minVendAmt"].present? && info["minVendAmt"]["value"].to_i > 0 %>
+                        <li><b>Valor: </b><%= number_to_currency(info["minVendAmt"]["value"], :unit => "") %> - <%= info["minVendAmt"]["symbol"] %></li>
+                        <li><hr></li>
+                        <li><b>Valor Máximo de Compra: </b><%= number_to_currency(info["maxVendAmt"]["value"], :unit => "") %> - <%= info["maxVendAmt"]["symbol"] %></li>
+                      <% end %>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-          <% else %>
-            <div class="col-md-12" >
-              <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-                <li>Medidor não encontrado <b>(<%= @info["erro"] %>)</b></li>
-                <li>Data envio: <b><%= @info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") %></b></li>
-              </ul>
-            </div>
-          <% end %>
-          <% if @adm.id == Usuario::ROOT %>
+            <% else %>
+              <div class="col-md-12" >
+                <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+                  <li>Medidor não encontrado <b>(<%= info["erro"] %>)</b></li>
+                  <li>Data envio: <b><%= info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") %></b></li>
+                </ul>
+              </div>
+            <% end %>
+            <% if @adm.id == Usuario::ROOT %>
+              <br>
+              <%= @xml_enviado %>
+              <br>
+              <br>
+              <br>
+              <%= @xml_recebido %>
+            <% end %>
             <br>
-            <%= @info %>
-          <% end %>
-          <br>
-          <div style="display: inline-block;margin-bottom: 10px;width: 100%;margin-bottom: 5px;">
-            <% if @info.present? && @info["canVend"] && @info["minVendAmt"].present? && @info["minVendAmt"]["value"].to_i < 1 %>
+            <div style="display: inline-block;margin-bottom: 10px;width: 100%;margin-bottom: 5px;">
+              <% if info.present? && info["canVend"] && info["minVendAmt"].present? && info["minVendAmt"]["value"].to_i < 1 %>
                 <%= link_to "/?recarga=ende&meter_number=#{params[:meter_number]}", class: 'btn btn-success', style: "width: 100%;text-align: center;" do %>
                   <span class="glyphicon glyphicon-list-alt"></span>
                   Venda de Crédito
                 <% end %>
-            <% end %>
-            <hr>
-            <%= link_to root_path, class: 'btn btn-danger', style: "width: 100%;text-align: center;" do %>
-              <span class="glyphicon glyphicon-list-alt"></span>
-              Voltar
-            <% end %>
-          </div>
+              <% end %>
+              <hr>
+              <%= link_to root_path, class: 'btn btn-danger', style: "width: 100%;text-align: center;" do %>
+                <span class="glyphicon glyphicon-list-alt"></span>
+                Voltar
+              <% end %>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>

@@ -23,8 +23,15 @@
         <% if info["erro"].present? && (venda.blank? || venda.error_message.blank?) %>
           <div class="col-md-12" style="text-align: left">
             <ul style="list-style-type: none;">
+              <% if info["msno"].present? %>
+                <li><b>N. de Contador:</b> <%= info["msno"] %></li>
+              <% elsif venda.present? %>
+                <li><b>N. de Contador:</b> <%= venda.request_send.scan(/msno=\".*?\"/).first.remove(/msno=|\"/) rescue "" %></li>
+              <% elsif params[:meter_number].present? %>
+                <li><b>N. de Contador:</b> <%= params[:meter_number] %></li>
+              <% end %>
               <li>
-                <p><b><%= info["erro"] %></b></p>>
+                <p><b><%= info["erro"] %></b></p>
               </li>
             </ul>
           </div>
@@ -50,6 +57,8 @@
                 <li><b>N. de Contador:</b> <%= info["msno"] %></li>
               <% elsif venda.present? %>
                 <li><b>N. de Contador:</b> <%= venda.request_send.scan(/msno=\".*?\"/).first.remove(/msno=|\"/) rescue "" %></li>
+              <% elsif params[:meter_number].present? %>
+                <li><b>N. de Contador:</b> <%= params[:meter_number] %></li>
               <% end %>
               <% if info["tariff"].present? %>
                 <li><b>Tarifa:</b> <%= info["tariff"] %></li>

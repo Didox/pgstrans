@@ -58,8 +58,10 @@
       <% end %>
       
       <% if @venda.partner.id == Partner.ende.id %>
-        <% info = Ende.informacoes_parse(@venda.response_get, EndeUniqNumber.find(@venda.request_id)) %>
-        <%= render "/ende/venda_recibo", info: info, title: "Venda de Crédito", venda: @venda %>
+        <% infos = Ende.informacoes_parse(@venda.response_get, EndeUniqNumber.find(@venda.request_id)) %>
+        <% infos.each do |info|%>
+          <%= render "/ende/venda_recibo", info: info, title: "Venda de Crédito", venda: @venda %>
+        <% end %>
       <% end %>
 
       <% if @adm.id == Usuario::ROOT %>

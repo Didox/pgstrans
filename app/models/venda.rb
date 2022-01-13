@@ -342,6 +342,7 @@ class Venda < ApplicationRecord
 
   def self.confirma_venda!(venda, uniq_number, meter_number, produto, valor, desconto_aplicado, valor_original, usuario, parceiro)
     info, xml_enviado, xml_recebido = Ende.informacoes_meter_number(meter_number, uniq_number)
+    info = info.first
 
     venda.request_send = xml_enviado
     venda.response_get = xml_recebido
@@ -510,7 +511,7 @@ class Venda < ApplicationRecord
       conta_corrente.responsavel = usuario
       conta_corrente.save!
 
-      info = Ende.informacoes_parse(last_request, uniq_number)
+      info = Ende.informacoes_parse(last_request, uniq_number).first
       stscipher = info["stsCipher"]
       receiptNo = info["receiptNo"]
       respdatetime = info["respDateTime"]

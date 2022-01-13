@@ -351,13 +351,11 @@ class Ende
     return html
   end
 
-  def self.informacoes_parse(body, uniq_number)
-    body.remove!(/=========.*?========/)
-    
-    @info = {}
+  def self.informacoes_xml(body, uniq_number)
+    info = {}
 
     if body.scan(/<fault .*?<\/fault>/).length > 0
-      @info = {
+      info = {
         "erro" => ErroAmigavel.traducao(Nokogiri::XML(body.scan(/<fault .*?<\/fault>/).first).text),
         "respDateTime" => Nokogiri::XML(body.scan(/<respDateTime .*?<\/respDateTime>/).first).text.to_datetime
       }
@@ -365,51 +363,50 @@ class Ende
 
     xml_doc = Nokogiri::XML(body)
 
-    
     xml_itens = xml_doc.children.children.children.children.children
     xml_itens.each do |info|
       info.each do |key, value|
-        @info[key] = value
+        info[key] = value
       end
     end
 
     cliente_xml = Nokogiri::XML(body.scan(/<custVendDetail .*?\/>/).first).children.first
-    @info["name"] = cliente_xml["name"] rescue nil
-    @info["address"] = cliente_xml["address"] rescue nil
-    @info["contactNo"] = cliente_xml["contactNo"] rescue nil
-    @info["accNo"] = cliente_xml["accNo"] rescue nil
-    @info["daysLastPurchase"] = cliente_xml["daysLastPurchase"] rescue nil
-    @info["locRef"] = cliente_xml["locRef"] rescue nil
-    @info["utilityType"] = cliente_xml["utilityType"] rescue nil
-    @info["taxReferenceNo"] = cliente_xml["taxReferenceNo"] rescue nil
-    @info["minVendAmt"] = cliente_xml(/minVendAmt=\".*?\"/).first.remove(/minVendAmt=\"|\"/) rescue nil
-    @info["maxVendAmt"] = cliente_xml(/maxVendAmt=\".*?\"/).first.remove(/maxVendAmt=\"|\"/) rescue nil
+    info["name"] = cliente_xml["name"] rescue nil
+    info["address"] = cliente_xml["address"] rescue nil
+    info["contactNo"] = cliente_xml["contactNo"] rescue nil
+    info["accNo"] = cliente_xml["accNo"] rescue nil
+    info["daysLastPurchase"] = cliente_xml["daysLastPurchase"] rescue nil
+    info["locRef"] = cliente_xml["locRef"] rescue nil
+    info["utilityType"] = cliente_xml["utilityType"] rescue nil
+    info["taxReferenceNo"] = cliente_xml["taxReferenceNo"] rescue nil
+    info["minVendAmt"] = cliente_xml(/minVendAmt=\".*?\"/).first.remove(/minVendAmt=\"|\"/) rescue nil
+    info["maxVendAmt"] = cliente_xml(/maxVendAmt=\".*?\"/).first.remove(/maxVendAmt=\"|\"/) rescue nil
     
-    @info["accountName"] = body.to_s.downcase.scan(/<accountname.*?<\/accountname>/).first.gsub(/<[^>]*>/, "") rescue ""
-    @info["stsCipher"] = body.to_s.downcase.scan(/<q1:stscipher.*?<\/q1:stscipher>/).first.gsub(/<[^>]*>/, "") rescue ""
-    @info["msno"] = body.scan(/msno=\".*?\"/).first.remove(/msno=\"|\"/) rescue nil
-    @info["canVend"] = xml_itens.to_xml.scan(/canVend.*?true<\/canVend/).length > 0 ? true : false
-    @info["minVendAmt"] = body.scan(/minVendAmt=\".*?\"/).first.remove(/minVendAmt=\"|\"/) rescue nil
-    @info["maxVendAmt"] = body.scan(/maxVendAmt=\".*?\"/).first.remove(/maxVendAmt=\"|\"/) rescue nil
-    @info["respDateTime"] = Nokogiri::XML(body.scan(/<respDateTime .*?<\/respDateTime>/).first).text.to_datetime rescue nil
-    @info["unique_number"] = uniq_number.unique_number
-    @info["receiptNo"] = body.scan(/receiptNo=\".*?\"/).first.remove(/receiptNo=\"|\"/) rescue nil
-    @info["amtvalue"] = body.scan(/amtvalue=\".*?\"/).first.remove(/amtvalue=\"|\"/) rescue nil
-    @info["symbol"] = body.scan(/symbol=\".*?\"/).first.remove(/symbol=\"|\"/) rescue nil
-    @info["krn"] = body.scan(/krn=\".*?\"/).first.remove(/krn=\"|\"/) rescue nil
-    @info["ti"] = body.scan(/ti=\".*?\"/).first.remove(/ti=\"|\"/) rescue nil
-    @info["sgc"] = body.scan(/sgc=\".*?\"/).first.remove(/sgc=\"|\"/) rescue nil
-    @info["unitOfMeasurement"] = body.scan(/unitOfMeasurement=\".*?\"/).first.remove(/unitOfMeasurement=\"|\"/) rescue nil
-    @info["tt"] = body.scan(/tt=\".*?\"/).first.remove(/tt=\"|\"/) rescue nil
-    @info["siUnit"] = body.scan(/siUnit=\".*?\"/).first.remove(/siUnit=\"|\"/) rescue nil
-    @info["rate_value"] = body.scan(/rate_value=\".*?\"/).first.remove(/rate_value=\"|\"/) rescue nil
-    @info["units_value"] = body.scan(/units_value=\".*?\"/).first.remove(/units_value=\"|\"/) rescue nil
-    @info["type"] = body.scan(/type=\".*?\"/).first.remove(/type=\"|\"/) rescue nil
+    info["accountName"] = body.to_s.downcase.scan(/<accountname.*?<\/accountname>/).first.gsub(/<[^>]*>/, "") rescue ""
+    info["stsCipher"] = body.to_s.downcase.scan(/<q1:stscipher.*?<\/q1:stscipher>/).first.gsub(/<[^>]*>/, "") rescue ""
+    info["msno"] = body.scan(/msno=\".*?\"/).first.remove(/msno=\"|\"/) rescue nil
+    info["canVend"] = xml_itens.to_xml.scan(/canVend.*?true<\/canVend/).length > 0 ? true : false
+    info["minVendAmt"] = body.scan(/minVendAmt=\".*?\"/).first.remove(/minVendAmt=\"|\"/) rescue nil
+    info["maxVendAmt"] = body.scan(/maxVendAmt=\".*?\"/).first.remove(/maxVendAmt=\"|\"/) rescue nil
+    info["respDateTime"] = Nokogiri::XML(body.scan(/<respDateTime .*?<\/respDateTime>/).first).text.to_datetime rescue nil
+    info["unique_number"] = uniq_number.unique_number
+    info["receiptNo"] = body.scan(/receiptNo=\".*?\"/).first.remove(/receiptNo=\"|\"/) rescue nil
+    info["amtvalue"] = body.scan(/amtvalue=\".*?\"/).first.remove(/amtvalue=\"|\"/) rescue nil
+    info["symbol"] = body.scan(/symbol=\".*?\"/).first.remove(/symbol=\"|\"/) rescue nil
+    info["krn"] = body.scan(/krn=\".*?\"/).first.remove(/krn=\"|\"/) rescue nil
+    info["ti"] = body.scan(/ti=\".*?\"/).first.remove(/ti=\"|\"/) rescue nil
+    info["sgc"] = body.scan(/sgc=\".*?\"/).first.remove(/sgc=\"|\"/) rescue nil
+    info["unitOfMeasurement"] = body.scan(/unitOfMeasurement=\".*?\"/).first.remove(/unitOfMeasurement=\"|\"/) rescue nil
+    info["tt"] = body.scan(/tt=\".*?\"/).first.remove(/tt=\"|\"/) rescue nil
+    info["siUnit"] = body.scan(/siUnit=\".*?\"/).first.remove(/siUnit=\"|\"/) rescue nil
+    info["rate_value"] = body.scan(/rate_value=\".*?\"/).first.remove(/rate_value=\"|\"/) rescue nil
+    info["units_value"] = body.scan(/units_value=\".*?\"/).first.remove(/units_value=\"|\"/) rescue nil
+    info["type"] = body.scan(/type=\".*?\"/).first.remove(/type=\"|\"/) rescue nil
    
     tariff = Nokogiri::XML(body.scan(/<tariff.*?<\/tariff>/).first).children.first.to_xml rescue nil
     if tariff.present?
       tariff = Nokogiri::XML(tariff.scan(/<name.*?<\/name>/).first).children.first.text rescue ""
-      @info["tariff"] = tariff
+      info["tariff"] = tariff
     end
    
     tariff_breakdown_xml = []
@@ -423,14 +420,14 @@ class Ende
       end
     end
 
-    @info["tariffBreakdown"] = tariff_breakdown_xml rescue []
+    info["tariffBreakdown"] = tariff_breakdown_xml rescue []
 
     tx = Nokogiri::XML(body.scan(/<tx xsi:type=\"ServiceChrgTx\">.*?<\/tx>/).first) rescue nil
     if tx.present?
       symbol = tx.children.first.xpath("//amt").first.attributes["symbol"].value rescue ""
       value = tx.children.first.xpath("//amt").first.attributes["value"].value rescue ""
       accDesc = tx.children.first.xpath("//accDesc").first.text rescue ""
-      @info["ServiceChrgTx"] = {
+      info["ServiceChrgTx"] = {
         "symbol" => symbol,
         "value" => value,
         "accDesc" => accDesc
@@ -439,7 +436,7 @@ class Ende
 
     creditVendTx = body.scan(/<tx xsi:type=\"CreditVendTx\".*?<\/tx>/)
     if creditVendTx.present?
-      @info["CreditVendTx"] = []
+      info["CreditVendTx"] = []
       creditVendTx.each do |xml|
         tx = Nokogiri::XML(xml) rescue nil
 
@@ -450,7 +447,7 @@ class Ende
         meterDetail = Nokogiri::XML(xml.downcase.scan(/<q\d:meterdetail.*?<\/q\d:meterdetail>/).first).children.first.attributes rescue {}
         units = Nokogiri::XML(xml.downcase.scan(/<q\d:units.*?\/>/).first).children.first.attributes rescue {}
         
-        @info["CreditVendTx"] << {
+        info["CreditVendTx"] << {
           "symbol" => symbol,
           "value" => value,
           "stsCipher" => stsCipher,
@@ -476,7 +473,7 @@ class Ende
       accDesc = tx.children.first.xpath("//accDesc").first.text rescue ""
       accNo = tx.children.first.xpath("//accNo").first.text rescue ""
 
-      @info["DebtRecoveryTx"] = {
+      info["DebtRecoveryTx"] = {
         "amt" => {
           "symbol" => amt_symbol,
           "value" => amt_value,
@@ -490,7 +487,7 @@ class Ende
       }
     end
 
-    @info["ServiceChrgTx"] = []
+    info["ServiceChrgTx"] = []
     body.scan(/<tx xsi:type=\"ServiceChrgTx\".*?<\/tx>/).each do |xml|
       tx = Nokogiri::XML(xml) rescue nil
       if tx.present?
@@ -501,7 +498,7 @@ class Ende
         accDesc = tx.children.first.xpath("//accDesc").first.text rescue ""
         accNo = tx.children.first.xpath("//accNo").first.text rescue ""
 
-        @info["ServiceChrgTx"] << {
+        info["ServiceChrgTx"] << {
           "amt" => {
             "symbol" => amt_symbol,
             "value" => amt_value,
@@ -521,7 +518,7 @@ class Ende
       siUnit = creditTokenIssue.children.first.xpath("//q1:units").first.attributes["siUnit"].value rescue ""
       value = creditTokenIssue.children.first.xpath("//q1:units").first.attributes["value"].value rescue ""
       desc = creditTokenIssue.children.first.xpath("//q1:desc").first.text rescue ""
-      @info["creditTokenIssue"] = {
+      info["creditTokenIssue"] = {
         "desc" => desc,
         "units" => {
           "siUnit" => siUnit,
@@ -532,7 +529,7 @@ class Ende
 
     attributes = Nokogiri::XML(body.scan(/<tenderAmt .*?\/>/).first).children.first.attributes rescue nil
     if attributes.present?
-      @info["tenderAmt"] = {
+      info["tenderAmt"] = {
         "symbol" => attributes["symbol"],
         "value" => attributes["value"]
       }
@@ -540,13 +537,28 @@ class Ende
 
     attributes = Nokogiri::XML(body.scan(/<change .*?\/>/).first).children.first.attributes rescue nil
     if attributes.present?
-      @info["change"] = {
+      info["change"] = {
         "symbol" => attributes["symbol"],
         "value" => attributes["value"]
       }
     end
 
-    @info
+    return info
+  end
+
+  def self.informacoes_parse(body, uniq_number)
+    body.remove!(/=========.*?========/)
+
+    reprints = body.scan(/<reprint .*?<\/reprint>/)
+    if reprints.length > 1
+      info = []
+      reprints.each do |reprint|
+        info << informacoes_xml(reprint, uniq_number)
+      end
+      return info
+    end
+    
+    return [informacoes_xml(body, uniq_number)]
   end
 
   def self.fazer_request(url, body, uniq_number)

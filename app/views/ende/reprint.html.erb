@@ -35,8 +35,11 @@
             </form>
           </div>
         <% elsif @info.present? %>
-          <%= render "/ende/venda_recibo", info: @info, title: "Reimpressão", venda: nil %>
-          <hr>
+          <% @info.each do |info| %>
+            <%= render "/ende/venda_recibo", info: info, title: "Reimpressão", venda: nil %>
+            <hr>
+          <% end %>
+
           <% if @adm.id == Usuario::ROOT %>
             <%= @xml %>
           <% end %>

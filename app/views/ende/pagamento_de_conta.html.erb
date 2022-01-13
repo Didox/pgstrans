@@ -48,7 +48,11 @@
             <% end %>
           </div>
           <% elsif @info.present? %>
-            <%= render "/ende/venda_recibo", info: @info, title: "Pagamento de Conta", venda: nil %>
+            <% @info.each do |info| %>
+              <%= render "/ende/venda_recibo", info: info, title: "Pagamento de Conta", venda: nil %>
+              <hr>
+            <% end %>
+            
             <% if @adm.id == Usuario::ROOT %>
               <br>
               <%= raw Ende.children_text(Nokogiri::XML(@info)) %>
