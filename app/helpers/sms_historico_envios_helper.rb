@@ -1,0 +1,2 @@
+module SmsHistoricoEnviosHelper
+end

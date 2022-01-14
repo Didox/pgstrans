@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :email_historico_envios
+  resources :sms_historico_envios
   resources :ip_api_autorizados
   resources :alegacao_de_pagamentos do
     post '/processar', to: 'alegacao_de_pagamentos#processar'

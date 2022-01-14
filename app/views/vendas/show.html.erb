@@ -1,3 +1,7 @@
+<% if @venda.partner.id == Partner.ende.id %>
+  <% infos = Ende.informacoes_parse(@venda.response_get, EndeUniqNumber.find(@venda.request_id)) %>
+<% end %>
+
 <div class="col-md-12">
   <div class="col-md-12">
     <h3>Detalhes da Venda</h3>
@@ -41,6 +45,16 @@
       </dd>
       <dt>Custo:</dt>
       <dd><%= number_to_currency(@venda.value) %></dd>
+
+      <% if @venda.partner.id == Partner.ende.id %>
+        <% infos.each do |info|%>
+          <% if info["availCredit"].present? %>
+            <dt>Saldo Pagasó ENDE:</dt>
+            <dd><%= number_to_currency(info["availCredit"]["value"], :precision => 2, :unit => Ende.akz_parse(info["availCredit"]["symbol"])) %></dd>
+          <% end %>
+        <% end %>
+      <% end %>
+
       <% if @venda.customer_number.present? %>
         <dt>Número do Cliente:</dt>
         <dd><%= @venda.customer_number %></dd>
@@ -58,7 +72,6 @@
       <% end %>
       
       <% if @venda.partner.id == Partner.ende.id %>
-        <% infos = Ende.informacoes_parse(@venda.response_get, EndeUniqNumber.find(@venda.request_id)) %>
         <% infos.each do |info|%>
           <%= render "/ende/venda_recibo", info: info, title: "Venda de Crédito", venda: @venda %>
         <% end %>

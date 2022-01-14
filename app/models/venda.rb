@@ -476,7 +476,7 @@ class Venda < ApplicationRecord
     response_get += "=========[creditVendReq]========"
 
     last_request = request.body
-    
+
     uniq_number.xml_recebido = last_request
     uniq_number.save!
 
@@ -529,13 +529,26 @@ class Venda < ApplicationRecord
       assunto_email = "ENDE_RECARGA ENERGIA"
       mensagem = "#{assunto_email}-Codigo STS: #{stscipher} Energia: #{energia.join(" ")} Valor: #{Venda.helper.number_to_currency(valor_original, :unit => "")} Akz Contador: #{meter_number}-#{respdatetime}-CallCenter 222641770"
       envia, resposta = Sms.enviar(params[:talao_sms_ende], mensagem)
-      LogVenda.create(usuario_id: usuario.id, titulo: "SMS não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: resposta.inspect) if !envia
+
+      sms_log = SmsHistoricoEnvio.new(numero: params[:talao_sms_ende], conteudo: mensagem, usuario_id: usuario.id, venda_id: venda.id, sucesso: true)
+      if envia
+        sms_log.save!
+      else
+        sms_log.sucesso = false
+        sms_log.save!
+        LogVenda.create(usuario_id: usuario.id, titulo: "SMS não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: resposta.inspect)
+      end
 
       if params[:email].present?
+        email_log = EmailHistoricoEnvio.new(email: params[:email], titulo: assunto_email, usuario_id: usuario.id, venda_id: venda.id, sucesso: true)
         info["venda"] = venda
         begin
           UsuarioMailer.notificacao_de_venda(assunto_email, params[:email], info).deliver
+          email_log.save!
         rescue Exception => erro
+          email_log.conteudo = "#{erro.message} - #{erro.backtrace}"
+          email_log.sucesso = false
+          email_log.save!
           LogVenda.create(usuario_id: usuario.id, titulo: "Email não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: erro.backtrace)
         end
       end

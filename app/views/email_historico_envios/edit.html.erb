@@ -1,0 +1,18 @@
+<div class="container"> 
+  <h4>Edição EmailHistoricoEnvio</h4>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <%= render 'form' %>
+
+  <%= link_to @email_historico_envio, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    Mostrar
+  <% end %>
+  <%= link_to email_historico_envios_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+</div>

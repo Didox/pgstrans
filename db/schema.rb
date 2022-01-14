@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_11_111218) do
+ActiveRecord::Schema.define(version: 2022_01_14_184140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,6 +126,18 @@ ActiveRecord::Schema.define(version: 2022_01_11_111218) do
     t.index ["desconto_parceiro_id"], name: "index_distribuidor_descontos_on_desconto_parceiro_id"
     t.index ["partner_id"], name: "index_distribuidor_descontos_on_partner_id"
     t.index ["sub_distribuidor_id"], name: "index_distribuidor_descontos_on_sub_distribuidor_id"
+  end
+
+  create_table "email_historico_envios", force: :cascade do |t|
+    t.string "email"
+    t.string "titulo"
+    t.text "conteudo"
+    t.bigint "usuario_id"
+    t.bigint "venda_id"
+    t.boolean "sucesso"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["usuario_id"], name: "index_email_historico_envios_on_usuario_id"
   end
 
   create_table "ende_uniq_numbers", force: :cascade do |t|
@@ -469,6 +481,17 @@ ActiveRecord::Schema.define(version: 2022_01_11_111218) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
+  create_table "sms_historico_envios", force: :cascade do |t|
+    t.string "numero"
+    t.text "conteudo"
+    t.bigint "usuario_id"
+    t.bigint "venda_id"
+    t.boolean "sucesso"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["usuario_id"], name: "index_sms_historico_envios_on_usuario_id"
+  end
+
   create_table "status_alegacao_de_pagamentos", force: :cascade do |t|
     t.string "nome"
     t.datetime "created_at", null: false
@@ -669,6 +692,7 @@ ActiveRecord::Schema.define(version: 2022_01_11_111218) do
   add_foreign_key "distribuidor_descontos", "desconto_parceiros"
   add_foreign_key "distribuidor_descontos", "partners"
   add_foreign_key "distribuidor_descontos", "sub_distribuidors"
+  add_foreign_key "email_historico_envios", "usuarios"
   add_foreign_key "grupo_registros", "grupos"
   add_foreign_key "grupo_usuarios", "grupos"
   add_foreign_key "grupo_usuarios", "usuarios"
@@ -689,6 +713,7 @@ ActiveRecord::Schema.define(version: 2022_01_11_111218) do
   add_foreign_key "return_code_apis", "partners"
   add_foreign_key "saldo_parceiro_dstvs", "partners"
   add_foreign_key "saldo_parceiros", "partners"
+  add_foreign_key "sms_historico_envios", "usuarios"
   add_foreign_key "sub_agentes", "industries"
   add_foreign_key "sub_agentes", "provincia", column: "provincia_id"
   add_foreign_key "sub_agentes", "uni_pessoal_empresas"

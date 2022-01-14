@@ -402,6 +402,14 @@ class Ende
     info["rate_value"] = body.scan(/rate_value=\".*?\"/).first.remove(/rate_value=\"|\"/) rescue nil
     info["units_value"] = body.scan(/units_value=\".*?\"/).first.remove(/units_value=\"|\"/) rescue nil
     info["type"] = body.scan(/type=\".*?\"/).first.remove(/type=\"|\"/) rescue nil
+    
+    attributes_avail_credit = Nokogiri::XML(body.scan(/<availCredit.*?\/>/).first).children.first.attributes rescue nil
+    if attributes_avail_credit.present?
+      info["availCredit"] = {
+        "value" => attributes_avail_credit["value"].value,
+        "symbol" => attributes_avail_credit["symbol"].value,
+      }
+    end
    
     tariff = Nokogiri::XML(body.scan(/<tariff.*?<\/tariff>/).first).children.first.to_xml rescue nil
     if tariff.present?
