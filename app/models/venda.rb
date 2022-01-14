@@ -367,8 +367,9 @@ class Venda < ApplicationRecord
   rescue Exception => e
     if e.message.downcase.include?("timeout")
       begin
-        xml_enviado, xml_recebido = Ende.last_advice(data, unique_number)
-        venda.error_message = ErroAmigavel.traducao(Nokogiri::XML(xml_recebido.scan(/<fault .*?<\/fault>/).first).text)
+        info, xml_enviado, xml_recebido = Ende.last_advice(data, unique_number)
+        info = info.first
+        venda.error_message = info["erro"]
         venda.status = "ende-4"
         venda.request_send = xml_enviado
         venda.response_get = xml_recebido
@@ -519,15 +520,17 @@ class Venda < ApplicationRecord
       receiptNo = info["receiptNo"]
       respdatetime = info["respDateTime"]
       respdatetime = respdatetime.to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue respdatetime
+      energia = "#{info["creditTokenIssue"]["units"]["value"]} #{info["creditTokenIssue"]["units"]["siUnit"]}" rescue ""
 
-      mensagem = "PAGASO-ENDE RECARGA DE ENERGIA Codigo de Recarga: #{stscipher} Energia #{} Valor: #{} Contador: #{meter_number}. #{respdatetime}"
+      assunto_email = "PAGASO-ENDE RECARGA DE ENERGIA Codigo de Recarga"
+      mensagem = "#{assunto_email}: #{stscipher} Energia #{energia} Valor: #{Venda.helper.number_to_currency(valor_original, :unit => "")} Akz Contador: #{meter_number}. #{respdatetime}"
       envia, resposta = Sms.enviar(params[:talao_sms_ende], mensagem)
       LogVenda.create(usuario_id: usuario.id, titulo: "SMS não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: resposta.inspect) if !envia
 
       if params[:email].present?
         info["venda"] = venda
         begin
-          UsuarioMailer.notificacao_de_venda(mensagem, params[:email], info).deliver
+          UsuarioMailer.notificacao_de_venda(assunto_email, params[:email], info).deliver
         rescue Exception => erro
           LogVenda.create(usuario_id: usuario.id, titulo: "Email não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: erro.backtrace)
         end

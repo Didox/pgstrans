@@ -125,7 +125,7 @@ class Ende
     "
 
     request = fazer_request(url_service, body, uniq_number)
-    return [informacoes_parse(request.body, uniq_number), request.body]
+    return [informacoes_parse(request.body, uniq_number), body, request.body]
   end
 
   def self.reprint(meter_number)
@@ -157,7 +157,7 @@ class Ende
     "
 
     request = fazer_request(url_service, body, uniq_number)
-    return [informacoes_parse(request.body, uniq_number), request.body]
+    return [informacoes_parse(request.body, uniq_number), body, request.body]
   end
 
   def self.last_advice(date_time, unique_number_enviado)
@@ -183,7 +183,7 @@ class Ende
     "
 
     request = fazer_request(url_service, body, uniq_number)
-    return [body, request.body]
+    return [informacoes_parse(request.body, uniq_number), body, request.body]
   end
 
   def self.pagamento_de_conta(numero_conta, valor_pagamento)
@@ -218,7 +218,7 @@ class Ende
   "
    
     request = fazer_request(url_service, body, uniq_number)
-    return request.body
+    return [informacoes_parse(request.body, uniq_number), body, request.body]
   end
 
   def self.parametros

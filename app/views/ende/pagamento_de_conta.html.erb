@@ -37,28 +37,18 @@
               </div>
             </form>
           </div>
-        <% elsif @info.present? && @info["erro"].present? %>
-          <h3>Número da Conta: <%= params[:numero_conta] %></h3>
-          <h3><%= @info["erro"] %></h3>
-          <h3><%= @info["respDateTime"].to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></h3>
-          <div class="row justify-content-md-center">
-            <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
-              <span class="glyphicon glyphicon-list-alt"></span>
-              Voltar
-            <% end %>
-          </div>
           <% elsif @info.present? %>
             <% @info.each do |info| %>
               <%= render "/ende/venda_recibo", info: info, title: "Pagamento de Conta", venda: nil %>
-              <hr>
+              <br>
+              <br>
             <% end %>
             
             <% if @adm.id == Usuario::ROOT %>
+              <%= @xml_enviado %>
               <br>
-              <%= raw Ende.children_text(Nokogiri::XML(@info)) %>
               <br>
-              <%= @info %>
-              <%= @xml %>
+              <%= @xml_recebido %>
             <% end %>
             <br>
             <br>
