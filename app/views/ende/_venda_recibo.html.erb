@@ -134,15 +134,19 @@
               </li>
             </div>
           <% end %>
-          <% if info["creditTokenIssue"].present? && info["creditTokenIssue"]["units"]["value"].present? %>
-            <div class="col-md-12" style="text-align: left"> 
-              <ul style="list-style-type: none">
-                <li>
-                  <b>Energia:</b> <%= info["creditTokenIssue"]["units"]["value"] %> <%= info["creditTokenIssue"]["units"]["siUnit"] %>
-                  <hr>
-                </li>
-              </ul>
-            </div>
+          <% if info["creditTokenIssue"].present? %>
+            <% info["creditTokenIssue"].each do |creditTokenIssue| %>
+              <% if creditTokenIssue["units"]["value"].present? %>
+                <div class="col-md-12" style="text-align: left"> 
+                  <ul style="list-style-type: none">
+                    <li>
+                      <b>Energia:</b> <%= creditTokenIssue["units"]["value"] %> <%= creditTokenIssue["units"]["siUnit"] %>
+                      <hr>
+                    </li>
+                  </ul>
+                </div>
+              <% end %>
+            <% end %>
           <% end %>
           <% if info["tariffBreakdown"].present? %>
             <div class="col-md-12" style="text-align: left"> 

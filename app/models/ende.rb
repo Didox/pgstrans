@@ -383,7 +383,7 @@ class Ende
     info["maxVendAmt"] = cliente_xml(/maxVendAmt=\".*?\"/).first.remove(/maxVendAmt=\"|\"/) rescue nil
     
     info["accountName"] = body.to_s.downcase.scan(/<accountname.*?<\/accountname>/).first.gsub(/<[^>]*>/, "") rescue ""
-    info["stsCipher"] = body.to_s.downcase.scan(/<q1:stscipher.*?<\/q1:stscipher>/).first.gsub(/<[^>]*>/, "") rescue ""
+    info["stsCipher"] = body.to_s.downcase.scan(/<q\d:stscipher.*?<\/q\d:stscipher>/).first.gsub(/<[^>]*>/, "") rescue ""
     info["msno"] = body.scan(/msno=\".*?\"/).first.remove(/msno=\"|\"/) rescue nil
     info["canVend"] = xml_itens.to_xml.scan(/canVend.*?true<\/canVend/).length > 0 ? true : false
     info["minVendAmt"] = body.scan(/minVendAmt=\".*?\"/).first.remove(/minVendAmt=\"|\"/) rescue nil
@@ -410,11 +410,12 @@ class Ende
     end
    
     tariff_breakdown_xml = []
-    steps = Nokogiri::XML(body.scan(/<tariffBreakdown .*?<\/tariffBreakdown>/).first).children.first.xpath("//q2:Step") rescue []
+    steps = body.scan(/<tariffBreakdown .*?<\/tariffBreakdown>/).first.scan(/<q\d:Step.*?<\/q\d:Step>/) rescue []
     steps.each do |step|
-      step.children.each do |item|
+      steps = Nokogiri::XML(step).children.first.children rescue []
+      steps.each do |item|
         tariff_breakdown_xml << { 
-          "name" => item.name,
+          "name" => item.name.to_s.remove(/q\d\:/),
           "value" => item.to_h 
         }
       end
@@ -513,18 +514,22 @@ class Ende
       end
     end
 
-    creditTokenIssue = Nokogiri::XML(body.scan(/<creditTokenIssue.*?<\/creditTokenIssue>/).first) rescue nil
-    if creditTokenIssue.present?
-      siUnit = creditTokenIssue.children.first.xpath("//q1:units").first.attributes["siUnit"].value rescue ""
-      value = creditTokenIssue.children.first.xpath("//q1:units").first.attributes["value"].value rescue ""
-      desc = creditTokenIssue.children.first.xpath("//q1:desc").first.text rescue ""
-      info["creditTokenIssue"] = {
-        "desc" => desc,
-        "units" => {
-          "siUnit" => siUnit,
-          "value" => value,
-        },
-      }
+    creditTokenIssues = body.scan(/<creditTokenIssue.*?<\/creditTokenIssue>/)
+    if creditTokenIssues.present?
+      info["creditTokenIssue"] = []
+      creditTokenIssues.each do |xml|
+        tx = Nokogiri::XML(xml) rescue nil
+        desc = xml.scan(/<q\d\:desc.*?<\/q\d:desc>/).first.gsub(/<[^>]*>/, "") rescue ""
+        units = Nokogiri::XML(xml.scan(/<q\d:units.*?\/>/).first).children.first.attributes rescue {}
+        
+        info["creditTokenIssue"] << {
+          "desc" => desc,
+          "units" => {
+            "siUnit" => units["siUnit"].value,
+            "value" => units["value"].value,
+          }
+        }
+      end
     end
 
     attributes = Nokogiri::XML(body.scan(/<tenderAmt .*?\/>/).first).children.first.attributes rescue nil
