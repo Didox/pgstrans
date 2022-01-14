@@ -527,7 +527,7 @@ class Venda < ApplicationRecord
       end
 
       assunto_email = "PAGASO-ENDE RECARGA"
-      mensagem = "#{assunto_email}: #{stscipher} Energia #{energia.join(" ")} Valor #{Venda.helper.number_to_currency(valor_original, :unit => "")} Akz Contador #{meter_number}-#{respdatetime} CallCenter 222 641 770/90"
+      mensagem = "#{assunto_email}-Codigo: #{stscipher} Energia: #{energia.join(" ")} Valor: #{Venda.helper.number_to_currency(valor_original, :unit => "")} Akz Contador: #{meter_number}-#{respdatetime}-CallCenter 222 641 770/90"
       envia, resposta = Sms.enviar(params[:talao_sms_ende], mensagem)
       LogVenda.create(usuario_id: usuario.id, titulo: "SMS não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: resposta.inspect) if !envia
 
