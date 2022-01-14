@@ -9,8 +9,10 @@
   </div>
   <div class="card-body recarga">
     <div class="col-md-12 row justify-content-center mobile-container-icones">
-      <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO).each_with_index do |partner, index| 
-        if index == 0
+      <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO).each do |partner|
+        next if partner.slug == "ende" && !(@adm.admin? || @adm.operador?) # remover depois do teste ENDE
+
+        if @partner_default.blank?
           @partner_default = partner
           ativo = "menu-ativo"
         end %>
