@@ -75,6 +75,7 @@ Rails.application.routes.draw do
   
   resources :vendas do
     delete '/reverter_venda_zaptv', to: 'vendas#reverter_venda_zaptv', as: "reverter_venda_zaptv"
+    get '/recibo', to: 'vendas#recibo', as: "vendas_recibo"
   end
   resources :moedas
   get 'backoffice/home'

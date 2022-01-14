@@ -1,5 +1,5 @@
 class VendasController < ApplicationController
-  before_action :set_venda, only: [:show, :edit, :update, :destroy, :mostrar_resumido]
+  before_action :set_venda, only: [:show, :recibo, :edit, :update, :destroy, :mostrar_resumido]
   layout "blank", only: [:index_grafico, :index_resumo]
 
   # GET /vendas
@@ -18,10 +18,9 @@ class VendasController < ApplicationController
     index
   end
 
-  # GET /vendas/1
-  # GET /vendas/1.json
-  def show
-  end
+  def recibo;end
+
+  def show;end
 
   def consolidado
     @page = params[:page] || 1

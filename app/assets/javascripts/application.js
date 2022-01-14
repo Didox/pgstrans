@@ -172,7 +172,7 @@ const processarPagamento = function(){
       }
       else{
         if(data.sucesso && data.redirect){
-          window.location.href="/vendas/" + data.venda_id;
+          window.location.href="/vendas/" + data.venda_id + "/recibo";
         }
         else{
           $.alert(data.mensagem);
@@ -189,7 +189,7 @@ const processarPagamento = function(){
         $.alert(data.mensagem + stackthrow);
       }
       else{
-        window.location.href="/vendas/" + erroObject.venda_id;
+        window.location.href="/vendas/" + erroObject.venda_id + "/recibo";
       }
 
     },
