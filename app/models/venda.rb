@@ -528,7 +528,7 @@ class Venda < ApplicationRecord
       end
 
       assunto_email = "ENDE PRE-PAGO"
-      mensagem = "#{assunto_email} #{respdatetime} Contador: #{meter_number} Kz: #{Venda.helper.number_to_currency(valor_original, :unit => "")} #{energia.join(" ")} Codigo Recarga: #{stscipher} Call Center 222641770/90"
+      mensagem = "#{assunto_email} #{respdatetime} Contador: #{meter_number} Kz: #{Venda.helper.number_to_currency(valor_original, :unit => "")} #{energia.join(" ")} Codigo Recarga: #{stscipher} Call Center: 222 640 770/90"
       envia, resposta = Sms.enviar(params[:talao_sms_ende], mensagem)
 
       sms_log = SmsHistoricoEnvio.new(numero: params[:talao_sms_ende], conteudo: mensagem, usuario_id: usuario.id, venda_id: venda.id, sucesso: true)
