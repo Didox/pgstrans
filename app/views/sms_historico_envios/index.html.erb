@@ -1,42 +1,125 @@
-<div class="container">
-  <p id="notice"><%= notice %></p>
-
-  <h4>SmsHistoricoEnvio</h4>
-
+<div class="col-md-12">
+  <div class="col-md-12">
+    <h3>Histórico de SMS Enviado</h3>
+  </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
+<div class="col-md-12">
+  <form action="" method="get" id="formApuracao">
+    <div class="row" style="padding:10px">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Número do Telemóvel</label>
+          <div>
+            <input type="text" name="numero" value="<%= params[:numero] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Login do Usuário</label>
+          <div>
+            <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>ID Interno do Usuário</label>
+          <div>
+            <input type="text" name="id_interno" value="<%= params[:id_interno] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Nome do Usuário</label>
+          <div>
+            <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Texto que contém na mensagem</label>
+          <div>
+            <input type="text" name="conteudo" value="<%= params[:conteudo] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Perfil do Usuário</label>
+          <div>
+            <select name="perfil_usuario_id" onchange="pgstrans.carregaPerfilUsuario(this)" class="form-control">
+              <option value="" selected="'selected'">Todos</option>
+              <% PerfilUsuario.all.reorder(nome: :asc).each do |perfil_usuario| %>
+                <option value="<%= perfil_usuario.id %>" <% if perfil_usuario.id.to_s == params[:perfil_usuario_id] %> selected="selected" <% end %> ><%= perfil_usuario.nome %></option>
+              <% end %>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Situação do Usuário</label>
+          <div>
+            <select name="status_cliente_id" onchange="pgstrans.carregaStatusCliente(this)" class="form-control">
+              <option value="" selected="'selected'">Todos</option>
+              <% StatusCliente.all.reorder(nome: :asc).each do |status_cliente| %>
+                <option value="<%= status_cliente.id %>" <% if status_cliente.id.to_s == params[:status_cliente_id].to_s %> selected="selected" <% end %> ><%= status_cliente.nome %></option>
+              <% end %>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <input type="submit" value="Buscar" class="btn btn-info">
+          <%= link_to sms_historico_envios_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </form>
 
-  <div class="container scroltable">
+  <div class="col-md-12 scroltable">
     <table class="table table-hover">
       <thead>
         <tr>
-                    <th scope="col">Numero</th>
-                    <th scope="col">Conteudo</th>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Venda</th>
-                    <th scope="col">Sucesso</th>
-                    <th colspan="3"></th>
+        <th scope="col">Número do Telemóvel</th>
+        <th scope="col">ID da Venda</th>
+        <th scope="col">Usuário que realizou a venda</th>
+        <th scope="col">Conteúdo da Mensagem</th>
+        <th scope="col">Gerado com Sucesso?</th>
+        <th colspan="3"></th>
         </tr>
       </thead>
 
       <tbody>
         <% @sms_historico_envios.each do |sms_historico_envio| %>
         <tr>
-                    <td><%= sms_historico_envio.numero %></td>
-                    <td><%= sms_historico_envio.conteudo %></td>
-                    <td><%= sms_historico_envio.usuario.nome %></td>
-                    <td><%= sms_historico_envio.venda_id %></td>
-                    <td><%= sms_historico_envio.sucesso %></td>
-                    <td><%= link_to 'Mostrar', sms_historico_envio %></td>
-          <td><%= link_to 'Editar', edit_sms_historico_envio_path(sms_historico_envio) %></td>
-          <td><%= link_to 'Apagar', sms_historico_envio, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+          <td><%= sms_historico_envio.numero %></td>
+          <td><%= sms_historico_envio.venda_id %></td>
+          <td><%= sms_historico_envio.usuario.nome %></td>
+          <td><%= sms_historico_envio.conteudo %></td>
+          <td><%= sms_historico_envio.sucesso %></td>
+          <td><%= link_to 'Mostrar', sms_historico_envio %></td>
         </tr>
         <% end %>
       </tbody>
     </table>
+                
+    <div class="apple_pagination">
+      <%= will_paginate @sms_historico_envios, :container => false %>
+    </div> 
 
-    <%= link_to "Novo Registo", new_sms_historico_envio_path, class: 'btn btn-danger' %>
-    <%= link_to 'Voltar', root_path, class: 'btn btn-danger' %>
+    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>
   </div>
 </div>

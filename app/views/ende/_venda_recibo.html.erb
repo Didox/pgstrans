@@ -15,8 +15,9 @@
             <li>Rua Cónego Manual das Neves, 234</li>
             <li>Caixa Postal: 43</li>
             <li>NIF: 5410778170</li>
-            <li>EM CASO DE RECLAMAÇÕES:</li>
-            <li>TEL: 222 642700 - CALL CENTER</li>
+            <li>Solicitações de Serviço, Avarias e Emergências</li>
+            <li>Por favor contactar: 222 641 770 / 222 641 790</li>
+            <li>24h ao dia (inclusive sábados / domingos / feriados)</li>
             <li>Data:</b> <%= info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
           </ul>
         </div>
@@ -96,7 +97,7 @@
               <ul style="list-style-type: none">
                 <li>
                   <hr>
-                  <h2>Inserir este código no Contador</h2>
+                  <h2>Insera no contador o código abaixo</h2>
                 </li>
                 <li>
                   <% if info["CreditVendTx"].present? && info["CreditVendTx"].length > 1 %>
