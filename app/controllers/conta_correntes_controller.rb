@@ -27,7 +27,8 @@ class ContaCorrentesController < ApplicationController
     @conta_correntes = @conta_correntes.where("conta_correntes.observacao ilike '%#{params[:observacao].remove_injection}%'") if params[:observacao].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.iban ilike '%#{params[:iban].remove_injection}%'") if params[:iban].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.id = ?", params[:id_lancamento]) if params[:id_lancamento].present?
-    
+    @conta_correntes = @conta_correntes.where("conta_correntes.banco_id = ?", params[:banco_id]) if params[:banco_id].present?
+
     params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
     if params[:status].present?
       @conta_correntes  = @conta_correntes.where("usuarios.status_cliente_id = ?", params[:status])

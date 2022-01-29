@@ -44,15 +44,17 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Login do Usuário</label>
-        <div>
-          <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
+    <% if usuario_logado.admin? || usuario_logado.operador? %>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>Login do Usuário</label>
+          <div>
+            <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-2">
+    <% end %>
+    <div class="col-sm-4">
       <div class="form-group">
         <label>Nome do Usuário</label>
         <div>
@@ -112,22 +114,38 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <div class="form-group">
-        <label>Tipo de Lançamento
-        </label>
-          <div>
+        <label>Tipo de Lançamento</label>
+        <div>
             <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
               <option value="" selected="'selected'">Todos</option>
-              <% Lancamento.all.each do |lancamento| %>
-                <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
+              <% if @adm.admin? || @adm.operador? %>
+                <% Lancamento.all.each do |lancamento| %>
+                  <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
+                <% end %>
+              <% else %>
+                    <% Lancamento.where("lower(nome) ilike '%débito%' or lower(nome) ilike '%depósito%' or lower(nome) ilike '%transferência conta vendedor%' or lower(nome) ilike '%compra%'  ").each do |lancamento| %>
+                    <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
+                  <% end %>
               <% end %>
             </select>
         </div>
       </div>
     </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Banco</label>
+        <select name="banco_id" onchange="pgstrans.carregaBanco(this)" class="form-control">
+              <option value="" selected="'selected'">Todos</option>
+              <% Banco.where(status_banco_id: Banco::ATIVO).each do |banco| %>
+                <option value="<%= banco.id %>" <% if banco.id.to_s == params[:banco_id] %> selected="selected" <% end %> ><%= banco.nome %></option>
+              <% end %>
+          </select>
+      </div>
+    </div>
     <% if usuario_logado.admin? || usuario_logado.operador? %>
-      <div class="col-sm-2">
+      <div class="col-sm-4">
         <div class="form-group">
           <label>Observação</label>
             <div>

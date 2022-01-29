@@ -43,15 +43,18 @@
           </div>
           <div class="form-input col-sm-12" style="text-align: right" id="saldoUsuario"></div>
         <% end %>
-        
         <div class="form-input col-sm-12">
           <%= f.label :lancamento_id, "Lançamento" %>
-          <%= f.select :lancamento_id, Lancamento.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+            <% if @adm.admin? || @adm.operador? %>
+              <%= f.select :lancamento_id, Lancamento.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %> 
+            <% else %>
+              <%= f.select :lancamento_id, Lancamento.where("lower(nome) ilike '%débito%' or lower(nome) ilike '%depósito%'").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+            <% end %>
         </div>
         
         <div class="form-input col-sm-6">
           <%= f.label :banco_id, "Banco" %>
-          <%= f.select :banco_id, Banco.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <%= f.select :banco_id, Banco.where(status_banco_id: Banco::ATIVO).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
         
         <div class="form-input col-sm-6">
