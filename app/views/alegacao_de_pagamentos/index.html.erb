@@ -17,13 +17,14 @@
     </div>
   </div>
   <div class="col-sm-4">
-      <div class="form-group">
-        <label>Nome do Usuário</label>
-        <div>
-          <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
-        </div>
+    <div class="form-group">
+      <label>Nome do Usuário</label>
+      <div>
+        <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
       </div>
     </div>
+  </div>
+  <% if !@adm.agente? %>
     <div class="col-sm-2">
       <div class="form-group">
         <label>ID Interno do Usuário</label>
@@ -32,6 +33,8 @@
         </div>
       </div>
     </div>
+  <% end %>
+  <% if !@adm.agente? %>
     <div class="col-sm-4">
       <div class="form-group">
         <label>Perfil do Usuário</label>
@@ -45,22 +48,24 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label>Data do Depósito (Início)</label>
-        <div>
-          <input type="date" name="data_alegacao_pagamento_inicio" value="<%= params[:data_alegacao_pagamento_inicio] %>" class="form-control">
-        </div>
+  <% end %>
+  <div class="col-sm-3">
+    <div class="form-group">
+      <label>Data do Depósito (Início)</label>
+      <div>
+        <input type="date" name="data_alegacao_pagamento_inicio" value="<%= params[:data_alegacao_pagamento_inicio] %>" class="form-control">
       </div>
     </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label>Data do Depósito (Fim)</label>
-        <div>
-          <input type="date" name="data_alegacao_pagamento_fim" value="<%= params[:data_alegacao_pagamento_fim] %>" class="form-control">
-        </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="form-group">
+      <label>Data do Depósito (Fim)</label>
+      <div>
+        <input type="date" name="data_alegacao_pagamento_fim" value="<%= params[:data_alegacao_pagamento_fim] %>" class="form-control">
       </div>
     </div>
+  </div>
+  <% if !@adm.agente? %>
     <div class="col-sm-3">
       <div class="form-group">
         <label>Última Alteração ou Processamento (Início)</label>
@@ -71,12 +76,14 @@
     </div>
     <div class="col-sm-3">
       <div class="form-group">
-        <label>Última Alteração ou Processamento (Fim)</label>
-        <div>
-          <input type="date" name="updated_at_fim" value="<%= params[:updated_at_fim] %>" class="form-control">
-        </div>
+          <label>Última Alteração ou Processamento (Fim)</label>
+          <div>
+            <input type="date" name="updated_at_fim" value="<%= params[:updated_at_fim] %>" class="form-control">
+          </div>
       </div>
     </div>
+  <% end %>
+  <% if !@adm.agente? %>
     <div class="col-sm-3">
       <div class="form-group">
         <label>Situação do Usuário</label>
@@ -90,6 +97,8 @@
         </div>
       </div>
     </div>
+  <% end %>
+  <% if !@adm.agente? %>
     <div class="col-sm-3">
       <div class="form-group">
         <label>Situação da Alegação de Pagamento</label>
@@ -110,22 +119,23 @@
         </div>
       </div>
     </div>
-    <div class="form-group">
-      <div style="float: right;margin-right:10px">
-        <input type="submit" value="Buscar" class="btn btn-info">
+  <% end %>
+  <div class="form-group">
+    <div style="float: right;margin-right:10px">
+      <input type="submit" value="Buscar" class="btn btn-info">
 
-        <%= link_to new_alegacao_de_pagamento_path, class: 'btn btn-success' do %>
-          <span class="glyphicon glyphicon-plus"></span>
-          Novo Registo
-        <% end %>    
+      <%= link_to new_alegacao_de_pagamento_path, class: 'btn btn-success' do %>
+        <span class="glyphicon glyphicon-plus"></span>
+        Novo Registo
+      <% end %>    
 
-        <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-          <span class="glyphicon glyphicon-list-alt"></span>
-          Voltar
-        <% end %>
+      <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
 
-      </div>
     </div>
+  </div>
   </form>
 
   <div class="col-md-12 scroltable">
