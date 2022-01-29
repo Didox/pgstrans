@@ -90,22 +90,26 @@
         </div>
       </div>
     </div>
-    <% if @adm.admin? || @adm.operador? %>
-      <div class="col-sm-3">
-        <div class="form-group">
-          <label>Situação da Alegação de Pagamento
-          </label>
-            <div>
-              <select name="status_alegacao_de_pagamento_id" class="form-control">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Situação da Alegação de Pagamento</label>
+          <div>
+            <select name="status_alegacao_de_pagamento_id" class="form-control">
+              <% if @adm.admin? || @adm.operador? %>
                 <option value="" selected="'selected'">Todos</option>
                 <% StatusAlegacaoDePagamento.all.each do |status| %>
                   <option value="<%= status.id %>" <% if status.id.to_s == params[:status_alegacao_de_pagamento_id].to_s %> selected="selected" <% end %> ><%= status.nome %></option>
                 <% end %>
-              </select>
-          </div>
+                </select>
+              <% else %>
+                  <% StatusAlegacaoDePagamento.where("lower(nome) ilike '%processado%' or lower(nome) ilike '%pendente%'").collect do |status| %>
+                  <option value="<%= status.id %>" <% if status.id.to_s == params[:status_alegacao_de_pagamento_id].to_s %> selected="selected" <% end %> ><%= status.nome %></option>
+                  <% end %>
+              <% end %>
+            </select>
         </div>
       </div>
-    <% end %>
+    </div>
     <div class="form-group">
       <div style="float: right;margin-right:10px">
         <input type="submit" value="Buscar" class="btn btn-info">
