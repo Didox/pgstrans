@@ -24,7 +24,8 @@
       </div>
     </div>
   </div>
-  <% if !@adm.agente? %>
+
+  <% if @adm.admin? || @adm.operador? %>
     <div class="col-sm-2">
       <div class="form-group">
         <label>ID Interno do Usuário</label>
@@ -34,7 +35,7 @@
       </div>
     </div>
   <% end %>
-  <% if !@adm.agente? %>
+  <% if @adm.admin? || @adm.operador? %>
     <div class="col-sm-4">
       <div class="form-group">
         <label>Perfil do Usuário</label>
@@ -65,7 +66,7 @@
       </div>
     </div>
   </div>
-  <% if !@adm.agente? %>
+  <% if @adm.admin? || @adm.operador? %>
     <div class="col-sm-3">
       <div class="form-group">
         <label>Última Alteração ou Processamento (Início)</label>
@@ -83,7 +84,7 @@
       </div>
     </div>
   <% end %>
-  <% if !@adm.agente? %>
+  <% if @adm.admin? || @adm.operador? %>
     <div class="col-sm-3">
       <div class="form-group">
         <label>Situação do Usuário</label>
@@ -98,28 +99,26 @@
       </div>
     </div>
   <% end %>
-  <% if !@adm.agente? %>
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label>Situação da Alegação de Pagamento</label>
-          <div>
-            <select name="status_alegacao_de_pagamento_id" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% if @adm.admin? || @adm.operador? %>
-                  <% StatusAlegacaoDePagamento.all.each do |status| %>
-                  <option value="<%= status.id %>" <% if status.id.to_s == params[:status_alegacao_de_pagamento_id].to_s %> selected="selected" <% end %> ><%= status.nome %></option>
-                  <% end %>
-                </select>
-              <% else %>
-                  <% StatusAlegacaoDePagamento.where("lower(nome) ilike '%processado%' or lower(nome) ilike '%pendente%'").collect do |status| %>
-                  <option value="<%= status.id %>" <% if status.id.to_s == params[:status_alegacao_de_pagamento_id].to_s %> selected="selected" <% end %> ><%= status.nome %></option>
-                  <% end %>
-              <% end %>
-            </select>
-        </div>
+  <div class="col-sm-3">
+    <div class="form-group">
+      <label>Situação da Alegação de Pagamento</label>
+        <div>
+          <select name="status_alegacao_de_pagamento_id" class="form-control">
+              <option value="" selected="'selected'">Todos</option>
+              <% if @adm.admin? || @adm.operador? %>
+                <% StatusAlegacaoDePagamento.all.each do |status| %>
+                <option value="<%= status.id %>" <% if status.id.to_s == params[:status_alegacao_de_pagamento_id].to_s %> selected="selected" <% end %> ><%= status.nome %></option>
+                <% end %>
+              </select>
+            <% else %>
+                <% StatusAlegacaoDePagamento.where("lower(nome) ilike '%processado%' or lower(nome) ilike '%pendente%'").collect do |status| %>
+                <option value="<%= status.id %>" <% if status.id.to_s == params[:status_alegacao_de_pagamento_id].to_s %> selected="selected" <% end %> ><%= status.nome %></option>
+                <% end %>
+            <% end %>
+          </select>
       </div>
     </div>
-  <% end %>
+  </div>
   <div class="form-group">
     <div style="float: right;margin-right:10px">
       <input type="submit" value="Buscar" class="btn btn-info">
