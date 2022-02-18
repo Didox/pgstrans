@@ -60,7 +60,7 @@
           <% if @adm.admin? || @adm.operador? %>
               <%= f.select :sub_distribuidor_id, SubDistribuidor.all.reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% else %>
-              <%= f.select :sub_distribuidor_id, SubDistribuidor.where("id = '#{usuario_logado.sub_distribuidor_id}").reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+              <%= f.select :sub_distribuidor_id, SubDistribuidor.where("id = '#{usuario_logado.sub_distribuidor_id}'").reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
           <% end %>
         </div>
   
