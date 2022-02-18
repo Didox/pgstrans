@@ -294,7 +294,7 @@ class ContaCorrentesController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       if !usuario_logado.admin? && !usuario_logado.operador? && !usuario_logado.agente?
-        flash[:error] = "Somente o Administrador tem acesso a essa operação."
+        flash[:error] = "Ação não permitida! Somente o Administrador tem acesso a essa operação."
         redirect_to conta_correntes_url
         return
       end
@@ -344,7 +344,7 @@ class ContaCorrentesController < ApplicationController
   # DELETE /conta_correntes/1.json
   def destroy
     if !usuario_logado.admin? && !usuario_logado.operador? && !usuario_logado.agente?
-      flash[:error] = "Somente o Administrador tem acesso a essa operação."
+      flash[:error] = "Ação não permitida! Somente o Administrador tem acesso a essa operação."
       redirect_to conta_correntes_url
       return
     end
