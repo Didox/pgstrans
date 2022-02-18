@@ -152,11 +152,13 @@
             <td style="width: 160px" align="right">
             <%= number_to_currency(usuario.saldo, :unit => "KZ", :precision => 2) %></td>
           <% end %>
-          <td style="width: 100px" align="right">
-            <form action="/usuarios/<%= usuario.id %>/zerar_saldo" onsubmit="return confirm('Confirma?')" method="post">
-                <button type="submit" class="btn btn-warning">Zerar Saldo</button>
-            </form>
-          </td>
+          <% if @adm.admin? || @adm.operador? %>
+            <td style="width: 100px" align="right">
+              <form action="/usuarios/<%= usuario.id %>/zerar_saldo" onsubmit="return confirm('Confirma?')" method="post">
+                  <button type="submit" class="btn btn-warning">Zerar Saldo</button>
+              </form>
+            </td>
+          <% end %>
         </tr>
         <% valor_total += usuario.saldo %>
         <% end %>
