@@ -8,7 +8,7 @@
 
 	<%= render 'form', usuario: @usuario %>
 
-	<% if usuario_logado.agente? %>
+	<% if !usuario_logado.admin? || !usuario_logado.operador? %>
     	<div class="form-group col-sm-12">
     	<label><strong>Após o cadastro, a equipa de Backoffice da Pagasó concluirá a parametrização do usuário e liberará o acesso!</strong></label>
       	<br>
