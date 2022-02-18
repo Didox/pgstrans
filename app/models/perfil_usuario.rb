@@ -93,7 +93,7 @@ class PerfilUsuario < ApplicationRecord
       alteracao_cliente_produtos: "Listagem de produtos em validação de pagamento DSTV",
       pagar_fatura: "Pagar fatura DSTV",
       reverter_venda_zaptv: "Reverter Vendas ZAPTV",
-      index_morada_saldo: "Ver relatório de Conta corrente - Lista Saldo de Usuário (apresenta botão para ZERAR SALDO)",
+      index_morada_saldo: "Ver relatório de Conta corrente - Lista de Saldo por Usuário (Se Administrador ou Operador permite ZERAR SALDO)",
       index_carregamento_usuario: "Ver relatório de Conta corrente - Lista de Carregamento por Usuário",
       index_bancos_clientes: "Ver a lista de bancos e contas bancárias Pagasó (visão do cliente)",
       forcar_logout: "Habilitar permissão para deslogar usuário (forçar logout após troca de senha)",
