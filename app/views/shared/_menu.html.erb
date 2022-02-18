@@ -12,7 +12,7 @@
 		<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "vendas" && params[:action] == "consolidado" %>active_menu<% end %>">Consolidado</h1>
 	</a>
 <% end %>
-<% if usuario_logado.admin? || usuario_logado.operador? || usuario_logado.agente? %>
+<% if PerfilUsuario.where("lower(nome) != '%vendedor%'") %>
 	<% if PerfilUsuario.tem_acesso?(usuario_logado, :BackofficeController, :index) %>
 	<a href="<%= backoffice_index_path %>">
 	  	<h1 class="btn btn-sucess <% if params[:controller] == "backoffice" && params[:action] == "index" %>active_menu<% end %> menu_recarga btn-backoffice">Backoffice</h1>
