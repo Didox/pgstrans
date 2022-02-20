@@ -188,9 +188,9 @@ class ContaCorrentesController < ApplicationController
       from usuarios
       #{where}
     "
-    if sql.first["total"].present?
+    #if sql.first["total"].present?
       @valor_total = ActiveRecord::Base.connection.exec_query(sql).first["total"].to_i 
-    end
+    #end
 
     if params[:saldo_menor_que].present?
       @usuarios = @usuarios.where("
