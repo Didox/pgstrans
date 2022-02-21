@@ -13,6 +13,7 @@
         <tr>
           <th scope="col">IP Autorizado</th>
           <th scope="col">Distribuidor</th>
+          <th scope="col">Descrição</th>
           <th colspan="3">Ações para o Registo</th>
         </tr>
       </thead>
@@ -22,6 +23,7 @@
         <tr>
           <td><%= ip_api_autorizado.ip %></td>
           <td><%= ip_api_autorizado.sub_distribuidor.nome %></td>
+          <td><%= ip_api_autorizado.descricao %></td>
           <td><%= link_to 'Mostrar', ip_api_autorizado %></td>
           <td><%= link_to 'Editar', edit_ip_api_autorizado_path(ip_api_autorizado) %></td>
           <td><%= link_to 'Apagar', ip_api_autorizado, method: :delete, data: { confirm: 'Tem certeza?' } %></td>

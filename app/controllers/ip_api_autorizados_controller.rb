@@ -67,6 +67,6 @@ class IpApiAutorizadosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ip_api_autorizado_params
-      params.require(:ip_api_autorizado).permit(:ip, :sub_distribuidor_id)
+      params.require(:ip_api_autorizado).permit(:ip, :sub_distribuidor_id, :descricao)
     end
 end

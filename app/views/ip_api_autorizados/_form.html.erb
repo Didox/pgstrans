@@ -30,13 +30,19 @@
             <h4>Se houver mais de um IP por Distribuidor, insira um novo registo</h4>
             <br>
           </div>
-          <div class="form-input col-sm-12">
+          <div class="form-input col-sm-6">
             <%= f.label :sub_distribuidor_id, :label => "Distribuidor" %>
             <% if @adm.admin? || @adm.operador? %>
                 <%= f.select :sub_distribuidor_id, SubDistribuidor.all.reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
             <% else %>
                 <%= f.select :sub_distribuidor_id, SubDistribuidor.where("id = '#{usuario_logado.sub_distribuidor_id}").reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
             <% end %>
+          </div>
+           <div class="form-input col-sm-6">
+            <%= f.label :descricao, :label => "Descrição" %>
+            <%= f.text_field :descricao, class: "form-control" %>
+            <h4>Utilize uma descrição para facilite a identificação de quem está asssociado ao IP</h4>
+            <br>
           </div>
          
           <div class="form-actions col-sm-12">
