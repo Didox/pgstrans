@@ -910,7 +910,7 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
-    raise PagasoError.new("Digite o número do cliente/customer number") if params[:dstv_customer_number].blank?
+    raise PagasoError.new("Digite o número do cliente/customer number") if params[:dstv_number].blank?
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
 
     product_id = params[:dstv_produto_id]
@@ -956,7 +956,7 @@ class Venda < ApplicationRecord
                 <sel:DataSource>#{data_source}</sel:DataSource>
                 <sel:PaymentVendorCode>#{payment_vendor_code}</sel:PaymentVendorCode>
                 <sel:TransactionNumber>#{transaction_number}</sel:TransactionNumber>
-                <sel:SmartCardNumber>#{params[:dstv_customer_number]}</sel:SmartCardNumber>
+                <sel:SmartCardNumber>#{params[:dstv_number]}</sel:SmartCardNumber>
                 <sel:Amount>#{valor_original}</sel:Amount>
                 <sel:InvoicePeriod>1</sel:InvoicePeriod>
                 <sel:Currency>AOA</sel:Currency>
@@ -985,7 +985,7 @@ class Venda < ApplicationRecord
               <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
               <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
               <sel1:dataSource>#{data_source}</sel1:dataSource>
-              <sel1:customerNumber>#{params[:dstv_customer_number]}</sel1:customerNumber>
+              <sel1:customerNumber>#{params[:dstv_number]}</sel1:customerNumber>
               <sel1:amount>#{valor_original}</sel1:amount>
               <sel1:invoicePeriod>1</sel1:invoicePeriod>
               <sel1:currency>AOA</sel1:currency>
@@ -1031,7 +1031,7 @@ class Venda < ApplicationRecord
 
     last_request = request.body
     
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, customer_number: params[:dstv_customer_number], usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, customer_number: params[:dstv_number], usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 

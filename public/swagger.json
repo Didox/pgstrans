@@ -41,7 +41,7 @@
         "parameters": [
           {
             "name": "transacao_smartcard",
-            "description": "Se envio de transação é smartcard",
+            "description": "Se envio de transação é smartcard selecionar true, se for customer number, selectionar false",
             "required": true,
             "type": "boolean"
           },
@@ -58,8 +58,8 @@
             "type": "number"
           },
           {
-            "name": "dstv_customer_number",
-            "description": "DSTV customer number, caso seja uma recarga da DSTV",
+            "name": "dstv_number",
+            "description": "DSTV customer number ou smartcard, caso seja uma recarga da DSTV, o fator decisório para smartcard ou customer number é o parâmetro transacao_smartcard",
             "required": true,
             "type": "string"
           },
