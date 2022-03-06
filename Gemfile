@@ -16,8 +16,9 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 
-# Monitoração
+# Monitoração New Relic
 gem 'newrelic_rpm'
+gem 'newrelic-infinite_tracing'
 
 gem 'swagger-blocks'
 gem 'swagger_ui_engine', '2.1.4', :path => "vendor/gems/swagger_ui_engine-1.1.3"
