@@ -238,13 +238,7 @@ class Dstv
 
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
-    sequencial = SequencialDstv.order("id desc").first
-    if sequencial.blank?
-      sequencial = SequencialDstv.new
-      sequencial.numero = 1
-    else
-      sequencial.numero += 1
-    end
+    sequencial_numero = Time.now.to_i
 
     raise PagasoError.new("Valor da fatura é insuficiente para pagamento") if produto.valor_compra_telemovel.to_f < 0.1
     raise PagasoError.new("Saldo insuficiente para realizar a operação, seu saldo atual é de KZ #{usuario_logado.saldo.round(2)}") if usuario_logado.saldo < produto.valor_compra_telemovel.to_f
@@ -257,7 +251,7 @@ class Dstv
         <sel:AgentSubmitPayment>
           <sel:agentPaymentRequest>
             <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
-            <sel1:transactionNumber>#{sequencial.numero}</sel1:transactionNumber>
+            <sel1:transactionNumber>#{sequencial_numero}</sel1:transactionNumber>
             <sel1:dataSource>#{data_source}</sel1:dataSource>
             <sel1:customerNumber>#{customer_number}</sel1:customerNumber>
             <sel1:amount>#{produto.valor_compra_telemovel}</sel1:amount>
@@ -285,7 +279,7 @@ class Dstv
     raise PagasoError.new("Transação duplicada") if SequencialDstv.where(response_body: body).count > 0
 
     request = fazer_request(url_service, body, "AgentSubmitPayment")
-    SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
+    SequencialDstv.create!(numero: sequencial_numero, request_body: request.body, response_body: body)
     
     xml_doc = Nokogiri::XML(request.body)
 
@@ -383,13 +377,7 @@ class Dstv
 
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
 
-    sequencial = SequencialDstv.order("id desc").first
-    if sequencial.blank?
-      sequencial = SequencialDstv.new
-      sequencial.numero = 1
-    else
-      sequencial.numero += 1
-    end
+    sequencial_numero = TIme.now.to_i
     
     paymentDescription = "Pagaso - #{usuario_logado.nome}".truncate(49)
     body = "
@@ -399,7 +387,7 @@ class Dstv
         <sel:AgentSubmitPayment>
           <sel:agentPaymentRequest>
             <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
-            <sel1:transactionNumber>#{sequencial.numero}</sel1:transactionNumber>
+            <sel1:transactionNumber>#{sequencial_numero}</sel1:transactionNumber>
             <sel1:dataSource>#{data_source}</sel1:dataSource>
             <sel1:customerNumber>#{customer_number}</sel1:customerNumber>
             <sel1:amount>#{valor_total}</sel1:amount>
@@ -425,7 +413,7 @@ class Dstv
     raise PagasoError.new("Transação duplicada") if SequencialDstv.where(response_body: body).count > 0
 
     request = fazer_request(url_service, body, "AgentSubmitPayment")
-    SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
+    SequencialDstv.create!(numero: sequencial_numero, request_body: request.body, response_body: body)
     
     xml_doc = Nokogiri::XML(request.body)
 
@@ -558,13 +546,7 @@ class Dstv
 
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language = parametros
     
-    sequencial = SequencialDstv.order("id desc").first
-    if sequencial.blank?
-      sequencial = SequencialDstv.new
-      sequencial.numero = 1
-    else
-      sequencial.numero += 1
-    end
+    sequencial_numero = Time.now.to_i
 
     paymentDescription = "Pagaso - #{usuario_logado.nome}".truncate(49)
     body = "
@@ -574,7 +556,7 @@ class Dstv
         <sel:AgentSubmitPayment>
           <sel:agentPaymentRequest>
             <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
-            <sel1:transactionNumber>#{sequencial.numero}</sel1:transactionNumber>
+            <sel1:transactionNumber>#{sequencial_numero}</sel1:transactionNumber>
             <sel1:dataSource>#{data_source}</sel1:dataSource>
             <sel1:customerNumber>#{customer_number}</sel1:customerNumber>
             <sel1:amount>#{valor}</sel1:amount>
@@ -602,7 +584,7 @@ class Dstv
     raise PagasoError.new("Transação duplicada") if SequencialDstv.where(response_body: body).count > 0
 
     request = fazer_request(url_service, body, "AgentSubmitPayment")
-    SequencialDstv.create!(numero: sequencial.numero, request_body: request.body, response_body: body)
+    SequencialDstv.create!(numero: sequencial_numero, request_body: request.body, response_body: body)
     
     xml_doc = Nokogiri::XML(request.body)
 
