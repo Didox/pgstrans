@@ -918,7 +918,8 @@ class Venda < ApplicationRecord
 
     require 'openssl'
 
-    transaction_number = (Venda.order("id desc").first.id + 1)
+    # transaction_number = (Venda.order("id desc").first.id + 1)
+    transaction_number = Time.now.to_i
 
     if Rails.env == "development"
       url_service = parametro.url_integracao_desenvolvimento
