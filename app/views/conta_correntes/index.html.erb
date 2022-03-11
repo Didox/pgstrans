@@ -229,11 +229,16 @@
           <td style="width: 300px">
             <b>Lançamento:</b><br>
             <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %><br>
+
             <% if @adm.admin? || @adm.operador? %> 
               <hr>
               <b>Última Atualização:</b><br>
               <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M:%S") %><br>
-            <% end %>                
+
+              <hr>
+              <b>Data Processamento:</b><br>
+              <%= conta_corrente.data_processamento.strftime("%d/%m/%Y %H:%M:%S") rescue "Não processado" %><br>
+            <% end %>
           </td>
           <td><%= link_to 'Mostrar', conta_corrente %></td>
         </tr>
