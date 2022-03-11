@@ -16,6 +16,10 @@ class ContaCorrente < ApplicationRecord
     Lancamento::CREDITO
   ]
 
+  def alegacao_de_pagamento
+    AlegacaoDePagamento.find(self.alegacao_de_pagamento_id)
+  end
+
   def saldo_atual_do_registro_atual
     cc_anterior = ContaCorrente.where(usuario_id: self.usuario_id).where("id < #{self.id}").reorder("id desc").first
     return (cc_anterior.saldo_atual + self.valor) rescue 0
