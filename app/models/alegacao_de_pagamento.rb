@@ -50,6 +50,7 @@ class AlegacaoDePagamento < ApplicationRecord
     conta_corrente.observacao = "Depósito para o usuário #{self.usuario.nome} (#{self.usuario_id}). #{self.observacao}"
     conta_corrente.data_alegacao_pagamento = self.created_at
     conta_corrente.alegacao_de_pagamento_id = self.id
+    conta_corrente.data_processamento = Time.zone.now
     conta_corrente.save!
 
     self.status_alegacao_de_pagamento = status
