@@ -201,8 +201,8 @@ class VendasController < ApplicationController
 
       @vendas = @vendas.where("vendas.id = ?", params[:venda_id]) if params[:venda_id].present?
 
-      @vendas = @vendas.where("vendas.created_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day) ) if params[:data_inicio].present?
-      @vendas = @vendas.where("vendas.created_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day) ) if params[:data_fim].present?
+      @vendas = @vendas.where("vendas.created_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime) ) if params[:data_inicio].present?
+      @vendas = @vendas.where("vendas.created_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime) ) if params[:data_fim].present?
       
       @vendas = @vendas.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
       @vendas = @vendas.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
