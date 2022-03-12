@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_21_005743) do
+ActiveRecord::Schema.define(version: 2022_03_11_142036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2022_02_21_005743) do
     t.bigint "partner_id"
     t.bigint "responsavel_aprovacao_id"
     t.bigint "alegacao_de_pagamento_id"
+    t.datetime "data_processamento"
     t.index ["alegacao_de_pagamento_id"], name: "index_conta_correntes_on_alegacao_de_pagamento_id"
     t.index ["banco_id"], name: "index_conta_correntes_on_banco_id"
     t.index ["lancamento_id"], name: "index_conta_correntes_on_lancamento_id"

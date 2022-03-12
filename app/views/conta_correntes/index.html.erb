@@ -237,7 +237,7 @@
 
               <hr>
               <b>Data Processamento:</b><br>
-              <%= conta_corrente.data_processamento.strftime("%d/%m/%Y %H:%M:%S") rescue "Não processado" %><br>
+              <%= conta_corrente.data_processamento.strftime("%d/%m/%Y %H:%M:%S") rescue "" %><br>
             <% end %>
           </td>
           <td><%= link_to 'Mostrar', conta_corrente %></td>
