@@ -961,7 +961,7 @@ class Venda < ApplicationRecord
                 <sel:Amount>#{valor_original}</sel:Amount>
                 <sel:InvoicePeriod>1</sel:InvoicePeriod>
                 <sel:Currency>AOA</sel:Currency>
-                <sel:PaymentDescription>Pagasó Payment System</sel:PaymentDescription>
+                <sel:PaymentDescription>Pagaso Payment System</sel:PaymentDescription>
                 <sel:ProductCollection>
                   <sel1:PaymentProduct>
                       <sel1:ProductUserKey>#{produto.produto_id_parceiro}</sel1:ProductUserKey>
@@ -990,7 +990,7 @@ class Venda < ApplicationRecord
               <sel1:amount>#{valor_original}</sel1:amount>
               <sel1:invoicePeriod>1</sel1:invoicePeriod>
               <sel1:currency>AOA</sel1:currency>
-              <sel1:paymentDescription>Pagasó Payment System</sel1:paymentDescription>
+              <sel1:paymentDescription>Pagaso Payment System</sel1:paymentDescription>
               <sel1:methodofPayment>CASH</sel1:methodofPayment>
               <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
               <sel1:productCollection>
