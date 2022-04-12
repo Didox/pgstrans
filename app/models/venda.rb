@@ -948,68 +948,46 @@ class Venda < ApplicationRecord
     last_request = ""
 
     if smartcard
-      body = "
-        <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
-          <soapenv:Header/>
-          <soapenv:Body>
-            <sel:SubmitPaymentBySmartCard>
-              <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-                <sel:DataSource>#{data_source}</sel:DataSource>
-                <sel:PaymentVendorCode>#{payment_vendor_code}</sel:PaymentVendorCode>
-                <sel:TransactionNumber>#{transaction_number}</sel:TransactionNumber>
-                <sel:SmartCardNumber>#{params[:dstv_number]}</sel:SmartCardNumber>
-                <sel:Amount>#{valor_original}</sel:Amount>
-                <sel:InvoicePeriod>1</sel:InvoicePeriod>
-                <sel:Currency>AOA</sel:Currency>
-                <sel:PaymentDescription>Pagaso Payment System</sel:PaymentDescription>
-                <sel:ProductCollection>
-                  <sel1:PaymentProduct>
-                      <sel1:ProductUserKey>#{produto.produto_id_parceiro}</sel1:ProductUserKey>
-                  </sel1:PaymentProduct>
-                </sel:ProductCollection>
-                <sel:MethodOfPayment>CASH</sel:MethodOfPayment>
-                <sel:Language>Portuguese</sel:Language>
-                <sel:IpAddress>#{ip}</sel:IpAddress>
-                <sel:BusinessUnit>DStv</sel:BusinessUnit>
-            </sel:SubmitPaymentBySmartCard>
-          </soapenv:Body>
-        </soapenv:Envelope>
-      "
-      @source = "SubmitPaymentBySmartCard"
-    else
-      body = "
-        <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
-          <soapenv:Header/>
-          <soapenv:Body>
-          <sel:AgentSubmitPayment>
-            <sel:agentPaymentRequest>
-              <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
-              <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
-              <sel1:dataSource>#{data_source}</sel1:dataSource>
-              <sel1:customerNumber>#{params[:dstv_number]}</sel1:customerNumber>
-              <sel1:amount>#{valor_original}</sel1:amount>
-              <sel1:invoicePeriod>1</sel1:invoicePeriod>
-              <sel1:currency>AOA</sel1:currency>
-              <sel1:paymentDescription>Pagaso Payment System</sel1:paymentDescription>
-              <sel1:methodofPayment>CASH</sel1:methodofPayment>
-              <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
-              <sel1:productCollection>
-                <sel1:Product>
-                  <sel1:productUserkey>#{produto.produto_id_parceiro}</sel1:productUserkey>
-                </sel1:Product>
-              </sel1:productCollection>
-              <sel1:baskedId>0</sel1:baskedId>
-            </sel:agentPaymentRequest>
-            <sel:VendorCode>#{vendor_code}</sel:VendorCode>
-            <sel:language>Portuguese</sel:language>
-            <sel:ipAddress>#{ip}</sel:ipAddress>
-            <sel:businessUnit>DStv</sel:businessUnit>
-          </sel:AgentSubmitPayment>
-          </soapenv:Body>
-        </soapenv:Envelope>
-      "
-      @source = "AgentSubmitPayment"
+      informacoes_device_number = Dstv.informacoes_device_number(params[:dstv_number], ip)
+      puts("====================[")
+      puts(informacoes_device_number)
+      puts("]====================")
+      agent_number = informacoes_device_number[:customer_detail]["agent_number"]
     end
+    
+  
+    body = "
+      <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
+        <soapenv:Header/>
+        <soapenv:Body>
+        <sel:AgentSubmitPayment>
+          <sel:agentPaymentRequest>
+            <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
+            <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
+            <sel1:dataSource>#{data_source}</sel1:dataSource>
+            <sel1:customerNumber>#{params[:dstv_number]}</sel1:customerNumber>
+            <sel1:amount>#{valor_original}</sel1:amount>
+            <sel1:invoicePeriod>1</sel1:invoicePeriod>
+            <sel1:currency>AOA</sel1:currency>
+            <sel1:paymentDescription>Pagaso Payment System</sel1:paymentDescription>
+            <sel1:methodofPayment>CASH</sel1:methodofPayment>
+            <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
+            <sel1:productCollection>
+              <sel1:Product>
+                <sel1:productUserkey>#{produto.produto_id_parceiro}</sel1:productUserkey>
+              </sel1:Product>
+            </sel1:productCollection>
+            <sel1:baskedId>0</sel1:baskedId>
+          </sel:agentPaymentRequest>
+          <sel:VendorCode>#{vendor_code}</sel:VendorCode>
+          <sel:language>Portuguese</sel:language>
+          <sel:ipAddress>#{ip}</sel:ipAddress>
+          <sel:businessUnit>DStv</sel:businessUnit>
+        </sel:AgentSubmitPayment>
+        </soapenv:Body>
+      </soapenv:Envelope>
+    "
+    @source = "AgentSubmitPayment"
 
     request_send += "=========[SubmitPaymentBySmartCard_AgentSubmitPayment]========"
     request_send += body
