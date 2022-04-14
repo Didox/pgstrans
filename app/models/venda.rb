@@ -949,13 +949,9 @@ class Venda < ApplicationRecord
 
     if smartcard
       informacoes_device_number = Dstv.informacoes_device_number(params[:dstv_number], ip)
-      puts("====================[")
-      puts(informacoes_device_number)
-      puts("]====================")
-      agent_number = informacoes_device_number[:customer_detail]["agent_number"]
+      agent_number = informacoes_device_number["customer_detail"]["number"]
     end
     
-  
     body = "
       <soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sel=\"http://services.multichoice.co.za/SelfCare\" xmlns:sel1=\"http://datacontracts.multichoice.co.za/SelfCare\">
         <soapenv:Header/>
