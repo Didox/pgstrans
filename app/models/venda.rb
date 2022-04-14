@@ -949,7 +949,7 @@ class Venda < ApplicationRecord
 
     if smartcard
       informacoes_device_number = Dstv.informacoes_device_number(params[:dstv_number], ip)
-      agent_number = informacoes_device_number["customer_detail"]["number"]
+      agent_number = informacoes_device_number[:customer_detail]["number"]
     end
     
     body = "
