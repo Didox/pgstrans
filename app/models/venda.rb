@@ -947,9 +947,11 @@ class Venda < ApplicationRecord
     response_get = ""
     last_request = ""
 
+    customer_number = params[:dstv_number]
+    
     if smartcard
       informacoes_device_number = Dstv.informacoes_device_number(params[:dstv_number], ip)
-      agent_number = informacoes_device_number[:customer_detail]["number"]
+      customer_number = informacoes_device_number[:customer_detail]["number"]
     end
     
     body = "
@@ -961,7 +963,7 @@ class Venda < ApplicationRecord
             <sel1:paymentVendorCode>#{payment_vendor_code}</sel1:paymentVendorCode>
             <sel1:transactionNumber>#{transaction_number}</sel1:transactionNumber>
             <sel1:dataSource>#{data_source}</sel1:dataSource>
-            <sel1:customerNumber>#{params[:dstv_number]}</sel1:customerNumber>
+            <sel1:customerNumber>#{customer_number}</sel1:customerNumber>
             <sel1:amount>#{valor_original}</sel1:amount>
             <sel1:invoicePeriod>1</sel1:invoicePeriod>
             <sel1:currency>AOA</sel1:currency>
