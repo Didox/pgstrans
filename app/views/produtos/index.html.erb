@@ -40,7 +40,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group">
           <label>Nome do Parceiro</label>
           <div>
@@ -53,7 +53,15 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Categoria do Produto ZAP</label>
+          <div>
+            <input type="text" name="categoria" value="<%= params[:categoria] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
         <div class="form-group">
           <label>Moeda</label>
           <div>
@@ -171,7 +179,7 @@
           </td>
           <td style="width: 200px">
             <b>Parceiro</b> <br>
-            <%= produto.partner.name %><br>
+            <%= produto.partner.name %><%= " #{produto.categoria}".upcase %><br>
             <b>Moeda</b> <br>
             <%= "#{produto.moeda_id}/#{(produto.moeda.simbolo rescue "")}" %><br>
             <b>Status</b> <br>
