@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_11_142036) do
+ActiveRecord::Schema.define(version: 2022_04_26_213145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -374,6 +374,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_142036) do
     t.string "subtipo"
     t.datetime "data_vigencia"
     t.string "nome_comercial"
+    t.string "categoria"
     t.index ["moeda_id"], name: "index_produtos_on_moeda_id"
     t.index ["partner_id"], name: "index_produtos_on_partner_id"
     t.index ["status_produto_id"], name: "index_produtos_on_status_produto_id"

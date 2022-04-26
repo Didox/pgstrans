@@ -11,6 +11,7 @@ class ProdutosController < ApplicationController
     @produtos = @produtos.where("produto_id_parceiro = ?", params[:produto_id_parceiro]) if params[:produto_id_parceiro].present?
     @produtos = @produtos.where("description ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
     @produtos = @produtos.where("nome_comercial ilike '%#{params[:nome_comercial].remove_injection}%'") if params[:nome_comercial].present?
+    @produtos = @produtos.where("categoria ilike '%#{params[:categoria].remove_injection}%'") if params[:categoria].present?
     @produtos = @produtos.where("partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
     @produtos = @produtos.where("moeda_id = ?", params[:moeda_id]) if params[:moeda_id].present?
     @produtos = @produtos.where("status_produto_id = ?", params[:status_produto_id]) if params[:status_produto_id].present?
@@ -154,7 +155,7 @@ class ProdutosController < ApplicationController
     def produto_params
       params.require(:produto).permit(:partner_id, :description, :status_produto_id, :valor_compra_telemovel, 
         :valor_compra_site, :valor_compra_pos, :valor_compra_tef, 
-        :mensagem_cupom_venda, :moeda_id, :produto_id_parceiro, 
+        :mensagem_cupom_venda, :moeda_id, :produto_id_parceiro, :categoria,
         :valor_unitario, :tipo, :subtipo, :data_vigencia, :nome_comercial)
     end
 end
