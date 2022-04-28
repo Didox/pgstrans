@@ -29,6 +29,10 @@
           <%= f.select :partner_id, Partner.all.collect{|p|[p.name, p.id]}, {}, {class: 'form-control is-valid'} %>
         </div>
 
+        <div class="form-input col-sm-12">
+          <%= f.input :categoria, :label => "Categoria ZAP (tv, fibra ou wifi)" %>
+        </div>
+
         <% unless @parametro.new_record? %>
           <div class="form-input col-sm-12">
             <%= f.input :url_integracao_desenvolvimento, :label => "URL Integração em Desenvolvimento" %>

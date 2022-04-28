@@ -1,8 +1,10 @@
 class Zaptv
-  def self.importa_produtos
+  def self.importa_produtos(categoria)
     partner = Partner.zaptv
 
-    parametro = Parametro.where(partner_id: partner.id).first
+    parametro = Parametro.where(partner_id: partner.id)
+    parametro = parametro.where("upper(categoria) = ?", categoria.upcase) if categoria.present?
+    parametro = parametro.first
 
     if Rails.env == "development"
       host = "#{parametro.url_integracao_desenvolvimento}/portfolio"

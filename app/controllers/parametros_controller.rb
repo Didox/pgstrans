@@ -89,6 +89,7 @@ class ParametrosController < ApplicationController
         :terminal_id,
         :operator_id,
         :password,
+        :categoria
       )
     end
 end
