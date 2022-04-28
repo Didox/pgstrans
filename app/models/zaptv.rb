@@ -40,6 +40,7 @@ class Zaptv
           produto.subtipo = p_hash["technology"]
           produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id rescue Moeda.where(simbolo: "Kz").first.id
           produto.status_produto = StatusProduto.where(nome: "Inativo").first
+          produto.categoria = categoria
           produto.save
         end
       end
