@@ -24,7 +24,7 @@ class PartnersController < ApplicationController
 
   def importa_produtos
     partner = Partner.find(params[:partner_id])
-    partner.importa_produtos!
+    partner.importa_produtos!(params[:categoria])
 
     flash[:notice] = 'Produtos importados com sucesso.'
     redirect_to partner_url(partner)

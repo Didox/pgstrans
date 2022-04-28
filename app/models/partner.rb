@@ -108,8 +108,8 @@ class Partner < ApplicationRecord
     vendas.sum(:value)
   end
 
-  def importa_produtos!
-    self.slug.capitalize.constantize.importa_produtos
+  def importa_produtos!(categoria)
+    self.slug.capitalize.constantize.importa_produtos(categoria)
   end
 
   def importa_dados!
