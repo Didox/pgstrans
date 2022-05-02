@@ -202,6 +202,10 @@ class Partner < ApplicationRecord
   end
 
   def saldo_atual_zaptv(ip="?")
+    self.saldo_atual_zaptv(ip)
+  end
+
+  def saldo_atual_zaptv(ip="?")
     parceiro = Partner.zaptv
     parametro = Parametro.where(partner_id: parceiro.id).first
 
