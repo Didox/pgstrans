@@ -1,7 +1,5 @@
-class Zaptv
-  def self.importa_produtos(categoria)
-    partner = Partner.zaptv
-
+class Zap
+  def self.importa_produtos(parceiro, categoria)
     parametro = Parametro.where(partner_id: partner.id)
     parametro = parametro.where("upper(categoria) = ?", categoria.upcase) if categoria.present?
     parametro = parametro.first
@@ -67,9 +65,7 @@ class Zaptv
     raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
   end
 
-  def self.importa_dados!
-    partner = Partner.zaptv
-
+  def self.importa_dados!(partner)
     parametro = Parametro.where(partner_id: partner.id).first
     if Rails.env == "development"
       host = "#{parametro.url_integracao_desenvolvimento}"
