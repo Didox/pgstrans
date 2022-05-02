@@ -237,6 +237,10 @@ class Venda < ApplicationRecord
     return [desconto_aplicado, valor_original, valor]
   end
 
+  def self.venda_zapfibra(params, usuario, ip)
+    self.venda_zaptv(params, usuario, ip)
+  end
+
   def self.venda_zaptv(params, usuario, ip)
     parceiro = Partner.zaptv
     valor = params[:valor].to_f
