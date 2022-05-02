@@ -1,5 +1,5 @@
 
-<% if @partner.slug.downcase == "zaptv" %>
+<% if @partner.slug.downcase.scan(/zap/) %>
 
   <% Parametro.where(partner_id: Partner.zaptv).each do |param| %>
 
