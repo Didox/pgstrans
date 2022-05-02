@@ -1,5 +1,5 @@
 class Zap
-  def self.importa_produtos(parceiro, categoria)
+  def self.importa_produtos(partner, categoria)
     parametro = Parametro.where(partner_id: partner.id)
     parametro = parametro.where("upper(categoria) = ?", categoria.upcase) if categoria.present?
     parametro = parametro.first
