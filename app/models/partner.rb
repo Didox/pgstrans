@@ -109,11 +109,19 @@ class Partner < ApplicationRecord
   end
 
   def importa_produtos!(categoria)
-    self.slug.capitalize.constantize.importa_produtos(categoria)
+    if(self.slug.downacase.scan(/zap/))
+      Zap.importa_produtos(self, categoria)
+    else
+      self.slug.capitalize.constantize.importa_produtos(categoria)
+    end
   end
 
   def importa_dados!
-    self.slug.capitalize.constantize.importa_dados!
+    if(self.slug.downacase.scan(/zap/))
+      Zap.importa_dados!(self)
+    else
+      self.slug.capitalize.constantize.importa_dados!
+    end
   end
 
   def saldo_atual_movicel(ip="?")
