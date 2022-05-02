@@ -109,7 +109,7 @@ class Partner < ApplicationRecord
   end
 
   def importa_produtos!(categoria)
-    if(self.slug.downacase.scan(/zap/))
+    if(self.slug.downcase.scan(/zap/))
       Zap.importa_produtos(self, categoria)
     else
       self.slug.capitalize.constantize.importa_produtos(categoria)
@@ -117,7 +117,7 @@ class Partner < ApplicationRecord
   end
 
   def importa_dados!
-    if(self.slug.downacase.scan(/zap/))
+    if(self.slug.downcase.scan(/zap/))
       Zap.importa_dados!(self)
     else
       self.slug.capitalize.constantize.importa_dados!
