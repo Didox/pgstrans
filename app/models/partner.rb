@@ -201,7 +201,7 @@ class Partner < ApplicationRecord
     SaldoParceiro.new
   end
 
-  def saldo_atual_zaptv(ip="?")
+  def saldo_atual_zapfibra(ip="?")
     self.saldo_atual_zaptv(ip)
   end
 
