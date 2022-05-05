@@ -22,11 +22,13 @@ namespace :sqs do
         })
 
         begin
+          puts "Importando ..."
           relatorio_id = message.body
-          rel = Relatorio.find(relatorio_id)
+          rel = Relatorio.where(id: relatorio_id).first
+          next if rel.blank?
           partner = Partner.find(rel.partner_id)
           relatorio_conciliacao_zaptvs = PartnersController.show(partner, JSON.parse(rel.parametros))
-          relatorio_conciliacao_zaptvs = relatorio_conciliacao_zaptvs.limit(10)
+          #relatorio_conciliacao_zaptvs = relatorio_conciliacao_zaptvs.limit(10)
     
           filename = "relatorio_conciliacao_#{partner.slug}-#{Time.zone.now.strftime("%Y%m%d%H%M%S")}.csv"
           File.write("/tmp/#{filename}", relatorio_conciliacao_zaptvs.to_csv)
