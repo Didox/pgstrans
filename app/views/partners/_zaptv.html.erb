@@ -56,13 +56,22 @@
         <div style="float: right;margin-right:10px">
           <input type="hidden" name="csv" id="csv">
           <input type="submit" value="Buscar" onclick="$('#csv').val('');" class="btn btn-success">
-          <input type="submit" value="Download CSV" onclick="$('#csv').val('ok');" class="btn btn-info navbar-btn btn-space mobile-botao">
+          <input type="submit" value="Agendar Relatório para Download CSV" onclick="$('#csv').val('ok');" class="btn btn-info navbar-btn btn-space mobile-botao">
           </a>
         </div>
+
+        <ul>
+          <% Relatorio.where(partner_id: @partner.id).where("arquivo is not null").order("updated_at desc").limit(3).each do |rel| %>
+            <li>
+              <%= rel.updated_at.strftime("%d/%m/%Y %H:%M") %> - 
+              <a href="<%= rel.arquivo %>" target="_blank">Download</a>
+            </li>
+          <% end %>
+        </ul> 
       </div>
     </form>
   </div>
-  <div class="col-md-12 scroltable">
+  <div class="col-md-12 s>croltable">
     <table class="table table-hover">
       <thead>
         <tr>

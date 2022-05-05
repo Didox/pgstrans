@@ -43,8 +43,9 @@ class PartnersController < ApplicationController
 
   # GET /partners/1
   # GET /partners/1.json
-  def show
-    @relatorio_conciliacao_zaptvs = RelatorioConciliacaoZaptv.where(partner: @partner)
+
+  def self.show(partner, params)
+    @relatorio_conciliacao_zaptvs = RelatorioConciliacaoZaptv.where(partner: partner)
 
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where("relatorio_conciliacao_zaptvs.date_time >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)) if params[:data_inicio].present?
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where("relatorio_conciliacao_zaptvs.date_time <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)) if params[:data_fim].present?
@@ -56,13 +57,19 @@ class PartnersController < ApplicationController
     end
 
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.reorder("date_time desc")
+  end
 
-    if params[:csv].present?
-      filename = "relatorio_conciliacao_zaptvs-#{Time.zone.now.strftime("%Y%m%d%H%M%S")}.csv"
-      send_data(@relatorio_conciliacao_zaptvs.to_csv, :type => "text/csv; charset=utf-8; header=present", :filename => filename)
-      return
+  def show
+    if (params[:data_inicio].blank? || params[:data_fim].blank?) || params[:data_inicio].to_datetime < (DateTime.now - 91.days)
+      flash[:error] = 'Selecione o período para agendar o relatório - Disponíveis informações dos últimos 90 dias'
+    else
+      if params[:csv].present?
+        Relatorio.create(partner_id:  @partner.id, parametros: params.to_json).envia_sqs
+        flash[:notice] = 'Agendamento de processamento de relatório realizado com sucesso.'
+      end
     end
 
+    @relatorio_conciliacao_zaptvs = PartnersController.show(@partner, params)
 
     options = {page: params[:page] || 1, per_page: 10}
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.paginate(options)
