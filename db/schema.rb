@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_27_233810) do
+ActiveRecord::Schema.define(version: 2022_05_04_225238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -408,6 +408,14 @@ ActiveRecord::Schema.define(version: 2022_04_27_233810) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["partner_id"], name: "index_relatorio_conciliacao_zaptvs_on_partner_id"
+  end
+
+  create_table "relatorios", force: :cascade do |t|
+    t.integer "partner_id"
+    t.string "arquivo"
+    t.string "parametros"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "remuneracao_descontos", force: :cascade do |t|
