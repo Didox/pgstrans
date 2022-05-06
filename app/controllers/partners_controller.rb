@@ -60,12 +60,13 @@ class PartnersController < ApplicationController
   end
 
   def show
-    if (params[:data_inicio].blank? || params[:data_fim].blank?) || params[:data_inicio].to_datetime < (DateTime.now - 91.days)
-      flash[:error] = 'Selecione o período para agendar o relatório - Disponíveis informações dos últimos 90 dias'
+    #if (params[:data_inicio].blank? || params[:data_fim].blank?) || params[:data_inicio].to_datetime < (DateTime.now - 91.days)
+    if (params[:data_inicio].blank? || params[:data_fim].blank?) 
+      flash[:error] = 'Selecione o período para agendar o relatório de conciliação'
     else
       if params[:csv].present?
         Relatorio.create(partner_id:  @partner.id, parametros: params.to_json).envia_sqs
-        flash[:notice] = 'Agendamento de processamento de relatório realizado com sucesso.'
+        flash[:notice] = 'Agendamento do processamento do relatório realizado com sucesso.'
       end
     end
 
