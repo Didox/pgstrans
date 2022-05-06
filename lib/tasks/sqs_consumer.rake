@@ -42,6 +42,8 @@ namespace :sqs do
           `echo "=====[SQS #{DateTime.now} Sucesso]=====" >> log/#{Rails.env}.log`
           `echo "#{url}" >> log/#{Rails.env}.log`
           `echo "=======================================" >> log/#{Rails.env}.log`
+
+          AdmMailer.notifica_csv_processado(rel).deliver
         rescue Exception => err
           puts e.message
           puts e.stacktrace

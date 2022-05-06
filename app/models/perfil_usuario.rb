@@ -84,6 +84,7 @@ class PerfilUsuario < ApplicationRecord
       conta_corrente_resumido: "Resumo de Lançamento em Conta Corrente por Operador(a) Responsável Aprovação",
       importa_produtos: "Acesso ao botão 'Atualizar portfólio de produtos ZAP'",
       importa_dados: "Acesso ao botão 'Importar dados para relatório de conciliação ZAP'",
+      zap_conciliacao: "Acesso à página para solicitar a geração do relatório de conciliação ZAP",
       validacao_cliente: "Validação e consulta da situação do cliente",
       consulta_fatura: "Consulta valor e data do vencimento da fatura",
       alteracao_pacote: "Alteração de pacote de produtos (Upgrade/Downgrade) para um ou múltiplos produtos",
