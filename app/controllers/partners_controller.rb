@@ -1,5 +1,5 @@
 class PartnersController < ApplicationController
-  before_action :set_partner, only: [:show, :edit, :update, :destroy, :atualiza_saldo, :importa_produtos, :importa_dados]
+  before_action :set_partner, only: [:show, :edit, :update, :destroy, :atualiza_saldo, :importa_produtos, :importa_dados, :zap_conciliacao]
   before_action :upload_arquivo, only: [:create, :update]
 
   # GET /partners
@@ -59,13 +59,15 @@ class PartnersController < ApplicationController
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.reorder("date_time desc")
   end
 
-  def show
+  def show;end
+
+  def zap_conciliacao
     #if (params[:data_inicio].blank? || params[:data_fim].blank?) || params[:data_inicio].to_datetime < (DateTime.now - 91.days)
-    if (params[:data_inicio].blank? || params[:data_fim].blank?) 
+    if params.has_key?(:data_inicio) && params.has_key?(:data_fim) && (params[:data_inicio].blank? || params[:data_fim].blank?) 
       flash[:error] = 'Selecione o período para agendar o relatório de conciliação'
     else
       if params[:csv].present?
-        Relatorio.create(partner_id:  @partner.id, parametros: params.to_json).envia_sqs
+        Relatorio.create(partner_id: @partner.id, usuario_id: usuario_logado.id, parametros: params.to_json).envia_sqs
         flash[:notice] = 'Agendamento do processamento do relatório realizado com sucesso.'
       end
     end
@@ -75,6 +77,7 @@ class PartnersController < ApplicationController
     options = {page: params[:page] || 1, per_page: 10}
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.paginate(options)
   end
+
 
   # GET /partners/new
   def new

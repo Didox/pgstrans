@@ -69,10 +69,7 @@
     <hr>
   </div>
 
-  <% if ["zaptv"].include?(@partner.slug.downcase)%>
-      <%= render 'zaptv' %>
-  <% end %>
-  
+  <%= render 'zaptv' %>
   <%= render 'dstv' %>
   <%= render 'unitel' %>
 
