@@ -27,7 +27,7 @@ namespace :sqs do
           rel = Relatorio.where(id: relatorio_id).first
           next if rel.blank?
           partner = Partner.find(rel.partner_id)
-          relatorio_conciliacao_zaptvs = PartnersController.show(partner, JSON.parse(rel.parametros))
+          relatorio_conciliacao_zaptvs = PartnersController.show(partner, OpenStruct.new(JSON.parse(rel.parametros)))
           #relatorio_conciliacao_zaptvs = relatorio_conciliacao_zaptvs.limit(10)
     
           filename = "relatorio_conciliacao_#{partner.slug}-#{Time.zone.now.strftime("%Y%m%d%H%M%S")}.csv"
@@ -39,11 +39,12 @@ namespace :sqs do
 
           puts url
 
+          AdmMailer.notifica_csv_processado(rel).deliver
+
           `echo "=====[SQS #{DateTime.now} Sucesso]=====" >> log/#{Rails.env}.log`
           `echo "#{url}" >> log/#{Rails.env}.log`
           `echo "=======================================" >> log/#{Rails.env}.log`
 
-          AdmMailer.notifica_csv_processado(rel).deliver
         rescue Exception => err
           puts e.message
           puts e.stacktrace
