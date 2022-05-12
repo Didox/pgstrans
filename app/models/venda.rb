@@ -198,7 +198,7 @@ class Venda < ApplicationRecord
     end
   end
 
-  def zappi
+  def zappi_capture
     json = self.request_send.include?("body=") ? self.request_send.split("body=")[1] : self.request_send
     JSON.parse(json)["zappi"]
   rescue

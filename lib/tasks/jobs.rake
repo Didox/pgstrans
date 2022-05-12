@@ -20,6 +20,20 @@ namespace :jobs do
     end
   end
 
+  
+  desc "zappi_capture"
+  task zappi_capture: :environment do
+    vendas = Venda.all.where(partner_id: 4).where("zappi is null")
+    puts "Total #{vendas.count}"
+    vendas.each_with_index do |venda, index|
+      zappi = venda.zappi_capture
+      if zappi.present?
+        Venda.where(id: venda.id).update_all(zappi: zappi)
+      end
+      puts "#{zappi} - #{index + 1}"
+    end
+  end
+
   desc "banco export"
   task banco_export: :environment do
     dado = ""
