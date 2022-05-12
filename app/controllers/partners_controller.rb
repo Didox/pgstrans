@@ -71,11 +71,13 @@ class PartnersController < ApplicationController
         flash[:notice] = 'Agendamento do processamento do relatório realizado com sucesso.'
       end
     end
+    @relatorio_conciliacao_zaptvs = []
+    if params.keys.length > 3
+      @relatorio_conciliacao_zaptvs = PartnersController.show(@partner, params)
 
-    @relatorio_conciliacao_zaptvs = PartnersController.show(@partner, params)
-
-    options = {page: params[:page] || 1, per_page: 10}
-    @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.paginate(options)
+      options = {page: params[:page] || 1, per_page: 10}
+      @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.paginate(options)
+    end
   end
 
 
