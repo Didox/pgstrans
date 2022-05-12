@@ -8,6 +8,7 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
     CSV.generate(headers: true) do |csv|
       csv << attributes
 
+      debugger
       all.each do |user|
         csv << attributes.map{ |attr| user.send(attr) }
       end

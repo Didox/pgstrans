@@ -47,58 +47,64 @@
       </div>
     </form>
   </div>
-  <div class="col-md-12 s>croltable">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Operation Code</th>
-          <th scope="col">Source Reference</th>
-          <th colspan="3"></th>
-        </tr>
-        <tr>
-          <th scope="col">ID ZAP</th>
-          <th scope="col">ID Interno Pagasó</th>
-          <th scope="col">Código Produto</th>
-          <th scope="col">Nome do Produto</th>
-          <th scope="col">QTD</th>
-          <th scope="col">Data</th>
-          <th scope="col">Tipo</th>
-          <th scope="col" style="width: 35%">Preço Total</th>
-          <th scope="col">Status</th>
-          <th scope="col" style="width: 25%">Preço Unitário</th>
-          <th scope="col" style="width: 25%">Número do Cartão ZAPPI</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @relatorio_conciliacao_zaptvs.each do |relatorio_conciliacao_zaptv| %>
-        <tr>
-          <td><%= relatorio_conciliacao_zaptv.operation_code %></td>
-          <td><%= relatorio_conciliacao_zaptv.source_reference %></td>
-          <td><%= relatorio_conciliacao_zaptv.product_code %></td>
-          <td><%= relatorio_conciliacao_zaptv.product_name %></td>
-          <td><%= relatorio_conciliacao_zaptv.quantity %></td>
-          <td><%= relatorio_conciliacao_zaptv.date_time.strftime("%d/%m/%Y %H:%M:%S") %></td>
-          <td><%= relatorio_conciliacao_zaptv.type_data %></td>
-          <td><%= number_to_currency(relatorio_conciliacao_zaptv.total_price) %></td>
-          <td><%= relatorio_conciliacao_zaptv.status %></td>
-          <td>
-            KZ<%= number_to_currency((relatorio_conciliacao_zaptv.unit_price * 24), :unit => "") %>
-          </td>
-          <td>
-            <% relatorio_conciliacao_zaptv.vendas.each do |venda| %>
-                <a href="/vendas/<%= venda.id %>">
-                  <%= venda.zappi %>
-                </a>
-            <% end %>
-          </td>
-          <td><%= link_to 'Mostrar', relatorio_conciliacao_zaptv %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <% if @relatorio_conciliacao_zaptvs.present? %>
+    <div class="col-md-12 s>croltable">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Operation Code</th>
+            <th scope="col">Source Reference</th>
+            <th colspan="3"></th>
+          </tr>
+          <tr>
+            <th scope="col">ID ZAP</th>
+            <th scope="col">ID Interno Pagasó</th>
+            <th scope="col">Código Produto</th>
+            <th scope="col">Nome do Produto</th>
+            <th scope="col">QTD</th>
+            <th scope="col">Data</th>
+            <th scope="col">Tipo</th>
+            <th scope="col" style="width: 35%">Preço Total</th>
+            <th scope="col">Status</th>
+            <th scope="col" style="width: 25%">Preço Unitário</th>
+            <th scope="col" style="width: 25%">Número do Cartão ZAPPI</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @relatorio_conciliacao_zaptvs.each do |relatorio_conciliacao_zaptv| %>
+          <tr>
+            <td><%= relatorio_conciliacao_zaptv.operation_code %></td>
+            <td><%= relatorio_conciliacao_zaptv.source_reference %></td>
+            <td><%= relatorio_conciliacao_zaptv.product_code %></td>
+            <td><%= relatorio_conciliacao_zaptv.product_name %></td>
+            <td><%= relatorio_conciliacao_zaptv.quantity %></td>
+            <td><%= relatorio_conciliacao_zaptv.date_time.strftime("%d/%m/%Y %H:%M:%S") %></td>
+            <td><%= relatorio_conciliacao_zaptv.type_data %></td>
+            <td><%= number_to_currency(relatorio_conciliacao_zaptv.total_price) %></td>
+            <td><%= relatorio_conciliacao_zaptv.status %></td>
+            <td>
+              KZ<%= number_to_currency((relatorio_conciliacao_zaptv.unit_price * 24), :unit => "") %>
+            </td>
+            <td>
+              <% relatorio_conciliacao_zaptv.vendas.each do |venda| %>
+                  <a href="/vendas/<%= venda.id %>">
+                    <%= venda.zappi %>
+                  </a>
+              <% end %>
+            </td>
+            <td><%= link_to 'Mostrar', relatorio_conciliacao_zaptv %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
 
-    <div class="apple_pagination">
-      <%= will_paginate @relatorio_conciliacao_zaptvs, :container => false %>
+      <div class="apple_pagination">
+        <%= will_paginate @relatorio_conciliacao_zaptvs, :container => false %>
+      </div>
     </div>
-  </div>
+  <% else %>
+    <div class="col-md-12">
+      <h1>Informe dados de pesquisa</h1>
+    </div>
+  <% end %>
