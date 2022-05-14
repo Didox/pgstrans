@@ -7,11 +7,6 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
-
-      debugger
-
-
-
       sql = '
         select 
           (
@@ -20,13 +15,13 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
             and response_get ilike concat('%:', relatorio_conciliacao_zaptvs.operation_code, '%')
             or response_get ilike concat('%: ', relatorio_conciliacao_zaptvs.operation_code, '%')
             limit 1
-          ) as product_name,
+          ) as card_number,
           (
             select produtos.description
             from produtos
             where CAST(coalesce(produtos.produto_id_parceiro, '0') AS integer) = relatorio_conciliacao_zaptvs.product_code and produtos.partner_id = relatorio_conciliacao_zaptvs.partner_id
             limit 1
-          ) as card_number,
+          ) as product_name,
           relatorio_conciliacao_zaptvs.product_code,
           relatorio_conciliacao_zaptvs.unit_price,
           relatorio_conciliacao_zaptvs.total_price,
@@ -37,7 +32,6 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
         FROM "relatorio_conciliacao_zaptvs"  
         WHERE "relatorio_conciliacao_zaptvs"."partner_id" = 4 ORDER BY date_time desc LIMIT 10
       '
-
       # TODO usar o activerecord para buscar os dados.
       all.each do |user|
         csv << attributes.map{ |attr| user.send(attr) }
