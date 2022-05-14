@@ -7,7 +7,7 @@ namespace :sqs do
     )
 
     while (true)
-      puts "lendo ..."
+      puts "#{Time.zone.now.strftime("%Y%m%d%H%M%S")} - lendo ..."
       receive_message_result = sqs_client.receive_message({
         queue_url: SQS_URL, 
         message_attribute_names: ["All"], # Receive all custom attributes.
@@ -22,7 +22,7 @@ namespace :sqs do
         })
 
         begin
-          puts "Importando ..."
+          puts "#{Time.zone.now.strftime("%Y%m%d%H%M%S")} - Importando ..."
           relatorio_id = message.body
           rel = Relatorio.where(id: relatorio_id).first
           next if rel.blank?
