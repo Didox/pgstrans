@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_12_212121) do
+ActiveRecord::Schema.define(version: 2022_05_16_222305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -378,6 +378,8 @@ ActiveRecord::Schema.define(version: 2022_05_12_212121) do
     t.string "categoria"
     t.index ["moeda_id"], name: "index_produtos_on_moeda_id"
     t.index ["partner_id"], name: "index_produtos_on_partner_id"
+    t.index ["partner_id"], name: "produtos_partner_id"
+    t.index ["produto_id_parceiro"], name: "produtos_produto_id_parceiro"
     t.index ["status_produto_id"], name: "index_produtos_on_status_produto_id"
   end
 
@@ -408,6 +410,8 @@ ActiveRecord::Schema.define(version: 2022_05_12_212121) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["partner_id"], name: "index_relatorio_conciliacao_zaptvs_on_partner_id"
+    t.index ["partner_id"], name: "relatorio_conciliacao_zaptvs_partner_id"
+    t.index ["product_code"], name: "relatorio_conciliacao_zaptvs_product_code"
   end
 
   create_table "relatorios", force: :cascade do |t|
@@ -689,9 +693,11 @@ ActiveRecord::Schema.define(version: 2022_05_12_212121) do
     t.string "smartcard"
     t.string "codigos_produto"
     t.string "zappi"
+    t.string "operation_code_zap"
     t.index ["lancamento_id"], name: "index_vendas_on_lancamento_id"
     t.index ["partner_id"], name: "index_vendas_on_partner_id"
     t.index ["usuario_id"], name: "index_vendas_on_usuario_id"
+    t.index ["zappi"], name: "vendas_zappi"
   end
 
   add_foreign_key "alegacao_de_pagamentos", "bancos"

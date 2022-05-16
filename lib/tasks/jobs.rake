@@ -34,6 +34,19 @@ namespace :jobs do
     end
   end
 
+  desc "operation_code"
+  task operation_code_capture: :environment do
+    vendas = Venda.all.where(partner_id: 4).where("operation_code_zap is null")
+    puts "Total #{vendas.count}"
+    vendas.each_with_index do |venda, index|
+      operation_code_zap = venda.operation_code_zap_capture
+      if operation_code_zap.present?
+        Venda.where(id: venda.id).update_all(operation_code_zap: operation_code_zap)
+      end
+      puts "#{operation_code_zap} - #{index + 1}"
+    end
+  end
+
   desc "banco export"
   task banco_export: :environment do
     dado = ""

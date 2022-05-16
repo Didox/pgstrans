@@ -44,10 +44,24 @@ class Venda < ApplicationRecord
       end
     end
   end
+  
+  def operation_code_zap_capture
+    JSON.parse(self.response_get)["operation_code"]
+  rescue
+    ""
+  end
 
   def update_product
     if self.product.present? && self.product_nome.blank?
       Venda.where(id: self.id).update_all(product_nome: self.product.description, product_id: self.product.id)
+    end
+
+    if self.zappi.blank?
+      Venda.where(id: self.id).update_all(zappi: self.zappi_capture)
+    end
+
+    if self.operation_code_zap.blank?
+      Venda.where(id: self.id).update_all(operation_code_zap: self.operation_code_zap_capture)
     end
   end
 
@@ -201,6 +215,12 @@ class Venda < ApplicationRecord
   def zappi_capture
     json = self.request_send.include?("body=") ? self.request_send.split("body=")[1] : self.request_send
     JSON.parse(json)["zappi"]
+  rescue
+    ""
+  end
+
+  def operation_code_capture
+    JSON.parse(self.response_get)["operation_code"]
   rescue
     ""
   end
