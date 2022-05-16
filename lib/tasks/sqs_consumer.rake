@@ -45,7 +45,7 @@ namespace :sqs do
           `echo "#{url}" >> log/#{Rails.env}.log`
           `echo "=======================================" >> log/#{Rails.env}.log`
 
-        rescue Exception => err
+        rescue Exception => e
           puts e.message
           puts e.stacktrace
 
