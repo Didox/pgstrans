@@ -12,8 +12,7 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
           (
             select vendas.zappi from Vendas 
             where partner_id = relatorio_conciliacao_zaptvs.partner_id
-            and response_get ilike concat('%:', relatorio_conciliacao_zaptvs.operation_code, '%')
-            or response_get ilike concat('%:', relatorio_conciliacao_zaptvs.operation_code, '%')
+            and vendas.operation_code_zap = relatorio_conciliacao_zaptvs.operation_code
             limit 1
           ) as card_number,
           (
