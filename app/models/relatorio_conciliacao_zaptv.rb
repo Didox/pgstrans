@@ -7,13 +7,13 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
-      sql = '
+      sql = "
         select 
           (
             select vendas.zappi from Vendas 
             where partner_id = relatorio_conciliacao_zaptvs.partner_id
             and response_get ilike concat('%:', relatorio_conciliacao_zaptvs.operation_code, '%')
-            or response_get ilike concat('%: ', relatorio_conciliacao_zaptvs.operation_code, '%')
+            or response_get ilike concat('%:', relatorio_conciliacao_zaptvs.operation_code, '%')
             limit 1
           ) as card_number,
           (
@@ -29,12 +29,12 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
           relatorio_conciliacao_zaptvs.source_reference,
           relatorio_conciliacao_zaptvs.operation_code,
           relatorio_conciliacao_zaptvs.status
-        FROM "relatorio_conciliacao_zaptvs"  
-        WHERE "relatorio_conciliacao_zaptvs"."partner_id" = 4 ORDER BY date_time desc LIMIT 10
-      '
-      # TODO usar o activerecord para buscar os dados.
-      all.each do |user|
-        csv << attributes.map{ |attr| user.send(attr) }
+        #{all.to_sql.scan(/FROM .*?relatorio_conciliacao_zaptvs\".*/).join("")}
+      "
+
+      dados = ActiveRecord::Base.connection.exec_query(sql)
+      dados.each do |user|
+        csv << attributes.map{ |attr| user[attr] }
       end
     end
   end
