@@ -32,8 +32,8 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
         #{all.to_sql.scan(/FROM .*?relatorio_conciliacao_zaptvs\".*/).join("")}
       "
 
-      Rails.logger.info("====[#{sql}]====")
-      
+      puts "====[#{sql}]===="
+
       dados = ActiveRecord::Base.connection.exec_query(sql)
       dados.each do |user|
         csv << attributes.map{ |attr| user[attr] }
