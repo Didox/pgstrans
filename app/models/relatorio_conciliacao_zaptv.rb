@@ -27,6 +27,7 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
           relatorio_conciliacao_zaptvs.date_time,
           relatorio_conciliacao_zaptvs.source_reference,
           relatorio_conciliacao_zaptvs.operation_code,
+          relatorio_conciliacao_zaptvs.zappi,
           relatorio_conciliacao_zaptvs.status
         #{all.to_sql.scan(/FROM .*?relatorio_conciliacao_zaptvs\".*/).join("")}
       "
