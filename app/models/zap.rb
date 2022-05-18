@@ -65,8 +65,8 @@ class Zap
     raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
   end
 
-  def self.importa_dados!(partner)
-    parametro = Parametro.where(partner_id: partner.id).first
+  def self.importa_dados!(partner, categoria)
+    parametro = Parametro.where(partner_id: partner.id).where("lower(categoria) = ?", categoria.to_s.to_downcase).first
     if Rails.env == "development"
       host = "#{parametro.url_integracao_desenvolvimento}"
       api_key = parametro.api_key_zaptv_desenvolvimento
@@ -80,7 +80,7 @@ class Zap
       url = "#{host}/carregamento/report/#{data.strftime("%Y-%m-%d")}"
       data = data + 1.day
 
-      Rails.logger.info ":::: (#{url}) ::::"
+      puts ":::: (#{url}) ::::"
 
       res = HTTParty.get(
         url, 
@@ -110,10 +110,10 @@ class Zap
           rel.unit_price = dado["unit_price"]
           rel.save
 
-          Rails.logger.info ":::: Relatório criado (#{rel.id}) ::::"
+          puts ":::: Relatório criado (#{rel.id}) ::::"
         end
       else
-        Rails.logger.info ":::: Não encontrado (#{res.body}) ::::"
+        puts ":::: Não encontrado (#{res.body}) ::::"
       end
     end
 

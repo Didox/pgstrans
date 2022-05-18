@@ -116,9 +116,9 @@ class Partner < ApplicationRecord
     end
   end
 
-  def importa_dados!
+  def importa_dados!(categoria = nil)
     if(self.slug.downcase.scan(/zap/))
-      Zap.importa_dados!(self)
+      Zap.importa_dados!(self, categoria)
     else
       self.slug.capitalize.constantize.importa_dados!
     end
