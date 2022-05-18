@@ -19,7 +19,7 @@
   <% Parametro.where(partner_id: @partner.id).each do |param| %>
     <%= link_to "#{partner_importa_dados_path(@partner)}?categoria=#{param.categoria}", class: 'btn btn-danger', style:"margin-left: 15px;" do %>
       Importar dados para relatório de reconciliação - <%= param.categoria %>
-    <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoReconciliacao.where(partner: @partner.id).where("lower(categoria) = ?", param.categoria.to_downcase).first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
+    <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoReconciliacao.where(partner: @partner.id).where("lower(categoria) = ?", param.categoria.downcase).first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
     <br><br>
   <% end %>
   
