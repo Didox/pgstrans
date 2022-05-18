@@ -16,7 +16,7 @@ class PartnersController < ApplicationController
 
   def importa_dados
     partner = Partner.zaptv
-    partner.importa_dados!
+    partner.importa_dados!(params[:categoria])
 
     flash[:notice] = 'Dados importados com sucesso.'
     redirect_to partner_url(partner)
@@ -63,20 +63,21 @@ class PartnersController < ApplicationController
 
   def zap_conciliacao
     #if (params[:data_inicio].blank? || params[:data_fim].blank?) || params[:data_inicio].to_datetime < (DateTime.now - 91.days)
-    if params.has_key?(:data_inicio) && params.has_key?(:data_fim) && (params[:data_inicio].blank? || params[:data_fim].blank?) 
+    @relatorio_conciliacao_zaptvs = []
+    if !params.has_key?(:data_inicio) || !params.has_key?(:data_fim) || params[:data_inicio].blank? || params[:data_fim].blank?
       flash[:error] = 'Selecione o período para agendar o relatório de conciliação'
     else
       if params[:csv].present?
         Relatorio.create(partner_id: @partner.id, usuario_id: usuario_logado.id, parametros: params.to_json).envia_sqs
         flash[:notice] = 'Agendamento do processamento do relatório realizado com sucesso.'
       end
-    end
-    @relatorio_conciliacao_zaptvs = []
-    if params.keys.length > 3
-      @relatorio_conciliacao_zaptvs = PartnersController.show(@partner, params)
 
-      options = {page: params[:page] || 1, per_page: 10}
-      @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.paginate(options)
+      if params.keys.length > 3
+        @relatorio_conciliacao_zaptvs = PartnersController.show(@partner, params)
+  
+        options = {page: params[:page] || 1, per_page: 10}
+        @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.paginate(options)
+      end
     end
   end
 

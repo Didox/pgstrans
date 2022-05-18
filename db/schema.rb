@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_16_222305) do
+ActiveRecord::Schema.define(version: 2022_05_18_233351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -604,6 +604,7 @@ ActiveRecord::Schema.define(version: 2022_05_16_222305) do
     t.bigint "partner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "categoria", default: "tv"
     t.index ["partner_id"], name: "index_ultima_atualizacao_reconciliacaos_on_partner_id"
   end
 
@@ -695,6 +696,7 @@ ActiveRecord::Schema.define(version: 2022_05_16_222305) do
     t.string "zappi"
     t.string "operation_code_zap"
     t.index ["lancamento_id"], name: "index_vendas_on_lancamento_id"
+    t.index ["operation_code_zap"], name: "vendas_operation_code_zap"
     t.index ["partner_id"], name: "index_vendas_on_partner_id"
     t.index ["usuario_id"], name: "index_vendas_on_usuario_id"
     t.index ["zappi"], name: "vendas_zappi"
