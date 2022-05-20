@@ -222,7 +222,7 @@ namespace :jobs do
 
   desc "Apaga logs antigos"
   task apaga_logs_antigos: :environment do
-    ActiveRecord::Base.connection.exec_query("delete from logs where created_at < '#{(Time.zone.now - 4.months).strftime("%Y-%m-%d %H:%M:%S")}'")
+    ActiveRecord::Base.connection.exec_query("delete from logs where created_at < '#{(Time.zone.now - 2.months).strftime("%Y-%m-%d %H:%M:%S")}'")
   end
 
   desc "Adiciona grupo rosi"
