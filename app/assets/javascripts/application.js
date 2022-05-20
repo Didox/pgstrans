@@ -178,6 +178,7 @@ const processarPagamento = function(){
           $.alert(data.mensagem);
         }
       }
+      $(".jconfirm-box").css("background", "green").css("color", "#fff");
     },
     error: function(xhr, ajaxOptions, thrownError){
       $(".modal_loader").hide();
@@ -191,7 +192,7 @@ const processarPagamento = function(){
       else{
         window.location.href="/vendas/" + erroObject.venda_id + "/recibo";
       }
-
+      $(".jconfirm-box").css("background", "red").css("color", "#fff");
     },
     timeout: 120000 // sets timeout to 120 seconds
   });
