@@ -363,8 +363,10 @@ class Venda < ApplicationRecord
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Errno::ETIMEDOUT => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Exception => e
-    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
   end
 
   def self.confirma_venda!(venda, uniq_number, meter_number, produto, valor, desconto_aplicado, valor_original, usuario, parceiro)
@@ -589,8 +591,10 @@ class Venda < ApplicationRecord
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Errno::ETIMEDOUT => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Exception => e
-    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
   end
 
   def status_movicel
@@ -665,6 +669,8 @@ class Venda < ApplicationRecord
   rescue Net::ReadTimeout => e
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Errno::ETIMEDOUT => e
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Exception => e
     raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
@@ -911,8 +917,10 @@ class Venda < ApplicationRecord
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Errno::ETIMEDOUT => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Exception => e
-    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
   end
 
   def status_dstv
