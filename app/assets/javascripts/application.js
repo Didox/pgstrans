@@ -159,10 +159,11 @@ const processarPagamento = function(){
   
   $(".modal_loader").show();
 
+  var formData = form.serialize().replace(/produto_id=&/g, '');
   $.ajax({
     type: "POST",
     url: url,
-    data: form.serialize(),
+    data: formData,
     success: function(data){
       $(".modal_loader").hide();
       $(".clearFieldjs").val("")
