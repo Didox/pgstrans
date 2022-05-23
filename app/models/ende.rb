@@ -84,10 +84,10 @@ class Ende
     return [informacoes_parse(request.body, uniq_number), body, request.body]
   end
 
-  def self.venda_teste(usuario, ende_produto_id, meter_number, valor)
+  def self.venda_teste(usuario, produto_id, meter_number, valor)
     valor = valor.to_f
     
-    raise PagasoError.new("Por favor digite o Produto Recarga") if ende_produto_id.blank?
+    raise PagasoError.new("Por favor digite o Produto Recarga") if produto_id.blank?
     raise PagasoError.new("Por favor digite o Número do Medidor") if meter_number.blank?
     raise PagasoError.new("Valor é obrigatório") if valor < 0.1
     raise PagasoError.new("Número do Medidor inválido") if !Ende.validate_meter_number(meter_number)

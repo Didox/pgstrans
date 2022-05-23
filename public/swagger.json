@@ -46,7 +46,7 @@
             "type": "boolean"
           },
           {
-            "name": "dstv_produto_id",
+            "name": "produto_id",
             "description": "ID do produto",
             "required": true,
             "type": "string"
@@ -97,7 +97,7 @@
         ],
         "parameters": [
           {
-            "name": "unitel_produto_id",
+            "name": "produto_id",
             "description": "ID do produto",
             "required": true,
             "type": "string"
@@ -148,7 +148,7 @@
         ],
         "parameters": [
           {
-            "name": "movicel_produto_id",
+            "name": "produto_id",
             "description": "ID do produto",
             "required": true,
             "type": "string"
@@ -199,7 +199,7 @@
         ],
         "parameters": [
           {
-            "name": "zaptv_produto_id",
+            "name": "produto_id",
             "description": "ID do produto",
             "required": true,
             "type": "string"
@@ -250,7 +250,7 @@
         ],
         "parameters": [
           {
-            "name": "ende_produto_id",
+            "name": "produto_id",
             "description": "ID do produto",
             "required": true,
             "type": "string"

@@ -1,5 +1,5 @@
 
-<select class="rechargeType form-control validate v<%= partner.slug %>" name="<%= partner.slug.downcase %>_produto_id" data-message="Selecione um produto">
+<select class="rechargeType form-control validate v<%= partner.slug %>" name="produto_id" data-message="Selecione um produto">
   <option value="">Escolher</option>
   <% ["VOZ", "PLANO MAIS", "DADOS", "SMS", "PLANOS BAZZA"].each do |subtipo| %>
     <optgroup label="<%= subtipo %>">
