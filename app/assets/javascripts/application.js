@@ -156,7 +156,7 @@ var timerPagamentoProcessando = false;
 const processarPagamento = function(){
   var form = $(".recarga #recargaForm");
   var url = form.attr('action');
-
+  
   $(".modal_loader").show();
 
   $.ajax({
@@ -178,7 +178,7 @@ const processarPagamento = function(){
           $.alert(data.mensagem);
         }
       }
-      $(".jconfirm-box").css("background", "green").css("color", "#fff");
+      setTimeout(function(){ $(".jconfirm-box").css("background", "green").css("color", "#fff"); }, 100);
     },
     error: function(xhr, ajaxOptions, thrownError){
       $(".modal_loader").hide();
@@ -192,7 +192,7 @@ const processarPagamento = function(){
       else{
         window.location.href="/vendas/" + erroObject.venda_id + "/recibo";
       }
-      $(".jconfirm-box").css("background", "red").css("color", "#fff");
+      setTimeout(function(){ $(".jconfirm-box").css("background", "red").css("color", "#fff"); }, 100);
     },
     timeout: 120000 // sets timeout to 120 seconds
   });

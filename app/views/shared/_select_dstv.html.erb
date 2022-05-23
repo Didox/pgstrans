@@ -1,4 +1,4 @@
-<select class="rechargeType form-control validate v<%= partner.slug %>" name="<%= partner.slug.downcase %>_produto_id" data-message="Selecione um produto">
+<select class="rechargeType form-control validate v<%= partner.slug %>" name="produto_id" data-message="Selecione um produto">
   <option value="">Escolher</option>
   <% produtos = Dstv.produtos_ativos_box_office
     (produtos.map{|p| p.subtipo}.compact.uniq.sort.select{|s| s.present?} rescue []).each do |subtipo| %>

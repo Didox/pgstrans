@@ -234,6 +234,7 @@ class VendasController < ApplicationController
      
       options = {page: params[:page] || 1, per_page: 10}
       @vendas = @vendas.paginate(options)
+
     end
 
     
