@@ -262,21 +262,20 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_zaptv(params, usuario, ip)
-    parceiro = Partner.zaptv
+    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
+    product_id = params[:produto_id]
+    produto = Produto.find(product_id)
+    parceiro = produto.partner
     valor = params[:valor].to_f
 
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
     
-    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o telemovel") if params[:zaptv_cartao].blank?
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
     
-    product_id = params[:produto_id]
-    produto = Produto.find(product_id)
-
     parametro = Parametro.where(partner_id: parceiro.id)
     parametro = parametro.where("upper(categoria) = ?", produto.categoria.upcase) if produto.categoria.present?
     parametro = parametro.first
