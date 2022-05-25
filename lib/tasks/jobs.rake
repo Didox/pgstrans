@@ -225,6 +225,19 @@ namespace :jobs do
     ActiveRecord::Base.connection.exec_query("delete from logs where created_at < '#{(Time.zone.now - 2.months).strftime("%Y-%m-%d %H:%M:%S")}'")
   end
 
+  desc "Cria return code api para zap fibra"
+  task return_code_api_zap_fibra: :environment do
+    partner_id = Partner.where("lower(slug) = 'zaptv'").first.id
+    ReturnCodeApi.where(partner_id:partner_id).each do |ret|
+      campos=ret.attributes
+      campos.delete("id")
+      ret_new=ReturnCodeApi.new(campos)
+      ret_new.partner_id = Partner.where("lower(slug) = 'zapfibra'").first.id
+      ret_new.responsavel=Usuario.where(email:"rosi.volgarin@gmail.com").first  
+      ret_new.save!
+    end
+  end
+
   desc "Adiciona grupo rosi"
   task grupo_rosi: :environment do
     usuario = Usuario.where("email = 'rosi.volgarin@gmail.com'").first
