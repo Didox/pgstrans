@@ -69,13 +69,15 @@ class Zap
 
   def self.importa_dados!(partner, categoria)
     parametro = Parametro.where(partner_id: partner.id).where("lower(categoria) = ?", categoria.to_s.downcase).first
+
+    if parametro.blank?
+      raise "Parametro não encontrado partner_id: #{partner.id} categoria: #{categoria.to_s.downcase}"
+    end
+
     if Rails.env == "development"
       host = "#{parametro.url_integracao_desenvolvimento}"
       api_key = parametro.api_key_zaptv_desenvolvimento
     else
-      puts "====================["
-      puts parametro.inspect
-      puts "]===================="
       host = "#{parametro.url_integracao_producao}"
       api_key = parametro.api_key_zaptv_producao
     end
