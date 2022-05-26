@@ -71,7 +71,9 @@ class Zap
     parametro = Parametro.where(partner_id: partner.id).where("lower(categoria) = ?", categoria.to_s.downcase).first
 
     if parametro.blank?
-      raise "Parametro não encontrado partner_id: #{partner.id} categoria: #{categoria.to_s.downcase}"
+      erro = "Parametro não encontrado partner_id: #{partner.id} categoria: #{categoria.to_s.downcase}"
+      puts "======[#{erro}]======="
+      raise erro
     end
 
     if Rails.env == "development"
