@@ -15,7 +15,7 @@ class PartnersController < ApplicationController
   end
 
   def importa_dados
-    partner = Partner.zaptv
+    partner = Partner.find(params[:partner_id])
     partner.importa_dados!(params[:categoria])
 
     flash[:notice] = 'Dados importados com sucesso.'
