@@ -73,6 +73,9 @@ class Zap
       host = "#{parametro.url_integracao_desenvolvimento}"
       api_key = parametro.api_key_zaptv_desenvolvimento
     else
+      puts "====================["
+      puts parametro.inspect
+      puts "]===================="
       host = "#{parametro.url_integracao_producao}"
       api_key = parametro.api_key_zaptv_producao
     end
