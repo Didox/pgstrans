@@ -1,4 +1,4 @@
-  <h1 style="margin-left: 20px;">Relatório Reconciliação <%= params[:categoria] %></h1>
+  <h1 style="margin-left: 20px;">Relatório Reconciliação <%= @partner.nome.upcase %> <%= params[:categoria].to_s.upcase %></h1>
 
   <div class="col-md-12" style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
