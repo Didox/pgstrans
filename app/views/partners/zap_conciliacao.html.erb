@@ -1,10 +1,11 @@
-  <h1 style="margin-left: 20px;">Relatório Reconciliação ZAPTV</h1>
+  <h1 style="margin-left: 20px;">Relatório Reconciliação <%= params[:categoria] %></h1>
 
   <div class="col-md-12" style="margin-top:10px">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
         <div class="col-sm-3">
           <div class="form-group">
+            <input type="hidden" name="categoria" value="<%= params[:categoria] %>">
             <label>Data Inicial da Venda</label>
             <div>
               <input type="date" name="data_inicio" value="<%= params[:data_inicio] %>" class="form-control">

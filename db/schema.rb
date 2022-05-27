@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_18_233351) do
+ActiveRecord::Schema.define(version: 2022_05_27_215207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -409,6 +409,7 @@ ActiveRecord::Schema.define(version: 2022_05_18_233351) do
     t.float "unit_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "categoria", default: "tv"
     t.index ["partner_id"], name: "index_relatorio_conciliacao_zaptvs_on_partner_id"
     t.index ["partner_id"], name: "relatorio_conciliacao_zaptvs_partner_id"
     t.index ["product_code"], name: "relatorio_conciliacao_zaptvs_product_code"
@@ -421,6 +422,7 @@ ActiveRecord::Schema.define(version: 2022_05_18_233351) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "usuario_id"
+    t.string "categoria", default: "tv"
   end
 
   create_table "remuneracao_descontos", force: :cascade do |t|
