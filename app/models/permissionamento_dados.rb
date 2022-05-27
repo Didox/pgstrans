@@ -64,17 +64,16 @@ module PermissionamentoDados
         self.save
       end
 
+      def get_responsavel
+        gr = GrupoRegistro.where(modelo: self.class.to_s, modelo_id: self.id).first
+        Usuario.find(gr.grupo.usuario_id) if gr.present?
+      rescue
+        nil
+      end
+
       private 
         def verifica_responsavel
           self.errors.add(:responsavel, "Responsável não definido") if self.responsavel.blank?
-        end
-
-        def get_responsavel
-          gr = GrupoRegistro.create(modelo: self.class.to_s, modelo_id: self.id).first
-          debugger
-          Usuario.find(gr.grupo.usuario_id) if gr.present?
-        rescue
-          nil
         end
 
         def salvar_responsavel
@@ -86,7 +85,6 @@ module PermissionamentoDados
             if gu.escrita
               grs = GrupoRegistro.where(grupo_id: gu.grupo_id, modelo: self.class.to_s, modelo_id: self.id)
               if grs.count == 0
-                debugger
                 GrupoRegistro.create(usuario_id: self.responsavel.id, grupo_id: gu.grupo_id, modelo: self.class.to_s, modelo_id: self.id, created_at: self.created_at, updated_at: self.updated_at)
               end
             end
