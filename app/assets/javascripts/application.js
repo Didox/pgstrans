@@ -166,7 +166,7 @@ const processarPagamento = function(){
     data: formData,
     success: function(data){
       $(".modal_loader").hide();
-      $(".clearFieldjs").val("")
+      //$(".clearFieldjs").val("")
 
       if(!data.redirect){
         $.alert(data.mensagem);
