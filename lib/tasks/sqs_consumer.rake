@@ -47,10 +47,10 @@ namespace :sqs do
 
         rescue Exception => e
           puts e.message
-          puts e.stacktrace
+          puts e.backtrace
 
           `echo "=====[SQS #{DateTime.now} Erro]=====" >> log/#{Rails.env}.log`
-          `echo "#{e.message},  #{e.stacktrace}" >> log/#{Rails.env}.log`
+          `echo "#{e.message},  #{e.backtrace}" >> log/#{Rails.env}.log`
           `echo "====================================" >> log/#{Rails.env}.log`
         end
       end

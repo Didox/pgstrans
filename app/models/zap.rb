@@ -103,11 +103,13 @@ class Zap
       if (200..300).include?(res.code)
         dados = JSON.parse(res.body)
         RelatorioConciliacaoZaptv.where(url: url).destroy_all if dados.length > 0
+        
         dados.each do |dado|
           rel = RelatorioConciliacaoZaptv.new
 
           rel.partner_id = partner.id
           rel.url = url
+          rel.categoria = categoria.to_s.downcase
           rel.operation_code = dado["operation_code"]
           rel.source_reference = dado["source_reference"]
           rel.product_code = dado["product_code"]

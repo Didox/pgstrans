@@ -1,5 +1,6 @@
 class RelatorioConciliacaoZaptv < ApplicationRecord
   belongs_to :partner
+  validates :categoria, presence: true
 
   def self.to_csv
     #attributes = %w{operation_code source_reference product_code product_name quantity date_time type_data total_price status unit_price card_number}

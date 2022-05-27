@@ -21,10 +21,10 @@
       Importar dados para relatório de reconciliação - <%= param.categoria %>
     <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoReconciliacao.where(partner: @partner.id).where("lower(categoria) = ?", param.categoria.downcase).first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
     <br><br>
+
+    <div class="col-md-1">
+      <a href="/partners/<%= @partner.id %>/zap-conciliacao?categoria=<%= param.categoria %>" class='btn btn-danger'>Gerar Relatório de Conciliação</a>
+    </div>
   <% end %>
-  
-  <div class="col-md-1">
-    <a href="/partners/<%= @partner.id %>/zap-conciliacao" class='btn btn-danger'>Gerar Relatório de Conciliação</a>
-  </div>
 
 <% end %>

@@ -47,7 +47,10 @@ class PartnersController < ApplicationController
   def self.show(partner, params)
     @relatorio_conciliacao_zaptvs = RelatorioConciliacaoZaptv.where(partner: partner)
 
+    @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where("lower(relatorio_conciliacao_zaptvs.categoria) >= ?", params[:categoria].to_s.downcase) if params[:categoria].present?
+
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where("relatorio_conciliacao_zaptvs.date_time >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)) if params[:data_inicio].present?
+
     @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.where("relatorio_conciliacao_zaptvs.date_time <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)) if params[:data_fim].present?
 
     if params[:operation_code].present?
@@ -68,7 +71,7 @@ class PartnersController < ApplicationController
       flash[:error] = 'Selecione o período para agendar o relatório de conciliação'
     else
       if params[:csv].present?
-        Relatorio.create(partner_id: @partner.id, usuario_id: usuario_logado.id, parametros: params.to_json).envia_sqs
+        Relatorio.create(partner_id: @partner.id, usuario_id: usuario_logado.id, parametros: params.to_json, categoria: params[:categoria]).envia_sqs
         flash[:notice] = 'Agendamento do processamento do relatório realizado com sucesso.'
       end
 
