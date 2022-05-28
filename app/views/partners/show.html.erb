@@ -46,18 +46,14 @@
     </p>
     <p>
       <strong>Imagem:</strong>
-      <img src="<%= @partner.imagem %>" style="width:200px">
+      <img src="<%= @partner.imagem %>" style="width:100px">
     </p>
     <% if !["unitel", "dstv"].include?(@partner.slug.downcase)  %>
       <p>
         <strong>Saldo atual:</strong><br>
-        <hr>
         <%= number_to_currency(@partner.ultimo_saldo.saldo, :unit => "PTS") %><br>
-        <hr>
         <%= number_to_currency((@partner.ultimo_saldo.saldo.to_f * 27), :unit => "KZ") %><br>
-        <hr>
         <%= "Última atualização em: #{@partner.ultimo_saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
-        <hr>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
           <%= @partner.ultimo_saldo.log %>
         <% end %>
@@ -66,11 +62,10 @@
         Consultar Saldo
       <% end %>
     <% end %>
-    <hr>
   </div>
-
-  <%= render 'zaptv' %>
-  <%= render 'dstv' %>
-  <%= render 'unitel' %>
-
+  <div class="card">
+    <%= render 'zaptv' %>
+    <%= render 'dstv' %>
+    <%= render 'unitel' %>
+  </div>
 </div>
