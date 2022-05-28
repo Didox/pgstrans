@@ -63,9 +63,33 @@
       <% end %>
     <% end %>
   </div>
-  <div class="card">
-    <%= render 'zaptv' %>
-    <%= render 'dstv' %>
-    <%= render 'unitel' %>
-  </div>
+
+  <% if @partner.slug.downcase == "zaptv" %> 
+    <div class="card">
+      <div class="card-bord">
+        <%= render 'zaptv' %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @partner.slug.downcase == "zapfibra" %> 
+    <div class="card">
+      <div class="card-bord">
+        <%= render 'zaptv' %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @partner.slug.downcase == "dstv" %>
+     <%= render 'dstv' %>
+  <% end %>
+
+  <% if @partner.slug.downcase == "unitel" %>
+    <div class="card">
+      <div class="card-bord">    
+        <%= render 'unitel' %>
+      </div>
+    </div>
+  <% end %>
+
 </div>
