@@ -1,9 +1,10 @@
-  <h1 style="margin-left: 20px;">Relatório Reconciliação <%= @partner.nome.upcase %> <%= params[:categoria].to_s.upcase %></h1>
+  <h1 style="margin-left: 15px;">Relatório Reconciliação <%= @partner.name.upcase %> - Categoria: <%= params[:categoria].to_s.upcase %></h1>
 
   <div class="col-md-12" style="margin-top:10px">
+   <h3>Filtros de busca</h3>
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="form-group">
             <input type="hidden" name="categoria" value="<%= params[:categoria] %>">
             <label>Data Inicial da Venda</label>
@@ -12,7 +13,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Data Final da Venda</label>
             <div>
@@ -20,7 +21,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Código da Operação de Venda (ID ZAP)</label>
             <div>
@@ -37,14 +38,15 @@
           </a>
         </div>
 
-        <ul>
-          <% Relatorio.where(partner_id: @partner.id).where("arquivo is not null").order("updated_at desc").limit(3).each do |rel| %>
-            <li>
+        <div>
+          <p><strong>Lista de Relatórios Disponíveis para Download</strong></p>
+          <% Relatorio.where(partner_id: @partner.id).where("arquivo is not null").order("updated_at desc").limit(5).each do |rel| %>
+            <div>
               <%= rel.updated_at.strftime("%d/%m/%Y %H:%M") %> - 
-              <a href="<%= rel.arquivo %>" target="_blank">Download</a>
-            </li>
+              <a href="<%= rel.arquivo %>" target="_blank">Baixar</a>
+            </div>
           <% end %>
-        </ul> 
+        </div> 
       </div>
     </form>
   </div>
