@@ -1,5 +1,4 @@
-<div class="col-md-12">
-  <% if @partner.slug.downcase == "dstv" %>
+
     <%= link_to partner_importa_produtos_path(@partner), 
     class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
       Atualizar portfólio de produtos
@@ -10,6 +9,7 @@
       Atualizar saldo
     <% end %>
     <% saldo = SaldoParceiroDstv.where(partner: @partner.id).first 
+    
     if saldo.present? && saldo.agent_first_name.present? %>
       <%= " - Última atualização em: #{saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
       <hr>
@@ -95,5 +95,3 @@
         </tr>
       </table>
     <% end %>
-  <% end %>
-</div>
