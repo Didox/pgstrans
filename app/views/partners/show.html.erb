@@ -63,33 +63,39 @@
       <% end %>
     <% end %>
   </div>
-
-  <% if @partner.slug.downcase == "zaptv" %> 
-    <div class="card">
-      <div class="card-bord">
-        <%= render 'zaptv' %>
+  
+  <div class="container-fluid">
+    
+    <% if @partner.slug.downcase == "zaptv" %> 
+      <div class="card">
+        <div class="card-bord">
+          <p><strong>Outras Operações</strong></p>
+          <%= render 'zaptv' %>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
 
-  <% if @partner.slug.downcase == "zapfibra" %> 
-    <div class="card">
-      <div class="card-bord">
-        <%= render 'zaptv' %>
+    <% if @partner.slug.downcase == "zapfibra" %> 
+      <div class="card">
+        <div class="card-bord">
+          <p><strong>Outras Operações</strong></p>
+          <%= render 'zaptv' %>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
 
-  <% if @partner.slug.downcase == "dstv" %>
-     <%= render 'dstv' %>
-  <% end %>
+    <% if @partner.slug.downcase == "dstv" %>
+      <p><strong>Outras Operações</strong></p>
+      <%= render 'dstv' %>
+    <% end %>
 
-  <% if @partner.slug.downcase == "unitel" %>
-    <div class="card">
-      <div class="card-bord">    
-        <%= render 'unitel' %>
+    <% if @partner.slug.downcase == "unitel" %>
+      <div class="card">
+        <div class="card-bord">
+          <p><strong>Outras Operações</strong></p>
+          <%= render 'unitel' %>
+        </div>
       </div>
-    </div>
-  <% end %>
-
+    <% end %>
+  </div>
 </div>

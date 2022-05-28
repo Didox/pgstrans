@@ -1,28 +1,36 @@
       
-      <% Parametro.where(partner_id: @partner).each do |param| %>
-        <ul style="list-style-type:none;">
-          <li>
-            <%= link_to "#{partner_importa_produtos_path(@partner)}?categoria=#{param.categoria}", class: 'btn btn-danger',  data: { confirm: 'Tem Certeza?' } do %>
-              Atualizar portfólio de produtos - <%= param.categoria %>
-              <% 
-              ultimaAtualizacaoProduto = UltimaAtualizacaoProduto.where(partner: @partner.id) 
-              ultimaAtualizacaoProduto = ultimaAtualizacaoProduto.where("upper(categoria) = ?", param.categoria)  if param.categoria.present?
-              %>
-            <% end %> 
-            <%= " - Última atualização em: #{ultimaAtualizacaoProduto.first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
-          </li>
-        </ul>
-      <% end %>
+      <div class="card">
+        <div class="body-card">
+          <% Parametro.where(partner_id: @partner).each do |param| %>
+            <ul style="list-style-type:none; margin-top: 10px;">
+              <li>
+                <%= link_to "#{partner_importa_produtos_path(@partner)}?categoria=#{param.categoria}", class: 'btn btn-danger',  data: { confirm: 'Tem Certeza?' } do %>
+                  Atualizar portfólio de produtos - <%= param.categoria %>
+                  <% 
+                  ultimaAtualizacaoProduto = UltimaAtualizacaoProduto.where(partner: @partner.id) 
+                  ultimaAtualizacaoProduto = ultimaAtualizacaoProduto.where("upper(categoria) = ?", param.categoria)  if param.categoria.present?
+                  %>
+                <% end %> 
+                <%= " - Última atualização em: #{ultimaAtualizacaoProduto.first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
+              </li>
+            </ul>
+          <% end %>
+        </div>
+      </div>
 
-      <% Parametro.where(partner_id: @partner.id).each do |param| %>
-        <ul style="list-style-type:none;">
-          <li>
-            <%= link_to "#{partner_importa_dados_path(@partner)}?categoria=#{param.categoria}", class: 'btn btn-danger' do %>
-              Importar dados para relatório de reconciliação - <%= param.categoria %>
-            <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoReconciliacao.where(partner: @partner.id).where("lower(categoria) = ?", param.categoria.downcase).first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
-          </li>
-          <li>
-            <a href="/partners/<%= @partner.id %>/zap-conciliacao?categoria=<%= param.categoria %>" class='btn btn-danger'>Gerar Relatório de Conciliação</a>
-          </li>
-        </ul>
+      <div class="card">
+        <div class="body-card">
+          <% Parametro.where(partner_id: @partner.id).each do |param| %>
+            <ul style="list-style-type:none; margin-top: 10px;">
+              <li>
+                <%= link_to "#{partner_importa_dados_path(@partner)}?categoria=#{param.categoria}", class: 'btn btn-success' do %>
+                  Importar dados para relatório de reconciliação - <%= param.categoria %>
+                <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoReconciliacao.where(partner: @partner.id).where("lower(categoria) = ?", param.categoria.downcase).first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
+              </li><hr>
+              <li>
+                <a href="/partners/<%= @partner.id %>/zap-conciliacao?categoria=<%= param.categoria %>" class='btn btn-danger'>Gerar Relatório de Conciliação</a>
+              </li>
+            </ul>
+          </div>
+        </div>
     <% end %>
