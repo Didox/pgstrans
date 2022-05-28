@@ -65,21 +65,23 @@ class PartnersController < ApplicationController
   def show;end
 
   def zap_conciliacao
-    #if (params[:data_inicio].blank? || params[:data_fim].blank?) || params[:data_inicio].to_datetime < (DateTime.now - 91.days)
+    if (params[:data_inicio].blank? || params[:data_fim].blank?) 
     @relatorio_conciliacao_zaptvs = []
-    if !params.has_key?(:data_inicio) || !params.has_key?(:data_fim) || params[:data_inicio].blank? || params[:data_fim].blank?
-      flash[:error] = 'Selecione o período para agendar o relatório de conciliação'
-    else
-      if params[:csv].present?
-        Relatorio.create(partner_id: @partner.id, usuario_id: usuario_logado.id, parametros: params.to_json, categoria: params[:categoria]).envia_sqs
-        flash[:notice] = 'Agendamento do processamento do relatório realizado com sucesso.'
-      end
 
-      if params.keys.length > 3
-        @relatorio_conciliacao_zaptvs = PartnersController.show(@partner, params)
-  
-        options = {page: params[:page] || 1, per_page: 10}
-        @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.paginate(options)
+      if !params.has_key?(:data_inicio) || !params.has_key?(:data_fim) || params[:data_inicio].blank? || params[:data_fim].blank? || params[:data_inicio].to_datetime < (DateTime.now - 120.days)
+        flash[:error] = 'Defina o período para agendar o relatório de conciliação com data inicial de venda não superior a 120 dias'
+      else
+        if params[:csv].present?
+          Relatorio.create(partner_id: @partner.id, usuario_id: usuario_logado.id, parametros: params.to_json, categoria: params[:categoria]).envia_sqs
+          flash[:notice] = 'Agendamento do processamento do relatório realizado com sucesso.'
+        end
+
+        if params.keys.length > 3
+          @relatorio_conciliacao_zaptvs = PartnersController.show(@partner, params)
+    
+          options = {page: params[:page] || 1, per_page: 10}
+          @relatorio_conciliacao_zaptvs = @relatorio_conciliacao_zaptvs.paginate(options)
+        end
       end
     end
   end
