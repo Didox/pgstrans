@@ -139,7 +139,7 @@
         <% @usuarios.each do |usuario| %>
         <tr>
           <td style="width: 25px" align="right"><%= usuario.id %></td>
-          <td style="width: 100px"><a href="/conta_correntes?login=<%= usuario.login %>"><%= usuario.login %></a></td>
+          <td style="width: 100px"><a href="/conta_correntes?login=<%= usuario.login %>" target="_blank"><%= usuario.login %></a></td>
           <td style="width: 400px"><%= usuario.nome %></td>
           <td style="width: 260px" class="text-right"><%= usuario.telefone %></td>
           <td style="width: 400px"><%= usuario.sub_agente.nome_fantasia rescue "" %></td>
