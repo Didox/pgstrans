@@ -72,9 +72,9 @@ class PartnersController < ApplicationController
       puts (!params.has_key?(:data_inicio) || !params.has_key?(:data_fim) || params[:data_inicio].blank? || params[:data_fim].blank? || params[:data_inicio].to_datetime < (DateTime.now - 120.days))
       puts "====================="
     
-      if !params.has_key?(:data_inicio) || !params.has_key?(:data_fim) || params[:data_inicio].blank? || params[:data_fim].blank? || params[:data_inicio].to_datetime < (DateTime.now - 120.days)
+      if params[:buscou].present? && (!params.has_key?(:data_inicio) || !params.has_key?(:data_fim) || params[:data_inicio].blank? || params[:data_fim].blank? || params[:data_inicio].to_datetime < (DateTime.now - 120.days))
         flash[:error] = 'Defina o período para agendar o relatório de conciliação com data inicial de venda não superior a 120 dias'
-      else
+      elsif params[:buscou].present?
         if params[:csv].present?
           Relatorio.create(partner_id: @partner.id, usuario_id: usuario_logado.id, parametros: params.to_json, categoria: params[:categoria]).envia_sqs
           flash[:notice] = 'Agendamento do processamento do relatório realizado com sucesso.'
