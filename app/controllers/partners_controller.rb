@@ -67,8 +67,7 @@ class PartnersController < ApplicationController
   def zap_conciliacao
     if (params[:data_inicio].blank? || params[:data_fim].blank?) 
     @relatorio_conciliacao_zaptvs = []
-      debugger
-      if !params.has_key?(:data_inicio) || !params.has_key?(:data_fim) || params[:data_inicio].blank? || params[:data_fim].blank? || params[:data_inicio].to_datetime < (DateTime.now - 120.days)
+      if !params.has_key?(:data_inicio) || !params.has_key?(:data_fim) || params[:data_inicio].blank? || params[:data_fim].blank? 
         flash[:error] = 'Defina o período para agendar o relatório de conciliação com data inicial de venda não superior a 120 dias'
       else
         if params[:csv].present?
