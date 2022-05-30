@@ -75,6 +75,15 @@
       </div>
     <% end %>
 
+    <% if @partner.slug.downcase == "zapwifi" %> 
+      <div class="card">
+        <div class="card-bord">
+          <p><strong>Outras Operações</strong></p>
+          <%= render 'zaptv' %>
+        </div>
+      </div>
+    <% end %>
+
     <% if @partner.slug.downcase == "zapfibra" %> 
       <div class="card">
         <div class="card-bord">
