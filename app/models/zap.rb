@@ -11,7 +11,7 @@ class Zap
       host = "#{parametro.url_integracao_producao}/portfolio"
       api_key = parametro.api_key_zaptv_producao
     end
-    debugger
+    
     res = HTTParty.get(
       host, 
       headers: {
