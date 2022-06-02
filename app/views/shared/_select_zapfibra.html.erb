@@ -3,16 +3,15 @@
   <option value="">Escolher</option>
   <% produtos = Produto.produtos.where(partner_id: Partner.where(slug: partner.slug)).reorder("nome_comercial asc") %>
     
-    <% if usuario_logado.admin? %>
-      <pre>
-        <%= produtos.to_sql %>
-      </pre>
-    <% end %>
+  <% if usuario_logado.admin? %>
+    <pre>
+      <%= produtos.to_sql %>
+    </pre>
+  <% end %>
 
-    <% produtos.each do |produto| %>
-      <option value="<%= produto.id %>" data-valor="<%= formata_numero_duas_casas(produto.valor_compra_telemovel) %>">
-        <%= produto.nome_comercial %> - <%= number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2) %>
-      </option>
-    <% end %>
+  <% produtos.each do |produto| %>
+    <option value="<%= produto.id %>" data-valor="<%= formata_numero_duas_casas(produto.valor_compra_telemovel) %>">
+      <%= produto.nome_comercial %> - <%= number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2) %>
+    </option>
   <% end %>
 </select>
