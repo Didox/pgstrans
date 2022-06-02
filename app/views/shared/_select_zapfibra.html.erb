@@ -6,6 +6,10 @@
   <% categorias = produtos.map{|p| p.categoria.to_s.upcase}.uniq.compact.sort{|x,y| x<=>y} %>
   <% categorias.each do |categoria| %>
     <optgroup label="<%= categoria %>">
+      <% 
+      sql = produtos.where("upper(categoria) = ?", categoria).reorder("nome_comercial asc").to_sql
+      puts  "===[#{sql}]==="
+       %>
       <% produtos.where("upper(categoria) = ?", categoria).reorder("nome_comercial asc").each do |produto| %>
         <option value="<%= produto.id %>" data-valor="<%= formata_numero_duas_casas(produto.valor_compra_telemovel) %>">
           <%= produto.nome_comercial %> - <%= number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2) %>
