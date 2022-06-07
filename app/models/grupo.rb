@@ -1,6 +1,8 @@
 class Grupo < ApplicationRecord
   default_scope { order("unaccent(grupos.nome) asc") }
 
+  has_many :grupo_usuarios
+
   def hierarquia
     self.get_pai
   end

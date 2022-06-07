@@ -16,7 +16,7 @@
       <div class="form-group">
         <label>Data de Lançamento Início</label>
         <div>
-          <input type="date" name="data_alegacao_pagamento_inicio" value="<%= params[:data_alegacao_pagamento_inicio] %>" class="form-control">
+          <input type="datetime-local" name="data_alegacao_pagamento_inicio" value="<%= params[:data_alegacao_pagamento_inicio] %>" class="form-control">
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
       <div class="form-group">
         <label>Data de Lançamento Fim</label>
         <div>
-          <input type="date" name="data_alegacao_pagamento_fim" value="<%= params[:data_alegacao_pagamento_fim] %>" class="form-control">
+          <input type="datetime-local" name="data_alegacao_pagamento_fim" value="<%= params[:data_alegacao_pagamento_fim] %>" class="form-control">
         </div>
       </div>
     </div>
@@ -32,7 +32,7 @@
       <div class="form-group">
         <label>Data da Última Atualiz. Início</label>
         <div>
-          <input type="date" name="data_ultima_atualizacao_saldo_inicio" value="<%= params[:data_ultima_atualizacao_saldo_inicio] %>" class="form-control">
+          <input type="datetime-local" name="data_ultima_atualizacao_saldo_inicio" value="<%= params[:data_ultima_atualizacao_saldo_inicio] %>" class="form-control">
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
       <div class="form-group">
         <label>Data da Última Atualiz. Fim</label>
         <div>
-          <input type="date" name="data_ultima_atualizacao_saldo_fim" value="<%= params[:data_ultima_atualizacao_saldo_fim] %>" class="form-control">
+          <input type="datetime-local" name="data_ultima_atualizacao_saldo_fim" value="<%= params[:data_ultima_atualizacao_saldo_fim] %>" class="form-control">
         </div>
       </div>
     </div>
@@ -204,6 +204,9 @@
             <b>Nome do Usuário:</b> <%= conta_corrente.usuario.nome %><br>
             <b>Situação do Usuário:</b> <%= conta_corrente.usuario.status_cliente.nome rescue "" %><br> 
             <b>Lançamento:</b> <%= conta_corrente.lancamento.nome %><br>
+            <% if conta_corrente.partner_id.present? %>
+              <b>Parceiro:</b> <%= conta_corrente.partner.name %><br>
+            <% end %>
             <% if conta_corrente.banco_id.present? %>
               <b>Banco:</b> <%= conta_corrente.banco.nome %><br>
             <% end %>
@@ -236,7 +239,7 @@
               <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M:%S") %><br>
 
               <hr>
-              <b>Data Processamento:</b><br>
+              <b>Processamento:</b><br>
               <%= conta_corrente.data_processamento.strftime("%d/%m/%Y %H:%M:%S") rescue "" %><br>
             <% end %>
           </td>
