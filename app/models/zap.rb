@@ -5,12 +5,18 @@ class Zap
     parametro = parametro.first
 
     if Rails.env == "development"
-      host = "#{parametro.url_integracao_desenvolvimento}/portfolio"
+      host = "#{parametro.url_integracao_desenvolvimento}"
       api_key = parametro.api_key_zaptv_desenvolvimento
     else
-      host = "#{parametro.url_integracao_producao}/portfolio"
+      host = "#{parametro.url_integracao_producao}"
       api_key = parametro.api_key_zaptv_producao
     end
+
+    host = host.split("/")
+    host.delete_at(host.length-1)
+    host = host.join("/")
+    
+    host = "#{host}/portfolio"
     
     res = HTTParty.get(
       host, 
