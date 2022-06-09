@@ -6,6 +6,8 @@ class ParametrosController < ApplicationController
   def index
     @parametros = Parametro.com_acesso(usuario_logado)
 
+    @parametros = @parametros.all.order("partner_id")
+
     options = {page: params[:page] || 1, per_page: 10}
     @parametros = @parametros.paginate(options)    
   end

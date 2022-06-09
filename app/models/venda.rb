@@ -149,10 +149,10 @@ class Venda < ApplicationRecord
     parceiro = Partner.zaptv
     parametro = Parametro.where(partner_id: parceiro.id).first
     if Rails.env == "development"
-      url = "#{parametro.url_integracao_desenvolvimento}/carregamento/#{self.request_id}"
+      url = "#{parametro.url_integracao_desenvolvimento}/#{self.request_id}"
       api_key = parametro.api_key_zaptv_desenvolvimento
     else
-      url = "#{parametro.url_integracao_producao}/carregamento/#{self.request_id}"
+      url = "#{parametro.url_integracao_producao}/#{self.request_id}"
       api_key = parametro.api_key_zaptv_producao
     end
 
@@ -186,10 +186,10 @@ class Venda < ApplicationRecord
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"
-      url = "#{parametro.url_integracao_desenvolvimento}/carregamento/#{self.request_id}"
+      url = "#{parametro.url_integracao_desenvolvimento}/#{self.request_id}"
       api_key = parametro.api_key_zaptv_desenvolvimento
     else
-      url = "#{parametro.url_integracao_producao}/carregamento/#{self.request_id}"
+      url = "#{parametro.url_integracao_producao}/#{self.request_id}"
       api_key = parametro.api_key_zaptv_producao
     end
 
@@ -292,10 +292,10 @@ class Venda < ApplicationRecord
     request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
 
     if Rails.env == "development"
-      host = "#{parametro.url_integracao_desenvolvimento}/carregamento"
+      host = "#{parametro.url_integracao_desenvolvimento}"
       api_key = parametro.api_key_zaptv_desenvolvimento
     else
-      host = "#{parametro.url_integracao_producao}/carregamento"
+      host = "#{parametro.url_integracao_producao}"
       api_key = parametro.api_key_zaptv_producao
     end
 
@@ -304,9 +304,15 @@ class Venda < ApplicationRecord
       :product_code => produto.produto_id_parceiro, #produto importado zap
       :product_quantity => 1, 
       :source_reference => request_id, #meu código 
-      :zappi => telefone #Iremos receber este numero
-    }.to_json
+    }
 
+    if parametro.categoria.to_s.downcase == "wifi"
+      body_send[:telefone] = telefone
+    else
+      body_send[:zappi] = telefone #Iremos receber este numero
+    end
+    
+    body_send = body_send.to_json
 
     res = HTTParty.post(
       host, 
@@ -624,7 +630,7 @@ class Venda < ApplicationRecord
 
     request_id = self.request_id
 
-    pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto`
+    pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' REQUESTID='#{request_id}' ./chaendazapes/movicell/ubuntu/encripto`
     pass = pass.strip
 
     body = "
