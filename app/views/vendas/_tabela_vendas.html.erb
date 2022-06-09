@@ -35,11 +35,7 @@
           <b>Smartcard:</b> <%= venda.smartcard %>
         <% end %>
 
-        <ul>
-          <% venda.movimentacoes_conta_corrente.each do |cc| %>
-            <li><b><%= cc.lancamento_id %><br></li>
-          <% end %>
-        </ul>
+        <b>Conta corrente ID</b> <a href="/conta_correntes/<%= venda.movimentacoes_conta_corrente.id rescue "" %>" target="_blank"><%= venda.movimentacoes_conta_corrente.id rescue "" %></a><br>
       </td>
       <td>
         <% if usuario_logado.admin? || usuario_logado.operador? %>

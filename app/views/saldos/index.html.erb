@@ -78,7 +78,10 @@
                 <%= conta_corrente.usuario.login %>/<%= conta_corrente.usuario.nome %>
               </td>
               <td>
-                <b><%= conta_corrente.lancamento.nome%></b><br>
+                <b><%= conta_corrente.lancamento.nome %></b>
+                <% if conta_corrente.partner_id.present? %>
+                    <b><%= conta_corrente.partner.name %></b><br>
+                <% end %>
                 <%= conta_corrente.observacao %>
               </td>
               <td>

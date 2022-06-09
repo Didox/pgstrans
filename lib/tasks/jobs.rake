@@ -229,8 +229,8 @@ namespace :jobs do
   task venda_conta_corrente: :environment do
     ContaCorrente.where("valor < 0").each do |cc|
       venda = Venda.where(usuario_id: cc.usuario_id, partner_id: cc.partner_id, value: cc.valor.abs)
-      venda = venda.where("created_at BETWEEN ? AND ?", SqlDate.sql_parse((cc.created_at - 1.minutes)), SqlDate.sql_parse((cc.created_at+ 1.minutes)))
-      venda = venda.first
+      venda = venda.where("created_at BETWEEN ? AND ?", SqlDate.sql_parse((cc.created_at - 1.hour)), SqlDate.sql_parse((cc.created_at)))
+      venda = venda.reorder("created_at desc").first
       if venda.present?
         ContaCorrente.where(id: venda.id).update_all(venda_id: venda.id)
       end
