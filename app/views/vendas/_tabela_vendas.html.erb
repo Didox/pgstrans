@@ -34,6 +34,12 @@
         <% if venda.smartcard.present? %>
           <b>Smartcard:</b> <%= venda.smartcard %>
         <% end %>
+
+        <ul>
+          <% venda.movimentacoes_conta_corrente.each do |cc| %>
+            <li><b><%= cc.lancamento_id %><br></li>
+          <% end %>
+        </ul>
       </td>
       <td>
         <% if usuario_logado.admin? || usuario_logado.operador? %>

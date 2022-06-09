@@ -6,6 +6,12 @@ class Venda < ApplicationRecord
   belongs_to :partner
 
   after_save :update_product
+
+  def movimentacoes_conta_corrente
+    ContaCorrente.where(venda_id: self.id)
+  rescue
+    []
+  end
   
   def destroy
     raise PagasoError.new("Registro de Venda não pode ser excluído")
@@ -349,7 +355,8 @@ class Venda < ApplicationRecord
         lancamento_id: lancamento.id,
         banco_id: (banco.id rescue Banco.first.id),
         partner_id: parceiro.id,
-        iban: iban
+        iban: iban,
+        venda_id: venda.id
       )
       conta_corrente.responsavel = usuario
       conta_corrente.save!
@@ -538,7 +545,8 @@ class Venda < ApplicationRecord
         lancamento_id: lancamento.id,
         banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
         partner_id: parceiro.id,
-        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
+        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban,
+        venda_id: venda.id
       )
       conta_corrente.responsavel = usuario
       conta_corrente.save!
@@ -870,7 +878,8 @@ class Venda < ApplicationRecord
               lancamento_id: lancamento.id,
               banco_id: banco.id,
               partner_id: parceiro.id,
-              iban: iban
+              iban: iban,
+              venda_id: venda.id
             )
 
             conta_corrente.responsavel = usuario
@@ -1086,7 +1095,8 @@ class Venda < ApplicationRecord
         lancamento_id: lancamento.id,
         banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
         partner_id: parceiro.id,
-        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
+        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban,
+        venda_id: venda.id
       )
       conta_corrente.responsavel = usuario
       conta_corrente.save!
@@ -1163,7 +1173,8 @@ class Venda < ApplicationRecord
         lancamento_id: lancamento.id,
         partner_id: parceiro.id,
         banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
-        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
+        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban,
+        venda_id: venda.id
       )
 
       conta_corrente.responsavel = usuario

@@ -225,6 +225,18 @@ namespace :jobs do
     ActiveRecord::Base.connection.exec_query("delete from logs where created_at < '#{(Time.zone.now - 2.months).strftime("%Y-%m-%d %H:%M:%S")}'")
   end
 
+  desc "Update venda id conta corrente"
+  task venda_conta_corrente: :environment do
+    ContaCorrente.where("valor < 0").each do |cc|
+      venda = Venda.where(usuario_id: cc.usuario_id, partner_id: cc.partner_id, value: cc.valor.abs)
+      venda = venda.where("created_at BETWEEN ? AND ?", SqlDate.sql_parse((cc.created_at - 1.minutes)), SqlDate.sql_parse((cc.created_at+ 1.minutes)))
+      venda = venda.first
+      if venda.present?
+        ContaCorrente.where(id: venda.id).update_all(venda_id: venda.id)
+      end
+    end
+  end
+
   desc "Cria return code api para zap fibra"
   task return_code_api_zap_fibra: :environment do
     partner_id = Partner.where("lower(slug) = 'zaptv'").first.id
