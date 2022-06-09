@@ -8,9 +8,15 @@ class Venda < ApplicationRecord
   after_save :update_product
 
   def movimentacoes_conta_corrente
-    ContaCorrente.where(venda_id: self.id)
+    ccs = ContaCorrente.where(venda_id: self.id)
+    return ccs.first if ccs.count > 0
+
+    ccs = ContaCorrente.where(valor: "-#{self.value}", partner_id: self.partner_id, usuario_id: self.usuario_id)
+    ccs = ccs.where("created_at > ? ", self.created_at).limit(1)
+    cc = ccs.reorder("created_at asc").first
+    cc
   rescue
-    []
+    nil
   end
   
   def destroy
