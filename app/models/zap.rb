@@ -48,7 +48,7 @@ class Zap
           produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id rescue Moeda.where(simbolo: "Kz").first.id
           produto.status_produto = StatusProduto.where(nome: "Inativo").first
           produto.categoria = categoria
-          produto.save
+          produto.save!
 
           Rails.logger.info("::: Importou item da categoria - #{categoria} :::")
         end
