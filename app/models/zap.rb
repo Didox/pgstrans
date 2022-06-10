@@ -89,6 +89,10 @@ class Zap
       host = "#{parametro.url_integracao_producao}"
       api_key = parametro.api_key_zaptv_producao
     end
+    
+    host = host.split("/")
+    host.delete_at(host.length-1)
+    host = host.join("/")
 
     data = Time.zone.now - 20.days
     while data <= Time.zone.now

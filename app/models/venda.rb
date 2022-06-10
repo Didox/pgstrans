@@ -7,7 +7,7 @@ class Venda < ApplicationRecord
 
   after_save :update_product
 
-  def movimentacoes_conta_corrente
+  def movimentacoes_conta_correnteimpo
     ccs = ContaCorrente.where(venda_id: self.id)
     return ccs.first if ccs.count > 0
 
