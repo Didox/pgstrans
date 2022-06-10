@@ -17,6 +17,8 @@ class Zap
     host = host.join("/")
     
     host = "#{host}/portfolio"
+
+    puts ":::: (#{host}) ::::"
     
     res = HTTParty.get(
       host, 
@@ -93,7 +95,6 @@ class Zap
     host = host.split("/")
     host.delete_at(host.length-1)
     host = host.join("/")
-
     data = Time.zone.now - 20.days
     while data <= Time.zone.now
       url = "#{host}/carregamento/report/#{data.strftime("%Y-%m-%d")}"
