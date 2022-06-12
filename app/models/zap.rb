@@ -18,8 +18,8 @@ class Zap
     
     host = "#{host}/portfolio"
 
-    puts ":::: (#{host}) ::::"
-    puts ":::: [#{api_key}] ::::"
+    puts "================= (#{host}) ================="
+    puts "================= (#{api_key}) ================="
     
     res = HTTParty.get(
       host, 
