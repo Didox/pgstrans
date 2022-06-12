@@ -49,7 +49,7 @@
             <% if @adm.admin? %>
               <%= f.select :lancamento_id, Lancamento.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %> 
             <% elsif @adm.operador? %>
-              <%= f.select :lancamento_id, Lancamento.where("lower(nome) ilike '%débito%' or lower(nome) ilike '%depósito%'").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+              <%= f.select :lancamento_id, Lancamento.where("lower(nome) ilike '%depósito%'").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
             <% else %>
               <%= f.select :lancamento_id, Lancamento.where("lower(nome) ilike '%transferência conta vendedor%'").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
             <% end %>
