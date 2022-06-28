@@ -101,10 +101,11 @@ class Zap
       url = "#{host}/carregamento/report/#{data.strftime("%Y-%m-%d")}"
       data = data + 1.day
 
-      puts ":::: (#{url}) ::::"
+      uri = URI.parse(URI::Parser.new.escape(url))
+      puts ":::: (#{uri}) ::::"
 
       res = HTTParty.get(
-        url, 
+        uri, 
         headers: {
           "apikey" => api_key,
           "Content-Type" => "application/json"
