@@ -65,8 +65,8 @@ class PartnersController < ApplicationController
   def show;end
 
   def zap_conciliacao
-    if (params[:data_inicio].blank? || params[:data_fim].blank?) 
-    @relatorio_conciliacao_zaptvs = []
+    if (params[:data_inicio].present? || params[:data_fim].present?) 
+      @relatorio_conciliacao_zaptvs = []
       puts "====================="
       puts params.inspect
       puts (!params.has_key?(:data_inicio) || !params.has_key?(:data_fim) || params[:data_inicio].blank? || params[:data_fim].blank? || params[:data_inicio].to_datetime < (DateTime.now - 120.days))
