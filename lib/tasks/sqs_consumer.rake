@@ -16,11 +16,6 @@ namespace :sqs do
       })
 
       receive_message_result.messages.each do |message|
-        sqs_client.delete_message({
-          queue_url: SQS_URL,
-          receipt_handle: message.receipt_handle    
-        })
-
         begin
           puts "#{Time.zone.now.strftime("%Y%m%d%H%M%S")} - Importando ..."
           relatorio_id = message.body
@@ -37,7 +32,10 @@ namespace :sqs do
           rel.arquivo = url
           rel.save!
 
-          puts url
+          sqs_client.delete_message({
+            queue_url: SQS_URL,
+            receipt_handle: message.receipt_handle    
+          })
 
           AdmMailer.notifica_csv_processado(rel).deliver
 
