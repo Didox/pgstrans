@@ -2,7 +2,7 @@ class ContaCorrente < ApplicationRecord
   include PermissionamentoDados
 
   belongs_to :usuario
-  belongs_to :partner
+  belongs_to :partner, optional: true
   belongs_to :lancamento, optional: true
   belongs_to :banco, optional: true
 
