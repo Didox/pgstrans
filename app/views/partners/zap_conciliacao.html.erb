@@ -55,7 +55,7 @@
               <% if @adm.id == Usuario::ROOT %>
                 <br>
                 Parâmetros de busca: <%= rel.parametros %> <br>
-                SQL: <%= PartnersController.show(Partner.find(rel.partner_id), OpenStruct.new(JSON.parse(rel.parametros))).to_sql %> <br>
+                SQL: <%= PartnersController.show(Partner.find(rel.partner_id), OpenStruct.new(JSON.parse(rel.parametros))).to_sql_csv %> <br>
               <% end %>
 
               <a href="<%= rel.arquivo %>" target="_blank">Baixar</a>
