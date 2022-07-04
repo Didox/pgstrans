@@ -22,10 +22,11 @@ namespace :sqs do
           rel = Relatorio.where(id: relatorio_id).first
           next if rel.blank?
           partner = Partner.find(rel.partner_id)
-          relatorio_conciliacao_zaptvs = PartnersController.show(partner, OpenStruct.new(JSON.parse(rel.parametros)))
+          parametros = OpenStruct.new(JSON.parse(rel.parametros))
+          relatorio_conciliacao_zaptvs = PartnersController.show(partner, parametros)
           #relatorio_conciliacao_zaptvs = relatorio_conciliacao_zaptvs.limit(10)
     
-          filename = "relatorio_conciliacao_#{partner.slug}-#{Time.zone.now.strftime("%Y%m%d%H%M%S")}.csv"
+          filename = "relatorio_conciliacao_#{partner.slug}-#{Time.zone.now.strftime("%Y%m%d%H%M%S")}-#{parametros[:categoria]}.csv"
           File.write("/tmp/#{filename}", relatorio_conciliacao_zaptvs.to_csv)
     
           url = AwsService.upload("/tmp/#{filename}", filename) 
