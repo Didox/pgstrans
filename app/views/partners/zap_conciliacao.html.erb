@@ -44,10 +44,20 @@
 
         <div>
           <p><strong>Lista de Relatórios Disponíveis para Download</strong></p>
-          <% Relatorio.where(partner_id: @partner.id).where("arquivo is not null").order("updated_at desc").limit(5).each do |rel| %>
+          <% 
+          @relatorios = Relatorio.where(partner_id: @partner.id)
+          @relatorios = @relatorios.where("lower(categoria) = ?", params[:categoria]) if params[:categoria].present?
+          @relatorios = @relatorios.where("arquivo is not null").order("updated_at desc")
+          @relatorios.limit(5).each do |rel| %>
             <div>
-              <%= rel.updated_at.strftime("%d/%m/%Y %H:%M") %> - 
-              Parâmetros de busca: <%= rel.parametros %> - 
+              <%= rel.updated_at.strftime("%d/%m/%Y %H:%M") %> -
+
+              <% if @adm.id == Usuario::ROOT %>
+                <br>
+                Parâmetros de busca: <%= rel.parametros %> <br>
+                SQL: <%= PartnersController.show(Partner.find(rel.partner_id), OpenStruct.new(JSON.parse(rel.parametros))).to_sql %> <br>
+              <% end %>
+
               <a href="<%= rel.arquivo %>" target="_blank">Baixar</a>
             </div>
           <% end %>
