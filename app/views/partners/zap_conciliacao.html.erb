@@ -47,6 +47,7 @@
           <% Relatorio.where(partner_id: @partner.id).where("arquivo is not null").order("updated_at desc").limit(5).each do |rel| %>
             <div>
               <%= rel.updated_at.strftime("%d/%m/%Y %H:%M") %> - 
+              Parâmetros de busca: <%= rel.parametros %> - 
               <a href="<%= rel.arquivo %>" target="_blank">Baixar</a>
             </div>
           <% end %>
