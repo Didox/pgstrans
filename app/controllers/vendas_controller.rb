@@ -199,7 +199,7 @@ class VendasController < ApplicationController
         @vendas = @vendas.where("usuarios.sub_distribuidor_id = ?", params[:sub_distribuidor_id])
       end
 
-       @vendas = @vendas.where("vendas.id = ?", params[:venda_id]) if params[:venda_id].present?
+      @vendas = @vendas.where("vendas.id = ?", params[:venda_id]) if params[:venda_id].present?
 
       @vendas = @vendas.where("vendas.created_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime) ) if params[:data_inicio].present?
       @vendas = @vendas.where("vendas.created_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime) ) if params[:data_fim].present?
@@ -237,6 +237,8 @@ class VendasController < ApplicationController
      
       options = {page: params[:page] || 1, per_page: 10}
       @vendas = @vendas.paginate(options)
+
+      @vendas_total = @vendas.count
 
     end
 
