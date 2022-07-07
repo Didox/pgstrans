@@ -24,6 +24,9 @@
         <b>ID Interno do Usuário:</b> <%= venda.usuario_id %><br>
         <b>Usuário:</b> <%= venda.usuario.nome %><br>
         <b>Parceiro:</b> <%= venda.partner.name %><br>
+        <% if venda.partner_id == Partner.zaptv.id %>
+          <b>Categoria:</b> <%= venda.categoria.upcase %><br>
+        <% end %>
         <b>Data da Venda:</b> <%= venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %><br>
         <b>Situação:</b> <%= venda.status_desc.error_description_pt %> <%= " - #{venda.lancamento.nome}" rescue "" %><br>
       </td>
