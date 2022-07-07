@@ -220,6 +220,24 @@ namespace :jobs do
     end
   end
 
+  desc "Insere categoria ZAP (Wifi, TV) em vendas"
+  task vendas_categoria: :environment do
+    puts "Iniciando update de vendas anteriores a 01/05/2022"
+    #Venda.where(partner_id: 4).where("created_at < '2022-05-01 00:00:00'").update_all(categoria: "tv")
+    ActiveRecord::Base.connection.exec_query("update vendas set categoria='tv' where partner_id = 4 and created_at < '2022-05-01 00:00:00'")
+    puts "Update de vendas anteriores a 01/05/2022 concluído"
+    debugger
+    Venda.where(partner_id: 4).where("created_at >= '2022-05-01 00:00:00'").each do |venda|
+      debugger
+      puts "=========="
+      puts venda.product.description
+      puts venda.product.categoria
+      puts "=========="
+
+      ActiveRecord::Base.connection.exec_query("update vendas set categoria='#{venda.product.categoria}' where id = #{venda.id}")
+    end
+  end
+
   desc "Apaga logs antigos"
   task apaga_logs_antigos: :environment do
     ActiveRecord::Base.connection.exec_query("delete from logs where created_at < '#{(Time.zone.now - 2.months).strftime("%Y-%m-%d %H:%M:%S")}'")

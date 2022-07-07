@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_08_233704) do
+ActiveRecord::Schema.define(version: 2022_07_07_200811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -699,6 +699,7 @@ ActiveRecord::Schema.define(version: 2022_06_08_233704) do
     t.string "codigos_produto"
     t.string "zappi"
     t.string "operation_code_zap"
+    t.string "categoria"
     t.index ["lancamento_id"], name: "index_vendas_on_lancamento_id"
     t.index ["operation_code_zap"], name: "vendas_operation_code_zap"
     t.index ["partner_id"], name: "index_vendas_on_partner_id"

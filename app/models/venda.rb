@@ -1205,6 +1205,10 @@ class Venda < ApplicationRecord
 
   end
 
+  before_save do 
+    self.categoria = self.product.categoria
+  end
+
   after_create do 
     Log.save_log("Inclusão de registro (#{self.class.to_s})", self.attributes)
   end
