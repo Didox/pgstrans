@@ -199,7 +199,7 @@ class VendasController < ApplicationController
         @vendas = @vendas.where("usuarios.sub_distribuidor_id = ?", params[:sub_distribuidor_id])
       end
 
-      @vendas = @vendas.where("vendas.id = ?", params[:venda_id]) if params[:venda_id].present?
+       @vendas = @vendas.where("vendas.id = ?", params[:venda_id]) if params[:venda_id].present?
 
       @vendas = @vendas.where("vendas.created_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime) ) if params[:data_inicio].present?
       @vendas = @vendas.where("vendas.created_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime) ) if params[:data_fim].present?
@@ -207,6 +207,9 @@ class VendasController < ApplicationController
       @vendas = @vendas.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
       @vendas = @vendas.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
       @vendas = @vendas.where("vendas.partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
+      if params[:slug] = "zaptv"
+        @vendas = @vendas.where("vendas.categoria = ?", params[:categoria]) if params[:categoria].present?
+      end
       @vendas = @vendas.where("vendas.product_id = ?", params[:produto_id]) if params[:produto_id].present?
       @vendas = @vendas.where("vendas.produto_id_parceiro = ?", params[:produto_id_parceiro]) if params[:produto_id_parceiro].present?
       @vendas = @vendas.where("vendas.usuario_id = ?", params[:id_interno]) if params[:id_interno].present?

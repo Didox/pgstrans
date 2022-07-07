@@ -231,7 +231,6 @@ namespace :jobs do
       puts venda.product.description
       puts venda.product.categoria
       puts "=========="
-
       ActiveRecord::Base.connection.exec_query("update vendas set categoria='#{venda.product.categoria}' where id = #{venda.id}")
     end
   end

@@ -143,6 +143,19 @@
             </div>
           </div>
         </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Categoria ZAP (TV ou Wifi)</label>
+            <div>
+              <select name="categoria" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Parametro.where("categoria is not null").where(partner_id: Partner.where(slug: Partner.zaptv.slug)).map{|p| p.categoria}.uniq.compact.each do |categoria| %>
+                  <option value="<%= categoria %>" <% if categoria == params[:categoria] %> selected="selected" <% end %> ><%= categoria %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
           <div class="col-sm-2">
             <div class="form-group">
