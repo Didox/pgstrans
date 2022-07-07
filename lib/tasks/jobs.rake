@@ -226,9 +226,7 @@ namespace :jobs do
     #Venda.where(partner_id: 4).where("created_at < '2022-05-01 00:00:00'").update_all(categoria: "tv")
     ActiveRecord::Base.connection.exec_query("update vendas set categoria='tv' where partner_id = 4 and created_at < '2022-05-01 00:00:00'")
     puts "Update de vendas anteriores a 01/05/2022 concluído"
-    debugger
     Venda.where(partner_id: 4).where("created_at >= '2022-05-01 00:00:00'").each do |venda|
-      debugger
       puts "=========="
       puts venda.product.description
       puts venda.product.categoria
