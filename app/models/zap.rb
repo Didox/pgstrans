@@ -78,7 +78,7 @@ class Zap
 
   def self.importa_dados!(partner, categoria)
     parametro = Parametro.where(partner_id: partner.id).where("lower(categoria) = ?", categoria.to_s.downcase).first
-
+    
     if parametro.blank?
       erro = "Parametro não encontrado partner_id: #{partner.id} categoria: #{categoria.to_s.downcase}"
       puts "======[#{erro}]======="
@@ -96,7 +96,7 @@ class Zap
     host = host.split("/")
     host.delete_at(host.length-1)
     host = host.join("/")
-    data = Time.zone.now - 20.days
+    data = Time.zone.now - 7.days
     while data <= Time.zone.now
       url = "#{host}/carregamento/report/#{data.strftime("%Y-%m-%d")}"
       data = data + 1.day
