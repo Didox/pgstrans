@@ -42,12 +42,12 @@ class Zap
           produto.produto_id_parceiro = p_hash["code"]
           produto.partner_id = partner.id
           produto.description = p_hash["description"]
+          produto.categoria = categoria
           produto.valor_compra_site = p_hash["price"]
           produto.valor_compra_telemovel = p_hash["price"]
           produto.subtipo = p_hash["technology"]
           produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id rescue Moeda.where(simbolo: "Kz").first.id
           produto.status_produto = StatusProduto.where(nome: "Inativo").first
-          produto.categoria = categoria
           produto.save!
 
           Rails.logger.info("::: Importou item da categoria - #{categoria} :::")
