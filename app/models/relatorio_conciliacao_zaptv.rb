@@ -18,6 +18,7 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
           limit 1
         ) as product_name,
         relatorio_conciliacao_zaptvs.product_code,
+        relatorio_conciliacao_zaptvs.categoria,
         relatorio_conciliacao_zaptvs.unit_price,
         relatorio_conciliacao_zaptvs.total_price,
         relatorio_conciliacao_zaptvs.date_time,
@@ -30,7 +31,7 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
 
   def self.to_csv
     #attributes = %w{operation_code source_reference product_code product_name quantity date_time type_data total_price status unit_price card_number}
-    attributes = %w{product_code product_name unit_price total_price date_time source_reference operation_code card_number status}
+    attributes = %w{product_code product_name categoria unit_price total_price date_time source_reference operation_code card_number status}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
