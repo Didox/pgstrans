@@ -12,10 +12,10 @@ class Zap
       api_key = parametro.api_key_zaptv_producao
     end
 
-    host = host.split("/")
-    host.delete_at(host.length-1)
-    host = host.join("/")
-    
+    #host = host.split("/")
+    #host.delete_at(host.length-1)
+    #host = host.join("/")
+    host = host.gsub("/carregamento",'')
     host = "#{host}/portfolio"
 
     puts "================= (#{host}) ================="
@@ -93,9 +93,10 @@ class Zap
       api_key = parametro.api_key_zaptv_producao
     end
     
-    host = host.split("/")
-    host.delete_at(host.length-1)
-    host = host.join("/")
+    #host = host.split("/")
+    #host.delete_at(host.length-1)
+    #host = host.join("/")
+    host = host.gsub("/carregamento",'')
     data = Time.zone.now - 7.days
     while data <= Time.zone.now
       url = "#{host}/carregamento/report/#{data.strftime("%Y-%m-%d")}"
