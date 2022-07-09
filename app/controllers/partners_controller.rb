@@ -77,7 +77,7 @@ class PartnersController < ApplicationController
       elsif params[:buscou].present?
         if params[:csv].present?
           rel = Relatorio.create(partner_id: @partner.id, usuario_id: usuario_logado.id, parametros: params.to_json, categoria: params[:categoria]).envia_sqs
-          flash[:notice] = "Agendamento do processamento do relatório realizado com sucesso. - ID: #{rel.id}"
+          flash[:notice] = "Agendamento do processamento do relatório realizado com sucesso. - ID: #{rel}"
         end
 
         if params.keys.length > 3
