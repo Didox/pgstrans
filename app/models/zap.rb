@@ -100,6 +100,10 @@ class Zap
     data = Time.zone.now - 7.days
     while data <= Time.zone.now
       url = "#{host}/carregamento/report/#{data.strftime("%Y-%m-%d")}"
+      if categoria.to_s.downcase == "wifi"
+        url = "#{host}/carregamento/{code}?reference={reference}"
+      end
+      
       data = data + 1.day
 
       uri = URI.parse(URI::Parser.new.escape(url))
