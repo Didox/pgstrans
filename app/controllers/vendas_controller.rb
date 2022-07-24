@@ -104,7 +104,7 @@ class VendasController < ApplicationController
 
   def reverter_venda_zaptv
     @venda = Venda.find(params[:venda_id])
-    retorno = @venda.reverter_venda_zaptv
+    retorno = @venda.Pv
     if retorno == "sucesso"
       flash[:success] = "Venda revertida com sucesso."
     else
@@ -207,6 +207,9 @@ class VendasController < ApplicationController
       @vendas = @vendas.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
       @vendas = @vendas.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
       @vendas = @vendas.where("vendas.partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
+      if params[:slug] = "zaptv"
+        @vendas = @vendas.where("vendas.categoria = ?", params[:categoria]) if params[:categoria].present?
+      end
       @vendas = @vendas.where("vendas.product_id = ?", params[:produto_id]) if params[:produto_id].present?
       @vendas = @vendas.where("vendas.produto_id_parceiro = ?", params[:produto_id_parceiro]) if params[:produto_id_parceiro].present?
       @vendas = @vendas.where("vendas.usuario_id = ?", params[:id_interno]) if params[:id_interno].present?
@@ -234,6 +237,9 @@ class VendasController < ApplicationController
      
       options = {page: params[:page] || 1, per_page: 10}
       @vendas = @vendas.paginate(options)
+
+      @vendas_total = @vendas.count
+
     end
 
     

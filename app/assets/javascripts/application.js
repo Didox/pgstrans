@@ -156,16 +156,17 @@ var timerPagamentoProcessando = false;
 const processarPagamento = function(){
   var form = $(".recarga #recargaForm");
   var url = form.attr('action');
-
+  
   $(".modal_loader").show();
 
+  var formData = form.serialize().replace(/produto_id=&/g, '');
   $.ajax({
     type: "POST",
     url: url,
-    data: form.serialize(),
+    data: formData,
     success: function(data){
       $(".modal_loader").hide();
-      $(".clearFieldjs").val("")
+      //$(".clearFieldjs").val("")
 
       if(!data.redirect){
         $.alert(data.mensagem);
@@ -178,6 +179,7 @@ const processarPagamento = function(){
           $.alert(data.mensagem);
         }
       }
+      setTimeout(function(){ $(".jconfirm-box").css("background", "green").css("color", "#fff"); }, 100);
     },
     error: function(xhr, ajaxOptions, thrownError){
       $(".modal_loader").hide();
@@ -191,7 +193,7 @@ const processarPagamento = function(){
       else{
         window.location.href="/vendas/" + erroObject.venda_id + "/recibo";
       }
-
+      setTimeout(function(){ $(".jconfirm-box").css("background", "red").css("color", "#fff"); }, 100);
     },
     timeout: 120000 // sets timeout to 120 seconds
   });

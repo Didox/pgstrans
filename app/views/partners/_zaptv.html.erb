@@ -1,109 +1,36 @@
-
-<% if @partner.slug.downcase == "zaptv" %>
-  <%= link_to partner_importa_produtos_path(@partner), class: 'btn btn-danger', style:"margin-left: 15px;",  data: { confirm: 'Tem Certeza?' } do %>
-    Atualizar portfólio de produtos
-  <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
-  <br><br>
-
-  <%= link_to partner_importa_dados_path(@partner), class: 'btn btn-danger', style:"margin-left: 15px;" do %>
-    Importar dados para relatório de reconciliação
-  <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoReconciliacao.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
-  <br><br>
-
-  <hr>
-  <h1 style="margin-left: 20px;">Relatório Reconciliação ZAPTV</h1>
-
-  <div class="col-md-12" style="margin-top:10px">
-    <form action="" method="get" id="formApuracao">
-      <div class="row" style="padding:10px">
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Data Inicial</label>
-            <div>
-              <input type="date" name="data_inicio" value="<%= params[:data_inicio] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Data Final</label>
-            <div>
-              <input type="date" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Código da Operação de Venda</label>
-            <div>
-              <input type="text" name="operation_code" value="<%= params[:operation_code] %>" class="form-control">
-            </div>
-          </div>
+      
+      <div class="card">
+        <div class="body-card">
+          <% Parametro.where(partner_id: @partner).each do |param| %>
+            <ul style="list-style-type:none; margin-top: 10px;">
+              <li>
+                <%= link_to "#{partner_importa_produtos_path(@partner)}?categoria=#{param.categoria}", class: 'btn btn-danger',  data: { confirm: 'Tem Certeza?' } do %>
+                  Atualizar portfólio de produtos - <%= param.categoria %>
+                  <% 
+                  ultimaAtualizacaoProduto = UltimaAtualizacaoProduto.where(partner: @partner.id) 
+                  ultimaAtualizacaoProduto = ultimaAtualizacaoProduto.where("upper(categoria) = ?", param.categoria)  if param.categoria.present?
+                  %>
+                <% end %> 
+                <%= " - Última atualização em: #{ultimaAtualizacaoProduto.first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
+              </li>
+            </ul>
+          <% end %>
         </div>
       </div>
-      <div class="form-group">
-        <div style="float: right;margin-right:10px">
-          <input type="hidden" name="csv" id="csv">
-          <input type="submit" value="Buscar" onclick="$('#csv').val('');" class="btn btn-success">
-          <input type="submit" value="Download CSV" onclick="$('#csv').val('ok');" class="btn btn-info navbar-btn btn-space mobile-botao">
-          </a>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="col-md-12 scroltable">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Operation Code</th>
-          <th scope="col">Source Reference</th>
-          <th colspan="3"></th>
-        </tr>
-        <tr>
-          <th scope="col">ID ZAP</th>
-          <th scope="col">ID Interno Pagasó</th>
-          <th scope="col">Código Produto</th>
-          <th scope="col">Nome do Produto</th>
-          <th scope="col">QTD</th>
-          <th scope="col">Data</th>
-          <th scope="col">Tipo</th>
-          <th scope="col" style="width: 35%">Preço Total</th>
-          <th scope="col">Status</th>
-          <th scope="col" style="width: 25%">Preço Unitário</th>
-          <th scope="col" style="width: 25%">Número do Cartão ZAPPI</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @relatorio_conciliacao_zaptvs.each do |relatorio_conciliacao_zaptv| %>
-        <tr>
-          <td><%= relatorio_conciliacao_zaptv.operation_code %></td>
-          <td><%= relatorio_conciliacao_zaptv.source_reference %></td>
-          <td><%= relatorio_conciliacao_zaptv.product_code %></td>
-          <td><%= relatorio_conciliacao_zaptv.product_name %></td>
-          <td><%= relatorio_conciliacao_zaptv.quantity %></td>
-          <td><%= relatorio_conciliacao_zaptv.date_time.strftime("%d/%m/%Y %H:%M:%S") %></td>
-          <td><%= relatorio_conciliacao_zaptv.type_data %></td>
-          <td><%= number_to_currency(relatorio_conciliacao_zaptv.total_price) %></td>
-          <td><%= relatorio_conciliacao_zaptv.status %></td>
-          <td>
-            KZ<%= number_to_currency((relatorio_conciliacao_zaptv.unit_price * 24), :unit => "") %>
-          </td>
-          <td>
-            <% relatorio_conciliacao_zaptv.vendas.each do |venda| %>
-                <a href="/vendas/<%= venda.id %>">
-                  <%= venda.zappi %>
-                </a>
-            <% end %>
-          </td>
-          <td><%= link_to 'Mostrar', relatorio_conciliacao_zaptv %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
 
-    <div class="apple_pagination">
-      <%= will_paginate @relatorio_conciliacao_zaptvs, :container => false %>
-    </div>
-  </div>
-<% end %>
+      <div class="card">
+        <div class="body-card">
+          <% Parametro.where(partner_id: @partner.id).each do |param| %>
+            <ul style="list-style-type:none; margin-top: 10px;">
+              <li>
+                <%= link_to "#{partner_importa_dados_path(@partner)}?categoria=#{param.categoria}", class: 'btn btn-success' do %>
+                  Importar dados para relatório de reconciliação - <%= param.categoria %>
+                <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoReconciliacao.where(partner: @partner.id).where("lower(categoria) = ?", param.categoria.downcase).first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
+              </li><hr>
+              <li>
+                <a href="/partners/<%= @partner.id %>/zap-conciliacao?categoria=<%= param.categoria %>" class='btn btn-danger'>Gerar Relatório de Conciliação</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    <% end %>

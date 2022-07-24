@@ -6,6 +6,18 @@ class Venda < ApplicationRecord
   belongs_to :partner
 
   after_save :update_product
+
+  def movimentacoes_conta_correnteimpo
+    ccs = ContaCorrente.where(venda_id: self.id)
+    return ccs.first if ccs.count > 0
+
+    ccs = ContaCorrente.where(valor: "-#{self.value}", partner_id: self.partner_id, usuario_id: self.usuario_id)
+    ccs = ccs.where("created_at > ? ", self.created_at).limit(1)
+    cc = ccs.reorder("created_at asc").first
+    cc
+  rescue
+    nil
+  end
   
   def destroy
     raise PagasoError.new("Registro de Venda não pode ser excluído")
@@ -16,7 +28,7 @@ class Venda < ApplicationRecord
   end
 
   def self.to_csv
-    attributes = "ID Venda, Usuário, Nome do Parceiro, Data da Venda, Situação da Venda, Produto ID Parceiro, Produto ID Pagaso, Nome do Produto, Customer Number, Smartcard, Valor Face, Desconto, Porcentagem Desconto, Lucro".split(",")
+    attributes = "ID Venda, Usuário, Nome do Parceiro, Categoria, Data da Venda, Situação da Venda, Produto ID Parceiro, Produto ID Pagaso, Nome do Produto, Customer Number, Smartcard, Valor Face, Desconto, Porcentagem Desconto, Lucro".split(",")
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
@@ -29,6 +41,7 @@ class Venda < ApplicationRecord
           venda.id,
           venda.usuario.nome,
           venda.partner.name,
+          venda.categoria,
           venda.created_at.strftime("%d/%m/%Y %H:%M"),
           venda.status_desc.error_description_pt,
           venda.produto_id_parceiro,
@@ -44,10 +57,24 @@ class Venda < ApplicationRecord
       end
     end
   end
+  
+  def operation_code_zap_capture
+    JSON.parse(self.response_get)["operation_code"]
+  rescue
+    ""
+  end
 
   def update_product
     if self.product.present? && self.product_nome.blank?
       Venda.where(id: self.id).update_all(product_nome: self.product.description, product_id: self.product.id)
+    end
+
+    if self.zappi.blank?
+      Venda.where(id: self.id).update_all(zappi: self.zappi_capture)
+    end
+
+    if self.operation_code_zap.blank?
+      Venda.where(id: self.id).update_all(operation_code_zap: self.operation_code_zap_capture)
     end
   end
 
@@ -129,10 +156,10 @@ class Venda < ApplicationRecord
     parceiro = Partner.zaptv
     parametro = Parametro.where(partner_id: parceiro.id).first
     if Rails.env == "development"
-      url = "#{parametro.url_integracao_desenvolvimento}/carregamento/#{self.request_id}"
+      url = "#{parametro.url_integracao_desenvolvimento}/#{self.request_id}"
       api_key = parametro.api_key_zaptv_desenvolvimento
     else
-      url = "#{parametro.url_integracao_producao}/carregamento/#{self.request_id}"
+      url = "#{parametro.url_integracao_producao}/#{self.request_id}"
       api_key = parametro.api_key_zaptv_producao
     end
 
@@ -166,10 +193,10 @@ class Venda < ApplicationRecord
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"
-      url = "#{parametro.url_integracao_desenvolvimento}/carregamento/#{self.request_id}"
+      url = "#{parametro.url_integracao_desenvolvimento}/#{self.request_id}"
       api_key = parametro.api_key_zaptv_desenvolvimento
     else
-      url = "#{parametro.url_integracao_producao}/carregamento/#{self.request_id}"
+      url = "#{parametro.url_integracao_producao}/#{self.request_id}"
       api_key = parametro.api_key_zaptv_producao
     end
 
@@ -198,9 +225,15 @@ class Venda < ApplicationRecord
     end
   end
 
-  def zappi
+  def zappi_capture
     json = self.request_send.include?("body=") ? self.request_send.split("body=")[1] : self.request_send
     JSON.parse(json)["zappi"]
+  rescue
+    ""
+  end
+
+  def operation_code_capture
+    JSON.parse(self.response_get)["operation_code"]
   rescue
     ""
   end
@@ -237,44 +270,56 @@ class Venda < ApplicationRecord
     return [desconto_aplicado, valor_original, valor]
   end
 
+  def self.venda_zapfibra(params, usuario, ip)
+    self.venda_zaptv(params, usuario, ip)
+  end
+
   def self.venda_zaptv(params, usuario, ip)
-    parceiro = Partner.zaptv
+    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
+    product_id = params[:produto_id]
+    produto = Produto.find(product_id)
+    parceiro = produto.partner
     valor = params[:valor].to_f
 
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
     
-    parametro = Parametro.where(partner_id: parceiro.id).first
-
-    raise PagasoError.new("Produto não selecionado") if params[:zaptv_produto_id].blank?
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
-    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o telemovel") if params[:zaptv_cartao].blank?
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
+    
+    parametro = Parametro.where(partner_id: parceiro.id)
+    parametro = parametro.where("upper(categoria) = ?", produto.categoria.upcase) if produto.categoria.present?
+    parametro = parametro.first
+
+    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
 
     telefone = params[:zaptv_cartao]
     request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
 
     if Rails.env == "development"
-      host = "#{parametro.url_integracao_desenvolvimento}/carregamento"
+      host = "#{parametro.url_integracao_desenvolvimento}"
       api_key = parametro.api_key_zaptv_desenvolvimento
     else
-      host = "#{parametro.url_integracao_producao}/carregamento"
+      host = "#{parametro.url_integracao_producao}"
       api_key = parametro.api_key_zaptv_producao
     end
-
-    product_id = params[:zaptv_produto_id]
-    produto = Produto.find(product_id)
 
     body_send = {
       :price => valor_original, 
       :product_code => produto.produto_id_parceiro, #produto importado zap
       :product_quantity => 1, 
       :source_reference => request_id, #meu código 
-      :zappi => telefone #Iremos receber este numero
-    }.to_json
+    }
 
+    if parametro.categoria.to_s.downcase == "wifi"
+      body_send[:telefone] = telefone
+    else
+      body_send[:zappi] = telefone #Iremos receber este numero
+    end
+    
+    body_send = body_send.to_json
 
     res = HTTParty.post(
       host, 
@@ -323,7 +368,8 @@ class Venda < ApplicationRecord
         lancamento_id: lancamento.id,
         banco_id: (banco.id rescue Banco.first.id),
         partner_id: parceiro.id,
-        iban: iban
+        iban: iban,
+        venda_id: venda.id
       )
       conta_corrente.responsavel = usuario
       conta_corrente.save!
@@ -336,8 +382,10 @@ class Venda < ApplicationRecord
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Errno::ETIMEDOUT => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Exception => e
-    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
   end
 
   def self.confirma_venda!(venda, uniq_number, meter_number, produto, valor, desconto_aplicado, valor_original, usuario, parceiro)
@@ -394,7 +442,7 @@ class Venda < ApplicationRecord
     parametro = Parametro.where(partner_id: parceiro.id).first
     meter_number = params[:meter_number]
   
-    raise PagasoError.new("Produto não selecionado") if params[:ende_produto_id].blank?
+    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
@@ -404,7 +452,7 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
   
     host = Rails.env == "development" ? "#{parametro.url_integracao_desenvolvimento}" : "#{parametro.url_integracao_producao}"
-    produto = Produto.find(params[:ende_produto_id])
+    produto = Produto.find(params[:produto_id])
 
     uniq_number = EndeUniqNumber.create(data: Time.zone.now)
     venda = Venda.new(product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: uniq_number.id, customer_number: meter_number, usuario_id: usuario.id, partner_id: parceiro.id)
@@ -510,7 +558,8 @@ class Venda < ApplicationRecord
         lancamento_id: lancamento.id,
         banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
         partner_id: parceiro.id,
-        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
+        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban,
+        venda_id: venda.id
       )
       conta_corrente.responsavel = usuario
       conta_corrente.save!
@@ -562,8 +611,10 @@ class Venda < ApplicationRecord
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Errno::ETIMEDOUT => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Exception => e
-    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
   end
 
   def status_movicel
@@ -586,7 +637,7 @@ class Venda < ApplicationRecord
 
     request_id = self.request_id
 
-    pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' REQUESTID='#{request_id}' ./chaves/movicell/ubuntu/encripto`
+    pass = `AGENTKEY='#{agent_key}' USERID='#{user_id}' REQUESTID='#{request_id}' ./chaendazapes/movicell/ubuntu/encripto`
     pass = pass.strip
 
     body = "
@@ -639,6 +690,8 @@ class Venda < ApplicationRecord
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Errno::ETIMEDOUT => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Exception => e
     raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
   end
@@ -650,7 +703,7 @@ class Venda < ApplicationRecord
 
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
 
-    raise PagasoError.new("Produto não selecionado") if params[:movicel_produto_id].blank?
+    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
@@ -660,7 +713,7 @@ class Venda < ApplicationRecord
 
     telefone = params[:movicel_telefone]
 
-    product_id = params[:movicel_produto_id]
+    product_id = params[:produto_id]
     produto = Produto.find(product_id)
 
     require 'openssl'
@@ -838,7 +891,8 @@ class Venda < ApplicationRecord
               lancamento_id: lancamento.id,
               banco_id: banco.id,
               partner_id: parceiro.id,
-              iban: iban
+              iban: iban,
+              venda_id: venda.id
             )
 
             conta_corrente.responsavel = usuario
@@ -884,8 +938,10 @@ class Venda < ApplicationRecord
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Errno::ETIMEDOUT => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Exception => e
-    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
   end
 
   def status_dstv
@@ -905,7 +961,7 @@ class Venda < ApplicationRecord
 
     smartcard = params[:transacao_smartcard].blank? ? true : ActiveModel::Type::Boolean.new.cast(params[:transacao_smartcard])
     
-    raise PagasoError.new("Produto não selecionado") if params[:dstv_produto_id].blank?
+    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
@@ -913,7 +969,7 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Digite o número do cliente/customer number") if params[:dstv_number].blank?
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
 
-    product_id = params[:dstv_produto_id]
+    product_id = params[:produto_id]
     produto = Produto.find(product_id)
 
     require 'openssl'
@@ -1052,7 +1108,8 @@ class Venda < ApplicationRecord
         lancamento_id: lancamento.id,
         banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
         partner_id: parceiro.id,
-        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
+        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban,
+        venda_id: venda.id
       )
       conta_corrente.responsavel = usuario
       conta_corrente.save!
@@ -1067,7 +1124,7 @@ class Venda < ApplicationRecord
     parametro = Parametro.where(partner_id: parceiro.id).first
     desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
 
-    raise PagasoError.new("Produto não selecionado") if params[:unitel_produto_id].blank?
+    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
@@ -1075,7 +1132,7 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Digite o telemóvel") if params[:unitel_telefone].blank?
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
 
-    product_id = params[:unitel_produto_id]
+    product_id = params[:produto_id]
     produto = Produto.find(product_id)
     telefone = params[:unitel_telefone]
 
@@ -1129,7 +1186,8 @@ class Venda < ApplicationRecord
         lancamento_id: lancamento.id,
         partner_id: parceiro.id,
         banco_id: ContaCorrente.where(usuario_id: usuario.id).first.banco_id,
-        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban
+        iban: ContaCorrente.where(usuario_id: usuario.id).first.iban,
+        venda_id: venda.id
       )
 
       conta_corrente.responsavel = usuario
@@ -1146,6 +1204,10 @@ class Venda < ApplicationRecord
     venda.lucro
     venda.value
 
+  end
+
+  before_save do 
+    self.categoria = self.product.categoria
   end
 
   after_create do 

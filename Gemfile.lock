@@ -1534,6 +1534,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-session_store
   aws-sdk
+  aws-sdk-sqs
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.3.1)
   bootstrap-generators (~> 3.3.4)

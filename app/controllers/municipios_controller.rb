@@ -11,7 +11,7 @@ class MunicipiosController < ApplicationController
     @municipios = Municipio.com_acesso(usuario_logado).order(nome: :asc)  
     
     @municipios = @municipios.where("municipios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
-
+ 
     options = {page: params[:page] || 1, per_page: 10}
     @municipios = @municipios.paginate(options)
   end

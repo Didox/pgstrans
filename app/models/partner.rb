@@ -108,12 +108,20 @@ class Partner < ApplicationRecord
     vendas.sum(:value)
   end
 
-  def importa_produtos!
-    self.slug.capitalize.constantize.importa_produtos
+  def importa_produtos!(categoria)
+    if(self.slug.downcase.scan(/zap/))
+      Zap.importa_produtos(self, categoria)
+    else
+      self.slug.capitalize.constantize.importa_produtos(categoria)
+    end
   end
 
-  def importa_dados!
-    self.slug.capitalize.constantize.importa_dados!
+  def importa_dados!(categoria = nil)
+    if(self.slug.downcase.scan(/zap/))
+      Zap.importa_dados!(self, categoria)
+    else
+      self.slug.capitalize.constantize.importa_dados!
+    end
   end
 
   def saldo_atual_movicel(ip="?")
@@ -199,6 +207,10 @@ class Partner < ApplicationRecord
     SaldoParceiro.new
   rescue
     SaldoParceiro.new
+  end
+
+  def saldo_atual_zapfibra(ip="?")
+    self.saldo_atual_zaptv(ip)
   end
 
   def saldo_atual_zaptv(ip="?")

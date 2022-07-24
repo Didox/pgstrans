@@ -23,13 +23,17 @@
           </div>
         <% end %>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-5">
            <%= f.input :description, :label => "Descrição do Produto no Parceiro", placeholder: "Descrição do Produto" %>
         </div>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-3">
           <%= f.label :partner_id, "Parceiro" %>
           <%= f.select :partner_id, Partner.all.collect{|d| [d.name, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+        </div>
+
+        <div class="form-input col-sm-4">
+           <%= f.input :categoria, :label => "Categoria: Informe a categoria do produto ZAP (tv ou wifi)", placeholder: "tv ou wifi (deixe em branco se for outra operadora)" %>
         </div>
 
         <div class="form-input col-sm-12">
@@ -86,7 +90,7 @@
 
         <div class="form-input col-sm-6">
           <%= f.label :subtipo, "Subtipo do produto no parceiro" %>
-          <%= f.select :subtipo, [["ADICIONAL", "ADICIONAL"], ["DADOS", "DADOS"], ["PACOTES", "PACOTES"], ["PACOTE + ADICIONAIS", "PACOTE + ADICIONAIS"], ["PLANO MAIS", "PLANO MAIS"], ["SERVIÇOS ADICIONAIS", "SERVIÇOS ADICIONAIS"], ["SMS", "SMS"], ["VOZ", "VOZ"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <%= f.select :subtipo, [["ADICIONAL", "ADICIONAL"], ["DADOS", "DADOS"], ["PACOTES", "PACOTES"], ["PACOTE + ADICIONAIS", "PACOTE + ADICIONAIS"], ["PLANO MAIS", "PLANO MAIS"], ["SERVIÇOS ADICIONAIS", "SERVIÇOS ADICIONAIS"], ["SMS", "SMS"], ["VOZ", "VOZ"], ["PLANOS BAZZA", "PLANOS BAZZA"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
         <div class="form-actions col-sm-12" style="margin-top: 20px;">

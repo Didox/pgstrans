@@ -17,7 +17,9 @@
       <dt>Usuário:</dt>
       <dd><%= @conta_corrente.usuario.nome rescue "" %></dd>
       <dt>Lançamento:</dt>
-      <dd><%= @conta_corrente.lancamento.nome rescue "" %></dd>
+      <dd><%= @conta_corrente.lancamento.nome rescue ""  %></dd>
+      <dt>Parceiro:</dt>
+      <dd><%= @conta_corrente.partner.name rescue ""  %></dd>
       <% if @conta_corrente.banco_id.present? %>
         <dt>Banco:</dt>
         <dd><%= @conta_corrente.banco.nome rescue "" %></dd>

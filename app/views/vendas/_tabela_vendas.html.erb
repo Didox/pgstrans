@@ -24,6 +24,9 @@
         <b>ID Interno do Usuário:</b> <%= venda.usuario_id %><br>
         <b>Usuário:</b> <%= venda.usuario.nome %><br>
         <b>Parceiro:</b> <%= venda.partner.name %><br>
+        <% if venda.partner_id == Partner.zaptv.id %>
+          <b>Categoria:</b> <%= venda.categoria.upcase %><br>
+        <% end %>
         <b>Data da Venda:</b> <%= venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %><br>
         <b>Situação:</b> <%= venda.status_desc.error_description_pt %> <%= " - #{venda.lancamento.nome}" rescue "" %><br>
       </td>
@@ -34,6 +37,8 @@
         <% if venda.smartcard.present? %>
           <b>Smartcard:</b> <%= venda.smartcard %>
         <% end %>
+
+        <b>Conta corrente ID</b> <a href="/conta_correntes/<%= venda.movimentacoes_conta_corrente.id rescue "" %>" target="_blank"><%= venda.movimentacoes_conta_corrente.id rescue "" %></a><br>
       </td>
       <td>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
@@ -70,7 +75,7 @@
       <tr>
         <td align="right"></td>
         <td align="right"></td>
-        <td align="right"><b>Total:</b></td>
+        <td align="right"><b>Total Página:</b></td>
         <td style="width:110px" align="right">
           <b><%= number_to_currency(valor_original_total) %></b>
         </td>    
