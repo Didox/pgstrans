@@ -104,7 +104,7 @@ class VendasController < ApplicationController
 
   def reverter_venda_zaptv
     @venda = Venda.find(params[:venda_id])
-    retorno = @venda.reverter_venda_zaptv
+    retorno = @venda.Pv
     if retorno == "sucesso"
       flash[:success] = "Venda revertida com sucesso."
     else
