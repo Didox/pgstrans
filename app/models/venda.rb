@@ -200,6 +200,10 @@ class Venda < ApplicationRecord
       api_key = parametro.api_key_zaptv_producao
     end
 
+    if parametro.categoria.downcase == "wifi"
+      host = host.gsub("/carregamento",'/reversao')
+    end
+
     begin
       if self.request_id.present?
         res = HTTParty.delete(
