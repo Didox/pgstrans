@@ -225,6 +225,7 @@ class Partner < ApplicationRecord
       api_key = parametro.api_key_zaptv_producao
     end
 
+    host = host.gsub("/carregamento",'')
     url = "#{host}/saldo?code=#{STORE_ID_ZAP_PARCEIRO}"
     Rails.logger.info "========[Enviando consulta de saldo operadora Zap #{url}]=========="
     request = HTTParty.get(
