@@ -200,7 +200,7 @@ class Venda < ApplicationRecord
       api_key = parametro.api_key_zaptv_producao
     end
 
-    if parceiro.categoria.downcase == "wifi"
+    if parametro.categoria.downcase == "wifi"
       host = host.gsub("/carregamento",'/reversao')
     end
 
