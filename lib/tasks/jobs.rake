@@ -20,6 +20,33 @@ namespace :jobs do
     end
   end
 
+  
+  desc "zappi_capture"
+  task zappi_capture: :environment do
+    vendas = Venda.all.where(partner_id: 4).where("zappi is null")
+    puts "Total #{vendas.count}"
+    vendas.each_with_index do |venda, index|
+      zappi = venda.zappi_capture
+      if zappi.present?
+        Venda.where(id: venda.id).update_all(zappi: zappi)
+      end
+      puts "#{zappi} - #{index + 1}"
+    end
+  end
+
+  desc "operation_code"
+  task operation_code_capture: :environment do
+    vendas = Venda.all.where(partner_id: 4).where("operation_code_zap is null")
+    puts "Total #{vendas.count}"
+    vendas.each_with_index do |venda, index|
+      operation_code_zap = venda.operation_code_zap_capture
+      if operation_code_zap.present?
+        Venda.where(id: venda.id).update_all(operation_code_zap: operation_code_zap)
+      end
+      puts "#{operation_code_zap} - #{index + 1}"
+    end
+  end
+
   desc "banco export"
   task banco_export: :environment do
     dado = ""
@@ -193,9 +220,49 @@ namespace :jobs do
     end
   end
 
+  desc "Insere categoria ZAP (Wifi, TV) em vendas"
+  task vendas_categoria: :environment do
+    puts "Iniciando update de vendas anteriores a 01/05/2022"
+    #Venda.where(partner_id: 4).where("created_at < '2022-05-01 00:00:00'").update_all(categoria: "tv")
+    ActiveRecord::Base.connection.exec_query("update vendas set categoria='tv' where partner_id = 4 and created_at < '2022-05-01 00:00:00'")
+    puts "Update de vendas anteriores a 01/05/2022 concluído"
+    Venda.where(partner_id: 4).where("created_at >= '2022-05-01 00:00:00'").each do |venda|
+      puts "=========="
+      puts venda.product.description
+      puts venda.product.categoria
+      puts "=========="
+      ActiveRecord::Base.connection.exec_query("update vendas set categoria='#{venda.product.categoria}' where id = #{venda.id}")
+    end
+  end
+
   desc "Apaga logs antigos"
   task apaga_logs_antigos: :environment do
-    ActiveRecord::Base.connection.exec_query("delete from logs where created_at < '#{(Time.zone.now - 4.months).strftime("%Y-%m-%d %H:%M:%S")}'")
+    ActiveRecord::Base.connection.exec_query("delete from logs where created_at < '#{(Time.zone.now - 2.months).strftime("%Y-%m-%d %H:%M:%S")}'")
+  end
+
+  desc "Update venda id conta corrente"
+  task venda_conta_corrente: :environment do
+    ContaCorrente.where("valor < 0").each do |cc|
+      venda = Venda.where(usuario_id: cc.usuario_id, partner_id: cc.partner_id, value: cc.valor.abs)
+      venda = venda.where("created_at BETWEEN ? AND ?", SqlDate.sql_parse((cc.created_at - 1.hour)), SqlDate.sql_parse((cc.created_at)))
+      venda = venda.reorder("created_at desc").first
+      if venda.present?
+        ContaCorrente.where(id: venda.id).update_all(venda_id: venda.id)
+      end
+    end
+  end
+
+  desc "Cria return code api para zap fibra"
+  task return_code_api_zap_fibra: :environment do
+    partner_id = Partner.where("lower(slug) = 'zaptv'").first.id
+    ReturnCodeApi.where(partner_id:partner_id).each do |ret|
+      campos=ret.attributes
+      campos.delete("id")
+      ret_new=ReturnCodeApi.new(campos)
+      ret_new.partner_id = Partner.where("lower(slug) = 'zapfibra'").first.id
+      ret_new.responsavel=Usuario.where(email:"rosi.volgarin@gmail.com").first  
+      ret_new.save!
+    end
   end
 
   desc "Adiciona grupo rosi"

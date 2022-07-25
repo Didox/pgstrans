@@ -49,7 +49,7 @@
             <% if @adm.admin? %>
               <%= f.select :lancamento_id, Lancamento.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %> 
             <% elsif @adm.operador? %>
-              <%= f.select :lancamento_id, Lancamento.where("lower(nome) ilike '%débito%' or lower(nome) ilike '%depósito%'").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+              <%= f.select :lancamento_id, Lancamento.where("lower(nome) ilike '%depósito%'").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
             <% else %>
               <%= f.select :lancamento_id, Lancamento.where("lower(nome) ilike '%transferência conta vendedor%'").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
             <% end %>
@@ -60,13 +60,15 @@
           <%= f.datetime_field :data_alegacao_pagamento, class: "form-control" %>
         </div>
 
-        <div class="form-input col-sm-3">
-          <%= f.label :banco_id, "Banco" %>
-          <%= f.select :banco_id, Banco.where(status_banco_id: Banco::ATIVO).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
-        </div>
+        <% if !@adm.agente? %>
+          <div class="form-input col-sm-3">
+            <%= f.label :banco_id, "Banco" %>
+            <%= f.select :banco_id, Banco.where(status_banco_id: Banco::ATIVO).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          </div>
+        <% end %>
         
         <div class="form-input col-sm-2">
-          <%= f.input :valor, :label => "Valor" %>
+          <%= f.input :valor, :label => "Valor KZ" %>
         </div>
         
         <% if !@adm.agente? %>

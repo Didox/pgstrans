@@ -1,0 +1,11 @@
+<br>
+<h3>Olá <%= @usuario.nome %></h3>
+<hr>
+<p>
+	Seu relatório ZAP foi processado com sucesso!
+	<br>
+	Data do processoamento: 
+	<%= @rel.created_at.strftime("dd/mm/YYYY HH:MM") %>
+	<br>
+	<a href="<%= @rel.arquivo %>" target="_blank">Clique aqui para abrir o relatório</a>
+</p>

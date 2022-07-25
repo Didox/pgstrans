@@ -23,7 +23,7 @@
         </div>
         <div class="col-sm-6">
           <div class="form-group">
-            <label>Descrição</label>
+            <label>Descrição do Grupo</label>
             <div>
               <input type="text" name="descricao" value="<%= params[:descricao] %>" class="form-control">
             </div>
@@ -31,7 +31,7 @@
         </div>
         <div class="col-sm-6">
           <div class="form-group">
-            <label>Usuário</label>
+            <label>Nome do Usuário</label>
             <div>
               <input type="text" name="usuario" value="<%= params[:usuario] %>" class="form-control">
             </div>
@@ -41,11 +41,16 @@
           <div class="form-group">
             <label>Perfil do Usuário</label>
             <div>
-              <input type="text" name="perfil" value="<%= params[:perfil] %>" class="form-control">
+              <select name="perfil" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% PerfilUsuario.all.reorder(nome: :asc).each do |perfil_usuario| %>
+                  <option value="<%= perfil_usuario.id %>" <% if perfil_usuario.id.to_s == params[:perfil] %> selected="selected" <% end %> ><%= perfil_usuario.nome %></option>
+                <% end %>
+              </select>
             </div>
           </div>
         </div>
-      </div> 
+      </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-info">
@@ -68,8 +73,9 @@
     <table class="table scroltable table-hover">
       <thead>
         <tr>
-          <th scope="col">Hierarquia do Grupo</th>
-          <th scope="col" style="width: 50%;">Descrição</th>
+          <th scope="col" style="width: 30%;">Hierarquia do Grupo</th>
+          <th scope="col" style="width: 30%;">Nome dos Usuários do Grupo</th>
+          <th scope="col" style="width: 30%;">Descrição</th>
           <th colspan="3">Ações para o Registo</th>
         </tr>
       </thead>
@@ -82,6 +88,13 @@
             <% grupo.hierarquia.each_with_index do |g, i| %>
               <div><%= raw "#{(0..i).map{|i| "&nbsp; "}.join("")} - #{g.nome}" %></div>
             <% end %>
+          </td>
+          <td>
+            <ul>
+            <% grupo.grupo_usuarios.each do |gu| %>
+              <li><%= gu.usuario.nome %> - <b><%= gu.usuario.perfil_usuario.nome %></b></li>
+            <% end %>
+            </ul>
           </td>
           <td><%= grupo.descricao %></td>
           <td><%= link_to 'Console Acessos', "/grupos/#{grupo.id}/controle-acessos" %></td>

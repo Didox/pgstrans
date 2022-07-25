@@ -148,6 +148,7 @@
         <tr>
           <th scope="col">Login Usuário</th>
           <th scope="col">Nome do Usuário</th>
+          <th scope="col">Nome do Responsável</th>
           <th scope="col">Valor do Depósito</th>
           <th scope="col">Data Depósito</th>
           <th scope="col">Data Ult Alteração ou Proces</th>
@@ -166,6 +167,7 @@
         <tr>
           <td style="width: 90px" class="text-right"><%= alegacao_de_pagamento.usuario.login %></td>
           <td style="width: 300px"><%= alegacao_de_pagamento.usuario.nome %></td>
+          <td style="width: 300px"><%= alegacao_de_pagamento.get_responsavel.nome rescue alegacao_de_pagamento.usuario.nome %></td>
           <td style="width: 170px" class="text-right"><%= number_to_currency(alegacao_de_pagamento.valor_deposito, :unit => "KZ", :precision => 2) %></td>
           <td style="width: 170px" class="text-center"><%= alegacao_de_pagamento.data_deposito.strftime("%d/%m/%Y %H:%M:%S") rescue ""%></td>
           <td style="width: 170px" class="text-center">

@@ -29,6 +29,12 @@
           <%= f.select :partner_id, Partner.all.collect{|p|[p.name, p.id]}, {}, {class: 'form-control is-valid'} %>
         </div>
 
+        <%# if @parametro.partner.slug.downcase.scan(/zap/) %>
+          <div class="form-input col-sm-12">
+            <%= f.input :categoria, :label => "Categoria ZAP (tv ou wifi)" %>
+          </div>
+        <%# end %>
+
         <% unless @parametro.new_record? %>
           <div class="form-input col-sm-12">
             <%= f.input :url_integracao_desenvolvimento, :label => "URL Integração em Desenvolvimento" %>
@@ -44,7 +50,7 @@
             </div>
           <% end %>
           
-          <% if @parametro.partner.slug.downcase == "zaptv" %>
+          <% if @parametro.partner.slug.downcase.scan(/zap/) %>
             <div class="form-input col-sm-4">
               <%= f.input :zaptv_agente_id, :label => "AGENT_ID ZAPTV" %>
             </div>
@@ -68,19 +74,19 @@
             </div>
           <% end %>
 
-          <% if @parametro.partner.slug.downcase == "zaptv" %>
+          <% if @parametro.partner.slug.downcase.scan(/zap/) %>
             <div class="form-input col-sm-12">
               <%= f.input :api_key_zaptv_desenvolvimento, :label => "API Key ZAPTV em Desenvolvimento" %>
             </div>
             <div class="form-input col-sm-12">
               <%= f.input :api_key_zaptv_producao, :label => "API Key ZAPTV em Produção" %>
             </div>
+          <% end %>
+
+          <% if @parametro.partner.slug.downcase == "ende" %>
             <div class="form-input col-sm-12">
               <%= f.input :api_key_ende_desenvolvimento, :label => "API Key ENDE em Desenvolvimento" %>
             </div>
-          <% end %>
-
-          <% if @parametro.partner.slug.downcase == "dstv" %>
             <div class="form-input col-sm-12">
               <%= f.input :api_key_ende_producao, :label => "API Key ENDE em Produção" %>
             </div>

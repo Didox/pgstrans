@@ -8,6 +8,7 @@ SECRET_JWT = '!p@a##g$a%s%o^ro&s*i(())'
 AMBIENTE_QA=ENV["AMBIENTE_QA"]
 URL_SMS=ENV["URL_SMS"] || "https://api.wesender.co.ao/envio/apikey"
 API_KEY_SMS=ENV["API_KEY_SMS"] || '83be516184bf47e29c123b9c37b5c3638822e12e0078425cb35ef6a68908aa15'
+SQS_URL=ENV["SQS_URL"] || "https://sqs.us-east-1.amazonaws.com/621964606260/RelatoriosCSVPagaso"
 
 String.class_eval do
   def to_f_ptBR

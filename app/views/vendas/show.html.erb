@@ -25,6 +25,10 @@
             <%= "#{@venda.lancamento.nome}" rescue "" %>
         <% end %>
       </dd>
+      <dt>Nome do Parceiro:</dt>
+      <dd>
+        <%= @venda.partner.name %>
+      </dd>    
       <dt>Produto no Parceiro:</dt>
       <dd>
         <%= @venda.produto_id_parceiro %>

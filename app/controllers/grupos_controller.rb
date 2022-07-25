@@ -13,15 +13,13 @@ class GruposController < ApplicationController
       @grupos = @grupos.joins("inner join grupo_usuarios on grupos.id = grupo_usuarios.grupo_id")
       @grupos = @grupos.joins("inner join usuarios on grupo_usuarios.usuario_id = usuarios.id")
       @grupos = @grupos.where("lower(usuarios.nome) ilike '%#{params[:usuario].remove_injection}%'")
-      @grupos = @grupos.distinct
     end
 
     if params[:perfil].present?
       @grupos = @grupos.joins("inner join grupo_usuarios on grupos.id = grupo_usuarios.grupo_id")
       @grupos = @grupos.joins("inner join usuarios on grupo_usuarios.usuario_id = usuarios.id")
       @grupos = @grupos.joins("inner join perfil_usuarios on perfil_usuarios.id = usuarios.perfil_usuario_id")
-      @grupos = @grupos.where("lower(perfil_usuarios.nome) ilike '%#{params[:perfil].remove_injection}%'")
-      @grupos = @grupos.distinct
+      @grupos = @grupos.where("perfil_usuarios.id = ? ", params[:perfil].to_i)
     end
 
     @grupos_total = @grupos.count

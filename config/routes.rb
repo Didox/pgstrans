@@ -110,6 +110,7 @@ Rails.application.routes.draw do
   resources :master_profiles
 
   resources :partners do
+    get 'zap-conciliacao', to: 'partners#zap_conciliacao'
     get 'importa_dados', to: 'partners#importa_dados'
     get 'importa_produtos', to: 'partners#importa_produtos'
     get 'atualiza_saldo', to: 'partners#atualiza_saldo'

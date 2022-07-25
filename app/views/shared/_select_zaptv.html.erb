@@ -1,10 +1,15 @@
 
-<select class="rechargeType form-control validate v<%= partner.slug %>" name="<%= partner.slug.downcase %>_produto_id" data-message="Selecione um produto">
+<select class="rechargeType form-control validate v<%= partner.slug %>" name="produto_id" data-message="Selecione um produto">
   <option value="">Escolher</option>
   <% produtos = Produto.produtos.where(partner_id: Partner.where(slug: partner.slug)).reorder("valor_compra_telemovel asc, nome_comercial asc") %>
-  <% produtos.each do |produto| %>
-    <option value="<%= produto.id %>" data-valor="<%= formata_numero_duas_casas(produto.valor_compra_telemovel) %>">
-      <%= produto.nome_comercial %> - <%= number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2) %>
-    </option>
+  <% categorias = produtos.map{|p| p.categoria.to_s.upcase}.uniq.compact.sort{|x,y| x<=>y} %>
+  <% categorias.each do |categoria| %>
+    <optgroup label="<%= categoria %>">
+      <% produtos.where("upper(categoria) = ?", categoria).each do |produto| %>
+        <option value="<%= produto.id %>" data-valor="<%= formata_numero_duas_casas(produto.valor_compra_telemovel) %>">
+          <%= produto.nome_comercial %> - <%= number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2) %>
+        </option>
+      <% end %>
+    </optgroup>
   <% end %>
 </select>

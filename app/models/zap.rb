@@ -1,17 +1,26 @@
-class Zaptv
-  def self.importa_produtos
-    partner = Partner.zaptv
-
-    parametro = Parametro.where(partner_id: partner.id).first
+class Zap
+  def self.importa_produtos(partner, categoria)
+    parametro = Parametro.where(partner_id: partner.id)
+    parametro = parametro.where("upper(categoria) = ?", categoria.upcase) if categoria.present?
+    parametro = parametro.first
 
     if Rails.env == "development"
-      host = "#{parametro.url_integracao_desenvolvimento}/portfolio"
+      host = "#{parametro.url_integracao_desenvolvimento}"
       api_key = parametro.api_key_zaptv_desenvolvimento
     else
-      host = "#{parametro.url_integracao_producao}/portfolio"
+      host = "#{parametro.url_integracao_producao}"
       api_key = parametro.api_key_zaptv_producao
     end
 
+    #host = host.split("/")
+    #host.delete_at(host.length-1)
+    #host = host.join("/")
+    host = host.gsub("/carregamento",'')
+    host = "#{host}/portfolio"
+
+    puts "================= (#{host}) ================="
+    puts "================= (#{api_key}) ================="
+    
     res = HTTParty.get(
       host, 
       headers: {
@@ -33,12 +42,15 @@ class Zaptv
           produto.produto_id_parceiro = p_hash["code"]
           produto.partner_id = partner.id
           produto.description = p_hash["description"]
+          produto.categoria = categoria
           produto.valor_compra_site = p_hash["price"]
           produto.valor_compra_telemovel = p_hash["price"]
           produto.subtipo = p_hash["technology"]
           produto.moeda_id = Moeda.where("lower(simbolo) = lower('#{currency}')").first.id rescue Moeda.where(simbolo: "Kz").first.id
           produto.status_produto = StatusProduto.where(nome: "Inativo").first
-          produto.save
+          produto.save!
+
+          Rails.logger.info("::: Importou item da categoria - #{categoria} :::")
         end
       end
     else
@@ -58,14 +70,21 @@ class Zaptv
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Errno::ETIMEDOUT => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Exception => e
-    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
   end
 
-  def self.importa_dados!
-    partner = Partner.zaptv
+  def self.importa_dados!(partner, categoria)
+    parametro = Parametro.where(partner_id: partner.id).where("lower(categoria) = ?", categoria.to_s.downcase).first
+    
+    if parametro.blank?
+      erro = "Parametro não encontrado partner_id: #{partner.id} categoria: #{categoria.to_s.downcase}"
+      puts "======[#{erro}]======="
+      raise erro
+    end
 
-    parametro = Parametro.where(partner_id: partner.id).first
     if Rails.env == "development"
       host = "#{parametro.url_integracao_desenvolvimento}"
       api_key = parametro.api_key_zaptv_desenvolvimento
@@ -73,16 +92,25 @@ class Zaptv
       host = "#{parametro.url_integracao_producao}"
       api_key = parametro.api_key_zaptv_producao
     end
-
-    data = Time.zone.now - 20.days
+    
+    #host = host.split("/")
+    #host.delete_at(host.length-1)
+    #host = host.join("/")
+    host = host.gsub("/carregamento",'')
+    data = Time.zone.now - 7.days
     while data <= Time.zone.now
       url = "#{host}/carregamento/report/#{data.strftime("%Y-%m-%d")}"
+      if categoria.to_s.downcase == "wifi"
+        url = "#{host}/carregamento/{code}?reference={reference}"
+      end
+      
       data = data + 1.day
 
-      Rails.logger.info ":::: (#{url}) ::::"
+      uri = URI.parse(URI::Parser.new.escape(url))
+      puts ":::: (#{uri}) ::::"
 
       res = HTTParty.get(
-        url, 
+        uri, 
         headers: {
           "apikey" => api_key,
           "Content-Type" => "application/json"
@@ -93,11 +121,13 @@ class Zaptv
       if (200..300).include?(res.code)
         dados = JSON.parse(res.body)
         RelatorioConciliacaoZaptv.where(url: url).destroy_all if dados.length > 0
+        
         dados.each do |dado|
           rel = RelatorioConciliacaoZaptv.new
 
           rel.partner_id = partner.id
           rel.url = url
+          rel.categoria = categoria.to_s.downcase
           rel.operation_code = dado["operation_code"]
           rel.source_reference = dado["source_reference"]
           rel.product_code = dado["product_code"]
@@ -109,10 +139,10 @@ class Zaptv
           rel.unit_price = dado["unit_price"]
           rel.save
 
-          Rails.logger.info ":::: Relatório criado (#{rel.id}) ::::"
+          puts ":::: Relatório criado (#{rel.id}) ::::"
         end
       else
-        Rails.logger.info ":::: Não encontrado (#{res.body}) ::::"
+        puts ":::: Não encontrado (#{res.body}) ::::"
       end
     end
 
@@ -129,7 +159,9 @@ class Zaptv
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Net::OpenTimeout => e
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Errno::ETIMEDOUT => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Exception => e
-    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.backtrace}"
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
   end
 end

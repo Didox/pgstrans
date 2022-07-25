@@ -21,12 +21,12 @@
         <div class="menu-icon" style="text-align: center; margin: 0px 3% 0px 3%">
           <a <% if partner.status_parceiro_id == 1 %> href="javascript:;" onclick="pgstrans.displayRecarga('<%= partner.slug %>')" <% end %>>
             <% if partner.imagem.present? %>
-              <%= image_tag(partner.imagem, alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 160px;") %>
+              <%= image_tag(partner.imagem, alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 110px;") %>
             <% else %>
               <% begin %>
-                <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 160px;") %>
+                <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 110px;") %>
               <% rescue %>
-                <%= image_tag("partner/default_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 160px;") %>
+                <%= image_tag("partner/default_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 110px;") %>
               <% end %>
             <% end %>
           </a>
@@ -196,13 +196,13 @@
                   </div>
                 </div>
               </div>
-              <div class="campos zaptv" id="divAditionalFieldsZAP">
+              <div class="campos zaptv zapfibra" id="divAditionalFieldsZAP">
                 <div class="editArea editAreaDiv">
                   <div class="p16Bold editDiv" style="text-align: left;">
-                    Nº do Cartão ZAP <span class="required">&nbsp;*</span>
+                    Nº do Cartão ZAP ou Telefone <span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" id="zapNr" name="zaptv_cartao" class="form-control vZAPTv validate clearFieldjs" data-message="Informe o número do Cartão ZAP" value="" placeholder="Número do Cartão ZAP" maxlength="12" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" id="zapNr" name="zaptv_cartao" class="form-control vZAPTv vzapfibra validate clearFieldjs" data-message="Informe o número do Cartão ZAP" value="" placeholder="Número do Cartão ZAP ou Telefone" maxlength="12" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>

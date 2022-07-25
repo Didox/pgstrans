@@ -6,6 +6,8 @@ class ParametrosController < ApplicationController
   def index
     @parametros = Parametro.com_acesso(usuario_logado)
 
+    @parametros = @parametros.all.joins("inner join partners on partners.id = parametros.partner_id").reorder("partners.name asc")
+
     options = {page: params[:page] || 1, per_page: 10}
     @parametros = @parametros.paginate(options)    
   end
@@ -89,6 +91,7 @@ class ParametrosController < ApplicationController
         :terminal_id,
         :operator_id,
         :password,
+        :categoria
       )
     end
 end

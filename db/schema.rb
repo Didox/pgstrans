@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_11_142036) do
+ActiveRecord::Schema.define(version: 2022_07_07_200811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_142036) do
     t.bigint "responsavel_aprovacao_id"
     t.bigint "alegacao_de_pagamento_id"
     t.datetime "data_processamento"
+    t.bigint "venda_id"
     t.index ["alegacao_de_pagamento_id"], name: "index_conta_correntes_on_alegacao_de_pagamento_id"
     t.index ["banco_id"], name: "index_conta_correntes_on_banco_id"
     t.index ["lancamento_id"], name: "index_conta_correntes_on_lancamento_id"
@@ -163,6 +164,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_142036) do
     t.bigint "grupo_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "usuario_id"
     t.index ["grupo_id"], name: "index_grupo_registros_on_grupo_id"
     t.index ["modelo"], name: "grupo_registros_modelo_idx"
     t.index ["modelo_id"], name: "grupo_registros_modelo_id_idx"
@@ -330,6 +332,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_142036) do
     t.string "terminal_id"
     t.string "operator_id"
     t.string "password"
+    t.string "categoria"
     t.index ["partner_id"], name: "index_parametros_on_partner_id"
   end
 
@@ -374,8 +377,11 @@ ActiveRecord::Schema.define(version: 2022_03_11_142036) do
     t.string "subtipo"
     t.datetime "data_vigencia"
     t.string "nome_comercial"
+    t.string "categoria"
     t.index ["moeda_id"], name: "index_produtos_on_moeda_id"
     t.index ["partner_id"], name: "index_produtos_on_partner_id"
+    t.index ["partner_id"], name: "produtos_partner_id"
+    t.index ["produto_id_parceiro"], name: "produtos_produto_id_parceiro"
     t.index ["status_produto_id"], name: "index_produtos_on_status_produto_id"
   end
 
@@ -405,7 +411,20 @@ ActiveRecord::Schema.define(version: 2022_03_11_142036) do
     t.float "unit_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "categoria", default: "tv"
     t.index ["partner_id"], name: "index_relatorio_conciliacao_zaptvs_on_partner_id"
+    t.index ["partner_id"], name: "relatorio_conciliacao_zaptvs_partner_id"
+    t.index ["product_code"], name: "relatorio_conciliacao_zaptvs_product_code"
+  end
+
+  create_table "relatorios", force: :cascade do |t|
+    t.integer "partner_id"
+    t.string "arquivo"
+    t.string "parametros"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "usuario_id"
+    t.string "categoria", default: "tv"
   end
 
   create_table "remuneracao_descontos", force: :cascade do |t|
@@ -581,6 +600,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_142036) do
     t.bigint "partner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "categoria"
     t.index ["partner_id"], name: "index_ultima_atualizacao_produtos_on_partner_id"
   end
 
@@ -588,6 +608,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_142036) do
     t.bigint "partner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "categoria", default: "tv"
     t.index ["partner_id"], name: "index_ultima_atualizacao_reconciliacaos_on_partner_id"
   end
 
@@ -676,9 +697,14 @@ ActiveRecord::Schema.define(version: 2022_03_11_142036) do
     t.string "audit_reference_number"
     t.string "smartcard"
     t.string "codigos_produto"
+    t.string "zappi"
+    t.string "operation_code_zap"
+    t.string "categoria"
     t.index ["lancamento_id"], name: "index_vendas_on_lancamento_id"
+    t.index ["operation_code_zap"], name: "vendas_operation_code_zap"
     t.index ["partner_id"], name: "index_vendas_on_partner_id"
     t.index ["usuario_id"], name: "index_vendas_on_usuario_id"
+    t.index ["zappi"], name: "vendas_zappi"
   end
 
   add_foreign_key "alegacao_de_pagamentos", "bancos"

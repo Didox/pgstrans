@@ -20,7 +20,7 @@
       <tbody>
         <% @parametros.each do |parametro| %>
         <tr>
-          <td><%= parametro.partner.name %></td>
+          <td><%= parametro.partner.name %> <%= parametro.categoria.to_s.upcase %></td>
           <td><%= parametro.url_integracao_desenvolvimento %></td>
           <td><%= parametro.url_integracao_producao %></td>
           <td><%= link_to 'Mostrar', parametro %></td>
