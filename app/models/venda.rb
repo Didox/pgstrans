@@ -215,8 +215,7 @@ class Venda < ApplicationRecord
         )
 
         if (200..300).include?(res.code)
-          self.status = "7000"
-          self.save!
+          Venda.where(id: self.id).update_all(status: "7000")
           return "sucesso"
         else
           return "Delete in (#{url}) - #{res.body}"
