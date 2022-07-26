@@ -78,6 +78,7 @@ class PartnersController < ApplicationController
         if params[:csv].present?
           rel = Relatorio.create(partner_id: @partner.id, usuario_id: usuario_logado.id, parametros: params.to_json, categoria: params[:categoria]).envia_sqs
           flash[:notice] = "Agendamento do processamento do relatório realizado com sucesso."
+          return redirect_to "/partners/#{@partner.id}/zap-conciliacao"
         end
 
         if params.keys.length > 3
