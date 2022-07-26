@@ -15,7 +15,7 @@ class Zap
     #host = host.split("/")
     #host.delete_at(host.length-1)
     #host = host.join("/")
-    host = host.gsub("/carregamento",'')
+    host = parametro.categoria.downcase == "wifi" ? host.gsub("/compra",'') : host.gsub("/carregamento",'')
     host = "#{host}/portfolio"
 
     puts "================= (#{host}) ================="
@@ -107,7 +107,7 @@ class Zap
       data = data + 1.day
 
       uri = URI.parse(URI::Parser.new.escape(url))
-      puts ":::: (#{uri}) ::::"
+      puts "(#{uri})"
 
       res = HTTParty.get(
         uri, 
