@@ -85,7 +85,7 @@
 
         <div class="form-input col-sm-6">
           <%= f.label :tipo, "Tipo de produto definido pelo parceiro" %>
-          <%= f.select :tipo, [["RECHARGE", "RECHARGE"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <%= f.select :tipo, [["RECHARGE", "RECHARGE"], ["AIRTIME", "AIRTIME"], ["BUNDLE", "BUNDLE"]], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
         <div class="form-input col-sm-6">
