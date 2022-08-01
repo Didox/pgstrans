@@ -12,6 +12,8 @@ class ProdutosController < ApplicationController
     @produtos = @produtos.where("description ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
     @produtos = @produtos.where("nome_comercial ilike '%#{params[:nome_comercial].remove_injection}%'") if params[:nome_comercial].present?
     @produtos = @produtos.where("categoria ilike '%#{params[:categoria].remove_injection}%'") if params[:categoria].present?
+    @produtos = @produtos.where("tipo ilike '%#{params[:tipo].remove_injection}%'") if params[:tipo].present?
+    @produtos = @produtos.where("subtipo ilike '%#{params[:subtipo].remove_injection}%'") if params[:subtipo].present?
     @produtos = @produtos.where("partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
     @produtos = @produtos.where("moeda_id = ?", params[:moeda_id]) if params[:moeda_id].present?
     @produtos = @produtos.where("status_produto_id = ?", params[:status_produto_id]) if params[:status_produto_id].present?
