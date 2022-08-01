@@ -1,11 +1,13 @@
+
+
 <select class="rechargeType form-control validate v<%= partner.slug %>" name="produto_id" data-message="Selecione um produto">
   <option value="">Escolher</option>
-  <% produtos = Africell.produtos_ativos
-    (produtos.map{|p| p.subtipo}.compact.uniq.sort.select{|s| s.present?} rescue []).each do |subtipo| %>
+  <% ["AFRICELL VOZ", "AFRICELL DADOS"].each do |subtipo| %>
     <optgroup label="<%= subtipo %>">
-      <% produtos.where(subtipo: subtipo).each do |produto| %>
+      <% produtos = Produto.produtos.where(partner_id: Partner.where(slug: partner.slug), subtipo: subtipo).reorder("nome_comercial asc, valor_compra_telemovel asc") %>
+      <% produtos.each do |produto| %>
         <option value="<%= produto.id %>" data-valor="<%= formata_numero_duas_casas(produto.valor_compra_telemovel) %>">
-          <%= produto.nome_comercial %> - <%= number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2) %>
+          <%= produto.nome_comercial %>
         </option>
       <% end %>
     </optgroup>
