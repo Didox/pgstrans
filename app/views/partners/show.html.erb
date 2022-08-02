@@ -56,8 +56,9 @@
         <%= "Última atualização em: #{@partner.ultimo_saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
           <% begin 
+            saldo = @partner.ultimo_saldo.log 
             dado = JSON.parse(saldo.gsub("\n", "").scan(/{.*?}/).first)
-          %>
+            %>
             <strong>Saldo Global: </strong> <%= dado["saldo"] %><br>
             <strong>dth Zap TV: </strong> <%= dado["dth"] %><br>
             <strong>ftth Zap Fibra: </strong> <%= dado["ftth"] %><br>
