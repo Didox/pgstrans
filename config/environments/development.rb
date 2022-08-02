@@ -49,14 +49,24 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  #config.action_mailer.smtp_settings = {
+  #  address: "smtp.gmail.com",
+  #  port: 587,
+  #  domain: ENV["GMAIL_DOMAIN"],
+  #  authentication: :plain,
+  #  enable_starttls_auto: true,
+  #  user_name: ENV["GMAIL_USERNAME"],
+  #  password: ENV["GMAIL_PASSWORD"]
+  #}
+
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
-    domain: ENV["GMAIL_DOMAIN"],
-    authentication: :plain,
-    enable_starttls_auto: true,
-    user_name: ENV["GMAIL_USERNAME"],
-    password: ENV["GMAIL_PASSWORD"]
+    :user_name => 'apikey', # This is the string literal 'apikey', NOT the ID of your API key
+    :password => ENV["SENDGRID_API_KEY"], # This is the secret sendgrid API key which was issued during API key creation
+    :domain => 'yourdomain.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
   }
 
   # ActionMailer Config
