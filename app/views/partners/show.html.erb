@@ -55,7 +55,15 @@
         <%= number_to_currency((@partner.ultimo_saldo.saldo.to_f * 27), :unit => "KZ") %><br>
         <%= "Última atualização em: #{@partner.ultimo_saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
-          <%= @partner.ultimo_saldo.log %>
+          <% begin 
+            dado = JSON.parse(saldo.gsub("\n", "").scan(/{.*?}/).first)
+          %>
+            <strong>Saldo Global: </strong> <%= dado["saldo"] %><br>
+            <strong>dth Zap TV: </strong> <%= dado["dth"] %><br>
+            <strong>ftth Zap Fibra: </strong> <%= dado["ftth"] %><br>
+         <% rescue %>
+            <%= @partner.ultimo_saldo.log %>
+          <% end %>
         <% end %>
       </p>
       <%= link_to partner_atualiza_saldo_path(@partner), class: 'btn btn-danger' do %>
