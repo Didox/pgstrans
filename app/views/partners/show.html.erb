@@ -62,7 +62,7 @@
             <br>
             <strong>Saldo Global: </strong> <%= number_to_currency(dado["saldo"], :unit => "KZ", :precision => 2) %><br>
             <strong>Zap TV: </strong> <%= number_to_currency(dado["dth"], :unit => "KZ", :precision => 2) %><br>
-            <strong>Zap Fibra: </strong> <%= <%= number_to_currency(dado["ftth"], :unit => "KZ", :precision => 2) %><br>
+            <strong>Zap Fibra: </strong> <%= number_to_currency(dado["ftth"], :unit => "KZ", :precision => 2) %><br>
          <% rescue Exception => e %>
             <%= e.message %>
             <%= e.backtrace %>
