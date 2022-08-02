@@ -61,7 +61,9 @@
             <strong>Saldo Global: </strong> <%= dado["saldo"] %><br>
             <strong>dth Zap TV: </strong> <%= dado["dth"] %><br>
             <strong>ftth Zap Fibra: </strong> <%= dado["ftth"] %><br>
-         <% rescue %>
+         <% rescue Exception => e %>
+            <%= e.message %>
+            <%= e.backtrace %>
             <%= @partner.ultimo_saldo.log %>
           <% end %>
         <% end %>
