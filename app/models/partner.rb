@@ -133,11 +133,11 @@ class Partner < ApplicationRecord
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"
-      url_service = parametro.url_integracao_desenvolvimento
-      agent_key = parametro.agent_key_movicel_desenvolvimento
+      url_service = parametro.get.url_integracao_desenvolvimento
+      agent_key = parametro.get.agent_key_movicel_desenvolvimento
     else
-      url_service = parametro.url_integracao_producao
-      agent_key = parametro.agent_key_movicel_producao
+      url_service = parametro.get.url_integracao_producao
+      agent_key = parametro.get.agent_key_movicel_producao
     end
 
     host = url_service.to_s.gsub(/o\:.*/, "o")
@@ -222,11 +222,11 @@ class Partner < ApplicationRecord
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"
-      host = "#{parametro.url_integracao_desenvolvimento}"
-      api_key = parametro.api_key_zaptv_desenvolvimento
+      host = "#{parametro.get.url_integracao_desenvolvimento}"
+      api_key = parametro.get.api_key_zaptv_desenvolvimento
     else
-      host = "#{parametro.url_integracao_producao}"
-      api_key = parametro.api_key_zaptv_producao
+      host = "#{parametro.get.url_integracao_producao}"
+      api_key = parametro.get.api_key_zaptv_producao
     end
 
     host = host.gsub("/carregamento",'')

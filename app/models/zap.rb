@@ -5,17 +5,17 @@ class Zap
     parametro = parametro.first
 
     if Rails.env == "development"
-      host = "#{parametro.url_integracao_desenvolvimento}"
-      api_key = parametro.api_key_zaptv_desenvolvimento
+      host = "#{parametro.get.url_integracao_desenvolvimento}"
+      api_key = parametro.get.api_key_zaptv_desenvolvimento
     else
-      host = "#{parametro.url_integracao_producao}"
-      api_key = parametro.api_key_zaptv_producao
+      host = "#{parametro.get.url_integracao_producao}"
+      api_key = parametro.get.api_key_zaptv_producao
     end
 
     #host = host.split("/")
     #host.delete_at(host.length-1)
     #host = host.join("/")
-    host = parametro.categoria.downcase == "wifi" ? host.gsub("/compra",'') : host.gsub("/carregamento",'')
+    host = parametro.get.categoria.downcase == "wifi" ? host.gsub("/compra",'') : host.gsub("/carregamento",'')
     host = "#{host}/portfolio"
 
     puts "================= (#{host}) ================="
@@ -86,11 +86,11 @@ class Zap
     end
 
     if Rails.env == "development"
-      host = "#{parametro.url_integracao_desenvolvimento}"
-      api_key = parametro.api_key_zaptv_desenvolvimento
+      host = "#{parametro.get.url_integracao_desenvolvimento}"
+      api_key = parametro.get.api_key_zaptv_desenvolvimento
     else
-      host = "#{parametro.url_integracao_producao}"
-      api_key = parametro.api_key_zaptv_producao
+      host = "#{parametro.get.url_integracao_producao}"
+      api_key = parametro.get.api_key_zaptv_producao
     end
     
     #host = host.split("/")

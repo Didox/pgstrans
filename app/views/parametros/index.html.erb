@@ -20,9 +20,9 @@
       <tbody>
         <% @parametros.each do |parametro| %>
         <tr>
-          <td><%= parametro.partner.name %> <%= parametro.categoria.to_s.upcase %></td>
-          <td><%= parametro.url_integracao_desenvolvimento %></td>
-          <td><%= parametro.url_integracao_producao %></td>
+          <td><%= parametro.partner.name %> <%= parametro.get.categoria.to_s.upcase %></td>
+          <td><%= parametro.get.url_integracao_desenvolvimento %></td>
+          <td><%= parametro.get.url_integracao_producao %></td>
           <td><%= link_to 'Mostrar', parametro %></td>
           <td><%= link_to 'Editar', edit_parametro_path(parametro) %></td>
           <td><%= link_to 'Apagar', parametro, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
