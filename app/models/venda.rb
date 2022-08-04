@@ -337,8 +337,8 @@ class Venda < ApplicationRecord
     venda.responsavel = usuario
     venda.save!
     
-    venda.store_id = usuario.sub_agente.store_id_parceiro
-    venda.seller_id = usuario.sub_agente.seller_id_parceiro
+    venda.store_id = usuario.sub_agente.get.store_id_parceiro
+    venda.seller_id = usuario.sub_agente.get.seller_id_parceiro
     venda.get.terminal_id = usuario.sub_agente.get.terminal_id_parceiro
 
     venda.request_send = "#{host} ------ api_key=#{api_key} -------- body=#{body_send}"
