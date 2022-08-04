@@ -16,21 +16,23 @@
       </div>
     </div>
     <hr>
-    <div class="row bg-light h-50 p-3">
-      <div class="col-md-4">
-          Categoria ZAP
+    <% if @parametro.get.categoria.present? %>
+      <div class="row bg-light h-50 p-3">
+        <div class="col-md-4">
+            Categoria ZAP
+        </div>
+        <div class="col-md-8">
+          <%= @parametro.get.categoria %>
+        </div>
       </div>
-      <div class="col-md-8">
-         <%= @parametro.categoria %>
-      </div>
-    </div>
-    <hr>
+      <hr>
+    <% end %>
     <div class="row h-50 p-3">
       <div class="col-md-4">
           URL integração desenvolvimento:
       </div>
       <div class="col-md-8">
-          <%= @parametro.url_integracao_desenvolvimento %>
+          <%= @parametro.get.url_integracao_desenvolvimento %>
       </div>
     </div>
     <hr>
@@ -39,7 +41,7 @@
           URL integração produção:
       </div>
       <div class="col-md-8">
-          <%= @parametro.url_integracao_producao %>
+          <%= @parametro.get.url_integracao_producao %>
       </div>
     </div>
     <hr>
@@ -49,29 +51,7 @@
             AGENT_ID Unitel:
         </div>
         <div class="col-md-8">
-            <%= @parametro.unitel_agente_id %>
-        </div>
-      </div>
-      <hr>
-    <% end %>
-    <% if @parametro.partner.slug.downcase == "zaptv" %>
-      <div class="row bg-light h-50 p-3">
-        <div class="col-md-4">
-            AGENT_ID ZAPTV:
-        </div>
-        <div class="col-md-8">
-            <%= @parametro.zaptv_agente_id %>
-        </div>
-      </div>
-      <hr>
-    <% end %>
-    <% if @parametro.partner.slug.downcase == "movicel" %>
-      <div class="row h-50 p-3">
-        <div class="col-md-4">
-            AGENT_ID Movicel:
-        </div>
-        <div class="col-md-8">
-            <%= @parametro.movicel_agente_id %>
+            <%= @parametro.get.unitel_agente_id %>
         </div>
       </div>
       <hr>
@@ -82,7 +62,7 @@
             Customer Number DSTV Desenvolvimento:
         </div>
         <div class="col-md-8">
-            <%= @parametro.customer_number_desenvolvimento %>
+            <%= @parametro.get.customer_number_desenvolvimento %>
         </div>
       </div>
       <hr>
@@ -91,16 +71,7 @@
             Customer Number DSTV Produção:
         </div>
         <div class="col-md-8">
-            <%= @parametro.customer_number_producao %>
-        </div>
-      </div>
-      <hr>
-      <div class="row bg-light h-50 p-3">
-        <div class="col-md-4">
-            AGENT_ID DSTV:
-        </div>
-        <div class="col-md-8">
-            <%= @parametro.dstv_agente_id %>
+            <%= @parametro.get.customer_number_producao %>
         </div>
       </div>
       <hr>
@@ -111,7 +82,7 @@
             Api key ZAPTV desenvolvimento:
         </div>
         <div class="col-md-8">
-            <%= @parametro.api_key_zaptv_desenvolvimento %>
+            <%= @parametro.get.api_key_zaptv_desenvolvimento %>
         </div>
       </div>
       <hr>
@@ -120,7 +91,7 @@
             Api key ZAPTV produção:
         </div>
         <div class="col-md-8">
-            <%= @parametro.api_key_zaptv_producao %>
+            <%= @parametro.get.api_key_zaptv_producao %>
         </div>
       </div>
       <hr>
@@ -131,7 +102,7 @@
             Api key ENDE desenvolvimento:
         </div>
         <div class="col-md-8">
-            <%= @parametro.api_key_ende_desenvolvimento %>
+            <%= @parametro.get.api_key_ende_desenvolvimento %>
         </div>
       </div>
       <hr>
@@ -140,9 +111,10 @@
             Api key ENDE produção:
         </div>
         <div class="col-md-8">
-            <%= @parametro.api_key_ende_producao %>
+            <%= @parametro.get.api_key_ende_producao %>
         </div>
       </div>
+      <hr>
     <% end %>
     <% if @parametro.partner.slug.downcase == "movicel" %>
       <hr>
@@ -151,7 +123,7 @@
             Agent key Movicel desenvolvimento:
         </div>
         <div class="col-md-8">
-            <%= @parametro.agent_key_movicel_desenvolvimento %>
+            <%= @parametro.get.agent_key_movicel_desenvolvimento %>
         </div>
       </div>
       <hr>
@@ -160,7 +132,7 @@
             Agent key Movicel produção:
         </div>
         <div class="col-md-8">
-            <%= @parametro.agent_key_movicel_producao %>
+            <%= @parametro.get.agent_key_movicel_producao %>
         </div>
       </div>
       <hr>
@@ -169,7 +141,7 @@
             User id Movicel desenvolvimento:
         </div>
         <div class="col-md-8">
-            <%= @parametro.user_id_movicel_desenvolvimento %>
+            <%= @parametro.get.user_id_movicel_desenvolvimento %>
         </div>
       </div>
       <hr>
@@ -178,7 +150,7 @@
             User id Movicel Produção:
         </div>
         <div class="col-md-8">
-            <%= @parametro.user_id_movicel_producao %>
+            <%= @parametro.get.user_id_movicel_producao %>
         </div>
       </div>
       <hr>
@@ -189,7 +161,7 @@
             Data source DSTV desenvolvimento:
         </div>
         <div class="col-md-8">
-            <%= @parametro.data_source_dstv_desenvolvimento %>
+            <%= @parametro.get.data_source_dstv_desenvolvimento %>
         </div>
       </div>
       <hr>
@@ -198,7 +170,7 @@
             Data source DSTV Produção:
         </div>
         <div class="col-md-8">
-            <%= @parametro.data_source_dstv_producao %>
+            <%= @parametro.get.data_source_dstv_producao %>
         </div>
       </div>
       <hr>
@@ -207,7 +179,7 @@
             Payment vendor code DSTV desenvolvimento:
         </div>
         <div class="col-md-8">
-            <%= @parametro.payment_vendor_code_dstv_desenvolvimento %>
+            <%= @parametro.get.payment_vendor_code_dstv_desenvolvimento %>
         </div>
       </div>
       <hr>
@@ -216,7 +188,7 @@
             Payment vendor code DSTV produção:
         </div>
         <div class="col-md-8">
-            <%= @parametro.payment_vendor_code_dstv_producao %>
+            <%= @parametro.get.payment_vendor_code_dstv_producao %>
         </div>
       </div>
       <hr>
@@ -225,7 +197,7 @@
             Vendor code DSTV desenvolvimento:
         </div>
         <div class="col-md-8">
-            <%= @parametro.vendor_code_dstv_desenvolvimento %>
+            <%= @parametro.get.vendor_code_dstv_desenvolvimento %>
         </div>
       </div>
       <hr>
@@ -234,7 +206,7 @@
             Vendor code DSTV produção:
         </div>
         <div class="col-md-8">
-            <%= @parametro.vendor_code_dstv_producao %>
+            <%= @parametro.get.vendor_code_dstv_producao %>
         </div>
       </div>
       <hr>
@@ -243,7 +215,7 @@
             Agent account DSTV desenvolvimento:
         </div>
         <div class="col-md-8">
-            <%= @parametro.agent_account_dstv_desenvolvimento %>
+            <%= @parametro.get.agent_account_dstv_desenvolvimento %>
         </div>
       </div>
       <hr>
@@ -252,7 +224,7 @@
             Agent account DSTV produção:
         </div>
         <div class="col-md-8">
-            <%= @parametro.agent_account_dstv_producao %>
+            <%= @parametro.get.agent_account_dstv_producao %>
         </div>
       </div>
       <hr>
@@ -261,7 +233,7 @@
             Currency DSTV desenvolvimento:
         </div>
         <div class="col-md-8">
-            <%= @parametro.currency_dstv_desenvolvimento %>
+            <%= @parametro.get.currency_dstv_desenvolvimento %>
         </div>
       </div>
       <hr>
@@ -270,7 +242,7 @@
             Currency DSTV produção:
         </div>
         <div class="col-md-8">
-            <%= @parametro.currency_dstv_producao %>
+            <%= @parametro.get.currency_dstv_producao %>
         </div>
       </div>
       <hr>
@@ -279,7 +251,7 @@
             Product user key DSTV desenvolvimento:
         </div>
         <div class="col-md-8">
-            <%= @parametro.product_user_key_dstv_desenvolvimento %>
+            <%= @parametro.get.product_user_key_dstv_desenvolvimento %>
         </div>
       </div>
       <hr>
@@ -288,7 +260,7 @@
             Product user key DSTV produção:
         </div>
         <div class="col-md-8">
-            <%= @parametro.product_user_key_dstv_producao %>
+            <%= @parametro.get.product_user_key_dstv_producao %>
         </div>
       </div>
       <hr>
@@ -299,7 +271,7 @@
             Business Unit desenvolvimento:
         </div>
         <div class="col-md-8">
-            <%= @parametro.business_unit_desenvolvimento %>
+            <%= @parametro.get.business_unit_desenvolvimento %>
         </div>
       </div>
       <hr>
@@ -308,7 +280,7 @@
             Business Unit produção:
         </div>
         <div class="col-md-8">
-            <%= @parametro.business_unit_producao %>
+            <%= @parametro.get.business_unit_producao %>
         </div>
       </div>
       <hr>
@@ -319,7 +291,7 @@
             Mop DSTV desenvolvimento:
         </div>
         <div class="col-md-8">
-            <%= @parametro.mop_dstv_desenvolvimento %>
+            <%= @parametro.get.mop_dstv_desenvolvimento %>
         </div>
       </div>
       <hr>
@@ -328,7 +300,7 @@
             Mop DSTV produção:
         </div>
         <div class="col-md-8">
-            <%= @parametro.mop_dstv_producao %>
+            <%= @parametro.get.mop_dstv_producao %>
         </div>
       </div>
       <hr>
@@ -338,7 +310,7 @@
           Agent Number desenvolvimento:
       </div>
       <div class="col-md-8">
-          <%= @parametro.agent_number_dstv_desenvolvimento %>
+          <%= @parametro.get.agent_number_dstv_desenvolvimento %>
       </div>
     </div>
     <hr>
@@ -347,7 +319,7 @@
           Agent Number produção:
       </div>
       <div class="col-md-8">
-          <%= @parametro.agent_number_dstv_producao %>
+          <%= @parametro.get.agent_number_dstv_producao %>
       </div>
     </div>
     <hr>
@@ -356,7 +328,7 @@
           Language desenvolvimento:
       </div>
       <div class="col-md-8">
-          <%= @parametro.language_desenvolvimento %>
+          <%= @parametro.get.language_desenvolvimento %>
       </div>
     </div>
     <hr>
@@ -365,7 +337,7 @@
           Language produção:
       </div>
       <div class="col-md-8">
-          <%= @parametro.language_producao %>
+          <%= @parametro.get.language_producao %>
       </div>
     </div>
     <hr>
@@ -375,7 +347,7 @@
             ClientId:
         </div>
         <div class="col-md-8">
-            <%= @parametro.client_id %>
+            <%= @parametro.get.client_id %>
         </div>
       </div>
       <hr>
@@ -384,7 +356,7 @@
             TerminalId:
         </div>
         <div class="col-md-8">
-            <%= @parametro.terminal_id %>
+            <%= @parametro.get.terminal_id %>
         </div>
       </div>
       <hr>
@@ -393,7 +365,7 @@
             OperatorId:
         </div>
         <div class="col-md-8">
-            <%= @parametro.operator_id %>
+            <%= @parametro.get.operator_id %>
         </div>
       </div>
       <hr>
@@ -402,7 +374,7 @@
             Password:
         </div>
         <div class="col-md-8">
-            <%= @parametro.password %>
+            <%= @parametro.get.password %>
         </div>
       </div>
       <hr>

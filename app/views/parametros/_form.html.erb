@@ -24,173 +24,21 @@
           </div>
         <% end %>
         
+        <% if @parametro.new_record? %>
         <div class="form-input col-sm-12">
           <%= f.label :partner, :label => "Parceiro" %>
           <%= f.select :partner_id, Partner.all.collect{|p|[p.name, p.id]}, {}, {class: 'form-control is-valid'} %>
         </div>
-
-        <%# if @parametro.partner.slug.downcase.scan(/zap/) %>
+        <% else %>
           <div class="form-input col-sm-12">
-            <%= f.input :categoria, :label => "Categoria ZAP (tv ou wifi)" %>
+            <div class="form-group string optional partner_nome">
+              <label class="string optional" for="partner_nome">Parceiro</label>
+              <input class="form-control string optional" disabled="disabled" value="<%= @parametro.partner.name %>" type="text" id="partner_nome">
+            </div>
           </div>
-        <%# end %>
-
-        <% unless @parametro.new_record? %>
-          <div class="form-input col-sm-12">
-            <%= f.input :url_integracao_desenvolvimento, :label => "URL Integração em Desenvolvimento" %>
-          </div>
-
-          <div class="form-input col-sm-12">
-            <%= f.input :url_integracao_producao, :label => "URL Integração em Produção" %>
-          </div>
-
-          <% if @parametro.partner.slug.downcase == "unitel" %>
-            <div class="form-input col-sm-4">
-              <%= f.input :unitel_agente_id, :label => "AGENT_ID Unitel" %>
-            </div>
-          <% end %>
-          
-          <% if @parametro.partner.slug.downcase.scan(/zap/) %>
-            <div class="form-input col-sm-4">
-              <%= f.input :zaptv_agente_id, :label => "AGENT_ID ZAPTV" %>
-            </div>
-          <% end %>
-
-          <% if @parametro.partner.slug.downcase == "movicel" %>
-            <div class="form-input col-sm-4">
-              <%= f.input :movicel_agente_id, :label => "AGENT_ID Movicel" %>
-            </div>
-          <% end %>
-
-          <% if @parametro.partner.slug.downcase == "dstv" %>
-            <div class="form-input col-sm-4">
-              <%= f.input :customer_number_desenvolvimento, :label => "Customer Number DSTV Desenvolvimento" %>
-            </div>
-            <div class="form-input col-sm-4">
-              <%= f.input :customer_number_producao, :label => "Customer Number DSTV Produção" %>
-            </div>
-            <div class="form-input col-sm-4">
-              <%= f.input :dstv_agente_id, :label => "AGENT_ID DSTV" %>
-            </div>
-          <% end %>
-
-          <% if @parametro.partner.slug.downcase.scan(/zap/) %>
-            <div class="form-input col-sm-12">
-              <%= f.input :api_key_zaptv_desenvolvimento, :label => "API Key ZAPTV em Desenvolvimento" %>
-            </div>
-            <div class="form-input col-sm-12">
-              <%= f.input :api_key_zaptv_producao, :label => "API Key ZAPTV em Produção" %>
-            </div>
-          <% end %>
-
-          <% if @parametro.partner.slug.downcase == "ende" %>
-            <div class="form-input col-sm-12">
-              <%= f.input :api_key_ende_desenvolvimento, :label => "API Key ENDE em Desenvolvimento" %>
-            </div>
-            <div class="form-input col-sm-12">
-              <%= f.input :api_key_ende_producao, :label => "API Key ENDE em Produção" %>
-            </div>
-          <% end %>
-
-          <% if @parametro.partner.slug.downcase == "movicel" %>
-            <div class="form-input col-sm-12">
-              <%= f.input :agent_key_movicel_desenvolvimento, :label => "Agent Key Movicel em Desenvolvimento" %>
-            </div>
-          <% end %>
-
-          <% if @parametro.partner.slug.downcase == "movicel" %>
-            <div class="form-input col-sm-12">
-              <%= f.input :agent_key_movicel_producao, :label => "Agent Key Movicel em Produção" %>
-            </div>
-            <div class="form-input col-sm-6">
-              <%= f.input :user_id_movicel_desenvolvimento, :label => "User ID Movicel em Desenvolvimento" %>
-            </div>
-            <div class="form-input col-sm-6">
-              <%= f.input :user_id_movicel_producao, :label => "User ID Movicel em Produção" %>
-            </div>
-          <% end %>
-
-          <% if @parametro.partner.slug.downcase == "dstv" %>
-            <div class="form-input col-sm-3">
-              <%= f.input :data_source_dstv_desenvolvimento, :label => "Data Source DSTV em Desenvolvimento" %>
-            </div>
-            <div class="form-input col-sm-3">
-              <%= f.input :data_source_dstv_producao, :label => "Data Source DSTV em Produção" %>
-            </div>
-            <div class="form-input col-sm-3">
-              <%= f.input :payment_vendor_code_dstv_desenvolvimento, :label => "Payment Vendor DSTV em Desenvolvimento" %>
-            </div>
-            <div class="form-input col-sm-3">
-              <%= f.input :payment_vendor_code_dstv_producao, :label => "Payment Vendor DSTV em Produção" %>
-            </div>
-            <div class="form-input col-sm-3">
-              <%= f.input :vendor_code_dstv_desenvolvimento, :label => "Vendor Code DSTV em Desenvolvimento" %>
-            </div>
-            <div class="form-input col-sm-3">
-              <%= f.input :vendor_code_dstv_producao, :label => "Vendor Code DSTV em Produção" %>
-            </div>
-            <div class="form-input col-sm-3">
-              <%= f.input :agent_account_dstv_desenvolvimento, :label => "Agent Account DSTV em Desenvolvimento" %>
-            </div>
-            <div class="form-input col-sm-3">
-              <%= f.input :agent_account_dstv_producao, :label => "Agent Account DSTV em Produção" %>
-            </div>
-            <div class="form-input col-sm-6">
-              <%= f.input :currency_dstv_desenvolvimento, :label => "Currency DSTV em Desenvolvimento" %>
-            </div>
-            <div class="form-input col-sm-6">
-              <%= f.input :currency_dstv_producao, :label => "Currency DSTV em Produção" %>
-            </div>
-            <div class="form-input col-sm-6">
-              <%= f.input :product_user_key_dstv_desenvolvimento, :label => "Product User Key DSTV em Desenvolvimento" %>
-            </div>
-            <div class="form-input col-sm-6">
-              <%= f.input :product_user_key_dstv_producao, :label => "Product User Key DSTV em Produção" %>
-            </div>
-            <div class="form-input col-sm-3">
-              <%= f.input :mop_dstv_desenvolvimento, :label => "MOP DSTV em Desenvolvimento" %>
-            </div>
-            <div class="form-input col-sm-3">
-              <%= f.input :mop_dstv_producao, :label => "MOP DSTV em Produção" %>
-            </div>
-            <div class="form-input col-sm-3">
-              <%= f.input :agent_number_dstv_desenvolvimento, :label => "Agent Number em Desenvolvimento" %>
-            </div>
-            <div class="form-input col-sm-3">
-              <%= f.input :agent_number_dstv_producao, :label => "Agent Number em Produção" %>
-            </div>
-          <% end %>
-
-          <div class="form-input col-sm-3">
-            <%= f.input :business_unit_desenvolvimento, :label => "Business Unit desenvolvimento" %>
-          </div>
-
-          <div class="form-input col-sm-3">
-            <%= f.input :business_unit_producao, :label => "Business Unit produção" %>
-          </div>
-
-          <div class="form-input col-sm-3">
-            <%= f.input :language_desenvolvimento, :label => "Language desenvolvimento" %>
-          </div>
-
-          <div class="form-input col-sm-3">
-            <%= f.input :language_producao, :label => "Language produção" %>
-          </div>
-
-          <% if @parametro.partner.slug.downcase == "ende" %>
-            <div class="form-input col-sm-3">
-              <%= f.input :client_id, :label => "ClientId" %>
-            </div>
-            <div class="form-input col-sm-3">
-              <%= f.input :terminal_id, :label => "TerminalId" %>
-            </div>
-            <div class="form-input col-sm-3">
-              <%= f.input :operator_id, :label => "OperatorId" %>
-            </div>
-            <div class="form-input col-sm-3">
-              <%= f.input :password, :label => "Password" %>
-            </div>
-          <% end %>
+          <% begin %>
+            <%= render "#{@parametro.partner.slug.to_s.downcase}" %>
+          <% rescue;end %>
         <% end %>
 
         <div class="form-actions col-sm-12" style="margin-top: 20px">

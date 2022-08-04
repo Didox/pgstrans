@@ -23,7 +23,7 @@ class Africell
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
 
     if Rails.env == "development"
-      url_service = parametro.url_integracao_desenvolvimento
+      url_service = parametro.get.url_integracao_desenvolvimento
       data_source = parametro.data_source_africell_desenvolvimento
       payment_vendor_code = parametro.payment_vendor_code_africell_desenvolvimento
       vendor_code = parametro.vendor_code_africell_desenvolvimento
@@ -32,11 +32,11 @@ class Africell
       product_user_key = parametro.product_user_key_africell_desenvolvimento
       mop = parametro.mop_africell_desenvolvimento # mop = "CASH, MOBILE or ATM "
       agent_number = parametro.agent_number_africell_desenvolvimento #122434345
-      business_unit = parametro.business_unit_desenvolvimento
-      language = parametro.language_desenvolvimento
-      customer_number_default = parametro.customer_number_desenvolvimento
+      business_unit = parametro.get.business_unit_desenvolvimento
+      language = parametro.get.language_desenvolvimento
+      customer_number_default = parametro.get.customer_number_desenvolvimento
     else
-      url_service = parametro.url_integracao_producao
+      url_service = parametro.get.url_integracao_producao
       data_source = parametro.data_source_africell_producao
       payment_vendor_code = parametro.payment_vendor_code_africell_producao
       vendor_code = parametro.vendor_code_africell_producao
@@ -45,9 +45,9 @@ class Africell
       product_user_key = parametro.product_user_key_africell_producao
       mop = parametro.mop_africell_producao # mop = "CASH, MOBILE or ATM "
       agent_number = parametro.agent_number_africell_producao #122434345
-      business_unit = parametro.business_unit_producao
-      language = parametro.language_producao
-      customer_number_default = parametro.customer_number_producao
+      business_unit = parametro.get.business_unit_producao
+      language = parametro.get.language_producao
+      customer_number_default = parametro.get.customer_number_producao
     end
 
     [parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language,customer_number_default]

@@ -22575,7 +22575,7 @@ SwaggerUi.Views.AuthView = Backbone.View.extend({
                 headers.Authorization = 'Basic ' + btoa(oauth.clientId + ':' + oauth.clientSecret);
                 break;
             case 'request-body':
-                params.client_id = oauth.clientId;
+                params.get.client_id = oauth.clientId;
                 params.client_secret = oauth.clientSecret;
                 break;
         }

@@ -1,0 +1,75 @@
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Mostrar Parâmetros de Integração ZAP FIBRA</h3>
+  </div>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+  <div class="col-md-12">
+    <hr>
+    <div class="row bg-light h-50 p-3">
+      <div class="col-md-4">
+          Parceiro
+      </div>
+      <div class="col-md-8">
+         <%= @parametro.partner.name %>
+      </div>
+    </div>
+    <hr>
+    <div class="row bg-light h-50 p-3">
+      <div class="col-md-4">
+          Categoria ZAP
+      </div>
+      <div class="col-md-8">
+        <%= @parametro.get.categoria %>
+      </div>
+    </div>
+    <hr>
+    <div class="row h-50 p-3">
+      <div class="col-md-4">
+          URL integração desenvolvimento:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.get.url_integracao_desenvolvimento %>
+      </div>
+    </div>
+    <hr>
+    <div class="row bg-light h-50 p-3">
+      <div class="col-md-4">
+          URL integração produção:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.get.url_integracao_producao %>
+      </div>
+    </div>
+    <hr>
+    <div class="row h-50 p-3">
+      <div class="col-md-4">
+          Api key ZAPTV desenvolvimento:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.get.api_key_zaptv_desenvolvimento %>
+      </div>
+    </div>
+    <hr>
+    <div class="row bg-light h-50 p-3">
+      <div class="col-md-4">
+          Api key ZAPTV produção:
+      </div>
+      <div class="col-md-8">
+          <%= @parametro.get.api_key_zaptv_producao %>
+      </div>
+    </div>
+    <hr>
+    <div class="page-header">
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_parametro_path(@parametro), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>
