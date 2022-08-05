@@ -19,6 +19,9 @@ public/assets
 
 database.yml
 
+hosts
+id_rsa*
+
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
