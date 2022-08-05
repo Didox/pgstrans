@@ -337,9 +337,9 @@ class Venda < ApplicationRecord
     venda.responsavel = usuario
     venda.save!
     
-    venda.store_id = usuario.sub_agente.get.store_id_parceiro
-    venda.seller_id = usuario.sub_agente.get.seller_id_parceiro
-    venda.get.terminal_id = usuario.sub_agente.get.terminal_id_parceiro
+    venda.store_id = usuario.sub_agente.store_id_parceiro
+    venda.seller_id = usuario.sub_agente.seller_id_parceiro
+    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
 
     venda.request_send = "#{host} ------ api_key=#{api_key} -------- body=#{body_send}"
     venda.response_get = res.body
@@ -462,7 +462,7 @@ class Venda < ApplicationRecord
     venda.responsavel = usuario
     venda.store_id = usuario.sub_agente.store_id_parceiro
     venda.seller_id = usuario.sub_agente.seller_id_parceiro
-    venda.get.terminal_id = usuario.sub_agente.get.terminal_id_parceiro
+    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
     venda.save!
 
     uniq_number_confirma = EndeUniqNumber.create(data: Time.zone.now, venda_id: venda.id)
@@ -867,7 +867,7 @@ class Venda < ApplicationRecord
 
           venda.store_id = usuario.sub_agente.store_id_parceiro
           venda.seller_id = usuario.sub_agente.seller_id_parceiro
-          venda.get.terminal_id = usuario.sub_agente.get.terminal_id_parceiro
+          venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
 
           venda.request_send = request_send
           venda.response_get = response_get
@@ -1073,7 +1073,7 @@ class Venda < ApplicationRecord
 
     venda.store_id = usuario.sub_agente.store_id_parceiro
     venda.seller_id = usuario.sub_agente.seller_id_parceiro
-    venda.get.terminal_id = usuario.sub_agente.get.terminal_id_parceiro
+    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
 
     venda.request_send = request_send
     venda.response_get = response_get
@@ -1145,7 +1145,7 @@ class Venda < ApplicationRecord
 
     venda.store_id = usuario.sub_agente.store_id_parceiro
     venda.seller_id = usuario.sub_agente.seller_id_parceiro
-    venda.get.terminal_id = usuario.sub_agente.get.terminal_id_parceiro
+    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
 
     sequence = UnitelSequence.order("id desc").first
     sequence_id = sequence.blank? ? 1 : (sequence.sequence_id + 1)
@@ -1153,10 +1153,10 @@ class Venda < ApplicationRecord
 
     if Rails.env == "development"
       make_sale_endpoint = "#{parametro.get.url_integracao_desenvolvimento}/spgw/V2/makeSale"
-      dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.get.terminal_id}' '#{valor_original}' '#{venda.customer_number}' '#{make_sale_endpoint}'"
+      dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.customer_number}' '#{make_sale_endpoint}'"
     else
       make_sale_endpoint = "#{parametro.get.url_integracao_producao}/spgw/V2/makeSale"
-      dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.get.terminal_id}' '#{valor_original}' '#{venda.customer_number}' '#{make_sale_endpoint}'"
+      dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.customer_number}' '#{make_sale_endpoint}'"
     end
 
     retorno = ""
