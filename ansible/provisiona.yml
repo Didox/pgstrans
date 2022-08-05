@@ -14,8 +14,14 @@
 
     - name: "start app"
       ignore_errors: yes
-      shell: cd ~/PagasoAPP/pgstrans/ && export RAILS_ENV=production && nohup rails server --binding=172.26.10.6 -p 3001 &
+      shell: |
+        cd ~/PagasoAPP/pgstrans/
+        export RAILS_ENV=production
+        nohup rake sqs:consumer &
 
     - name: "start consumer"
       ignore_errors: yes
-      shell: cd ~/PagasoAPP/pgstrans/ && export RAILS_ENV=production && nohup rake sqs:consumer &
+      shell: |
+        cd ~/PagasoAPP/pgstrans/
+        export RAILS_ENV=production
+        nohup rake sqs:consumer &
