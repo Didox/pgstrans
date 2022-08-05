@@ -17,6 +17,8 @@ tmp/*
 
 public/assets
 
+nohup.out
+
 database.yml
 
 id_rsa*
