@@ -1,0 +1,4 @@
+- hosts: qa
+  tasks:
+    - name: "Parando serviço"
+      shell: echo "teste" > teste.txt
