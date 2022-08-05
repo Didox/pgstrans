@@ -15,12 +15,5 @@
     - name: "start app"
       ignore_errors: yes
       shell: |
-        cd ~/PagasoAPP/pgstrans/
-        nohup RAILS_ENV=production /home/pgsadmin/.rvm/gems/ruby-2.7.2/bin/rails server --binding=172.26.10.6 -p 3001 &
-        
-    - name: "start consumer"
-      ignore_errors: yes
-      shell: |
-        cd ~/PagasoAPP/pgstrans/
-        export RAILS_ENV=production
-        nohup rake sqs:consumer &
+        /usr/sbin/pgstrans 
+
