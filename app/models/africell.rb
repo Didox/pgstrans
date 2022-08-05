@@ -12,7 +12,23 @@ class Africell
     produtos
   end
 
-  def self.consulta_saldo
+  def self.consulta_saldo(partner)
+    url = ""
+    uri = URI.parse(URI::Parser.new.escape(url))
+    request = HTTParty.post(uri, 
+      :headers => {
+        'Content-Type' => 'text/xml;charset=UTF-8',
+        'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/#{resource}",
+      },
+      :body => body,
+      timeout: DEFAULT_TIMEOUT.to_i.seconds
+    )
+
+    Rails.logger.info "=========================================="
+    Rails.logger.info body
+    Rails.logger.info "=========================================="
+    Rails.logger.info request.body
+    Rails.logger.info "=========================================="
   end
 
   def self.parametros
