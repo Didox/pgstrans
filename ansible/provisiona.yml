@@ -10,7 +10,7 @@
 
     - name: "git pull do repo"
       ignore_errors: yes
-      shell: cd PagasoAPP/pgstrans && git pull
+      shell: cd ~/PagasoAPP/pgstrans && git pull
 
     - name: "start app"
       ignore_errors: yes
