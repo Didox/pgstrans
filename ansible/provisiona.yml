@@ -1,4 +1,17 @@
 - hosts: qa
   tasks:
-    - name: "Parando serviço"
-      shell: echo "teste" > teste.txt
+    - name: "Kill webapp"
+      ignore_errors: yes
+      shell: kill $(lsof -t -i:3001)
+
+    - name: "Kill consumer"
+      ignore_errors: yes
+      shell: kill $(ps -efa | grep consumer | awk '{print $2;exit}')
+
+    - name: "git pull do repo"
+      ignore_errors: yes
+      shell: cd PagasoAPP/pgstrans && git pull
+
+    - name: "start apps"
+      ignore_errors: yes
+      shell: /usr/sbin/pgstrans > log/start.log
