@@ -14,4 +14,4 @@
 
     - name: "start apps"
       ignore_errors: yes
-      shell: /usr/sbin/pgstrans > log/start.log
+      shell: /usr/sbin/pgstrans > ~/PagasoAPP/pgstrans/log/start.log
