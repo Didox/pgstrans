@@ -16,5 +16,6 @@
       ignore_errors: yes
       shell: |
         cd ~/PagasoAPP/pgstrans/
-        nohup RAILS_ENV=production rails server --binding=172.26.10.6 -p 3001 log/start.log &
-        nohup RAILS_ENV=production rake sqs:consumer log/sqs_consumer.log &
+        export RAILS_ENV=production
+        nohup rails server --binding=172.26.10.6 -p 3001 &
+        nohup rake sqs:consumer &
