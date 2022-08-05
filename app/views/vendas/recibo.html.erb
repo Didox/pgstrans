@@ -12,7 +12,7 @@
       <% if @venda.partner.id == Partner.ende.id %>
         <% infos = Ende.informacoes_parse(@venda.response_get, EndeUniqNumber.find(@venda.request_id)) %>
         <% infos.each do |info|%>
-          <%= render "/ende/venda_recibo", info: info, title: "Venda de Crédito", venda: @venda %>
+          <%= render "/ende/venda_recibo", info: info, title: "Recibo de Venda de Crédito", venda: @venda %>
         <% end %>
       <% end %>
     </dl>

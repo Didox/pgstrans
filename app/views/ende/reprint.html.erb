@@ -1,3 +1,9 @@
+
+<style>
+  @media print {
+    .break-page {page-break-after: always;}
+  }
+</style>
 <div class="container scroltable">
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -37,7 +43,7 @@
         <% elsif @info.present? %>
           <% @info.each do |info| %>
             <%= render "/ende/venda_recibo", info: info, title: "Reimpressão", venda: nil %>
-            <hr>
+            <hr class="break-page">
           <% end %>
 
           <% if @adm.id == Usuario::ROOT %>
