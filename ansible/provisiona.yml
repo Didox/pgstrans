@@ -18,9 +18,9 @@
         DATE=`date '+%Y-%m-%d %H:%M:%S'`
         echo "PGSTRANS service on QA started at ${DATE}"
         cd /home/pgsadmin/PagasoAPP/pgstrans
-        RAILS_ENV=production /home/pgsadmin/.rvm/gems/ruby-2.7.2/bin/rails server --binding=172.26.10.6 -p 3001 &
+        nohup RAILS_ENV=production /home/pgsadmin/.rvm/gems/ruby-2.7.2/bin/rails server --binding=172.26.10.6 -p 3001 & > ~/PagasoAPP/pgstrans/log/start.log
         DATE=`date '+%Y-%m-%d %H:%M:%S'`
         echo "PGSTRANS service on QA started at ${DATE}"
         echo "Ativando o consumidor do servico SQS AWS"
-        RAILS_ENV=production /home/pgsadmin/.rvm/gems/ruby-2.7.2/bin/rake sqs:consumer >> /home/pgsadmin/PagasoAPP/pgstrans/log/sqs_consumer.log &
-        echo "EOF" ~/PagasoAPP/pgstrans/log/start.log
+        nohup RAILS_ENV=production /home/pgsadmin/.rvm/gems/ruby-2.7.2/bin/rake sqs:consumer & >> /home/pgsadmin/PagasoAPP/pgstrans/log/sqs_consumer.log
+        echo "EOF" 
