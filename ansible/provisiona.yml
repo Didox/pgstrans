@@ -15,5 +15,6 @@
     - name: "start app"
       ignore_errors: yes
       shell: |
-        /usr/sbin/pgstrans 
-
+        cd ~/PagasoAPP/pgstrans/
+        /usr/sbin/pgstrans  
+        
