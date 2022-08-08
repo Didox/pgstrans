@@ -3,7 +3,7 @@
     class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
       Atualizar saldo
     <% end %>
-    <% saldo = SaldoParceiro.where(partner: @partner.id).first 
+    <% saldo = @partner.ultimo_saldo
     
     if saldo.present? %>
       <%= " - Última atualização em: #{saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
