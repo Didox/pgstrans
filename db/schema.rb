@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_04_123132) do
+ActiveRecord::Schema.define(version: 2022_08_08_125253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -459,6 +459,13 @@ ActiveRecord::Schema.define(version: 2022_08_04_123132) do
     t.bigint "partner_id"
     t.boolean "sucesso"
     t.index ["partner_id"], name: "index_return_code_apis_on_partner_id"
+  end
+
+  create_table "saldo_parceiro_africells", force: :cascade do |t|
+    t.float "DealerBalance"
+    t.text "request"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "saldo_parceiro_dstvs", force: :cascade do |t|
