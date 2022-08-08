@@ -1,9 +1,4 @@
 
-    <%= link_to partner_importa_produtos_path(@partner), 
-    class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
-      Atualizar portfólio de produtos
-    <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
-    <hr>
     <%= link_to partner_atualiza_saldo_path(@partner), 
     class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
       Atualizar saldo
