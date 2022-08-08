@@ -1,0 +1,2 @@
+class SaldoParceiroAfricell < ApplicationRecord
+end

@@ -255,6 +255,10 @@ class Partner < ApplicationRecord
     Dstv.consulta_saldo(ip)
   end
 
+  def saldo_atual_africell(ip="")
+    Africell.consulta_saldo
+  end
+
   def atualiza_saldo!(ip="?")
     return self.send("saldo_atual_#{self.slug.downcase}", ip)
   end
