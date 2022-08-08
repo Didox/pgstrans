@@ -461,13 +461,6 @@ ActiveRecord::Schema.define(version: 2022_08_08_125253) do
     t.index ["partner_id"], name: "index_return_code_apis_on_partner_id"
   end
 
-  create_table "saldo_parceiro_africells", force: :cascade do |t|
-    t.float "dealer_balance"
-    t.text "request"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "saldo_parceiro_dstvs", force: :cascade do |t|
     t.bigint "partner_id"
     t.text "request"

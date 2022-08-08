@@ -93,7 +93,7 @@ class Africell
     Rails.logger.info "=========================================="
 
     dados = JSON.parse(request.body)
-    SaldoParceiroAfricell.create(dealer_balance: dados["DealerBalance"], request: request.body)
+    SaldoParceiro.create(partner_id: parceiro.id, saldo: dados["DealerBalance"], log: request.body)
   end
 
   def self.vender

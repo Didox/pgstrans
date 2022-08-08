@@ -3,7 +3,7 @@
     class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
       Atualizar saldo
     <% end %>
-    <% saldo = SaldoParceiroAfricell.where(partner: @partner.id).first 
+    <% saldo = SaldoParceiro.where(partner: @partner.id).first 
     
     if saldo.present? %>
       <%= " - Última atualização em: #{saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
@@ -29,15 +29,15 @@
             Saldo
           </td>
           <td>
-            <%= number_to_currency(saldo.dealer_balance, :precision => 2) %>
+            <%= number_to_currency(saldo.saldo, :precision => 2) %>
           </td>
         </tr>
         <tr>
           <td>
-            Request
+            Log
           </td>
           <td>
-            <%= saldo.request %>
+            <%= saldo.log %>
           </td>
         </tr>
         <tr>
