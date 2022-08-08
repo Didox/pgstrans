@@ -119,7 +119,7 @@ class Africell
     )
 
 
-    result = "curl -d '#{body}' -X POST #{url} -H \"Content-Type: application/json\" -H \"#{jwt_token}\" -v"
+    result = "curl -I -d '#{body}' -X POST #{url} -H \"Content-Type: application/json\" -H \"#{jwt_token}\" -v"
     puts result
     result = `#{result}`
 
