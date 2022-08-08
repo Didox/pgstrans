@@ -100,20 +100,28 @@ class Africell
     jwt_token, parceiro, parametro, url_service = Africell.refresh_token
     url = "#{url_service}/#{parametro.get.endpoint_HTTP_Recharge}"
     uri = URI.parse(URI::Parser.new.escape(url))
+    
+    body = {
+      'ProductCode': '01',
+      'ParameterCode': '01',
+      'Amount': '',
+      'TargetMSISDN': '244959560801',
+      'TransactionReference': '1'
+    }.to_json
+
     request = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'application/json',
         'Authorization' => jwt_token,
       },
-      body: {
-        'ProductCode': '00',
-        'ParameterCode': '00',
-        'Amount': '200',
-        'TargetMSISDN': '244959560801',
-        'TransactionReference': '1'
-      },
+      body: body,
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
+
+
+    result = "curl -d '#{body}' -X POST #{url} -H \"Content-Type: application/json\" -H \"#{jwt_token}\" -v"
+    puts result
+    result = `#{result}`
 
     Rails.logger.info "=========================================="
     Rails.logger.info request.inspect
