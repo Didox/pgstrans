@@ -1,0 +1,57 @@
+
+    <%= link_to partner_importa_produtos_path(@partner), 
+    class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
+      Atualizar portfólio de produtos
+    <% end %> <%= " - Última atualização em: #{UltimaAtualizacaoProduto.where(partner: @partner.id).first.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
+    <hr>
+    <%= link_to partner_atualiza_saldo_path(@partner), 
+    class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
+      Atualizar saldo
+    <% end %>
+    <% saldo = SaldoParceiroAfricell.where(partner: @partner.id).first 
+    
+    if saldo.present? %>
+      <%= " - Última atualização em: #{saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
+      <hr>
+      <style>
+        .saldo-table-africell{
+          border: 1px solid #ffc001
+        }
+        .saldo-table-africell tr{
+          border: 1px solid #ffc001;
+        }
+        .saldo-table-africell tr td{
+          padding: 10px;
+          border: 1px solid #ffc001;
+        }
+        .saldo-table-africell tr td:first-child{
+          background: #ffc001;
+        }
+      </style>
+      <table class="saldo-table-africell">
+        <tr>
+          <td>
+            Saldo
+          </td>
+          <td>
+            <%= number_to_currency(saldo.dealer_balance, :precision => 2) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Request
+          </td>
+          <td>
+            <%= saldo.request %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Data e Hora da Consulta
+          </td>
+          <td>
+            <%= saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S") %>
+          </td>
+        </tr>
+      </table>
+    <% end %>

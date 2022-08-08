@@ -101,6 +101,11 @@
       <%= render 'dstv' %>
     <% end %>
 
+    <% if @partner.slug.downcase == "africell" %>
+      <p><strong>Outras Operações</strong></p>
+      <%= render 'africell' %>
+    <% end %>
+
     <% if @partner.slug.downcase == "unitel" %>
       <div class="card">
         <div class="card-bord">
