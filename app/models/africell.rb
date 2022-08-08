@@ -74,7 +74,7 @@ class Africell
     [request.headers["authorization"],parceiro, parametro, url_service]
   end
 
-  def self.consulta_saldo(ip)
+  def self.consulta_saldo
     jwt_token, parceiro, parametro, url_service = Africell.refresh_token
     url = "#{url_service}/#{parametro.get.endpoint_HTTPC_CheckDealerBalance}"
     uri = URI.parse(URI::Parser.new.escape(url))
@@ -92,7 +92,8 @@ class Africell
     Rails.logger.info request.body
     Rails.logger.info "=========================================="
 
-    
+    dados = JSON.parse(request.body)
+    SaldoParceiroAfricell.create(dealer_balance: dados["DealerBalance"], request: request.body)
   end
 
   def self.vender

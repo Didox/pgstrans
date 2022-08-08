@@ -462,7 +462,7 @@ ActiveRecord::Schema.define(version: 2022_08_08_125253) do
   end
 
   create_table "saldo_parceiro_africells", force: :cascade do |t|
-    t.float "DealerBalance"
+    t.float "dealer_balance"
     t.text "request"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
