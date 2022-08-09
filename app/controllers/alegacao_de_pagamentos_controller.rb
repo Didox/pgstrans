@@ -16,7 +16,9 @@ class AlegacaoDePagamentosController < ApplicationController
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.id = ?", params[:id]) if params[:id].present?
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
-    
+    @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("alegacao_de_pagamentos.banco_id = ?", params[:banco_id]) if params[:banco_id].present?
+
+
     params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
     if params[:status].present?
       @alegacao_de_pagamentos  = @alegacao_de_pagamentos.where("usuarios.status_cliente_id = ?", params[:status])
