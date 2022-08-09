@@ -17,7 +17,8 @@ class Africell
     url = "#{url_service}/#{parametro.get.endpoint_HTTP_Login}"
     uri = URI.parse(URI::Parser.new.escape(url))
 
-    basic_base64_authentication = "UGFnYVNPQWRtaW46MjAyMlBAR0BTMFQzQ2g="
+    basic_base64_authentication = ENV['BASIC_BASE64_AUTHENTICATION']
+
     request = HTTParty.get(uri, 
       :headers => {
         'Content-Type' => 'application/json',
@@ -112,7 +113,7 @@ class Africell
     SaldoParceiro.create(partner_id: parceiro.id, saldo: dados["DealerBalance"], log: request.body)
   end
 
-  def self.vender_de_teste
+  def self.vender
     jwt_token, parceiro, parametro, url_service = Africell.refresh_token
     url = "#{url_service}#{parametro.get.endpoint_HTTP_Recharge}"
     uri = URI.parse(URI::Parser.new.escape(url))
