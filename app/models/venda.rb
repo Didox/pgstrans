@@ -1199,14 +1199,114 @@ class Venda < ApplicationRecord
 
     return venda
   end
-
+  
   def lucro
-    
     venda.valor_original
     venda.desconto_aplicado 
     venda.lucro
     venda.value
+  end
 
+  
+
+  def self.venda_africell(params, usuario, ip)
+    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
+    product_id = params[:produto_id]
+    produto = Produto.find(product_id)
+    parceiro = produto.partner
+    valor = params[:valor].to_f
+
+    desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
+    
+    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
+    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
+    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
+    raise PagasoError.new("Digite o Telemóvel MSISDN") if params[:target_msisdn].blank?
+    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
+
+    jwt_token, parceiro, parametro, url_service = Africell.refresh_token
+
+    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
+    raise PagasoError.new("Token expirado") if jwt_token.blank?
+
+    url = "#{url_service}#{parametro.get.endpoint_HTTP_Recharge}"
+    uri = URI.parse(URI::Parser.new.escape(url))
+
+    transaction_reference = UUID.new
+    
+    body = {
+      'ProductCode': produto.produto_id_parceiro,
+      'ParameterCode': (produto.subtipo.upcase == "AFRICELL VOZ" ? "01" : "02"),
+      'Amount': produto.valor_compra_telemovel,
+      'TargetMSISDN': params[:target_msisdn],
+      'TransactionReference': transaction_reference
+    }.to_json
+
+    request = HTTParty.post(uri, 
+      :headers => {
+        'Content-Type' => 'application/json',
+        'Authorization' => jwt_token,
+      },
+      body: body,
+      timeout: DEFAULT_TIMEOUT.to_i.seconds
+    )
+
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: params[:target_msisdn], usuario_id: usuario.id, partner_id: parceiro.id)
+    venda.responsavel = usuario
+    venda.save!
+    
+    venda.store_id = usuario.sub_agente.store_id_parceiro
+    venda.seller_id = usuario.sub_agente.seller_id_parceiro
+    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+
+    venda.request_send = "#{host} ---------- body=#{body}"
+    venda.response_get = res.body
+
+    begin
+      venda.status = JSON.parse(res.body)["StatusCode"]
+    rescue;end
+
+    venda.status ||= res.code
+    venda.save!
+
+    if venda.sucesso?
+      cc = ContaCorrente.where(usuario_id: usuario.id).first
+      if cc.blank?
+        banco = Banco.first
+        iban = ""
+      else
+        iban = cc.iban
+        banco = cc.banco
+      end
+
+      lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first
+      lancamento = Lancamento.first if lancamento.blank?
+
+      conta_corrente = ContaCorrente.new(
+        usuario_id: usuario.id,
+        valor: "-#{valor}",
+        observacao: "Compra de recarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+        lancamento_id: lancamento.id,
+        banco_id: (banco.id rescue Banco.first.id),
+        partner_id: parceiro.id,
+        iban: iban,
+        venda_id: venda.id
+      )
+      conta_corrente.responsavel = usuario
+      conta_corrente.save!
+    end
+
+    return venda
+  rescue PagasoError => e
+    raise "#{e.message} - #{e.backtrace}"
+  rescue Net::ReadTimeout => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Net::OpenTimeout => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Errno::ETIMEDOUT => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Exception => e
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
   end
 
   before_save do 

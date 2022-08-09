@@ -28,7 +28,7 @@ class Africell
 
     Rails.logger.info "=========================================="
     Rails.logger.info request.inspect
-    Rails.logger.info "=========================================="
+    Rails.logger.info "===================[login]======================="
     Rails.logger.info request.body
     Rails.logger.info "=========================================="
   end
@@ -46,10 +46,19 @@ class Africell
       'otp' => "#{otp}",
     }
 
-    puts headers
+    puts "======[OTP body]========="
+    puts headers.inspect
+    puts "======[OTP]========="
+
     request = HTTParty.get(uri, 
     :headers => headers,
     timeout: DEFAULT_TIMEOUT.to_i.seconds)
+
+
+    
+    puts "======[OTP request]========="
+    puts request.inspect
+    puts "======[OTP]========="
 
     request.headers["authorization"]
   end
@@ -66,10 +75,17 @@ class Africell
       'Authorization' => token
     }
 
-    puts headers
+    puts("=======[refresh headers]=======")
+    puts(headers.inspect)
+    puts("==============")
+
     request = HTTParty.get(uri, 
     :headers => headers,
     timeout: DEFAULT_TIMEOUT.to_i.seconds)
+
+    puts("=======[refresh request]=======")
+    puts(request.inspect)
+    puts("==============")
 
     [request.headers["authorization"],parceiro, parametro, url_service]
   end
@@ -96,9 +112,9 @@ class Africell
     SaldoParceiro.create(partner_id: parceiro.id, saldo: dados["DealerBalance"], log: request.body)
   end
 
-  def self.vender
+  def self.vender_de_teste
     jwt_token, parceiro, parametro, url_service = Africell.refresh_token
-    url = "#{url_service}/#{parametro.get.endpoint_HTTP_Recharge}"
+    url = "#{url_service}#{parametro.get.endpoint_HTTP_Recharge}"
     uri = URI.parse(URI::Parser.new.escape(url))
     
     body = {
@@ -114,20 +130,39 @@ class Africell
         'Content-Type' => 'application/json',
         'Authorization' => jwt_token,
       },
-      body: body,
-      timeout: DEFAULT_TIMEOUT.to_i.seconds
+      body: body
     )
 
+    request
 
-    result = "curl -I -d '#{body}' -X POST #{url} -H \"Content-Type: application/json\" -H \"#{jwt_token}\" -v"
-    puts result
-    result = `#{result}`
+=begin
+    puts("========[token]===========")
+    puts(jwt_token)
+    puts("===================")
+    
 
     Rails.logger.info "=========================================="
     Rails.logger.info request.inspect
     Rails.logger.info "=========================================="
     Rails.logger.info request.body
     Rails.logger.info "=========================================="
+
+
+
+    puts "=========URL================"
+    puts url
+    puts "=========URL================"
+    puts "http://10.250.80.74:9214/HTTP_Recharge/"
+    puts "=========URL================"
+
+
+    result = "curl -X POST http://10.250.80.74:9214/HTTP_Recharge/ -H \"Content-Type: application/json\" -H \"Authorization: #{jwt_token}\" -d '{\"ProductCode\":\"01\", \"ParameterCode\":\"01\", \"Amount\":\"\", \"TargetMSISDN\":\"244959560801\", \"TransactionReference\":\"1\"}'"
+   
+    result = `#{result}`
+    Rails.logger.info "==============[Result]============================"
+    puts result
+    Rails.logger.info "=========================================="
+=end
   end
 
   def self.parametros
