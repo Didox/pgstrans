@@ -35,14 +35,46 @@
                 usuarios << [usuario.nome, usuario.id]
               end
             %>
-            <%= f.select :usuario_id, usuarios, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%", disabled: (!@alegacao_de_pagamento.new_record? ? "disabled" : false) %>
+            <%= f.select :usuario_id, usuarios,
+             {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%", disabled: (!@alegacao_de_pagamento.new_record? ? "disabled" : false) %>
           </div>
         </div>
 
         <div class="form-input col-sm-4">
-          <%= f.label :valor_deposito, :label => "Valor do Depósito", class: "col-sm-6" %>
-          <%= f.text_field :valor_deposito, placeholder: "  Valor do Depósito", class: "form-control" %>
+          <%= f.label :valor_deposito, :label => "Valor do Depósito", class: "col-sm-5" %>
+          <%= f.select :valor_deposito, [
+            ["10 000,00Kz", "10000,"],
+            ["15 000,00Kz", "15000,"],
+            ["20 000,00Kz", "20000,"],
+            ["25 000,00Kz", "25000,"],
+            ["30 000,00Kz", "30000,"],
+            ["40 000,00Kz", "40000,"],
+            ["50 000,00Kz", "50000,"],
+            ["60 000,00Kz", "70000,"],
+            ["80 000,00Kz", "80000,"],
+            ["90 000,00Kz", "90000,"],
+            ["100 000,00Kz", "100000,"],
+            ["[Outro Valor]", "0"]
+          ], 
+          {:include_blank => "[Selecione o valor]"}, required:true, class: "form-control options-autocomplete", onchange: "validaDeposito(this)" %>
+          <input type="text" id="outro_valor_deposito" value="<%= @alegacao_de_pagamento.valor_deposito %>" name="outro_valor_deposito" class="form-control" style="display:none">
+
+          <script>
+            const validaDeposito = function (elen) {
+              let valor = $(elen).val()
+              if(valor == "0"){
+                $("#outro_valor_deposito").show()
+                $("#alegacao_de_pagamento_valor_deposito").hide()
+              }
+              else{
+                $("#outro_valor_deposito").hide()
+                $("#alegacao_de_pagamento_valor_deposito").show()
+              }
+            }
+            validaDeposito($("#alegacao_de_pagamento_valor_deposito").get(0));
+          </script>
         </div>
+
         <div class="form-input col-sm-4">
           <%= f.label :data_deposito, "Data e Hora do Depósito", class: "col-sm-8" %>
           <%= f.datetime_field :data_deposito, placeholder: "  Data e Hora do Depósito", class: "form-control", disabled: (!@alegacao_de_pagamento.new_record? ? "disabled" : false) %>
