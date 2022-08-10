@@ -1222,6 +1222,8 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o Telemóvel MSISDN") if params[:target_msisdn].blank?
+    raise PagasoError.new("Não é um número Africell") if params[:target_msisdn][0, 5] != "24495"
+   
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
 
     jwt_token, parceiro, parametro, url_service = Africell.refresh_token
@@ -1233,16 +1235,17 @@ class Venda < ApplicationRecord
     uri = URI.parse(URI::Parser.new.escape(url))
 
     transaction_reference = SecureRandom.uuid
-    
+    # Amount is only used for product code 00 and parameter code
+    amount = produto.produto_id_parceiro == "00" ? produto.valor_compra_telemovel : ""
     body = {
       'ProductCode': produto.produto_id_parceiro,
       'ParameterCode': (produto.subtipo.upcase == "AFRICELL VOZ" ? "01" : "02"),
-      'Amount': produto.valor_compra_telemovel,
+      'Amount': amount,
       'TargetMSISDN': params[:target_msisdn],
       'TransactionReference': transaction_reference
     }.to_json
 
-    request = HTTParty.post(uri, 
+    res = HTTParty.post(uri, 
       :headers => {
         'Content-Type' => 'application/json',
         'Authorization' => jwt_token,
@@ -1259,7 +1262,7 @@ class Venda < ApplicationRecord
     venda.seller_id = usuario.sub_agente.seller_id_parceiro
     venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
 
-    venda.request_send = "#{host} ---------- body=#{body}"
+    venda.request_send = "#{url} ---------- body=#{body}"
     venda.response_get = res.body
 
     begin

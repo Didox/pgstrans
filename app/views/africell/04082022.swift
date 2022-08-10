@@ -65,7 +65,7 @@ curl -I -d '{"ProductCode":"01","ParameterCode":"01","Amount":"","TargetMSISDN":
 ========================
 
 
-
+{"ProductCode":"01","ParameterCode":"01","Amount":200.0,"TargetMSISDN":"244959560801","TransactionReference":"4"}
 
 
 {"Content-Type"=>"application/json", "Authorization"=>"Basic UGFnYVNPQWRtaW46MjAyMlBAR0BTMFQzQ2g=", "otp"=>"w7kJg469K9lASZu"}
@@ -74,6 +74,9 @@ curl -I -d '{"ProductCode":"01","ParameterCode":"01","Amount":"","TargetMSISDN":
 #<HTTParty::Response:0x46960 parsed_response={"Receive_Date"=>"2022-08-08T12:30:43.581999002Z", "Login"=>"PagaSOAdmin", "ThirdPartyName"=>"PagaSO", "DealerMSISDN"=>"244950170237", "DealerBalance"=>-10000, "Status"=>"Successful", "StatusCode"=>200, "StatusDescription"=>"OK", "StatusDate"=>"2022-08-08T12:30:43.672477576Z", "Elapsedtime"=>90}, @response=#<Net::HTTPOK 200 OK readbody=true>, @headers={"content-type"=>["application/json"], "date"=>["Mon, 08 Aug 2022 12:30:43 GMT"], "content-length"=>["278"], "connection"=>["close"]}>
 ==========================================
 {"Receive_Date":"2022-08-08T12:30:43.581999002Z","Login":"PagaSOAdmin","ThirdPartyName":"PagaSO","DealerMSISDN":"244950170237","DealerBalance":-10000,"Status":"Successful","StatusCode":200,"StatusDescription":"OK","StatusDate":"2022-08-08T12:30:43.672477576Z","Elapsedtime":90}
+
+
+
 
 
 
