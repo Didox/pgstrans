@@ -1232,7 +1232,7 @@ class Venda < ApplicationRecord
     url = "#{url_service}#{parametro.get.endpoint_HTTP_Recharge}"
     uri = URI.parse(URI::Parser.new.escape(url))
 
-    transaction_reference = UUID.new
+    transaction_reference = SecureRandom.uuid
     
     body = {
       'ProductCode': produto.produto_id_parceiro,

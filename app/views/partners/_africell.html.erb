@@ -1,3 +1,10 @@
+    <% if @adm.id == Usuario::ROOT %>
+      <%= link_to partner_atualiza_africell_login_path(@partner), 
+      class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
+        Gera OTP Login
+      <% end %>
+      <hr>
+    <% end %>
 
     <%= link_to partner_atualiza_saldo_path(@partner), 
     class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>

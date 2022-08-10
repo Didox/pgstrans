@@ -39,7 +39,8 @@ class Africell
     url = "#{url_service}#{parametro.get.endpoint_HTTP_ValidateOTP}"
     uri = URI.parse(URI::Parser.new.escape(url))
 
-    basic_base64_authentication = "UGFnYVNPQWRtaW46MjAyMlBAR0BTMFQzQ2g="
+    basic_base64_authentication = ENV['BASIC_BASE64_AUTHENTICATION']
+
     otp = parametro.get.otp_key
     headers = {
       'Content-Type' => 'application/json',

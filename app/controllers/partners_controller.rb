@@ -1,5 +1,5 @@
 class PartnersController < ApplicationController
-  before_action :set_partner, only: [:show, :edit, :update, :destroy, :atualiza_saldo, :importa_produtos, :importa_dados, :zap_conciliacao]
+  before_action :set_partner, only: [:show, :edit, :update, :destroy, :atualiza_saldo, :atualiza_africell_login, :importa_produtos, :importa_dados, :zap_conciliacao]
   before_action :upload_arquivo, only: [:create, :update]
 
   # GET /partners
@@ -28,6 +28,15 @@ class PartnersController < ApplicationController
 
     flash[:notice] = 'Produtos importados com sucesso.'
     redirect_to partner_url(partner)
+  end
+
+  def atualiza_africell_login
+    Africell.login
+    flash[:notice] = 'Gerado com sucesso verifique o email do root.'
+    redirect_to partner_url(@partner)
+  rescue Exception => erro
+    flash[:error] = "Problemas ao gerar o  token OTP - #{erro.message}"
+    redirect_to partner_url(@partner)
   end
 
   def atualiza_saldo

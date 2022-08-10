@@ -114,6 +114,7 @@ Rails.application.routes.draw do
     get 'importa_dados', to: 'partners#importa_dados'
     get 'importa_produtos', to: 'partners#importa_produtos'
     get 'atualiza_saldo', to: 'partners#atualiza_saldo'
+    get 'atualiza_africell_login', to: 'partners#atualiza_africell_login'
     resources :desconto_parceiros
   end
 

@@ -73,6 +73,7 @@ class PerfilUsuario < ApplicationRecord
       show_api: "(SHOW) Permitir mostrar detalhes do registo pela API",
       edit: "(EDIT) Permitir mostrar tela de edição do registo",
       atualiza_saldo: "Fazer consulta de saldo no parceiro, caso o parceiro ofereça esse serviço",
+      atualiza_africell_login: "Executa transação de atualização de OTP Key Africell",
       confirma: "Efectuar recarga, fazer pagamento e outras transações disponíveis na operadora",
       confirma_api: "Efectuar recarga, fazer pagamento e outras transações disponíveis na operadora pela interface da API",
       usuarios: "Usuários",
