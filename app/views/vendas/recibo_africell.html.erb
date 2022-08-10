@@ -1,0 +1,24 @@
+<div class="col-md-12">
+  <div class="col-md-12">
+    <h3>Detalhes da Venda</h3>
+  </div>
+
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="col-md-12">
+    <dl class="dl-horizontal">
+      <% if @venda.partner.id == Partner.africell.id %>
+          <%= render "/africell/venda_recibo", info: info, title: "Recibo de Venda de Recarga", venda: @venda %>
+      <% end %>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+    </div>
+  </div>
+</div>
