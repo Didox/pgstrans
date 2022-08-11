@@ -62,6 +62,12 @@ pgstrans.displayRecargaEnde = (tipo) => {
   $(".clearFieldjs").val("");
 }
 
+pgstrans.displayRecargaAfricell = (tipo) => {
+  $(".recarga #AfricellMenu").hide();
+  $(".recarga #recarga").show();
+  $(".clearFieldjs").val("");
+}
+
 pgstrans.alteraCompartilha = (grupo_usuario_id, self) => {
   $.ajax({
     type: "PUT",
@@ -101,6 +107,7 @@ pgstrans.displayRecarga = (tipo) => {
   $(".recarga #tipo_ativo").val(tipo);
   $(".recarga #DSTVMenu").hide();
   $(".recarga #ENDEMenu").hide();
+  $(".recarga #AfricellMenu").hide();
   $(".recarga #recarga").show();
 
   if(tipo.toLowerCase() == "dstv"){
@@ -109,6 +116,10 @@ pgstrans.displayRecarga = (tipo) => {
   }
   else if(tipo.toLowerCase() == "ende"){
     $(".recarga #ENDEMenu").show();
+    $(".recarga #recarga").hide();
+  }
+  else if(tipo.toLowerCase() == "africell"){
+    $(".recarga #AfricellMenu").show();
     $(".recarga #recarga").hide();
   }
   
