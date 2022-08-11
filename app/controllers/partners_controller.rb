@@ -32,7 +32,7 @@ class PartnersController < ApplicationController
 
   def atualiza_africell_login
     Africell.login
-    flash[:notice] = 'Gerado com sucesso verifique o email do root.'
+    flash[:notice] = 'Transação de login na plataforma Africell concluída com sucesso. A OPT KEY foi encaminhada para o e-mail do Administrador.'
     redirect_to partner_url(@partner)
   rescue Exception => erro
     flash[:error] = "Problemas ao gerar o  token OTP - #{erro.message}"

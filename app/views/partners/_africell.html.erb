@@ -7,54 +7,52 @@
       <p>Última atualização em: <%= AfricellLogin.order("id desc").first.created_at.strftime("%d/%m/%Y %H:%M:%S") rescue ""%></p>
     <% end %>
 
-    <%= link_to partner_atualiza_saldo_path(@partner), 
-    class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
-      Atualizar saldo
+    <%= link_to partner_atualiza_saldo_path(@partner), class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
+        Atualizar saldo
     <% end %>
-    <% saldo = @partner.ultimo_saldo
-    
-    if saldo.present? %>
-      <%= " - Última atualização em: #{saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
-      <hr>
-      <style>
-        .saldo-table-africell{
-          border: 1px solid #ffc001
-        }
-        .saldo-table-africell tr{
-          border: 1px solid #ffc001;
-        }
-        .saldo-table-africell tr td{
-          padding: 10px;
-          border: 1px solid #ffc001;
-        }
-        .saldo-table-africell tr td:first-child{
-          background: #ffc001;
-        }
-      </style>
-      <table class="saldo-table-africell">
-        <tr>
-          <td>
-            Saldo
-          </td>
-          <td>
-            <%= number_to_currency(saldo.saldo, :precision => 2) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Log
-          </td>
-          <td>
-            <%= saldo.log %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Data e Hora da Consulta
-          </td>
-          <td>
-            <%= saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S") %>
-          </td>
-        </tr>
-      </table>
-    <% end %>
+    <% saldo = @partner.ultimo_saldo 
+        if saldo.present? %>
+        <%= " - Última atualização em: #{saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
+        <hr>
+        <style>
+          .saldo-table-africell{
+            border: 1px solid #ffc001
+          }
+          .saldo-table-africell tr{
+            border: 1px solid #ffc001;
+          }
+          .saldo-table-africell tr td{
+            padding: 10px;
+            border: 1px solid #ffc001;
+          }
+          .saldo-table-africell tr td:first-child{
+            background: #ffc001;
+          }
+        </style>
+        <table class="saldo-table-africell">
+          <tr>
+            <td>
+              Saldo
+            </td>
+            <td>
+              <%= number_to_currency(saldo.saldo, :precision => 2) %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Log
+            </td>
+            <td>
+              <%= saldo.log %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Data e Hora da Consulta
+            </td>
+            <td>
+              <%= saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S") %>
+            </td>
+          </tr>
+        </table>
+  <% end %>
