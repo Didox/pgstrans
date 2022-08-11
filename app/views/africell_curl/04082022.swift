@@ -241,3 +241,38 @@ Exemplo de venda válida
                             "POID":"0.0.0.1 /account 1 0","PROGRAM_NAME":"CSMART BAL TRANSFER","PROVIDER_DESCR":"D2C_DLR_UAT15582_244959560801"},
                                                         "message":"Balance transferred successfully!","success":"true","record":"337998691519738208"}}},"Status":"Successful","StatusCode":200,"StatusDescription":"OK","StatusDate":"2022-08-09T13:10:51.582444031Z","Elapsedtime":220}
 ┌─(~/PagasoAPP/pgstrans/log)(ruby-2.7.2)───────────────────────────────────────────────────────────────────────────(pgsadmin@pgs-qa-al
+
+
+7 - Check Transaction Log
+
+Exemplo de transação com sucesso
+
+curl -H "Content-Type: application/json" -H "Authorization: Bearer eyJMb2dpbiI6IlBhZ2FTT0FkbWluIiwiVG9rZW5UeXBlIjoiUmVmcmVzaCIsImFsZyI6IlBTNTEyIiwidHlwIjoiSldTIn0.eyJTb3VyY2VJUCI6IjE3Mi4yNi4xMC42IiwiVXNlckluZm8iOnsiQ2FuQ3JlYXRlQVBJVXNlciI6ZmFsc2UsIkNhbkV4ZWN1dGVCYWxDaGVjayI6dHJ1ZSwiQ2FuRXhlY3V0ZVJlY2hhcmdlIjp0cnVlLCJDYW5FeGVjdXRlU3RhdGVtZW50Ijp0cnVlLCJFbWFpbCI6InJvc2kudm9sZ2FyaW5AdGl2LXRlY25vbG9naWEuY29tIiwiRmlyc3ROYW1lIjoiUGFnYVNPIiwiTGFzdE5hbWUiOiJQYWdhU08iLCJNaWRkbGVOYW1lIjoiIiwiUGhvbmUiOiIiLCJUaGlyZFBhcnR5TmFtZSI6IlBhZ2FTTyJ9LCJhdWQiOlsiQWZyaWNlbGwiLCJQYWdhU08iXSwiZXhwIjoxNjYwODUwOTU0LCJpYXQiOjE2NjAyNDYxNTQsImlzcyI6ImFmcl9hb190Z3ciLCJqdGkiOiI2NyIsInN1YiI6IkFmcmljZWxsIFRHVyBCZWFyZXIgdG9rZW4ifQ.W2rhMBxX1lAf3BO2nGTjAWbrk4i71fgXxWm3-KRTng8ICJoveoEwmIV2haE_HmWxy0LH-xro5NWghP9QkgzF19qdJcWgtlhfquCDoe_6ww0O-f9QFvdu7bPZSRJq5n88PoE44GrTaNP_fygf8N4uUZbu7cNGDLwnt4gaXNuZzIFiWTL1hjlusGN-avsCWERYp5EShE1WlDTiYtMR7P2TER0sWG70DUFIb_UqD-8kqMu9VIpduyHrS07bEJVVkWUAZ5Roki-fl2z0R0Vz0ahR9bnECDjGqQvspmx4Q8xrfxyHkFOfIW0xYBmBfsgacjj95AHv7ILBzU4yPYpd4Hjnow" -d '{"TargetMSISDN":"244959560801", "TransactionReference":"220525120247", "TransactionId":"5", "Status":"", "Limit":20}' -X GET http://10.250.80.74:9214/HTTP_CheckTransactionLog/ -v 
+
+Resposta de sucesso
+
+ curl -H "Content-Type: application/json" -H "Authorization: Bearer eyJMb2dpbiI6IlBhZ2FTT0FkbWluIiwiVG9rZW5UeXBlIjoiUmVmcmVzaCIsImFsZyI6IlBTNTEyIiwidHlwIjoiSldTIn0.eyJTb3VyY2VJUCI6IjE3Mi4yNi4xMC42IiwiVXNlckluZm8iOnsiQ2FuQ3JlYXRlQVBJVXNlciI6ZmFsc2UsIkNhbkV4ZWN1dGVCYWxDaGVjayI6dHJ1ZSwiQ2FuRXhlY3V0ZVJlY2hhcmdlIjp0cnVlLCJDYW5FeGVjdXRlU3RhdGVtZW50Ijp0cnVlLCJFbWFpbCI6InJvc2kudm9sZ2FyaW5AdGl2LXRlY25vbG9naWEuY29tIiwiRmlyc3ROYW1lIjoiUGFnYVNPIiwiTGFzdE5hbWUiOiJQYWdhU08iLCJNaWRkbGVOYW1lIjoiIiwiUGhvbmUiOiIiLCJUaGlyZFBhcnR5TmFtZSI6IlBhZ2FTTyJ9LCJhdWQiOlsiQWZyaWNlbGwiLCJQYWdhU08iXSwiZXhwIjoxNjYwODUwOTU0LCJpYXQiOjE2NjAyNDYxNTQsImlzcyI6ImFmcl9hb190Z3ciLCJqdGkiOiI2NyIsInN1YiI6IkFmcmljZWxsIFRHVyBCZWFyZXIgdG9rZW4ifQ.W2rhMBxX1lAf3BO2nGTjAWbrk4i71fgXxWm3-KRTng8ICJoveoEwmIV2haE_HmWxy0LH-xro5NWghP9QkgzF19qdJcWgtlhfquCDoe_6ww0O-f9QFvdu7bPZSRJq5n88PoE44GrTaNP_fygf8N4uUZbu7cNGDLwnt4gaXNuZzIFiWTL1hjlusGN-avsCWERYp5EShE1WlDTiYtMR7P2TER0sWG70DUFIb_UqD-8kqMu9VIpduyHrS07bEJVVkWUAZ5Roki-fl2z0R0Vz0ahR9bnECDjGqQvspmx4Q8xrfxyHkFOfIW0xYBmBfsgacjj95AHv7ILBzU4yPYpd4Hjnow" -d '{"TargetMSISDN":"244959560801", "TransactionReference":"220525120247", "TransactionId":"5", "Status":"", "Limit":20}' -X GET http://10.250.80.74:9214/HTTP_CheckTransactionLog/ -v
+* Expire in 0 ms for 6 (transfer 0x556c7cdcdfb0)
+*   Trying 10.250.80.74...
+* TCP_NODELAY set
+* Expire in 200 ms for 4 (transfer 0x556c7cdcdfb0)
+* Connected to 10.250.80.74 (10.250.80.74) port 9214 (#0)
+> GET /HTTP_CheckTransactionLog/ HTTP/1.1
+> Host: 10.250.80.74:9214
+> User-Agent: curl/7.64.0
+> Accept: */*
+> Content-Type: application/json
+> Authorization: Bearer eyJMb2dpbiI6IlBhZ2FTT0FkbWluIiwiVG9rZW5UeXBlIjoiUmVmcmVzaCIsImFsZyI6IlBTNTEyIiwidHlwIjoiSldTIn0.eyJTb3VyY2VJUCI6IjE3Mi4yNi4xMC42IiwiVXNlckluZm8iOnsiQ2FuQ3JlYXRlQVBJVXNlciI6ZmFsc2UsIkNhbkV4ZWN1dGVCYWxDaGVjayI6dHJ1ZSwiQ2FuRXhlY3V0ZVJlY2hhcmdlIjp0cnVlLCJDYW5FeGVjdXRlU3RhdGVtZW50Ijp0cnVlLCJFbWFpbCI6InJvc2kudm9sZ2FyaW5AdGl2LXRlY25vbG9naWEuY29tIiwiRmlyc3ROYW1lIjoiUGFnYVNPIiwiTGFzdE5hbWUiOiJQYWdhU08iLCJNaWRkbGVOYW1lIjoiIiwiUGhvbmUiOiIiLCJUaGlyZFBhcnR5TmFtZSI6IlBhZ2FTTyJ9LCJhdWQiOlsiQWZyaWNlbGwiLCJQYWdhU08iXSwiZXhwIjoxNjYwODUwOTU0LCJpYXQiOjE2NjAyNDYxNTQsImlzcyI6ImFmcl9hb190Z3ciLCJqdGkiOiI2NyIsInN1YiI6IkFmcmljZWxsIFRHVyBCZWFyZXIgdG9rZW4ifQ.W2rhMBxX1lAf3BO2nGTjAWbrk4i71fgXxWm3-KRTng8ICJoveoEwmIV2haE_HmWxy0LH-xro5NWghP9QkgzF19qdJcWgtlhfquCDoe_6ww0O-f9QFvdu7bPZSRJq5n88PoE44GrTaNP_fygf8N4uUZbu7cNGDLwnt4gaXNuZzIFiWTL1hjlusGN-avsCWERYp5EShE1WlDTiYtMR7P2TER0sWG70DUFIb_UqD-8kqMu9VIpduyHrS07bEJVVkWUAZ5Roki-fl2z0R0Vz0ahR9bnECDjGqQvspmx4Q8xrfxyHkFOfIW0xYBmBfsgacjj95AHv7ILBzU4yPYpd4Hjnow
+> Content-Length: 116
+>
+* upload completely sent off: 116 out of 116 bytes
+< HTTP/1.1 200 OK
+< Content-Type: application/json
+< Date: Thu, 11 Aug 2022 21:41:31 GMT
+< Content-Length: 297
+<
+{"ReceiveDate":"2022-08-11T21:41:31.867761106Z","SourceIP":"172.26.10.6","Login":"PagaSOAdmin","ThirdPartyName":"PagaSO","DealerMSISDN":"244950170237","Transaction":null,"Status":"Successful","StatusCode":200,"StatusDescription":"OK","StatusDate":"2022-08-11T21:41:31.870360389Z","Elapsedtime":2}
+* Connection #0 to host 10.250.80.74 left intact
+┌─(~/PagasoAPP/pgstrans)(ruby-2.7.2)───────────────────────────────────────────────────────────────────────────────(pgsadmin@pgs-qa-all:pts/3)─┐
+
+
