@@ -49,12 +49,13 @@ class PerfilUsuario < ApplicationRecord
 
   def self.action_amigavel(action)
     nomes = {
+      impressao_recibo: "Impressão do Recibo de Venda - Menu de Venda Africell",
       confirmar_cliente: "Confirmar Cliente ENDE - Menu de Venda HOME", 
-      recibo: "Recibo para Vendas ENDE", 
+      recibo: "Recibo de Vendas ENDE durante a confirmação de venda", 
       venda_teste: "Venda de Teste ENDE - Menu de Venda HOME", 
-      reprint: "Opção de Reimpressão - Menu de Venda HOME",
-      last_advice: "Opção de Last Advice - Menu de Venda HOME",
-      pagamento_de_conta: "Opção de Pagamento de Conta - Menu de Venda HOME",
+      reprint: "Opção de Reimpressão ENDE - Menu de Venda HOME",
+      last_advice: "Opção de Last Advice ENDE - Menu de Venda HOME",
+      pagamento_de_conta: "Opção de Pagamento de Conta ENDE - Menu de Venda HOME",
       validacao_cliente_api: "Validação de cliente DSTV pela API",
       new: "Mostrar a tela que permite a inclusão de um novo registo",
       produtos_api: "Mostrar produtos para serem utilizados na API",
