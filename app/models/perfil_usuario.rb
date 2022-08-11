@@ -165,6 +165,7 @@ class PerfilUsuario < ApplicationRecord
       grupos: "Grupos de Acesso",
       dstv: "DSTV",
       ende: "ENDE",
+      africell: "Africell",
       sequencial_dstvs: "Backoffice - Sessão de Transações - Controle de Sequência de Vendas da DSTV",
       ende_uniq_numbers: "Backoffice - Sessão de Transações - Controle de Sequência de Transações da ENDE",
       log_vendas: "Log de vendas não realizadas",

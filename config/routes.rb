@@ -40,6 +40,8 @@ Rails.application.routes.draw do
   get 'ende/reprint', to: 'ende#reprint'
   get 'ende/last-advice', to: 'ende#last_advice'
   get 'ende/pagamento-de-conta', to: 'ende#pagamento_de_conta'
+  
+  get '/africell/reprint', to: 'africell#reprint'
 
   get '/controle-acessos/:modelo/:modelo_id/grupos', to: 'grupos#controle_acessos_modelo'
   get '/controle-acessos/:modelo/:modelo_id/grupos/novo', to: 'grupos#controle_acessos_modelo_novo'
