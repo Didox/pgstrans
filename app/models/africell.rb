@@ -11,8 +11,186 @@ class Africell
     produtos = produtos.where("valor_compra_telemovel > 0 and produto_id_parceiro is not null and produto_id_parceiro <> ''").reorder("valor_compra_telemovel asc")
     produtos
   end
+  
+  def self.login
+    parceiro, parametro, url_service = self.parametros
+    url = "#{url_service}/#{parametro.get.endpoint_HTTP_Login}"
+    uri = URI.parse(URI::Parser.new.escape(url))
+
+    basic_base64_authentication = "#{parametro.get.basic_base64_authentication}"
+
+    request = HTTParty.get(uri, 
+      :headers => {
+        'Content-Type' => 'application/json',
+        'Authorization' => "Basic #{basic_base64_authentication}",
+      },
+      timeout: DEFAULT_TIMEOUT.to_i.seconds
+    )
+
+    Rails.logger.info "=========================================="
+    Rails.logger.info request.inspect
+    Rails.logger.info "===================[login]======================="
+    Rails.logger.info request.body
+    Rails.logger.info "=========================================="
+    AfricellLogin.create(body_request:request.body.to_json)
+  end
+
+  
+  def self.validate_otp(parceiro, parametro, url_service)
+    url = "#{url_service}#{parametro.get.endpoint_HTTP_ValidateOTP}"
+    uri = URI.parse(URI::Parser.new.escape(url))
+
+    basic_base64_authentication = "#{parametro.get.basic_base64_authentication}"
+
+    otp = parametro.get.otp_key
+    headers = {
+      'Content-Type' => 'application/json',
+      'Authorization' => "Basic #{basic_base64_authentication}",
+      'otp' => "#{otp}",
+    }
+
+    puts "======[OTP body]========="
+    puts headers.inspect
+    puts "======[OTP]========="
+
+    request = HTTParty.get(uri, 
+    :headers => headers,
+    timeout: DEFAULT_TIMEOUT.to_i.seconds)
+
+
+    
+    puts "======[OTP request]========="
+    puts request.inspect
+    puts "======[OTP]========="
+
+    request.headers["authorization"]
+  end
+
+  def self.refresh_token
+    parceiro, parametro, url_service = Africell.parametros
+    token = Africell.validate_otp(parceiro, parametro, url_service)
+
+    url = "#{url_service}#{parametro.get.endpoint_HTTP_RefreshToken}"
+    uri = URI.parse(URI::Parser.new.escape(url))
+
+    headers = {
+      'Content-Type' => 'application/json',
+      'Authorization' => token
+    }
+
+    puts("=======[refresh headers]=======")
+    puts(headers.inspect)
+    puts("==============")
+
+    request = HTTParty.get(uri, 
+    :headers => headers,
+    timeout: DEFAULT_TIMEOUT.to_i.seconds)
+
+    puts("=======[refresh request]=======")
+    puts(request.inspect)
+    puts("==============")
+
+    [request.headers["authorization"],parceiro, parametro, url_service]
+  end
 
   def self.consulta_saldo
+    jwt_token, parceiro, parametro, url_service = Africell.refresh_token
+    url = "#{url_service}/#{parametro.get.endpoint_HTTPC_CheckDealerBalance}"
+    uri = URI.parse(URI::Parser.new.escape(url))
+    request = HTTParty.get(uri, 
+      :headers => {
+        'Content-Type' => 'application/json',
+        'Authorization' => jwt_token,
+      },
+      timeout: DEFAULT_TIMEOUT.to_i.seconds
+    )
+
+    Rails.logger.info "=========================================="
+    Rails.logger.info request.inspect
+    Rails.logger.info "=========================================="
+    Rails.logger.info request.body
+    Rails.logger.info "=========================================="
+
+    dados = JSON.parse(request.body)
+    SaldoParceiro.create(partner_id: parceiro.id, saldo: dados["DealerBalance"], log: request.body)
+  end
+
+  def self.vender
+    jwt_token, parceiro, parametro, url_service = Africell.refresh_token
+    url = "#{url_service}#{parametro.get.endpoint_HTTP_Recharge}"
+    uri = URI.parse(URI::Parser.new.escape(url))
+    
+    body = {
+      'ProductCode': '01',
+      'ParameterCode': '01',
+      'Amount': '',
+      'TargetMSISDN': '244959560801',
+      'TransactionReference': '1'
+    }.to_json
+
+    request = HTTParty.post(uri, 
+      :headers => {
+        'Content-Type' => 'application/json',
+        'Authorization' => jwt_token,
+      },
+      body: body
+    )
+
+    request
+
+=begin
+    puts("========[token]===========")
+    puts(jwt_token)
+    puts("===================")
+    
+
+    Rails.logger.info "=========================================="
+    Rails.logger.info request.inspect
+    Rails.logger.info "=========================================="
+    Rails.logger.info request.body
+    Rails.logger.info "=========================================="
+
+
+
+    puts "=========URL================"
+    puts url
+    puts "=========URL================"
+    puts "http://10.250.80.74:9214/HTTP_Recharge/"
+    puts "=========URL================"
+
+
+    result = "curl -X POST http://10.250.80.74:9214/HTTP_Recharge/ -H \"Content-Type: application/json\" -H \"Authorization: #{jwt_token}\" -d '{\"ProductCode\":\"01\", \"ParameterCode\":\"01\", \"Amount\":\"\", \"TargetMSISDN\":\"244959560801\", \"TransactionReference\":\"1\"}'"
+   
+    result = `#{result}`
+    Rails.logger.info "==============[Result]============================"
+    puts result
+    Rails.logger.info "=========================================="
+=end
+  end
+
+  def self.check_transaction_log
+    jwt_token, parceiro, parametro, url_service = Africell.refresh_token
+    url = "#{url_service}#{parametro.get.endpoint_HTTP_CheckTransactionLog}"
+    uri = URI.parse(URI::Parser.new.escape(url))
+    
+    body = {
+      #'TargetMSISDN': '244959560801',
+      'TargetMSISDN': params[:target_msisdn],
+      'TransactionReference': '3860b99f-14df-4151-81b4-bbda10fdeba5',
+      'TransactionId': '5',
+      'Status': '',
+      'Limit': 20,
+    }.to_json
+
+    request = HTTParty.get(uri, 
+      :headers => {
+        'Content-Type' => 'application/json',
+        'Authorization' => jwt_token,
+      },
+      body: body
+    )
+
+    request
   end
 
   def self.parametros
@@ -23,34 +201,12 @@ class Africell
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
 
     if Rails.env == "development"
-      url_service = parametro.url_integracao_desenvolvimento
-      data_source = parametro.data_source_africell_desenvolvimento
-      payment_vendor_code = parametro.payment_vendor_code_africell_desenvolvimento
-      vendor_code = parametro.vendor_code_africell_desenvolvimento
-      agent_account = parametro.agent_account_africell_desenvolvimento
-      currency = parametro.currency_africell_desenvolvimento
-      product_user_key = parametro.product_user_key_africell_desenvolvimento
-      mop = parametro.mop_africell_desenvolvimento # mop = "CASH, MOBILE or ATM "
-      agent_number = parametro.agent_number_africell_desenvolvimento #122434345
-      business_unit = parametro.business_unit_desenvolvimento
-      language = parametro.language_desenvolvimento
-      customer_number_default = parametro.customer_number_desenvolvimento
+      url_service = parametro.get.url_integracao_desenvolvimento
     else
-      url_service = parametro.url_integracao_producao
-      data_source = parametro.data_source_africell_producao
-      payment_vendor_code = parametro.payment_vendor_code_africell_producao
-      vendor_code = parametro.vendor_code_africell_producao
-      agent_account = parametro.agent_account_africell_producao
-      currency = parametro.currency_africell_producao
-      product_user_key = parametro.product_user_key_africell_producao
-      mop = parametro.mop_africell_producao # mop = "CASH, MOBILE or ATM "
-      agent_number = parametro.agent_number_africell_producao #122434345
-      business_unit = parametro.business_unit_producao
-      language = parametro.language_producao
-      customer_number_default = parametro.customer_number_producao
+      url_service = parametro.get.url_integracao_producao
     end
 
-    [parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language,customer_number_default]
+    [parceiro,parametro,url_service]
   end
 
   def self.fazer_request(url_service, body, resource)

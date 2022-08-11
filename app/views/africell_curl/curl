@@ -1,0 +1,81 @@
+
+
+curl -o -I -L -s -w "%{http_code}" http://10.250.80.74:9214/HTTP_CheckDealerBalance/
+
+curl -v http://10.250.80.74:9214/HTTP_CheckDealerBalance/
+
+
+Your OTP is : gFBYrct6JGbq3ya
+
+
+
+01 - Login
+
+Exemplos de login com sucesso!
+
+└─(09:39:16 on master ✭)──> curl -H "Content-Type: application/json"  -H "Authorization: Basic UGFnYVNPQWRtaW46MjAyMlBAR0BTMFQzQ2g=" -X GET http://10.250.80.74:9214/HTTP_Login/
+{"StatusCode":200,"Description":"Successful"}
+
+
+└─(14:39:58)──> curl -H "Content-Type: application/json"  -H "Authorization: Basic UGFnYVNPQWRtaW46MjAyMlBAR0BTMFQzQ2g=" -X GET http://10.250.80.74:9214/HTTP_Login/
+{"StatusCode":200,"Description":"Successful"}
+
+
+
+
+
+
+02 - Validate OPT
+
+
+
+└─(13:11:58 on master ✭)──> curl -I -H "Content-Type: application/json"  -H "Authorization: Basic UGFnYVNPQWRtaW46MjAyMlBAR0BTMFQzQ2g=" -H "otp: gFBYrct6JGbq3ya" -X GET http://10.250.80.74:9214/HTTP_ValidateOTP/
+HTTP/1.1 200 OK
+Authorization: Bearer eyJMb2dpbiI6IlBhZ2FTT0FkbWluIiwiVG9rZW5UeXBlIjoiQWNjZXNzIiwiYWxnIjoiUFM1MTIiLCJ0eXAiOiJKV1MifQ.eyJTb3VyY2VJUCI6IjE3Mi4yNi4xMC42IiwiVXNlckluZm8iOnsiQ2FuQ3JlYXRlQVBJVXNlciI6ZmFsc2UsIkNhbkV4ZWN1dGVCYWxDaGVjayI6dHJ1ZSwiQ2FuRXhlY3V0ZVJlY2hhcmdlIjp0cnVlLCJDYW5FeGVjdXRlU3RhdGVtZW50Ijp0cnVlLCJFbWFpbCI6InJvc2kudm9sZ2FyaW5AdGl2LXRlY25vbG9naWEuY29tIiwiRmlyc3ROYW1lIjoiUGFnYVNPIiwiTGFzdE5hbWUiOiJQYWdhU08iLCJNaWRkbGVOYW1lIjoiIiwiUGhvbmUiOiIiLCJUaGlyZFBhcnR5TmFtZSI6IlBhZ2FTTyJ9LCJhdWQiOlsiQWZyaWNlbGwiLCJQYWdhU08iXSwiZXhwIjoxNjU5NTM4MDcxLCJpYXQiOjE2NTk1MzQ0NzEsImlzcyI6ImFmcl9hb190Z3ciLCJqdGkiOiI1Iiwic3ViIjoiQWZyaWNlbGwgVEdXIEJlYXJlciB0b2tlbiJ9.E2aKuXNv-6wBGGEE9o_mgtFeUrPMoTkxpX3_cargLtVUfPOo68JtufleNeWeZKtXRMPCTQRcVbQj1CN85JNwg61_b-Aw5g6irYH9Q3IePuBjYCQxE8pgS8aS7nwZN00r35fDCPaPp1m0_ock4SvJzXAUE9a4N8G4qCc2tXjY8D2jn16DM6d_YKWggKmYIHfYjtypTIFvR4XMbL7OgYRrDXiMlRc18JHWav3ejeFd8R7Zpkk_XWrQSneeDQ8xNODXkCIgWzAZTDsLYSjKsd5Se9f7hggOLgL2FniPlT_NxGJ_EVwB7A8YWiJpjI9SP_hAc5B6fK-yhWkV9GAmB0WA0g
+Content-Type: application/json
+Date: Wed, 03 Aug 2022 13:47:51 GMT
+Content-Length: 46
+
+
+
+
+
+
+03 - Get refresh token
+
+─(14:55:28)──> curl -I -H "Content-Type: application/json" -H "Authorization: Bearer eyJMb2dpbiI6IlBhZ2FTT0FkbWluIiwiVG9rZW5UeXBlIjoiQWNjZXNzIiwiYWxnIjoiUFM1MTIiLCJ0eXAiOiJKV1MifQ.eyJTb3VyY2VJUCI6IjE3Mi4yNi4xMC42IiwiVXNlckluZm8iOnsiQ2FuQ3JlYXRlQVBJVXNlciI6ZmFsc2UsIkNhbkV4ZWN1dGVCYWxDaGVjayI6dHJ1ZSwiQ2FuRXhlY3V0ZVJlY2hhcmdlIjp0cnVlLCJDYW5FeGVjdXRlU3RhdGVtZW50Ijp0cnVlLCJFbWFpbCI6InJvc2kudm9sZ2FyaW5AdGl2LXRlY25vbG9naWEuY29tIiwiRmlyc3ROYW1lIjoiUGFnYVNPIiwiTGFzdE5hbWUiOiJQYWdhU08iLCJNaWRkbGVOYW1lIjoiIiwiUGhvbmUiOiIiLCJUaGlyZFBhcnR5TmFtZSI6IlBhZ2FTTyJ9LCJhdWQiOlsiQWZyaWNlbGwiLCJQYWdhU08iXSwiZXhwIjoxNjU5NTM4MDcxLCJpYXQiOjE2NTk1MzQ0NzEsImlzcyI6ImFmcl9hb190Z3ciLCJqdGkiOiI1Iiwic3ViIjoiQWZyaWNlbGwgVEdXIEJlYXJlciB0b2tlbiJ9.E2aKuXNv-6wBGGEE9o_mgtFeUrPMoTkxpX3_cargLtVUfPOo68JtufleNeWeZKtXRMPCTQRcVbQj1CN85JNwg61_b-Aw5g6irYH9Q3IePuBjYCQxE8pgS8aS7nwZN00r35fDCPaPp1m0_ock4SvJzXAUE9a4N8G4qCc2tXjY8D2jn16DM6d_YKWggKmYIHfYjtypTIFvR4XMbL7OgYRrDXiMlRc18JHWav3ejeFd8R7Zpkk_XWrQSneeDQ8xNODXkCIgWzAZTDsLYSjKsd5Se9f7hggOLgL2FniPlT_NxGJ_EVwB7A8YWiJpjI9SP_hAc5B6fK-yhWkV9GAmB0WA0g" -X GET http://10.250.80.74:9214/HTTP_RefreshToken/
+HTTP/1.1 200 OK
+Authorization: Bearer eyJMb2dpbiI6IlBhZ2FTT0FkbWluIiwiVG9rZW5UeXBlIjoiUmVmcmVzaCIsImFsZyI6IlBTNTEyIiwidHlwIjoiSldTIn0.eyJTb3VyY2VJUCI6IjE3Mi4yNi4xMC42IiwiVXNlckluZm8iOnsiQ2FuQ3JlYXRlQVBJVXNlciI6ZmFsc2UsIkNhbkV4ZWN1dGVCYWxDaGVjayI6dHJ1ZSwiQ2FuRXhlY3V0ZVJlY2hhcmdlIjp0cnVlLCJDYW5FeGVjdXRlU3RhdGVtZW50Ijp0cnVlLCJFbWFpbCI6InJvc2kudm9sZ2FyaW5AdGl2LXRlY25vbG9naWEuY29tIiwiRmlyc3ROYW1lIjoiUGFnYVNPIiwiTGFzdE5hbWUiOiJQYWdhU08iLCJNaWRkbGVOYW1lIjoiIiwiUGhvbmUiOiIiLCJUaGlyZFBhcnR5TmFtZSI6IlBhZ2FTTyJ9LCJhdWQiOlsiQWZyaWNlbGwiLCJQYWdhU08iXSwiZXhwIjoxNjYwMTM5OTQ1LCJpYXQiOjE2NTk1MzUxNDUsImlzcyI6ImFmcl9hb190Z3ciLCJqdGkiOiIxIiwic3ViIjoiQWZyaWNlbGwgVEdXIEJlYXJlciB0b2tlbiJ9.P_8GFnEruA0hbJ4IWLTpee_ylKbvyawy6nX7K-kvz6Npfl7fWTgj_l5SwjnqghlYxfQBdI0mtvfAFXipYja9u-tjesYzNb8uAImFy9Xiy1BwRF2XghnFlXLWovTFKOXuRNIyDpuMywEPb0_QaW6NX1QOWssaw9eyAFfd_PIDCQVpOy70KApWlxwJbG9zL5VyXPl14NvwWWdm8JaQBLfGZ9MpA_MNB7iu_pMZOdDlbloldotnirG4_C4iR4g3e7vZfVxc6k8ufzTPUKwAKUcHDxr4sALLGYh1BInVwi2flM9wPUrkkcraYJLADl2AjFY6Nh_runkSEFxoVInbYAOc6Q
+Content-Type: application/json
+Date: Wed, 03 Aug 2022 13:59:05 GMT
+Content-Length: 46
+
+
+
+
+04 - Dealer Balance Check
+
+curl -I -H "Content-Type: application/json" -H "Authorization: eyJMb2dpbiI6IlBhZ2FTT0FkbWluIiwiVG9rZW5UeXBlIjoiUmVmcmVzaCIsImFsZyI6IlBTNTEyIiwidHlwIjoiSldTIn0.eyJTb3VyY2VJUCI6IjE3Mi4yNi4xMC42IiwiVXNlckluZm8iOnsiQ2FuQ3JlYXRlQVBJVXNlciI6ZmFsc2UsIkNhbkV4ZWN1dGVCYWxDaGVjayI6dHJ1ZSwiQ2FuRXhlY3V0ZVJlY2hhcmdlIjp0cnVlLCJDYW5FeGVjdXRlU3RhdGVtZW50Ijp0cnVlLCJFbWFpbCI6InJvc2kudm9sZ2FyaW5AdGl2LXRlY25vbG9naWEuY29tIiwiRmlyc3ROYW1lIjoiUGFnYVNPIiwiTGFzdE5hbWUiOiJQYWdhU08iLCJNaWRkbGVOYW1lIjoiIiwiUGhvbmUiOiIiLCJUaGlyZFBhcnR5TmFtZSI6IlBhZ2FTTyJ9LCJhdWQiOlsiQWZyaWNlbGwiLCJQYWdhU08iXSwiZXhwIjoxNjYwMTM5OTQ1LCJpYXQiOjE2NTk1MzUxNDUsImlzcyI6ImFmcl9hb190Z3ciLCJqdGkiOiIxIiwic3ViIjoiQWZyaWNlbGwgVEdXIEJlYXJlciB0b2tlbiJ9.P_8GFnEruA0hbJ4IWLTpee_ylKbvyawy6nX7K-kvz6Npfl7fWTgj_l5SwjnqghlYxfQBdI0mtvfAFXipYja9u-tjesYzNb8uAImFy9Xiy1BwRF2XghnFlXLWovTFKOXuRNIyDpuMywEPb0_QaW6NX1QOWssaw9eyAFfd_PIDCQVpOy70KApWlxwJbG9zL5VyXPl14NvwWWdm8JaQBLfGZ9MpA_MNB7iu_pMZOdDlbloldotnirG4_C4iR4g3e7vZfVxc6k8ufzTPUKwAKUcHDxr4sALLGYh1BInVwi2flM9wPUrkkcraYJLADl2AjFY6Nh_runkSEFxoVInbYAOc6Q" -v -X GET http://10.250.80.74:9214/HTTP_CheckDealerBalance/
+
+
+
+
+
+
+
+05 - Recarga
+
+curl -d '{"ProductCode":"01", "ParameterCode":"01", "Amount":"", "TargetMSISDN":"244959560801", "TransactionReference":"anyreference1234"}' -I -H "Content-Type: application/json"  -H "Authorization: Bearer eyJMb2dpbiI6IlBhZ2FTT0FkbWluIiwiVG9rZW5UeXBlIjoiQWNjZXNzIiwiYWxnIjoiUFM1MTIiLCJ0eXAiOiJKV1MifQ.eyJTb3VyY2VJUCI6IjE3Mi4yNi4xMC42IiwiVXNlckluZm8iOnsiQ2FuQ3JlYXRlQVBJVXNlciI6ZmFsc2UsIkNhbkV4ZWN1dGVCYWxDaGVjayI6dHJ1ZSwiQ2FuRXhlY3V0ZVJlY2hhcmdlIjp0cnVlLCJDYW5FeGVjdXRlU3RhdGVtZW50Ijp0cnVlLCJFbWFpbCI6InJvc2kudm9sZ2FyaW5AdGl2LXRlY25vbG9naWEuY29tIiwiRmlyc3ROYW1lIjoiUGFnYVNPIiwiTGFzdE5hbWUiOiJQYWdhU08iLCJNaWRkbGVOYW1lIjoiIiwiUGhvbmUiOiIiLCJUaGlyZFBhcnR5TmFtZSI6IlBhZ2FTTyJ9LCJhdWQiOlsiQWZyaWNlbGwiLCJQYWdhU08iXSwiZXhwIjoxNjU5NTMyNTQzLCJpYXQiOjE2NTk1Mjg5NDMsImlzcyI6ImFmcl9hb190Z3ciLCJqdGkiOiIyIiwic3ViIjoiQWZyaWNlbGwgVEdXIEJlYXJlciB0b2tlbiJ9.VaHxj3FxUHfHNX_jFnZiaDViH5ncJ1fbT0p8JmPuQlduD6D5PyjG6v7WXGi1FYtgsTj6Y_WzHyGa3t4ZPiJv_xWwJxXYkFluk3Bg46MhVpskmnwl8R_y27C1F62oOGtRUtFVNonYmqdV75kMTIcgPcZ_AG3cLSMcD42Ml5hC4YH0OdLVQfcFWufBDI2i1OxVHMwFvlIta_GFWHwO0YHBq4DsJlNtwkRDyfgTvAJwxDzrfER4SkNt3W5ZU0vBUydhAwLFtECDPv9dwRgUteYyfbDkRTucYx03t4_QOD6FQVfPyavU_s1o366PEN4Rs8_ch_QJpi1tI6kADECZHuw0xQ" -X POST http://10.250.80.74:9214/HTTP_Recharge/
+
+
+
+
+
+
+
+curl -d '{"username":"PagaSOAdmin", "password":"2022P@G@S0T3Ch"}' -H "Content-Type: application/json" -X POST http://10.250.80.74:9214/HTTP_Login/curl -d '{"username":"PagaSOAdmin", "password":"2022P@G@S0T3Ch"}' -H "Content-Type: application/json" -X GET http://10.250.80.74:9214/HTTP_Login/
+
+
+
+
+04 - Dealer Balance Check

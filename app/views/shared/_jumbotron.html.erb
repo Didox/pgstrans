@@ -123,6 +123,33 @@
         </div>
       </div>
 
+      <div class="col-md-12" id="AfricellMenu" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
+        <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
+          <h3>O que você deseja fazer?</h3>
+        </div>
+        <div class="menuAFRICELL" style="padding: 2%">
+          <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+            <li>
+              <a href="javascript:pgstrans.displayRecargaAfricell()">
+                Venda de Crédito
+              </a>
+            </li>
+            <li>
+              <hr>
+              <a href="/africell/impressao_recibo">
+                Impressão do Recibo de Venda
+              </a>
+            </li>
+            <li>
+              <hr>
+              <a href="/africell/confirmacao_transacao">
+                Confirmação de Transação
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <div class="col-md-12" id="recarga" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
         <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
           <h3>Recargas</h3>
@@ -157,13 +184,23 @@
                   </div>
                 </div>
               </div>
-              <div class="campos movicel " id="divAditionalFieldsMovicel">
+              <div class="campos movicel" id="divAditionalFieldsMovicel">
                 <div class="editArea editAreaDiv">
                   <div class="p16Bold editDiv" style="text-align: left;">
                     Telemóvel<span class="required">&nbsp;*</span>
                   </div>
                   <div>
                     <input type="text" name="movicel_telefone" class="form-control vMovicel validate clearFieldjs" data-message="Informe o número do Telemóvel para Recarga" value="" placeholder="Número do Telemóvel" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                  </div>
+                </div>
+              </div>
+              <div class="campos africell" id="divAditionalFieldsAfricell">
+                <div class="editArea editAreaDiv">
+                  <div class="p16Bold editDiv" style="text-align: left;">
+                     Telemóvel<span class="required">&nbsp;*</span>
+                  </div>
+                  <div>
+                    <input type="text" name="target_msisdn" class="form-control vAfriell validate clearFieldjs" data-message="Informe o Telemóvel MSISDN" value="" placeholder="Telemóvel MSISDN" >
                   </div>
                 </div>
               </div>

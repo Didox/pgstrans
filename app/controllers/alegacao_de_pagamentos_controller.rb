@@ -16,7 +16,9 @@ class AlegacaoDePagamentosController < ApplicationController
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.id = ?", params[:id]) if params[:id].present?
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("usuarios.perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
-    
+    @alegacao_de_pagamentos = @alegacao_de_pagamentos.where("alegacao_de_pagamentos.banco_id = ?", params[:banco_id]) if params[:banco_id].present?
+
+
     params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
     if params[:status].present?
       @alegacao_de_pagamentos  = @alegacao_de_pagamentos.where("usuarios.status_cliente_id = ?", params[:status])
@@ -48,7 +50,7 @@ class AlegacaoDePagamentosController < ApplicationController
 
   # GET /alegacao_de_pagamentos/1/edit
   def edit
-    return redirect_to "/alegacao_de_pagamentos" if [StatusAlegacaoDePagamento::PROCESSADO,StatusAlegacaoDePagamento::CANCELADO,StatusAlegacaoDePagamento::INVALIDO,StatusAlegacaoDePagamento::REJEITADO].include?(@alegacao_de_pagamento.status_alegacao_de_pagamento.nome) 
+    return redirect_to "/alegacao_de_pagamentos" if [StatusAlegacaoDePagamento::PROCESSADO,StatusAlegacaoDePagamento::CANCELADO,StatusAlegacaoDePagamento::INVALIDO,StatusAlegacaoDePagamento::REJEITADO].include?(@alegacao_de_pagamento.status_alegacao_de_pagamento.nome)
   end
 
   # POST /alegacao_de_pagamentos
@@ -116,7 +118,6 @@ class AlegacaoDePagamentosController < ApplicationController
         params[:alegacao_de_pagamento].delete(:comprovativo)
       end
     end
-
     
     def set_alegacao_de_pagamento
       @alegacao_de_pagamento = AlegacaoDePagamento.find(params[:id] || params[:alegacao_de_pagamento_id])
@@ -126,11 +127,18 @@ class AlegacaoDePagamentosController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def alegacao_de_pagamento_params
       params[:alegacao_de_pagamento].delete(:observacao) unless (@adm.admin? || @adm.operador?)
-      params.require(:alegacao_de_pagamento).permit(:usuario_id, :valor_deposito, :status_alegacao_de_pagamento_id, :observacao, :data_deposito, :numero_talao, :banco_id, :comprovativo)
+      
+      alegacao_de_pagamento = params.require(:alegacao_de_pagamento).permit(:usuario_id, :valor_deposito, :status_alegacao_de_pagamento_id, :observacao, :data_deposito, :numero_talao, :banco_id, :comprovativo)
+
+      alegacao_de_pagamento[:valor_deposito] = params[:outro_valor_deposito] if alegacao_de_pagamento[:valor_deposito].to_f <= 0.0
+      alegacao_de_pagamento
     end
 
     def alegacao_de_pagamento_params_update
-      params.require(:alegacao_de_pagamento).permit(:valor_deposito, :status_alegacao_de_pagamento_id, :observacao, :data_deposito, :numero_talao, :banco_id, :comprovativo)
+      alegacao_de_pagamento = params.require(:alegacao_de_pagamento).permit(:valor_deposito, :status_alegacao_de_pagamento_id, :observacao, :data_deposito, :numero_talao, :banco_id, :comprovativo)
+
+      alegacao_de_pagamento[:valor_deposito] = params[:outro_valor_deposito] if alegacao_de_pagamento[:valor_deposito].to_f <= 0.0
+      alegacao_de_pagamento
     end
 
     def valida_acesso

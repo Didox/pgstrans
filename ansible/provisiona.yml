@@ -1,0 +1,27 @@
+- hosts: qa
+  tasks:
+    - name: "Kill webapp"
+      ignore_errors: yes
+      shell: kill $(lsof -t -i:3001)
+
+    - name: "Kill consumer"
+      ignore_errors: yes
+      shell: kill $(ps -efa | grep consumer | awk '{print $2;exit}')
+
+    - name: "git pull do repo"
+      ignore_errors: yes
+      shell: cd ~/PagasoAPP/pgstrans && git pull
+
+    - name: "start app"
+      ignore_errors: yes
+      shell: |
+        cd ~/PagasoAPP/pgstrans/
+        export RAILS_ENV=production
+        nohup rails server --binding=172.26.10.6 -p 3001 &
+
+    - name: "start consumer"
+      ignore_errors: yes
+      shell: |
+        cd ~/PagasoAPP/pgstrans/
+        export RAILS_ENV=production
+        nohup rake sqs:consumer &
