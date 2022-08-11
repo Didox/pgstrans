@@ -1,14 +1,14 @@
     <hr>
     <% if @adm.id == Usuario::ROOT || @adm.admin? %>
       <%= link_to partner_atualiza_africell_login_path(@partner), 
-      class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
-        Gera OTP Login
+      class: 'btn btn-dark', data: { confirm: 'Tem Certeza?' } do %>
+        Gerar OTP Key para Login
       <% end %>
       Última atualização em: <%= AfricellLogin.order("id desc").first.created_at.strftime("%d/%m/%Y %H:%M:%S") rescue ""%>
     <% end %>
     <hr>
     <%= link_to partner_atualiza_saldo_path(@partner), class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
-        Atualizar saldo
+        Atualizar Saldo
     <% end %>
     <% saldo = @partner.ultimo_saldo 
         if saldo.present? %>
@@ -31,7 +31,7 @@
         </style>
         <table class="saldo-table-africell">
           <tr>
-            <td style="width: 30%">
+            <td style="width:180px">
               Saldo
             </td>
             <td>
