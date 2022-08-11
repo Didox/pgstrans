@@ -32,6 +32,7 @@ class Africell
     Rails.logger.info "===================[login]======================="
     Rails.logger.info request.body
     Rails.logger.info "=========================================="
+    AfricellLogin.create(body_request:request.body.to_json)
   end
 
   

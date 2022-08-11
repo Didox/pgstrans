@@ -1,0 +1,2 @@
+class AfricellLogin < ApplicationRecord
+end
