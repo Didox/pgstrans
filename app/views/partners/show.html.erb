@@ -48,7 +48,7 @@
       <strong>Imagem:</strong>
       <img src="<%= @partner.imagem %>" style="width:100px">
     </p>
-    <% if !["unitel", "dstv"].include?(@partner.slug.downcase)  %>
+    <% if @partner.slug.downcase.scan(/zap/).present?  %>
       <p>
         <strong>Saldo atual:</strong><br>
         <%= number_to_currency(@partner.ultimo_saldo.saldo, :unit => "PTS") %><br>
@@ -99,6 +99,11 @@
     <% if @partner.slug.downcase == "dstv" %>
       <p><strong>Outras Operações</strong></p>
       <%= render 'dstv' %>
+    <% end %>
+
+    <% if @partner.slug.downcase == "africell" %>
+      <p><strong>Outras Operações</strong></p>
+      <%= render 'africell' %>
     <% end %>
 
     <% if @partner.slug.downcase == "unitel" %>

@@ -240,6 +240,19 @@ namespace :jobs do
     ActiveRecord::Base.connection.exec_query("delete from logs where created_at < '#{(Time.zone.now - 2.months).strftime("%Y-%m-%d %H:%M:%S")}'")
   end
 
+  desc "MigraParametros"
+  task migra_parametros: :environment do
+    Parametro.all.each do |parametro|
+      dados = parametro.attributes
+      dados.delete("id")
+      dados.delete("partner_id")
+      dados.delete("created_at")
+      dados.delete("updated_at")
+
+      Parametro.where(id: parametro.id).update_all(dados: dados.to_json)
+    end
+  end
+
   desc "Update venda id conta corrente"
   task venda_conta_corrente: :environment do
     ContaCorrente.where("valor < 0").each do |cc|

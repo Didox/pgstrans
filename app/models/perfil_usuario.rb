@@ -49,12 +49,13 @@ class PerfilUsuario < ApplicationRecord
 
   def self.action_amigavel(action)
     nomes = {
+      impressao_recibo: "Impressão do Recibo de Venda - Menu de Venda Africell",
       confirmar_cliente: "Confirmar Cliente ENDE - Menu de Venda HOME", 
-      recibo: "Recibo para Vendas ENDE", 
+      recibo: "Recibo de Vendas ENDE durante a confirmação de venda", 
       venda_teste: "Venda de Teste ENDE - Menu de Venda HOME", 
-      reprint: "Opção de Reimpressão - Menu de Venda HOME",
-      last_advice: "Opção de Last Advice - Menu de Venda HOME",
-      pagamento_de_conta: "Opção de Pagamento de Conta - Menu de Venda HOME",
+      reprint: "Opção de Reimpressão ENDE - Menu de Venda HOME",
+      last_advice: "Opção de Last Advice ENDE - Menu de Venda HOME",
+      pagamento_de_conta: "Opção de Pagamento de Conta ENDE - Menu de Venda HOME",
       validacao_cliente_api: "Validação de cliente DSTV pela API",
       new: "Mostrar a tela que permite a inclusão de um novo registo",
       produtos_api: "Mostrar produtos para serem utilizados na API",
@@ -73,6 +74,7 @@ class PerfilUsuario < ApplicationRecord
       show_api: "(SHOW) Permitir mostrar detalhes do registo pela API",
       edit: "(EDIT) Permitir mostrar tela de edição do registo",
       atualiza_saldo: "Fazer consulta de saldo no parceiro, caso o parceiro ofereça esse serviço",
+      atualiza_africell_login: "Executa transação de atualização de OTP Key Africell",
       confirma: "Efectuar recarga, fazer pagamento e outras transações disponíveis na operadora",
       confirma_api: "Efectuar recarga, fazer pagamento e outras transações disponíveis na operadora pela interface da API",
       usuarios: "Usuários",
@@ -164,6 +166,7 @@ class PerfilUsuario < ApplicationRecord
       grupos: "Grupos de Acesso",
       dstv: "DSTV",
       ende: "ENDE",
+      africell: "Africell",
       sequencial_dstvs: "Backoffice - Sessão de Transações - Controle de Sequência de Vendas da DSTV",
       ende_uniq_numbers: "Backoffice - Sessão de Transações - Controle de Sequência de Transações da ENDE",
       log_vendas: "Log de vendas não realizadas",

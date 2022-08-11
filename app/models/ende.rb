@@ -62,13 +62,13 @@ class Ende
             <vendingServerID
               xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">1
             </vendingServerID>
-            <clientID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\" />
-            <terminalID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\" />
+            <clientID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.get.client_id}\" />
+            <terminalID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.get.terminal_id}\" />
             <msgID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\" />
             <authCred
               xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
-              <opName>#{parametro.operator_id}</opName>
-              <password>#{parametro.password}</password>
+              <opName>#{parametro.get.operator_id}</opName>
+              <password>#{parametro.get.password}</password>
             </authCred>
             <idMethod
               xmlns:q1=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"
@@ -106,12 +106,12 @@ class Ende
       <soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">
         <soap:Body>
         <trialCreditVendReq xmlns=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\">
-          <clientID xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
-          <terminalID xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
+          <clientID xsi:type=\"EANDeviceID\" ean=\"#{parametro.get.client_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
+          <terminalID xsi:type=\"EANDeviceID\" ean=\"#{parametro.get.terminal_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
           <msgID dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
           <authCred xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
-          <opName>#{parametro.operator_id}</opName>
-          <password>#{parametro.password}</password>
+          <opName>#{parametro.get.operator_id}</opName>
+          <password>#{parametro.get.password}</password>
           </authCred>
           <idMethod xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
           <meterIdentifier xsi:type=\"MeterNumber\" msno=\"#{meter_number}\"/>
@@ -141,12 +141,12 @@ class Ende
       <soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">
       <soap:Body>
       <reprintReq xmlns=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\">
-        <clientID xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
-        <terminalID xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
+        <clientID xsi:type=\"EANDeviceID\" ean=\"#{parametro.get.client_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
+        <terminalID xsi:type=\"EANDeviceID\" ean=\"#{parametro.get.terminal_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
         <msgID dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
         <authCred xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
-        <opName>#{parametro.operator_id}</opName>
-        <password>#{parametro.password}</password>
+        <opName>#{parametro.get.operator_id}</opName>
+        <password>#{parametro.get.password}</password>
         </authCred>
         <idMethod xmlns:q1=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"q1:VendIDMethod\">
         <q1:meterIdentifier xsi:type=\"q1:MeterNumber\" msno=\"#{meter_number}\"/>
@@ -169,12 +169,12 @@ class Ende
       <soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">
       <soap:Body>
         <adviceReq xsi:type=\"LastRespAdviceReq\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
-        <clientID xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\"/>
-        <terminalID xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\"/>
+        <clientID xsi:type=\"EANDeviceID\" ean=\"#{parametro.get.client_id}\"/>
+        <terminalID xsi:type=\"EANDeviceID\" ean=\"#{parametro.get.terminal_id}\"/>
         <msgID dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\"/>
         <authCred>
-          <opName>#{parametro.operator_id}</opName>
-          <password>#{parametro.password}</password>
+          <opName>#{parametro.get.operator_id}</opName>
+          <password>#{parametro.get.password}</password>
         </authCred>
         <adviceReqMsgID dateTime=\"#{date_time.to_datetime.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{unique_number_enviado}\"/>
         </adviceReq>
@@ -195,12 +195,12 @@ class Ende
     <soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">
     <soap:Body>
      <payAccReq xmlns=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\">
-      <clientID xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
-      <terminalID xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
+      <clientID xsi:type=\"EANDeviceID\" ean=\"#{parametro.get.client_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
+      <terminalID xsi:type=\"EANDeviceID\" ean=\"#{parametro.get.terminal_id}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
       <msgID dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\" xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\"/>
       <authCred xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
-      <opName>#{parametro.operator_id}</opName>
-      <password>#{parametro.password}</password>
+      <opName>#{parametro.get.operator_id}</opName>
+      <password>#{parametro.get.password}</password>
       </authCred>
       <reqAmt value=\"#{valor_pagamento}\" symbol=\"AOA\"/>
       <payType xmlns:q1=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"q1:Cash\">
@@ -228,7 +228,7 @@ class Ende
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
 
-    url_service = Rails.env == "development" ? "#{parametro.url_integracao_desenvolvimento}" : "#{parametro.url_integracao_producao}"
+    url_service = Rails.env == "development" ? "#{parametro.get.url_integracao_desenvolvimento}" : "#{parametro.get.url_integracao_producao}"
     [parceiro,parametro,url_service]
   end
 

@@ -650,31 +650,31 @@ class Dstv
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
 
     if Rails.env == "development"
-      url_service = parametro.url_integracao_desenvolvimento
-      data_source = parametro.data_source_dstv_desenvolvimento
-      payment_vendor_code = parametro.payment_vendor_code_dstv_desenvolvimento
-      vendor_code = parametro.vendor_code_dstv_desenvolvimento
-      agent_account = parametro.agent_account_dstv_desenvolvimento
-      currency = parametro.currency_dstv_desenvolvimento
-      product_user_key = parametro.product_user_key_dstv_desenvolvimento
-      mop = parametro.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM "
-      agent_number = parametro.agent_number_dstv_desenvolvimento #122434345
-      business_unit = parametro.business_unit_desenvolvimento
-      language = parametro.language_desenvolvimento
-      customer_number_default = parametro.customer_number_desenvolvimento
+      url_service = parametro.get.url_integracao_desenvolvimento
+      data_source = parametro.get.data_source_dstv_desenvolvimento
+      payment_vendor_code = parametro.get.payment_vendor_code_dstv_desenvolvimento
+      vendor_code = parametro.get.vendor_code_dstv_desenvolvimento
+      agent_account = parametro.get.agent_account_dstv_desenvolvimento
+      currency = parametro.get.currency_dstv_desenvolvimento
+      product_user_key = parametro.get.product_user_key_dstv_desenvolvimento
+      mop = parametro.get.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM "
+      agent_number = parametro.get.agent_number_dstv_desenvolvimento #122434345
+      business_unit = parametro.get.business_unit_desenvolvimento
+      language = parametro.get.language_desenvolvimento
+      customer_number_default = parametro.get.customer_number_desenvolvimento
     else
-      url_service = parametro.url_integracao_producao
-      data_source = parametro.data_source_dstv_producao
-      payment_vendor_code = parametro.payment_vendor_code_dstv_producao
-      vendor_code = parametro.vendor_code_dstv_producao
-      agent_account = parametro.agent_account_dstv_producao
-      currency = parametro.currency_dstv_producao
-      product_user_key = parametro.product_user_key_dstv_producao
-      mop = parametro.mop_dstv_producao # mop = "CASH, MOBILE or ATM "
-      agent_number = parametro.agent_number_dstv_producao #122434345
-      business_unit = parametro.business_unit_producao
-      language = parametro.language_producao
-      customer_number_default = parametro.customer_number_producao
+      url_service = parametro.get.url_integracao_producao
+      data_source = parametro.get.data_source_dstv_producao
+      payment_vendor_code = parametro.get.payment_vendor_code_dstv_producao
+      vendor_code = parametro.get.vendor_code_dstv_producao
+      agent_account = parametro.get.agent_account_dstv_producao
+      currency = parametro.get.currency_dstv_producao
+      product_user_key = parametro.get.product_user_key_dstv_producao
+      mop = parametro.get.mop_dstv_producao # mop = "CASH, MOBILE or ATM "
+      agent_number = parametro.get.agent_number_dstv_producao #122434345
+      business_unit = parametro.get.business_unit_producao
+      language = parametro.get.language_producao
+      customer_number_default = parametro.get.customer_number_producao
     end
 
     [parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language,customer_number_default]

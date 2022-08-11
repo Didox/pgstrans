@@ -103,11 +103,11 @@ parceiro = Partner.zaptv
 parametro = Parametro.where(partner_id: parceiro.id).first
 
 if Rails.env == "development"
-  url = "#{parametro.url_integracao_desenvolvimento}/carregamento/#{venda.request_id}"
-  api_key = parametro.api_key_zaptv_desenvolvimento
+  url = "#{parametro.get.url_integracao_desenvolvimento}/carregamento/#{venda.request_id}"
+  api_key = parametro.get.api_key_zaptv_desenvolvimento
 else
-  url = "#{parametro.url_integracao_producao}/carregamento/#{venda.request_id}"
-  api_key = parametro.api_key_zaptv_producao
+  url = "#{parametro.get.url_integracao_producao}/carregamento/#{venda.request_id}"
+  api_key = parametro.get.api_key_zaptv_producao
 end
 
 res = HTTParty.get(
@@ -133,11 +133,11 @@ part = Partner.zaptv
 
 parametro = Parametro.where(partner_id: part.id).first
 if Rails.env == "development"
-  host = "#{parametro.url_integracao_desenvolvimento}/portfolio"
-  api_key = parametro.api_key_zaptv_desenvolvimento
+  host = "#{parametro.get.url_integracao_desenvolvimento}/portfolio"
+  api_key = parametro.get.api_key_zaptv_desenvolvimento
 else
-  host = "#{parametro.url_integracao_producao}/portfolio"
-  api_key = parametro.api_key_zaptv_producao
+  host = "#{parametro.get.url_integracao_producao}/portfolio"
+  api_key = parametro.get.api_key_zaptv_producao
 end
 
 data = Time.zone.now - 1.days
@@ -162,11 +162,11 @@ parceiro = Partner.zaptv
 parametro = Parametro.where(partner_id: parceiro.id).first
 
 if Rails.env == "development"
-  url = "#{parametro.url_integracao_desenvolvimento}/carregamento/#{venda.request_id}"
-  api_key = parametro.api_key_zaptv_desenvolvimento
+  url = "#{parametro.get.url_integracao_desenvolvimento}/carregamento/#{venda.request_id}"
+  api_key = parametro.get.api_key_zaptv_desenvolvimento
 else
-  url = "#{parametro.url_integracao_producao}/carregamento/#{venda.request_id}"
-  api_key = parametro.api_key_zaptv_producao
+  url = "#{parametro.get.url_integracao_producao}/carregamento/#{venda.request_id}"
+  api_key = parametro.get.api_key_zaptv_producao
 end
 
 res = HTTParty.delete(

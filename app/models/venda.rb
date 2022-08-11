@@ -156,11 +156,11 @@ class Venda < ApplicationRecord
     parceiro = Partner.zaptv
     parametro = Parametro.where(partner_id: parceiro.id).first
     if Rails.env == "development"
-      url = "#{parametro.url_integracao_desenvolvimento}/#{self.request_id}"
-      api_key = parametro.api_key_zaptv_desenvolvimento
+      url = "#{parametro.get.url_integracao_desenvolvimento}/#{self.request_id}"
+      api_key = parametro.get.api_key_zaptv_desenvolvimento
     else
-      url = "#{parametro.url_integracao_producao}/#{self.request_id}"
-      api_key = parametro.api_key_zaptv_producao
+      url = "#{parametro.get.url_integracao_producao}/#{self.request_id}"
+      api_key = parametro.get.api_key_zaptv_producao
     end
 
     begin
@@ -193,14 +193,14 @@ class Venda < ApplicationRecord
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"
-      url = "#{parametro.url_integracao_desenvolvimento}/#{self.request_id}"
-      api_key = parametro.api_key_zaptv_desenvolvimento
+      url = "#{parametro.get.url_integracao_desenvolvimento}/#{self.request_id}"
+      api_key = parametro.get.api_key_zaptv_desenvolvimento
     else
-      url = "#{parametro.url_integracao_producao}/#{self.request_id}"
-      api_key = parametro.api_key_zaptv_producao
+      url = "#{parametro.get.url_integracao_producao}/#{self.request_id}"
+      api_key = parametro.get.api_key_zaptv_producao
     end
 
-    if parametro.categoria.downcase == "wifi"
+    if parametro.get.categoria.downcase == "wifi"
       host = host.gsub("/carregamento",'/reversao')
     end
 
@@ -302,11 +302,11 @@ class Venda < ApplicationRecord
     request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
 
     if Rails.env == "development"
-      host = "#{parametro.url_integracao_desenvolvimento}"
-      api_key = parametro.api_key_zaptv_desenvolvimento
+      host = "#{parametro.get.url_integracao_desenvolvimento}"
+      api_key = parametro.get.api_key_zaptv_desenvolvimento
     else
-      host = "#{parametro.url_integracao_producao}"
-      api_key = parametro.api_key_zaptv_producao
+      host = "#{parametro.get.url_integracao_producao}"
+      api_key = parametro.get.api_key_zaptv_producao
     end
 
     body_send = {
@@ -316,7 +316,7 @@ class Venda < ApplicationRecord
       :source_reference => request_id, #meu código 
     }
 
-    if parametro.categoria.to_s.downcase == "wifi"
+    if parametro.get.categoria.to_s.downcase == "wifi"
       body_send[:telefone] = telefone
     else
       body_send[:zappi] = telefone #Iremos receber este numero
@@ -333,7 +333,7 @@ class Venda < ApplicationRecord
       :body => body_send, timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
@@ -454,7 +454,7 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Digite o Número SMS para envio do token de recarga") if params[:talao_sms_ende].blank?
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
   
-    host = Rails.env == "development" ? "#{parametro.url_integracao_desenvolvimento}" : "#{parametro.url_integracao_producao}"
+    host = Rails.env == "development" ? "#{parametro.get.url_integracao_desenvolvimento}" : "#{parametro.get.url_integracao_producao}"
     produto = Produto.find(params[:produto_id])
 
     uniq_number = EndeUniqNumber.create(data: Time.zone.now)
@@ -483,12 +483,12 @@ class Venda < ApplicationRecord
       <soapenv:Header/>
       <soapenv:Body>
       <sch:creditVendReq xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">
-        <clientID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.client_id}\"/>
-        <terminalID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.terminal_id}\"/>
+        <clientID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.get.client_id}\"/>
+        <terminalID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" xsi:type=\"EANDeviceID\" ean=\"#{parametro.get.terminal_id}\"/>
         <msgID xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\" dateTime=\"#{Time.zone.now.strftime("%Y%m%d%H%M%S")}\" uniqueNumber=\"#{uniq_number.unique_number}\"/>
         <authCred xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
-        <opName>#{parametro.operator_id}</opName>
-        <password>#{parametro.password}</password>
+        <opName>#{parametro.get.operator_id}</opName>
+        <password>#{parametro.get.password}</password>
         </authCred>
                             
         <idMethod xmlns=\"http://www.nrs.eskom.co.za/xmlvend/base/2.1/schema\">
@@ -629,13 +629,13 @@ class Venda < ApplicationRecord
     parametro = Parametro.where(partner_id: parceiro.id).first
 
     if Rails.env == "development"
-      url_service = parametro.url_integracao_desenvolvimento
-      agent_key = parametro.agent_key_movicel_desenvolvimento
-      user_id = parametro.user_id_movicel_desenvolvimento
+      url_service = parametro.get.url_integracao_desenvolvimento
+      agent_key = parametro.get.agent_key_movicel_desenvolvimento
+      user_id = parametro.get.user_id_movicel_desenvolvimento
     else
-      url_service = parametro.url_integracao_producao
-      agent_key = parametro.agent_key_movicel_producao
-      user_id = parametro.user_id_movicel_producao
+      url_service = parametro.get.url_integracao_producao
+      agent_key = parametro.get.agent_key_movicel_producao
+      user_id = parametro.get.user_id_movicel_producao
     end
 
     request_id = self.request_id
@@ -722,13 +722,13 @@ class Venda < ApplicationRecord
     require 'openssl'
 
     if Rails.env == "development"
-      url_service = parametro.url_integracao_desenvolvimento
-      agent_key = parametro.agent_key_movicel_desenvolvimento
-      user_id = parametro.user_id_movicel_desenvolvimento
+      url_service = parametro.get.url_integracao_desenvolvimento
+      agent_key = parametro.get.agent_key_movicel_desenvolvimento
+      user_id = parametro.get.user_id_movicel_desenvolvimento
     else
-      url_service = parametro.url_integracao_producao
-      agent_key = parametro.agent_key_movicel_producao
-      user_id = parametro.user_id_movicel_producao
+      url_service = parametro.get.url_integracao_producao
+      agent_key = parametro.get.agent_key_movicel_producao
+      user_id = parametro.get.user_id_movicel_producao
     end
 
     #producao
@@ -861,7 +861,7 @@ class Venda < ApplicationRecord
 
           last_request = request.body
 
-          venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+          venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
           venda.responsavel = usuario
           venda.save!
 
@@ -981,25 +981,25 @@ class Venda < ApplicationRecord
     transaction_number = Time.now.to_i
 
     if Rails.env == "development"
-      url_service = parametro.url_integracao_desenvolvimento
-      data_source = parametro.data_source_dstv_desenvolvimento
-      payment_vendor_code = parametro.payment_vendor_code_dstv_desenvolvimento
-      vendor_code = parametro.vendor_code_dstv_desenvolvimento
-      agent_account = parametro.agent_account_dstv_desenvolvimento
-      currency = parametro.currency_dstv_desenvolvimento
-      product_user_key = parametro.product_user_key_dstv_desenvolvimento
-      mop = parametro.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM "
-      agent_number = parametro.agent_number_dstv_desenvolvimento #122434345
+      url_service = parametro.get.url_integracao_desenvolvimento
+      data_source = parametro.get.data_source_dstv_desenvolvimento
+      payment_vendor_code = parametro.get.payment_vendor_code_dstv_desenvolvimento
+      vendor_code = parametro.get.vendor_code_dstv_desenvolvimento
+      agent_account = parametro.get.agent_account_dstv_desenvolvimento
+      currency = parametro.get.currency_dstv_desenvolvimento
+      product_user_key = parametro.get.product_user_key_dstv_desenvolvimento
+      mop = parametro.get.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM "
+      agent_number = parametro.get.agent_number_dstv_desenvolvimento #122434345
     else
-      url_service = parametro.url_integracao_producao
-      data_source = parametro.data_source_dstv_producao
-      payment_vendor_code = parametro.payment_vendor_code_dstv_producao
-      vendor_code = parametro.vendor_code_dstv_producao
-      agent_account = parametro.agent_account_dstv_producao
-      currency = parametro.currency_dstv_producao
-      product_user_key = parametro.product_user_key_dstv_producao
-      mop = parametro.mop_dstv_producao # mop = "CASH, MOBILE or ATM "
-      agent_number = parametro.agent_number_dstv_producao #122434345
+      url_service = parametro.get.url_integracao_producao
+      data_source = parametro.get.data_source_dstv_producao
+      payment_vendor_code = parametro.get.payment_vendor_code_dstv_producao
+      vendor_code = parametro.get.vendor_code_dstv_producao
+      agent_account = parametro.get.agent_account_dstv_producao
+      currency = parametro.get.currency_dstv_producao
+      product_user_key = parametro.get.product_user_key_dstv_producao
+      mop = parametro.get.mop_dstv_producao # mop = "CASH, MOBILE or ATM "
+      agent_number = parametro.get.agent_number_dstv_producao #122434345
     end
 
     request_send = ""
@@ -1067,7 +1067,7 @@ class Venda < ApplicationRecord
 
     last_request = request.body
     
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, customer_number: params[:dstv_number], usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, customer_number: params[:dstv_number], usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -1139,7 +1139,7 @@ class Venda < ApplicationRecord
     produto = Produto.find(product_id)
     telefone = params[:unitel_telefone]
 
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.unitel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.unitel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -1152,10 +1152,10 @@ class Venda < ApplicationRecord
     unitel_sequence = UnitelSequence.create(sequence_id: sequence_id)
 
     if Rails.env == "development"
-      make_sale_endpoint = "#{parametro.url_integracao_desenvolvimento}/spgw/V2/makeSale"
+      make_sale_endpoint = "#{parametro.get.url_integracao_desenvolvimento}/spgw/V2/makeSale"
       dados_envio = "./chaves/unitel_recarga.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.customer_number}' '#{make_sale_endpoint}'"
     else
-      make_sale_endpoint = "#{parametro.url_integracao_producao}/spgw/V2/makeSale"
+      make_sale_endpoint = "#{parametro.get.url_integracao_producao}/spgw/V2/makeSale"
       dados_envio = "./chaves/unitel_recarga_producao.sh '#{sequence_id}' '#{venda.produto_id_parceiro}' '#{venda.agent_id}' '#{venda.store_id}' '#{venda.seller_id}' '#{venda.terminal_id}' '#{valor_original}' '#{venda.customer_number}' '#{make_sale_endpoint}'"
     end
 
@@ -1199,14 +1199,117 @@ class Venda < ApplicationRecord
 
     return venda
   end
-
+  
   def lucro
-    
     venda.valor_original
     venda.desconto_aplicado 
     venda.lucro
     venda.value
+  end
 
+  
+
+  def self.venda_africell(params, usuario, ip)
+    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
+    product_id = params[:produto_id]
+    produto = Produto.find(product_id)
+    parceiro = produto.partner
+    valor = params[:valor].to_f
+
+    desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
+    
+    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
+    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
+    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
+    raise PagasoError.new("Digite o Telemóvel MSISDN") if params[:target_msisdn].blank?
+    raise PagasoError.new("Não é um número Africell") if params[:target_msisdn][0, 5] != "24495"
+   
+    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
+
+    jwt_token, parceiro, parametro, url_service = Africell.refresh_token
+
+    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
+    raise PagasoError.new("Token expirado") if jwt_token.blank?
+
+    url = "#{url_service}#{parametro.get.endpoint_HTTP_Recharge}"
+    uri = URI.parse(URI::Parser.new.escape(url))
+
+    transaction_reference = SecureRandom.uuid
+    # Amount is only used for product code 00 and parameter code
+    amount = produto.produto_id_parceiro == "00" ? produto.valor_compra_telemovel : ""
+    body = {
+      'ProductCode': produto.produto_id_parceiro,
+      'ParameterCode': (produto.subtipo.upcase == "AFRICELL VOZ" ? "01" : "02"),
+      'Amount': amount,
+      'TargetMSISDN': params[:target_msisdn],
+      'TransactionReference': transaction_reference
+    }.to_json
+
+    res = HTTParty.post(uri, 
+      :headers => {
+        'Content-Type' => 'application/json',
+        'Authorization' => jwt_token,
+      },
+      body: body,
+      timeout: DEFAULT_TIMEOUT.to_i.seconds
+    )
+
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_reference, customer_number: params[:target_msisdn], usuario_id: usuario.id, partner_id: parceiro.id)
+    venda.responsavel = usuario
+    venda.save!
+    
+    venda.store_id = usuario.sub_agente.store_id_parceiro
+    venda.seller_id = usuario.sub_agente.seller_id_parceiro
+    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+
+    venda.request_send = "#{url} ---------- body=#{body}"
+    venda.response_get = res.body
+
+    begin
+      venda.status = JSON.parse(res.body)["StatusCode"]
+    rescue;end
+
+    venda.status ||= res.code
+    venda.save!
+
+    if venda.sucesso?
+      cc = ContaCorrente.where(usuario_id: usuario.id).first
+      if cc.blank?
+        banco = Banco.first
+        iban = ""
+      else
+        iban = cc.iban
+        banco = cc.banco
+      end
+
+      lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first
+      lancamento = Lancamento.first if lancamento.blank?
+
+      conta_corrente = ContaCorrente.new(
+        usuario_id: usuario.id,
+        valor: "-#{valor}",
+        observacao: "Compra de recarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+        lancamento_id: lancamento.id,
+        banco_id: (banco.id rescue Banco.first.id),
+        partner_id: parceiro.id,
+        iban: iban,
+        venda_id: venda.id
+      )
+      conta_corrente.responsavel = usuario
+      conta_corrente.save!
+    end
+
+    return venda
+  rescue PagasoError => e
+    raise "#{e.message} - #{e.backtrace}"
+  rescue Net::ReadTimeout => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Net::OpenTimeout => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Errno::ETIMEDOUT => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Exception => e
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
   end
 
   before_save do 
