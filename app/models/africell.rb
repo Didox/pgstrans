@@ -168,6 +168,31 @@ class Africell
 =end
   end
 
+  def self.check_transaction_log
+    jwt_token, parceiro, parametro, url_service = Africell.refresh_token
+    url = "#{url_service}#{parametro.get.endpoint_HTTP_CheckTransactionLog}"
+    uri = URI.parse(URI::Parser.new.escape(url))
+    
+    body = {
+      #'TargetMSISDN': '244959560801',
+      'TargetMSISDN': params[:target_msisdn],
+      'TransactionReference': '3860b99f-14df-4151-81b4-bbda10fdeba5',
+      'TransactionId': '5',
+      'Status': '',
+      'Limit': 20,
+    }.to_json
+
+    request = HTTParty.get(uri, 
+      :headers => {
+        'Content-Type' => 'application/json',
+        'Authorization' => jwt_token,
+      },
+      body: body
+    )
+
+    request
+  end
+
   def self.parametros
     parceiro = Partner.africell
     parametro = Parametro.where(partner_id: parceiro.id).first
