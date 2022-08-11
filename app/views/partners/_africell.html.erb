@@ -1,8 +1,9 @@
-    <% if @adm.id == Usuario::ROOT %>
+    <% if @adm.id == Usuario::ROOT || @adm.admin? %>
       <%= link_to partner_atualiza_africell_login_path(@partner), 
       class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
         Gera OTP Login
       <% end %>
+      <%= " - Última atualização em: #{saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
       <hr>
     <% end %>
 
