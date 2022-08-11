@@ -1,18 +1,18 @@
+    <hr>
     <% if @adm.id == Usuario::ROOT || @adm.admin? %>
       <%= link_to partner_atualiza_africell_login_path(@partner), 
       class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
         Gera OTP Login
       <% end %>
-      <br>
-      <p>Última atualização em: <%= AfricellLogin.order("id desc").first.created_at.strftime("%d/%m/%Y %H:%M:%S") rescue ""%></p>
+      Última atualização em: <%= AfricellLogin.order("id desc").first.created_at.strftime("%d/%m/%Y %H:%M:%S") rescue ""%>
     <% end %>
-
+    <hr>
     <%= link_to partner_atualiza_saldo_path(@partner), class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
         Atualizar saldo
     <% end %>
     <% saldo = @partner.ultimo_saldo 
         if saldo.present? %>
-        <%= " - Última atualização em: #{saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
+        <%= " Última atualização em: #{saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S")}" rescue "" %>
         <hr>
         <style>
           .saldo-table-africell{
@@ -31,7 +31,7 @@
         </style>
         <table class="saldo-table-africell">
           <tr>
-            <td>
+            <td style="width: 30%">
               Saldo
             </td>
             <td>
@@ -51,8 +51,8 @@
               Data e Hora da Consulta
             </td>
             <td>
-              <%= saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S") %>
+              <%= saldo.updated_at.strftime("%d/%m/%Y %H:%M:%S") rescue "" %>
             </td>
           </tr>
-        </table>
+      </table>
   <% end %>
