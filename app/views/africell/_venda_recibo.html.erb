@@ -4,14 +4,14 @@
       <div class="card-header">
         <div class="col-md-12" style="margin-bottom: 20px; font-weight: bold; text-align: center">
           <ul style="list-style-type: none;">
-            <li><h2>Pagasó</h2></li>
-            <li>title</li>
-            <li>Africell</li>
+            <img style="width: 24px;" src="https://www.pagaso.co.ao/<%= asset_path('favicon.png') %>">
+            <li>Recibo de Venda Africell</li>
           </ul>
         </div>
-        <div class="col-md-12" style="text-align: center">
-          <img style="width: 24px;" src="https://www.pagaso.co.ao/<%= asset_path('favicon.png') %>">
+        <div class="col-md-12" style="text-align: center">      
           <hr>
+          <%= params[:target_msisdn] %>
+          <b>Número do Cliente/Customer Number</b>: <%= params["customer_number"] %>
           Nome do Usuário
           Login do Usuário
           Data e Hora da Recarga
