@@ -17,7 +17,6 @@ class Africell
     url = "#{url_service}/#{parametro.get.endpoint_HTTP_Login}"
     uri = URI.parse(URI::Parser.new.escape(url))
 
-    #basic_base64_authentication = ENV['BASIC_BASE64_AUTHENTICATION']
     basic_base64_authentication = "#{parametro.get.basic_base64_authentication}"
 
     request = HTTParty.get(uri, 
