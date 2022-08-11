@@ -5,19 +5,20 @@
         <div class="col-md-12" style="margin-bottom: 20px; font-weight: bold; text-align: center">
           <ul style="list-style-type: none;">
             <img style="width: 24px;" src="https://www.pagaso.co.ao/<%= asset_path('favicon.png') %>">
-            <li>Recibo de Venda Africell</li>
+            <li>Recibo de Venda</li>
+            <li>AFRICELL</li>
           </ul>
         </div>
         <div class="col-md-12" style="text-align: center">      
           <hr>
-          <%= params[:target_msisdn] %>
+          Agente: <%= venda.usuario.nome %>
           <b>Número do Cliente/Customer Number</b>: <%= params["customer_number"] %>
           Nome do Usuário
           Login do Usuário
           Data e Hora da Recarga
           <hr>
           RECARGA ELECTRÓNICA AFRICELL
-          Nr Telemóvel
+          Nr Telemóvel: <%= params[:target_msisdn] %>
           Código e Nome do Produto
           Valor
           ID da Transação (UUID)
