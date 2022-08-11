@@ -3,6 +3,7 @@
       class: 'btn btn-danger', data: { confirm: 'Tem Certeza?' } do %>
         Gera OTP Login
       <% end %>
+      <br>
       <p>Última atualização em: <%= AfricellLogin.order("id desc").first.created_at.strftime("%d/%m/%Y %H:%M:%S") rescue ""%></p>
     <% end %>
 
