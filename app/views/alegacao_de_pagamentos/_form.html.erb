@@ -63,11 +63,11 @@
           <script>
             const validaDeposito = function (valor) {
               <% 
-              opcoes_js = opcoes.map{|o| o[1].to_i }
+              opcoes_js = opcoes.map{|o| o[1].to_f }
               opcoes_js.delete(0)
               %>
               const opcoes = <%= opcoes_js %>
-              if(opcoes.indexOf(valor) == -1){
+              if(valor != "" && valor != undefined && valor != null && opcoes.indexOf(parseFloat(valor)) == -1){
                 $("#outro_valor_deposito").show()
                 $("#alegacao_de_pagamento_valor_deposito").hide()
               }
