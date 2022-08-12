@@ -11,22 +11,21 @@
     <table class="table table-hover">
       <thead>
         <tr>
-                    <th scope="col">Titulo</th>
-                    <th scope="col">Mensagem</th>
-                    <th scope="col">Validade inicio</th>
-                    <th scope="col">Validade fim</th>
-                    <th colspan="3"></th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Mensagem</th>
+            <th scope="col">Validade inicio</th>
+            <th scope="col">Validade fim</th>
+            <th colspan="3"></th>
         </tr>
       </thead>
 
       <tbody>
         <% @modal_informativos.each do |modal_informativo| %>
         <tr>
-                    <td><%= modal_informativo.titulo %></td>
-                    <td><%= modal_informativo.mensagem %></td>
-                    <td><%= modal_informativo.validade_inicio %></td>
-                    <td><%= modal_informativo.validade_fim %></td>
-                    <td><%= link_to 'Mostrar', modal_informativo %></td>
+            <td><%= modal_informativo.titulo %></td>
+            <td><%= modal_informativo.mensagem %></td>
+            <td><%= modal_informativo.ativa %></td>
+            <td><%= link_to 'Mostrar', modal_informativo %></td>
           <td><%= link_to 'Editar', edit_modal_informativo_path(modal_informativo) %></td>
           <td><%= link_to 'Apagar', modal_informativo, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>

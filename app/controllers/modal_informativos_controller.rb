@@ -25,7 +25,7 @@ class ModalInformativosController < ApplicationController
 
     respond_to do |format|
       if @modal_informativo.save
-        format.html { redirect_to modal_informativo_url(@modal_informativo), notice: "Modal informativo was successfully created." }
+        format.html { redirect_to modal_informativo_url(@modal_informativo), notice: "Mensagem para o Modal Informativo criada com sucesso." }
         format.json { render :show, status: :created, location: @modal_informativo }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class ModalInformativosController < ApplicationController
   def update
     respond_to do |format|
       if @modal_informativo.update(modal_informativo_params)
-        format.html { redirect_to modal_informativo_url(@modal_informativo), notice: "Modal informativo was successfully updated." }
+        format.html { redirect_to modal_informativo_url(@modal_informativo), notice: "Mensagem para o Modal Informativo alterada com sucesso." }
         format.json { render :show, status: :ok, location: @modal_informativo }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class ModalInformativosController < ApplicationController
     @modal_informativo.destroy
 
     respond_to do |format|
-      format.html { redirect_to modal_informativos_url, notice: "Modal informativo was successfully destroyed." }
+      format.html { redirect_to modal_informativos_url, notice: "Mensagem para o Modal Informativo apagada com sucesso." }
       format.json { head :no_content }
     end
   end
@@ -65,6 +65,6 @@ class ModalInformativosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def modal_informativo_params
-      params.require(:modal_informativo).permit(:titulo, :mensagem, :validade_inicio, :validade_fim)
+      params.require(:modal_informativo).permit(:titulo, :mensagem, :ativa)
     end
 end
