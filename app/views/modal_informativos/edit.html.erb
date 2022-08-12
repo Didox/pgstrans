@@ -1,0 +1,19 @@
+<div class="col-md-12 scroltable">
+  <div class="col-md-12"> 
+    <h3>Edição de Mensagens para o Modal Informativo</h3>
+  </div>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+  <%= render 'form' %>
+  <div class="col-md-12">
+    <%= link_to @modal_informativo, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-info-sign"></span>
+      Mostrar
+    <% end %>
+    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>
+  </div>
+</div>

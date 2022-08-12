@@ -1,0 +1,50 @@
+<div class="col-md-12" data-target="toggle.grid">
+  <div class="card border-simpleform box-shadow mb-4">
+    <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
+      <div>
+        <strong>Mensagens Apresentadas no Modal Informativo</strong><br />
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-bootstrap box-shadow mb-4">
+    <div class="card-header text-bootstrap align-items-center justify-content-between">
+      
+      <%= simple_form_for(@modal_informativo, html: { class: "form-horizontal", role: "form" }) do |f| %>
+        <% if @modal_informativo.errors.any? %>
+          <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4><%= pluralize(@modal_informativo.errors.count, "erros") %> no modal_informativo, confira abaixo:</h4>
+
+            <ul>
+            <% @modal_informativo.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-input col-sm-12">
+          <%= f.input :titulo, :label => "Título da Mensagem", placeholder: "Título da Mensagem" %>
+        </div>
+
+        <div class="form-input col-sm-12">
+          <%= f.input :mensagem, input_html: {style: 'height:200px !important;'} %>
+        </div>
+ 
+        <div class="form-input col-sm-6">
+            <%= f.label :ativa, :label => "Marque se deve estar visível para os usuários" %>
+            <%= f.check_box :ativa %>
+        </div>
+
+        <div class="form-actions col-sm-12">
+          <%= f.button :button, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-ok"></span>
+            Confirmar
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

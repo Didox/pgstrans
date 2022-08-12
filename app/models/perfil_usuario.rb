@@ -178,6 +178,8 @@ class PerfilUsuario < ApplicationRecord
       loop_logs: "Logs do Programa de Repetição/Looping para coleta de logs",
       alegacao_de_pagamentos: "Cadastro de Alegações de Pagamentos",
       status_alegacao_de_pagamentos: "Tabela de Situações Possíveis para Alegação de Pagamentos",
+      status_alegacao_de_pagamentos: "Tabela de Situações Possíveis para Alegação de Pagamentos",
+      modal_informativos: "Modal Informativo",
     }
     nomes[controller.to_sym]
   end

@@ -5,6 +5,15 @@ class MenusController < ApplicationController
   # GET /menus.json
   def index
     @menus = Menu.all
+
+    @menus = @menus.where("menus.secao ilike '%#{params[:secao].remove_injection}%'") if params[:secao].present?
+    @menus = @menus.where("menus.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
+    @menus = @menus.where("menus.ordem_secao = ?", params[:ordem_secao]) if params[:ordem_secao].present?
+    @menus = @menus.where("menus.ordem_item = ?", params[:ordem_item]) if params[:ordem_item].present?
+
+    options = {page: params[:page] || 1, per_page: 10}
+    @menus = @menus.paginate(options)
+
   end
 
   # GET /menus/1

@@ -81,7 +81,7 @@
         <% end %>
       <% end %>
 
-      <% if @adm.id == Usuario::ROOT %>
+      <% if usuario_logado.admin? %>
         <br>
         <dt>Request send:</dt>
         <dd><%= @venda.request_send %></dd>
