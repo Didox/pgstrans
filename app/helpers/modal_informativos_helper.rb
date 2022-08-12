@@ -1,0 +1,2 @@
+module ModalInformativosHelper
+end

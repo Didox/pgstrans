@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :modal_informativos
   resources :email_historico_envios
   resources :sms_historico_envios
   resources :ip_api_autorizados

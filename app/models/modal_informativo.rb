@@ -1,0 +1,2 @@
+class ModalInformativo < ApplicationRecord
+end
