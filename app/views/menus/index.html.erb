@@ -1,11 +1,65 @@
 <div class="col-md-12">
   <div class="col-md-12">
     <p id="notice"><%= notice %></p>
-    <h3>Itens de Composição do Menu Backoffice</h3>
+    <h3>Composição do Menu Backoffice</h3>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
+
+  <form action="" method="get" id="formApuracao">
+    <% if @adm.id == Usuario::ROOT %>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Nome da Seção</label>
+          <div>
+            <input type="text" name="secao" value="<%= params[:secao] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Nome do Item</label>
+          <div>
+            <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Ordem da Seção</label>
+          <div>
+            <input type="text" name="ordem_secao" value="<%= params[:ordem_secao] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Ordem do Item na Seção</label>
+          <div>
+            <input type="text" name="ordem_item" value="<%= params[:ordem_item] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <div style="float: right;margin-right:10px">
+        <input type="submit" value="Buscar" class="btn btn-info">
+
+        <%= link_to new_menu_path, class: 'btn btn-success' do %>
+          <span class="glyphicon glyphicon-plus"></span>
+          Novo Registo
+        <% end %>    
+
+        <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-list-alt"></span>
+          Voltar
+        <% end %>
+
+      </div>
+    </div>
+  </form>
+
 
   <div class="col-md-12 scroltable">
     <table class="table table-hover">
@@ -29,8 +83,8 @@
           <td><%= menu.nome %></td>
           <td><%= menu.controller %></td>
           <td><%= menu.action %></td>
-          <td><%= menu.ordem_secao %></td>
-          <td><%= menu.ordem_item %></td>
+          <td class="text-center"><%= menu.ordem_secao %></td>
+          <td class="text-center"><%= menu.ordem_item %></td>
           <td><%= menu.link %></td>
           <td><%= link_to 'Mostrar', menu %></td>
           <td><%= link_to 'Editar', edit_menu_path(menu) %></td>
@@ -48,5 +102,9 @@
         <span class="glyphicon glyphicon-plus"></span>
         Novo Registo
       <% end %>    
+    </div>
+
+    <div class="apple_pagination">
+      <%= will_paginate @usuarios, :container => false %>
     </div>
 </div>
