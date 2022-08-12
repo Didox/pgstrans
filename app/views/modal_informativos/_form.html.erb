@@ -2,7 +2,7 @@
   <div class="card border-simpleform box-shadow mb-4">
     <div class="card-header text-simpleform d-flex align-items-center justify-content-between">
       <div>
-        <strong>Mensagem Apresentadas no Modal Informativo</strong><br />
+        <strong>Mensagens Apresentadas no Modal Informativo</strong><br />
       </div>
     </div>
   </div>
@@ -29,16 +29,15 @@
         </div>
 
         <div class="form-input col-sm-12">
-          <%= f.input :mensagem, :label => "Mensagem do Modal", placeholder: "Mensagem do Modal" %>
+          <%= f.input :mensagem, input_html: {style: 'height:200px !important;'} %>
         </div>
-
-        <div class="form-input col-sm-2">
-            <%= f.label :ativa, :label => "Mensagem Ativa?" %>
+ 
+        <div class="form-input col-sm-6">
+            <%= f.label :ativa, :label => "Marque se deve estar visível para os usuários" %>
             <%= f.check_box :ativa %>
         </div>
 
-      </div>
-      <div class="form-actions col-sm-12">
+        <div class="form-actions col-sm-12">
           <%= f.button :button, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-ok"></span>
             Confirmar
@@ -48,3 +47,4 @@
     </div>
   </div>
 </div>
+

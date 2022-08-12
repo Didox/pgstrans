@@ -3,7 +3,16 @@ class ModalInformativosController < ApplicationController
 
   # GET /modal_informativos or /modal_informativos.json
   def index
-    @modal_informativos = ModalInformativo.all
+    #@modal_informativos = ModalInformativo.all
+    @modal_informativos = ModalInformativo.com_acesso(usuario_logado).order(created_at: :asc)
+
+    @modal_informativos = @modal_informativos.where("titulo ilike '%#{params[:titulo].remove_injection}%'") if params[:titulo].present?
+    @modal_informativos = @modal_informativos.where("mensagem ilike '%#{params[:mensagem].remove_injection}%'") if params[:mensagem].present?
+    @modal_informativos = @modal_informativos.where("ativa = ?", params[:ativa]) if params[:ativa].present?
+    
+    options = {page: params[:page] || 1, per_page: 10}
+    @modal_informativos = @modal_informativos.paginate(options)
+
   end
 
   # GET /modal_informativos/1 or /modal_informativos/1.json
@@ -22,6 +31,7 @@ class ModalInformativosController < ApplicationController
   # POST /modal_informativos or /modal_informativos.json
   def create
     @modal_informativo = ModalInformativo.new(modal_informativo_params)
+    @modal_informativo.responsavel = usuario_logado
 
     respond_to do |format|
       if @modal_informativo.save
@@ -61,6 +71,7 @@ class ModalInformativosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_modal_informativo
       @modal_informativo = ModalInformativo.find(params[:id])
+      @modal_informativo.responsavel = usuario_logado
     end
 
     # Only allow a list of trusted parameters through.
