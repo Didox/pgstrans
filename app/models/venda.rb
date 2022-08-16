@@ -1236,7 +1236,11 @@ class Venda < ApplicationRecord
 
     transaction_reference = SecureRandom.uuid
     # Amount is only used for product code 00 and parameter code
-    amount = produto.produto_id_parceiro == "00" ? produto.valor_compra_telemovel : ""
+    if produto.produto_id_parceiro == "00" && produto.parameter_code_africell : "00"
+       amount = params[:valor].to_f
+    else 
+      amount = 0
+    end
     body = {
       'ProductCode': produto.produto_id_parceiro,
       #'ParameterCode': (produto.subtipo.upcase == "AFRICELL VOZ" ? "01" : "02"),
