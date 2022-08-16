@@ -134,12 +134,14 @@
                 Venda de Crédito
               </a>
             </li>
-            <li>
-              <hr>
-              <a href="/africell/impressao_recibo">
-                Impressão do Recibo de Venda
-              </a>
-            </li>
+            <% if @adm.id == Usuario::ROOT %>
+              <li>
+                <hr>
+                <a href="/africell/impressao_recibo">
+                  Impressão do Recibo de Venda
+                </a>
+              </li>
+            <% end %>
             <li>
               <hr>
               <a href="/africell/confirmacao_transacao">

@@ -64,6 +64,12 @@
         <dt>Subtipo do Produto no Parceiro:</dt>
         <dd><%= @produto.subtipo %></dd>
       </div>
+      <% if @produto.partner.slug == "africell" %>
+        <div class="col-sm-12">
+          <dt>Parameter Code:</dt>
+          <dd><%= @produto.parameter_code_africell %></dd>
+        </div>
+      <% end %>
       <div class="col-sm-12">
         <dt>Mensagem cupom venda:</dt>
         <dd><%= @produto.mensagem_cupom_venda %></dd>
