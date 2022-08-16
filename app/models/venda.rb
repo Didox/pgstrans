@@ -1239,7 +1239,8 @@ class Venda < ApplicationRecord
     amount = produto.produto_id_parceiro == "00" ? produto.valor_compra_telemovel : ""
     body = {
       'ProductCode': produto.produto_id_parceiro,
-      'ParameterCode': (produto.subtipo.upcase == "AFRICELL VOZ" ? "01" : "02"),
+      #'ParameterCode': (produto.subtipo.upcase == "AFRICELL VOZ" ? "01" : "02"),
+      'ParameterCode': produto.parameter_code_africell,
       'Amount': amount,
       'TargetMSISDN': params[:target_msisdn],
       'TransactionReference': transaction_reference
