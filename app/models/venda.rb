@@ -1236,7 +1236,7 @@ class Venda < ApplicationRecord
 
     transaction_reference = SecureRandom.uuid
     # Amount is only used for product code 00 and parameter code
-    if produto.produto_id_parceiro == "00" && produto.parameter_code_africell : "00"
+    if produto.produto_id_parceiro == "00" && produto.parameter_code_africell == "00"
        amount = params[:valor].to_f
     else 
       amount = 0
