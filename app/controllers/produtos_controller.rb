@@ -158,6 +158,6 @@ class ProdutosController < ApplicationController
       params.require(:produto).permit(:partner_id, :description, :status_produto_id, :valor_compra_telemovel, 
         :valor_compra_site, :valor_compra_pos, :valor_compra_tef, 
         :mensagem_cupom_venda, :moeda_id, :produto_id_parceiro, :categoria,
-        :valor_unitario, :tipo, :subtipo, :data_vigencia, :nome_comercial)
+        :valor_unitario, :tipo, :subtipo, :data_vigencia, :nome_comercial, :parameter_code_africell)
     end
 end

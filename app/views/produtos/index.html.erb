@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="form-group">
           <label>Nome do Produto na Operadora</label>
           <div>
@@ -32,11 +32,19 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="form-group">
           <label>Nome Comercial do Produto</label>
           <div>
             <input type="text" name="nome_comercial" value="<%= params[:nome_comercial] %>" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Parameter Code Africell</label>
+          <div>
+            <input type="text" name="parameter_code_africell" value="<%= params[:parameter_code_africell] %>" class="form-control">
           </div>
         </div>
       </div>
@@ -211,7 +219,11 @@
             <b>Tipo</b> <br>
             <%= produto.tipo %></br>
             <b>Subtipo</b> <br>
-            <%= produto.subtipo %></br></br>
+            <%= produto.subtipo %></br>
+            <% if produto.partner.slug == "africell" %>
+              <b>Parameter Code</b> <br>
+              <%= produto.parameter_code_africell %></br></br>
+            <% end %>
           </td>
           <td style="width: 230px">
             <b>Criação</b><br>
