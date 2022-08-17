@@ -1236,8 +1236,10 @@ class Venda < ApplicationRecord
 
     transaction_reference = SecureRandom.uuid
     if produto.parameter_code_africell == "00" && produto.produto_id_parceiro == "00"
+      puts "===========Amount[#{valor_original}] - [00-00]============="
       amount = valor_original
     else
+      puts "===========Amount: []============="
       amount = ""
     end
 
