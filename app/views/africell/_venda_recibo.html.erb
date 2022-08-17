@@ -7,15 +7,18 @@
           Recibo de Venda<br>
           AFRICELL<br>
           <hr>
-          <b>Nome do Agente</b>: <%= params["customer_number"] %><br>
-          <b>ID do Agente</b>: <%= params["customer_number"] %><br>
-          <b>Data e Hora</b>: <%= params["customer_number"] %><br>
-          <hr>
-          <strong>RECARGA ELECTRÓNICA AFRICELL</strong><br>
-          <b>Nr do Telemóvel: <%= params[:target_msisdn] %><br>
-          <b>Produto: <%= params["customer_number"] %><br>
-          <b>Valor: <%= params["customer_number"] %><br>
-          <b>ID Transação: <%= params["customer_number"] %><br>
+          <% result = JSON.parse(@venda.response_get) rescue nil %>
+          <% if result.present? %>
+            <b>Nome do Agente</b>: <%= @venda.usuario.nome %><br>
+            <b>ID do Agente</b>: <%= @venda.usuario.login %><br>
+            <b>Data e Hora</b>: <%= @venda.created_at %><br>
+            <hr>
+            <strong>RECARGA ELECTRÓNICA AFRICELL</strong><br>
+            <b>Nr do Telemóvel: <%= params[:target_msisdn] %><br>
+            <b>Produto: <%= params["customer_number"] %><br>
+            <b>Valor: <%= @venda.valor %><br>
+            <b>ID Transação: <%= params["customer_number"] %><br>
+          <% end %>
           <hr>
           Pagasó - Sistemas de Pagamentos
         </div>
