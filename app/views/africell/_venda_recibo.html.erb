@@ -15,9 +15,10 @@
             <hr>
             <strong>RECARGA ELECTRÓNICA AFRICELL</strong><br>
             <b>Nr do Telemóvel: <%= params[:target_msisdn] %><br>
-            <b>Produto: <%= params["customer_number"] %><br>
-            <b>Valor: <%= @venda.valor %><br>
-            <b>ID Transação: <%= params["customer_number"] %><br>
+            <b>Produto: <%= @venda.product_id %><br>
+            <b>Produto: <%= @venda.product_id.nome_comercial %><br>
+            <b>Valor: <%= @venda.value %><br>
+            <b>ID Transação: <%= @venda.audit_reference_number %><br>
           <% end %>
           <hr>
           Pagasó - Sistemas de Pagamentos
