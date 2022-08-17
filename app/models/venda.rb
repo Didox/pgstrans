@@ -1235,11 +1235,16 @@ class Venda < ApplicationRecord
     uri = URI.parse(URI::Parser.new.escape(url))
 
     transaction_reference = SecureRandom.uuid
-    # Amount is only used for product code 00 and parameter code
-    amount = produto.produto_id_parceiro == "00" ? produto.valor_compra_telemovel : ""
+    if produto.parameter_code_africell == "00" && produto.produto_id_parceiro == "00"
+      puts "===========Amount[#{valor_original}] - [00-00]============="
+      amount = valor_original
+    else
+      puts "===========Amount: []============="
+      amount = ""
+    end
+
     body = {
       'ProductCode': produto.produto_id_parceiro,
-      #'ParameterCode': (produto.subtipo.upcase == "AFRICELL VOZ" ? "01" : "02"),
       'ParameterCode': produto.parameter_code_africell,
       'Amount': amount,
       'TargetMSISDN': params[:target_msisdn],
