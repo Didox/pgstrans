@@ -12,6 +12,46 @@
 		<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "vendas" && params[:action] == "consolidado" %>active_menu<% end %>">Consolidado</h1>
 	</a>
 <% end %>
+<% if usuario_logado.admin? || usuario_logado.operador? %>
+	<button class="btn btn-sucess menu_recarga" 
+			type="button" 
+			data-toggle="dropdown">ENDE
+			<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu">
+		<li><a href="/ende/venda-teste">
+			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "venda-teste" %>active_menu<% end %>">Simulação de Venda</h1>
+		</a></li>
+		<li><a href="/ende/reprint">
+			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "reprint" %>active_menu<% end %>">Reimpressão Recibo</h1>
+		</a></li>
+		<li><a href="/ende/pagamento-de-conta">
+			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "pagamento_de_conta" %><% end %>">Pagamento de Conta</h1>
+		</a></li>
+		<% if @adm.id == Usuario::ROOT %>
+			<li><a href="/ende/confirmar-cliente">
+				<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "confirmar_cliente" %><% end %>">Confirmar Cliente</h1>
+			</a></li>
+			<li><a href="/ende/last-advice">
+				<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "last_advice" %><% end %>">Last Advice</h1>
+			</a></li>
+		<% end %>
+	</ul>
+	<!--button class="btn btn-sucess menu_recarga" 
+			type="button" 
+			data-toggle="dropdown">AFRICELL
+			<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu">
+		<li><a href="/africell/impressao_recibo">
+			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "africell" && params[:action] == "impressao_recibo" %>active_menu<% end %>">Impressão do Recibo de Venda</h1>
+		</a></li>
+		<li><a href="/africell/confirmacao_transacao">
+			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "africell" && params[:action] == "confirmacao_transacao" %>active_menu<% end %>">Confirmacao Transação de Recarga</h1>
+		</a></li>
+	</ul-->
+<% end %>
+
 <% if PerfilUsuario.where("lower(nome) != '%vendedor%'") %>
 	<% if PerfilUsuario.tem_acesso?(usuario_logado, :BackofficeController, :index) %>
 	<a href="<%= backoffice_index_path %>">

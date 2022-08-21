@@ -115,12 +115,12 @@ pgstrans.displayRecarga = (tipo) => {
     $(".recarga #recarga").hide();
   }
   else if(tipo.toLowerCase() == "ende"){
-    $(".recarga #ENDEMenu").show();
-    $(".recarga #recarga").hide();
+    $(".recarga #ENDEMenu").hide();
+    $(".recarga #recarga").show();
   }
   else if(tipo.toLowerCase() == "africell"){
-    $(".recarga #AfricellMenu").show();
-    $(".recarga #recarga").hide();
+    $(".recarga #AfricellMenu").hide();
+    $(".recarga #recarga").show();
   }
   
   $(".clearFieldjs").val("")
