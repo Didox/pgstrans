@@ -84,6 +84,16 @@ Exemplo de venda válida
 
 └─(14:08:02 on master ✹)──> curl -X POST http://10.250.80.74:9214/HTTP_Recharge/ -H "Content-Type: application/json" -H "Authorization: Bearer eyJMb2dpbiI6IlBhZ2FTT0FkbWluIiwiVG9rZW5UeXBlIjoiUmVmcmVzaCIsImFsZyI6IlBTNTEyIiwidHlwIjoiSldTIn0.eyJTb3VyY2VJUCI6IjE3Mi4yNi4xMC42IiwiVXNlckluZm8iOnsiQ2FuQ3JlYXRlQVBJVXNlciI6ZmFsc2UsIkNhbkV4ZWN1dGVCYWxDaGVjayI6dHJ1ZSwiQ2FuRXhlY3V0ZVJlY2hhcmdlIjp0cnVlLCJDYW5FeGVjdXRlU3RhdGVtZW50Ijp0cnVlLCJFbWFpbCI6InJvc2kudm9sZ2FyaW5AdGl2LXRlY25vbG9naWEuY29tIiwiRmlyc3ROYW1lIjoiUGFnYVNPIiwiTGFzdE5hbWUiOiJQYWdhU08iLCJNaWRkbGVOYW1lIjoiIiwiUGhvbmUiOiIiLCJUaGlyZFBhcnR5TmFtZSI6IlBhZ2FTTyJ9LCJhdWQiOlsiQWZyaWNlbGwiLCJQYWdhU08iXSwiZXhwIjoxNjYxMzYzMjg2LCJpYXQiOjE2NjA3NTg0ODYsImlzcyI6ImFmcl9hb190Z3ciLCJqdGkiOiIxMjIiLCJzdWIiOiJBZnJpY2VsbCBUR1cgQmVhcmVyIHRva2VuIn0.egGT5cxNJ33ifoVepy5yBPJUqxpMVBihIT1UrpXtTHbuUIZRuHw-4lykkg0d5fUMYLpdTXfXOpOMBgBRF0E-dDJSC53hVBU4yBprOabWRGlmwV8TbRAg7NOMpLNeqVL_ZzQw2Liakb1YbpimVztg3d2pgbyRDt7GWbNzTVie8S6HYLFcbGETEqYnhl_RycDOq3Xbwx2fk-CAMVw705U1wdzEv6VkmBgy8RVhvs7Ln9l7WYI9X9ucsxFcqpfvly3tQpWjmbKmhw245P5H3-EVvwbDeL9RPRW3Kkwnhy8qmRhi0eYYriGGNlN-TLrnHmKrPcHq9ch4K_6FPZDE60TYCQ" -d '{"ProductCode":"00", "ParameterCode":"00", "Amount":"50", "TargetMSISDN":"244959560801", "TransactionReference":"1"}'
 
+
+Tentativa Valor Variável
+
+curl -X POST http://10.250.80.74:9214/HTTP_Recharge/ -d '{"ProductCode":"00", "ParameterCode":"00", "Amount":"10", "TargetMSISDN":"244959560801", "TransactionReference":"111111"}' -H "Content-Type: application/json" -H "Authorization: Bearer eyJMb2dpbiI6IlBhZ2FTT0FkbWluIiwiVG9rZW5UeXBlIjoiUmVmcmVzaCIsImFsZyI6IlBTNTEyIiwidHlwIjoiSldTIn0.eyJTb3VyY2VJUCI6IjE3Mi4yNi4xMC42IiwiVXNlckluZm8iOnsiQ2FuQ3JlYXRlQVBJVXNlciI6ZmFsc2UsIkNhbkV4ZWN1dGVCYWxDaGVjayI6dHJ1ZSwiQ2FuRXhlY3V0ZVJlY2hhcmdlIjp0cnVlLCJDYW5FeGVjdXRlU3RhdGVtZW50Ijp0cnVlLCJFbWFpbCI6InJvc2kudm9sZ2FyaW5AdGl2LXRlY25vbG9naWEuY29tIiwiRmlyc3ROYW1lIjoiUGFnYVNPIiwiTGFzdE5hbWUiOiJQYWdhU08iLCJNaWRkbGVOYW1lIjoiIiwiUGhvbmUiOiIiLCJUaGlyZFBhcnR5TmFtZSI6IlBhZ2FTTyJ9LCJhdWQiOlsiQWZyaWNlbGwiLCJQYWdhU08iXSwiZXhwIjoxNjYxNzEwNzE2LCJpYXQiOjE2NjExMDU5MTYsImlzcyI6ImFmcl9hb190Z3ciLCJqdGkiOiIxMjUiLCJzdWIiOiJBZnJpY2VsbCBUR1cgQmVhcmVyIHRva2VuIn0.hrZX0mTEM6CgKEIDgsP2r_omWvC4_27nUzGSfeB5nRoQHhWaZ0uMsWt5IcTYMLm_YL7I86Pf6sGV_SIIFjPtpj8p08MdmNW7j0DeozeDZA-v8R-BaPMw6vvjSe5NxLQ4hkAcOZ1PY2X-N1MR25nXs4KBA1kG2MtHqnAe1FyxztGHMEqsZ3xmzMu94nuXlGJbrOXsXGMYwFYKxAR9HwPPxJhuMV73LGFpuEXllaQ4j9NpwsQG7EW2Ln93YTeYqEZf7KnZT3ZxL-Jfl2VWQSI2mQ3yldPvj-wAlbraoNjdYOOCZEDmQLQx3ElnNyJzN-cFoC4Iw85aas2GxKNA8WBKbA" 
+
+
+
+
+
+
 {"TransactionId":"220809131051085391","ReceiveDate":"2022-08-09T13:10:51.361863155Z","SourceIP":"172.26.10.6","Login":"PagaSOAdmin","ThirdPartyName":"PagaSO","DealerMSISDN":"244950170237","ProductCode":"01","ParameterCode":"01","ProductType":"Airtime","ProductPrice":200,"ProductDescription":"200 Kz","TargetMSISDN":"244959560801","TransactionReference":"1","CS_PackageId":"","CS_Start_time":"2022-08-09T13:10:51.362150121Z","CS_End_time":"2022-08-09T13:10:51.582437249Z","CS_Elapsed_time":220,"CS_Status":"Successful","CS_Response":{"response":{"success":"true",
 
 "result":{"arguments":
