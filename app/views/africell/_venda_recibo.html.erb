@@ -14,9 +14,9 @@
             <b>Data e Hora</b>: <%= @venda.created_at %><br>
             <hr>
             <strong>RECARGA ELECTRÓNICA AFRICELL</strong><br>
-            <b>Nr do Telemóvel: <%= params[:target_msisdn] %><br>
+            <b>Nr do Telemóvel: <%= @venda.customer_number %><br>
             <b>Produto: <%= @venda.product_id %><br>
-            <b>Produto: <%= @venda.product_id.nome_comercial %><br>
+            <b>Produto: <%= @venda.product_nome %><br>
             <b>Valor: <%= @venda.valor_original %><br>
             <b>ID Transação: <%= @venda.audit_reference_number %><br>
           <% end %>
