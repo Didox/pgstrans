@@ -8,4 +8,8 @@ class AfricellController < ApplicationController
     @info = []
   end
 
+  def confirmacao_transacao
+    #
+  end
+
 end
