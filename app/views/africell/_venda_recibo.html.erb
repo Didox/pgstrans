@@ -9,7 +9,7 @@
           <hr>
           <% result = JSON.parse(@venda.response_get) rescue nil %>
           <% if result.present? %>
-            Nome Agente: <b><%= @venda.usuario.login %></b>/<b><%= @venda.usuario.nome %></b><br>
+            Agente: <b><%= @venda.usuario.login %></b>/<b><%= @venda.usuario.nome %></b><br>
             Data e Hora TRN: <b><%= @venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %></b><br>
             <hr>
             <strong>RECARGA ELECTRÓNICA AFRICELL</strong><br>
@@ -17,7 +17,7 @@
             Produto: <b><%= @venda.product_id %></b>/<b><%= @venda.product_nome %></b><br>
             Valor: <b><%= number_to_currency(@venda.valor_original) %></b><br>
             result = JSON.parse(@venda.response_get)
-            ID Transação: <b><%= result["TransactionReference"] %></b><br>
+            ID Transação: <b><%= `#{result["TransactionReference"]}` %></b><br>
           <% end %>
           <hr>
           <b>Pagasó - Sistemas de Pagamentos</b>
