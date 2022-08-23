@@ -9,18 +9,18 @@
           <hr>
           <% result = JSON.parse(@venda.response_get) rescue nil %>
           <% if result.present? %>
-            <b>Nome do Agente</b>: <%= @venda.usuario.nome %><br>
-            <b>ID do Agente</b>: <%= @venda.usuario.login %><br>
-            <b>Data e Hora</b>: <%= @venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %><br>
+            Nome Agente: <b><%= @venda.usuario.login %></b>/<b><%= @venda.usuario.nome %></b><br>
+            Data e Hora TRN: <b><%= @venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %></b><br>
             <hr>
             <strong>RECARGA ELECTRÓNICA AFRICELL</strong><br>
-            <b>Nr do Telemóvel: <%= @venda.customer_number %><br>
-            <b>Produto: <%= @venda.product_id %>/<%= @venda.product_nome %><br>
-            <b>Valor: <%= number_to_currency(@venda.valor_original) %><br>
-            <b>ID Transação: <%= @venda.audit_reference_number %><br>
+            Nr do Telemóvel: <b><%= @venda.customer_number %></b><br>
+            Produto: <b><%= @venda.product_id %></b>/<b><%= @venda.product_nome %></b><br>
+            Valor: <b><%= number_to_currency(@venda.valor_original) %></b><br>
+            result = JSON.parse(@venda.response_get)
+            ID Transação: <b><%= result["TransactionReference"] %></b><br>
           <% end %>
           <hr>
-          Pagasó - Sistemas de Pagamentos
+          <b>Pagasó - Sistemas de Pagamentos</b>
         </div>
       </div>
     </div>
