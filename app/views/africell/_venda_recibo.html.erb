@@ -11,13 +11,12 @@
           <% if result.present? %>
             <b>Nome do Agente</b>: <%= @venda.usuario.nome %><br>
             <b>ID do Agente</b>: <%= @venda.usuario.login %><br>
-            <b>Data e Hora</b>: <%= @venda.created_at %><br>
+            <b>Data e Hora</b>: <%= @venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %><br>
             <hr>
             <strong>RECARGA ELECTRÓNICA AFRICELL</strong><br>
             <b>Nr do Telemóvel: <%= @venda.customer_number %><br>
-            <b>Produto: <%= @venda.product_id %><br>
-            <b>Produto: <%= @venda.product_nome %><br>
-            <b>Valor: <%= @venda.valor_original %><br>
+            <b>Produto: <%= @venda.product_id %>/<%= @venda.product_nome %><br>
+            <b>Valor: <%= number_to_currency(@venda.valor_original) %><br>
             <b>ID Transação: <%= @venda.audit_reference_number %><br>
           <% end %>
           <hr>
