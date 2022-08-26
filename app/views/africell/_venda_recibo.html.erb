@@ -20,6 +20,7 @@
             Situação: <b><%= @venda.status_desc.error_description_pt %></b><br>
             <!--gravar TransactionReference da Africell no campo audit_reference_number da tabela de vendas -->
           <% else %>
+            Nr do Telemóvel: <b><%= @venda.customer_number %></b><br>
             Venda não localizada ou não concluída com sucesso!
           <% end %>
           <hr>
