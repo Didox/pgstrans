@@ -17,6 +17,7 @@
             Produto: <b><%= @venda.product_id %></b>/<b><%= @venda.product_nome %></b><br>
             Valor: <b><%= number_to_currency(@venda.valor_original) %></b><br>
             ID Transação: <b><%= @venda.transaction_number %></b><br>
+            <!--gravar TransactionReference da Africell no campo audit_reference_number da tabela de vendas -->
           <% end %>
           <hr>
           <b>Pagasó - Sistemas de Pagamentos</b>
