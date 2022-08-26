@@ -8,7 +8,7 @@
           AFRICELL<br>
           <hr>
           <% result = JSON.parse(@venda.response_get) rescue nil %>
-          <% if result.present? %>
+          <% if result.present? && @venda.status == "200" %>
             Agente: <b><%= @venda.usuario.login %></b>/<b><%= @venda.usuario.nome %></b><br>
             Data e Hora TRN: <b><%= @venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %></b><br>
             <hr>
@@ -17,8 +17,10 @@
             Produto: <b><%= @venda.product_id %></b>/<b><%= @venda.product_nome %></b><br>
             Valor: <b><%= number_to_currency(@venda.valor_original) %></b><br>
             ID Transação: <b><%= @venda.request_id %></b><br>
-            Situação:</b> <%= @venda.status_desc.error_description_pt %> <%= " - #{@venda.lancamento.nome}" rescue "" %><br>
+            Situação: <b><%= @venda.status_desc.error_description_pt %></b><br>
             <!--gravar TransactionReference da Africell no campo audit_reference_number da tabela de vendas -->
+          <% else %>
+            Venda não localizada ou não concluída com sucesso!
           <% end %>
           <hr>
           <b>Pagasó - Sistemas de Pagamentos</b>
