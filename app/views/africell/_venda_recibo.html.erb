@@ -17,6 +17,7 @@
             Produto: <b><%= @venda.product_id %></b>/<b><%= @venda.product_nome %></b><br>
             Valor: <b><%= number_to_currency(@venda.valor_original) %></b><br>
             ID Transação: <b><%= @venda.request_id %></b><br>
+            Situação:</b> <%= @venda.status_desc.error_description_pt %> <%= " - #{@venda.lancamento.nome}" rescue "" %><br>
             <!--gravar TransactionReference da Africell no campo audit_reference_number da tabela de vendas -->
           <% end %>
           <hr>
