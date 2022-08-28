@@ -29,14 +29,12 @@
                   <input type="text" class="form-control" value="<%= params[:target_msisdn] %>" name="target_msisdn" placeholder="Número do Telemóvel MSISDN" style="margin-left: 4%;max-width: 300px;">
                 </div>
                 <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
-                  <h3>Informe o</h3>
-                  <div style="margin-left: 4%;">Número de Referência da Transação</div>
+                  <div style="margin-left: 4%;"><strong>e o </strong>Número de Referência da Transação</div>
                   <input type="text" class="form-control" value="<%= params[:request_id] %>" name="request_id" placeholder="Número de Referência da Transação" style="margin-left: 4%;max-width: 300px;">
                 </div>
                 <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
-                  <h3>Informe a</h3>
-                  <div style="margin-left: 4%;">Data da Transação</div>
-                  <input type="datetime-local" class="form-control" value="<%= params[:created_at] %>" name="created_at" placeholder="Data da Transação" style="margin-left: 4%;max-width: 300px;">
+                  <div style="margin-left: 4%;"><strong>ou a</strong> Data da Transação</div>
+                  <input type="date" class="form-control" value="<%= params[:created_at] %>" name="created_at" placeholder="Data da Transação" style="margin-left: 4%;max-width: 300px;">
                 </div>
                 <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: right;">
                   <div style="display: inline-block;margin-bottom: 10px;">

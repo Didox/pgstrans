@@ -14,13 +14,11 @@ class AfricellController < ApplicationController
     end
     if params[:request_id].present?
       @venda = Venda.where(request_id: params[:request_id], partner_id: Partner.africell.id)
-    end
-    if params[:created_at].present?
+    elsif params[:created_at].present?
       @venda = Venda.where(created_at: params[:created_at], partner_id: Partner.africell.id)
     end
   rescue Exception => e
     flash[:error] = e.message
     @info = []
   end
-
 end
