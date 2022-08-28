@@ -20,7 +20,7 @@
             Situação: <b><%= @venda.status_desc.error_description_pt %></b><br>
             <!--gravar TransactionReference da Africell no campo audit_reference_number da tabela de vendas -->
           <% else %>
-            Nr do Telemóvel: <b><%= @venda.customer_number %></b><br>
+            Nr do Telemóvel: <b><%= params[:target_msisdn] %></b><br>
             Transação não localizada com os parâmetros informados
           <% end %>
           <hr>
