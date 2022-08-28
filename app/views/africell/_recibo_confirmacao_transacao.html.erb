@@ -4,15 +4,15 @@
       <div class="card-header">
         <div class="col-md-12" style="text-align: center">
           <img style="width: 24px;" src="https://www.pagaso.co.ao/<%= asset_path('favicon.png') %>"><br>
-          Recibo de Venda<br>
+          Confirmação de Transação<br>
           AFRICELL<br>
           <hr>
           <% result = JSON.parse(@venda.response_get) rescue nil %>
-          <% if result.present? && @venda.status == "200" %>
+          <% if result.present? %>
             Agente: <b><%= @venda.usuario.login %></b>/<b><%= @venda.usuario.nome %></b><br>
             Data e Hora TRN: <b><%= @venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %></b><br>
             <hr>
-            <strong>RECARGA ELECTRÓNICA AFRICELL</strong><br>
+            <strong>CONFIRMACAO DE TRANSAÇÃO ELECTRÓNICA AFRICELL</strong><br>
             Nr do Telemóvel: <b><%= @venda.customer_number %></b><br>
             Produto: <b><%= @venda.product_id %></b>/<b><%= @venda.product_nome %></b><br>
             Valor: <b><%= number_to_currency(@venda.valor_original) %></b><br>
@@ -20,8 +20,14 @@
             Situação: <b><%= @venda.status_desc.error_description_pt %></b><br>
             <!--gravar TransactionReference da Africell no campo audit_reference_number da tabela de vendas -->
           <% else %>
-            Nr do Telemóvel: <b><%= @venda.customer_number %></b><br>
-            Venda não localizada ou não concluída com sucesso!
+            Nr do Telemóvel: <b><%= params[:target_msisdn] %></b><br>
+            <% if params[:request_id].present? %>
+              Número de Referência da Transação: <b><%= params[:request_id] %></b><br>
+            <% end %>
+            <% if params[:created_at].present? %>
+              Data da Transação: <b><%= params[:created_at] %></b><br>
+            <% end %>
+            Transação não localizada com os parâmetros informados
           <% end %>
           <hr>
           <b>Pagasó - Sistemas de Pagamentos</b>

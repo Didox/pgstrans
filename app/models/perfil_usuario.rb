@@ -50,6 +50,7 @@ class PerfilUsuario < ApplicationRecord
   def self.action_amigavel(action)
     nomes = {
       impressao_recibo: "Impressão do Recibo de Venda - Menu de Venda Africell",
+      confirmacao_transacao: "Confirmação de Transação - Menu de Venda Africell",
       confirmar_cliente: "Confirmar Cliente ENDE - Menu de Venda HOME", 
       recibo: "Recibo de Vendas ENDE durante a confirmação de venda", 
       venda_teste: "Venda de Teste ENDE - Menu de Venda HOME", 
