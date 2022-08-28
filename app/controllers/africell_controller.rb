@@ -10,7 +10,7 @@ class AfricellController < ApplicationController
 
   def confirmacao_transacao
     if params[:target_msisdn].present?
-      @venda = Venda.where(customer_number: params[:target_msisdn], partner_id: Partner.africell.id).first
+      @venda = Venda.where(customer_number: params[:target_msisdn], partner_id: Partner.africell.id)
     elsif params[:request_id].present?
       @venda = Venda.where(request_id: params[:request_id], partner_id: Partner.africell.id)
     elsif params[:created_at].present?
