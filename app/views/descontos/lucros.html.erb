@@ -105,12 +105,16 @@
           <th scope="col" style="text-align:right">Valor Total Vendido</th>
           <th scope="col" style="text-align:right">Valor Total de Lucro</th>
           <th scope="col" style="text-align:right">Valor Total de Custo</th>
+          <th scope="col" style="text-align:right">Margem Total Operadora</th>
+          <th scope="col" style="text-align:right">Total Lucro da Empresa</th>
         </tr>
       </thead>
       <%
         totais_valor_total_original = 0
         totais_desconto_total_aplicado = 0
         totais_valor_total_vendido = 0
+        margem_total_operadora = 0
+        total_lucro_empresa = 0
       %>
       <tbody>
         <% @parceiros.each do |parceiro| %>
@@ -120,10 +124,11 @@
             valor_total_original = parceiro.valor_total_original(params, usuario_logado)
             desconto_total_aplicado = parceiro.desconto_total_aplicado(params, usuario_logado)
             valor_total_vendido = parceiro.valor_total_vendido(params, usuario_logado)
-
+            
             totais_valor_total_original += valor_total_original
             totais_desconto_total_aplicado += desconto_total_aplicado
             totais_valor_total_vendido += valor_total_vendido
+            totais_lucro_empresa = totais_valor_total_vendido * margem_total_operadora
           %>
           <td align="right"><%= number_to_currency(valor_total_original) %></td>
           <td align="right">
@@ -135,6 +140,14 @@
           </td>
           <td align="right">
             <%= number_to_currency(valor_total_vendido) %>
+          </td>
+          <td align="right">
+            <!-- maior margem da operadora (descontos) -->
+            <%= number_to_currency(margem_total_operadora, :unit => "", precision: 2) %>%
+          </td>
+          <td align="right">
+            <!-- maior margem da operadora * valor total de custo -->
+            <%= number_to_currency(totais_lucro_empresa) %>
           </td>
         </tr>
         <% end %>
@@ -152,7 +165,13 @@
           </td>
           <td style="width:210px" align="right">
             <b><%= number_to_currency(totais_valor_total_vendido) %></b>
-          </td>        
+          </td>
+          <td style="width:150px" align="right">
+            <b><%= number_to_currency(margem_total_operadora, :unit => "", precision: 2) %>%</b>
+          </td>
+          <td style="width:210px" align="right">
+            <b><%= number_to_currency(total_lucro_empresa) %></b>
+          </td>      
           <td align="right"></td>
         </tr>
       </tfoot>
