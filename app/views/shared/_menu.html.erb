@@ -53,9 +53,11 @@
 			<li><a href="/africell/impressao_recibo">
 				<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "africell" && params[:action] == "impressao_recibo" %>active_menu<% end %>">Imprimir Recibo</h1>
 			</a></li>
-			<li><a href="/africell/confirmacao_transacao">
-				<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "africell" && params[:action] == "confirmacao_transacao" %>active_menu<% end %>">Confirmar Transação</h1>
-			</a></li>
+			<% if @adm.id == Usuario::ROOT %>
+				<li><a href="/africell/confirmacao_transacao">
+					<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "africell" && params[:action] == "confirmacao_transacao" %>active_menu<% end %>">Confirmar Transação</h1>
+				</a></li>
+			<% end %>
 		</ul>
 	</div>
 <% end %>

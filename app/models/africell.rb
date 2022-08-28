@@ -174,12 +174,22 @@ class Africell
     uri = URI.parse(URI::Parser.new.escape(url))
     
     body = {
-      #'TargetMSISDN': '244959560801',
+      'ProductCode': produto.produto_id_parceiro,
+      'ParameterCode': produto.parameter_code_africell,
+      'Amount': amount,
+      'TargetMSISDN': numero_africell,
+      'TransactionReference': transaction_reference
+    }.to_json
+
+    body = {
       'TargetMSISDN': params[:target_msisdn],
-      'TransactionReference': '3860b99f-14df-4151-81b4-bbda10fdeba5',
+      'TransactionReference': params[:request_id],
       'TransactionId': '5',
+      #numero da transacao Africell - identificar
       'Status': '',
+      #status branco
       'Limit': 20,
+      #limite 20
     }.to_json
 
     request = HTTParty.get(uri, 
