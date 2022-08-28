@@ -21,6 +21,12 @@
             <!--gravar TransactionReference da Africell no campo audit_reference_number da tabela de vendas -->
           <% else %>
             Nr do Telemóvel: <b><%= params[:target_msisdn] %></b><br>
+            <% if params[:request_id].present? %>
+              Número de Referência da Transação: <b><%= params[:request_id] %></b><br>
+            <% end %>
+            <% if params[:created_at].present? %>
+              Data da Transação: <b><%= params[:created_at] %></b><br>
+            <% end %>
             Transação não localizada com os parâmetros informados
           <% end %>
           <hr>
