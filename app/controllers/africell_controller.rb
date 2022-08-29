@@ -1,7 +1,12 @@
 class AfricellController < ApplicationController
   def impressao_recibo
     if params[:target_msisdn].present?
-      @venda = Venda.where(customer_number: params[:target_msisdn], partner_id: Partner.africell.id).first
+      if params[:target_msisdn][0, 5] != "24495"
+        numero_africell = "24495".to_s + params[:target_msisdn].to_s
+      else
+        numero_africell = params[:target_msisdn]
+      end
+      @venda = Venda.where(customer_number: numero_africell, partner_id: Partner.africell.id).first
     end
   rescue Exception => e
     flash[:error] = e.message
