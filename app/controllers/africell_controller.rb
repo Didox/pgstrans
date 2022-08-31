@@ -7,6 +7,7 @@ class AfricellController < ApplicationController
         numero_africell = params[:target_msisdn]
       end
       @venda = Venda.where(customer_number: numero_africell, partner_id: Partner.africell.id).first
+      flash[:error] = "Nenhuma venda encontrada" if @venda.blank?
     end
   rescue Exception => e
     flash[:error] = e.message
