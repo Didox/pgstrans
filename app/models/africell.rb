@@ -168,7 +168,7 @@ class Africell
 =end
   end
 
-  def self.check_transaction_log
+  def self.check_transaction_log(params)
     jwt_token, parceiro, parametro, url_service = Africell.refresh_token
     url = "#{url_service}#{parametro.get.endpoint_HTTP_CheckTransactionLog}"
     uri = URI.parse(URI::Parser.new.escape(url))

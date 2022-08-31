@@ -20,9 +20,8 @@ class AfricellController < ApplicationController
     end
     if params[:request_id].present?
       @venda = Venda.where(request_id: params[:request_id], partner_id: Partner.africell.id)
-    end
-    if params[:created_at].present?
-      @venda = Venda.where(created_at: params[:created_at], partner_id: Partner.africell.id)
+      request = Africell.check_transaction_log(params)
+      puts "===========[#{request.body}]============="
     end
   rescue Exception => e
     flash[:error] = e.message
