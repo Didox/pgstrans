@@ -15,13 +15,8 @@ class AfricellController < ApplicationController
   end
 
   def confirmacao_transacao
-    if params[:target_msisdn].present?
-      @venda = Venda.where(customer_number: params[:target_msisdn], partner_id: Partner.africell.id)
-    end
-    if params[:request_id].present?
-      @venda = Venda.where(request_id: params[:request_id], partner_id: Partner.africell.id)
-      request = Africell.check_transaction_log(params)
-      puts "===========[#{request.body}]============="
+    if params[:request_id].present? || params[:target_msisdn].present?
+      @retorno_confirmacao = Africell.check_transaction_log(params)
     end
   rescue Exception => e
     flash[:error] = e.message

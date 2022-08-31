@@ -192,7 +192,7 @@ class Africell
       body: body
     )
 
-    request
+    JSON.parse(request.body)
   end
 
   def self.parametros
