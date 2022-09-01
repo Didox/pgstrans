@@ -45,7 +45,7 @@ Content-Length: 46
 
 04 - Dealer Balance Check
 
-curl -X GET http://10.250.80.74:9214/HTTP_CheckDealerBalance/ -H "Content-Type: application/json" -H "Authorization: Bearer eyJMb2dpbiI6IlBhZ2FTT0FkbWluIiwiVG9rZW5UeXBlIjoiUmVmcmVzaCIsImFsZyI6IlBTNTEyIiwidHlwIjoiSldTIn0.eyJTb3VyY2VJUCI6IjE3Mi4yNi4xMC42IiwiVXNlckluZm8iOnsiQ2FuQ3JlYXRlQVBJVXNlciI6ZmFsc2UsIkNhbkV4ZWN1dGVCYWxDaGVjayI6dHJ1ZSwiQ2FuRXhlY3V0ZVJlY2hhcmdlIjp0cnVlLCJDYW5FeGVjdXRlU3RhdGVtZW50Ijp0cnVlLCJFbWFpbCI6InJvc2kudm9sZ2FyaW5AdGl2LXRlY25vbG9naWEuY29tIiwiRmlyc3ROYW1lIjoiUGFnYVNPIiwiTGFzdE5hbWUiOiJQYWdhU08iLCJNaWRkbGVOYW1lIjoiIiwiUGhvbmUiOiIiLCJUaGlyZFBhcnR5TmFtZSI6IlBhZ2FTTyJ9LCJhdWQiOlsiQWZyaWNlbGwiLCJQYWdhU08iXSwiZXhwIjoxNjYwMjYwMzI3LCJpYXQiOjE2NTk2NTU1MjcsImlzcyI6ImFmcl9hb190Z3ciLCJqdGkiOiIyIiwic3ViIjoiQWZyaWNlbGwgVEdXIEJlYXJlciB0b2tlbiJ9.fyqqxPze19Uiu3X_y0HRNNkPss4DyKVbtNUuYi2x18CRdUwMc5jmlhLvjSFa0qiYYX3L_qZKSgozllJj8tW9epUtB6wHVv-2mStf7o3InV5H42nNlbG8N-v5UyukFEpXobp9WJG3P7zEyaxjZQ3WF4QYlm10C9QFV6fmHuqX5YSQeuIvwVQ67zLSy6Xrn3CTqLto9uABYmtO75GXqKjwuwnkHJgPWVnviGNI3V_dYhbvPN0bWKxYqyVn52AUcvS1jNigNkXIziCTJ1Gvhoo5bU0lxF8Mj4AehTTfAIcg8632VOCYqH074y_5xiPuZR2IZKpVuIEy7u8IjE0xIM8DQQ"
+curl -X GET http://10.250.80.75:9214/HTTP_CheckDealerBalance/ -H "Content-Type: application/json" -H "Authorization: Bearer eyJMb2dpbiI6IlBhZ2FTT0FkbWluIiwiVG9rZW5UeXBlIjoiUmVmcmVzaCIsImFsZyI6IlBTNTEyIiwidHlwIjoiSldTIn0.eyJTb3VyY2VJUCI6IjE3Mi4yNi4xMC41IiwiVXNlckluZm8iOnsiQ2FuQ3JlYXRlQVBJVXNlciI6ZmFsc2UsIkNhbkV4ZWN1dGVCYWxDaGVjayI6dHJ1ZSwiQ2FuRXhlY3V0ZVJlY2hhcmdlIjp0cnVlLCJDYW5FeGVjdXRlU3RhdGVtZW50Ijp0cnVlLCJFbWFpbCI6InJvc2kudm9sZ2FyaW5AdGl2LXRlY25vbG9naWEuY29tIiwiRmlyc3ROYW1lIjoiUGFnYVNPIiwiTGFzdE5hbWUiOiJQYWdhU08iLCJNaWRkbGVOYW1lIjoiIiwiUGhvbmUiOiIiLCJUaGlyZFBhcnR5TmFtZSI6IlBhZ2FTTyJ9LCJhdWQiOlsiQWZyaWNlbGwiLCJQYWdhU08iXSwiZXhwIjoxNjYyNDIxOTM5LCJpYXQiOjE2NjE4MTcxMzksImlzcyI6ImFmcl9hb190Z3ciLCJqdGkiOiIyIiwic3ViIjoiQWZyaWNlbGwgVEdXIEJlYXJlciB0b2tlbiJ9.U6d97zsgysgQMy6EY8zIlbLELYh2RXBD4mDSHe5Wk8ZWa5Y-HH8Au9EK5hcHSMPx0eTSQnUemUw5k6WoaE6YA1gEOxuva-Dwz81jQojy8nTntB5ZzUcGh_9HiwoSEMZFKOmWZItYoM6z5zjQo0u8EjbPmlCK7Y-Ua0P2hx6DhsKee6LOgqKNBMxU9IbrfOtJlbCMVBrDz64JSkrtfdXuCp2Hxo68MUcc_Zz6pRoTOLeuOCWzAcWNnRLte8ncih7rn_jFxWoSjEVuwegougTcKM90Lb0uNeT_foOPgxxttpp2RZ-Mk5TlmKeWkTdBIDQtP4x94g51EekOO6MFlpam0Q"
 
 Resposta à consulta
 
@@ -285,4 +285,12 @@ Resposta de sucesso
 * Connection #0 to host 10.250.80.74 left intact
 ┌─(~/PagasoAPP/pgstrans)(ruby-2.7.2)───────────────────────────────────────────────────────────────────────────────(pgsadmin@pgs-qa-all:pts/3)─┐
 
+
+
+
+Resposta Check Transaction Log
+
+<!--
+{"ReceiveDate":"2022-08-31T19:54:27.511281746Z","SourceIP":"172.26.10.6","Login":"PagaSOAdmin","ThirdPartyName":"PagaSO","DealerMSISDN":"244950170237","Transaction":null,"Status":"Successful","StatusCode":200,"StatusDescription":"OK","StatusDate":"2022-08-31T19:54:27.514064631Z","Elapsedtime":2}
+-->
 
