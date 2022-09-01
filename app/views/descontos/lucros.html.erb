@@ -95,25 +95,36 @@
     </div>
   </div>
 
-  <div class="container scroltable">
+  <div class="scroltable">
     <h3>TOTAL DE VENDA POR PARCEIRO</h3>
     <hr>
     <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">Operadora</th>
-          <th scope="col" style="text-align:right">Valor Total Vendido</th>
-          <th scope="col" style="text-align:right">Valor Total de Lucro</th>
-          <th scope="col" style="text-align:right">Valor Total de Custo</th>
-          <th scope="col" style="text-align:right">Margem Total Operadora</th>
-          <th scope="col" style="text-align:right">Total Lucro da Empresa</th>
+          <!-- maior margem encontrada para o parceiro em /descontos -->
+          <th scope="col" style="text-align:right">%.Operadora</th>
+          <!-- margem encontrada para o parceiro em /remuneracaos?nome=&login=7049213 -->
+          <th scope="col" style="text-align:right">%.Cliente</th>
+          <!-- apuração da margem Pagasó = %.Operadora - %.Operadora -->
+          <th scope="col" style="text-align:right">%.Pagasó</th>
+          <th scope="col" style="text-align:right">Valor Vendido</th>
+          <th scope="col" style="text-align:right">Lucro Cliente</th>
+          <th scope="col" style="text-align:right">Custo</th>
+          <!-- apuração do lucro Pagasó = Valor Vendido * %.Pagasó -->
+          <th scope="col" style="text-align:right">Lucro Pagasó</th>
         </tr>
       </thead>
+      <!--
+      Total Vendido = Valor Vendido
+      Total de Lucro Cliente = Lucro Cliente
+      Total de Custo = Custo
+      Total Lucro Empresa = Lucro Pagasó
+      -->
       <%
         totais_valor_total_original = 0
         totais_desconto_total_aplicado = 0
         totais_valor_total_vendido = 0
-        margem_total_operadora = 0
         total_lucro_empresa = 0
       %>
       <tbody>
@@ -128,8 +139,17 @@
             totais_valor_total_original += valor_total_original
             totais_desconto_total_aplicado += desconto_total_aplicado
             totais_valor_total_vendido += valor_total_vendido
-            totais_lucro_empresa = totais_valor_total_vendido * margem_total_operadora
+            totais_lucro_empresa = totais_valor_total_vendido 
           %>
+          <td align="right">
+            <%= %>
+          </td>
+          <td align="right">
+            <%= %>
+          </td>
+          <td align="right">
+            <%= %>
+          </td>
           <td align="right"><%= number_to_currency(valor_total_original) %></td>
           <td align="right">
             <%= number_to_currency(desconto_total_aplicado) %><br>
@@ -142,10 +162,6 @@
             <%= number_to_currency(valor_total_vendido) %>
           </td>
           <td align="right">
-            <!-- maior margem da operadora (descontos) -->
-            <%= number_to_currency(margem_total_operadora, :unit => "", precision: 2) %>%
-          </td>
-          <td align="right">
             <!-- maior margem da operadora * valor total de custo -->
             <%= number_to_currency(totais_lucro_empresa) %>
           </td>
@@ -155,6 +171,15 @@
       <tfoot>
         <tr>
           <td align="right"><b>T o t a l</b></td>
+          <td style="width:120px" align="right">
+            <b><%= %></b>
+          </td>
+          <td style="width:120px" align="right">
+            <b><%= %></b>
+          </td> 
+          <td style="width:120px" align="right">
+            <b><%= %></b>
+          </td>
           <td style="width:210px" align="right">
             <b><%= number_to_currency(totais_valor_total_original) %></b>
           </td>    
@@ -165,9 +190,6 @@
           </td>
           <td style="width:210px" align="right">
             <b><%= number_to_currency(totais_valor_total_vendido) %></b>
-          </td>
-          <td style="width:150px" align="right">
-            <b><%= number_to_currency(margem_total_operadora, :unit => "", precision: 2) %>%</b>
           </td>
           <td style="width:210px" align="right">
             <b><%= number_to_currency(total_lucro_empresa) %></b>

@@ -168,18 +168,10 @@ class Africell
 =end
   end
 
-  def self.check_transaction_log
+  def self.check_transaction_log(params)
     jwt_token, parceiro, parametro, url_service = Africell.refresh_token
     url = "#{url_service}#{parametro.get.endpoint_HTTP_CheckTransactionLog}"
     uri = URI.parse(URI::Parser.new.escape(url))
-    
-    body = {
-      'ProductCode': produto.produto_id_parceiro,
-      'ParameterCode': produto.parameter_code_africell,
-      'Amount': amount,
-      'TargetMSISDN': numero_africell,
-      'TransactionReference': transaction_reference
-    }.to_json
 
     body = {
       'TargetMSISDN': params[:target_msisdn],
@@ -200,7 +192,7 @@ class Africell
       body: body
     )
 
-    request
+    JSON.parse(request.body)
   end
 
   def self.parametros
