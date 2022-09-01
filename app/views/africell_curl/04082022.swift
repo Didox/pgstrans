@@ -286,3 +286,11 @@ Resposta de sucesso
 ┌─(~/PagasoAPP/pgstrans)(ruby-2.7.2)───────────────────────────────────────────────────────────────────────────────(pgsadmin@pgs-qa-all:pts/3)─┐
 
 
+
+
+Resposta Check Transaction Log
+
+<!--
+{"ReceiveDate":"2022-08-31T19:54:27.511281746Z","SourceIP":"172.26.10.6","Login":"PagaSOAdmin","ThirdPartyName":"PagaSO","DealerMSISDN":"244950170237","Transaction":null,"Status":"Successful","StatusCode":200,"StatusDescription":"OK","StatusDate":"2022-08-31T19:54:27.514064631Z","Elapsedtime":2}
+-->
+

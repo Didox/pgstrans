@@ -9,11 +9,10 @@
           <hr>
           <% if @retorno_confirmacao.present? %>
             Data transacao: <b><%= @retorno_confirmacao["ReceiveDate"].to_date.strftime("%d/%m/%Y %H:%M:%S") %></b><br>
-            SourceIP: <b><%= @retorno_confirmacao["SourceIP"] %></b><br>
             DealerMSISDN: <b><%= @retorno_confirmacao["DealerMSISDN"] %></b><br>
             Status: <b><%= @retorno_confirmacao["Status"] %></b><br>
           <% else %>
-            Transação não localizada com os parâmetros fornecidos
+            Transação não localizada com os parâmetros que foram fornecidos
           <% end %>
           <hr>
           <b>Pagasó - Sistemas de Pagamentos</b>
@@ -23,6 +22,3 @@
   </div>
 </div>
 
-<!--
-{"ReceiveDate":"2022-08-31T19:54:27.511281746Z","SourceIP":"172.26.10.6","Login":"PagaSOAdmin","ThirdPartyName":"PagaSO","DealerMSISDN":"244950170237","Transaction":null,"Status":"Successful","StatusCode":200,"StatusDescription":"OK","StatusDate":"2022-08-31T19:54:27.514064631Z","Elapsedtime":2}
--->
