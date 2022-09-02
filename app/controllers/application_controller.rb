@@ -128,11 +128,12 @@ class ApplicationController < ActionController::Base
         return true if paginas_autorizadas
 
         if request.path_parameters[:format] == 'json'
-          ips = IpApiAutorizado.where(sub_distribuidor_id: administrador.sub_distribuidor_id, ip: request.remote_ip)
+          ip = request.remote_ip rescue ""
+          ips = IpApiAutorizado.where(sub_distribuidor_id: administrador.sub_distribuidor_id, ip: ip)
           if ips.count == 0
-            Rails.logger.info("==============[IP Bloqueado: #{request.remote_ip}]===============")
-            puts("==============[IP Bloqueado: #{request.remote_ip}]===============")
-            render json: {mensagem: "IP não autorizado", ip: request.remote_ip}, status: 403
+            Rails.logger.info("==============[IP Bloqueado: #{ip}]===============")
+            puts("==============[IP Bloqueado: #{ip}]===============")
+            render json: {mensagem: "IP não autorizado", ip: ip}, status: 403
             return false
           end
         end

@@ -328,3 +328,13 @@ label{
   }
 
 }
+
+.africell-menu{
+	display: inline-block!important;
+}
+@media only screen and (max-width: 600px) {
+  	.africell-menu{
+		display: block!important;
+	}
+}
+
