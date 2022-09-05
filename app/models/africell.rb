@@ -119,6 +119,9 @@ class Africell
     Rails.logger.info "=========================================="
 
     dados = JSON.parse(request.body)
+
+    raise "Retorno da API vazia, não foi possível recuperar o DealerBalance" if dados.blank?
+
     SaldoParceiro.create(partner_id: parceiro.id, saldo: dados["DealerBalance"], log: request.body)
   end
 
