@@ -70,7 +70,7 @@ class Africell
     parceiro, parametro, url_service = Africell.parametros
     if get_token_force
       token = Africell.validate_otp(parceiro, parametro, url_service)
-      dados = parametro.get
+      dados = parametro.get["table"]
       dados["africell_token"] = token
       Parametro.where(id: parametro.id).update_all(dados: dados.to_json)
     else
