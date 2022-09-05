@@ -66,9 +66,16 @@ class Africell
     request.headers["authorization"]
   end
 
-  def self.refresh_token
+  def self.refresh_token(get_token_force = false)
     parceiro, parametro, url_service = Africell.parametros
-    token = Africell.validate_otp(parceiro, parametro, url_service)
+    if get_token_force
+      token = Africell.validate_otp(parceiro, parametro, url_service)
+      dados = parametro.get
+      dados["africell_token"] = token
+      Parametro.where(id: parametro.id).update_all(dados: dados.to_json)
+    else
+      token = parametro.get["table"]["africell_token"]
+    end
 
     url = "#{url_service}#{parametro.get.endpoint_HTTP_RefreshToken}"
     uri = URI.parse(URI::Parser.new.escape(url))
