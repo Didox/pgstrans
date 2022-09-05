@@ -427,6 +427,11 @@ class Venda < ApplicationRecord
         venda.save!
         raise PagasoEndeError.new(venda.error_message)
       rescue Exception => er
+        puts "========================="
+        puts er.message
+        puts "========================="
+        puts er.backtrace
+        puts "========================="
         raise PagasoError.new(er.message)
       end
     end
