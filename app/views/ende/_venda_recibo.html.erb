@@ -199,7 +199,7 @@
               <% if info["tenderAmt"].present? %>
                 <li>
                   <!--<b>T o t a l :</b> <%= number_to_currency(info["tenderAmt"]["value"], :precision => 2, :unit => Ende.akz_parse(info["tenderAmt"]["symbol"])) %>-->
-                  <b>T o t a l :</b> <%= number_to_currency(venda.valor_original) %>
+                  <b>Valor da Recarga :</b> <%= number_to_currency(venda.valor_original) %>
                   <hr>
                 </li> 
               <% end %>
