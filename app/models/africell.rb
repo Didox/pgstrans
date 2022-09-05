@@ -68,13 +68,13 @@ class Africell
 
   def self.refresh_token(get_token_force = false)
     parceiro, parametro, url_service = Africell.parametros
-    if get_token_force || parametro.get.africell_token.blank?
+    if get_token_force
       token = Africell.validate_otp(parceiro, parametro, url_service)
       dados = parametro.get
       dados["africell_token"] = token
       Parametro.where(id: parametro.id).update_all(dados: dados.to_json)
     else
-      token = parametro.get.africell_token
+      token = parametro.get["table"]["africell_token"]
     end
 
     url = "#{url_service}#{parametro.get.endpoint_HTTP_RefreshToken}"
