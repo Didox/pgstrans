@@ -46,7 +46,7 @@ class PartnersController < ApplicationController
     flash[:notice] = 'Saldo atualizado com sucesso.'
     redirect_to partner_url(@partner)
   rescue Exception => erro
-    flash[:error] = "Problemas na atualização de saldo - #{erro.message}"
+    flash[:error] = "Problemas na atualização de saldo - #{erro.message} - #{e.backtrace}"
     redirect_to partner_url(@partner)
   end
   
