@@ -418,7 +418,7 @@ class Venda < ApplicationRecord
   rescue Exception => e
     if e.message.downcase.include?("timeout")
       begin
-        info, xml_enviado, xml_recebido = Ende.last_advice(unique_number.data, unique_number)
+        info, xml_enviado, xml_recebido = Ende.last_advice(uniq_number.data, uniq_number.unique_number)
         info = info.first
         venda.error_message = info["erro"]
         venda.status = "ende-4"
