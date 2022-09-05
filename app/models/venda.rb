@@ -427,11 +427,11 @@ class Venda < ApplicationRecord
         venda.save!
         raise PagasoEndeError.new(venda.error_message)
       rescue Exception => er
-        puts "========================="
-        puts er.message
-        puts "========================="
-        puts er.backtrace
-        puts "========================="
+        Rails.logger.info "========================="
+        Rails.logger.info er.message
+        Rails.logger.info "========================="
+        Rails.logger.info er.backtrace
+        Rails.logger.info "========================="
         raise PagasoError.new(er.message)
       end
     end
