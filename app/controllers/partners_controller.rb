@@ -32,6 +32,7 @@ class PartnersController < ApplicationController
 
   def atualiza_africell_login
     Africell.login
+    Africell.refresh_token(true)
     flash[:notice] = 'Transação de login na plataforma Africell concluída com sucesso. A OPT KEY foi encaminhada para o e-mail do Administrador.'
     redirect_to partner_url(@partner)
   rescue Exception => erro
