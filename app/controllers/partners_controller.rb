@@ -32,10 +32,13 @@ class PartnersController < ApplicationController
 
   def atualiza_africell_login
     Africell.login
+    Africell.refresh_token(true)
     flash[:notice] = 'Transação de login na plataforma Africell concluída com sucesso. A OPT KEY foi encaminhada para o e-mail do Administrador.'
     redirect_to partner_url(@partner)
   rescue Exception => erro
-    flash[:error] = "Problemas ao gerar o  token OTP - #{erro.message}"
+    mensagem = "Problemas ao gerar o  token OTP - #{erro.message}"
+    mensagem = "#{mensagem} - #{erro.backtrace}" if usuario_logado.admin?
+    flash[:error] = mensagem
     redirect_to partner_url(@partner)
   end
 
@@ -45,7 +48,9 @@ class PartnersController < ApplicationController
     flash[:notice] = 'Saldo atualizado com sucesso.'
     redirect_to partner_url(@partner)
   rescue Exception => erro
-    flash[:error] = "Problemas na atualização de saldo - #{erro.message}"
+    mensagem = "Problemas na atualização de saldo - #{erro.message}"
+    mensagem = "#{mensagem} - #{erro.backtrace}" if usuario_logado.admin?
+    flash[:error] = mensagem
     redirect_to partner_url(@partner)
   end
   

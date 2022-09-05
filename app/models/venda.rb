@@ -418,7 +418,7 @@ class Venda < ApplicationRecord
   rescue Exception => e
     if e.message.downcase.include?("timeout")
       begin
-        info, xml_enviado, xml_recebido = Ende.last_advice(data, unique_number)
+        info, xml_enviado, xml_recebido = Ende.last_advice(uniq_number.data, uniq_number.unique_number)
         info = info.first
         venda.error_message = info["erro"]
         venda.status = "ende-4"
@@ -427,6 +427,11 @@ class Venda < ApplicationRecord
         venda.save!
         raise PagasoEndeError.new(venda.error_message)
       rescue Exception => er
+        Rails.logger.info "========================="
+        Rails.logger.info er.message
+        Rails.logger.info "========================="
+        Rails.logger.info er.backtrace
+        Rails.logger.info "========================="
         raise PagasoError.new(er.message)
       end
     end
@@ -495,7 +500,7 @@ class Venda < ApplicationRecord
         <meterIdentifier xsi:type=\"MeterNumber\" msno=\"#{meter_number}\"/>
         </idMethod>
         <purchaseValue xmlns=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\" xsi:type=\"PurchaseValueCurrency\">
-        <amt value=\"#{valor}\" symbol=\"AOA\"/>
+        <amt value=\"#{valor_original}\" symbol=\"AOA\"/>
         </purchaseValue>
       </sch:creditVendReq>
       </soapenv:Body>

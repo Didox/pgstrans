@@ -66,9 +66,18 @@ class Africell
     request.headers["authorization"]
   end
 
-  def self.refresh_token
+  def self.refresh_token(get_token_force = false)
     parceiro, parametro, url_service = Africell.parametros
-    token = Africell.validate_otp(parceiro, parametro, url_service)
+
+    token_param = parametro.get["table"]["africell_token"] rescue ""
+    if get_token_force || token_param.blank?
+      token = Africell.validate_otp(parceiro, parametro, url_service)
+      dados = JSON.parse(parametro.dados) rescue {}
+      dados["africell_token"] = token
+      Parametro.where(id: parametro.id).update_all(dados: dados.to_json)
+    else
+      token = token_param
+    end
 
     url = "#{url_service}#{parametro.get.endpoint_HTTP_RefreshToken}"
     uri = URI.parse(URI::Parser.new.escape(url))
@@ -112,6 +121,9 @@ class Africell
     Rails.logger.info "=========================================="
 
     dados = JSON.parse(request.body)
+
+    raise "Retorno da API vazia, não foi possível recuperar o DealerBalance" if dados.blank?
+
     SaldoParceiro.create(partner_id: parceiro.id, saldo: dados["DealerBalance"], log: request.body)
   end
 

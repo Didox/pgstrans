@@ -123,34 +123,37 @@
         </div>
       </div>
 
-      <div class="col-md-12" id="AfricellMenu" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
-        <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
-          <h3>O que você deseja fazer?</h3>
-        </div>
-        <div class="menuAFRICELL" style="padding: 2%">
-          <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-            <li>
-              <a href="javascript:pgstrans.displayRecargaAfricell()">
-                Venda de Crédito
-              </a>
-            </li>
-            <% if @adm.id == Usuario::ROOT %>
+      <% if partner.slug == "africell" && !(@adm.admin? || @adm.operador?) # remover para liberar Africell produção todos os clientes
+        <div class="col-md-12" id="AfricellMenu" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
+          <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
+            <h3>O que você deseja fazer?</h3>
+          </div>
+          <div class="menuAFRICELL" style="padding: 2%">
+          
+            <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
               <li>
-                <hr>
-                <a href="/africell/impressao_recibo">
-                  Impressão do Recibo de Venda
+                <a href="javascript:pgstrans.displayRecargaAfricell()">
+                  Venda de Crédito
                 </a>
               </li>
-            <% end %>
-            <li>
-              <hr>
-              <a href="/africell/confirmacao_transacao">
-                Confirmação de Transação
-              </a>
-            </li>
-          </ul>
+              <% if @adm.id == Usuario::ROOT %>
+                <li>
+                  <hr>
+                  <a href="/africell/impressao_recibo">
+                    Impressão do Recibo de Venda
+                  </a>
+                </li>
+              <% end %>
+              <li>
+                <hr>
+                <a href="/africell/confirmacao_transacao">
+                  Confirmação de Transação
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+      <% end %>
 
       <div class="col-md-12" id="recarga" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
         <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
