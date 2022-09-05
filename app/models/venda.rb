@@ -500,7 +500,7 @@ class Venda < ApplicationRecord
         <meterIdentifier xsi:type=\"MeterNumber\" msno=\"#{meter_number}\"/>
         </idMethod>
         <purchaseValue xmlns=\"http://www.nrs.eskom.co.za/xmlvend/revenue/2.1/schema\" xsi:type=\"PurchaseValueCurrency\">
-        <amt value=\"#{valor}\" symbol=\"AOA\"/>
+        <amt value=\"#{valor_original}\" symbol=\"AOA\"/>
         </purchaseValue>
       </sch:creditVendReq>
       </soapenv:Body>
