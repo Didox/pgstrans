@@ -37,7 +37,7 @@ class PartnersController < ApplicationController
     redirect_to partner_url(@partner)
   rescue Exception => erro
     mensagem = "Problemas ao gerar o  token OTP - #{erro.message}"
-    mendegem = "#{mensagem} - #{erro.backtrace}" if usuario_logado.admin?
+    mensagem = "#{mensagem} - #{erro.backtrace}" if usuario_logado.admin?
     flash[:error] = mensagem
     redirect_to partner_url(@partner)
   end
@@ -49,7 +49,7 @@ class PartnersController < ApplicationController
     redirect_to partner_url(@partner)
   rescue Exception => erro
     mensagem = "Problemas na atualização de saldo - #{erro.message}"
-    mendegem = "#{mensagem} - #{erro.backtrace}" if usuario_logado.admin?
+    mensagem = "#{mensagem} - #{erro.backtrace}" if usuario_logado.admin?
     flash[:error] = mensagem
     redirect_to partner_url(@partner)
   end
