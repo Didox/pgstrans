@@ -4,9 +4,9 @@
       <th scope="col" style="width: 25%">Dados</th>
       <th scope="col" style="width: 25%">Cliente</th>
       <th scope="col">Produto</th>
-      <th scope="col">Valor</th>
-      <th scope="col">Lucro</th>
-      <th scope="col">Custo</th>
+      <th scope="col"  style="text-align: center">Valor</th>
+      <th scope="col"  style="text-align: center">Lucro</th>
+      <th scope="col"  style="text-align: center">Custo</th>
       <th colspan="3">Ação</th>
     </tr>
   </thead>
@@ -53,15 +53,15 @@
         <hr>
         <%= venda.product.subtipo %>
       </td>
-      <td style="width:110px" align="right"><%= number_to_currency(venda.valor_original) %></td>
-      <td style="width:110px" align="right">
+      <td style="width:110px" style="text-align: center"><%= number_to_currency(venda.valor_original) %></td>
+      <td style="width:110px" style="text-align: center">
         <%= number_to_currency(venda.desconto_aplicado) %><br>
         <% porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
         unless porcentagem.nan? %>
           <%= number_to_currency(porcentagem, :unit => "", :precision => 3) %>%
         <% end %>
       </td>
-      <td style="width:110px" align="right"><%= number_to_currency(venda.value) %></td>
+      <td style="width:110px" style="text-align: center"><%= number_to_currency(venda.value) %></td>
       <td>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
           <%= link_to 'Detalhes', venda, class: "btn btn-warning", style:"width:100px" %><br><br>
@@ -77,21 +77,21 @@
     <% end %>
     <tfoot>
       <tr>
-        <td align="right"></td>
-        <td align="right"></td>
-        <td align="right"><b>Total Página:</b></td>
-        <td style="width:110px" align="right">
+        <td style="text-align: center"></td>
+        <td style="text-align: center"></td>
+        <td style="text-align: center"><b>Total Página:</b></td>
+        <td style="width:110px" style="text-align: center">
           <b><%= number_to_currency(valor_original_total) %></b>
         </td>    
-        <td style="width:110px" align="right">
+        <td style="width:110px" style="text-align: center">
           <b>
             <%= number_to_currency(valor_desconto_total) %>
           </b>
         </td>
-        <td style="width:110px" align="right">
+        <td style="width:110px" style="text-align: center">
           <b><%= number_to_currency(valor_total) %></b>
         </td>        
-        <td align="right"></td>
+        <td style="text-align: center"></td>
       </tr>
     </tfoot>
   </tbody>
