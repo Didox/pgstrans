@@ -38,7 +38,9 @@
           <b>Smartcard:</b> <%= venda.smartcard %>
         <% end %>
 
-        <b>Conta corrente ID</b> <a href="/conta_correntes/<%= venda.movimentacoes_conta_corrente.id rescue "" %>" target="_blank"><%= venda.movimentacoes_conta_corrente.id rescue "" %></a><br>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <b>Conta corrente ID</b> <a href="/conta_correntes/<%= venda.movimentacoes_conta_corrente.id rescue "" %>" target="_blank"><%= venda.movimentacoes_conta_corrente.id rescue "" %></a><br>
+        <% end %>
       </td>
       <td>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
