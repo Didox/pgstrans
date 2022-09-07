@@ -1227,7 +1227,7 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o Telemóvel MSISDN") if params[:target_msisdn].blank?
-    #raise PagasoError.new("Não é um número Africell") if params[:target_msisdn][0, 5] != "24495"
+    #raise PagasoError.new("Não é um número Africell") if params[:target_msisdn][0, 3] != "244"
    
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
 
@@ -1248,8 +1248,8 @@ class Venda < ApplicationRecord
       amount = ""
     end
 
-    if params[:target_msisdn][0, 5] != "24495"
-      numero_africell = "24495".to_s + params[:target_msisdn].to_s
+    if params[:target_msisdn][0, 3] != "244"
+      numero_africell = "244".to_s + params[:target_msisdn].to_s
     else
       numero_africell = params[:target_msisdn]
     end
