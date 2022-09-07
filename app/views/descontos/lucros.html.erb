@@ -102,17 +102,21 @@
       <thead>
         <tr>
           <th scope="col">Operadora</th>
-          <!-- maior margem encontrada para o parceiro em /descontos -->
-          <th scope="col" style="text-align:right">%.Operadora</th>
-          <!-- margem encontrada para o parceiro em /remuneracaos?nome=&login=7049213 -->
-          <th scope="col" style="text-align:right">%.Cliente</th>
-          <!-- apuração da margem Pagasó = %.Operadora - %.Operadora -->
-          <th scope="col" style="text-align:right">%.Pagasó</th>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <!-- maior margem encontrada para o parceiro em /descontos -->
+            <th scope="col" style="text-align:right">%.Operadora</th>
+            <!-- margem encontrada para o parceiro em /remuneracaos?nome=&login=7049213 -->
+            <th scope="col" style="text-align:right">%.Cliente</th>
+            <!-- apuração da margem Pagasó = %.Operadora - %.Operadora -->
+            <th scope="col" style="text-align:right">%.Pagasó</th>
+          <% end %>
           <th scope="col" style="text-align:right">Valor Vendido</th>
           <th scope="col" style="text-align:right">Lucro Cliente</th>
           <th scope="col" style="text-align:right">Custo</th>
           <!-- apuração do lucro Pagasó = Valor Vendido * %.Pagasó -->
-          <th scope="col" style="text-align:right">Lucro Pagasó</th>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <th scope="col" style="text-align:right">Lucro Pagasó</th>
+          <% end %>
         </tr>
       </thead>
       <!--
@@ -141,15 +145,23 @@
             totais_valor_total_vendido += valor_total_vendido
             totais_lucro_empresa = totais_valor_total_vendido 
           %>
-          <td align="right">
-            <%= %>
-          </td>
-          <td align="right">
-            <%= %>
-          </td>
-          <td align="right">
-            <%= %>
-          </td>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <td align="right">
+            <!--
+              <%= number_to_currency((totais_lucro_empresa.to_f / valor_total_original.to_f * 100), :unit => "", precision: 3) %>%
+            -->
+            </td>
+            <td align="right">
+            <!--
+              <%= number_to_currency((desconto_total_aplicado.to_f / valor_total_original.to_f * 100), :unit => "", precision: 3) %>%
+            -->
+            </td>
+            <td align="right">
+            <!--
+              <%= number_to_currency((valor_total_vendido.to_f / valor_total_original.to_f * 100), :unit => "", precision: 3) %>%
+            -->
+            </td>
+          <% end %>
           <td align="right"><%= number_to_currency(valor_total_original) %></td>
           <td align="right">
             <%= number_to_currency(desconto_total_aplicado) %><br>
@@ -161,25 +173,30 @@
           <td align="right">
             <%= number_to_currency(valor_total_vendido) %>
           </td>
-          <td align="right">
-            <!-- maior margem da operadora * valor total de custo -->
-            <%= number_to_currency(totais_lucro_empresa) %>
-          </td>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <td align="right">
+              <!-- maior margem da operadora * valor total de custo
+              <%= number_to_currency(totais_lucro_empresa) %>
+              -->
+            </td>
+          <% end %>
         </tr>
         <% end %>
       </tbody>
       <tfoot>
         <tr>
           <td align="right"><b>T o t a l</b></td>
-          <td style="width:120px" align="right">
-            <b><%= %></b>
-          </td>
-          <td style="width:120px" align="right">
-            <b><%= %></b>
-          </td> 
-          <td style="width:120px" align="right">
-            <b><%= %></b>
-          </td>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <td style="width:120px" align="right">
+              <b><%= %></b>
+            </td>
+            <td style="width:120px" align="right">
+              <b><%= %></b>
+            </td> 
+            <td style="width:120px" align="right">
+              <b><%= %></b>
+            </td>
+          <% end %>
           <td style="width:210px" align="right">
             <b><%= number_to_currency(totais_valor_total_original) %></b>
           </td>    
@@ -191,10 +208,12 @@
           <td style="width:210px" align="right">
             <b><%= number_to_currency(totais_valor_total_vendido) %></b>
           </td>
-          <td style="width:210px" align="right">
-            <b><%= number_to_currency(total_lucro_empresa) %></b>
-          </td>      
-          <td align="right"></td>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <td style="width:210px" align="right">
+              <b><%= number_to_currency(total_lucro_empresa) %></b>
+            </td>
+            <td align="right"></td>
+          <% end %>
         </tr>
       </tfoot>
     </table>
