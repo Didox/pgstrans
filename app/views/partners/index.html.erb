@@ -54,6 +54,7 @@
           <th scope="col">ID</th>
           <th scope="col">Nome do Parceiro</th>
           <th scope="col">Ordem Apresentação</th>
+          <th scope="col">Margem da Operadora</th>
           <th scope="col">Desconto Padrão</th>
           <th scope="col">Situação do Parceiro</th>
           <th scope="col"></th>
@@ -67,6 +68,7 @@
           <td><%= partner.id %></td>
           <td><%= partner.name %></td>
           <td align="center"><%= partner.order %></td>
+          <td align="center"><%= partner.margem_operadora %></td>
           <td align="center"><%= partner.desconto %></td>
           <td><%= partner.status_parceiro.nome rescue "" %></td>
           <td><%= link_to 'Descontos', partner_desconto_parceiros_path(partner) %></td>
