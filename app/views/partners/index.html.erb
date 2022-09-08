@@ -68,8 +68,8 @@
           <td><%= partner.id %></td>
           <td><%= partner.name %></td>
           <td align="center"><%= partner.order %></td>
-          <td align="center"><%= partner.margem_operadora %></td>
-          <td align="center"><%= partner.desconto %></td>
+          <td align="center"><%= number_to_currency(partner.margem_operadora, :unit => "", precision: 1) %>%</td>
+          <td align="center"><%= number_to_currency(partner.desconto, :unit => "", precision: 1) %>%</td>
           <td><%= partner.status_parceiro.nome rescue "" %></td>
           <td><%= link_to 'Descontos', partner_desconto_parceiros_path(partner) %></td>
           <td><%= link_to 'Mostrar', partner %></td>
