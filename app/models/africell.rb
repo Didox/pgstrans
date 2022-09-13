@@ -49,9 +49,9 @@ class Africell
       'otp' => "#{otp}",
     }
 
-    #puts "======[OTP body]========="
-    #puts headers.inspect
-    #puts "======[OTP]========="
+    puts "======[OTP body]========="
+    puts headers.inspect
+    puts "======[OTP]========="
 
     request = HTTParty.get(uri, 
     :headers => headers,
