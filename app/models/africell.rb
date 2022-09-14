@@ -62,6 +62,13 @@ class Africell
     puts "======[OTP]========="
 
     request.headers["authorization"]
+  rescue Exception => e
+    puts "=========================="
+    puts e.message
+    puts "=========================="
+    puts e.backtrace
+    puts "=========================="
+    raise "Validação OTP não realizada - #{e.message}"
   end
 
   def self.refresh_token(get_token_force = false)
@@ -98,6 +105,13 @@ class Africell
     puts("==============")
 
     [request.headers["authorization"],parceiro, parametro, url_service]
+  rescue Exception => e
+    puts "=========================="
+    puts e.message
+    puts "=========================="
+    puts e.backtrace
+    puts "=========================="
+    raise "Refresh token não realizada - #{e.message}"
   end
 
   def self.consulta_saldo
@@ -123,6 +137,14 @@ class Africell
     raise "Retorno da API vazia, não foi possível recuperar o DealerBalance" if dados.blank?
 
     SaldoParceiro.create(partner_id: parceiro.id, saldo: dados["DealerBalance"], log: request.body)
+    
+  rescue Exception => e
+    puts "=========================="
+    puts e.message
+    puts "=========================="
+    puts e.backtrace
+    puts "=========================="
+    raise "Consulta de saldo não realizada - #{e.message}"
   end
 
   def self.vender
@@ -176,6 +198,13 @@ class Africell
     puts result
     Rails.logger.info "=========================================="
 =end
+  rescue Exception => e
+    puts "=========================="
+    puts e.message
+    puts "=========================="
+    puts e.backtrace
+    puts "=========================="
+    raise "Venda não realizada - #{e.message}"
   end
 
   def self.check_transaction_log(params)
@@ -203,6 +232,13 @@ class Africell
     )
 
     JSON.parse(request.body)
+  rescue Exception => e
+    puts "=========================="
+    puts e.message
+    puts "=========================="
+    puts e.backtrace
+    puts "=========================="
+    raise "Verificação de transação não realizada - #{e.message}"
   end
 
   def self.parametros
@@ -219,73 +255,5 @@ class Africell
     end
 
     [parceiro,parametro,url_service]
-  end
-
-  def self.fazer_request(url_service, body, resource)
-    #http://uat.mcadigitalmedia.com/VendorSelfCare/SelfCareService.svc?wsdl
-    url = "#{url_service}/VendorSelfCare/SelfCareService.svc"
-    uri = URI.parse(URI::Parser.new.escape(url))
-    request = HTTParty.post(uri, 
-      :headers => {
-        'Content-Type' => 'text/xml;charset=UTF-8',
-        'SOAPAction' => "http://services.multichoice.co.za/SelfCare/ISelfCareService/#{resource}",
-      },
-      :body => body,
-      timeout: DEFAULT_TIMEOUT.to_i.seconds
-    )
-
-    Rails.logger.info "=========================================="
-    Rails.logger.info body
-    Rails.logger.info "=========================================="
-    Rails.logger.info request.body
-    Rails.logger.info "=========================================="
-
-    return request
-  rescue PagasoError => e
-    raise "#{e.message} - #{e.backtrace}"
-  rescue Net::ReadTimeout => e
-    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
-  rescue Net::OpenTimeout => e
-    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
-  rescue Errno::ETIMEDOUT => e
-    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
-  rescue Exception => e
-    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
-  end
-
-  def self.informacoes_parse(body)
-    xml_doc = Nokogiri::XML(body)
-
-    customer_detail_hash = {}
-    customer_details = xml_doc.child.child.child.child.children.select{|child| child.name == "customerDetails"}.first rescue nil
-    accounts_xml = xml_doc.child.child.child.child.children.select{|child| child.name == "accounts"}.first rescue nil
-
-    if customer_details.blank? || accounts_xml.blank?
-      mensagem = body.scan(/Message.*?\<\/Message/).first.gsub(/Message\>/, "").gsub(/\<\/Message/, "") rescue ""
-      raise PagasoError.new(ErroAmigavel.traducao(mensagem)) if mensagem.present?
-    end
-
-    if customer_details
-      customer_details.children.each do |detail|
-        customer_detail_hash["#{detail.name}"] = detail.text rescue ""
-      end
-    end
-
-    accounts = []
-    if accounts_xml
-      accounts_xml.children.each do |account_xml|
-        account = {}
-
-        account_xml.children.each do |account_field_xml|
-          account["#{account_field_xml.name}"] = account_field_xml.text rescue ""
-        end
-        accounts << account
-      end
-    end
-
-    return {
-      customer_detail: customer_detail_hash,
-      accounts: accounts
-    }
   end
 end
