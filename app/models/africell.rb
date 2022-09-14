@@ -56,9 +56,7 @@ class Africell
     request = HTTParty.get(uri, 
     :headers => headers,
     timeout: DEFAULT_TIMEOUT.to_i.seconds)
-
-
-    
+  
     puts "======[OTP request]========="
     puts request.inspect
     puts "======[OTP]========="
