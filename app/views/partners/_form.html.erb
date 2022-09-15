@@ -23,11 +23,15 @@
 				<% end %>
 
 				<div class="form-input col-sm-6">
-				<%= f.input :name, placeholder: "Nome do parceiro" %>
+					<%= f.input :name, placeholder: "Nome do parceiro" %>
 				</div>
 
 				<div class="form-input col-sm-6">
-				<%= f.input :slug, placeholder: "Slug (código para busca)" %>
+					<%= f.input :slug, placeholder: "Slug (código para busca)" %>
+				</div>
+
+				<div class="form-input col-sm-6">
+           		 	<%= f.text_area :usuarios, placeholder: "Digite o login dos usuários separado por vírgula", style:"height: 250px!important", class: "form-control" %>
 				</div>
 
 				<div class="form-input col-sm-6">

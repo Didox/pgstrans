@@ -8,6 +8,11 @@ class Partner < ApplicationRecord
 
   STORE_ID_ZAP_PARCEIRO = "115356"
 
+  def usuarios_operadoras_ativas
+    @usuarios_operadoras_ativas ||= self.usuarios.to_s.split(",").map{|s|s.strip}
+    return @usuarios_operadoras_ativas
+  end
+
   def total_vendas(usuario_logado, vendas_filtrada=nil)
     unless vendas_filtrada.nil?
       vendas = vendas_filtrada.clone

@@ -11,6 +11,7 @@
     <div class="col-md-12 row justify-content-center mobile-container-icones">
       <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO).each do |partner|
         next if partner.slug == "ende" && !(@adm.admin? || @adm.operador? || usuario_logado.login == '6056832') # remover depois do teste ENDE
+        next if partner.usuarios_operadoras_ativas.present? && !partner.usuarios_operadoras_ativas.include?(usuario_logado.login)
 
         if @partner_default.blank?
           @partner_default = partner

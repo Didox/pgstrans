@@ -56,6 +56,7 @@
           <th scope="col">Ordem Apresentação</th>
           <th scope="col">Margem da Operadora</th>
           <th scope="col">Desconto Padrão</th>
+          <th scope="col">Usuarios que veem o logo da operadora</th>
           <th scope="col">Situação do Parceiro</th>
           <th scope="col"></th>
           <th scope="col" colspan="3">Ações para o Registo</th>
@@ -70,6 +71,7 @@
           <td align="center"><%= partner.order %></td>
           <td align="center"><%= number_to_currency(partner.margem_operadora, :unit => "", precision: 1) %>%</td>
           <td align="center"><%= number_to_currency(partner.desconto, :unit => "", precision: 1) %>%</td>
+          <td><%= partner.usuarios %></td>
           <td><%= partner.status_parceiro.nome rescue "" %></td>
           <td><%= link_to 'Descontos', partner_desconto_parceiros_path(partner) %></td>
           <td><%= link_to 'Mostrar', partner %></td>
