@@ -31,10 +31,6 @@
 				</div>
 
 				<div class="form-input col-sm-6">
-           		 	<%= f.text_area :usuarios, placeholder: "Digite o login dos usuários separado por vírgula", style:"height: 250px!important", class: "form-control" %>
-				</div>
-
-				<div class="form-input col-sm-6">
 					<%= f.label :order, "Ordem" %>
 					<%= f.select :order, (1..(Partner.count + 1)).map{|i| [i, i]}, {}, required:true, class: "form-control" %>
 				</div>
@@ -50,6 +46,11 @@
 
 				<div class="form-input col-sm-6">
 					<%= f.input :desconto, label: "Desconto padrão do parceiro", placeholder: "Porcentagem de desconto" %>
+				</div>
+
+				<div class="form-input col-sm-12">
+					<label class="float optional" for="partner_usuarios">Digite o LOGIN dos usuários separado por vírgula, caso seja mais de um</label>
+           		 	<%= f.text_area :usuarios, placeholder: "Digite o login dos usuários", style:"height: 70px!important", class: "form-control" %>
 				</div>
 
 				<div class="form-input col-sm-6">
