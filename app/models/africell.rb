@@ -49,25 +49,25 @@ class Africell
       'otp' => "#{otp}",
     }
 
-    puts "======[OTP body]========="
-    puts headers.inspect
-    puts "======[OTP]========="
+    Rails.logger.info "======[OTP body]========="
+    Rails.logger.info headers.inspect
+    Rails.logger.info "======[OTP]========="
 
     request = HTTParty.get(uri, 
     :headers => headers,
     timeout: DEFAULT_TIMEOUT.to_i.seconds)
   
-    puts "======[OTP request]========="
-    puts request.inspect
-    puts "======[OTP]========="
+    Rails.logger.info "======[OTP request]========="
+    Rails.logger.info request.inspect
+    Rails.logger.info "======[OTP]========="
 
     request.headers["authorization"]
   rescue Exception => e
-    puts "=========================="
-    puts e.message
-    puts "=========================="
-    puts e.backtrace
-    puts "=========================="
+    Rails.logger.info "=========================="
+    Rails.logger.info e.message
+    Rails.logger.info "=========================="
+    Rails.logger.info e.backtrace
+    Rails.logger.info "=========================="
     raise "Validação OTP não realizada - #{e.message}"
   end
 
@@ -92,25 +92,25 @@ class Africell
       'Authorization' => token
     }
 
-    puts("=======[refresh headers]=======")
-    puts(headers.inspect)
-    puts("==============")
+    Rails.logger.info("=======[refresh headers]=======")
+    Rails.logger.info(headers.inspect)
+    Rails.logger.info("==============")
 
     request = HTTParty.get(uri, 
     :headers => headers,
     timeout: DEFAULT_TIMEOUT.to_i.seconds)
 
-    puts("=======[refresh request]=======")
-    puts(request.inspect)
-    puts("==============")
+    Rails.logger.info("=======[refresh request]=======")
+    Rails.logger.info(request.inspect)
+    Rails.logger.info("==============")
 
     [request.headers["authorization"],parceiro, parametro, url_service]
   rescue Exception => e
-    puts "=========================="
-    puts e.message
-    puts "=========================="
-    puts e.backtrace
-    puts "=========================="
+    Rails.logger.info "=========================="
+    Rails.logger.info e.message
+    Rails.logger.info "=========================="
+    Rails.logger.info e.backtrace
+    Rails.logger.info "=========================="
     raise "Refresh token não realizada - #{e.message}"
   end
 
@@ -139,11 +139,11 @@ class Africell
     SaldoParceiro.create(partner_id: parceiro.id, saldo: dados["DealerBalance"], log: request.body)
     
   rescue Exception => e
-    puts "=========================="
-    puts e.message
-    puts "=========================="
-    puts e.backtrace
-    puts "=========================="
+    Rails.logger.info "=========================="
+    Rails.logger.info e.message
+    Rails.logger.info "=========================="
+    Rails.logger.info e.backtrace
+    Rails.logger.info "=========================="
     raise "Consulta de saldo não realizada - #{e.message}"
   end
 
@@ -171,9 +171,9 @@ class Africell
     request
 
 =begin
-    puts("========[token]===========")
-    puts(jwt_token)
-    puts("===================")
+    Rails.logger.info("========[token]===========")
+    Rails.logger.info(jwt_token)
+    Rails.logger.info("===================")
     
 
     Rails.logger.info "=========================================="
@@ -184,26 +184,26 @@ class Africell
 
 
 
-    puts "=========URL================"
-    puts url
-    puts "=========URL================"
-    puts "http://10.250.80.74:9214/HTTP_Recharge/"
-    puts "=========URL================"
+    Rails.logger.info "=========URL================"
+    Rails.logger.info url
+    Rails.logger.info "=========URL================"
+    Rails.logger.info "http://10.250.80.74:9214/HTTP_Recharge/"
+    Rails.logger.info "=========URL================"
 
 
     result = "curl -X POST http://10.250.80.74:9214/HTTP_Recharge/ -H \"Content-Type: application/json\" -H \"Authorization: #{jwt_token}\" -d '{\"ProductCode\":\"01\", \"ParameterCode\":\"01\", \"Amount\":\"\", \"TargetMSISDN\":\"244959560801\", \"TransactionReference\":\"1\"}'"
    
     result = `#{result}`
     Rails.logger.info "==============[Result]============================"
-    puts result
+    Rails.logger.info result
     Rails.logger.info "=========================================="
 =end
   rescue Exception => e
-    puts "=========================="
-    puts e.message
-    puts "=========================="
-    puts e.backtrace
-    puts "=========================="
+    Rails.logger.info "=========================="
+    Rails.logger.info e.message
+    Rails.logger.info "=========================="
+    Rails.logger.info e.backtrace
+    Rails.logger.info "=========================="
     raise "Venda não realizada - #{e.message}"
   end
 
@@ -233,11 +233,11 @@ class Africell
 
     JSON.parse(request.body)
   rescue Exception => e
-    puts "=========================="
-    puts e.message
-    puts "=========================="
-    puts e.backtrace
-    puts "=========================="
+    Rails.logger.info "=========================="
+    Rails.logger.info e.message
+    Rails.logger.info "=========================="
+    Rails.logger.info e.backtrace
+    Rails.logger.info "=========================="
     raise "Verificação de transação não realizada - #{e.message}"
   end
 
