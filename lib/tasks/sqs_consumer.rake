@@ -7,7 +7,7 @@ namespace :sqs do
     )
 
     while (true)
-      puts "#{Time.zone.now.strftime("%Y%m%d%H%M%S")} - lendo ..."
+      Rails.logger.info "#{Time.zone.now.strftime("%Y%m%d%H%M%S")} - lendo ..."
       receive_message_result = sqs_client.receive_message({
         queue_url: SQS_URL, 
         message_attribute_names: ["All"], # Receive all custom attributes.
@@ -17,7 +17,7 @@ namespace :sqs do
 
       receive_message_result.messages.each do |message|
         begin
-          puts "#{Time.zone.now.strftime("%Y%m%d%H%M%S")} - Importando ..."
+          Rails.logger.info "#{Time.zone.now.strftime("%Y%m%d%H%M%S")} - Importando ..."
           relatorio_id = message.body
           rel = Relatorio.where(id: relatorio_id).first
           next if rel.blank?
@@ -45,8 +45,8 @@ namespace :sqs do
           `echo "=======================================" >> log/#{Rails.env}.log`
 
         rescue Exception => e
-          puts e.message
-          puts e.backtrace
+          Rails.logger.info e.message
+          Rails.logger.info e.backtrace
 
           `echo "=====[SQS #{DateTime.now} Erro]=====" >> log/#{Rails.env}.log`
           `echo "#{e.message},  #{e.backtrace}" >> log/#{Rails.env}.log`

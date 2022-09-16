@@ -81,10 +81,10 @@ class PartnersController < ApplicationController
   def zap_conciliacao
     if (params[:data_inicio].present? || params[:data_fim].present?) 
       @relatorio_conciliacao_zaptvs = []
-      puts "====================="
-      puts params.inspect
-      puts (!params.has_key?(:data_inicio) || !params.has_key?(:data_fim) || params[:data_inicio].blank? || params[:data_fim].blank? || params[:data_inicio].to_datetime < (DateTime.now - 120.days))
-      puts "====================="
+      Rails.logger.info "====================="
+      Rails.logger.info params.inspect
+      Rails.logger.info (!params.has_key?(:data_inicio) || !params.has_key?(:data_fim) || params[:data_inicio].blank? || params[:data_fim].blank? || params[:data_inicio].to_datetime < (DateTime.now - 120.days))
+      Rails.logger.info "====================="
     
       if params[:buscou].present? && (!params.has_key?(:data_inicio) || !params.has_key?(:data_fim) || params[:data_inicio].blank? || params[:data_fim].blank? || params[:data_inicio].to_datetime < (DateTime.now - 120.days))
         flash[:error] = 'Defina o período para agendar o relatório de conciliação com data inicial de venda não superior a 120 dias'

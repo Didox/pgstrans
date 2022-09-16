@@ -62,9 +62,9 @@ namespace :soap_movicel do
     
     if (200...300).include?(request.code.to_i)
       if request.body.present?
-        puts "=========================================="
-        puts request.body
-        puts "=========================================="
+        Rails.logger.info "=========================================="
+        Rails.logger.info request.body
+        Rails.logger.info "=========================================="
       end
     end
   end
@@ -122,9 +122,9 @@ namespace :soap_movicel do
 
     if (200...300).include?(request.code.to_i)
       if request.body.present?
-        puts "=========================================="
-        puts request.body
-        puts "=========================================="
+        Rails.logger.info "=========================================="
+        Rails.logger.info request.body
+        Rails.logger.info "=========================================="
       end
     end
   end

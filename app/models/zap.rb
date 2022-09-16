@@ -18,8 +18,8 @@ class Zap
     host = parametro.get.categoria.downcase == "wifi" ? host.gsub("/compra",'') : host.gsub("/carregamento",'')
     host = "#{host}/portfolio"
 
-    puts "================= (#{host}) ================="
-    puts "================= (#{api_key}) ================="
+    Rails.logger.info "================= (#{host}) ================="
+    Rails.logger.info "================= (#{api_key}) ================="
     
     res = HTTParty.get(
       host, 
@@ -81,7 +81,7 @@ class Zap
     
     if parametro.blank?
       erro = "Parametro não encontrado partner_id: #{partner.id} categoria: #{categoria.to_s.downcase}"
-      puts "======[#{erro}]======="
+      Rails.logger.info "======[#{erro}]======="
       raise erro
     end
 
@@ -107,7 +107,7 @@ class Zap
       data = data + 1.day
 
       uri = URI.parse(URI::Parser.new.escape(url))
-      puts "(#{uri})"
+      Rails.logger.info "(#{uri})"
 
       res = HTTParty.get(
         uri, 
@@ -139,10 +139,10 @@ class Zap
           rel.unit_price = dado["unit_price"]
           rel.save
 
-          puts ":::: Relatório criado (#{rel.id}) ::::"
+          Rails.logger.info ":::: Relatório criado (#{rel.id}) ::::"
         end
       else
-        puts ":::: Não encontrado (#{res.body}) ::::"
+        Rails.logger.info ":::: Não encontrado (#{res.body}) ::::"
       end
     end
 
