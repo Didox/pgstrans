@@ -10,6 +10,6 @@ class Relatorio < ApplicationRecord
             message_body: self.id.to_s
         )
 
-        puts "=====[SQS Agendamento Sucesso #{DateTime.now}]====="
+        Rails.logger.info "=====[SQS Agendamento Sucesso #{DateTime.now}]====="
     end
 end

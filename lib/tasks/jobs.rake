@@ -24,26 +24,26 @@ namespace :jobs do
   desc "zappi_capture"
   task zappi_capture: :environment do
     vendas = Venda.all.where(partner_id: 4).where("zappi is null")
-    puts "Total #{vendas.count}"
+    Rails.logger.info "Total #{vendas.count}"
     vendas.each_with_index do |venda, index|
       zappi = venda.zappi_capture
       if zappi.present?
         Venda.where(id: venda.id).update_all(zappi: zappi)
       end
-      puts "#{zappi} - #{index + 1}"
+      Rails.logger.info "#{zappi} - #{index + 1}"
     end
   end
 
   desc "operation_code"
   task operation_code_capture: :environment do
     vendas = Venda.all.where(partner_id: 4).where("operation_code_zap is null")
-    puts "Total #{vendas.count}"
+    Rails.logger.info "Total #{vendas.count}"
     vendas.each_with_index do |venda, index|
       operation_code_zap = venda.operation_code_zap_capture
       if operation_code_zap.present?
         Venda.where(id: venda.id).update_all(operation_code_zap: operation_code_zap)
       end
-      puts "#{operation_code_zap} - #{index + 1}"
+      Rails.logger.info "#{operation_code_zap} - #{index + 1}"
     end
   end
 
@@ -51,7 +51,7 @@ namespace :jobs do
   task banco_export: :environment do
     dado = ""
     Banco.all.each_with_index do |cc, index|
-      puts index
+      Rails.logger.info index
       dado += "#{cc.to_json}\n"
     end
     File.open("#{Rails.root}/bkp/banco.data", "w") { |f| f.write dado }
@@ -99,7 +99,7 @@ namespace :jobs do
         end
       end
 
-      puts i
+      Rails.logger.info i
     end
 
     AlteracoesPlanosDstv.all.each_with_index do |alteracao, i|
@@ -137,7 +137,7 @@ namespace :jobs do
         end
       end
 
-      puts i
+      Rails.logger.info i
     end
   end
 
@@ -149,7 +149,7 @@ namespace :jobs do
     text=File.open("#{Rails.root}/bkp/banco.data").read
     text.gsub!(/\r\n?/, "\n")
     text.each_line do |line|
-      puts (line_num += 1)
+      Rails.logger.info (line_num += 1)
       json = JSON.parse(line)
       if Banco.where(id: json["id"]).count == 0
         responsavel = Usuario.find(json["responsavel_aprovacao_id"]) rescue Usuario.find(2)
@@ -168,7 +168,7 @@ namespace :jobs do
   task conta_corrente_export: :environment do
     dado = ""
     ContaCorrente.all.each_with_index do |cc, index|
-      puts index
+      Rails.logger.info index
       dado += "#{cc.to_json}\n"
     end
     File.open("#{Rails.root}/bkp/conta_corrente.data", "w") { |f| f.write dado }
@@ -184,7 +184,7 @@ namespace :jobs do
     text.gsub!(/\r\n?/, "\n")
     text.each_line do |line|
       begin
-        puts (line_num += 1)
+        Rails.logger.info (line_num += 1)
         json = JSON.parse(line)
         next if Usuario.where(id: json["usuario_id"]).count == 0
 
@@ -211,26 +211,26 @@ namespace :jobs do
       begin
         movicel_loop.processar!
       rescue Exception => err
-        puts "==============="
-        puts err.mensagem
-        puts "==============="
-        puts err.backtrace
-        puts "==============="
+        Rails.logger.info "==============="
+        Rails.logger.info err.mensagem
+        Rails.logger.info "==============="
+        Rails.logger.info err.backtrace
+        Rails.logger.info "==============="
       end
     end
   end
 
   desc "Insere categoria ZAP (Wifi, TV) em vendas"
   task vendas_categoria: :environment do
-    puts "Iniciando update de vendas anteriores a 01/05/2022"
+    Rails.logger.info "Iniciando update de vendas anteriores a 01/05/2022"
     #Venda.where(partner_id: 4).where("created_at < '2022-05-01 00:00:00'").update_all(categoria: "tv")
     ActiveRecord::Base.connection.exec_query("update vendas set categoria='tv' where partner_id = 4 and created_at < '2022-05-01 00:00:00'")
-    puts "Update de vendas anteriores a 01/05/2022 concluído"
+    Rails.logger.info "Update de vendas anteriores a 01/05/2022 concluído"
     Venda.where(partner_id: 4).where("created_at >= '2022-05-01 00:00:00'").each do |venda|
-      puts "=========="
-      puts venda.product.description
-      puts venda.product.categoria
-      puts "=========="
+      Rails.logger.info "=========="
+      Rails.logger.info venda.product.description
+      Rails.logger.info venda.product.categoria
+      Rails.logger.info "=========="
       ActiveRecord::Base.connection.exec_query("update vendas set categoria='#{venda.product.categoria}' where id = #{venda.id}")
     end
   end
