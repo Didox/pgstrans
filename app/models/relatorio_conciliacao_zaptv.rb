@@ -37,7 +37,7 @@ class RelatorioConciliacaoZaptv < ApplicationRecord
       csv << attributes
       sql = to_sql_csv
 
-      puts "====[#{sql}]===="
+      Rails.logger.info "====[#{sql}]===="
 
       dados = ActiveRecord::Base.connection.exec_query(sql)
       dados.each do |user|
