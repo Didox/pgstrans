@@ -1,0 +1,14 @@
+<% if @venda.partner.id == Partner.ende.id %>
+  <% infos = Ende.informacoes_parse(@venda.response_get, EndeUniqNumber.find(@venda.request_id)) %>
+<% end %>
+
+
+<div class="col-md-12">
+  <dl class="dl-horizontal">
+    <% if @venda.partner.id == Partner.ende.id %>
+      <% infos.each do |info|%>
+        <%= render "/ende/venda_recibo_mini", info: info, title: "Recibo de Venda de Crédito", venda: @venda %>
+      <% end %>
+    <% end %>
+  </dl>
+</div>

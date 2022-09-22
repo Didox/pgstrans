@@ -1,6 +1,7 @@
 class VendasController < ApplicationController
-  before_action :set_venda, only: [:show, :recibo, :edit, :update, :destroy, :mostrar_resumido]
+  before_action :set_venda, only: [:show, :mini, :recibo, :edit, :update, :destroy, :mostrar_resumido]
   layout "blank", only: [:index_grafico, :index_resumo]
+  layout "basico", only: [:mini]
 
   # GET /vendas
   # GET /vendas.json
@@ -21,6 +22,8 @@ class VendasController < ApplicationController
   def recibo;end
 
   def show;end
+  
+  def mini;end
 
   def consolidado
     @page = params[:page] || 1
