@@ -57,6 +57,7 @@ class PerfilUsuario < ApplicationRecord
       reprint: "Opção de Reimpressão ENDE - Menu de Venda HOME",
       last_advice: "Opção de Last Advice ENDE - Menu de Venda HOME",
       pagamento_de_conta: "Opção de Pagamento de Conta ENDE - Menu de Venda HOME",
+      mini: "Recibo de venda ENDE para impressoras tipo cupom fiscal - Lojas Físicas",
       validacao_cliente_api: "Validação de cliente DSTV pela API",
       new: "Mostrar a tela que permite a inclusão de um novo registo",
       produtos_api: "Mostrar produtos para serem utilizados na API",
