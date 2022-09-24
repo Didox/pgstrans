@@ -78,7 +78,9 @@ Rails.application.routes.draw do
   get 'vendas/:venda_id/resumido', to: 'vendas#mostrar_resumido', as: "vendas_mostrar_resumido"
   get 'vendas_grafico', to: 'vendas#index_grafico', as: "vendas_grafico"
   get 'vendas_resumo', to: 'vendas#index_resumo', as: "vendas_resumo"
-  
+
+  get 'africell/auth', to: 'africell#auth', as: "africell_auth"
+
   resources :vendas do
     delete '/reverter_venda_zaptv', to: 'vendas#reverter_venda_zaptv', as: "reverter_venda_zaptv"
     get '/recibo', to: 'vendas#recibo', as: "vendas_recibo"
