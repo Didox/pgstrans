@@ -48,12 +48,62 @@ class AfricellController < ApplicationController
     http.use_ssl = true
     request = Net::HTTP::Get.new(url)
     response = http.request(request)
+    user = JSON.parse(response.read_body)
+
+
+    url_mensagens = "https://gmail.googleapis.com/gmail/v1/users/#{user["id"]}/messages?labelIds=INBOX&q=Africell Recharge GW (Prod) OTP&access_token=#{access_token}"
+    url = URI(url_mensagens)
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    request = Net::HTTP::Get.new(url)
+    response = http.request(request)
+    mensagens = JSON.parse(response.read_body)
+
+    body_messages = []
+    mensagens["messages"] ||= []
+    mensagens["messages"].take(5).each do |message|
+      url_message = "https://gmail.googleapis.com/gmail/v1/users/#{user["id"]}/messages/#{message["id"]}?access_token=#{access_token}"
+      url = URI(url_message)
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true
+      request = Net::HTTP::Get.new(url)
+      response = http.request(request)
+      messagen_snippet = JSON.parse(response.read_body)
+
+      snippet = messagen_snippet["snippet"]
+      snippet = snippet.to_s.strip
+
+      if snippet.downcase.include?("otp is :")
+        otp_key = snippet.scan(/OTP is :.*/).first.gsub(/OTP is :/, "").strip rescue ""
+        if otp_key.present?
+
+          parceiro, parametro, url_service = Africell.parametros
+
+          dados = JSON.parse(parametro.dados)
+          dados["otp_key"] = otp_key
+          parametro.dados = dados.to_json
+          parametro.responsavel = usuario_logado
+          parametro.save!
+
+          return redirect_to partner_url(parceiro)
+
+          return render json: {
+            otp_key: otp_key
+          }
+        end
+      end
+
+     
+
+      body_messages << snippet
+    end
 
     render json: {
       access_token: access_token,
       url: url_user,
-      user: JSON.parse(response.read_body),
-      auth: json
+      user: user,
+      auth: json,
+      body_messages: body_messages
     }
   end
 

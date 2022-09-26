@@ -175,12 +175,14 @@
             <%= number_to_currency(valor_total_vendido - desconto_total_aplicado) %>
           </td>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
-            <td align="right">
-              <!-- Lucro Pagasó -->
-              <%= number_to_currency(parceiro.margem_operadora.to_f * valor_total_vendido) %>
-              <br>
-              <%= number_to_currency(valor_total_vendido * (parceiro.margem_operadora.to_f - porcentagem_cliente.to_f)) %>
-            </td>
+            <% if @adm.id == Usuario::ROOT %>
+              <td align="right">
+                <!-- Lucro Pagasó -->
+                <%= number_to_currency(parceiro.margem_operadora.to_f * valor_total_vendido) %>
+                <br>
+                <%= number_to_currency(valor_total_vendido * (parceiro.margem_operadora.to_f - porcentagem_cliente.to_f)) %>
+              </td>
+            <% end %>
           <% end %>
         </tr>
         <% end %>
