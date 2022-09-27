@@ -23,12 +23,14 @@ class AfricellController < ApplicationController
     @info = []
   end
 
+  def google_auth;end
+
   def auth
     code = params[:code]
-    client_id = "78799946860-j3cbcbraeqp1227gnff4b7g00tbaahpa.apps.googleusercontent.com"
-    client_secret = "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"
+    client_id = GOOGLE_CLIENT_ID
+    client_secret = GOOGLE_SECRET
     
-    dados = "code=#{code}&client_id=#{client_id}&client_secret=#{client_secret}&grant_type=authorization_code&redirect_uri=http://localhost:3000/africell/auth"
+    dados = "code=#{code}&client_id=#{client_id}&client_secret=#{client_secret}&grant_type=authorization_code&redirect_uri=#{GOOGLE_URL_RETORNO}"
           
     url = URI("https://oauth2.googleapis.com/token")
     http = Net::HTTP.new(url.host, url.port)
