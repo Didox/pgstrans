@@ -80,7 +80,7 @@ Rails.application.routes.draw do
   get 'vendas_resumo', to: 'vendas#index_resumo', as: "vendas_resumo"
 
   get 'africell/auth', to: 'africell#auth', as: "africell_auth"
-  get 'auth', to: 'africell#google_auth', as: "africell_google_auth"
+  get 'google-auth', to: 'africell#google_auth', as: "africell_google_auth"
 
   resources :vendas do
     delete '/reverter_venda_zaptv', to: 'vendas#reverter_venda_zaptv', as: "reverter_venda_zaptv"

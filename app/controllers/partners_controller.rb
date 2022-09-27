@@ -33,7 +33,7 @@ class PartnersController < ApplicationController
   def atualiza_africell_login
     Africell.login
     Africell.refresh_token(true)
-    return redirect_to "/auth"
+    return redirect_to "/google-auth"
     #flash[:notice] = 'Transação de login na plataforma Africell concluída com sucesso. A OPT KEY foi encaminhada para o e-mail do Administrador.'
     #redirect_to partner_url(@partner)
   rescue Exception => erro
