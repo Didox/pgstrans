@@ -23,54 +23,36 @@ class AfricellController < ApplicationController
     @info = []
   end
 
-  def google_auth;end
+  def google_auth
+    # return
+    parceiro, parametro, url_service = Africell.parametros
+    refresh_token = parametro.get.google_refresh_token
+    if refresh_token.present? 
+      access_token = Google.refaz_token(refresh_token)
+      return auth(access_token, refresh_token)
+    end
+  end
 
-  def auth
-    code = params[:code]
-    client_id = GOOGLE_CLIENT_ID
-    client_secret = GOOGLE_SECRET
-    
-    dados = "code=#{code}&client_id=#{client_id}&client_secret=#{client_secret}&grant_type=authorization_code&redirect_uri=#{GOOGLE_URL_RETORNO}"
-          
-    url = URI("https://oauth2.googleapis.com/token")
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
+  def auth(access_token=nil, refresh_token=nil)
+    if access_token.blank? || refresh_token.blank?
+      access_token, refresh_token = Google.tokens(params)
+    end
 
-    request = Net::HTTP::Post.new(url)
-    request['Content-Type'] = 'application/x-www-form-urlencoded'
-    request.body = dados
-    response = http.request(request)
+    parceiro, parametro, url_service = Africell.parametros
+    dados = JSON.parse(parametro.dados)
+    dados["google_access_token"] = access_token
+    dados["google_refresh_token"] = refresh_token
+    parametro.dados = dados.to_json
+    parametro.responsavel = usuario_logado
+    parametro.save!
 
-    json = JSON.parse(response.read_body)
-    access_token = json["access_token"]
-
-    url_user = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=#{access_token}"
-    url = URI(url_user)
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-    request = Net::HTTP::Get.new(url)
-    response = http.request(request)
-    user = JSON.parse(response.read_body)
-
-
-    url_mensagens = "https://gmail.googleapis.com/gmail/v1/users/#{user["id"]}/messages?labelIds=INBOX&q=Africell Recharge GW (Prod) OTP&access_token=#{access_token}"
-    url = URI(url_mensagens)
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-    request = Net::HTTP::Get.new(url)
-    response = http.request(request)
-    mensagens = JSON.parse(response.read_body)
+    user = Google.user(access_token)
+    mensagens = Google.mensagens(user, access_token)
 
     body_messages = []
     mensagens["messages"] ||= []
     mensagens["messages"].take(5).each do |message|
-      url_message = "https://gmail.googleapis.com/gmail/v1/users/#{user["id"]}/messages/#{message["id"]}?access_token=#{access_token}"
-      url = URI(url_message)
-      http = Net::HTTP.new(url.host, url.port)
-      http.use_ssl = true
-      request = Net::HTTP::Get.new(url)
-      response = http.request(request)
-      messagen_snippet = JSON.parse(response.read_body)
+      messagen_snippet = Google.corpo_mensagem(user, message, access_token)
 
       snippet = messagen_snippet["snippet"]
       snippet = snippet.to_s.strip
@@ -78,8 +60,6 @@ class AfricellController < ApplicationController
       if snippet.downcase.include?("otp is :")
         otp_key = snippet.scan(/OTP is :.*/).first.gsub(/OTP is :/, "").strip rescue ""
         if otp_key.present?
-
-          parceiro, parametro, url_service = Africell.parametros
 
           dados = JSON.parse(parametro.dados)
           dados["otp_key"] = otp_key
@@ -95,17 +75,11 @@ class AfricellController < ApplicationController
         end
       end
 
-     
-
       body_messages << snippet
     end
 
     render json: {
-      access_token: access_token,
-      url: url_user,
-      user: user,
-      auth: json,
-      body_messages: body_messages
+      user: user
     }
   end
 
