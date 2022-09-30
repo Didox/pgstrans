@@ -115,7 +115,9 @@ class PerfilUsuario < ApplicationRecord
       zerar_saldo: "Efetivar a ação de ZERAR SALDO de usuário presente em Conta Corrente / Lançamento em Conta Corrente de Usuário ",
       conciliacao: "Conta Corrente Conciliação",
       conciliacao_aplicar: "Conta Corrente Conciliação Aplicar",
-      index_vendas_conciliacao: "Relatório de Vendas com dados resumidos para fins de conciliação"
+      index_vendas_conciliacao: "Relatório de Vendas com dados resumidos para fins de conciliação",
+      auth: "Permissão para interagir com a API do Google",
+      google_auth: "Permissão para autenticação Google"
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]

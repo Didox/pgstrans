@@ -1,0 +1,21 @@
+<div >
+  <h5>Por favor autorize o acesso a sua agenda do google</h5>
+  <a href="javascript:client.requestCode();">
+    Autorizar
+  </a>
+</div>
+
+<script src="https://accounts.google.com/gsi/client" onload="this.onload=function(){};initClient()" async defer></script>
+<script type="text/javascript">
+  var SCOPES = "https://www.googleapis.com/auth/userinfo.profile https://mail.google.com";
+
+  function initClient() {
+    client = google.accounts.oauth2.initCodeClient({
+      ux_mode: 'redirect',
+      redirect_uri: "<%= GOOGLE_URL_RETORNO %>",
+      client_id: '<%= GOOGLE_CLIENT_ID %>',
+      scope: SCOPES,
+
+    });
+  }
+</script>
