@@ -39,48 +39,38 @@ class AfricellController < ApplicationController
     end
 
     parceiro, parametro, url_service = Africell.parametros
+    update_parametros(access_token, refresh_token)
+
+    user = Google.user(access_token)
+    mensagens = Google.mensagens(user, access_token)
+
+    otp_key = Google.get_otp(mensagens, user, message, access_token)
+    if otp_key.present?
+
+      dados = JSON.parse(parametro.dados)
+      dados["otp_key"] = otp_key
+      parametro.dados = dados.to_json
+      parametro.responsavel = usuario_logado
+      parametro.save!
+
+      flash[:notice] = 'Transação de login na plataforma Africell concluída com sucesso.'
+      
+      return redirect_to partner_url(parceiro)
+    end
+
+    flash[:error] = 'Google não autorizou a leitura do email, refaça o login.'
+
+    update_parametros(nil, nil)
+    return redirect_to "/google-auth"
+  end
+
+  def update_parametros(access_token, refresh_token)
     dados = JSON.parse(parametro.dados)
     dados["google_access_token"] = access_token
     dados["google_refresh_token"] = refresh_token
     parametro.dados = dados.to_json
     parametro.responsavel = usuario_logado
     parametro.save!
-
-    user = Google.user(access_token)
-    mensagens = Google.mensagens(user, access_token)
-
-    body_messages = []
-    mensagens["messages"] ||= []
-    mensagens["messages"].take(5).each do |message|
-      messagen_snippet = Google.corpo_mensagem(user, message, access_token)
-
-      snippet = messagen_snippet["snippet"]
-      snippet = snippet.to_s.strip
-
-      if snippet.downcase.include?("otp is :")
-        otp_key = snippet.scan(/OTP is :.*/).first.gsub(/OTP is :/, "").strip rescue ""
-        if otp_key.present?
-
-          dados = JSON.parse(parametro.dados)
-          dados["otp_key"] = otp_key
-          parametro.dados = dados.to_json
-          parametro.responsavel = usuario_logado
-          parametro.save!
-
-          return redirect_to partner_url(parceiro)
-
-          return render json: {
-            otp_key: otp_key
-          }
-        end
-      end
-
-      body_messages << snippet
-    end
-
-    render json: {
-      user: user
-    }
   end
 
 end
