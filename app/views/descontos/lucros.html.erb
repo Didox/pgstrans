@@ -147,31 +147,42 @@
           %>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
             <td align="right">
+              <!-- % Operadora -->
               <%= number_to_currency(parceiro.margem_operadora.to_f, :unit => "", precision: 1) %>%
             </td>
             <td align="right">
-              <% porcentagem = (desconto_total_aplicado.to_f / valor_total_original.to_f * 100) 
-                 porcentagem = porcentagem.nan? ? 0 : porcentagem %>
-              <%= number_to_currency(porcentagem, :unit => "", precision: 1) %>%
+              <!-- % Cliente -->
+              <% porcentagem_cliente = (desconto_total_aplicado.to_f / valor_total_original.to_f * 100) 
+                 porcentagem_cliente = porcentagem_cliente.nan? ? 0 : porcentagem_cliente %>
+              <%= number_to_currency(porcentagem_cliente, :unit => "", precision: 1) %>%
             </td>
             <td align="right">
-              <%= number_to_currency(parceiro.margem_operadora.to_f - porcentagem.to_f, :unit => "", precision: 1) %>%
+              <!-- % Pagasó -->
+              <%= number_to_currency(parceiro.margem_operadora.to_f - porcentagem_cliente.to_f, :unit => "", precision: 1) %>%
             </td>
           <% end %>
-          <td align="right"><%= number_to_currency(valor_total_original) %></td>
           <td align="right">
-            <%= number_to_currency(desconto_total_aplicado) %><br>
-            <%= number_to_currency(porcentagem, :unit => "", precision: 3) %>%
+              <!-- % Valor Vendido -->
+              <%= number_to_currency(valor_total_original) %>
           </td>
           <td align="right">
-            <%= number_to_currency(valor_total_vendido) %>
+            <!-- Lucro Cliente -->
+            <%= number_to_currency(desconto_total_aplicado) %><br>
+            <%= number_to_currency(porcentagem_cliente, :unit => "", precision: 3) %>%
+          </td>
+          <td align="right">
+            <!-- Custo -->
+            <%= number_to_currency(valor_total_vendido - desconto_total_aplicado) %>
           </td>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
-          <!--
-            <td align="right">
-              <%= number_to_currency(parceiro.margem_operadora.to_f * valor_total_vendido) %>
-            </td>
-          -->
+            <% if @adm.id == Usuario::ROOT %>
+              <td align="right">
+                <!-- Lucro Pagasó -->
+                <%= number_to_currency(parceiro.margem_operadora.to_f * valor_total_vendido) %>
+                <br>
+                <%= number_to_currency(valor_total_vendido * (parceiro.margem_operadora.to_f - porcentagem_cliente.to_f)) %>
+              </td>
+            <% end %>
           <% end %>
         </tr>
         <% end %>
