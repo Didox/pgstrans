@@ -39,7 +39,7 @@ class AfricellController < ApplicationController
     end
 
     parceiro, parametro, url_service = Africell.parametros
-    update_parametros(access_token, refresh_token)
+    update_parametros(access_token, refresh_token, parametro)
 
     user = Google.user(access_token)
     mensagens = Google.mensagens(user, access_token)
@@ -60,11 +60,11 @@ class AfricellController < ApplicationController
 
     flash[:error] = 'Google não autorizou a leitura do email, refaça o login.'
 
-    update_parametros(nil, nil)
+    update_parametros(nil, nil, parametro)
     return redirect_to "/google-auth"
   end
 
-  def update_parametros(access_token, refresh_token)
+  def update_parametros(access_token, refresh_token, parametro)
     dados = JSON.parse(parametro.dados)
     dados["google_access_token"] = access_token
     dados["google_refresh_token"] = refresh_token
