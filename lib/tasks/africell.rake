@@ -20,9 +20,7 @@ namespace :jobs do
 
       otp_key = Google.get_otp(mensagens, user, access_token)
       if otp_key.present?
-        dados = JSON.parse(parametro.dados)
         dados["otp_key"] = otp_key
-        dados = dados.to_json
         Parametro.where(id: parametro.id).update_all(dados: dados.to_json)
       end
       
