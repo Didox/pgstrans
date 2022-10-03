@@ -43,7 +43,7 @@ class Google
     nil
   end
 
-  def self.get_otp(mensagens, user, message, access_token)
+  def self.get_otp(mensagens, user, access_token)
     mensagens["messages"] ||= []
     mensagens["messages"].take(5).each do |message|
       messagen_snippet = Google.corpo_mensagem(user, message, access_token)
