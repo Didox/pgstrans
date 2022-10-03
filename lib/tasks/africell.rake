@@ -18,7 +18,7 @@ namespace :jobs do
       user = Google.user(access_token)
       mensagens = Google.mensagens(user, access_token)
 
-      otp_key = Google.get_otp(mensagens, user, message, access_token)
+      otp_key = Google.get_otp(mensagens, user, access_token)
       if otp_key.present?
         dados = JSON.parse(parametro.dados)
         dados["otp_key"] = otp_key
