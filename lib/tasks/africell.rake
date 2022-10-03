@@ -22,9 +22,8 @@ namespace :jobs do
       if otp_key.present?
         dados = JSON.parse(parametro.dados)
         dados["otp_key"] = otp_key
-        parametro.dados = dados.to_json
-        parametro.responsavel = usuario_logado
-        parametro.save!
+        dados = dados.to_json
+        Parametro.where(id: parametro.id).update_all(dados: dados.to_json)
       end
       
     end
