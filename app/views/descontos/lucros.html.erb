@@ -103,17 +103,13 @@
         <tr>
           <th scope="col">Operadora</th>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
-            <!-- maior margem encontrada para o parceiro em /descontos -->
             <th scope="col" style="text-align:right">%.Operadora</th>
-            <!-- margem encontrada para o parceiro em /remuneracaos?nome=&login=7049213 -->
             <th scope="col" style="text-align:right">%.Cliente</th>
-            <!-- apuração da margem Pagasó = %.Operadora - %.Operadora -->
             <th scope="col" style="text-align:right">%.Pagasó</th>
           <% end %>
           <th scope="col" style="text-align:right">Valor Vendido</th>
           <th scope="col" style="text-align:right">Lucro Cliente</th>
           <th scope="col" style="text-align:right">Custo</th>
-          <!-- apuração do lucro Pagasó = Valor Vendido * %.Pagasó -->
           <% if usuario_logado.admin? || usuario_logado.operador? %>
             <th scope="col" style="text-align:right">Lucro Pagasó</th>
           <% end %>
@@ -129,7 +125,7 @@
         totais_valor_total_original = 0
         totais_desconto_total_aplicado = 0
         totais_valor_total_vendido = 0
-        total_lucro_empresa = 0
+        totais_lucro_empresa = 0
       %>
       <tbody>
         <% @parceiros.each do |parceiro| %>
@@ -139,26 +135,25 @@
             valor_total_original = parceiro.valor_total_original(params, usuario_logado)
             desconto_total_aplicado = parceiro.desconto_total_aplicado(params, usuario_logado)
             valor_total_vendido = parceiro.valor_total_vendido(params, usuario_logado)
+            total_lucro_empresa = parceiro.valor_total_vendido(params, usuario_logado)
             
             totais_valor_total_original += valor_total_original
             totais_desconto_total_aplicado += desconto_total_aplicado
             totais_valor_total_vendido += valor_total_vendido
-            totais_lucro_empresa = totais_valor_total_vendido 
+            totais_lucro_empresa =+ total_lucro_empresa
           %>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
             <td align="right">
-              <!-- % Operadora -->
               <%= number_to_currency(parceiro.margem_operadora.to_f, :unit => "", precision: 1) %>%
             </td>
             <td align="right">
-              <!-- % Cliente -->
-              <% porcentagem_cliente = (desconto_total_aplicado.to_f / valor_total_original.to_f * 100) 
+              <% porcentagem_cliente = (desconto_total_aplicado.to_f / valor_total_original.to_f * 100)
                  porcentagem_cliente = porcentagem_cliente.nan? ? 0 : porcentagem_cliente %>
               <%= number_to_currency(porcentagem_cliente, :unit => "", precision: 1) %>%
             </td>
             <td align="right">
-              <!-- % Pagasó -->
-              <%= number_to_currency(parceiro.margem_operadora.to_f - porcentagem_cliente.to_f, :unit => "", precision: 1) %>%
+              <% margem_pagaso = parceiro.margem_operadora.to_f - porcentagem_cliente.to_f %>
+              <%= number_to_currency(margem_pagaso.to_f, :unit => "", precision: 1) %>%
             </td>
           <% end %>
           <td align="right">
@@ -178,9 +173,7 @@
             <% if @adm.id == Usuario::ROOT %>
               <td align="right">
                 <!-- Lucro Pagasó -->
-                <%= number_to_currency(parceiro.margem_operadora.to_f * valor_total_vendido) %>
-                <br>
-                <%= number_to_currency(valor_total_vendido * (parceiro.margem_operadora.to_f - porcentagem_cliente.to_f)) %>
+                <%= number_to_currency((valor_total_vendido * margem_pagaso.to_f)/100) %>
               </td>
             <% end %>
           <% end %>
@@ -214,7 +207,7 @@
           </td>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
             <td style="width:210px" align="right">
-              <b><%= number_to_currency(total_lucro_empresa) %></b>
+              <b><%= number_to_currency(totais_lucro_empresa) %></b>
             </td>
             <td align="right"></td>
           <% end %>
