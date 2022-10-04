@@ -109,7 +109,9 @@
           <% end %>
           <th scope="col" style="text-align:right">Valor Vendido</th>
           <th scope="col" style="text-align:right">Lucro Cliente</th>
-          <th scope="col" style="text-align:right">Valor total vendido</th>
+          <% if @adm.id == Usuario::ROOT %>
+            <th scope="col" style="text-align:right">Valor Total Vendido</th>
+          <% end %>
           <th scope="col" style="text-align:right">Custo</th>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
             <th scope="col" style="text-align:right">Lucro Pagasó</th>
@@ -166,10 +168,12 @@
             <%= number_to_currency(desconto_total_aplicado) %><br>
             <%= number_to_currency(porcentagem_cliente, :unit => "", precision: 3) %>%
           </td>
-          <td align="right">
-            <!-- Valor total vendido -->
-            <%= number_to_currency(valor_total_vendido) %>
-          </td>
+          <% if @adm.id == Usuario::ROOT %>
+            <td align="right">
+              <!-- Valor total vendido -->
+              <%= number_to_currency(valor_total_vendido) %>
+            </td>
+          <% end %>
           <td align="right">
             <!-- Custo -->
             <%= number_to_currency(valor_total_vendido - desconto_total_aplicado) %>
@@ -207,9 +211,11 @@
               <%= number_to_currency(totais_desconto_total_aplicado) %>
             </b>
           </td>
-          <td style="width:210px" align="right">
-            <b><%= number_to_currency(totais_valor_total_vendido) %></b>
-          </td>
+          <% if @adm.id == Usuario::ROOT %>
+            <td style="width:210px" align="right">
+              <b><%= number_to_currency(totais_valor_total_vendido) %></b>
+            </td>
+          <% end %>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
             <td style="width:210px" align="right">
               <b><%= number_to_currency(totais_lucro_empresa) %></b>
