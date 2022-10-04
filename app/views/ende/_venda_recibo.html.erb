@@ -1,7 +1,10 @@
 <div class="container scroltable">
   <div class="container">
-    <div style="text-align:right">
-      <a href="/vendas/<%= @venda.id %>/mini" target="_blank" class="btn btn-primary">Imprimir Recibo</a>
+    <div class="page" style="text-align:right">
+      <a href="/vendas/<%= @venda.id %>/mini" 
+      onclick="window.open(this.href, 'mywin',
+      'margin=0,size=auto,padding=0,left=0;margin-top=auto,width=302,height=564,toolbar=1,resizable=0'); return false;"
+      class="btn btn-primary">Imprimir Recibo</a>
     </div>
     <div class="card" style="margin-top: 5px;">
       <div class="card-header">

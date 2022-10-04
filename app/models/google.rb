@@ -43,6 +43,22 @@ class Google
     nil
   end
 
+  def self.get_otp(mensagens, user, access_token)
+    mensagens["messages"] ||= []
+    mensagens["messages"].take(5).each do |message|
+      messagen_snippet = Google.corpo_mensagem(user, message, access_token)
+
+      snippet = messagen_snippet["snippet"]
+      snippet = snippet.to_s.strip
+
+      if snippet.downcase.include?("otp is :")
+        otp_key = snippet.scan(/OTP is :.*/).first.gsub(/OTP is :/, "").strip rescue ""
+        return otp_key if otp_key.present?
+      end
+    end
+
+    return nil
+  end
 
   def self.corpo_mensagem(user, message, access_token)
     url_message = "https://gmail.googleapis.com/gmail/v1/users/#{user["id"]}/messages/#{message["id"]}?access_token=#{access_token}"

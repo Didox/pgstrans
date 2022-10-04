@@ -12,3 +12,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+# Permitir a impressao do mini recibo ende
+# Asset declared to be precompiled in production
+Rails.application.config.assets.precompile += %w( ende_recibo_mini_print.css )

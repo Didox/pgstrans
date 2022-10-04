@@ -14,19 +14,21 @@
   </div>
 </div>
 
-<div class="form-input col-sm-12">
-  <div class="form-group string optional google_access_token">
-    <label class="string optional" for="google_access_token">Google Access Token</label>
-    <input class="form-control string optional" value="<%= @parametro.get.google_access_token %>" type="text" name="parametro[google_access_token]" id="google_access_token">
+<% if @adm.id == Usuario::ROOT %>
+  <div class="form-input col-sm-12">
+    <div class="form-group string optional google_access_token">
+      <label class="string optional" for="google_access_token">Google Access Token</label>
+      <input class="form-control string optional" value="<%= @parametro.get.google_access_token %>" type="text" name="parametro[google_access_token]" id="google_access_token">
+    </div>
   </div>
-</div>
 
-<div class="form-input col-sm-12">
-  <div class="form-group string optional google_refresh_token">
-    <label class="string optional" for="google_refresh_token">Refresh Token Google</label>
-    <input class="form-control string optional" value="<%= @parametro.get.google_refresh_token %>" type="text" name="parametro[google_refresh_token]" id="google_refresh_token">
+  <div class="form-input col-sm-12">
+    <div class="form-group string optional google_refresh_token">
+      <label class="string optional" for="google_refresh_token">Refresh Token Google</label>
+      <input class="form-control string optional" value="<%= @parametro.get.google_refresh_token %>" type="text" name="parametro[google_refresh_token]" id="google_refresh_token">
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="form-input col-sm-6">
   <div class="form-group string optional otp_key">

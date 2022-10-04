@@ -1,8 +1,8 @@
 <div>
-  <div style="margin-top: 5px;">
-    <div >
+  <div>
+    <div id="page">
       <div class="col-md-12" style="margin-bottom: 20px; font-weight: bold; text-align: center">
-        <ul style="list-style-type: none;">
+        <ul style="list-style-type: none;padding: 5px;">
           <li><h2>ENDE</h2></li>
           <li><%= title %></li>
           <li>Empresa Nacional de</li>
@@ -10,7 +10,7 @@
         </ul>
       </div>
       <div class="col-md-12" style="font-weight: bold; text-align: left">
-        <ul style="list-style-type: none;">
+        <ul style="list-style-type: none;padding: 5px;">
           <li>Rua Cónego Manual das Neves, 234</li>
           <li>Caixa Postal: 43</li>
           <li>NIF: 5410778170</li>
@@ -22,7 +22,7 @@
       </div>
       <% if info["erro"].present? && (venda.blank? || venda.error_message.blank?) %>
         <div class="col-md-12" style="text-align: left">
-          <ul style="list-style-type: none;">
+          <ul style="list-style-type: none;padding: 5px;">
             <% if info["msno"].present? %>
               <li><b>N. de Contador:</b> <%= info["msno"] %></li>
             <% elsif venda.present? %>
@@ -37,7 +37,7 @@
         </div>
       <% else %>
         <div class="col-md-12" style="text-align: left">
-          <ul style="list-style-type: none">
+          <ul style="list-style-type: none;padding: 5px">
             <% if info["unique_number"].present? %>
               <li><b>Nro. Único Pagasó:</b> <%= info["unique_number"] %></li>
             <% end %>
@@ -71,7 +71,7 @@
 
         <% if venda.present? && venda.error_message.present? %>
           <div class="col-md-12" style="text-align: left">
-            <ul style="list-style-type: none;">
+            <ul style="list-style-type: none;padding: 5px;">
               <li>
                 <p><b><%= venda.error_message %></b></p>
               </li>
@@ -93,7 +93,7 @@
 
         <% if info["stsCipher"].present? %>
           <div class="col-md-12" style="text-align: left">
-            <ul style="list-style-type: none">
+            <ul style="list-style-type: none;padding: 5px">
               <li>
                 <hr>
                 <b>Inserir este código no Contador</b>
@@ -117,7 +117,7 @@
         <% end %>
         <% if info["DebtRecoveryTx"].present? && (info["DebtRecoveryTx"]["accDesc"].present? || info["DebtRecoveryTx"]["amt"]["value"].present? || info["DebtRecoveryTx"]["balance"]["value"].present?) %>
           <div class="col-md-12" style="margin: 0px; text-align: left">
-            <ul style="list-style-type: none">
+            <ul style="list-style-type: none;padding: 5px">
               <li>
                 <hr>
                 <b>Débitos</b>
@@ -138,7 +138,7 @@
           <% info["creditTokenIssue"].each do |creditTokenIssue| %>
             <% if creditTokenIssue["units"]["value"].present? %>
               <div class="col-md-12" style="text-align: left"> 
-                <ul style="list-style-type: none">
+                <ul style="list-style-type: none;padding: 5px">
                   <li>
                     <b>Energia:</b> <%= creditTokenIssue["units"]["value"] %> <%= creditTokenIssue["units"]["siUnit"] %>
                     <hr>
@@ -150,7 +150,7 @@
         <% end %>
         <% if info["tariffBreakdown"].present? %>
           <div class="col-md-12" style="text-align: left"> 
-            <ul style="list-style-type: none">
+            <ul style="list-style-type: none;padding: 5px">
               <li><b>Preço Unitário:</b><br>
               <% info["tariffBreakdown"].each do |tariff_breakdown| %> 
                 <% if tariff_breakdown["value"]["siUnit"].present? %>
@@ -167,7 +167,7 @@
           </div>
         <% end %>
         <div class="col-md-12" style="text-align: left">
-          <ul style="list-style-type: none">
+          <ul style="list-style-type: none;padding: 5px">
             <% if info["CreditVendTx"].present? %>
               <% info["CreditVendTx"].each do |creditVendTx| %>
                 <% if creditVendTx["value"].present? %>
