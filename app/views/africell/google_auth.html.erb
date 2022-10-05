@@ -1,8 +1,31 @@
-<div >
-  <h5>Por favor autorize o acesso a sua agenda do google</h5>
-  <a href="javascript:client.requestCode();">
-    Autorizar
-  </a>
+<div class="col-md-12">
+  <h3>Autenticação EMAIL GOOGLE API</h3>
+</div>
+<br>
+<br>
+<!-- Page Heading/Breadcrumbs -->
+<%= render :partial => 'shared/header_backoffice' %>
+<!-- /.row -->
+<div class="col-md-12">
+  <br>
+  <h5>Esse processo sincroniza a renovação automática do token de atenticação. O critério de expiração do token é o definido pelo Google.</h5>
+  <br>
+  <hr>
+  <% if usuario_logado.admin? %>
+    <br>
+    <h5>Clique no botão abaixo para autorizar o acesso na conta Google e validar a autenticação!</h5>
+    <br>
+    <a href="javascript:client.requestCode();" class="btn btn-success">
+      Autorizar
+    </a>
+    <a href="javascript:history.go(-1);" class="btn btn-danger">
+      Cancelar
+    </a>
+  <% else %>
+    <h5 class="btn btn-warning">Usuário sem permissão para realizar essa operação</h5>
+    <hr>
+    <h5 class="btn btn-info">Entre em contato com o Administrador</h5>
+  <% end %>
 </div>
 
 <script src="https://accounts.google.com/gsi/client" onload="this.onload=function(){};initClient()" async defer></script>

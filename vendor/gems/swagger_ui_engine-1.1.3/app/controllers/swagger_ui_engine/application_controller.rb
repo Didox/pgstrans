@@ -17,18 +17,18 @@ module SwaggerUiEngine
 
           if administrador.acessos.blank?
             if request.path_parameters[:format] == 'json'
-              return render json: {mensagem: "Usuário sem permissão de acesso a página"}, status: 401
+              return render json: {mensagem: "Usuário sem permissão de acesso à página"}, status: 401
             end
 
-            flash[:erro] = "Usuário sem permissão de acesso a página"
+            flash[:erro] = "Usuário sem permissão de acesso à página"
             return redirect_to "/"
           else
             unless administrador.acessos.include? "#{self.class}::#{params[:action]}"
               if request.path_parameters[:format] == 'json'
-                return render json: {mensagem: "Usuário sem permissão de acesso a página"}, status: 401
+                return render json: {mensagem: "Usuário sem permissão de acesso à página"}, status: 401
               end
               
-              flash[:erro] = "Usuário sem permissão de acesso a página"
+              flash[:erro] = "Usuário sem permissão de acesso à página"
               return redirect_to "/"
             end
           end
