@@ -203,16 +203,16 @@
               <%= number_to_currency(totais_desconto_total_aplicado) %>
             </b>
           </td>
-          <% if @adm.id == Usuario::ROOT %>
-            <td style="width:210px" align="right">
-              <b><%= number_to_currency(totais_valor_total_vendido) %></b>
-            </td>
-          <% end %>
+          <td style="width:210px" align="right">
+            <b><%= number_to_currency(totais_valor_total_vendido) %>
+          </b>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
-            <td style="width:210px" align="right">
-              <b><%= number_to_currency(totais_lucro_pagaso) %></b>
-            </td>
-            <td align="right"></td>
+            <% if @adm.id == Usuario::ROOT %>
+              <td style="width:210px" align="right">
+                <b><%= number_to_currency(totais_lucro_pagaso) %></b>
+              </td>
+              <td align="right"></td>
+            <% end %>
           <% end %>
         </tr>
       </tfoot>
