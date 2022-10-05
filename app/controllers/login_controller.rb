@@ -40,6 +40,7 @@ class LoginController < ApplicationController
           }
 
           UsuarioAcesso.create(usuario: usuario, mac_adress: request.ip)
+          flash["login"] = true
           redirect_to root_path
           
           return
