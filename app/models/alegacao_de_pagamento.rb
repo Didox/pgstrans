@@ -12,14 +12,21 @@ class AlegacaoDePagamento < ApplicationRecord
       usuario_id: self.usuario_id,
       valor_deposito: self.valor_deposito,
       numero_talao: self.numero_talao,
+      banco_id: self.banco_id,
       status_alegacao_de_pagamento_id: StatusAlegacaoDePagamento.where("lower(nome) = ?", StatusAlegacaoDePagamento::PENDENTE.downcase).first.id
     )
 
     if alegacoes.count > 0
       alegacao = alegacoes.first
       if alegacao.id != self.id && alegacao.data_deposito.end_of_day == self.data_deposito.end_of_day
-        errors.add(" ", "Pedido já cadastrado. Aguarde o processamento")
+        errors.add(" ", "Pedido já cadastrado. Aguarde o processamento!")
       end
+    end
+
+    alegacoes = AlegacaoDePagamento.where(banco_id: self.banco_id, valor_deposito: self.valor_deposito, usuario_id: self.usuario_id, data_deposito: self.data_deposito, numero_talao: self.numero_talao)  
+ 
+    if alegacoes.count > 0
+      errors.add(" ", "Pedido já cadastrado com as características informadas. Aguarde o processamento!")
     end
   end
 
