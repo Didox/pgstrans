@@ -47,7 +47,10 @@ class AfricellController < ApplicationController
     otp_key = Google.get_otp(mensagens, user, access_token)
     if otp_key.present?
 
-      sleep(15)
+      Rails.logger.info("==============================")
+      Rails.logger.info("Aguardando a chegada do e-mail")
+      Rails.logger.info("==============================")
+      sleep(30)
 
       dados = JSON.parse(parametro.dados)
       dados["otp_key"] = otp_key
