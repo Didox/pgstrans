@@ -11,6 +11,13 @@ class VendasController < ApplicationController
     @vendas_total = @vendas.count
   end
 
+  def consolidado
+    @vendas = Venda.com_acesso(usuario_logado)
+    vendas_busca
+    @vendas_total = @vendas.count
+  end
+
+  
   def index_resumo
     index
   end
