@@ -82,6 +82,7 @@ Rails.application.routes.draw do
   get 'africell/auth', to: 'africell#auth', as: "africell_auth"
   get 'google-auth', to: 'africell#google_auth', as: "africell_google_auth"
 
+  get 'vendas-consolidado', to: 'vendas#consolidado', as: "vendas_consolidado"
   resources :vendas do
     delete '/reverter_venda_zaptv', to: 'vendas#reverter_venda_zaptv', as: "reverter_venda_zaptv"
     get '/recibo', to: 'vendas#recibo', as: "vendas_recibo"

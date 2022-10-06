@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_15_221416) do
+ActiveRecord::Schema.define(version: 2022_10_05_173246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,41 @@ ActiveRecord::Schema.define(version: 2022_09_15_221416) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["dispositivo_id"], name: "index_canal_vendas_on_dispositivo_id"
+  end
+
+  create_table "consolidado_venda_relatorios", force: :cascade do |t|
+    t.bigint "consolidado_venda_id"
+    t.bigint "venda_id"
+    t.string "usuario_login"
+    t.string "usuario_nome"
+    t.string "partner_name"
+    t.string "venda_categoria_zap"
+    t.datetime "venda_created_at"
+    t.string "venda_status_desc_error_description_pt"
+    t.string "venda_lancamento_nome"
+    t.string "venda_customer_number"
+    t.string "venda_smartcard"
+    t.bigint "venda_movimentacoes_conta_corrente_id"
+    t.bigint "venda_product_id"
+    t.string "venda_product_nome"
+    t.string "venda_product_subtipo"
+    t.float "venda_valor_original"
+    t.float "venda_desconto_aplicado"
+    t.float "porcentagem_venda_desconto_aplicado"
+    t.float "venda_value"
+    t.float "rodape_valor_original_total"
+    t.float "rodape_desconto_total"
+    t.float "rodape_valor_total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["consolidado_venda_id"], name: "index_consolidado_venda_relatorios_on_consolidado_venda_id"
+  end
+
+  create_table "consolidado_vendas", force: :cascade do |t|
+    t.text "parametros"
+    t.bigint "usuario_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "conta_correntes", force: :cascade do |t|
@@ -736,6 +771,7 @@ ActiveRecord::Schema.define(version: 2022_09_15_221416) do
   add_foreign_key "alegacao_de_pagamentos", "status_alegacao_de_pagamentos"
   add_foreign_key "alegacao_de_pagamentos", "usuarios"
   add_foreign_key "canal_vendas", "dispositivos"
+  add_foreign_key "consolidado_venda_relatorios", "consolidado_vendas"
   add_foreign_key "conta_correntes", "alegacao_de_pagamentos"
   add_foreign_key "conta_correntes", "bancos"
   add_foreign_key "conta_correntes", "lancamentos"

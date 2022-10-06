@@ -117,7 +117,8 @@ class PerfilUsuario < ApplicationRecord
       conciliacao_aplicar: "Conta Corrente Conciliação Aplicar",
       index_vendas_conciliacao: "Relatório de Vendas com dados resumidos para fins de conciliação",
       auth: "Permissão para interagir com a API do Google",
-      google_auth: "Permissão para autenticação Google"
+      google_auth: "Permissão para autenticação Google",
+      consolidado: "Relatorio de Geral de Vendas - Consolidado",
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
@@ -183,6 +184,7 @@ class PerfilUsuario < ApplicationRecord
       alegacao_de_pagamentos: "Cadastro de Alegações de Pagamentos",
       status_alegacao_de_pagamentos: "Tabela de Situações Possíveis para Alegação de Pagamentos",
       modal_informativos: "Modal Informativo",
+      gestao_operacao: "Gestão da Operação"
     }
     nomes[controller.to_sym]
   end

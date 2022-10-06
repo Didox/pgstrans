@@ -96,21 +96,21 @@ class ApplicationController < ActionController::Base
           
           if administrador.acessos.blank?
             if request.path_parameters[:format] == 'json'
-              render json: {mensagem: "Usuário sem permissão de acesso a página"}, status: 401
+              render json: {mensagem: "Usuário sem permissão de acesso à página"}, status: 401
               return
             end
   
-            flash[:erro] = "Usuário sem permissão de acesso a página"
+            flash[:erro] = "Usuário sem permissão de acesso à página"
             redirect_to "/"
             return false
           else
             unless administrador.acessos.include? "#{self.class}::#{params[:action]}"
               if request.path_parameters[:format] == 'json'
-                render json: {mensagem: "Usuário sem permissão de acesso a página"}, status: 401
+                render json: {mensagem: "Usuário sem permissão de acesso à página"}, status: 401
                 return
               end
               
-              flash[:erro] = "Usuário sem permissão de acesso a página"
+              flash[:erro] = "Usuário sem permissão de acesso à página"
               redirect_to "/"
               return false
             end
