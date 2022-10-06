@@ -25,9 +25,9 @@ class AlegacaoDePagamento < ApplicationRecord
 
     alegacoes = AlegacaoDePagamento.where(banco_id: self.banco_id, valor_deposito: self.valor_deposito, usuario_id: self.usuario_id, data_deposito: self.data_deposito, numero_talao: self.numero_talao)  
  
-    #if alegacoes.count > 0
-    #  errors.add(" ", "Pedido já cadastrado com as características informadas. Aguarde o processamento!")
-    #end
+    if alegacoes.count > 0 && alegacoes.first.id != self.id
+      errors.add(" ", "Pedido já cadastrado com as características informadas. Aguarde o processamento!")
+    end
   end
 
   PROCESSADO = 1

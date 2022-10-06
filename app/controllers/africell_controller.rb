@@ -47,6 +47,8 @@ class AfricellController < ApplicationController
     otp_key = Google.get_otp(mensagens, user, access_token)
     if otp_key.present?
 
+      sleep(8)
+
       dados = JSON.parse(parametro.dados)
       dados["otp_key"] = otp_key
       parametro.dados = dados.to_json

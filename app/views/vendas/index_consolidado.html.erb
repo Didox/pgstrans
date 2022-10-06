@@ -1,0 +1,275 @@
+<div class="col-md-12">
+  <div class="col-md-12">
+    <h3>Relatório de Vendas e Serviços</h3>
+  </div>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="col-md-12" style="margin-top:10px">
+    <form action="" method="get" id="formApuracao">
+      <div class="row" style="padding:10px">
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>ID da Venda</label>
+              <div>
+                <input type="text" name="venda_id" value="<%= params[:venda_id] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if @adm.id == Usuario::ROOT %>
+          <div class="col-sm-10">
+            <div class="form-group">
+              <label>Log transação Ex: (Request_ID, saleTimestamp)</label>
+              <div>
+                <input type="text" name="log" value="<%= params[:log] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Situação da Venda</label>
+            <div>
+              <select name="return_code" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <option value="sucesso" <% if params[:return_code] == "sucesso" %> selected="selected" <% end %>>Todos com sucesso</option>
+                <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL).each do |partner| %>
+                  <optgroup label="<%= partner.name %>">
+                    <% ReturnCodeApi.where(partner_id: partner.id).each do |ret| %>
+                      <option value="<%= ret.id %>" <% if ret.id.to_s == params[:return_code] %> selected="selected" <% end %> ><%= ret.partner.name %> - <%= ret.sucesso ? "[SUCESSO] - " : "" %><%= ret.error_description_pt %></option>
+                    <% end %>
+                  </optgroup>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Tipo de Lançamento</label>
+              <div>
+                <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% Lancamento.all.each do |lancamento| %>
+                    <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
+                  <% end %>
+                </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Data Inicial</label>
+            <div>
+              <input type="datetime-local" name="data_inicio" value="<%= params[:data_inicio] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Data Final</label>
+            <div>
+              <input type="datetime-local" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Nome do Usuário</label>
+            <div>
+              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>ID Interno do Usuário</label>
+              <div>
+                <input type="text" name="id_interno" value="<%= params[:id_interno] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Login do Usuário</label>
+            <div>
+              <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Situação do Usuário</label>
+              <div>
+                <select name="status" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% StatusCliente.all.each do |status| %>
+                    <option value="<%= status.id %>" <% if params[:status].to_s == status.id.to_s %> selected="selected" <% end %>><%= status.nome %></option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Distribuidor</label>
+            <div>
+              <select name="sub_distribuidor_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% SubDistribuidor.all.reorder("nome asc").each do |sub_distribuidor| %>
+                  <option value="<%= sub_distribuidor.id %>" <% if sub_distribuidor.id.to_s == params[:sub_distribuidor_id] %> selected="selected" <% end %> ><%= sub_distribuidor.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Parceiro</label>
+            <div>
+              <select name="parceiro_id" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Partner.all.reorder(name: :asc).each do |partner| %>
+                  <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label>Categoria ZAP (TV ou Wifi)</label>
+            <div>
+              <select name="categoria" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Parametro.where("categoria is not null").where(partner_id: Partner.where(slug: Partner.zaptv.slug)).map{|p| p.categoria}.uniq.compact.each do |categoria| %>
+                  <option value="<%= categoria %>" <% if categoria == params[:categoria] %> selected="selected" <% end %> ><%= categoria %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Situação do Parceiro</label>
+              <div>
+                <select name="status_parceiro_id" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% StatusParceiro.all.reorder(nome: :asc).each do |status_parceiro| %>
+                    <option value="<%= status_parceiro.id %>" <% if status_parceiro.id.to_s == params[:status_parceiro_id] %> selected="selected" <% end %> ><%= status_parceiro.nome %></option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Código Produto Pagasó</label>
+              <div>
+                <input type="text" name="produto_id" value="<%= params[:produto_id] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Código Produto Parceiro</label>
+              <div>
+                <input type="text" name="produto_id_parceiro" value="<%= params[:produto_id_parceiro] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Valor KZ</label>
+              <div>
+                <input type="text" name="valor" value="<%= params[:valor] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Número do Cliente/Smartcard</label>
+            <div>
+              <input type="text" name="customer_number" value="<%= params[:customer_number] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div style="float: right;margin-right:10px">
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <label>
+              Exportar CSV <input type="checkbox" name="csv"> 
+            </label>
+          <% end %>
+          <input type="submit" value="Buscar" class="btn btn-success">
+          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            Voltar
+          <% end %>
+        </div>
+      </div>
+    </form>
+  </div>
+
+<!--
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <div class="scroltable col-md-12" style="overflow:hidden" id="grafico">
+    Carregando grafico ...
+    <br>
+    <br>
+    <script>
+      $(document).ready(function(){
+        var params = window.location.href.split("?")[1]
+        $.ajax({
+          type: "GET",
+          url: "/vendas_grafico?" + params,
+          success: function(data){
+            $("#grafico").html(data);
+          }
+        });
+        $(".modal_loader").hide();
+      });
+    </script>
+  </div>
+-->
+
+  <div class="scroltable col-md-12">
+    <h4>
+      Quantidade de recargas ou transações: <%= number_to_currency(@vendas_total, :precision => 0, :unit => "") %>
+    </h4>
+    <hr>
+
+    <%= render "tabela_vendas" %>
+
+    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>
+  </div>
+
+  <% if @adm.id == Usuario::ROOT %>
+    <--
+    SQL QUERY BUILDER
+    -----------------------------------------------------------------------------------------------------------------------------------------
+    <%= raw @sql %>
+    -----------------------------------------------------------------------------------------------------------------------------------------
+    -->
+  <% end %>
+
+</div>
