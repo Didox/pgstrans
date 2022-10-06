@@ -118,7 +118,7 @@ class PerfilUsuario < ApplicationRecord
       index_vendas_conciliacao: "Relatório de Vendas com dados resumidos para fins de conciliação",
       auth: "Permissão para interagir com a API do Google",
       google_auth: "Permissão para autenticação Google",
-      consolidado: "Relatorio de Geral de Vendas - Consolidado",
+      #consolidado: "Relatorio de Geral de Vendas - Consolidado",
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
