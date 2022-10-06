@@ -40,6 +40,11 @@ class AfricellController < ApplicationController
 
     parceiro, parametro, url_service = Africell.parametros
     update_parametros(access_token, refresh_token, parametro)
+    
+    Rails.logger.info("==============================")
+    Rails.logger.info("Aguardando a chegada do e-mail")
+    Rails.logger.info("==============================")
+    sleep(15)
 
     user = Google.user(access_token)
     mensagens = Google.mensagens(user, access_token)
@@ -47,16 +52,15 @@ class AfricellController < ApplicationController
     otp_key = Google.get_otp(mensagens, user, access_token)
     if otp_key.present?
 
-      Rails.logger.info("==============================")
-      Rails.logger.info("Aguardando a chegada do e-mail")
-      Rails.logger.info("==============================")
-      sleep(30)
-
       dados = JSON.parse(parametro.dados)
       dados["otp_key"] = otp_key
       parametro.dados = dados.to_json
       parametro.responsavel = usuario_logado
       parametro.save!
+
+      Rails.logger.info("==============================")
+      Rails.logger.info("Atualizado com o OTP key #{otp_key}")
+      Rails.logger.info("==============================")
 
       flash[:notice] = 'Transação de login na plataforma Africell concluída com sucesso.'
       
