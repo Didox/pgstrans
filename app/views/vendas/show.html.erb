@@ -75,11 +75,13 @@
       <dd><%= @venda.error_message %></strong></dd>
       <% end %>
 
-      <% if @venda.log_erro_text.present? %>
-      <dt>Log Erro Text:</dt>
-      <dd><%= @venda.log_erro_text %></strong></dd>
+      <% if @adm.id == Usuario::ROOT %>
+        <% if @venda.log_erro_text.present? %>
+          <dt>Log Erro Text:</dt>
+          <dd><%= @venda.log_erro_text %></strong></dd>
+        <% end %>
       <% end %>
-      
+
       <% if @venda.partner.id == Partner.ende.id %>
         <% infos.each do |info|%>
           <%= render "/ende/venda_recibo", info: info, title: "Recibo de Venda de Crédito", venda: @venda %>
