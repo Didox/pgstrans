@@ -74,6 +74,11 @@
       <dt>Mensagem de erro:</dt>
       <dd><%= @venda.error_message %></strong></dd>
       <% end %>
+
+      <% if @venda.log_error_text.present? %>
+      <dt>Log Error Text:</dt>
+      <dd><%= @venda.log_error_text %></strong></dd>
+      <% end %>
       
       <% if @venda.partner.id == Partner.ende.id %>
         <% infos.each do |info|%>
