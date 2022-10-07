@@ -41,10 +41,10 @@ class AfricellController < ApplicationController
     parceiro, parametro, url_service = Africell.parametros
     update_parametros(access_token, refresh_token, parametro)
     
-    Rails.logger.info("==============================")
-    Rails.logger.info("Aguardando a chegada do e-mail")
-    Rails.logger.info("==============================")
-    sleep(15)
+    Rails.logger.info("=====================================================================")
+    Rails.logger.info("Parada para aguardando a chegada do e-mail na conta api@pagaso.com.br")
+    Rails.logger.info("=====================================================================")
+    sleep(30)
 
     user = Google.user(access_token)
     mensagens = Google.mensagens(user, access_token)
@@ -58,16 +58,16 @@ class AfricellController < ApplicationController
       parametro.responsavel = usuario_logado
       parametro.save!
 
-      Rails.logger.info("==============================")
+      Rails.logger.info("================================================")
       Rails.logger.info("Atualizado com o OTP key #{otp_key}")
-      Rails.logger.info("==============================")
+      Rails.logger.info("================================================")
 
       flash[:notice] = 'Transação de login na plataforma Africell concluída com sucesso.'
       
       return redirect_to partner_url(parceiro)
     end
 
-    flash[:error] = 'Google não autorizou a leitura do email, refaça o login.'
+    flash[:error] = 'Google não autorizou a leitura do email. Refaça o login.'
 
     update_parametros(nil, nil, parametro)
     return redirect_to "/google-auth"

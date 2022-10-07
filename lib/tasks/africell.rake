@@ -2,9 +2,9 @@ namespace :jobs do
   desc "Atualiza token Africell"
   task update_africell_token: :environment do
 
-    Rails.logger.info("==============================")
-    Rails.logger.info("Iniciando rake para token africell ...")
-    Rails.logger.info("==============================")
+    Rails.logger.info("==============================================")
+    Rails.logger.info("Iniciando rake para refresh token africell ...")
+    Rails.logger.info("==============================================")
 
     while (true) do
     
@@ -25,9 +25,9 @@ namespace :jobs do
         dados["google_refresh_token"] = refresh_token
         Parametro.where(id: parametro.id).update_all(dados: dados.to_json)
 
-        Rails.logger.info("==============================")
-        Rails.logger.info("Aguardando a chegada do e-mail lendo dados pela Crontab")
-        Rails.logger.info("==============================")
+        Rails.logger.info("================================================")
+        Rails.logger.info("Para para aguardar a chegada do e-mail - Crontab")
+        Rails.logger.info("================================================")
 
         sleep(30)
 
@@ -37,32 +37,32 @@ namespace :jobs do
         otp_key = Google.get_otp(mensagens, user, access_token)
         if otp_key.present?
 
-          Rails.logger.info("==============================")
-          Rails.logger.info("Atualizado com o OTP key #{otp_key} - Crontab")
-          Rails.logger.info("==============================")
+          Rails.logger.info("==================================================================================")
+          Rails.logger.info("Parâmetros de integração atualizados com o novo OTP key #{otp_key} - Crontab")
+          Rails.logger.info("==================================================================================")
 
           dados["otp_key"] = otp_key
           Parametro.where(id: parametro.id).update_all(dados: dados.to_json)
         else
-          Rails.logger.info("==============================")
-          Rails.logger.info("Não foi possível ler o email, acesso negado, troque o tokem na área administrativa")
-          Rails.logger.info("==============================")
+          Rails.logger.info("=====================================================================================================")
+          Rails.logger.info("Não foi possível ler o email. Acesso negado! Altere o token nos Parâmetros de Integração da Africell.")
+          Rails.logger.info("=====================================================================================================")
         end
       else
-        Rails.logger.info("==============================")
-        Rails.logger.info("Refrech token vazio, dados não foram lidos, autentique o usuário na área administrativa")
-        Rails.logger.info("==============================")
+        Rails.logger.info("=====================================================================================================")
+        Rails.logger.info("Refresh token vazio. Os dados não foram lidos. Autentique o usuário na Área Administrativa/Backoffice")
+        Rails.logger.info("=====================================================================================================")
       end
 
-      Rails.logger.info("==============================")
-      Rails.logger.info("Troca de token realizada com sucesso")
-      Rails.logger.info("==============================")
+      Rails.logger.info("=====================================")
+      Rails.logger.info("Troca de token realizada com sucesso!")
+      Rails.logger.info("=====================================")
 
       uma_hora = (60*60)
 
-      Rails.logger.info("==============================")
-      Rails.logger.info("Aguardando para rodar a proxima hora, previsão para rodar #{(Time.zone.now + uma_hora)}")
-      Rails.logger.info("==============================")
+      Rails.logger.info("=======================================================================================================")
+      Rails.logger.info("Aguardando a próxima hora para fazer nova autalização. Previsão para a próxima atualização #{(Time.zone.now + uma_hora)}")
+      Rails.logger.info("=======================================================================================================")
       sleep(uma_hora)
     end
   end
