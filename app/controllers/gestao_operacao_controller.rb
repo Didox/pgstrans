@@ -1,0 +1,2 @@
+class GestaoOperacaoController < ApplicationController
+end

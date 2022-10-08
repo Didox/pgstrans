@@ -432,6 +432,12 @@ class Venda < ApplicationRecord
         Rails.logger.info "========================="
         Rails.logger.info er.backtrace
         Rails.logger.info "========================="
+
+        venda.error_message = er.message
+        venda.status = "ende-4"
+        venda.log_erro_text = er.backtrace
+        venda.save!
+
         raise PagasoError.new(er.message)
       end
     end
@@ -474,6 +480,8 @@ class Venda < ApplicationRecord
     begin
       confirma_venda!(venda, uniq_number_confirma, meter_number, produto, valor, desconto_aplicado, valor_original, usuario, parceiro)
     rescue PagasoEndeError => e
+      venda.log_erro_text = e.backtrace
+      venda.error_message = e.message
       venda.request_id = uniq_number_confirma.id
       venda.save!
       return venda

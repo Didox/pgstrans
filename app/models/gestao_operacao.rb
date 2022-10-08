@@ -1,0 +1,2 @@
+class GestaoOperacao < ApplicationRecord
+end
