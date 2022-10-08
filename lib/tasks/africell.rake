@@ -29,7 +29,7 @@ namespace :jobs do
         Rails.logger.info("Para para aguardar a chegada do e-mail - Crontab")
         Rails.logger.info("================================================")
 
-        sleep(30)
+        sleep(60)
 
         user = Google.user(access_token)
         mensagens = Google.mensagens(user, access_token)
