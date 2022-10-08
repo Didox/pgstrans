@@ -560,6 +560,7 @@ class Ende
   end
 
   def self.informacoes_parse(body, uniq_number)
+    return [] if body.blank?
     body.remove!(/=========.*?========/)
 
     reprints = body.scan(/<reprint .*?<\/reprint>/)
