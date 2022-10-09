@@ -76,7 +76,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
           <div class="form-group">
             <label>Nome do Usuário</label>
             <div>
@@ -117,19 +117,21 @@
             </div>
           </div>
         <% end %>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Distribuidor</label>
-            <div>
-              <select name="sub_distribuidor_id" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% SubDistribuidor.all.reorder("nome asc").each do |sub_distribuidor| %>
-                  <option value="<%= sub_distribuidor.id %>" <% if sub_distribuidor.id.to_s == params[:sub_distribuidor_id] %> selected="selected" <% end %> ><%= sub_distribuidor.nome %></option>
-                <% end %>
-              </select>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Distribuidor</label>
+              <div>
+                <select name="sub_distribuidor_id" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% SubDistribuidor.all.reorder("nome asc").each do |sub_distribuidor| %>
+                    <option value="<%= sub_distribuidor.id %>" <% if sub_distribuidor.id.to_s == params[:sub_distribuidor_id] %> selected="selected" <% end %> ><%= sub_distribuidor.nome %></option>
+                  <% end %>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
         <div class="col-sm-2">
           <div class="form-group">
             <label>Parceiro</label>
