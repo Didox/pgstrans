@@ -26,6 +26,11 @@
         <div class="form-input col-sm-12">
           <%= f.input :nome, placeholder: "Nome do lançamento" %>
         </div>
+
+        <div class="form-input col-sm-6">
+            <%= f.label :status, :label => raw("Marque se situação é <strong>ATIVA</strong> e deve estar visível para os usuários") %>
+            <%= f.check_box :status %>
+        </div>
     
         <div class="form-actions">
           <%= f.button :button, class: 'btn btn-danger' do %>

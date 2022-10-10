@@ -25,11 +25,11 @@ namespace :jobs do
         dados["google_refresh_token"] = refresh_token
         Parametro.where(id: parametro.id).update_all(dados: dados.to_json)
 
-        Rails.logger.info("================================================")
-        Rails.logger.info("Para para aguardar a chegada do e-mail - Crontab")
-        Rails.logger.info("================================================")
+        Rails.logger.info("=================================================================")
+        Rails.logger.info("Parada de 120 segundos para aguardar a chegada do e-mail - Crontab")
+        Rails.logger.info("=================================================================")
 
-        sleep(60)
+        sleep(120)
 
         user = Google.user(access_token)
         mensagens = Google.mensagens(user, access_token)

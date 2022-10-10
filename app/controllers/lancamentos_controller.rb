@@ -31,9 +31,12 @@ class LancamentosController < ApplicationController
     @lancamento.responsavel = usuario_logado
     
     if Lancamento::ITENS_SISTEMA.include?(@lancamento.nome)
-      flash[:error] = "Este status é de uso interno não - pode ser alterado"
-      redirect_to "/lancamentos"
-      return
+      alterar_status = Lancamento.where(nome: @lancamento.nome).first
+      if alterar_status.present?
+        flash[:error] = "Este status é de uso interno não - pode ser alterado"
+        redirect_to "/lancamentos"
+        return
+      end
     end
 
     respond_to do |format|
@@ -51,9 +54,12 @@ class LancamentosController < ApplicationController
   # PATCH/PUT /lancamentos/1.json
   def update
     if Lancamento::ITENS_SISTEMA.include?(@lancamento.nome)
-      flash[:error] = "Este status é de uso interno não - pode ser alterado"
-      redirect_to "/lancamentos"
-      return
+      alterar_status = Lancamento.where(nome: @lancamento.nome).first
+      if alterar_status.present? && alterar_status.id != @lancamento.id
+        flash[:error] = "Este status é de uso interno não - pode ser alterado"
+        redirect_to "/lancamentos"
+        return
+      end
     end
 
     respond_to do |format|
@@ -92,6 +98,6 @@ class LancamentosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lancamento_params
-      params.require(:lancamento).permit(:nome)
+      params.require(:lancamento).permit(:nome, :status)
     end
 end

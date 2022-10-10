@@ -32,16 +32,18 @@ class PerfilUsuario < ApplicationRecord
   end
 
   def self.menu(administrador)
-    controllers = administrador.acessos.map{|a| a.split("::")[0] }
-    actions = administrador.acessos.map{|a| a.split("::")[1] }
+    controllers_actions = administrador.acessos.map{|a| a }
     acessos_links = administrador.acessos_links
-    menus = Menu.where("nome in (?) or (controller in (?) and action in (?))", acessos_links, controllers, actions)
+    menus = Menu.where("nome in (?) or (controller_action in (?))", acessos_links, controllers_actions)
     return [] if menus.count == 0
 
     secoes = menus.pluck(:secao).compact.uniq
     menu = {}
     secoes.each do |secao|
-      menu[secao] = Menu.where("nome in (?) or (controller in (?) and action in (?))", acessos_links, controllers, actions).where(secao: secao)
+      menu[secao] = Menu.where("nome in (?) or (controller_action in (?))", acessos_links, controllers_actions).where(secao: secao)
+      #debugger
+        
+      x = ""
     end
 
     menu
