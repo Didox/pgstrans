@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_09_193109) do
+ActiveRecord::Schema.define(version: 2022_10_10_235045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -296,6 +296,7 @@ ActiveRecord::Schema.define(version: 2022_10_09_193109) do
     t.datetime "updated_at", null: false
     t.integer "ordem_secao"
     t.integer "ordem_item"
+    t.string "controller_action"
   end
 
   create_table "modal_informativos", force: :cascade do |t|

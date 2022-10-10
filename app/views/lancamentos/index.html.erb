@@ -20,7 +20,7 @@
         <tr>
             <td class="text-center"><%= lancamento.id %></td>  
             <td><%= lancamento.nome %></td>
-            <td><%= lancamento.status %></td>
+            <td><%= lancamento.status ? "Ativo" : "Inativo" %></td>
           <td><%= link_to 'Editar', edit_lancamento_path(lancamento) %></td>
           <td><%= link_to 'Apagar', lancamento, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>
