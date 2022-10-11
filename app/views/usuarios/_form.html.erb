@@ -36,13 +36,21 @@
           <%= f.input :login, :label => "Login", disabled: true %>
         </div>
 
-        <div class="form-input col-sm-6">
-          <%= f.label :senha, "Palavra-passe" %>
-          <%= f.password_field :senha, class: "form-control", disabled: @usuario.new_record? %>
-          <% if @usuario.new_record? %>
-            Palavra-passe será definina pelo usuário no primeiro acesso
-          <% end %>
-        </div>
+        <% if @adm.admin? || @adm.operador? %>
+          <div class="form-input col-sm-6">
+            <%= f.label :senha, "Palavra-passe" %>
+            <%= f.password_field :senha, class: "form-control", disabled: @usuario.new_record? %>
+            <% if @usuario.new_record? %>
+              Palavra-passe será definina pelo usuário no primeiro acesso
+            <% end %>
+          </div>
+        <% else %>
+            <div class="form-input col-sm-6">
+            <br><hr>
+            <p>O usuário definirá a senha no primeiro acesso</p>
+            <hr>
+            </div>
+        <% end %>
 
         <div class="form-input col-sm-12">
           <%= f.label :perfil_usuario_id, "Perfil do Usuário" %>

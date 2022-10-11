@@ -3,6 +3,10 @@ class Menu < ApplicationRecord
   validates :secao, presence: true
   validates :nome, presence: true, uniqueness: true
 
+  before_save do
+    self.controller_action = "#{self.controller}::#{self.action}" 
+  end
+
   after_create do 
     Log.save_log("Inclusão de registro (#{self.class.to_s})", self.attributes)
   end
