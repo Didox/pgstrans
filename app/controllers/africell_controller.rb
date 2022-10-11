@@ -54,9 +54,12 @@ class AfricellController < ApplicationController
 
       dados = JSON.parse(parametro.dados)
       dados["otp_key"] = otp_key
+      dados["otp_key_data_atualizacao_manual"] = Time.zone.now
       parametro.dados = dados.to_json
       parametro.responsavel = usuario_logado
       parametro.save!
+
+      OtpKeyAfricellLog.create(log: "O ultimo OTP de forma manual que foi lido: #{otp_key}", data: Time.zone.now)
 
       Rails.logger.info("================================================")
       Rails.logger.info("Atualizado com o OTP key #{otp_key}")

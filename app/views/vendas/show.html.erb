@@ -39,16 +39,19 @@
       </dd>
       <dt>Valor:</dt>
       <dd><%= number_to_currency(@venda.valor_original) %></dd>
-      <dt>Lucro:</dt>
-      <dd>
-        <%= number_to_currency(@venda.desconto_aplicado) %><br>
-        <% porcentagem = (@venda.desconto_aplicado.to_f / @venda.valor_original.to_f * 100) 
-        unless porcentagem.nan? %>
-          <%= number_to_currency(porcentagem, :unit => "") %>%
-        <% end %>
-      </dd>
-      <dt>Custo:</dt>
-      <dd><%= number_to_currency(@venda.value) %></dd>
+
+      <% if @venda&.status_desc&.sucesso %>
+        <dt>Lucro:</dt>
+        <dd>
+          <%= number_to_currency(@venda.desconto_aplicado) %><br>
+          <% porcentagem = (@venda.desconto_aplicado.to_f / @venda.valor_original.to_f * 100) 
+          unless porcentagem.nan? %>
+            <%= number_to_currency(porcentagem, :unit => "") %>%
+          <% end %>
+        </dd>
+        <dt>Custo:</dt>
+        <dd><%= number_to_currency(@venda.value) %></dd>
+      <% end %>
 
       <% if @venda.partner.id == Partner.ende.id %>
         <% infos.each do |info|%>

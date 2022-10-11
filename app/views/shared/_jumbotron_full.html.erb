@@ -21,12 +21,12 @@
         <div class="menu-icon" style="text-align: center; margin: 0px 3% 0px 3%">
           <a <% if partner.status_parceiro_id == 1 %> href="javascript:;" onclick="pgstrans.displayRecarga('<%= partner.slug %>')" <% end %>>
             <% if partner.imagem.present? %>
-              <%= image_tag(partner.imagem, alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 110px;") %>
+              <%= image_tag(partner.imagem, alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}") %>
             <% else %>
               <% begin %>
-                <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 110px;") %>
+                <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}") %>
               <% rescue %>
-                <%= image_tag("partner/default_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}", style: "display: inline-block;width: 110px;") %>
+                <%= image_tag("partner/default_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}") %>
               <% end %>
             <% end %>
           </a>
