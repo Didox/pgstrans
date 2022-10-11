@@ -54,14 +54,19 @@
         <%= venda.product.subtipo %>
       </td>
       <td style="width:110px" style="text-align: center"><%= number_to_currency(venda.valor_original) %></td>
-      <td style="width:110px" style="text-align: center">
-        <%= number_to_currency(venda.desconto_aplicado) %><br>
-        <% porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
-        unless porcentagem.nan? %>
-          <%= number_to_currency(porcentagem, :unit => "", :precision => 3) %>%
-        <% end %>
-      </td>
-      <td style="width:110px" style="text-align: center"><%= number_to_currency(venda.value) %></td>
+      <% if venda&.status_desc&.sucesso %>
+        <td style="width:110px" style="text-align: center">
+          <%= number_to_currency(venda.desconto_aplicado) %><br>
+          <% porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
+          unless porcentagem.nan? %>
+            <%= number_to_currency(porcentagem, :unit => "", :precision => 3) %>%
+          <% end %>
+        </td>
+        <td style="width:110px" style="text-align: center"><%= number_to_currency(venda.value) %></td>
+      <% else %>
+        <td style="width:110px" style="text-align: center"></td>
+        <td style="width:110px" style="text-align: center"></td>
+      <% end %>
       <td>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
           <%= link_to 'Detalhes', venda, class: "btn btn-warning", style:"width:100px" %><br><br>

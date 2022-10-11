@@ -186,7 +186,8 @@ class PerfilUsuario < ApplicationRecord
       alegacao_de_pagamentos: "Cadastro de Alegações de Pagamentos",
       status_alegacao_de_pagamentos: "Tabela de Situações Possíveis para Alegação de Pagamentos",
       modal_informativos: "Modal Informativo",
-      gestao_operacao: "Gestão da Operação"
+      gestao_operacao: "Gestão da Operação",
+      otp_key_africell_logs: "Acesso ao log de leitura e gravação da OTP KEY Africell"
     }
     nomes[controller.to_sym]
   end

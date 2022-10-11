@@ -1,0 +1,2 @@
+class OtpKeyAfricellLog < ApplicationRecord
+end
