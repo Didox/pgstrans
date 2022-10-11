@@ -176,7 +176,7 @@ class ContaCorrentesController < ApplicationController
     end
     @usuarios_total = @usuarios.count
 
-    where = @usuarios.to_sql.scan(/WHERE.*/).first
+    where = @usuarios.to_sql.gsub("\n","").scan(/WHERE.*/).first
     where = where.gsub(/ORDER.*/, "")
     sql = "
       select 
@@ -188,6 +188,7 @@ class ContaCorrentesController < ApplicationController
       from usuarios
       #{where}
     "
+
     @valor_total = ActiveRecord::Base.connection.exec_query(sql).first["total"].to_i 
 
     if params[:saldo_menor_que].present?
