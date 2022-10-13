@@ -45,15 +45,38 @@ namespace :jobs do
           dados["otp_key_data_atualizacao_rake"] = Time.zone.now
           Parametro.where(id: parametro.id).update_all(dados: dados.to_json)
           OtpKeyAfricellLog.create(log: "O ultimo OTP pela rake foi lido e atualizado nos parâmetros de integração: #{otp_key}", data: Time.zone.now)
+
+          begin
+            mensagem = "O ultimo OTP pela rake foi lido e atualizado nos parâmetros de integração: #{otp_key} - #{Time.zone.now}"
+            AdmMailer.send_otp_token_log(mensagem, mensagem).deliver
+          rescue Exception => erro
+            Rails.logger.info("Erro ao enviar email OTP Key - #{erro.message}", erro.backtrace)
+          end
         else
+          mensagem = "Não foi possível ler o email. Acesso negado! Altere o token nos Parâmetros de Integração da Africell."
+
           Rails.logger.info("=====================================================================================================")
-          Rails.logger.info("Não foi possível ler o email. Acesso negado! Altere o token nos Parâmetros de Integração da Africell.")
+          Rails.logger.info(mensagem)
           Rails.logger.info("=====================================================================================================")
+
+          begin
+            AdmMailer.send_otp_token_log(mensagem, mensagem).deliver
+          rescue Exception => erro
+            Rails.logger.info("Erro ao enviar email OTP Key - #{erro.message} - #{mensagem}", erro.backtrace)
+          end
         end
       else
+        mensagem = "Refresh token vazio. Os dados não foram lidos. Autentique o usuário na Área Administrativa/Backoffice"
+        
         Rails.logger.info("=====================================================================================================")
-        Rails.logger.info("Refresh token vazio. Os dados não foram lidos. Autentique o usuário na Área Administrativa/Backoffice")
+        Rails.logger.info(mensagem)
         Rails.logger.info("=====================================================================================================")
+
+        begin
+          AdmMailer.send_otp_token_log(mensagem, mensagem).deliver
+        rescue Exception => erro
+          Rails.logger.info("Erro ao enviar email OTP Key - #{erro.message} - #{mensagem}", erro.backtrace)
+        end
       end
 
       Rails.logger.info("=====================================")
