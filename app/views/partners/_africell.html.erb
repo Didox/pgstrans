@@ -1,8 +1,10 @@
     <hr>
     <% if @adm.id == Usuario::ROOT || @adm.admin? %>
-      <%= link_to partner_atualiza_africell_login_path(@partner), 
-      class: 'btn btn-dark', data: { confirm: 'Tem Certeza?' } do %>
-        Gerar OTP Key para Login
+        <% if @adm.id == Usuario::ROOT %>
+            <%= link_to partner_atualiza_africell_login_path(@partner), 
+            class: 'btn btn-dark', data: { confirm: 'Tem Certeza?' } do %>
+            Gerar OTP Key para Login
+        <% end %>
       <% end %>
       Última atualização em: <%= AfricellLogin.order("id desc").first.created_at.strftime("%d/%m/%Y %H:%M:%S") rescue ""%>
     <% end %>
