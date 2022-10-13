@@ -44,7 +44,7 @@ namespace :jobs do
           dados["otp_key"] = otp_key
           dados["otp_key_data_atualizacao_rake"] = Time.zone.now
           Parametro.where(id: parametro.id).update_all(dados: dados.to_json)
-          OtpKeyAfricellLog.create(log: "O ultimo OTP pela rake foi lido: #{otp_key}", data: Time.zone.now)
+          OtpKeyAfricellLog.create(log: "O ultimo OTP pela rake foi lido e atualizado nos parâmetros de integração: #{otp_key}", data: Time.zone.now)
         else
           Rails.logger.info("=====================================================================================================")
           Rails.logger.info("Não foi possível ler o email. Acesso negado! Altere o token nos Parâmetros de Integração da Africell.")
@@ -60,7 +60,7 @@ namespace :jobs do
       Rails.logger.info("Troca de token realizada com sucesso!")
       Rails.logger.info("=====================================")
 
-      uma_hora = (60*60)
+      uma_hora = (60*15)
 
       Rails.logger.info("=======================================================================================================")
       Rails.logger.info("Aguardando a próxima hora para fazer nova autalização. Previsão para a próxima atualização #{(Time.zone.now + uma_hora)}")
