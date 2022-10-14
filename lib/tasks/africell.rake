@@ -67,7 +67,7 @@ namespace :jobs do
         end
       else
         mensagem = "Refresh token vazio. Os dados não foram lidos. Autentique o usuário na Área Administrativa/Backoffice"
-        
+
         Rails.logger.info("=====================================================================================================")
         Rails.logger.info(mensagem)
         Rails.logger.info("=====================================================================================================")
@@ -83,7 +83,7 @@ namespace :jobs do
       Rails.logger.info("Troca de token realizada com sucesso!")
       Rails.logger.info("=====================================")
 
-      uma_hora = (60*15)
+      uma_hora = (60*60)
 
       Rails.logger.info("=======================================================================================================")
       Rails.logger.info("Aguardando a próxima hora para fazer nova autalização. Previsão para a próxima atualização #{(Time.zone.now + uma_hora)}")
