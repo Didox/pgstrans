@@ -8,6 +8,12 @@ class AdmMailer < ApplicationMailer
   def send_otp_token_log(otp_token_log, body)
     @otp_token_log = otp_token_log
     @body = body
-    mail(to: "pagaso.facilita@gmail.com;rosi.volgarin@gmail.com;rosi.volgarin@tiv-tecnologia.com", subject: otp_token_log)
+    mail(to: "pagaso.facilita@gmail.com;
+    rosi.volgarin@tiv-tecnologia.com;
+    marcio.santos@tiv-tecnologia.com; 
+    orlando.salvador@tiv-tecnologia.com; 
+    jorge.centeno@tiv-tecnologia.com; 
+    eduardo.cavungo@tiv-tecnologia.com", 
+    subject: otp_token_log)
   end
 end
