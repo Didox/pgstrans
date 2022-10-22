@@ -44,10 +44,10 @@ namespace :jobs do
           dados["otp_key"] = otp_key
           dados["otp_key_data_atualizacao_rake"] = Time.zone.now
           Parametro.where(id: parametro.id).update_all(dados: dados.to_json)
-          OtpKeyAfricellLog.create(log: "Último OTP_KEY lido e atualizado nos parâmetros de integração pela rake: #{otp_key}", data: Time.zone.now)
+          OtpKeyAfricellLog.create(log: "Último OTP_KEY lido e atualizado nos parâmetros de integração pela tarefa robot: #{otp_key}", data: Time.zone.now)
 
           begin
-            mensagem = "Último OTP_KEY lido e atualizado nos parâmetros de integração pela rake: #{otp_key} - #{Time.zone.now}"
+            mensagem = "Último OTP_KEY lido e atualizado nos parâmetros de integração pela tarefa robot : #{otp_key} - #{Time.zone.now}"
             AdmMailer.send_otp_token_log(mensagem, mensagem).deliver
           rescue Exception => erro
             Rails.logger.info("Erro ao enviar email OTP Key - #{erro.message}", erro.backtrace)
