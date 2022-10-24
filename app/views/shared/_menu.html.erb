@@ -33,10 +33,10 @@
 		<li><a href="/ende/pagamento-de-conta">
 			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "pagamento_de_conta" %><% end %>">Pagamento de Conta</h1>
 		</a></li>
-		<% if @adm.id == Usuario::ROOT %>
-			<li><a href="/ende/confirmar-cliente">
-				<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "confirmar_cliente" %><% end %>">Confirmar Cliente</h1>
-			</a></li>
+		<li><a href="/ende/confirmar-cliente">
+			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "confirmar_cliente" %><% end %>">Confirmar Cliente</h1>
+		</a></li>
+		<% if @adm.id == Usuario::ROOT %>	
 			<li><a href="/ende/last-advice">
 				<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "last_advice" %><% end %>">Last Advice</h1>
 			</a></li>
