@@ -2,7 +2,6 @@
   <% infos = Ende.informacoes_parse(@venda.response_get, EndeUniqNumber.find(@venda.request_id)) %>
 <% end %>
 
-
 <div class="col-md-12">
   <dl class="dl-horizontal">
     <% if @venda.partner.id == Partner.ende.id %>
@@ -12,3 +11,5 @@
     <% end %>
   </dl>
 </div>
+
+<script>window.print();setTimeout(function(){ window.close(); }, 1000)</script>
