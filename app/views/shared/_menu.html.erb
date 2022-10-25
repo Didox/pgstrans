@@ -17,51 +17,50 @@
 	</a>
 <% end %>
 
-<% if usuario_logado.admin? || usuario_logado.operador? %>
-	<button class="btn btn-sucess menu_recarga" 
+
+<button class="btn btn-sucess menu_recarga" 
+		type="button" 
+		data-toggle="dropdown">ENDE
+		<span class="caret"></span>
+</button>
+	<ul class="dropdown-menu">
+	<% if usuario_logado.admin? || usuario_logado.operador? %>
+		<li><a href="/ende/venda-teste">
+			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "venda-teste" %>active_menu<% end %>">Venda Teste</h1>
+		</a></li>
+	<% end %>
+	<li><a href="/ende/confirmar-cliente">
+		<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "confirmar_cliente" %><% end %>">Confirmar Cliente</h1>
+	</a></li>
+	<li><a href="/ende/reprint">
+		<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "reprint" %>active_menu<% end %>">Reimprimir Recibo</h1>
+	</a></li>
+	<li><a href="/ende/pagamento-de-conta">
+		<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "pagamento_de_conta" %><% end %>">Pagamento de Conta</h1>
+	</a></li>
+	<% if @adm.id == Usuario::ROOT %>	
+		<li><a href="/ende/last-advice">
+			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "last_advice" %><% end %>">Last Advice</h1>
+		</a></li>
+	<% end %>
+</ul>
+
+<div class="africell-menu">
+	<button class="btn btn-sucess menu_recarga africell-menu"
+			id="dLabel"
 			type="button" 
-			data-toggle="dropdown">ENDE
+			data-toggle="dropdown">AFRICELL
 			<span class="caret"></span>
 	</button>
-	<ul class="dropdown-menu">
-		<li><a href="/ende/venda-teste">
-			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "venda-teste" %>active_menu<% end %>">Simular Venda</h1>
+	<ul class="dropdown-menu" aria-labelledby="dLabel">
+		<li><a href="/africell/impressao_recibo">
+			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "africell" && params[:action] == "impressao_recibo" %>active_menu<% end %>">Imprimir Recibo</h1>
 		</a></li>
-		<li><a href="/ende/reprint">
-			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "reprint" %>active_menu<% end %>">Reimprimir Recibo</h1>
+		<li><a href="/africell/confirmacao_transacao">
+			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "africell" && params[:action] == "confirmacao_transacao" %>active_menu<% end %>">Confirmar Transação</h1>
 		</a></li>
-		<li><a href="/ende/pagamento-de-conta">
-			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "pagamento_de_conta" %><% end %>">Pagamento de Conta</h1>
-		</a></li>
-		<li><a href="/ende/confirmar-cliente">
-			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "confirmar_cliente" %><% end %>">Confirmar Cliente</h1>
-		</a></li>
-		<% if @adm.id == Usuario::ROOT %>	
-			<li><a href="/ende/last-advice">
-				<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "last_advice" %><% end %>">Last Advice</h1>
-			</a></li>
-		<% end %>
 	</ul>
-<% end %>
-
-<% if usuario_logado.admin? || usuario_logado.operador? %>
-	<div class="africell-menu">
-		<button class="btn btn-sucess menu_recarga africell-menu"
-				id="dLabel"
-				type="button" 
-				data-toggle="dropdown">AFRICELL
-				<span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu" aria-labelledby="dLabel">
-			<li><a href="/africell/impressao_recibo">
-				<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "africell" && params[:action] == "impressao_recibo" %>active_menu<% end %>">Imprimir Recibo</h1>
-			</a></li>
-			<li><a href="/africell/confirmacao_transacao">
-				<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "africell" && params[:action] == "confirmacao_transacao" %>active_menu<% end %>">Confirmar Transação</h1>
-			</a></li>
-		</ul>
-	</div>
-<% end %>
+</div>
 
 <% if PerfilUsuario.where("lower(nome) != '%vendedor%'") %>
 	<% if PerfilUsuario.tem_acesso?(usuario_logado, :BackofficeController, :index) %>
