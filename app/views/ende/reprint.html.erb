@@ -42,21 +42,19 @@
           </div>
         <% elsif @info.present? %>
           <% if @adm.id == Usuario::ROOT %>
-            <div style="padding: 100px">
-              <h1>
+            <div style="padding: 20px">
+              <p>
                 ===========[@info]=============
-              </h1>
+              </p>
               <br>
-              <br>
-              <br>
-              <h1>
+              <p>
                 <%= @info.inspect %>
-              </h1>
+              </p>
             </div>
           <% end %>
 
           <% @info.each do |info| %>
-            <%= render "/ende/venda_recibo", info: info, title: "Reimpressão", venda: nil %>
+            <%= render "/ende/venda_recibo", info: p, title: "Reimpressão", venda: nil %>
             <hr class="break-page">
           <% end %>
 
