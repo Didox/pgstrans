@@ -243,9 +243,22 @@ const submeterRecarga = function() {
 
   $(".recarga .talao" + $("#tipo_ativo").val() + "").show();
 
+  var form = $(".recarga #recargaForm");
+  var formData = form.serialize().replace(/produto_id=&/g, '');
+
+  debugger
+  let operadora = $(".recarga #tipo_ativo").val();
+  let valor = $("#rechargeValue").val();
+  let cartao = "23233223";
+
   $.confirm({
     title: 'Confirmação!',
-    content: 'TEM A CERTEZA QUE DESEJA EFECTUAR A RECARGA?',
+    content: `
+      <div>TEM CERTEZA QUE DESEJA EFECTUAR A RECARGA?</div><br>
+      <div><b>Operadora:</b> ${operadora}</div>
+      <div><b>Valor da Recarga:</b> ${valor}</div>
+      <div><b>Nº do cartão:</b> ${cartao}</div>
+    `,
     buttons: {
       confirmar: {
         text: 'Confirmar',

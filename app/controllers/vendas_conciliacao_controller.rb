@@ -46,10 +46,10 @@ class VendasConciliacaoController < ApplicationController
       sql += " and partners.status_parceiro_id in (#{StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL.join(",")})"
     end
 
-    @page = (params[:page] || 1).to_i
+    @page = (params[:page].blank? ? 1 : params[:page].to_i)
     @page = 1 if @page < 1
 
-    @per_page = 10
+    @per_page = (params[:per_page].blank? ? 10 : params[:per_page].to_i)
     offset = ((@page - 1) * @per_page)
 
     sql += "
