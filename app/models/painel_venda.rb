@@ -1,0 +1,2 @@
+class PainelVenda < ApplicationRecord
+end
