@@ -15,6 +15,48 @@
     </div>
     <!-- /.row -->
 
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Painel de vendas
+            </h1>
+
+            <div class="row">
+                <% Partner.all.each do |partner| %>
+                    <div style="margin:10px; display: inline-block; width: 400px; border: 1px solid #ccc; padding: 10px;height:200px">
+                        <div>
+                            <%= partner.name %>
+                        </div>
+                        <ul>
+                            <li>
+                                <div>
+                                    <% venda = Venda.where(partner_id: partner.id).first %>
+                                    <% if venda.present? %>
+                                        <b>ID da Venda:</b> <%= venda.id %> <b>- Login Usuário:</b> <%= venda.usuario.login %><br>
+                                        <b>ID Interno do Usuário:</b> <%= venda.usuario_id %><br>
+                                        <b>Usuário:</b> <%= venda.usuario.nome %><br>
+                                        <b>Parceiro:</b> <%= venda.partner.name %><br>
+                                        <% if venda.partner_id == Partner.zaptv.id %>
+                                        <b>Categoria:</b> <%= venda.categoria.upcase %><br>
+                                        <% end %>
+                                        <b>Data da Venda:</b> <%= venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %><br>
+                                        <b>Situação:</b> <%= venda.status_desc.error_description_pt %> <%= " - #{venda.lancamento.nome}" rescue "" %><br>
+                                    <% else %>
+                                        <div>Sem vendas no momento</div>
+                                    <% end %>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <!-- /.row -->
+
     <!-- Content Row -->
     <div class="row">
         <div class="col-md-12">

@@ -25,6 +25,7 @@ class VendasConciliacaoController < ApplicationController
         ret = ReturnCodeApi.find(params[:return_code])
         sql += " and vendas.status = '#{ret.return_code}' and vendas.partner_id = #{ret.partner_id}"
       end
+
     end
 
     params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
@@ -45,12 +46,28 @@ class VendasConciliacaoController < ApplicationController
       sql += " and partners.status_parceiro_id in (#{StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL.join(",")})"
     end
 
+    @page = (params[:page] || 1).to_i
+    @page = 1 if @page < 1
+
+    @per_page = 10
+    offset = ((@page - 1) * @per_page)
+
     sql += "
       group by data_venda
       ORDER BY data_venda desc
+      limit #{@per_page}
+      offset #{offset}
     "
+
     @sql = sql
     @vendas = ActiveRecord::Base.connection.exec_query(sql)
     @vendas_total = @vendas.count
+
+    sql_count = sql.gsub("\n", "").gsub(/to_char.*data_venda,/, "").gsub(/group by.*/, "")
+    data_count = ActiveRecord::Base.connection.exec_query(sql_count).first
+
+    @valor_original_total = data_count["valor"].to_f
+    @valor_desconto_total = data_count["lucro"].to_f
+    @valor_total = data_count["custo"].to_f
   end
 end

@@ -105,7 +105,7 @@
 
   <div class="scroltable col-md-12">
     <h4>
-      Total de Ocorrências: <strong><%= number_to_currency(@vendas_total, :precision => 0, :unit => "") %></strong>
+      Total de Ocorrências na página: <strong><%= number_to_currency(@vendas_total, :precision => 0, :unit => "") %></strong>
     </h4>
     <hr>
     
@@ -161,9 +161,9 @@
 
       <tbody>
         <% 
-        valor_original_total = 0
-        valor_desconto_total = 0
-        valor_total = 0 
+        valor_original_total_pagina = 0
+        valor_desconto_total_pagina = 0
+        valor_total_pagina = 0 
         %>
         <% @vendas.each do |venda| 
           venda = OpenStruct.new venda
@@ -177,30 +177,47 @@
           </td>
           <td align="right"><%= number_to_currency(venda.custo) %></td>
           <% 
-            valor_original_total += venda.valor
-            valor_desconto_total += venda.lucro 
-            valor_total += venda.custo 
+            valor_original_total_pagina += venda.valor
+            valor_desconto_total_pagina += venda.lucro 
+            valor_total_pagina += venda.custo 
           %>
         </tr>
         <% end %>
         <tfoot>
           <tr>
-            <td align="right"><b>Total:</b></td>
+            <td align="right"><b>Total da Página</b></td>
             <td align="right">
-              <b><%= number_to_currency(valor_original_total) %></b>
+              <b><%= number_to_currency(valor_original_total_pagina) %></b>
             </td>    
             <td align="right">
               <b>
-                <%= number_to_currency(valor_desconto_total) %>
+                <%= number_to_currency(valor_desconto_total_pagina) %>
               </b>
             </td>
             <td align="right">
-              <b><%= number_to_currency(valor_total) %></b>
+              <b><%= number_to_currency(valor_total_pagina) %></b>
+            </td>        
+          </tr>
+          <tr>
+            <td align="right"><b>Total Geral</b></td>
+            <td align="right">
+              <b><%= number_to_currency(@valor_original_total) %></b>
+            </td>    
+            <td align="right">
+              <b>
+                <%= number_to_currency(@valor_desconto_total) %>
+              </b>
+            </td>
+            <td align="right">
+              <b><%= number_to_currency(@valor_total) %></b>
             </td>        
           </tr>
         </tfoot>
       </tbody>
     </table>
+    
+    <%= render "/shared/paginate", path: "/vendas_conciliacao/index_vendas_conciliacao", records: @vendas, :per_page => @per_page %>
+
     <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar
