@@ -136,10 +136,12 @@
             desconto_total_aplicado = parceiro.desconto_total_aplicado(params, usuario_logado)
             valor_total_vendido = parceiro.valor_total_vendido(params, usuario_logado)
 
-            porcentagem_cliente = (desconto_total_aplicado.to_f / valor_total_original.to_f * 100)
+            ### Pegar a remuneração do cliente (porcentagem_cliente) da tabela remuneracaos ou partners (default)
+
+            porcentagem_cliente = ((desconto_total_aplicado.to_f / valor_total_original.to_f) * 100)
             porcentagem_cliente = porcentagem_cliente.nan? ? 0 : porcentagem_cliente
             margem_pagaso = parceiro.margem_operadora.to_f - porcentagem_cliente.to_f
-            lucro_pagaso = (valor_total_vendido * margem_pagaso.to_f)/100
+            lucro_pagaso = (valor_total_vendido * margem_pagaso.to_f) / 100
             
             totais_valor_total_original += valor_total_original
             totais_desconto_total_aplicado += desconto_total_aplicado
@@ -164,7 +166,7 @@
           <td align="right">
             <!-- Lucro Cliente -->
             <%= number_to_currency(desconto_total_aplicado) %><br>
-            <%= number_to_currency(porcentagem_cliente, :unit => "", precision: 3) %>%
+            <%= number_to_currency(porcentagem_cliente, :unit => "", precision: 1) %>%
           </td>
           <td align="right">
             <!-- Valor total vendido (Custo) -->

@@ -36,7 +36,7 @@
           <%= f.input :login, :label => "Login", disabled: true %>
         </div>
 
-        <% if @adm.admin? || @adm.operador? %>
+        <% if @adm.admin? %>
           <div class="form-input col-sm-6">
             <%= f.label :senha, "Palavra-passe" %>
             <%= f.password_field :senha, class: "form-control", disabled: @usuario.new_record? %>
@@ -46,8 +46,9 @@
           </div>
         <% else %>
             <div class="form-input col-sm-6">
-            <br><hr>
-            <p>O usuário definirá a senha no primeiro acesso</p>
+            <hr>
+            <p>O usuário definirá a palavra passe no primeiro acesso.</p><hr>
+            <p>Enviar e-mail para redefinição da palavra passe pelo próprio usuário</p>
             <hr>
             </div>
         <% end %>

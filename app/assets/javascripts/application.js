@@ -243,21 +243,19 @@ const submeterRecarga = function() {
 
   $(".recarga .talao" + $("#tipo_ativo").val() + "").show();
 
-  var form = $(".recarga #recargaForm");
-  var formData = form.serialize().replace(/produto_id=&/g, '');
-
-  debugger
   let operadora = $(".recarga #tipo_ativo").val();
   let valor = $("#rechargeValue").val();
-  let cartao = "23233223";
+  let numero = $("." + operadora + " .numero").val();
+  let labelNumero = $("." + operadora + " .label-numero").text().replace("\n","").replace("*", "").trim();
+  valor = parseFloat(valor).toLocaleString('pt',{style: 'currency', currency: 'AOA'}).replace("AOA", "");
 
   $.confirm({
     title: 'Confirmação!',
     content: `
       <div>TEM CERTEZA QUE DESEJA EFECTUAR A RECARGA?</div><br>
-      <div><b>Operadora:</b> ${operadora}</div>
-      <div><b>Valor da Recarga:</b> ${valor}</div>
-      <div><b>Nº do cartão:</b> ${cartao}</div>
+      <div><b>Operadora:</b> ${operadora.toUpperCase()}</div>
+      <div><b>Valor da Recarga:</b> KZ ${valor}</div>
+      <div><b>${labelNumero}:</b> ${numero}</div>
     `,
     buttons: {
       confirmar: {
@@ -275,7 +273,7 @@ const submeterRecarga = function() {
         text: 'Cancelar',
         btnClass: 'btn-danger',
         action: function(){
-          $.alert('cancelado!');
+          $.alert('VENDA CANCELADA!');
         }
       }
     }

@@ -189,21 +189,21 @@
               </div>
               <div class="campos movicel" id="divAditionalFieldsMovicel">
                 <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv" style="text-align: left;">
+                  <div class="p16Bold editDiv label-numero" style="text-align: left;">
                     Telemóvel<span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" name="movicel_telefone" class="form-control vMovicel validate clearFieldjs" data-message="Informe o número do Telemóvel para Recarga" value="" placeholder="Número do Telemóvel" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" name="movicel_telefone" class="numero form-control vMovicel validate clearFieldjs" data-message="Informe o número do Telemóvel para Recarga" value="" placeholder="Número do Telemóvel" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
               <div class="campos africell" id="divAditionalFieldsAfricell">
                 <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv" style="text-align: left;">
+                  <div class="p16Bold editDiv label-numero" style="text-align: left;">
                      Telemóvel<span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" name="target_msisdn" class="form-control vAfriell validate clearFieldjs" data-message="Informe o Telemóvel MSISDN" value="" placeholder="Telemóvel MSISDN" >
+                    <input type="text" name="target_msisdn" class="numero form-control vAfriell validate clearFieldjs" data-message="Informe o Telemóvel MSISDN" value="" placeholder="Telemóvel MSISDN" >
                   </div>
                 </div>
               </div>
@@ -225,66 +225,55 @@
               </div>
               <div class="campos dstv" id="divAditionalFieldsDSTV">
                 <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv transacao_smartcard_nao" style="text-align: left">
+                  <div class="p16Bold editDiv transacao_smartcard_nao label-numero" style="text-align: left">
                     SmartCard <span class="required">&nbsp;*</span>
                   </div>
-                  <div class="p16Bold editDiv transacao_smartcard_sim" style="text-align: left;display:none;">
+                  <div class="p16Bold editDiv transacao_smartcard_sim label-numero" style="text-align: left;display:none;">
                     Customer Number <span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" id="dstvNr"  name="dstv_number" class="form-control vDSTv validate clearFieldjs" data-message="Informe o número do Dispositivo ou do Cliente" value="" placeholder="" maxlength="11" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" id="dstvNr"  name="dstv_number" class="numero form-control vDSTv validate clearFieldjs" data-message="Informe o número do Dispositivo ou do Cliente" value="" placeholder="" maxlength="11" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
               <div class="campos zaptv zapfibra" id="divAditionalFieldsZAP">
                 <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv" style="text-align: left;">
+                  <div class="p16Bold editDiv label-numero" style="text-align: left;">
                     Nº do Cartão ZAP ou Telefone <span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" id="zapNr" name="zaptv_cartao" class="form-control vZAPTv vzapfibra validate clearFieldjs" data-message="Informe o número do Cartão ZAP" value="" placeholder="Número do Cartão ZAP ou Telefone" maxlength="12" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" id="zapNr" name="zaptv_cartao" class="numero form-control vZAPTv vzapfibra validate clearFieldjs" data-message="Informe o número do Cartão ZAP" value="" placeholder="Número do Cartão ZAP ou Telefone" maxlength="12" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
               <div class="campos unitel" id="divAditionalFieldsUnitel">
                 <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv" style="text-align: left;">
+                  <div class="p16Bold editDiv label-numero" style="text-align: left;">
                     Telemóvel <span class="required">*</span>
                   </div>
                   <div>
-                    <input type="text" id="unitelNr" name="unitel_telefone" class="form-control vUnitel validate clearFieldjs" data-message="Informe o Número do Telemóvel" value="" placeholder="Número do Telemóvel para Recarga" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" id="unitelNr" name="unitel_telefone" class="numero form-control vUnitel validate clearFieldjs" data-message="Informe o Número do Telemóvel" value="" placeholder="Número do Telemóvel para Recarga" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
               <div class="campos ende" id="divAditionalFieldsENDE">
                 <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv" style="text-align: left;">
+                  <div class="p16Bold editDiv label-numero" style="text-align: left;">
                     Número do Medidor<span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" name="meter_number" class="form-control vENDE validate clearFieldjs" data-message="Informe o número" placeholder="Digite ..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" name="meter_number" class="numero form-control vende validate clearFieldjs" data-message="Informe o número" placeholder="Digite ..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
-<!--
-              <div class="campos <%= Partner.where(status_parceiro_id: StatusParceiro::ATIVO).where("slug not in ('ende')").map{|p| "talao#{p.slug}"}.join(" ") %>" id="divAditionalFieldsSMS" style="display: none;margin-top: 10px">
-                <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv" style="text-align: left;">
-                    Talão para SMS (não obrigatório)
-                  </div>
-                  <div>
-                    <input type="text" id="SMSNr" name="talao_sms" class="form-control <%= Partner.where(status_parceiro_id: StatusParceiro::ATIVO).where("slug not in ('ENDE')").map{|p| "talao#{p.slug}"}.join(" ") %> validate clearFieldjs" data-message="Informe o Número para Talão para SMS" value="" placeholder="Talão para SMS " maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
-                  </div>
-                </div>
-              </div>
--->              
+           
               <div class="campos ende id="divAditionalFieldsENDEsms" style="display: none;margin-top: 10px">
                 <div class="editArea editAreaDiv">
                   <div class="p16Bold editDiv" style="text-align: left;">
                     Número SMS para envio do token de recarga <span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" id="sms_ende" name="talao_sms_ende" class="form-control vENDE validate clearFieldjs" data-message="Informe o Número SMS para envio do token de recarga" value="" placeholder="Número SMS para envio" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" id="sms_ende" name="talao_sms_ende" class="form-control vende validate clearFieldjs" data-message="Informe o Número SMS para envio do token de recarga" value="" placeholder="Número SMS para envio" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
