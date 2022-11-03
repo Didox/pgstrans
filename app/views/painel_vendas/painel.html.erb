@@ -1,0 +1,62 @@
+<!-- Page Content -->
+<div class="container-fluid desk">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Painel de Vendas</h3>
+    </div>
+    <!-- Page Heading/Breadcrumbs -->
+    <%= render :partial => 'shared/header_backoffice' %>
+    
+    <div class="col-lg-12">
+    <h4>Última venda com sucesso por operadora</h4>
+      <div class="row">
+          <% Partner.all.each do |partner| %>
+              <div style="margin:10px; display: inline-block; width: 400px; border: 1px solid #ccc; padding: 10px;height:100%">
+                  <div>
+                      <strong><%= partner.name.upcase %></strong>
+                  </div>
+                  <hr>
+                  <ul style="list-style-type: none; padding: 0; margin: 0;">
+                      <li>
+                          <div>
+                              <% 
+                              status = ReturnCodeApi.where(sucesso: true).map{|r| r.return_code } rescue []
+                              vendas = Venda.where(partner_id: partner.id)
+                              vendas = vendas.where("status in (?)", status) if status.present? 
+                              venda = vendas.first 
+                              %>
+                              <% if venda.present? %>
+                                  <b>ID da Venda:</b> <%= venda.id %> <b>- Login Usuário:</b> <%= venda.usuario.login %><br>
+                                  <b>Nome do Usuário:</b> <%= venda.usuario.nome %><br>
+                                  <% if venda.partner_id == Partner.zaptv.id %>
+                                  <b>Categoria:</b> <%= venda.categoria.upcase %><br>
+                                  <% end %>
+                                  <b>Data da Venda:</b> <%= venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %><br>
+                                  <% if venda.valor_original.present? %>
+                                    <b>Valor:</b> <%= number_to_currency(venda.valor_original) %><br>
+                                  <% end %>
+                                  <% if venda.customer_number.present? %>
+                                    <b>Cliente:</b> <%= venda.customer_number %><br>
+                                  <% end %>
+                                  <% if venda.smartcard.present? %>
+                                    <b>Smartcard:</b> <%= venda.smartcard %><br>
+                                  <% end %>
+                                  <b>Situação:</b> <%= venda.status_desc.error_description_pt %> <%= " - #{venda.lancamento.nome}" rescue "" %><br>
+                              <% else %>
+                                  <div>Sem registro de venda para essa operadora</div>
+                              <% end %>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          <% end %>
+      </div>
+      <br>
+      <p>Consulte o <a href="/vendas">Relatório Geral de Vendas</a> para mais detalhes</p>
+    </div>
+  </div>
+
+  <br>
+
+</div>
+<!-- /.container -->

@@ -120,6 +120,7 @@ class PerfilUsuario < ApplicationRecord
       index_vendas_conciliacao: "Relatório de Vendas com dados resumidos para fins de conciliação",
       auth: "Permissão para interagir com a API do Google",
       google_auth: "Permissão para autenticação Google",
+      painel: "Últimas Vendas por Parceiro",
       #consolidado: "Relatorio de Geral de Vendas - Consolidado",
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
@@ -187,7 +188,8 @@ class PerfilUsuario < ApplicationRecord
       status_alegacao_de_pagamentos: "Tabela de Situações Possíveis para Alegação de Pagamentos",
       modal_informativos: "Modal Informativo",
       gestao_operacao: "Gestão da Operação",
-      otp_key_africell_logs: "Acesso ao log de leitura e gravação da OTP KEY Africell"
+      otp_key_africell_logs: "Acesso ao log de leitura e gravação da OTP KEY Africell",
+      painel_vendas: "Painel de Vendas"
     }
     nomes[controller.to_sym]
   end

@@ -71,11 +71,17 @@ class Partner < ApplicationRecord
     Partner.where("lower(slug) = 'unitel'").first
   end
 
-  def valor_total_original(params={}, usuario_logado)
+  def self.zapfibra
+    Partner.where("lower(slug) = 'zapfibra'").first
+  end
+
+  def valor_total_original_sql(params={}, usuario_logado)
     vendas = Venda.com_acesso(usuario_logado).where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code })
     vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id")
     vendas = vendas.joins("inner join partners on partners.id = vendas.partner_id")
 
+    vendas = vendas.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
+    
     params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
     if params[:status].present?
       vendas = vendas.where("usuarios.status_cliente_id = ?", params[:status])
@@ -83,37 +89,21 @@ class Partner < ApplicationRecord
 
     vendas = vendas.where("vendas.updated_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)) if params[:data_inicio].present?
     vendas = vendas.where("vendas.updated_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)) if params[:data_fim].present?
-    vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id").where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
+    vendas
+  end
+
+  def valor_total_original(params={}, usuario_logado)
+    vendas = valor_total_original_sql(params, usuario_logado)
     vendas.sum(:valor_original)
   end
 
   def desconto_total_aplicado(params={}, usuario_logado)
-    vendas = Venda.com_acesso(usuario_logado).where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code })
-    vendas = vendas.where("vendas.updated_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)) if params[:data_inicio].present?
-    vendas = vendas.where("vendas.updated_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)) if params[:data_fim].present?
-    vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id")
-    vendas = vendas.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
-
-    params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
-    if params[:status].present?
-      vendas = vendas.where("usuarios.status_cliente_id = ?", params[:status])
-    end
-
+    vendas = valor_total_original_sql(params, usuario_logado)
     vendas.sum(:desconto_aplicado)
   end
 
   def valor_total_vendido(params={}, usuario_logado)
-    vendas = Venda.com_acesso(usuario_logado).where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code })
-    vendas = vendas.where("vendas.updated_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)) if params[:data_inicio].present?
-    vendas = vendas.where("vendas.updated_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)) if params[:data_fim].present?
-    vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id")
-    vendas = vendas.where("lower(usuarios.nome) ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
-
-    params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
-    if params[:status].present?
-      vendas = vendas.where("usuarios.status_cliente_id = ?", params[:status])
-    end
-
+    vendas = valor_total_original_sql(params, usuario_logado)
     vendas.sum(:value)
   end
 
