@@ -193,7 +193,7 @@
                     Telemóvel<span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" name="movicel_telefone" class="numero form-control vMovicel validate clearFieldjs" data-message="Informe o número do Telemóvel para Recarga" value="" placeholder="Número do Telemóvel" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" name="movicel_telefone" class="numero form-control vmovicel validate clearFieldjs" data-message="Informe o número do Telemóvel para Recarga" value="" placeholder="Número do Telemóvel" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
@@ -203,21 +203,21 @@
                      Telemóvel<span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" name="target_msisdn" class="numero form-control vAfriell validate clearFieldjs" data-message="Informe o Telemóvel MSISDN" value="" placeholder="Telemóvel MSISDN" >
+                    <input type="text" name="target_msisdn" class="numero form-control vafricell validate clearFieldjs" data-message="Informe o Telemóvel MSISDN" value="" placeholder="Telemóvel MSISDN" >
                   </div>
                 </div>
               </div>
               <div class="campos dstv" id="divAditionalFieldsDSTV">
                 <div class="editArea editAreaDiv">
                   <div class="divSmartcard">
-                    <input type="radio" class="smartSim" id="transacao_smartcard_sim" onclick="$('.transacao_smartcard_sim').hide();$('.transacao_smartcard_nao').show();" name="transacao_smartcard" class="form-control vDSTv radio-menor" checked="checked" value="true">
-                    <label for="transacao_smartcard_sim">
+                    <input type="radio" class="smartSim" id="transacao_smartcard_sim" onclick="$('.transacao_smartcard_sim').hide();$('.transacao_smartcard_nao').show();$('.dstv .label-numero').text($('.transacao_smartcard_nao').text())" name="transacao_smartcard" class="form-control vdstv radio-menor" checked="checked" value="true">
+                    <label for="transacao_smartcard_sim" style="margin-top: 17px;">
                       SmartCard
                     </label>
                   </div>
                   <div class="divDeviceId">
-                    <input type="radio" class="smartNao" id="transacao_smartcard_nao" onclick="$('.transacao_smartcard_sim').show();$('.transacao_smartcard_nao').hide();" name="transacao_smartcard" class="form-control vDSTv radio-menor" value="false">
-                    <label for="transacao_smartcard_nao">
+                    <input type="radio" class="smartNao" id="transacao_smartcard_nao" onclick="$('.transacao_smartcard_sim').show();$('.dstv .label-numero').text($('.transacao_smartcard_sim').text());$('.transacao_smartcard_nao').hide();" name="transacao_smartcard" class="form-control vdstv radio-menor" value="false">
+                    <label for="transacao_smartcard_nao" style="margin-top: 17px;">
                       Customer Number
                     </label>
                   </div>
@@ -225,14 +225,15 @@
               </div>
               <div class="campos dstv" id="divAditionalFieldsDSTV">
                 <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv transacao_smartcard_nao label-numero" style="text-align: left">
+                  <div class="p16Bold editDiv transacao_smartcard_nao" style="text-align: left">
                     SmartCard <span class="required">&nbsp;*</span>
                   </div>
-                  <div class="p16Bold editDiv transacao_smartcard_sim label-numero" style="text-align: left;display:none;">
+                  <div class="p16Bold editDiv transacao_smartcard_sim" style="text-align: left;display:none;">
                     Customer Number <span class="required">&nbsp;*</span>
                   </div>
+                  <div style="display:none" class="label-numero"></div>
                   <div>
-                    <input type="text" id="dstvNr"  name="dstv_number" class="numero form-control vDSTv validate clearFieldjs" data-message="Informe o número do Dispositivo ou do Cliente" value="" placeholder="" maxlength="11" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" id="dstvNr"  name="dstv_number" class="numero form-control vdstv validate clearFieldjs" data-message="Informe o número do Dispositivo ou do Cliente" value="" placeholder="" maxlength="11" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
@@ -242,7 +243,7 @@
                     Nº do Cartão ZAP ou Telefone <span class="required">&nbsp;*</span>
                   </div>
                   <div>
-                    <input type="text" id="zapNr" name="zaptv_cartao" class="numero form-control vZAPTv vzapfibra validate clearFieldjs" data-message="Informe o número do Cartão ZAP" value="" placeholder="Número do Cartão ZAP ou Telefone" maxlength="12" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" id="zapNr" name="zaptv_cartao" class="numero form-control vzaptv vzapfibra validate clearFieldjs" data-message="Informe o número do Cartão ZAP" value="" placeholder="Número do Cartão ZAP ou Telefone" maxlength="12" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
@@ -252,7 +253,7 @@
                     Telemóvel <span class="required">*</span>
                   </div>
                   <div>
-                    <input type="text" id="unitelNr" name="unitel_telefone" class="numero form-control vUnitel validate clearFieldjs" data-message="Informe o Número do Telemóvel" value="" placeholder="Número do Telemóvel para Recarga" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    <input type="text" id="unitelNr" name="unitel_telefone" class="numero form-control vunitel validate clearFieldjs" data-message="Informe o Número do Telemóvel" value="" placeholder="Número do Telemóvel para Recarga" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                   </div>
                 </div>
               </div>
