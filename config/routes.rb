@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'painel_vendas/painel'
+  get 'painel_vendas/index'
   resources :otp_key_africell_logs
   resources :modal_informativos
   resources :email_historico_envios

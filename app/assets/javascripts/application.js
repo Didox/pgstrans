@@ -243,9 +243,20 @@ const submeterRecarga = function() {
 
   $(".recarga .talao" + $("#tipo_ativo").val() + "").show();
 
+  let operadora = $(".recarga #tipo_ativo").val();
+  let valor = $("#rechargeValue").val();
+  let numero = $("." + operadora + " .numero").val();
+  let labelNumero = $("." + operadora + " .label-numero").text().replace("\n","").replace("*", "").trim();
+  valor = parseFloat(valor).toLocaleString('pt',{style: 'currency', currency: 'AOA'}).replace("AOA", "");
+
   $.confirm({
     title: 'Confirmação!',
-    content: 'TEM A CERTEZA QUE DESEJA EFECTUAR A RECARGA?',
+    content: `
+      <div>TEM CERTEZA QUE DESEJA EFECTUAR A RECARGA?</div><br>
+      <div><b>Operadora:</b> ${operadora.toUpperCase()}</div>
+      <div><b>Valor da Recarga:</b> KZ ${valor}</div>
+      <div><b>${labelNumero}:</b> ${numero}</div>
+    `,
     buttons: {
       confirmar: {
         text: 'Confirmar',
@@ -262,7 +273,7 @@ const submeterRecarga = function() {
         text: 'Cancelar',
         btnClass: 'btn-danger',
         action: function(){
-          $.alert('cancelado!');
+          $.alert('VENDA CANCELADA!');
         }
       }
     }

@@ -1,0 +1,2 @@
+module PainelVendasHelper
+end
