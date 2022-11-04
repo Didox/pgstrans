@@ -11,9 +11,9 @@
     <h4>Última venda com sucesso por operadora</h4>
       <div class="row">
           <% Partner.all.each do |partner| %>
-              <div style="margin:10px; display: inline-block; width: 400px; border: 1px solid #ccc; padding: 10px;height:100%">
+              <div style="margin:10px; display: inline-block; width: 100%; border: 1px solid #ccc; padding: 10px;height:100%">
                   <div>
-                      <strong><%= partner.name.upcase %></strong>
+                      <strong class="btn btn-danger"><%= partner.name.upcase %></strong>
                   </div>
                   <hr>
                   <ul style="list-style-type: none; padding: 0; margin: 0;">
