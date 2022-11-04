@@ -32,7 +32,7 @@
             <li>Data:</b> <%= info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
           </ul>
         </div>
-        <% if info["erro"].present? && (venda.blank? || venda.error_message.blank?) %>
+        <% if info.present? && info["erro"].present? && (venda.blank? || venda.error_message.blank?) %>
           <div class="col-md-12" style="text-align: left">
             <ul style="list-style-type: none;">
               <% if info["msno"].present? %>
@@ -47,7 +47,7 @@
               </li>
             </ul>
           </div>
-        <% else %>
+        <% elsif info.present? %>
           <div class="col-md-12" style="text-align: left">
             <ul style="list-style-type: none">
               <% if info["unique_number"].present? %>
@@ -228,6 +228,8 @@
               </li> 
             </ul>            
           </div>
+        <% else %>
+          <h1>Sem informação no retorno da consulta!</h1>
         <% end %>
       </div>
     </div>
