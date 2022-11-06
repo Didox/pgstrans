@@ -143,12 +143,14 @@
             <%= number_to_currency(desconto_total_aplicado) %><br>
             <%= number_to_currency(porcentagem_cliente, :unit => "", precision: 1) %>%
           </td>
-          
-          <td align="right">
-            <!-- Desconto total parceiro padrão -->
-            <%= number_to_currency(desconto_total_aplicado_parceiro) %><br>
-            <%= number_to_currency(parceiro.desconto.to_f, :unit => "", precision: 1) %>%
-          </td>
+
+          <% if @adm.id == Usuario::ROOT %>
+            <td align="right">
+              <!-- Desconto total parceiro padrão -->
+              <%= number_to_currency(desconto_total_aplicado_parceiro) %><br>
+              <%= number_to_currency(parceiro.desconto.to_f, :unit => "", precision: 1) %>%
+            </td>
+          <% end %>
 
           <td align="right">
             <!-- Valor total vendido (Custo) -->
@@ -187,11 +189,13 @@
               <%= number_to_currency(totais_desconto_total_aplicado) %>
             </b>
           </td>   
-          <td style="width:210px" align="right">
-            <b>
-              <%= number_to_currency(totais_desconto_total_aplicado_parceiro) %>
-            </b>
-          </td>
+          <% if @adm.id == Usuario::ROOT %>
+            <td style="width:210px" align="right">
+              <b>
+                <%= number_to_currency(totais_desconto_total_aplicado_parceiro) %>
+              </b>
+            </td>
+          <% end %>
           <td style="width:210px" align="right">
             <b><%= number_to_currency(totais_valor_total_vendido) %>
           </b>
