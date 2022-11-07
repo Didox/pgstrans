@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_01_144316) do
+ActiveRecord::Schema.define(version: 2022_11_04_130915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -775,6 +775,7 @@ ActiveRecord::Schema.define(version: 2022_11_01_144316) do
     t.string "operation_code_zap"
     t.string "categoria"
     t.text "log_erro_text"
+    t.float "porcentagem_desconto"
     t.index ["lancamento_id"], name: "index_vendas_on_lancamento_id"
     t.index ["operation_code_zap"], name: "vendas_operation_code_zap"
     t.index ["partner_id"], name: "index_vendas_on_partner_id"

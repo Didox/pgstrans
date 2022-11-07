@@ -20,7 +20,15 @@ namespace :jobs do
     end
   end
 
-  
+  desc "Atualiza porcentagem_desconto_venda"
+  task atualiza_porcentagem_desconto_venda: :environment do
+    Venda.where("porcentagem_desconto is null").each do |venda|
+      desconto_aplicado, valor_original, valor, porcentagem_desconto = Venda.desconto_venda(venda.usuario, venda.partner, venda.valor_original)
+      Venda.where(id: venda.id).update_all(porcentagem_desconto: porcentagem_desconto)
+      puts "===[#{venda.id}]==="
+    end
+  end
+
   desc "zappi_capture"
   task zappi_capture: :environment do
     vendas = Venda.all.where(partner_id: 4).where("zappi is null")
