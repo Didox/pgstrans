@@ -62,40 +62,13 @@
   <div class="container scroltable" style="overflow:hidden">
     <div style="width: 100%">
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-      <script type="text/javascript">
-        google.charts.load("current", {packages:['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ["Nome", "Valor", { role: "style" } ],
-            <% Partner.all.each do |partner| %>
-            ["<%= partner.name %>", 
-            <%= partner.valor_total_vendido(params, usuario_logado).round(2) %>, 
-            "<%= partner.cor %>"],
-            <% end %>
-          ]);
-
-          var view = new google.visualization.DataView(data);
-          view.setColumns([0, 1,
-                          { calc: "stringify",
-                            sourceColumn: 1,
-                            type: "string",
-                            role: "annotation" },
-                          2]);
-
-          var options = {
-            bar: {groupWidth: "95%"},
-            legend: { position: "none" },
-          };
-          var chart = new 
-          google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-          chart.draw(view, options);
-      }
-      </script>
       <div id="columnchart_values" style="height: 600px"></div>
     </div>
   </div>
 
+  <script>
+    var dados = [["Nome", "Valor", { role: "style" } ]];
+  </script>
   <div class="scroltable">
     <h3>TOTAL DE VENDA POR PARCEIRO</h3>
     <hr>
@@ -110,6 +83,7 @@
           <% end %>
           <th scope="col" style="text-align:right">Valor Vendido</th>
           <th scope="col" style="text-align:right">Lucro Cliente</th>
+          <th scope="col" style="text-align:right">Desconto Padrão</th>
           <th scope="col" style="text-align:right">Custo</th>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
             <th scope="col" style="text-align:right">Lucro Pagasó</th>
@@ -121,6 +95,7 @@
         totais_desconto_total_aplicado = 0
         totais_valor_total_vendido = 0
         totais_lucro_pagaso = 0
+        totais_desconto_total_aplicado_parceiro = 0
       %>
       <tbody>
         <% @parceiros.each do |parceiro| %>
@@ -131,6 +106,9 @@
             desconto_total_aplicado = parceiro.desconto_total_aplicado(params, usuario_logado)
             valor_total_vendido = parceiro.valor_total_vendido(params, usuario_logado)
 
+            porcentagem_parceiro = parceiro.desconto.to_f
+            desconto_total_aplicado_parceiro = valor_total_original - (valor_total_original * porcentagem_parceiro / 100)
+
             porcentagem_cliente = ((desconto_total_aplicado.to_f / valor_total_original.to_f) * 100)
             porcentagem_cliente = porcentagem_cliente.nan? ? 0 : porcentagem_cliente
             margem_pagaso = parceiro.margem_operadora.to_f - porcentagem_cliente.to_f
@@ -140,6 +118,7 @@
             totais_desconto_total_aplicado += desconto_total_aplicado
             totais_valor_total_vendido += valor_total_vendido
             totais_lucro_pagaso += lucro_pagaso
+            totais_desconto_total_aplicado_parceiro += desconto_total_aplicado_parceiro
           %>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
             <td align="right">
@@ -155,12 +134,24 @@
           <td align="right">
               <!-- % Valor Vendido -->
               <%= number_to_currency(valor_total_original) %>
+            <script>
+              dados.push(["<%= parceiro.name %>", <%= valor_total_original %>, "<%= parceiro.cor %>"])
+            </script>
           </td>
           <td align="right">
             <!-- Lucro Cliente -->
             <%= number_to_currency(desconto_total_aplicado) %><br>
             <%= number_to_currency(porcentagem_cliente, :unit => "", precision: 1) %>%
           </td>
+
+          <% if @adm.id == Usuario::ROOT %>
+            <td align="right">
+              <!-- Desconto total parceiro padrão -->
+              <%= number_to_currency(desconto_total_aplicado_parceiro) %><br>
+              <%= number_to_currency(parceiro.desconto.to_f, :unit => "", precision: 1) %>%
+            </td>
+          <% end %>
+
           <td align="right">
             <!-- Valor total vendido (Custo) -->
             <%= number_to_currency(valor_total_vendido) %>
@@ -197,7 +188,14 @@
             <b>
               <%= number_to_currency(totais_desconto_total_aplicado) %>
             </b>
-          </td>
+          </td>   
+          <% if @adm.id == Usuario::ROOT %>
+            <td style="width:210px" align="right">
+              <b>
+                <%= number_to_currency(totais_desconto_total_aplicado_parceiro) %>
+              </b>
+            </td>
+          <% end %>
           <td style="width:210px" align="right">
             <b><%= number_to_currency(totais_valor_total_vendido) %>
           </b>
@@ -214,3 +212,26 @@
     </table>
   </div>
 </div>
+
+<script type="text/javascript">
+  google.charts.load("current", {packages:['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(dados);
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+                    { calc: "stringify",
+                      sourceColumn: 1,
+                      type: "string",
+                      role: "annotation" },
+                    2]);
+
+    var options = {
+      bar: {groupWidth: "95%"},
+      legend: { position: "none" },
+    };
+    var chart = new 
+    google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+    chart.draw(view, options);
+}
+</script>

@@ -34,9 +34,6 @@ class Venda < ApplicationRecord
       csv << attributes
 
       all.each do |venda|
-        porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
-        porcentagem = porcentagem.nan? ? 0 : porcentagem.round(2)
-
         csv << [
           venda.id,
           venda.usuario.nome,
@@ -51,7 +48,7 @@ class Venda < ApplicationRecord
           venda.smartcard,
           moeda_csv(helper.number_to_currency(venda.valor_original, :unit => "")),
           moeda_csv(helper.number_to_currency(venda.desconto_aplicado, :unit => "")),
-          moeda_csv(helper.number_to_currency(porcentagem, :unit => "")),
+          moeda_csv(helper.number_to_currency(venda.porcentagem_desconto, :unit => "")),
           moeda_csv(helper.number_to_currency(venda.value, :unit => "")),
         ]
       end
@@ -270,7 +267,7 @@ class Venda < ApplicationRecord
     valor_original = valor
     valor = valor - desconto_aplicado
 
-    return [desconto_aplicado, valor_original, valor]
+    return [desconto_aplicado, valor_original, valor, desconto]
   end
 
   def self.venda_zapfibra(params, usuario, ip)
@@ -284,7 +281,7 @@ class Venda < ApplicationRecord
     parceiro = produto.partner
     valor = params[:valor].to_f
 
-    desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
+    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
     
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
@@ -333,7 +330,7 @@ class Venda < ApplicationRecord
       :body => body_send, timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
@@ -391,7 +388,7 @@ class Venda < ApplicationRecord
     raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
   end
 
-  def self.confirma_venda!(venda, uniq_number, meter_number, produto, valor, desconto_aplicado, valor_original, usuario, parceiro)
+  def self.confirma_venda!(venda, uniq_number, meter_number, produto, valor, desconto_aplicado, valor_original, porcentagem_desconto, usuario, parceiro)
     info, xml_enviado, xml_recebido = Ende.informacoes_meter_number(meter_number, uniq_number)
     info = info.first
 
@@ -451,7 +448,7 @@ class Venda < ApplicationRecord
     valor = params[:valor].to_f
     raise PagasoError.new("Valor é obrigatório") if valor < 0.1
 
-    desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
+    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
     
     parametro = Parametro.where(partner_id: parceiro.id).first
     meter_number = params[:meter_number]
@@ -469,7 +466,7 @@ class Venda < ApplicationRecord
     produto = Produto.find(params[:produto_id])
 
     uniq_number = EndeUniqNumber.create(data: Time.zone.now)
-    venda = Venda.new(product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: uniq_number.id, customer_number: meter_number, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: uniq_number.id, customer_number: meter_number, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.store_id = usuario.sub_agente.store_id_parceiro
     venda.seller_id = usuario.sub_agente.seller_id_parceiro
@@ -478,7 +475,7 @@ class Venda < ApplicationRecord
 
     uniq_number_confirma = EndeUniqNumber.create(data: Time.zone.now, venda_id: venda.id)
     begin
-      confirma_venda!(venda, uniq_number_confirma, meter_number, produto, valor, desconto_aplicado, valor_original, usuario, parceiro)
+      confirma_venda!(venda, uniq_number_confirma, meter_number, produto, valor, desconto_aplicado, valor_original, porcentagem_desconto, usuario, parceiro)
     rescue PagasoEndeError => e
       venda.log_erro_text = e.backtrace
       venda.error_message = e.message
@@ -717,7 +714,7 @@ class Venda < ApplicationRecord
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
 
-    desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
+    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
 
     raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
@@ -874,7 +871,7 @@ class Venda < ApplicationRecord
 
           last_request = request.body
 
-          venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+          venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
           venda.responsavel = usuario
           venda.save!
 
@@ -973,7 +970,7 @@ class Venda < ApplicationRecord
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
 
-    desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
+    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
 
     smartcard = params[:transacao_smartcard].blank? ? true : ActiveModel::Type::Boolean.new.cast(params[:transacao_smartcard])
     
@@ -1080,7 +1077,7 @@ class Venda < ApplicationRecord
 
     last_request = request.body
     
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_number, customer_number: params[:dstv_number], usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: transaction_number, customer_number: params[:dstv_number], usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -1138,7 +1135,7 @@ class Venda < ApplicationRecord
     parceiro = Partner.unitel
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
-    desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
+    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
 
     raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
@@ -1152,7 +1149,7 @@ class Venda < ApplicationRecord
     produto = Produto.find(product_id)
     telefone = params[:unitel_telefone]
 
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.unitel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.unitel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -1214,13 +1211,8 @@ class Venda < ApplicationRecord
   end
   
   def lucro
-    venda.valor_original
-    venda.desconto_aplicado 
-    venda.lucro
-    venda.value
+    self.value
   end
-
-  
 
   def self.venda_africell(params, usuario, ip)
     raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
@@ -1229,7 +1221,7 @@ class Venda < ApplicationRecord
     parceiro = produto.partner
     valor = params[:valor].to_f
 
-    desconto_aplicado, valor_original, valor = desconto_venda(usuario, parceiro, valor)
+    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
     
     raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
@@ -1279,7 +1271,7 @@ class Venda < ApplicationRecord
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, request_id: transaction_reference, customer_number: numero_africell, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: transaction_reference, customer_number: numero_africell, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
