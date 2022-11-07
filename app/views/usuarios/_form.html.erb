@@ -36,7 +36,7 @@
           <%= f.input :login, :label => "Login", disabled: true %>
         </div>
 
-        <% if @adm.admin? %>
+        <% if @adm.admin? || @adm.operador? %>
           <div class="form-input col-sm-6">
             <%= f.label :senha, "Palavra-passe" %>
             <%= f.password_field :senha, class: "form-control", disabled: @usuario.new_record? %>
