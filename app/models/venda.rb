@@ -31,6 +31,13 @@ class Venda < ApplicationRecord
     CSV.generate(headers: true) do |csv|
       csv << attributes
 
+      if venda.porcentagem_desconto.present?
+        porcentagem = venda.porcentagem_desconto.to_f
+      else
+        porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
+        porcentagem = porcentagem.nan? ? 0 : porcentagem.round(2)
+      end
+
       all.each do |venda|
         csv << [
           venda.id,
@@ -46,7 +53,7 @@ class Venda < ApplicationRecord
           venda.smartcard,
           moeda_csv(helper.number_to_currency(venda.valor_original.to_f, :unit => "")),
           moeda_csv(helper.number_to_currency(venda.desconto_aplicado.to_f, :unit => "")),
-          moeda_csv(helper.number_to_currency(venda.porcentagem_desconto.to_f, :unit => "")),
+          moeda_csv(helper.number_to_currency(porcentagem.to_f, :unit => "")),
           moeda_csv(helper.number_to_currency(venda.value.to_f, :unit => "")),
         ]
       end
