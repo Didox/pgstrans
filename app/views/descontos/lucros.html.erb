@@ -210,6 +210,22 @@
         </tr>
       </tfoot>
     </table>
+    <% if usuario_logado.admin? || usuario_logado.operador? %>
+      <div>
+        <h3>
+          Legenda
+        </h3>
+        <p>
+          Nota 1 - valor_original = somatório do total de produtos vendidos pelo valor de face
+        </p>
+        <p>
+          Nota 2 - Lucro do Cliente = percentual de desconto do cliente aplicado sobre o valor de face no ato da venda
+        </p>
+        <p>
+          Nota 3 - Desconto Padrão - Cálculo percentual sobre o valor de face do produto, considerando a percentual desconto atribuído ao usuário ou, na ausência dessa informação, o desconto padrão atribuído no parceiro.
+        </p>
+      </div>
+    <% end %>
   </div>
 </div>
 
