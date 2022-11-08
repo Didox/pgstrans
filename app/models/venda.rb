@@ -42,7 +42,7 @@ class Venda < ApplicationRecord
       moeda_csv(helper.number_to_currency(venda.valor_original, :unit => "")),
       moeda_csv(helper.number_to_currency(venda.desconto_aplicado, :unit => "")),
       moeda_csv(helper.number_to_currency(venda.porcentagem_desconto, :unit => "")),
-      moeda_csv(helper.number_to_currency(venda.value, :unit => ""))
+      moeda_csv(helper.number_to_currency(venda.value, :unit => "")),
 
 
     CSV.generate(headers: true) do |csv|
@@ -64,7 +64,7 @@ class Venda < ApplicationRecord
           moeda_csv(helper.number_to_currency(venda.valor_original, :unit => "")),
           moeda_csv(helper.number_to_currency(venda.desconto_aplicado, :unit => "")),
           moeda_csv(helper.number_to_currency(venda.porcentagem_desconto, :unit => "")),
-          moeda_csv(helper.number_to_currency(venda.value, :unit => ""))
+          moeda_csv(helper.number_to_currency(venda.value, :unit => "")),
         ]
       end
     end
