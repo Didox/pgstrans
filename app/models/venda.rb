@@ -29,18 +29,18 @@ class Venda < ApplicationRecord
 
   def self.to_csv
     attributes = "ID Venda, Usuário, Nome do Parceiro, Categoria, Data da Venda, Situação da Venda, Produto ID Parceiro, Produto ID Pagaso, Nome do Produto, Customer Number, Smartcard, Valor Face, Desconto, Porcentagem Desconto, Lucro".split(",")
-      
+
     CSV.generate(headers: true) do |csv|
       csv << attributes
 
-      if venda.porcentagem_desconto.present?
-        porcentagem = venda.porcentagem_desconto.to_f
-      else
-        porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
-        porcentagem = porcentagem.nan? ? 0 : porcentagem.round(2)
-      end
-
       all.each do |venda|
+        if venda.porcentagem_desconto.present?
+          porcentagem = venda.porcentagem_desconto.to_f
+        else
+          porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
+          porcentagem = porcentagem.nan? ? 0 : porcentagem.round(2)
+        end
+
         csv << [
           venda.id,
           venda.usuario.nome,
