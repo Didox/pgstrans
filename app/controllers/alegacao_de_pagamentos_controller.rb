@@ -1,7 +1,8 @@
 class AlegacaoDePagamentosController < ApplicationController
   before_action :set_alegacao_de_pagamento, only: [:show, :edit, :update, :destroy, :processar]
-  before_action :upload_arquivo, only: [:create, :update]
+  before_action :upload_arquivo, only: [:create, :create_api, :update]
   before_action :valida_acesso, only: [:edit, :update, :destroy, :processar]
+  skip_before_action :verify_authenticity_token, only: [:create_api]
 
   # GET /alegacao_de_pagamentos
   # GET /alegacao_de_pagamentos.json
@@ -70,6 +71,11 @@ class AlegacaoDePagamentosController < ApplicationController
     end
   end
 
+  def create_api
+    params[:api] = true
+    create
+  end
+
   # PATCH/PUT /alegacao_de_pagamentos/1
   # PATCH/PUT /alegacao_de_pagamentos/1.json
   def update
@@ -110,12 +116,29 @@ class AlegacaoDePagamentosController < ApplicationController
 
   private
     def upload_arquivo
-      return if params[:alegacao_de_pagamento].blank? || params[:alegacao_de_pagamento][:comprovativo].is_a?(String)
-      comprovativo = params[:alegacao_de_pagamento][:comprovativo]
-      if comprovativo.present?
+      return if params[:alegacao_de_pagamento].blank? 
+
+      if params[:alegacao_de_pagamento][:comprovativo].blank?
+        params[:alegacao_de_pagamento].delete(:comprovativo)
+        return
+      end
+
+      return if params[:alegacao_de_pagamento][:comprovativo].is_a?(String) && !params[:alegacao_de_pagamento][:comprovativo].include?("base64")
+
+      if !params[:alegacao_de_pagamento][:comprovativo].is_a?(String)
+        comprovativo = params[:alegacao_de_pagamento][:comprovativo]
         params[:alegacao_de_pagamento][:comprovativo] = AwsService.upload(comprovativo.tempfile.path, comprovativo.original_filename)
       else
-        params[:alegacao_de_pagamento].delete(:comprovativo)
+        comprovativo = params[:alegacao_de_pagamento][:comprovativo]
+        data_url = comprovativo
+        data_uri_parts = data_url.match(/\Adata:([-\w]+\/[-\w\+\.]+)?;base64,(.*)/m) || []
+        extension = MIME::Types[data_uri_parts[1]].first.preferred_extension
+        name = "comprovativo-api.#{extension}"
+        file = "/tmp/#{name}"
+        File.open(file, 'wb') do |file_b|
+          file_b.write(Base64.decode64(data_uri_parts[2]))
+        end
+        params[:alegacao_de_pagamento][:comprovativo] = AwsService.upload(file, name)
       end
     end
     
@@ -127,7 +150,11 @@ class AlegacaoDePagamentosController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def alegacao_de_pagamento_params
       params[:alegacao_de_pagamento].delete(:observacao) unless (@adm.admin? || @adm.operador?)
-      
+
+      if params[:api]
+        params[:alegacao_de_pagamento][:observacao] = "#{params[:alegacao_de_pagamento][:observacao].to_s} (Enviado pela API)"
+      end
+
       alegacao_de_pagamento = params.require(:alegacao_de_pagamento).permit(:usuario_id, :valor_deposito, :status_alegacao_de_pagamento_id, :observacao, :data_deposito, :numero_talao, :banco_id, :comprovativo)
 
       alegacao_de_pagamento[:valor_deposito] = params[:outro_valor_deposito] if alegacao_de_pagamento[:valor_deposito].to_f <= 0.0
