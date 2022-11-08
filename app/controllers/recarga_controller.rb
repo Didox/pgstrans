@@ -11,7 +11,7 @@ class RecargaController < ApplicationController
       render json: {mensagem: venda.status_desc.error_description_pt, status: venda.status, venda_id: venda.id, sucesso: venda.sucesso?, redirect: venda.partner_id == Partner.ende.id}, status: 200
     else
       LogVenda.create(usuario_id: usuario_logado.id, titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{venda.status_desc.error_description_pt} - #{venda.status} - #{venda.response_get}")
-      render json: {mensagem: venda.status_desc.error_description_pt, status: venda.status, venda_id: venda.id, sucesso: false, redirect: venda.partner_id == Partner.ende.id}, status: 401
+      render json: {mensagem: "#{venda.status_desc.error_description_pt} - #{venda.error_message}", status: venda.status, venda_id: venda.id, sucesso: false, redirect: venda.partner_id == Partner.ende.id}, status: 401
     end
   rescue Exception => erro
     LogVenda.create(usuario_id: usuario_logado.id,titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{erro.message} - #{erro.backtrace}")

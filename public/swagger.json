@@ -684,7 +684,7 @@
         "tags": [
           "ContaCorrente"
         ],
-        "description": "Adiciona saldo na conta corrente",
+        "description": "Manifestação de alegação de pagamento para posterior processamento e crédito em conta corrente",
         "produces": [
           "application/json"
         ],
@@ -728,7 +728,7 @@
           {
             "name": "observacao",
             "description": "Observação",
-            "required": true,
+            "required": false,
             "type": "string"
           }
         ],
@@ -753,7 +753,7 @@
         "tags": [
           "ContaCorrente"
         ],
-        "description": "Retorna extrato do usuário",
+        "description": "Retorna extrato do usuário incluindo o saldo atual",
         "produces": [
           "application/json"
         ],
@@ -789,56 +789,14 @@
             "type": "string"
           },
           {
-            "name": "login",
-            "description": "Login do Usuário",
-            "required": false,
-            "type": "string"
-          },
-          {
             "name": "nome",
             "description": "Nome do Usuário",
             "required": false,
             "type": "string"
           },
           {
-            "name": "perfil_usuario_id",
-            "description": "Perfil do Usuário",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "description": "ID Interno Usuário",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "status",
-            "description": "Situação do Usuário",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "responsavel",
-            "description": "Responsável pela Aprovação",
-            "required": false,
-            "type": "string"
-          },
-            {
-              "name": "iban",
+            "name": "iban",
             "description": "IBAN ou Número do Talão",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "lancamento_id",
-            "description": "Tipo de Lançamento",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "observacao",
-            "description": "Observação",
             "required": false,
             "type": "string"
           }
@@ -900,25 +858,22 @@
         "id": { "type": "integer" },
         "nome": { "type": "string" },
         "email": { "type": "string" },
-        "saldo": { "type": "string" }
+        "saldo": { "type": "string" },
+        "data_saldo": { "type": "string" }
       }
     },
     "conta_corrente": {
       "type": "object",
       "properties": {
-        "id": { "type": "integer" },
         "usuario_id": { "type": "string" },
-        "lancamento_id": { "type": "string" },
-        "banco_id": { "type": "string" },
+        "banco_nome": { "type": "string" },
         "valor": { "type": "number" },
         "iban": { "type": "string" },
         "data_alegacao_pagamento": { "type": "string" },
+        "lancamento_nome": { "type": "string" },
         "saldo_anterior": { "type": "number" },
         "saldo_atual": { "type": "number" },
-        "data_ultima_atualizacao_saldo": { "type": "string" },
-        "observacao": { "type": "string" },
-        "created_at": { "type": "string" },
-        "updated_at": { "type": "string" }
+        "data_ultima_atualizacao_saldo": { "type": "string" }
       }
     },
     "conta_corrente_index": {
