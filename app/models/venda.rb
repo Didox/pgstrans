@@ -28,23 +28,6 @@ class Venda < ApplicationRecord
   end
 
   def self.to_csv
-      venda.id,
-      venda.usuario.nome,
-      venda.partner.name,
-      venda.categoria,
-      venda.created_at.strftime("%d/%m/%Y %H:%M"),
-      venda.status_desc.error_description_pt,
-      venda.produto_id_parceiro,
-      venda.product_id,
-      venda.product_nome,
-      venda.customer_number,
-      venda.smartcard,
-      moeda_csv(helper.number_to_currency(venda.valor_original, :unit => "")),
-      moeda_csv(helper.number_to_currency(venda.desconto_aplicado, :unit => "")),
-      moeda_csv(helper.number_to_currency(venda.porcentagem_desconto, :unit => "")),
-      moeda_csv(helper.number_to_currency(venda.value, :unit => "")),
-
-
     CSV.generate(headers: true) do |csv|
       csv << attributes
 
@@ -61,10 +44,10 @@ class Venda < ApplicationRecord
           venda.product_nome,
           venda.customer_number,
           venda.smartcard,
-          moeda_csv(helper.number_to_currency(venda.valor_original, :unit => "")),
-          moeda_csv(helper.number_to_currency(venda.desconto_aplicado, :unit => "")),
-          moeda_csv(helper.number_to_currency(venda.porcentagem_desconto, :unit => "")),
-          moeda_csv(helper.number_to_currency(venda.value, :unit => "")),
+          moeda_csv(helper.number_to_currency(venda.valor_original.to_f, :unit => "")),
+          moeda_csv(helper.number_to_currency(venda.desconto_aplicado.to_f, :unit => "")),
+          moeda_csv(helper.number_to_currency(venda.porcentagem_desconto.to_f, :unit => "")),
+          moeda_csv(helper.number_to_currency(venda.value.to_f, :unit => "")),
         ]
       end
     end
