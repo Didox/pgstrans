@@ -28,6 +28,8 @@ class Venda < ApplicationRecord
   end
 
   def self.to_csv
+    attributes = "ID Venda, Usuário, Nome do Parceiro, Categoria, Data da Venda, Situação da Venda, Produto ID Parceiro, Produto ID Pagaso, Nome do Produto, Customer Number, Smartcard, Valor Face, Desconto, Porcentagem Desconto, Lucro".split(",")
+      
     CSV.generate(headers: true) do |csv|
       csv << attributes
 
