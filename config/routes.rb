@@ -159,6 +159,7 @@ Rails.application.routes.draw do
   get 'api/recarga/movicel-produtos', to: 'produtos#produtos_movicel_api'
   get 'api/recarga/unitel-produtos', to: 'produtos#produtos_unitel_api'
   get 'api/recarga/ende-produtos', to: 'produtos#produtos_ende_api'
+  get 'api/recarga/africell-produtos', to: 'produtos#produtos_africell_api'
 
   post 'api/alegacao_de_pagamentos/criar', to: 'alegacao_de_pagamentos#create_api'
 

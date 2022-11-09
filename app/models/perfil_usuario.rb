@@ -67,6 +67,7 @@ class PerfilUsuario < ApplicationRecord
       produtos_movicel_api: "Lista de produtos da MOVICEL pela Pagasó API",
       produtos_unitel_api: "Lista de produtos da UNITEL pela Pagasó API",
       produtos_ende_api: "Lista de produtos da ENDE pela Pagasó API",
+      produtos_africell_api: "Lista de produtos da AFRICELL pela Pagasó API",
       index: "(INDEX) Mostrar a lista de todos os registos ou serviços dessa sessão",
       index_grafico: "Gráfico de vendas",
       index_resumo: "Resumo de vendas",
