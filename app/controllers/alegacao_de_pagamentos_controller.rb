@@ -152,7 +152,7 @@ class AlegacaoDePagamentosController < ApplicationController
       params[:alegacao_de_pagamento].delete(:observacao) unless (@adm.admin? || @adm.operador?)
 
       if params[:api]
-        params[:alegacao_de_pagamento][:observacao] = "#{params[:alegacao_de_pagamento][:observacao].to_s} (Enviado pela API)"
+        params[:alegacao_de_pagamento][:observacao] = "#{params[:alegacao_de_pagamento][:observacao].to_s} (Enviado pela Pagasó API)"
       end
 
       alegacao_de_pagamento = params.require(:alegacao_de_pagamento).permit(:usuario_id, :valor_deposito, :status_alegacao_de_pagamento_id, :observacao, :data_deposito, :numero_talao, :banco_id, :comprovativo)
