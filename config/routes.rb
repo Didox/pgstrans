@@ -162,7 +162,6 @@ Rails.application.routes.draw do
 
   post 'api/alegacao_de_pagamentos/criar', to: 'alegacao_de_pagamentos#create_api'
 
-  post 'api/conta-corrente/adicionar-saldo', to: 'conta_correntes#create_api'
   get 'api/conta-corrente/extrato', to: 'conta_correntes#index_api'
 
   get 'api/municipios', to: 'municipios#index_api'

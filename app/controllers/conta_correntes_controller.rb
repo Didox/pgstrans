@@ -220,7 +220,7 @@ class ContaCorrentesController < ApplicationController
     
     if params[:login].present?
       @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
-      @conta_correntes = @conta_correntes.where("usuarios.login ilike '%#{params[:login].remove_injection}%'")
+      @conta_correntes = @conta_correntes.where("usuarios.login ilike '%#{params[:login.remove_injection}%'")
     end
     
     @conta_correntes = @conta_correntes.where("conta_correntes.lancamento_id = ?", params[:lancamento_id]) if params[:lancamento_id].present?
@@ -282,12 +282,6 @@ class ContaCorrentesController < ApplicationController
 
   # GET /conta_correntes/1/edit
   def edit
-  end
-
-  # POST /conta_correntes
-  # POST /conta_correntes.json
-  def create_api
-    create
   end
 
   def create

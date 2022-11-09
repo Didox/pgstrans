@@ -65,8 +65,12 @@ class AlegacaoDePagamentosController < ApplicationController
         format.html { redirect_to @alegacao_de_pagamento, notice: 'Alegação de pagamento foi criada com sucesso.' }
         format.json { render :show, status: :created, location: @alegacao_de_pagamento }
       else
+        mensagem = @alegacao_de_pagamento.errors.messages.map{|k,v| v.join(", ")}.first rescue @alegacao_de_pagamento.errors.messages
         format.html { render :new }
-        format.json { render json: @alegacao_de_pagamento.errors, status: :unprocessable_entity }
+        format.json { render json: {
+          "mensagem": mensagem,
+          "status": 401
+        }, status: :unprocessable_entity }
       end
     end
   end

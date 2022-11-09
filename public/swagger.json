@@ -679,10 +679,10 @@
         }
       }
     },
-    "/api/conta-corrente/adicionar-saldo.json": {
+    "api/alegacao_de_pagamentos/criar.json": {
       "post": {
         "tags": [
-          "ContaCorrente"
+          "AlegacaoPagamento"
         ],
         "description": "Manifestação de alegação de pagamento para posterior processamento e crédito em conta corrente",
         "produces": [
@@ -691,44 +691,38 @@
         "parameters": [
           {
             "name": "usuario_id",
-            "description": "ID do Usuário que será acrescentado o saldo",
+            "description": "ID do Usuário responsável pela conta que receberá o crédito em conta corrente",
             "required": true,
             "type": "integer"
           },
           {
-            "name": "lancamento_id",
-            "description": "Tipo do lançamento",
+            "name": "valor_deposito",
+            "description": "Valor do Depósito em Kz",
             "required": true,
-            "type": "integer"
+            "type": "string"
+          },
+          {
+            "name": "data_deposito",
+            "description": "Data do efetivo depósito no formato 2022-11-08T16:37",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "numero_talao",
+            "description": "Número do Talão para Identificação do Depósito",
+            "required": true,
+            "type": "string"
           },
           {
             "name": "banco_id",
-            "description": "Id do banco",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "name": "Valor",
-            "description": "Valor a ser acrescentado (KZ)",
+            "description": "Banco no qual o depósito foi efetuado, adotando os seguintes códigos: </br> 2-Banco Angolano de Investimentos, S.A. </br>4-Banco BIC, S.A. </br>  5-Banco Caixa Geral Angola, S.A. </br> 11-Banco de Fomento de Angola, S.A. </br> 16-Banco Económico </br> 17-Banco Sol S.A. </br> 18-Banco Atlantico </br> 19-Banco Keve",
             "required": true,
             "type": "string"
           },
           {
-            "name": "Iban",
-            "description": "Iban da operação",
+            "name": "comprovativo",
+            "description": "Comprovativo de Pagamento - Imagem convertida para base64",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "data_alegacao_pagamento",
-            "description": "Data movimentação",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "observacao",
-            "description": "Observação",
-            "required": false,
             "type": "string"
           }
         ],
@@ -736,7 +730,7 @@
           "200": {
             "description": "Operação de sucesso",
             "schema": {
-              "$ref": "#/definitions/conta_corrente"
+              "$ref": "#/definitions/alegacao_de_pagamento"
             }
           },
           "401": {
@@ -860,6 +854,19 @@
         "email": { "type": "string" },
         "saldo": { "type": "string" },
         "data_saldo": { "type": "string" }
+      }
+    },
+    "alegacao_de_pagamento": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "usuario_id": { "type": "number" },
+        "valor_deposito": { "type": "number" },
+        "data_deposito": { "type": "string" },
+        "numero_talao": { "type": "string" },
+        "banco_id": { "type": "number" },
+        "comprovativo": { "type": "string" },
+        "created_at": { "type": "string" }
       }
     },
     "conta_corrente": {
