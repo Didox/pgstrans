@@ -284,12 +284,6 @@ class ContaCorrentesController < ApplicationController
   def edit
   end
 
-  # POST /conta_correntes
-  # POST /conta_correntes.json
-  def create_api
-    create
-  end
-
   def create
     ActiveRecord::Base.transaction do
       if !usuario_logado.admin? && !usuario_logado.operador? && !usuario_logado.agente?

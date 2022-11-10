@@ -34,6 +34,13 @@ class Venda < ApplicationRecord
       csv << attributes
 
       all.each do |venda|
+        if venda.porcentagem_desconto.present?
+          porcentagem = venda.porcentagem_desconto.to_f
+        else
+          porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
+          porcentagem = porcentagem.nan? ? 0 : porcentagem.round(2)
+        end
+
         csv << [
           venda.id,
           venda.usuario.nome,
@@ -46,10 +53,10 @@ class Venda < ApplicationRecord
           venda.product_nome,
           venda.customer_number,
           venda.smartcard,
-          moeda_csv(helper.number_to_currency(venda.valor_original, :unit => "")),
-          moeda_csv(helper.number_to_currency(venda.desconto_aplicado, :unit => "")),
-          moeda_csv(helper.number_to_currency(venda.porcentagem_desconto, :unit => "")),
-          moeda_csv(helper.number_to_currency(venda.value, :unit => "")),
+          moeda_csv(helper.number_to_currency(venda.valor_original.to_f, :unit => "")),
+          moeda_csv(helper.number_to_currency(venda.desconto_aplicado.to_f, :unit => "")),
+          moeda_csv(helper.number_to_currency(porcentagem.to_f, :unit => "")),
+          moeda_csv(helper.number_to_currency(venda.value.to_f, :unit => "")),
         ]
       end
     end
@@ -271,6 +278,7 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_zapfibra(params, usuario, ip)
+    debugger
     self.venda_zaptv(params, usuario, ip)
   end
 

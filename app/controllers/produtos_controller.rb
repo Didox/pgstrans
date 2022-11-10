@@ -124,6 +124,36 @@ class ProdutosController < ApplicationController
     return render json: produtos_api.to_json, status: 200
   end
 
+  def produtos_africell_api
+    produtos_api = []
+    produtos = Produto.produtos.where(partner_id: Partner.where(slug: Partner.africell.slug)).reorder("valor_compra_telemovel asc, nome_comercial asc")
+    produtos.each do |produto|
+      produtos_api << {
+        id: produto.id,
+        nome: "#{produto.nome_comercial} - #{helper.number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2)}",
+        valor: formata_numero_duas_casas(produto.valor_compra_telemovel),
+        subtipo: produto.subtipo
+      }
+    end
+
+    return render json: produtos_api.to_json, status: 200
+  end
+
+  def produtos_zapfibra_api
+    produtos_api = []
+    produtos = Produto.produtos.where(partner_id: Partner.where(slug: Partner.zapfibra.slug)).reorder("valor_compra_telemovel asc, nome_comercial asc")
+    produtos.each do |produto|
+      produtos_api << {
+        id: produto.id,
+        nome: "#{produto.nome_comercial} - #{helper.number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2)}",
+        valor: formata_numero_duas_casas(produto.valor_compra_telemovel),
+        subtipo: produto.subtipo
+      }
+    end
+
+    return render json: produtos_api.to_json, status: 200
+  end
+
   # PATCH/PUT /produtos/1
   # PATCH/PUT /produtos/1.json
   def update
