@@ -75,11 +75,11 @@
         <br><hr>
         <div class="col-sm-10" style="height: 514px;overflow:scroll;">
           <ul>
-            <% @controllers.each do |controller| %>
+            <% @controllers.sort{|x,y| x[:nome_amigavel]<=>y[:nome_amigavel]}.each do |controller| %>
               <li>
                 <label><%= controller[:nome_amigavel] %></label>
                 <ul>
-                  <% controller[:actions].each do |action| %>
+                  <% controller[:actions].sort{|x,y| x[:nome_amigavel]<=>y[:nome_amigavel]}.each do |action| %>
                     <li>
                       <label><%= action[:nome_amigavel] %></label>
                       <% 

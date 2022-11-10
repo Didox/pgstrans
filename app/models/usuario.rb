@@ -37,6 +37,12 @@ class Usuario < ApplicationRecord
 	  0
   end
 
+  def data_saldo
+    ContaCorrente.where(usuario_id: self.id).order("data_ultima_atualizacao_saldo desc").first.data_ultima_atualizacao_saldo
+  rescue
+	  ""
+  end
+
   def acessos
     return @acessos if @acessos.present?
     @acessos = perfil_usuario.acessos_actions

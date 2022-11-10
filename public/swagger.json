@@ -12,16 +12,20 @@
   "host": "localhost:3000",
   "tags": [
     {
-      "name": "Recarga",
-      "description": "Para compras de recarga"
+      "name": "Usuarios",
+      "description": "Efetuar Login na Plataforma Pagasó"
     },
     {
-      "name": "Usuarios",
-      "description": "Para login e itens relacionados a usuários (distribuidor)"
+      "name": "Recarga",
+      "description": "Compras de recarga"
     },
     {
       "name": "ContaCorrente",
-      "description": "Para alterações em conta corrente"
+      "description": "Extrato de conta corrente"
+    },
+    {
+      "name": "AlegacaoPagamento",
+      "description": "Informar depósitos para a Pagasó"
     }
   ],
   "schemes": [
@@ -61,12 +65,6 @@
             "name": "dstv_number",
             "description": "DSTV customer number ou smartcard, caso seja uma recarga da DSTV, o fator decisório para smartcard ou customer number é o parâmetro transacao_smartcard",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "talao_sms",
-            "description": "Talão SMS, para envio da confirmação da recarga, caso o serviço esteja disponível",
-            "required": false,
             "type": "string"
           }
         ],
@@ -113,12 +111,6 @@
             "description": "Unitel Telefone, caso seja uma recarga da Unitel",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "talao_sms",
-            "description": "Talão SMS, para envio da confirmação da recarga, caso o serviço esteja disponível",
-            "required": false,
-            "type": "string"
           }
         ],
         "responses": {
@@ -163,12 +155,6 @@
             "name": "movicel_telefone",
             "description": "Telefone recarga, caso seja uma recarga da Movicel",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "talao_sms",
-            "description": "Talão SMS, para envio da confirmação da recarga, caso o serviço esteja disponível",
-            "required": false,
             "type": "string"
           }
         ],
@@ -215,11 +201,50 @@
             "description": "ZAP Cartão, caso seja uma recarga da ZAP",
             "required": true,
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/confirma/zapfibra.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "string"
           },
           {
-            "name": "talao_sms",
-            "description": "Talão SMS, para envio da confirmação da recarga, caso o serviço esteja disponível",
-            "required": false,
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "zaptv_cartao",
+            "description": "Número do Cartão ZAP que receberá a recarga",
+            "required": true,
             "type": "string"
           }
         ],
@@ -277,6 +302,51 @@
             "name": "email",
             "description": "E-mail para envio do token de recarga",
             "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/confirma/africell.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto Africell conforme tabela de produtos",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "target_msisdn",
+            "description": "Número telemóvel Africell que receberá a recarga",
+            "required": true,
             "type": "string"
           }
         ],
@@ -400,6 +470,32 @@
         }
       }
     },
+    "/api/recarga/zapfibra-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos ZAP FIBRA",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
     "/api/recarga/ende-produtos.json": {
       "get": {
         "tags": [
@@ -415,6 +511,32 @@
             "description": "Operação de sucesso",
             "schema": {
               "$ref": "#/definitions/produtos_recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/africell-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos AFRICELL",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga_africell"
             }
           },
           "401": {
@@ -679,55 +801,49 @@
         }
       }
     },
-    "/api/conta-corrente/adicionar-saldo.json": {
+    "api/alegacao_de_pagamentos/criar.json": {
       "post": {
         "tags": [
-          "ContaCorrente"
+          "AlegacaoPagamento"
         ],
-        "description": "Adiciona saldo na conta corrente",
+        "description": "Manifestação de alegação de pagamento para posterior processamento e crédito em conta corrente",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
             "name": "usuario_id",
-            "description": "ID do Usuário que será acrescentado o saldo",
+            "description": "ID do Usuário responsável pela conta que receberá o crédito em conta corrente",
             "required": true,
             "type": "integer"
           },
           {
-            "name": "lancamento_id",
-            "description": "Tipo do lançamento",
+            "name": "valor_deposito",
+            "description": "Valor do Depósito em Kz",
             "required": true,
-            "type": "integer"
+            "type": "string"
+          },
+          {
+            "name": "data_deposito",
+            "description": "Data do efetivo depósito no formato 2022-11-08T16:37",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "numero_talao",
+            "description": "Número do Talão para Identificação do Depósito",
+            "required": true,
+            "type": "string"
           },
           {
             "name": "banco_id",
-            "description": "Id do banco",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "name": "Valor",
-            "description": "Valor a ser acrescentado (KZ)",
+            "description": "Banco no qual o depósito foi efetuado, adotando os seguintes códigos: </br> 2-Banco Angolano de Investimentos, S.A. </br>4-Banco BIC, S.A. </br>  5-Banco Caixa Geral Angola, S.A. </br> 11-Banco de Fomento de Angola, S.A. </br> 16-Banco Económico </br> 17-Banco Sol S.A. </br> 18-Banco Atlantico </br> 19-Banco Keve",
             "required": true,
             "type": "string"
           },
           {
-            "name": "Iban",
-            "description": "Iban da operação",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "data_alegacao_pagamento",
-            "description": "Data movimentação",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "observacao",
-            "description": "Observação",
+            "name": "comprovativo",
+            "description": "Comprovativo de Pagamento - Imagem convertida para base64",
             "required": true,
             "type": "string"
           }
@@ -736,7 +852,7 @@
           "200": {
             "description": "Operação de sucesso",
             "schema": {
-              "$ref": "#/definitions/conta_corrente"
+              "$ref": "#/definitions/alegacao_de_pagamento"
             }
           },
           "401": {
@@ -753,7 +869,7 @@
         "tags": [
           "ContaCorrente"
         ],
-        "description": "Retorna extrato do usuário",
+        "description": "Retorna extrato do usuário incluindo o saldo atual",
         "produces": [
           "application/json"
         ],
@@ -789,56 +905,14 @@
             "type": "string"
           },
           {
-            "name": "login",
-            "description": "Login do Usuário",
-            "required": false,
-            "type": "string"
-          },
-          {
             "name": "nome",
             "description": "Nome do Usuário",
             "required": false,
             "type": "string"
           },
           {
-            "name": "perfil_usuario_id",
-            "description": "Perfil do Usuário",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "description": "ID Interno Usuário",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "status",
-            "description": "Situação do Usuário",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "responsavel",
-            "description": "Responsável pela Aprovação",
-            "required": false,
-            "type": "string"
-          },
-            {
-              "name": "iban",
+            "name": "iban",
             "description": "IBAN ou Número do Talão",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "lancamento_id",
-            "description": "Tipo de Lançamento",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "observacao",
-            "description": "Observação",
             "required": false,
             "type": "string"
           }
@@ -900,25 +974,35 @@
         "id": { "type": "integer" },
         "nome": { "type": "string" },
         "email": { "type": "string" },
-        "saldo": { "type": "string" }
+        "saldo": { "type": "string" },
+        "data_saldo": { "type": "string" }
+      }
+    },
+    "alegacao_de_pagamento": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "usuario_id": { "type": "number" },
+        "valor_deposito": { "type": "number" },
+        "data_deposito": { "type": "string" },
+        "numero_talao": { "type": "string" },
+        "banco_id": { "type": "number" },
+        "comprovativo": { "type": "string" },
+        "created_at": { "type": "string" }
       }
     },
     "conta_corrente": {
       "type": "object",
       "properties": {
-        "id": { "type": "integer" },
         "usuario_id": { "type": "string" },
-        "lancamento_id": { "type": "string" },
-        "banco_id": { "type": "string" },
+        "banco_nome": { "type": "string" },
         "valor": { "type": "number" },
         "iban": { "type": "string" },
         "data_alegacao_pagamento": { "type": "string" },
+        "lancamento_nome": { "type": "string" },
         "saldo_anterior": { "type": "number" },
         "saldo_atual": { "type": "number" },
-        "data_ultima_atualizacao_saldo": { "type": "string" },
-        "observacao": { "type": "string" },
-        "created_at": { "type": "string" },
-        "updated_at": { "type": "string" }
+        "data_ultima_atualizacao_saldo": { "type": "string" }
       }
     },
     "conta_corrente_index": {
@@ -931,6 +1015,21 @@
       "type" : "array",
       "items" : {
         "$ref" : "#/definitions/produto_dstv"
+      }
+    },
+    "produtos_recarga_africell": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/produto_recarga_africell"
+      }
+    },
+    "produto_recarga_africell": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "valor": { "type": "string" },
+        "subtipo": { "type": "string" }
       }
     },
     "produtos_recarga": {
