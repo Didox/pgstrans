@@ -56,7 +56,7 @@ class PerfilUsuario < ApplicationRecord
       confirmar_cliente: "Confirmar Cliente ENDE - Menu de Venda HOME", 
       recibo: "Recibo de Vendas ENDE durante a confirmação de venda", 
       venda_teste: "Venda de Teste ENDE - Menu de Venda HOME", 
-      reprint: "Opção de Reimpressão ENDE - Menu de Venda HOME",
+      reprint: "Opção de Consultar Pagamentos/Reimpressão ENDE - Menu de Venda HOME",
       last_advice: "Opção de Last Advice ENDE - Menu de Venda HOME",
       pagamento_de_conta: "Opção de Pagamento de Conta ENDE - Menu de Venda HOME",
       mini: "Recibo de venda ENDE para impressoras tipo cupom fiscal - Lojas Físicas",
