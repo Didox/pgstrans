@@ -83,7 +83,9 @@
           <% end %>
           <th scope="col" style="text-align:right">Valor Vendido</th>
           <th scope="col" style="text-align:right">Lucro Cliente</th>
-          <th scope="col" style="text-align:right">Desconto Padrão</th>
+          <% if @adm.id == Usuario::ROOT %>
+            <th scope="col" style="text-align:right">Desconto Padrão</th>
+          <% end %>  
           <th scope="col" style="text-align:right">Custo</th>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
             <th scope="col" style="text-align:right">Lucro Pagasó</th>
