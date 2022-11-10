@@ -825,7 +825,7 @@
           },
           {
             "name": "data_deposito",
-            "description": "Data do efetivo depósito no formato 2022-11-08T16:37",
+            "description": "Data do efetivo depósito. Formato: 2022-11-08T16:37",
             "required": true,
             "type": "string"
           },
@@ -881,32 +881,38 @@
             "type": "integer"
           },
           {
+            "name": "id",
+            "description": "ID do Usuário",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "nome",
+            "description": "Nome do Usuário",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "data_alegacao_pagamento_inicio",
-            "description": "Data de Lançamento Início",
+            "description": "Data de Lançamento (Início). Formato: 2022-11-08T16:37",
             "required": false,
             "type": "string"
           },
           {
             "name": "data_alegacao_pagamento_fim",
-            "description": "Data de Lançamento Fim",
+            "description": "Data de Lançamento (Fim). Formato: 2022-11-08T16:37",
             "required": false,
             "type": "string"
           },
           {
             "name": "data_ultima_atualizacao_saldo_inicio",
-            "description": "Data da Última Atualiz. Início",
+            "description": "Data da Última Atualização (Início). Formato: 2022-11-08T16:37",
             "required": false,
             "type": "string"
           },
           {
             "name": "data_ultima_atualizacao_saldo_fim",
-            "description": "Data da Última Atualiz. Fim",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "nome",
-            "description": "Nome do Usuário",
+            "description": "Data da Última Atualização (Fim). Formato: 2022-11-08T16:37",
             "required": false,
             "type": "string"
           },
