@@ -12,16 +12,20 @@
   "host": "localhost:3000",
   "tags": [
     {
-      "name": "Recarga",
-      "description": "Para compras de recarga"
+      "name": "Usuarios",
+      "description": "Efetuar Login na Plataforma Pagasó"
     },
     {
-      "name": "Usuarios",
-      "description": "Para login e itens relacionados a usuários (distribuidor)"
+      "name": "Recarga",
+      "description": "Compras de recarga"
     },
     {
       "name": "ContaCorrente",
-      "description": "Para alterações em conta corrente"
+      "description": "Extrato de conta corrente"
+    },
+    {
+      "name": "AlegacaoPagamento",
+      "description": "Informar depósitos para a Pagasó"
     }
   ],
   "schemes": [
@@ -61,12 +65,6 @@
             "name": "dstv_number",
             "description": "DSTV customer number ou smartcard, caso seja uma recarga da DSTV, o fator decisório para smartcard ou customer number é o parâmetro transacao_smartcard",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "talao_sms",
-            "description": "Talão SMS, para envio da confirmação da recarga, caso o serviço esteja disponível",
-            "required": false,
             "type": "string"
           }
         ],
@@ -113,12 +111,6 @@
             "description": "Unitel Telefone, caso seja uma recarga da Unitel",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "talao_sms",
-            "description": "Talão SMS, para envio da confirmação da recarga, caso o serviço esteja disponível",
-            "required": false,
-            "type": "string"
           }
         ],
         "responses": {
@@ -163,12 +155,6 @@
             "name": "movicel_telefone",
             "description": "Telefone recarga, caso seja uma recarga da Movicel",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "talao_sms",
-            "description": "Talão SMS, para envio da confirmação da recarga, caso o serviço esteja disponível",
-            "required": false,
             "type": "string"
           }
         ],
@@ -215,11 +201,50 @@
             "description": "ZAP Cartão, caso seja uma recarga da ZAP",
             "required": true,
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/confirma/zapfibra.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "string"
           },
           {
-            "name": "talao_sms",
-            "description": "Talão SMS, para envio da confirmação da recarga, caso o serviço esteja disponível",
-            "required": false,
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "zaptv_cartao",
+            "description": "Número do Cartão ZAP que receberá a recarga",
+            "required": true,
             "type": "string"
           }
         ],
@@ -425,6 +450,32 @@
           "Recarga"
         ],
         "description": "Retorna produtos ZAPTV",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/zapfibra-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos ZAP FIBRA",
         "produces": [
           "application/json"
         ],
