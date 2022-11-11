@@ -14,7 +14,7 @@ class ContaCorrentesController < ApplicationController
     end
 
     @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")
-    @conta_correntes = @conta_correntes.reorder("data_alegacao_pagamento desc")
+    @conta_correntes = @conta_correntes.reorder("conta_correntes.data_alegacao_pagamento desc")
     @conta_correntes = @conta_correntes.where("conta_correntes.data_alegacao_pagamento >= ?", SqlDate.sql_parse(params[:data_alegacao_pagamento_inicio].to_datetime)) if params[:data_alegacao_pagamento_inicio].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.data_alegacao_pagamento <= ?", SqlDate.sql_parse(params[:data_alegacao_pagamento_fim].to_datetime)) if params[:data_alegacao_pagamento_fim].present?
     @conta_correntes = @conta_correntes.where("conta_correntes.data_ultima_atualizacao_saldo >= ?", SqlDate.sql_parse(params[:data_ultima_atualizacao_saldo_inicio].to_datetime.beginning_of_day)) if params[:data_ultima_atualizacao_saldo_inicio].present?
@@ -37,6 +37,18 @@ class ContaCorrentesController < ApplicationController
     if params[:responsavel].present?
       @conta_correntes = @conta_correntes.joins("inner join usuarios as responsavel on responsavel.id = conta_correntes.responsavel_aprovacao_id")
       @conta_correntes = @conta_correntes.where("responsavel.nome ilike '%#{params[:responsavel].remove_injection}%'")
+    end
+
+    if params[:return_code].present?
+      @conta_correntes = @conta_correntes.joins("inner join vendas on vendas.id = conta_correntes.venda_id")
+
+      if params[:return_code] == "sucesso"
+        status = ReturnCodeApi.where(sucesso: true).map{|r| "'#{r.return_code}'" }.join(",") rescue ""
+        @conta_correntes.where("vendas.status in (#{status})") if status.present?
+      else
+        ret = ReturnCodeApi.find(params[:return_code])
+        @conta_correntes.where("vendas.status = '#{ret.return_code}' and vendas.partner_id = #{ret.partner_id}")
+      end
     end
 
     @conta_correntes_total = @conta_correntes.count
