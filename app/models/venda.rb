@@ -278,7 +278,6 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_zapfibra(params, usuario, ip)
-    debugger
     self.venda_zaptv(params, usuario, ip)
   end
 
