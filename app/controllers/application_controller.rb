@@ -141,4 +141,17 @@ class ApplicationController < ActionController::Base
 
         return true
       end
+
+      def select_database
+        controllers_actions = ["vendas::index"]
+        controller_acao = "#{params[:controller]}::#{params[:action]}"
+
+        if controllers_actions.include?(controller_acao)
+          Rails.logger.info("==============[Database AWS]===============")
+          ActiveRecord::Base.establish_connection({template: "template0", encoding: "unicode", pool: 5, :adapter => "postgresql", :database => "pgstrans_production", :host => "pagaso-rds.cvg0ryl7qxar.us-east-1.rds.amazonaws.com", :username => "pgsadmin", :password => "<<PgS10Ang>>" })
+        else
+          Rails.logger.info("==============[Database ITA PARATUS]===============")
+          ActiveRecord::Base.establish_connection({template: "template0", encoding: "unicode", pool: 5, :adapter => "postgresql", :database => "pgstrans_development", :host => "localhost", :username => "pgsdba", :password => "<<PgS10Ang>>" })
+        end
+      end
 end
