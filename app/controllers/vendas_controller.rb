@@ -5,7 +5,7 @@ class VendasController < ApplicationController
   # GET /vendas
   # GET /vendas.json
   def index
-    @vendas = VendaAws.com_acesso(usuario_logado)
+    @vendas = VendaReplica.com_acesso(usuario_logado)
     vendas_busca
     @vendas_total = @vendas.count
   end

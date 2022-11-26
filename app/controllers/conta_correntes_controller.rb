@@ -8,9 +8,9 @@ class ContaCorrentesController < ApplicationController
 
   def index
     if usuario_logado.admin? || usuario_logado.operador?
-      @conta_correntes = ContaCorrente.all
+      @conta_correntes = ContaCorrenteReplica.all
     else
-      @conta_correntes = ContaCorrente.com_acesso(usuario_logado)
+      @conta_correntes = ContaCorrenteReplica.com_acesso(usuario_logado)
     end
 
     @conta_correntes = @conta_correntes.joins("inner join usuarios on usuarios.id = conta_correntes.usuario_id")

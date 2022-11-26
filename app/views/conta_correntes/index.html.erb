@@ -216,17 +216,17 @@
         <tr>
           <td style="width: 450px">
             <% if @adm.admin? || @adm.operador? %> 
-              <b>ID Interno Usuário:</b> <%= conta_corrente.usuario.id %><br>
+              <b>ID Interno Usuário:</b> <%= conta_corrente&.usuario&.id %><br>
             <% end %>
-            <b>Login:</b> <%= conta_corrente.usuario.login %><br>
-            <b>Nome do Usuário:</b> <%= conta_corrente.usuario.nome %><br>
-            <b>Situação do Usuário:</b> <%= conta_corrente.usuario.status_cliente.nome rescue "" %><br> 
-            <b>Lançamento:</b> <%= conta_corrente.lancamento.nome %><br>
+            <b>Login:</b> <%= conta_corrente&.usuario&.login %><br>
+            <b>Nome do Usuário:</b> <%= conta_corrente&.usuario&.nome %><br>
+            <b>Situação do Usuário:</b> <%= conta_corrente&.usuario&.status_cliente.nome rescue "" %><br> 
+            <b>Lançamento:</b> <%= conta_corrente&.lancamento&.nome %><br>
             <% if conta_corrente.partner_id.present? %>
               <b>Parceiro:</b> <%= conta_corrente.partner.name %><br>
             <% end %>
             <% if conta_corrente.banco_id.present? %>
-              <b>Banco:</b> <%= conta_corrente.banco.nome %><br>
+              <b>Banco:</b> <%= conta_corrente&.banco&.nome %><br>
             <% end %>
             <% if conta_corrente.iban.present? %>
               <b>IBAN ou Nro Talão:</b> <%= conta_corrente.iban %><br>
@@ -234,7 +234,7 @@
             <% if @adm.admin? || @adm.operador? %> 
               <b>Observação:</b> <%= conta_corrente.observacao %><br>
               <% if conta_corrente.responsavel_aprovacao.present? %>
-                <b>Responsável aprovação:</b> <%= conta_corrente.responsavel_aprovacao.nome %>
+                <b>Responsável aprovação:</b> <%= conta_corrente&.responsavel_aprovacao&.nome %>
               <% end %>
             <% end %>
           </td>
@@ -261,7 +261,7 @@
               <%= conta_corrente.data_processamento.strftime("%d/%m/%Y %H:%M:%S") rescue "" %><br>
             <% end %>
           </td>
-          <td><%= link_to 'Mostrar', conta_corrente %></td>
+          <td><%= link_to 'Mostrar', conta_corrente_path(conta_corrente) %></td>
         </tr>
         <% valor_total += conta_corrente.valor %>
         <% end %>
