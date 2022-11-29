@@ -87,6 +87,17 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def nao_buscalvel
+      params_empty = params.keys.find_all{|k| !["controller", "action"].include?(k) }.map{ |param| params[param].present? }.compact.uniq rescue [false]
+      return true if params_empty.blank?
+      
+      if params_empty.length == 1
+       return true if !params_empty.first
+      end
+
+      return false
+    end
+
     private
       def acesso_as_paginas
         if administrador.present?

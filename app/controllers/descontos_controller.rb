@@ -1,5 +1,6 @@
 class DescontosController < ApplicationController
   def index
+
     @desconto_parceiros = DescontoParceiro.all.order(partner_id: :asc)
 
     @desconto_parceiros = @desconto_parceiros.where("desconto_parceiros.partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
@@ -13,9 +14,9 @@ class DescontosController < ApplicationController
   end
 
   def lucros
+
     params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
     @parceiros = Partner.all
-    
   end
 end
 

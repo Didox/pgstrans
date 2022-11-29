@@ -5,12 +5,16 @@ class VendasController < ApplicationController
   # GET /vendas
   # GET /vendas.json
   def index
-    @vendas = VendaReplica.com_acesso(usuario_logado)
+    return if nao_buscalvel
+    
+    @vendas = Venda.com_acesso(usuario_logado)
     vendas_busca
     @vendas_total = @vendas.count
   end
 
   def consolidado
+    return if nao_buscalvel
+
     @vendas = Venda.com_acesso(usuario_logado)
     vendas_busca
     @vendas_total = @vendas.count
@@ -34,9 +38,12 @@ class VendasController < ApplicationController
   end
 
   def consolidado
+    return if nao_buscalvel
+
     @page = params[:page] || 1
     @page = @page.to_i
-    @per_page = params[:per_page] || 10
+    @per_page = params[:per_page]
+    @per_page = 31 if params[:per_page].blank?
     @per_page = @per_page.to_i
     fetch = (@page - 1) * @per_page
 
@@ -52,10 +59,6 @@ class VendasController < ApplicationController
       WHERE vendas.created_at is not null
     "
 
-    if params[:return_code].blank?
-      params[:return_code] = "sucesso"
-    end
-
     if params[:return_code].present?
       if params[:return_code] == "sucesso"
         status = ReturnCodeApi.where(sucesso: true).map{|r| "'#{r.return_code}'" }.join(",") rescue ""
@@ -66,7 +69,6 @@ class VendasController < ApplicationController
       end
     end
 
-    params[:status] = (StatusCliente.where("lower(nome) = 'ativo'").first.id rescue "") unless params.has_key?(:status)
     if params[:status].present?
       sql += " and usuarios.status_cliente_id = #{params[:status]}"
     end

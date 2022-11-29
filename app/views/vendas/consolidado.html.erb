@@ -57,6 +57,7 @@
             <label>Quantidade por página</label>
             <div>
               <select name="per_page" class="form-control">
+                <option value="" <% if params[:per_page].blank? %> selected="selected" <% end %>>[Selecione]</option>
                 <% [31, 40, 50, 100, 200, 300, 400, 1000, 2000, 3000].each do |per_page| %>
                   <option value="<%= per_page %>" <% if @per_page.to_s == per_page.to_s %> selected="selected" <% end %>><%= per_page %></option>
                 <% end %>
@@ -121,144 +122,145 @@
     </form>
   </div>
 
-  <!-- Grafico de barras -->
-  <div style="float:left;overflow:hidden;width:100%;clear:both;margin-bottom:20px">
-    <h2>Total geral de vendas no período<h2>
-    <div style="width: 100%; overflow:auto">
-      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-      <script type="text/javascript">
-        <% if @grafico_dia %>
-          google.charts.load('current', {'packages':['line']});
-          google.charts.setOnLoadCallback(drawChart);
+  <% if @vendas_total.present? %>
+    <!-- Grafico de barras -->
+    <div style="float:left;overflow:hidden;width:100%;clear:both;margin-bottom:20px">
+      <h2>Total geral de vendas no período<h2>
+      <div style="width: 100%; overflow:auto">
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+          <% if @grafico_dia %>
+            google.charts.load('current', {'packages':['line']});
+            google.charts.setOnLoadCallback(drawChart);
 
-          function drawChart() {
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Data');
-            data.addColumn('number', 'Valor');
+            function drawChart() {
+              var data = new google.visualization.DataTable();
+              data.addColumn('string', 'Data');
+              data.addColumn('number', 'Valor');
 
-            var dados = []
-            <% @vendas_data.each do |venda| 
-              venda = OpenStruct.new venda %>
-              dados.push(['<%= venda.data_venda %>', <%= venda.valor_original.round(2) %>])
-            <% end %>
-            
-            data.addRows(dados);
+              var dados = []
+              <% @vendas_data.each do |venda| 
+                venda = OpenStruct.new venda %>
+                dados.push(['<%= venda.data_venda %>', <%= venda.valor_original.round(2) %>])
+              <% end %>
+              
+              data.addRows(dados);
 
-            var chart = new google.charts.Line(document.getElementById('columnchart_values'));
-            chart.draw(data, google.charts.Line.convertOptions({
-              legend: { position: "none" },
-            }));
-          }
-        <% else %>
-          google.charts.load("current", {packages:['corechart']});
-          google.charts.setOnLoadCallback(drawChart);
-          function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ["Data", "Valor", { role: "style" }],
-            <% @vendas_data.each do |venda| 
-              venda = OpenStruct.new venda %>
-              ["<%= venda.data_venda %>", 
-              <%= venda.valor_original.round(2) %>,
-              "#4169E1"],
-            <% end %>
-            ]);
+              var chart = new google.charts.Line(document.getElementById('columnchart_values'));
+              chart.draw(data, google.charts.Line.convertOptions({
+                legend: { position: "none" },
+              }));
+            }
+          <% else %>
+            google.charts.load("current", {packages:['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ["Data", "Valor", { role: "style" }],
+              <% @vendas_data.each do |venda| 
+                venda = OpenStruct.new venda %>
+                ["<%= venda.data_venda %>", 
+                <%= venda.valor_original.round(2) %>,
+                "#4169E1"],
+              <% end %>
+              ]);
 
-            var view = new google.visualization.DataView(data);
-            view.setColumns([0, 1,
-                          { calc: "stringify",
-                            sourceColumn: 1,
-                            type: "string",
-                            role: "annotation" },
-                          2]);
-            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-            chart.draw(view, {
-              bar: {groupWidth: "95%"},
-              legend: { position: "none" },
-            });
-          }
-        <% end %>
-      </script>
-      <div id="columnchart_values" style="height: 100%"></div>
+              var view = new google.visualization.DataView(data);
+              view.setColumns([0, 1,
+                            { calc: "stringify",
+                              sourceColumn: 1,
+                              type: "string",
+                              role: "annotation" },
+                            2]);
+              var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+              chart.draw(view, {
+                bar: {groupWidth: "95%"},
+                legend: { position: "none" },
+              });
+            }
+          <% end %>
+        </script>
+        <div id="columnchart_values" style="height: 100%"></div>
+      </div>
     </div>
-  </div>
-  <hr>
-
-  <div class="scroltable col-md-12">
-    <h4>
-      Total de Ocorrências: <strong><%= number_to_currency(@vendas_total, :precision => 0, :unit => "") %></strong>
-    </h4>
     <hr>
 
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th style="text-align:center" scope="col">Data da Venda</th>
-          <th style="text-align:right" scope="col">Valor</th>
-          <th style="text-align:right" scope="col">Lucro</th>
-          <th style="text-align:right" scope="col">Custo</th>
-        </tr>
-      </thead>
+  
+    <div class="scroltable col-md-12">
+        <h4>
+          Total de Ocorrências: <strong><%= number_to_currency(@vendas_total, :precision => 0, :unit => "") %></strong>
+        </h4>
+        <hr>
 
-      <tbody>
-        <% 
-        valor_original_total = 0
-        valor_desconto_total = 0
-        valor_total = 0 
-        %>
-        <% @vendas.each do |venda| 
-          venda = OpenStruct.new venda
-        %>
-        <tr>
-          <td style="text-align:center" ><%= venda.data_venda.to_datetime.strftime("%d/%m/%Y") %></td>
-          <td align="right"><%= number_to_currency(venda.valor_original) %></td>
-          <td align="right">
-            <%= number_to_currency(venda.desconto_aplicado) %><br>
-            <% porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
-            unless porcentagem.nan? %>
-              <%= number_to_currency(porcentagem, :unit => "", :precision => 3) %>%
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th style="text-align:center" scope="col">Data da Venda</th>
+              <th style="text-align:right" scope="col">Valor</th>
+              <th style="text-align:right" scope="col">Lucro</th>
+              <th style="text-align:right" scope="col">Custo</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% 
+            valor_original_total = 0
+            valor_desconto_total = 0
+            valor_total = 0 
+            %>
+            <% @vendas.each do |venda| 
+              venda = OpenStruct.new venda
+            %>
+            <tr>
+              <td style="text-align:center" ><%= venda.data_venda.to_datetime.strftime("%d/%m/%Y") %></td>
+              <td align="right"><%= number_to_currency(venda.valor_original) %></td>
+              <td align="right">
+                <%= number_to_currency(venda.desconto_aplicado) %><br>
+                <% porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
+                unless porcentagem.nan? %>
+                  <%= number_to_currency(porcentagem, :unit => "", :precision => 3) %>%
+                <% end %>
+              </td>
+              <td align="right"><%= number_to_currency(venda.value) %></td>
+              <% 
+                valor_original_total += venda.valor_original
+                valor_desconto_total += venda.desconto_aplicado 
+                valor_total += venda.value 
+              %>
+            </tr>
             <% end %>
-          </td>
-          <td align="right"><%= number_to_currency(venda.value) %></td>
-          <% 
-            valor_original_total += venda.valor_original
-            valor_desconto_total += venda.desconto_aplicado 
-            valor_total += venda.value 
-          %>
-        </tr>
+            <tfoot>
+              <tr>
+                <td align="right"><b>Total da página:</b></td>
+                <td align="right">
+                  <b><%= number_to_currency(valor_original_total) %></b>
+                </td>    
+                <td align="right">
+                  <b>
+                    <%= number_to_currency(valor_desconto_total) %>
+                  </b>
+                </td>
+                <td align="right">
+                  <b><%= number_to_currency(valor_total) %></b>
+                </td>        
+              </tr>
+            </tfoot>
+          </tbody>
+        </table>
+
+        <%= render "/shared/paginate", path: "/vendas/consolidado", records: @vendas, :per_page => @per_page %>
+
+        <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-list-alt"></span>
+          Voltar
         <% end %>
-        <tfoot>
-          <tr>
-            <td align="right"><b>Total da página:</b></td>
-            <td align="right">
-              <b><%= number_to_currency(valor_original_total) %></b>
-            </td>    
-            <td align="right">
-              <b>
-                <%= number_to_currency(valor_desconto_total) %>
-              </b>
-            </td>
-            <td align="right">
-              <b><%= number_to_currency(valor_total) %></b>
-            </td>        
-          </tr>
-        </tfoot>
-      </tbody>
-    </table>
-
-    <%= render "/shared/paginate", path: "/vendas/consolidado", records: @vendas, :per_page => @per_page %>
-
-    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
-      Voltar
+      </div>
+    </div>
+    <% if @adm.id == Usuario::ROOT %>
+    <!--
+    SQL QUERY BUILDER
+    -----------------------------------------------------------------------------------------------------------------------------------------
+    <%= raw @sql %>
+    -----------------------------------------------------------------------------------------------------------------------------------------
+    -->
     <% end %>
-  </div>
-</div>
-
-<% if @adm.id == Usuario::ROOT %>
-<!--
-SQL QUERY BUILDER
------------------------------------------------------------------------------------------------------------------------------------------
-<%= raw @sql %>
------------------------------------------------------------------------------------------------------------------------------------------
--->
-<% end %>
