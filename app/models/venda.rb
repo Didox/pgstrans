@@ -1352,16 +1352,13 @@ class Venda < ApplicationRecord
     Log.save_log("Exclusão de registro (#{self.class.to_s})", self.attributes)
   end
 
-  private
-    def self.moeda_csv(valor)
-      valor.gsub(".", "").gsub(",", ".")
-    end
+  def self.moeda_csv(valor)
+    valor.gsub(".", "").gsub(",", ".")
+  end
 
-    def self.helper
-      @helper ||= Class.new do
-        include ActionView::Helpers::NumberHelper
-      end.new
-    end
-
-
+  def self.helper
+    @helper ||= Class.new do
+      include ActionView::Helpers::NumberHelper
+    end.new
+  end
 end

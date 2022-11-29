@@ -150,87 +150,96 @@
   </div>
   </form>
 
-  <div class="col-md-12 scroltable">
-   <h4>
-      Quantidade de registos: <strong><%= @qtd_total %></strong>
-    </h4>
-    <hr>
+  <div>
+    <% if @qtd_total.present? %>
+      <div class="col-md-12 scroltable">
+        <h4>
+          Quantidade de registos: <strong><%= @qtd_total %></strong>
+        </h4>
+        <hr>
 
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Login Usuário</th>
-          <th scope="col">Nome do Usuário</th>
-          <th scope="col">Nome do Responsável</th>
-          <th scope="col">Valor do Depósito</th>
-          <th scope="col">Data Depósito</th>
-          <th scope="col">Data Ult Alteração ou Proces</th>
-          <th scope="col">Agente</th>  
-          <th scope="col">Número do Talão</th>
-          <th scope="col">Banco</th>
-          <th scope="col">Status</th>
-          <th scope="col">Link</th>
-          <th colspan="3">Ações para o Registo</th>
-        </tr>
-      </thead>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Login Usuário</th>
+              <th scope="col">Nome do Usuário</th>
+              <th scope="col">Nome do Responsável</th>
+              <th scope="col">Valor do Depósito</th>
+              <th scope="col">Data Depósito</th>
+              <th scope="col">Data Ult Alteração ou Proces</th>
+              <th scope="col">Agente</th>  
+              <th scope="col">Número do Talão</th>
+              <th scope="col">Banco</th>
+              <th scope="col">Status</th>
+              <th scope="col">Link</th>
+              <th colspan="3">Ações para o Registo</th>
+            </tr>
+          </thead>
 
-      <tbody>
-        <% valor_total = 0 %>
-        <% @alegacao_de_pagamentos.each do |alegacao_de_pagamento| %>
-        <tr>
-          <td style="width: 90px" class="text-right"><%= alegacao_de_pagamento.usuario.login %></td>
-          <td style="width: 300px"><%= alegacao_de_pagamento.usuario.nome %></td>
-          <td style="width: 300px"><%= alegacao_de_pagamento.get_responsavel.nome rescue alegacao_de_pagamento.usuario.nome %></td>
-          <td style="width: 170px" class="text-right"><%= number_to_currency(alegacao_de_pagamento.valor_deposito, :unit => "KZ", :precision => 2) %></td>
-          <td style="width: 170px" class="text-center"><%= alegacao_de_pagamento.data_deposito.strftime("%d/%m/%Y %H:%M:%S") rescue ""%></td>
-          <td style="width: 170px" class="text-center">
-          <% if [StatusAlegacaoDePagamento::PENDENTE].include?(alegacao_de_pagamento.status_alegacao_de_pagamento.nome) %>
-            <%= alegacao_de_pagamento.updated_at.strftime("%d/%m/%Y %H:%M:%S") rescue ""%>
-          <% end %>
-          </td>
-          <td style="width: 200px"><%= alegacao_de_pagamento.usuario.sub_agente.nome_fantasia rescue "" %></td>
-          <td style="width: 170px"><%= alegacao_de_pagamento.numero_talao %></td>
-          <td style="width: 200px"><%= alegacao_de_pagamento.banco.nome %></td>
-          <td style="width: 120px"><%= alegacao_de_pagamento.status_alegacao_de_pagamento.nome rescue "" %></td>
-          <td><%= link_to 'Comprovativo', alegacao_de_pagamento.comprovativo, target: "_blank" %></td>
-          <td><%= link_to 'Mostrar', alegacao_de_pagamento %></td>
-          <% if ![StatusAlegacaoDePagamento::PROCESSADO,StatusAlegacaoDePagamento::CANCELADO,StatusAlegacaoDePagamento::INVALIDO,StatusAlegacaoDePagamento::REJEITADO].include?(alegacao_de_pagamento.status_alegacao_de_pagamento.nome) && (@adm.admin? || @adm.operador?) %>
-            <td><%= link_to 'Editar', edit_alegacao_de_pagamento_path(alegacao_de_pagamento) %></td>
-          <% end %>
+          <tbody>
+            <% valor_total = 0 %>
+            <% @alegacao_de_pagamentos.each do |alegacao_de_pagamento| %>
+            <tr>
+              <td style="width: 90px" class="text-right"><%= alegacao_de_pagamento.usuario.login %></td>
+              <td style="width: 300px"><%= alegacao_de_pagamento.usuario.nome %></td>
+              <td style="width: 300px"><%= alegacao_de_pagamento.get_responsavel.nome rescue alegacao_de_pagamento.usuario.nome %></td>
+              <td style="width: 170px" class="text-right"><%= number_to_currency(alegacao_de_pagamento.valor_deposito, :unit => "KZ", :precision => 2) %></td>
+              <td style="width: 170px" class="text-center"><%= alegacao_de_pagamento.data_deposito.strftime("%d/%m/%Y %H:%M:%S") rescue ""%></td>
+              <td style="width: 170px" class="text-center">
+              <% if [StatusAlegacaoDePagamento::PENDENTE].include?(alegacao_de_pagamento.status_alegacao_de_pagamento.nome) %>
+                <%= alegacao_de_pagamento.updated_at.strftime("%d/%m/%Y %H:%M:%S") rescue ""%>
+              <% end %>
+              </td>
+              <td style="width: 200px"><%= alegacao_de_pagamento.usuario.sub_agente.nome_fantasia rescue "" %></td>
+              <td style="width: 170px"><%= alegacao_de_pagamento.numero_talao %></td>
+              <td style="width: 200px"><%= alegacao_de_pagamento.banco.nome %></td>
+              <td style="width: 120px"><%= alegacao_de_pagamento.status_alegacao_de_pagamento.nome rescue "" %></td>
+              <td><%= link_to 'Comprovativo', alegacao_de_pagamento.comprovativo, target: "_blank" %></td>
+              <td><%= link_to 'Mostrar', alegacao_de_pagamento %></td>
+              <% if ![StatusAlegacaoDePagamento::PROCESSADO,StatusAlegacaoDePagamento::CANCELADO,StatusAlegacaoDePagamento::INVALIDO,StatusAlegacaoDePagamento::REJEITADO].include?(alegacao_de_pagamento.status_alegacao_de_pagamento.nome) && (@adm.admin? || @adm.operador?) %>
+                <td><%= link_to 'Editar', edit_alegacao_de_pagamento_path(alegacao_de_pagamento) %></td>
+              <% end %>
 
-          <% if ![StatusAlegacaoDePagamento::PROCESSADO,StatusAlegacaoDePagamento::CANCELADO,StatusAlegacaoDePagamento::INVALIDO,StatusAlegacaoDePagamento::REJEITADO].include?(alegacao_de_pagamento.status_alegacao_de_pagamento.nome) && (@adm.admin? || @adm.operador?) %>          
-            <td><%= link_to 'Processar', "/alegacao_de_pagamentos/#{alegacao_de_pagamento.id}/processar", method: :post, data: { confirm: 'Tem certeza?' } if alegacao_de_pagamento.data_deposito.present? %></td>
-          <% end %>
-        </tr>
-        <% valor_total += alegacao_de_pagamento.valor_deposito %>
-        <% end %>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td></td>
-          <td style="width: 200px;text-align:right">
-            <b>Total da Página: </b><br>
-            <b>Total Geral: </b>
-          </td>
-          <td style="text-align:right">
-            <%= number_to_currency(valor_total, :unit => "KZ") %><br>
-            <%= number_to_currency(@valor_total, :unit => "KZ") %>
-          </td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tfoot>
-    </table>
+              <% if ![StatusAlegacaoDePagamento::PROCESSADO,StatusAlegacaoDePagamento::CANCELADO,StatusAlegacaoDePagamento::INVALIDO,StatusAlegacaoDePagamento::REJEITADO].include?(alegacao_de_pagamento.status_alegacao_de_pagamento.nome) && (@adm.admin? || @adm.operador?) %>          
+                <td><%= link_to 'Processar', "/alegacao_de_pagamentos/#{alegacao_de_pagamento.id}/processar", method: :post, data: { confirm: 'Tem certeza?' } if alegacao_de_pagamento.data_deposito.present? %></td>
+              <% end %>
+            </tr>
+            <% valor_total += alegacao_de_pagamento.valor_deposito %>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td style="width: 200px;text-align:right">
+                <b>Total da Página: </b><br>
+                <b>Total Geral: </b>
+              </td>
+              <td style="text-align:right">
+                <%= number_to_currency(valor_total, :unit => "KZ") %><br>
+                <%= number_to_currency(@valor_total, :unit => "KZ") %>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
 
-    <div class="apple_pagination">
-      <%= will_paginate @status_alegacao_de_pagamento, :container => false %>
-    </div>
-
+        <div class="apple_pagination">
+          <%= will_paginate @status_alegacao_de_pagamento, :container => false %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
+
+<% if @qtd_total.blank? %>
+  <div style="height: 100px; text-align:center;font-size: 20px; color: #856404; padding: 20px;">
+    Informe os parâmetros de busca
+  </div>
+<% end %>

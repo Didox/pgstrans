@@ -250,28 +250,32 @@
     </script>
   </div>
 -->
+  <% if @vendas_total.present? %>
+    <div class="scroltable col-md-12">
+      <h4>
+        Quantidade de recargas ou transações: <%= number_to_currency(@vendas_total, :precision => 0, :unit => "") %>
+      </h4>
+      <hr>
 
-  <div class="scroltable col-md-12">
-    <h4>
-      Quantidade de recargas ou transações: <%= number_to_currency(@vendas_total, :precision => 0, :unit => "") %>
-    </h4>
-    <hr>
+      <%= render "tabela_vendas" %>
 
-    <%= render "tabela_vendas" %>
+      <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+    </div>
 
-    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
-      Voltar
+    <% if @adm.id == Usuario::ROOT %>
+      <--
+      SQL QUERY BUILDER
+      -----------------------------------------------------------------------------------------------------------------------------------------
+      <%= raw @sql %>
+      -----------------------------------------------------------------------------------------------------------------------------------------
+      -->
     <% end %>
-  </div>
-
-  <% if @adm.id == Usuario::ROOT %>
-    <--
-    SQL QUERY BUILDER
-    -----------------------------------------------------------------------------------------------------------------------------------------
-    <%= raw @sql %>
-    -----------------------------------------------------------------------------------------------------------------------------------------
-    -->
+  <% else %>
+    <div style="height: 100px; text-align:center;font-size: 20px; color: #856404; padding: 20px;">
+      Informe os parâmetros de busca
+    </div>
   <% end %>
-
 </div>

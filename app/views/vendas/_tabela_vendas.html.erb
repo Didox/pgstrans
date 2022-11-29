@@ -20,15 +20,15 @@
     <% @vendas.each do |venda| %>
     <tr>
       <td>
-        <b>ID da Venda:</b> <%= venda.id %> <b>- Login Usuário:</b> <%= venda.usuario.login %><br>
+        <b>ID da Venda:</b> <%= venda.id %> <b>- Login Usuário:</b> <%= venda&.usuario&.login %><br>
         <b>ID Interno do Usuário:</b> <%= venda.usuario_id %><br>
-        <b>Usuário:</b> <%= venda.usuario.nome %><br>
-        <b>Parceiro:</b> <%= venda.partner.name %><br>
+        <b>Usuário:</b> <%= venda&.usuario&.nome %><br>
+        <b>Parceiro:</b> <%= venda&.partner&.name %><br>
         <% if venda.partner_id == Partner.zaptv.id %>
           <b>Categoria:</b> <%= venda.categoria.upcase %><br>
         <% end %>
         <b>Data da Venda:</b> <%= venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %><br>
-        <b>Situação:</b> <%= venda.status_desc.error_description_pt %> <%= " - #{venda.lancamento.nome}" rescue "" %><br>
+        <b>Situação:</b> <%= venda&.status_desc&.error_description_pt %> <%= " - #{venda&.lancamento&.nome}" rescue "" %><br>
       </td>
       <td>
         <% if venda.customer_number.present? %>
@@ -51,7 +51,7 @@
         <hr>
         <%= venda.product_nome %>
         <hr>
-        <%= venda.product.subtipo %>
+        <%= venda&.product&.subtipo %>
       </td>
       <td style="width:110px" style="text-align: center"><%= number_to_currency(venda.valor_original) %></td>
       <% if venda&.status_desc&.sucesso %>
@@ -69,7 +69,7 @@
       <% end %>
       <td>
         <% if usuario_logado.admin? || usuario_logado.operador? %>
-          <%= link_to 'Detalhes', venda, class: "btn btn-warning", style:"width:100px" %><br><br>
+          <%= link_to 'Detalhes', venda_path(venda), class: "btn btn-warning", style:"width:100px" %><br><br>
           <%= link_to 'Grupo Acesso', "/controle-acessos/#{venda.class}/#{venda.id}/grupos", class: "btn btn-warning", style:"width:100px" %>
         <% end %>
       </td>

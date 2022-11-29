@@ -7,6 +7,8 @@ class ContaCorrentesController < ApplicationController
   end
 
   def index
+    return if nao_buscavel
+
     if usuario_logado.admin? || usuario_logado.operador?
       @conta_correntes = ContaCorrente.all
     else

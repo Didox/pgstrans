@@ -197,91 +197,98 @@
   </form>
 
   <div class="col-md-12" style="overflow:auto">
-    <h4>
-      Total de Ocorrências: <strong><%= number_to_currency(@conta_correntes_total, :precision => 0, :unit => "") %></strong>
-    </h4>
-    <hr>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Dados</th>
-          <th scope="col">Valores</th>
-          <th scope="col">Datas</th>
-          <th colspan="3">Ação para o Registo</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% valor_total = 0 %>
-        <% @conta_correntes.each do |conta_corrente| %>
-        <tr>
-          <td style="width: 450px">
-            <% if @adm.admin? || @adm.operador? %> 
-              <b>ID Interno Usuário:</b> <%= conta_corrente.usuario.id %><br>
-            <% end %>
-            <b>Login:</b> <%= conta_corrente.usuario.login %><br>
-            <b>Nome do Usuário:</b> <%= conta_corrente.usuario.nome %><br>
-            <b>Situação do Usuário:</b> <%= conta_corrente.usuario.status_cliente.nome rescue "" %><br> 
-            <b>Lançamento:</b> <%= conta_corrente.lancamento.nome %><br>
-            <% if conta_corrente.partner_id.present? %>
-              <b>Parceiro:</b> <%= conta_corrente.partner.name %><br>
-            <% end %>
-            <% if conta_corrente.banco_id.present? %>
-              <b>Banco:</b> <%= conta_corrente.banco.nome %><br>
-            <% end %>
-            <% if conta_corrente.iban.present? %>
-              <b>IBAN ou Nro Talão:</b> <%= conta_corrente.iban %><br>
-            <% end %>
-            <% if @adm.admin? || @adm.operador? %> 
-              <b>Observação:</b> <%= conta_corrente.observacao %><br>
-              <% if conta_corrente.responsavel_aprovacao.present? %>
-                <b>Responsável aprovação:</b> <%= conta_corrente.responsavel_aprovacao.nome %>
+    <% if @conta_correntes_total.present? %>
+      <h4>
+        Total de Ocorrências: <strong><%= number_to_currency(@conta_correntes_total, :precision => 0, :unit => "") %></strong>
+      </h4>
+      <hr>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Dados</th>
+            <th scope="col">Valores</th>
+            <th scope="col">Datas</th>
+            <th colspan="3">Ação para o Registo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% valor_total = 0 %>
+          <% @conta_correntes.each do |conta_corrente| %>
+          <tr>
+            <td style="width: 450px">
+              <% if @adm.admin? || @adm.operador? %> 
+                <b>ID Interno Usuário:</b> <%= conta_corrente&.usuario&.id %><br>
               <% end %>
-            <% end %>
-          </td>
-          <td style="width: 350px">
-            <b>ID do Lançamento: </b><%= conta_corrente.id %><br>
-            <hr>
-            <b>Valor do Lançamento:</b> <span <% if conta_corrente.valor < 0 %> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span><br>
-            <hr>
-            <b>Saldo Anterior:</b> <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %><br>
-            <hr>
-            <b>Saldo Atual:</b> <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %><br>
-          </td>
-          <td style="width: 300px">
-            <b>Lançamento:</b><br>
-            <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %><br>
-
-            <% if @adm.admin? || @adm.operador? %> 
+              <b>Login:</b> <%= conta_corrente&.usuario&.login %><br>
+              <b>Nome do Usuário:</b> <%= conta_corrente&.usuario&.nome %><br>
+              <b>Situação do Usuário:</b> <%= conta_corrente&.usuario&.status_cliente.nome rescue "" %><br> 
+              <b>Lançamento:</b> <%= conta_corrente&.lancamento&.nome %><br>
+              <% if conta_corrente.partner_id.present? %>
+                <b>Parceiro:</b> <%= conta_corrente.partner.name %><br>
+              <% end %>
+              <% if conta_corrente.banco_id.present? %>
+                <b>Banco:</b> <%= conta_corrente&.banco&.nome %><br>
+              <% end %>
+              <% if conta_corrente.iban.present? %>
+                <b>IBAN ou Nro Talão:</b> <%= conta_corrente.iban %><br>
+              <% end %>
+              <% if @adm.admin? || @adm.operador? %> 
+                <b>Observação:</b> <%= conta_corrente.observacao %><br>
+                <% if conta_corrente.responsavel_aprovacao.present? %>
+                  <b>Responsável aprovação:</b> <%= conta_corrente&.responsavel_aprovacao&.nome %>
+                <% end %>
+              <% end %>
+            </td>
+            <td style="width: 350px">
+              <b>ID do Lançamento: </b><%= conta_corrente.id %><br>
               <hr>
-              <b>Última Atualização:</b><br>
-              <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M:%S") %><br>
-
+              <b>Valor do Lançamento:</b> <span <% if conta_corrente.valor < 0 %> style="color:red" <%end%>><%= number_to_currency(conta_corrente.valor, :unit => "KZ") %></span><br>
               <hr>
-              <b>Processamento:</b><br>
-              <%= conta_corrente.data_processamento.strftime("%d/%m/%Y %H:%M:%S") rescue "" %><br>
-            <% end %>
-          </td>
-          <td><%= link_to 'Mostrar', conta_corrente %></td>
-        </tr>
-        <% valor_total += conta_corrente.valor %>
-        <% end %>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td></td>
-          <td>
-            <b>Total da Página: </b><%= number_to_currency(valor_total, :unit => "KZ") %><br>
-            <b>Total Geral de Lançamentos: </b><%= number_to_currency(@valor_total, :unit => "KZ") %>
-          </td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tfoot>
-    </table>
+              <b>Saldo Anterior:</b> <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "KZ") %><br>
+              <hr>
+              <b>Saldo Atual:</b> <%= number_to_currency(conta_corrente.saldo_atual, :unit => "KZ") %><br>
+            </td>
+            <td style="width: 300px">
+              <b>Lançamento:</b><br>
+              <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %><br>
 
-    <div class="apple_pagination">
-      <%= will_paginate @conta_correntes, :container => false %>
-    </div>
+              <% if @adm.admin? || @adm.operador? %> 
+                <hr>
+                <b>Última Atualização:</b><br>
+                <%= conta_corrente.data_ultima_atualizacao_saldo.strftime("%d/%m/%Y %H:%M:%S") %><br>
+
+                <hr>
+                <b>Processamento:</b><br>
+                <%= conta_corrente.data_processamento.strftime("%d/%m/%Y %H:%M:%S") rescue "" %><br>
+              <% end %>
+            </td>
+            <td><%= link_to 'Mostrar', conta_corrente_path(conta_corrente) %></td>
+          </tr>
+          <% valor_total += conta_corrente.valor %>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td>
+              <b>Total da Página: </b><%= number_to_currency(valor_total, :unit => "KZ") %><br>
+              <b>Total Geral de Lançamentos: </b><%= number_to_currency(@valor_total, :unit => "KZ") %>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="apple_pagination">
+        <%= will_paginate @conta_correntes, :container => false %>
+      </div>
+    <% else %>
+      <div style="height: 100px; text-align:center;font-size: 20px; color: #856404; padding: 20px;">
+        Informe os parâmetros de busca
+      </div>
+    <% end %>
+    
     <% if @adm.admin? || @adm.operador? %> 
       <%= link_to new_conta_corrente_path, class: 'btn btn-success' do %>
         <span class="glyphicon glyphicon-plus"></span>
