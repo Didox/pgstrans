@@ -7,7 +7,7 @@ class AlegacaoDePagamentosController < ApplicationController
   # GET /alegacao_de_pagamentos
   # GET /alegacao_de_pagamentos.json
   def index
-    return if nao_buscalvel
+    return if nao_buscavel
 
     @alegacao_de_pagamentos = AlegacaoDePagamento.com_acesso(usuario_logado).order(created_at: :desc)
     @alegacao_de_pagamentos = @alegacao_de_pagamentos.joins("inner join usuarios on usuarios.id = alegacao_de_pagamentos.usuario_id")

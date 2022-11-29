@@ -5,7 +5,7 @@ class VendasController < ApplicationController
   # GET /vendas
   # GET /vendas.json
   def index
-    return if nao_buscalvel
+    return if nao_buscavel
     
     @vendas = Venda.com_acesso(usuario_logado)
     vendas_busca
@@ -13,7 +13,7 @@ class VendasController < ApplicationController
   end
 
   def consolidado
-    return if nao_buscalvel
+    return if nao_buscavel
 
     @vendas = Venda.com_acesso(usuario_logado)
     vendas_busca
@@ -38,7 +38,7 @@ class VendasController < ApplicationController
   end
 
   def consolidado
-    return if nao_buscalvel
+    return if nao_buscavel
 
     @page = params[:page] || 1
     @page = @page.to_i
