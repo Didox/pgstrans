@@ -22,7 +22,7 @@ namespace :jobs do
 
   desc "Atualiza porcentagem_desconto_venda"
   task atualiza_porcentagem_desconto_venda: :environment do
-    puts "===[#{venda.id}] | Antes do each ==="
+    puts "=== Antes do each ==="
     Venda.where("porcentagem_desconto is null").limit(5000).each do |venda|
       puts "===[#{venda.id}] | inicio ==="
       desconto_aplicado, valor_original, valor, porcentagem_desconto = Venda.desconto_venda(venda.usuario, venda.partner, venda.valor_original)
