@@ -96,8 +96,8 @@
             <label>Situação da Venda</label>
             <div>
               <select name="return_code" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <option value="sucesso" <% if params[:return_code] == "sucesso" %> selected="selected" <% end %>>Todos com sucesso</option>
+                <option value="" >Todos</option>
+                <option value="sucesso" <% if params[:return_code] == "sucesso" || params[:return_code].blank? %> selected="selected" <% end %>>Todos com sucesso</option>
                 <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL).each do |partner| %>
                   <optgroup label="<%= partner.name %>">
                     <% ReturnCodeApi.where(partner_id: partner.id).each do |ret| %>
