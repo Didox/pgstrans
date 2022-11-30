@@ -263,7 +263,7 @@ namespace :jobs do
 
   desc "Update venda id conta corrente"
   task venda_conta_corrente: :environment do
-    ContaCorrente.where("valor < 0").each do |cc|
+    ContaCorrente.where("valor < 0").limit(5000).each do |cc|
       venda = Venda.where(usuario_id: cc.usuario_id, partner_id: cc.partner_id, value: cc.valor.abs)
       venda = venda.where("created_at BETWEEN ? AND ?", SqlDate.sql_parse((cc.created_at - 10.minutes)), SqlDate.sql_parse((cc.created_at)))
       venda = venda.reorder("created_at desc").first
