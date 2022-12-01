@@ -96,8 +96,8 @@
             <label>Situação da Venda</label>
             <div>
               <select name="return_code" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <option value="sucesso" <% if params[:return_code] == "sucesso" %> selected="selected" <% end %>>Todos com sucesso</option>
+                <option value="">Todos</option>
+                <option value="sucesso" <% if params[:return_code] == "sucesso" || !params.has_key?(:return_code) %> selected="selected" <% end %>>Todos com sucesso</option>
                 <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL).each do |partner| %>
                   <optgroup label="<%= partner.name %>">
                     <% ReturnCodeApi.where(partner_id: partner.id).each do |ret| %>
@@ -125,63 +125,65 @@
   <% if @vendas_total.present? %>
     <!-- Grafico de barras -->
     <div style="float:left;overflow:hidden;width:100%;clear:both;margin-bottom:20px">
-      <h2>Total geral de vendas no período<h2>
-      <div style="width: 100%; overflow:auto">
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript">
-          <% if @grafico_dia %>
-            google.charts.load('current', {'packages':['line']});
-            google.charts.setOnLoadCallback(drawChart);
+      <% if @vendas_data.present? %>
+        <h2>Total geral de vendas no período<h2>
+        <div style="width: 100%; overflow:auto">
+          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+          <script type="text/javascript">
+            <% if @grafico_dia %>
+              google.charts.load('current', {'packages':['line']});
+              google.charts.setOnLoadCallback(drawChart);
 
-            function drawChart() {
-              var data = new google.visualization.DataTable();
-              data.addColumn('string', 'Data');
-              data.addColumn('number', 'Valor');
+              function drawChart() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Data');
+                data.addColumn('number', 'Valor');
 
-              var dados = []
-              <% @vendas_data.each do |venda| 
-                venda = OpenStruct.new venda %>
-                dados.push(['<%= venda.data_venda %>', <%= venda.valor_original.round(2) %>])
-              <% end %>
-              
-              data.addRows(dados);
+                var dados = []
+                <% @vendas_data.each do |venda| 
+                  venda = OpenStruct.new venda %>
+                  dados.push(['<%= venda.data_venda %>', <%= venda.valor_original.round(2) %>])
+                <% end %>
+                
+                data.addRows(dados);
 
-              var chart = new google.charts.Line(document.getElementById('columnchart_values'));
-              chart.draw(data, google.charts.Line.convertOptions({
-                legend: { position: "none" },
-              }));
-            }
-          <% else %>
-            google.charts.load("current", {packages:['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
-            function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-              ["Data", "Valor", { role: "style" }],
-              <% @vendas_data.each do |venda| 
-                venda = OpenStruct.new venda %>
-                ["<%= venda.data_venda %>", 
-                <%= venda.valor_original.round(2) %>,
-                "#4169E1"],
-              <% end %>
-              ]);
+                var chart = new google.charts.Line(document.getElementById('columnchart_values'));
+                chart.draw(data, google.charts.Line.convertOptions({
+                  legend: { position: "none" },
+                }));
+              }
+            <% else %>
+              google.charts.load("current", {packages:['corechart']});
+              google.charts.setOnLoadCallback(drawChart);
+              function drawChart() {
+              var data = google.visualization.arrayToDataTable([
+                ["Data", "Valor", { role: "style" }],
+                <% @vendas_data.each do |venda| 
+                  venda = OpenStruct.new venda %>
+                  ["<%= venda.data_venda %>", 
+                  <%= venda.valor_original.round(2) %>,
+                  "#4169E1"],
+                <% end %>
+                ]);
 
-              var view = new google.visualization.DataView(data);
-              view.setColumns([0, 1,
-                            { calc: "stringify",
-                              sourceColumn: 1,
-                              type: "string",
-                              role: "annotation" },
-                            2]);
-              var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-              chart.draw(view, {
-                bar: {groupWidth: "95%"},
-                legend: { position: "none" },
-              });
-            }
-          <% end %>
-        </script>
-        <div id="columnchart_values" style="height: 100%"></div>
-      </div>
+                var view = new google.visualization.DataView(data);
+                view.setColumns([0, 1,
+                              { calc: "stringify",
+                                sourceColumn: 1,
+                                type: "string",
+                                role: "annotation" },
+                              2]);
+                var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+                chart.draw(view, {
+                  bar: {groupWidth: "95%"},
+                  legend: { position: "none" },
+                });
+              }
+            <% end %>
+          </script>
+          <div id="columnchart_values" style="height: 100%"></div>
+        </div>
+      <% end %>
     </div>
     <hr>
 

@@ -22,10 +22,12 @@ namespace :jobs do
 
   desc "Atualiza porcentagem_desconto_venda"
   task atualiza_porcentagem_desconto_venda: :environment do
-    Venda.where("porcentagem_desconto is null").each do |venda|
+    puts "=== Antes do each ==="
+    Venda.where("porcentagem_desconto is null").limit(100000).each do |venda|
+      puts "===[#{venda.id}] | inicio ==="
       desconto_aplicado, valor_original, valor, porcentagem_desconto = Venda.desconto_venda(venda.usuario, venda.partner, venda.valor_original)
       Venda.where(id: venda.id).update_all(porcentagem_desconto: porcentagem_desconto)
-      puts "===[#{venda.id}]==="
+      puts "===[#{venda.id}] | fim ==="
     end
   end
 
@@ -263,13 +265,15 @@ namespace :jobs do
 
   desc "Update venda id conta corrente"
   task venda_conta_corrente: :environment do
-    ContaCorrente.where("valor < 0").each do |cc|
+    ContaCorrente.where("valor < 0").limit(5000).each do |cc|
+      puts "===[#{cc.id}] | inicio ==="
       venda = Venda.where(usuario_id: cc.usuario_id, partner_id: cc.partner_id, value: cc.valor.abs)
       venda = venda.where("created_at BETWEEN ? AND ?", SqlDate.sql_parse((cc.created_at - 10.minutes)), SqlDate.sql_parse((cc.created_at)))
       venda = venda.reorder("created_at desc").first
       if venda.present?
         ContaCorrente.where(id: venda.id).update_all(venda_id: venda.id)
       end
+      puts "===[#{cc.id}] | Fim ==="
     end
   end
 
