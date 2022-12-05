@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_04_130915) do
+ActiveRecord::Schema.define(version: 2022_12_05_131242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -492,6 +492,7 @@ ActiveRecord::Schema.define(version: 2022_11_04_130915) do
     t.datetime "updated_at", null: false
     t.bigint "usuario_id"
     t.string "categoria", default: "tv"
+    t.string "controller_acao", default: "PartnersController::zap_conciliacao"
   end
 
   create_table "remuneracao_descontos", force: :cascade do |t|

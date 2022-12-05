@@ -21,15 +21,23 @@ namespace :sqs do
           relatorio_id = message.body
           rel = Relatorio.where(id: relatorio_id).first
           next if rel.blank?
-          partner = Partner.find(rel.partner_id)
-          parametros = OpenStruct.new(JSON.parse(rel.parametros))
-          relatorio_conciliacao_zaptvs = PartnersController.show(partner, parametros)
-          #relatorio_conciliacao_zaptvs = relatorio_conciliacao_zaptvs.limit(10)
+          if rel.partner_id.present?
+            partner = Partner.find(rel.partner_id)
+            parametros = OpenStruct.new(JSON.parse(rel.parametros))
+            relatorio_conciliacao_zaptvs = PartnersController.show(partner, parametros)
+            #relatorio_conciliacao_zaptvs = relatorio_conciliacao_zaptvs.limit(10)
     
-          filename = "relatorio_conciliacao_#{partner.slug}-#{Time.zone.now.strftime("%Y%m%d%H%M%S")}-#{parametros[:categoria]}.csv"
-          File.write("/tmp/#{filename}", relatorio_conciliacao_zaptvs.to_csv)
+            @filename = "relatorio_conciliacao_#{partner.slug}-#{Time.zone.now.strftime("%Y%m%d%H%M%S")}-#{parametros[:categoria]}.csv"
+            File.write("/tmp/#{@filename}", relatorio_conciliacao_zaptvs.to_csv)
+          else
+            controller, acao = rel.controller_acao.split("::")
+            dados = controller.constantize.new.send("#{acao}_relatorio", JSON.parse(rel.parametros))
+
+            @filename = "relatorio-#{controller}-#{acao}-#{Time.zone.now.strftime("%Y%m%d%H%M%S")}.csv"
+            File.write("/tmp/#{@filename}", dados.to_csv)
+          end
     
-          url = AwsService.upload("/tmp/#{filename}", filename) 
+          url = AwsService.upload("/tmp/#{@filename}", @filename) 
           rel.arquivo = url
           rel.save!
 

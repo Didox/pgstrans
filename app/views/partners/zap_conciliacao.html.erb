@@ -46,6 +46,7 @@
           <p><strong>Lista de Relatórios Disponíveis para Download</strong></p>
           <% 
           @relatorios = Relatorio.where(partner_id: @partner.id)
+          @relatorios = @relatorios.where(controller_acao: "PartnersController::zap_conciliacao")
           @relatorios = @relatorios.where("lower(categoria) = ?", params[:categoria]) if params[:categoria].present?
           @relatorios = @relatorios.where("arquivo is not null").order("updated_at desc")
           @relatorios.limit(5).each do |rel| %>
