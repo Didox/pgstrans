@@ -13,11 +13,6 @@ class VendasController < ApplicationController
     @vendas
   end
 
-  def index_relatorio(parametros_busca)
-    params = parametros_busca
-    index
-  end
-
   def consolidado
     return if nao_buscavel
 
@@ -255,8 +250,10 @@ class VendasController < ApplicationController
         return redirect_to "/vendas"
       end
      
-      options = {page: params[:page] || 1, per_page: 10}
-      @vendas = @vendas.paginate(options)
+      if params["relatorio_job"].blank?
+        options = {page: params[:page] || 1, per_page: 10}
+        @vendas = @vendas.paginate(options)
+      end
 
       @vendas_total = @vendas.count
 
