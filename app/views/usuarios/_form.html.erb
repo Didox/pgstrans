@@ -105,13 +105,14 @@
         </div>
 
         <div class="form-input col-sm-4">
-          <%= f.label :municipio_id, :label => "Município" %>
-          <%= f.select :municipio_id, Municipio.all.reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <%= f.label :provincia_id, :label => "Província" %>
+          <%= f.select :provincia_id, Provincium.all.reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control", onchange: "selecionaMunicipios(this)" %>
         </div>
 
         <div class="form-input col-sm-4">
-          <%= f.label :provincia_id, :label => "Província" %>
-          <%= f.select :provincia_id, Provincium.all.reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
+          <%= f.label :municipio_id, :label => "Município" %>
+          <% municipios = Municipio.where(provincia_id: usuario.provincia_id || 0) %>
+          <%= f.select :municipio_id, municipios.reorder("nome asc").collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
         <div class="form-input col-sm-4">
@@ -171,3 +172,18 @@
     <br>
   </div>
 </div>
+
+<script>
+var selecionaMunicipios = function(elen){
+   $.ajax({
+    type: "GET",
+    url: "/municipios.json?provincia_id="+ $(elen).val(),
+    success: function(data){
+      $("#usuario_municipio_id").html("<option value=\"\" selected=\"selected\">[Selecione]</option>");
+      $(data).each(function(){
+        $("#usuario_municipio_id").append("<option value=\"" + this.id + "\">" + this.nome + "</option>")
+      });
+    }
+  });
+}
+</script>

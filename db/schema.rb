@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_05_131242) do
+ActiveRecord::Schema.define(version: 2022_12_07_183313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -337,6 +337,8 @@ ActiveRecord::Schema.define(version: 2022_12_05_131242) do
     t.string "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "provincia_id"
+    t.index ["provincia_id"], name: "index_municipios_on_provincia_id"
   end
 
   create_table "otp_key_africell_logs", force: :cascade do |t|
@@ -805,6 +807,7 @@ ActiveRecord::Schema.define(version: 2022_12_05_131242) do
   add_foreign_key "ip_api_autorizados", "sub_distribuidors"
   add_foreign_key "loop_logs", "movicel_loops"
   add_foreign_key "moedas", "countries"
+  add_foreign_key "municipios", "provincia", column: "provincia_id"
   add_foreign_key "parametros", "partners"
   add_foreign_key "partners", "status_parceiros"
   add_foreign_key "produtos", "moedas"

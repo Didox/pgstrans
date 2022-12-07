@@ -27,6 +27,13 @@
         <div class="form-input">
           <%= f.input :nome %>
         </div>
+        
+        <div class="form-input">
+          <%= f.label :provincia_id %>
+          <%= f.select :provincia_id, Provincium.all.collect{|d| [d.nome, d.id]}, {}, required:true, class: "form-control" %>
+        </div>
+        <br>
+        <br>
 
         <div class="form-actions">
           <%= f.button :button, class: 'btn btn-danger' do %>

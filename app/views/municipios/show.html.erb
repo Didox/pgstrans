@@ -13,7 +13,13 @@
 		<p>
 		<strong>Nome:</strong>
 		<%= @municipio.nome %>
-		</p>    
+		</p>  
+		  
+		<p>
+		<strong>Provincia:</strong>
+		<%= @municipio.provincia.nome rescue "Não informado" %>
+		</p>      
+
 		<%= link_to edit_municipio_path(@municipio), class: 'btn btn-danger' do %>
 			<span class="glyphicon glyphicon-edit"></span>
 			Editar
