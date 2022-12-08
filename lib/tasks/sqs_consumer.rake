@@ -19,8 +19,15 @@ namespace :sqs do
         begin
           Rails.logger.info "#{Time.zone.now.strftime("%Y%m%d%H%M%S")} - Importando ..."
           relatorio_id = message.body
-          rel = Relatorio.where(id: relatorio_id).first
-          next if rel.blank?
+          rel = Relatorio.where(id: relatorio_id).where("arquivo is null").first
+          if rel.blank?
+            sqs_client.delete_message({
+              queue_url: SQS_URL,
+              receipt_handle: message.receipt_handle    
+            })
+            next
+          end
+
           if rel.partner_id.present?
             partner = Partner.find(rel.partner_id)
             parametros = OpenStruct.new(JSON.parse(rel.parametros))

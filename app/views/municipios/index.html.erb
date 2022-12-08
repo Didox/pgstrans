@@ -18,22 +18,22 @@
         <div class="form-group">
           <div style="float: right;margin-right:10px">
             <input type="submit" value="Buscar" class="btn btn-info">
-              <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-                <span class="glyphicon glyphicon-list-alt"></span>
-                Voltar
-              <% end %>
-            </div>
+            <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+              <span class="glyphicon glyphicon-list-alt"></span>
+              Voltar
+            <% end %>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
+  </div>
     <div class="col-md-12">
       <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col" class="text-center">ID do Registo</th>
             <th scope="col">Nome do Município</th>
-            <th scope="col">Provincia</th>
+            <th scope="col">Província</th>
             <th colspan="3">Ações para o Registo</th>
           </tr>
         </thead>
@@ -66,3 +66,18 @@
     </div>
   </div>
 </div>
+
+<script>
+var selecionaMunicipios = function(elen){
+   $.ajax({
+    type: "GET",
+    url: "/municipios.json?provincia_id="+ $(elen).val(),
+    success: function(data){
+      $("#usuario_municipio_id").html("<option value=\"\" selected=\"selected\">[Selecione]</option>");
+      $(data).each(function(){
+        $("#usuario_municipio_id").append("<option value=\"" + this.id + "\">" + this.nome + "</option>")
+      });
+    }
+  });
+}
+</script>
