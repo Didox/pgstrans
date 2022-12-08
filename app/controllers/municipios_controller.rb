@@ -9,7 +9,8 @@ class MunicipiosController < ApplicationController
 
   def index
     @municipios = Municipio.com_acesso(usuario_logado).order(nome: :asc)  
-    
+
+    @municipios = @municipios.where(provincia_id: params[:provincia_id].remove_injection) if params[:provincia_id].present?
     @municipios = @municipios.where("municipios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
  
     options = {page: params[:page] || 1, per_page: 10}
@@ -80,6 +81,6 @@ class MunicipiosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def municipio_params
-      params.require(:municipio).permit(:nome)
+      params.require(:municipio).permit(:nome, :provincia_id)
     end
 end

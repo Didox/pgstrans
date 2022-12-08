@@ -250,6 +250,20 @@
     </script>
   </div>
 -->
+
+  <div>
+    <p><strong>Lista de Relatórios Disponíveis para Download</strong></p>
+    <% 
+    @relatorios = Relatorio.where(controller_acao: "VendasController::index")
+    @relatorios = @relatorios.where("arquivo is not null").order("updated_at desc")
+    @relatorios.limit(5).each do |rel| %>
+      <div>
+        <%= rel.updated_at.strftime("%d/%m/%Y %H:%M") %> -
+        <a href="<%= rel.arquivo %>" target="_blank">Baixar</a>
+      </div>
+    <% end %>
+  </div> 
+  
   <% if @vendas_total.present? %>
     <div class="scroltable col-md-12">
       <h4>

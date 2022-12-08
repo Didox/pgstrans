@@ -10,6 +10,7 @@ class VendasController < ApplicationController
     @vendas = Venda.com_acesso(usuario_logado)
     vendas_busca
     @vendas_total = @vendas.count
+    @vendas
   end
 
   def consolidado
@@ -243,13 +244,16 @@ class VendasController < ApplicationController
       @vendas_graficos = @vendas.clone
 
       if params[:csv].present?
-        filename = "relatorio_vendas-#{Time.zone.now.strftime("%Y%m%d%H%M%S")}.csv"
-        send_data(@vendas.to_csv, :type => "text/csv; charset=utf-8; header=present", :filename => filename)
-        return
+        rel = Relatorio.create(controller_acao: "#{params[:controller].camelize}Controller::#{params[:action]}", usuario_id: usuario_logado.id, parametros: params.to_json).envia_sqs
+
+        flash[:success] = "Relatório gerado com sucesso"
+        return redirect_to "/vendas"
       end
      
-      options = {page: params[:page] || 1, per_page: 10}
-      @vendas = @vendas.paginate(options)
+      if params["relatorio_job"].blank?
+        options = {page: params[:page] || 1, per_page: 10}
+        @vendas = @vendas.paginate(options)
+      end
 
       @vendas_total = @vendas.count
 
