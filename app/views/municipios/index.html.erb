@@ -6,13 +6,28 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div>
+  <div class="col-sm-12">
     <form action="" method="get" id="formApuracao">
       <div class="col-md-12">
-        <div class="form-group">
-          <label>Nome do Município</label>
-          <div>
-            <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Nome do Município</label>
+            <div>
+              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Província</label>
+            <div>
+              <select name="provincia_id" class="form-control">
+                <option value="" selected="'selected'">Selecione</option>
+                <% Provincium.all.each do |provincia| %>
+                  <option value="<%= provincia.id %>" <% if provincia.id.to_s == params[:provincia_id] %> selected="selected" <% end %> ><%= provincia.nome %></option>
+                <% end %>
+              </select>
+            </div>
           </div>
         </div>
         <div class="form-group">
