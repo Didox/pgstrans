@@ -12,15 +12,12 @@
       <dt>Capital:</dt>
       <dd><%= @provincium.capital %></dd>
       <dt>Área KM<sup>2</sup>:</dt>
-      <dd><%= @provincium.area_km2 %></dd>
+      <dd><%= number_with_delimiter(@provincium.area_km2, delimiter: ".") %></dd>
       <dt>População:</dt>
       <dd><%= number_with_delimiter(@provincium.population, delimiter: ".") %></dd>
-      <dt>Link para o Mapa:</dt>
-      <dd><%= @provincium.image_map %></dd>
       <dt>País:</dt>
       <dd><%= @provincium.country.name_pt %></dd>
-      
-      <dt>Municipios da provincia:</dt>
+      <dt>Municípios da Província:</dt>
       <dd>
         <ul>
           <% @provincium.municipios.each do |municipio| %>
@@ -30,7 +27,7 @@
       </dd>
     </dl>
     <hr>
-    <div class="col-md-12"
+    <div class="col-md-12">
       <div class="page-header">
         <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
           <span class="glyphicon glyphicon-list-alt"></span>
