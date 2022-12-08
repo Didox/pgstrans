@@ -254,7 +254,7 @@
   <div>
     <p><strong>Lista de Relatórios Disponíveis para Download</strong></p>
     <% 
-    @relatorios =  
+    @relatorios = Relatorio.where(controller_acao: "VendasController::index")
     @relatorios = @relatorios.where("arquivo is not null").order("updated_at desc")
     @relatorios.limit(5).each do |rel| %>
       <div>
