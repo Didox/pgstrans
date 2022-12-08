@@ -19,6 +19,15 @@
       <dd><%= @provincium.image_map %></dd>
       <dt>País:</dt>
       <dd><%= @provincium.country.name_pt %></dd>
+      
+      <dt>Municipios da provincia:</dt>
+      <dd>
+        <ul>
+          <% @provincium.municipios.each do |municipio| %>
+            <li><%= municipio.nome %></li>
+          <% end %>
+        </ul>
+      </dd>
     </dl>
     <hr>
     <div class="col-md-12"

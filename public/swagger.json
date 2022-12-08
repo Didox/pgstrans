@@ -601,7 +601,7 @@
           "200": {
             "description": "Operação de sucesso",
             "schema": {
-              "$ref": "#/definitions/objs_simples"
+              "$ref": "#/definitions/municipios_campos"
             }
           },
           "401": {
@@ -1067,6 +1067,20 @@
         "updated_at": { "type": "string" }
       }
     },
+    "municipios_campos": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/municipio_campos"
+      }
+    },
+    "municipio_campos": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "provincia_id": { "type": "integer" }
+      }
+    },
     "provincias": {
       "type" : "array",
       "items" : {
@@ -1079,12 +1093,7 @@
         "id": { "type": "integer" },
         "nome": { "type": "string" },
         "capital": { "type": "string" },
-        "area_km2": { "type": "string" },
-        "population": { "type": "integer" },
-        "image_map": { "type": "string" },
-        "country_id": { "type": "integer" },
-        "created_at": { "type": "string" },
-        "updated_at": { "type": "string" }
+        "country_id": { "type": "integer" }
       }
     },
     "industries": {
@@ -1099,9 +1108,7 @@
         "id": { "type": "integer" },
         "descricao_seccao": { "type": "string" },
         "descricao_divisao": { "type": "string" },
-        "descricao_grupo": { "type": "string" },
-        "created_at": { "type": "string" },
-        "updated_at": { "type": "string" }
+        "descricao_grupo": { "type": "string" }
       }
     },
     "produto_dstv": {
