@@ -91,7 +91,7 @@ class PartnersController < ApplicationController
         flash[:error] = 'Defina o período para agendar o relatório de conciliação com data inicial de venda não superior a 120 dias'
       elsif params[:buscou].present?
         if params[:csv].present?
-          rel = Relatorio.create(controller_acao: "#{params[:controller].constantize}Controller::#{params[:action]}", partner_id: @partner.id, usuario_id: usuario_logado.id, parametros: params.to_json, categoria: params[:categoria]).envia_sqs
+          rel = Relatorio.create(controller_acao: "#{params[:controller].camelize}Controller::#{params[:action]}", partner_id: @partner.id, usuario_id: usuario_logado.id, parametros: params.to_json, categoria: params[:categoria]).envia_sqs
           flash[:notice] = "Agendamento do processamento do relatório realizado com sucesso."
           return redirect_to "/partners/#{@partner.id}/zap-conciliacao"
         end
