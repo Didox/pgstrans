@@ -98,19 +98,6 @@
               </select>
             </div>
           </div>
-        </div>        
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Município do Usuário</label>
-            <div>
-              <select name="municipio_id" onchange="pgstrans.carregaMunicipio(this)" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% Municipio.all.reorder(nome: :asc).each do |municipio| %>
-                  <option value="<%= municipio.id %>" <% if municipio.id.to_s == params[:municipio_id] %> selected="selected" <% end %> ><%= municipio.nome %></option>
-                <% end %>
-              </select>
-            </div>
-          </div>
         </div>
         <div class="col-sm-2">
           <div class="form-group">
@@ -120,6 +107,19 @@
                 <option value="" selected="'selected'">Todos</option>
                 <% Provincium.all.reorder(nome: :asc).each do |provincia| %>
                   <option value="<%= provincia.id %>" <% if provincia.id.to_s == params[:provincia_id] %> selected="selected" <% end %> ><%= provincia.nome %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+         <div class="col-sm-2">
+          <div class="form-group">
+            <label>Município do Usuário</label>
+            <div>
+              <select name="municipio_id" onchange="pgstrans.carregaMunicipio(this)" class="form-control">
+                <option value="" selected="'selected'">Todos</option>
+                <% Municipio.all.reorder(nome: :asc).each do |municipio| %>
+                  <option value="<%= municipio.id %>" <% if municipio.id.to_s == params[:municipio_id] %> selected="selected" <% end %> ><%= municipio.nome %></option>
                 <% end %>
               </select>
             </div>
