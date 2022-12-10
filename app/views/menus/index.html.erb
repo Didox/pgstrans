@@ -9,11 +9,16 @@
 
   <form action="" method="get" id="formApuracao">
     <% if @adm.id == Usuario::ROOT %>
-      <div class="col-sm-3">
+      <div class="col-md-3">
         <div class="form-group">
           <label>Nome da Seção</label>
           <div>
-            <input type="text" name="secao" value="<%= params[:secao] %>" class="form-control">
+            <select name="secao" class="form-control">
+              <option value="" selected="'selected'">Selecione</option>
+              <% Menu.select(:secao).reorder(:secao).distinct(:secao).pluck(:secao).each do |menu| %>
+                <option value="<%= menu %>" <% if menu == params[:secao] %> selected="selected" <% end %> ><%= menu %></option>
+              <% end %>
+            </select>
           </div>
         </div>
       </div>
