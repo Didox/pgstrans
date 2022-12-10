@@ -192,7 +192,8 @@ class PerfilUsuario < ApplicationRecord
       modal_informativos: "Modal Informativo",
       gestao_operacao: "Gestão da Operação",
       otp_key_africell_logs: "Acesso ao log de leitura e gravação da OTP KEY Africell",
-      painel_vendas: "Painel de Vendas"
+      painel_vendas: "Painel de Vendas",
+      pagaso_erro_codigos: "Códigos de ERRO Pagasó"
     }
     nomes[controller.to_sym]
   end

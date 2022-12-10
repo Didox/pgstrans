@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_07_183313) do
+ActiveRecord::Schema.define(version: 2022_12_10_003900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -344,6 +344,14 @@ ActiveRecord::Schema.define(version: 2022_12_07_183313) do
   create_table "otp_key_africell_logs", force: :cascade do |t|
     t.datetime "data"
     t.string "log"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pagaso_erro_codigos", force: :cascade do |t|
+    t.string "de"
+    t.string "para"
+    t.string "mensagem"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,0 +1,31 @@
+<div class="col-md-12 scroltable">
+	<div class="col-md-12">
+    <h3>Detalhe do Código de ERRO Pagasó</h3>
+  </div>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->  
+
+  <div class="col-md-12">
+    <dl class="dl-horizontal">
+      <dt>De:</dt>
+      <dd><%= @pagaso_erro_codigo.de %></dd>
+      <hr>
+      <dt>Para:</dt>
+      <dd><%= @pagaso_erro_codigo.para %></dd>
+      <hr>
+      <dt>Mensagem:</dt>
+      <dd><%= @pagaso_erro_codigo.mensagem %></dd>
+    </dl>
+    <div class="page-header">
+      <%= link_to pagaso_erro_codigos_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_pagaso_erro_codigo_path(@pagaso_erro_codigo), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>

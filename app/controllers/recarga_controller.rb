@@ -4,6 +4,41 @@ class RecargaController < ApplicationController
   def confirma_api
     confirma
   end
+
+  def confirma_api_v2
+    venda = Venda.fazer_venda(params, usuario_logado, params[:tipo_venda], request.ip)
+    if venda.sucesso?
+      render json: {
+        code: StatusApiV2.translate(venda.status),
+        message: venda.status_desc.error_description_pt,
+        sell_id: venda.id,
+        redirect: venda.partner_id == Partner.ende.id,
+        status: 200
+      }, status: 200
+    else
+      LogVenda.create(usuario_id: usuario_logado.id, titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{venda.status_desc.error_description_pt} - #{venda.status} - #{venda.response_get}")
+      
+      render json: {
+        code: StatusApiV2.translate(venda.status),
+        message: "#{venda.status_desc.error_description_pt} - #{venda.error_message}", 
+        sell_id: venda.id, 
+        redirect: venda.partner_id == Partner.ende.id,
+        status: 401
+        }, status: 401
+    end
+  rescue Exception => erro
+    LogVenda.create(usuario_id: usuario_logado.id,titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{erro.message} - #{erro.backtrace}")
+    mensagem = erro.message
+    mensagem = erro.message.to_s.split("-").first if Rails.env == "production" && (erro.message.to_s.split("-").length rescue 0) > 0
+    
+    render json: {
+      code: StatusApiV2.translate("503-ero-sistema"),
+      message: mensagem, 
+      sell_id: nil, 
+      redirect:false,
+      status: 400
+    }, status: 400
+  end
   
   def confirma
     venda = Venda.fazer_venda(params, usuario_logado, params[:tipo_venda], request.ip)

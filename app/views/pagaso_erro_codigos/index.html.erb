@@ -1,0 +1,89 @@
+<div class="col-md-12">
+	<div class="col-md-12">
+    <h3>Códigos de ERRO Pagasó</h3>
+  </div>
+  <br>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+  <br>
+
+  <div class="col-md-12">
+    <form action="" method="get" id="formApuracao">
+      <div class="row" style="padding:10px">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>DE</label>
+            <div>
+              <input type="text" name="de" value="<%= params[:de] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>PARA</label>
+            <div>
+              <input type="text" name="para" value="<%= params[:para] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Mensagem</label>
+            <div>
+              <input type="text" name="mensagem" value="<%= params[:mensagem] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <div style="float: right;margin-right:10px">
+            <input type="submit" value="Buscar" class="btn btn-info">
+            <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+              <span class="glyphicon glyphicon-list-alt"></span>
+              Voltar
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>  
+  <div class="col-md-12">
+    <table class="table table-hover">
+    <thead>
+      <tr>
+      <th scope="col" style="width: 25%">De</th>
+      <th scope="col" style="width: 25%">Para</th>
+      <th scope="col" style="width: 50%">Mensagem</th>
+      <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @pagaso_erro_codigos.each do |pagaso_erro_codigo| %>
+      <tr>
+      <td><%= pagaso_erro_codigo.de %></td>
+      <td><%= pagaso_erro_codigo.para %></td>
+      <td><%= pagaso_erro_codigo.mensagem %></td>
+      <td><%= link_to 'Mostrar', pagaso_erro_codigo %></td>
+      <td><%= link_to 'Editar', edit_pagaso_erro_codigo_path(pagaso_erro_codigo) %></td>
+      <td><%= link_to 'Apagar', pagaso_erro_codigo, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="apple_pagination">
+    <%= will_paginate @pagaso_erro_codigos, :container => false %>
+  </div> 
+
+  <%= link_to new_pagaso_erro_codigo_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    Novo Registo
+  <% end %>    
+  <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Voltar
+  <% end %>
+</div>
