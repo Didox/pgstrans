@@ -84,6 +84,7 @@ class PerfilUsuario < ApplicationRecord
       atualiza_africell_login: "Executa transação de atualização de OTP Key Africell",
       confirma: "Efectuar recarga, fazer pagamento e outras transações disponíveis na operadora",
       confirma_api: "Efectuar recarga, fazer pagamento e outras transações disponíveis na operadora pela interface da API",
+      confirma_api_v2: "Efectuar recarga, fazer pagamento e outras transações disponíveis na operadora pela interface da API V2",
       usuarios: "Usuários",
       apaga_acesso_usuario: "Apaga grupo de acesso de usuário",
       cria_acesso_usuario: "Cria grupo de acesso de usuário",

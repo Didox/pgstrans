@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_10_003900) do
+ActiveRecord::Schema.define(version: 2022_12_12_171857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -535,6 +535,7 @@ ActiveRecord::Schema.define(version: 2022_12_10_003900) do
     t.datetime "updated_at", null: false
     t.bigint "partner_id"
     t.boolean "sucesso"
+    t.string "codigo_erro_pagaso"
     t.index ["partner_id"], name: "index_return_code_apis_on_partner_id"
   end
 

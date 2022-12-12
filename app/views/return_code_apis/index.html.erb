@@ -65,6 +65,7 @@
       <thead>
         <tr>
           <th scope="col">Código de Retorno</th>
+          <th scope="col">Código de Erro Pagaso</th>
           <th scope="col">Descrição do Retorno</th>
           <th scope="col">Descrição do Erro no Idioma Original</th>
           <th scope="col">Descrição do Erro em Português</th>
@@ -77,6 +78,7 @@
         <% @return_code_apis.each do |return_code_api| %>
           <tr>
             <td><%= return_code_api.return_code %></td>
+            <td><%= return_code_api.codigo_erro_pagaso %></td>
             <td><%= return_code_api.return_description %></td>
             <td><%= return_code_api.error_description %></td>
             <td><%= return_code_api.error_description_pt %></td>
