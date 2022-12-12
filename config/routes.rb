@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :pagaso_erro_codigos
   get 'painel_vendas/painel'
   get 'painel_vendas/index'
   resources :otp_key_africell_logs

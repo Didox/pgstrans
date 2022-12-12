@@ -1,2 +1,0 @@
-module PagasoErroCodigosHelper
-end
