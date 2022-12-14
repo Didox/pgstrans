@@ -596,7 +596,26 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [],
+        "parameters": [
+            {
+              "name": "nome",
+              "description": "Nome do município",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "provincia_id",
+              "description": "Identificador da província",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "page",
+              "description": "Número da página da consulta",
+              "required": false,
+              "type": "integer"
+            }
+        ],
         "responses": {
           "200": {
             "description": "Operação de sucesso",
