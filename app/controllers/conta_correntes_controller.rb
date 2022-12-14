@@ -144,7 +144,11 @@ class ContaCorrentesController < ApplicationController
     @conta_correntes = @conta_correntes.where("conta_correntes.id = ?", params[:conta_corrente_id]) if params[:conta_corrente_id].present?
 
     @conta_correntes = @conta_correntes.reorder("id asc")
-    @primeira_entrada_id = @conta_correntes.first.id
+    if @conta_correntes.count > 0
+      @primeira_entrada_id = @conta_correntes.first.id
+    else
+      @primeira_entrada_id = 0
+    end
     paginas = 50
     paginas = params[:quantidade_registros].to_i if params[:quantidade_registros].present?
     options = {page: params[:page] || 1, per_page: paginas}

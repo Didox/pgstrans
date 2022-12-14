@@ -225,7 +225,11 @@ class VendasController < ApplicationController
         @vendas = @vendas.where("vendas.categoria = ?", params[:categoria]) if params[:categoria].present?
       end
       @vendas = @vendas.where("vendas.product_id = ?", params[:produto_id]) if params[:produto_id].present?
-      @vendas = @vendas.where("vendas.produto_id_parceiro = ?", params[:produto_id_parceiro]) if params[:produto_id_parceiro].present?
+
+      if params[:perfil_usuario_id].present?
+        @vendas = @vendas.where("usuarios.perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?
+      end
+
       @vendas = @vendas.where("vendas.usuario_id = ?", params[:id_interno]) if params[:id_interno].present?
       @vendas = @vendas.where("vendas.lancamento_id = ?", params[:lancamento_id]) if params[:lancamento_id].present?
 
