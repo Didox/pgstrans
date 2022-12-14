@@ -14,7 +14,15 @@ class ApplicationController < ActionController::Base
         @adm = nil
 
         if request.path_parameters[:format] == 'json'
-          render json: {mensagem: "Área restrita. Digite o login e palavra-passe para entrar."}, status: 401
+          if params[:action].include?("v2")
+            render json: {
+              code: 1222,
+              message: "Área restrita. Digite o login e palavra-passe para entrar."
+              status: 401
+            }, status: 401
+          else
+            render json: {mensagem: "Área restrita. Digite o login e palavra-passe para entrar."}, status: 401
+          end
           return
         end
 
@@ -56,7 +64,15 @@ class ApplicationController < ActionController::Base
           flash[:error] = "Área restrita. Digite o login e palavra-passe para entrar."
 
           if request.path_parameters[:format] == 'json'
-            render json: {mensagem: "Área restrita. Digite o login e palavra-passe para entrar."}, status: 401
+            if params[:action].include?("v2")
+              render json: {
+              code: 1222,
+              message: "Área restrita. Digite o login e palavra-passe para entrar."
+              status: 401
+            }, status: 401
+            else
+              render json: {mensagem: "Área restrita. Digite o login e palavra-passe para entrar."}, status: 401
+            end
             return
           end
 
