@@ -6,6 +6,7 @@ class ReturnCodeApisController < ApplicationController
   def index
     @return_code_apis = ReturnCodeApi.com_acesso(usuario_logado).order(partner_id: :asc, return_code: :asc)  
 
+    @return_code_apis = @return_code_apis.where("codigo_erro_pagaso ilike '%#{params[:codigo_erro_pagaso].remove_injection}%'") if params[:codigo_erro_pagaso].present?
     @return_code_apis = @return_code_apis.where("return_code ilike '%#{params[:return_code].remove_injection}%'") if params[:return_code].present?
     @return_code_apis = @return_code_apis.where("return_description ilike '%#{params[:return_description].remove_injection}%'") if params[:return_description].present?
     @return_code_apis = @return_code_apis.where("error_description_pt ilike '%#{params[:error_description_pt].remove_injection}%'") if params[:error_description_pt].present?
