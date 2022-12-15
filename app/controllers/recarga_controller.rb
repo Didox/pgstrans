@@ -32,17 +32,17 @@ class RecargaController < ApplicationController
     mensagem = erro.message.to_s.split("-").first if Rails.env == "production" && (erro.message.to_s.split("-").length rescue 0) > 0
 
     code = "PGS_ERRO_RECARGA_0001"
-    mensagem_tratada = "Erro de sistema. Entre em contato com o Administrador"
+    #mensagem_tratada = "Erro de sistema. Entre em contato com o Administrador"
 
     if mensagem.downcase.include?("timeout")
       code = "PGS_ERRO_TIMEOUT_RECARGA_0002" 
-      mensagem_tratada = "Timeout. Sem resposta da operadora."
+      #mensagem_tratada = "Timeout. Sem resposta da operadora."
     end
 
     Rails.logger.info(mensagem)
     render json: {
       code: code,
-      message: mensagem_tratada, 
+      message: mensagem, 
       sell_id: nil, 
       redirect:false,
       status: 400

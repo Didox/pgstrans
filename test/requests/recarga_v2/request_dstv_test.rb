@@ -33,7 +33,10 @@ class RequestTestDstv < ActiveSupport::TestCase
             }
         })
 
+        debugger
+        
         assert_equal 200, res.code
+
 
         # conteudo = res.parsed_response
 
