@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Códigos de Retorno das APIs</h3>
+    <h3>Códigos de Retorno das APIs Parceiros</h3>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -8,6 +8,14 @@
 
   <div class="col-md-12">
     <form action="" method="get" id="formApuracao">
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label>Código de Erro Pagasó</label>
+          <div>
+            <input type="text" name="codigo_erro_pagaso" value="<%= params[:codigo_erro_pagaso] %>" class="form-control">
+          </div>
+        </div>
+      </div>
       <div class="col-sm-2">
         <div class="form-group">
           <label>Código de Retorno</label>
@@ -24,7 +32,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="form-group">
           <label>Descrição do Erro em Português</label>
           <div>
@@ -32,7 +40,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group">
           <label>Parceiro</label>
           <div>
@@ -64,6 +72,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
+          <th scope="col">Código de Erro Pagasó</th>
           <th scope="col">Código de Retorno</th>
           <th scope="col">Descrição do Retorno</th>
           <th scope="col">Descrição do Erro no Idioma Original</th>
@@ -76,6 +85,7 @@
       <tbody>
         <% @return_code_apis.each do |return_code_api| %>
           <tr>
+            <td><%= return_code_api.codigo_erro_pagaso %></td>
             <td><%= return_code_api.return_code %></td>
             <td><%= return_code_api.return_description %></td>
             <td><%= return_code_api.error_description %></td>

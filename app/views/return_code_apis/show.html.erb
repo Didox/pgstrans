@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-	  <h3>Mostra Códigos de Retorno APIs</h3>
+	  <h3>Mostra Códigos de Retorno APIs Parceiros</h3>
 	</div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -8,19 +8,22 @@
 
 	<div class="col-md-12">
 		<p>
-		  <strong>Return code:</strong>
+		  <strong>Código de Erro Pagasó:</strong>
+		  <%= @return_code_api.codigo_erro_pagaso %>
+		</p>		<p>
+		  <strong>Return code Parceiro:</strong>
 		  <%= @return_code_api.return_code %>
 		</p>
 		<p>
-		  <strong>Return description:</strong>
+		  <strong>Descrição do Retorno:</strong>
 		  <%= @return_code_api.return_description %>
 		</p>
 		<p>
-		  <strong>Error description:</strong>
+		  <strong>Descrição do Erro:</strong>
 		  <%= @return_code_api.error_description %>
 		</p>
 		<p>
-		  <strong>Error description pt:</strong>
+		  <strong>Descrição do Erro em Português:</strong>
 		  <%= @return_code_api.error_description_pt %>
 		</p>
 		<p>
