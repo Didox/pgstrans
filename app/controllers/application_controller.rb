@@ -16,8 +16,8 @@ class ApplicationController < ActionController::Base
         if request.path_parameters[:format] == 'json'
           if params[:action].include?("v2")
             render json: {
-              code: 1222,
-              message: "Área restrita. Digite o login e palavra-passe para entrar."
+              code: "PGS_SYS_0070",
+              message: "Área restrita. Digite o login e palavra-passe para entrar.",
               status: 401
             }, status: 401
           else
@@ -66,8 +66,8 @@ class ApplicationController < ActionController::Base
           if request.path_parameters[:format] == 'json'
             if params[:action].include?("v2")
               render json: {
-              code: 1222,
-              message: "Área restrita. Digite o login e palavra-passe para entrar."
+              code: "PGS_SYS_0070",
+              message: "Área restrita. Digite o login e palavra-passe para entrar.",
               status: 401
             }, status: 401
             else

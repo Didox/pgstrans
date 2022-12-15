@@ -15,7 +15,7 @@ class RequestTestDstv < ActiveSupport::TestCase
         puts "=========[#{conteudo}]==============="
 
         assert_equal conteudo["message"], "Área restrita. Digite o login e palavra-passe para entrar." 
-        assert_equal conteudo["code"],  1222
+        assert_equal conteudo["code"],  "PGS_SYS_0070"
         assert_equal conteudo["status"],  401
     end
 
