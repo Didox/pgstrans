@@ -211,7 +211,7 @@
             </div>
           </div>
         </div>
-        <% if @adm.id == Usuario::ROOT %>
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
           <div class="col-sm-2">
             <div class="form-group">
               <label>Perfil do Usuário</label>
