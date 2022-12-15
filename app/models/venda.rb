@@ -101,9 +101,22 @@ class Venda < ApplicationRecord
   end
 
   def status_desc
-    ReturnCodeApi.where(return_code: self.status, partner_id: self.partner_id).first || ReturnCodeApi.new(error_description_pt: "Status não localizado ou sem resposta da operadora")
-  rescue
-    ReturnCodeApi.new(error_description_pt: "Status não localizado ou sem resposta da operadora")
+    if self.status.present?
+      return_code = ReturnCodeApi.where(return_code: self.status, partner_id: self.partner_id).first 
+      return return_code if return_code.present?
+    end
+    
+    if self.message_api_terceiro.present?
+      return_code = ReturnCodeApi.where("error_description ilike ?", "%#{self.message_api_terceiro_para_busca}%").where(partner_id: self.partner_id).first 
+      return return_code if return_code.present?
+    end
+
+    mensagem = "Status não localizado ou sem resposta da operadora"
+    mensagem = self.message_api_terceiro if self.message_api_terceiro.present?
+
+    return ReturnCodeApi.new(error_description_pt: mensagem)
+  rescue Exception => erro
+    return ReturnCodeApi.new(error_description_pt: erro.message)
   end
 
   def self.total(usuario_logado, vendas_filtrada=nil)
@@ -1136,6 +1149,14 @@ class Venda < ApplicationRecord
     end
 
     return venda
+  end
+
+  def message_api_terceiro
+    self.response_get.to_s.gsub("\n", "").downcase.scan(/faultstring.*?<\/faultstring/).first.scan(/>.*?</).first.gsub(/<|>/, "") rescue ""
+  end
+
+  def message_api_terceiro_para_busca
+    self.message_api_terceiro.strip.gsub(/:.*/, "") rescue ""
   end
 
   def self.venda_unitel(params, usuario, ip)

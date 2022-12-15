@@ -1,1 +1,1 @@
-json.extract! provincium, :id, :nome, :capital, :country_id
+json.extract! provincium, :id, :nome

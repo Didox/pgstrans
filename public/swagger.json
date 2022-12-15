@@ -2,9 +2,9 @@
   "swagger": "2.0",
   "info": {
     "description": "A plataforma Pagasó prevê a resposta a requisições no formato JSON, um formato compacto, de padrão aberto independente, para a troca de dados entre sistemas. Esta é a documentação da Pagasó API.",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "title": "Pagasó API",
-    "termsOfService": "https://www.pagaso.co.ao/pages/policies?locale=pt",
+    "termsOfService": "",
     "contact": {
       "email": "rosi.volgarin@tiv-tecnologia.com"
     }
@@ -17,15 +17,19 @@
     },
     {
       "name": "Recarga",
-      "description": "Compras de recarga"
+      "description": "Compra de Recarga"
+    },
+    {
+      "name": "Recarga v2",
+      "description": "Compra de Recarga - Com Códigos de Erro Pagasó"
     },
     {
       "name": "ContaCorrente",
-      "description": "Extrato de conta corrente"
+      "description": "Extrato de Conta Corrente"
     },
     {
       "name": "AlegacaoPagamento",
-      "description": "Informar depósitos para a Pagasó"
+      "description": "Informar depósitos feitos para a Pagasó"
     }
   ],
   "schemes": [
@@ -53,7 +57,7 @@
             "name": "produto_id",
             "description": "ID do produto",
             "required": true,
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "valor",
@@ -84,6 +88,57 @@
         }
       }
     },
+    "/api/v2/recarga/confirma/dstv.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "transacao_smartcard",
+            "description": "Se envio de transação é smartcard selecionar true, se for customer number, selectionar false",
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "dstv_number",
+            "description": "DSTV customer number ou smartcard, caso seja uma recarga da DSTV, o fator decisório para smartcard ou customer number é o parâmetro transacao_smartcard",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
+            }
+          }
+        }
+      }
+    },
     "/api/recarga/confirma/unitel.json": {
       "post": {
         "tags": [
@@ -98,7 +153,7 @@
             "name": "produto_id",
             "description": "ID do produto",
             "required": true,
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "valor",
@@ -108,7 +163,7 @@
           },
           {
             "name": "unitel_telefone",
-            "description": "Unitel Telefone, caso seja uma recarga da Unitel",
+            "description": "Telemóvel Unitel que receberá a recarga",
             "required": true,
             "type": "string"
           }
@@ -124,6 +179,51 @@
             "description": "Ação não autorizada",
             "schema": {
               "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/recarga/confirma/unitel.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "unitel_telefone",
+            "description": "Telemóvel Unitel que receberá a recarga",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
             }
           }
         }
@@ -143,7 +243,7 @@
             "name": "produto_id",
             "description": "ID do produto",
             "required": true,
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "valor",
@@ -153,7 +253,7 @@
           },
           {
             "name": "movicel_telefone",
-            "description": "Telefone recarga, caso seja uma recarga da Movicel",
+            "description": "Telemóvel Movicel que receberá a recarga",
             "required": true,
             "type": "string"
           }
@@ -169,6 +269,51 @@
             "description": "Ação não autorizada",
             "schema": {
               "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/recarga/confirma/movicel.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "movicel_telefone",
+            "description": "Telemóvel Movicel que receberá a recarga",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
             }
           }
         }
@@ -188,7 +333,7 @@
             "name": "produto_id",
             "description": "ID do produto",
             "required": true,
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "valor",
@@ -198,7 +343,7 @@
           },
           {
             "name": "zaptv_cartao",
-            "description": "ZAP Cartão, caso seja uma recarga da ZAP",
+            "description": "ZAP Cartão para TV ou Wifi",
             "required": true,
             "type": "string"
           }
@@ -214,6 +359,51 @@
             "description": "Ação não autorizada",
             "schema": {
               "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/recarga/confirma/zaptv.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "zaptv_cartao",
+            "description": "ZAP Cartão para TV ou Wifi",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
             }
           }
         }
@@ -233,7 +423,7 @@
             "name": "produto_id",
             "description": "ID do produto",
             "required": true,
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "valor",
@@ -243,7 +433,7 @@
           },
           {
             "name": "zaptv_cartao",
-            "description": "Número do Cartão ZAP que receberá a recarga",
+            "description": "Número do Cartão/Cliente ZAP que receberá a recarga (ZAP FIBRA)",
             "required": true,
             "type": "string"
           }
@@ -264,6 +454,51 @@
         }
       }
     },
+    "/api/v2/recarga/confirma/zapfibra.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "zaptv_cartao",
+            "description": "Número do Cartão/Cliente ZAP que receberá a recarga (ZAP FIBRA)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
+            }
+          }
+        }
+      }
+    },
     "/api/recarga/confirma/ende.json": {
       "post": {
         "tags": [
@@ -278,7 +513,7 @@
             "name": "produto_id",
             "description": "ID do produto",
             "required": true,
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "valor",
@@ -321,6 +556,63 @@
         }
       }
     },
+    "/api/v2/recarga/confirma/ende.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "meter_number",
+            "description": "Número do Medidor",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "talao_sms_ende",
+            "description": "Número SMS para envio do token de recarga",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "description": "E-mail para envio do token de recarga",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
+            }
+          }
+        }
+      }
+    },
     "/api/recarga/confirma/africell.json": {
       "post": {
         "tags": [
@@ -335,7 +627,7 @@
             "name": "produto_id",
             "description": "ID do produto Africell conforme tabela de produtos",
             "required": true,
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "valor",
@@ -361,6 +653,51 @@
             "description": "Ação não autorizada",
             "schema": {
               "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/recarga/confirma/africell.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto Africell conforme tabela de produtos",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "target_msisdn",
+            "description": "Número telemóvel Africell que receberá a recarga",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
             }
           }
         }
@@ -587,220 +924,6 @@
         }
       }
     },
-    "/api/municipios.json": {
-      "get": {
-        "tags": [
-          "Usuarios"
-        ],
-        "description": "Municípios para cadastro de usuários",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Operação de sucesso",
-            "schema": {
-              "$ref": "#/definitions/municipios_campos"
-            }
-          },
-          "401": {
-            "description": "Ação não autorizada",
-            "schema": {
-              "$ref": "#/definitions/falha"
-            }
-          }
-        }
-      }
-    },
-    "/api/provincias.json": {
-      "get": {
-        "tags": [
-          "Usuarios"
-        ],
-        "description": "Províncias para cadastro de usuários",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Operação de sucesso",
-            "schema": {
-              "$ref": "#/definitions/provincias"
-            }
-          },
-          "401": {
-            "description": "Ação não autorizada",
-            "schema": {
-              "$ref": "#/definitions/falha"
-            }
-          }
-        }
-      }
-    },
-    "/api/industries.json": {
-      "get": {
-        "tags": [
-          "Usuarios"
-        ],
-        "description": "Municípios para cadastro de usuários",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Operação de sucesso",
-            "schema": {
-              "$ref": "#/definitions/industries"
-            }
-          },
-          "401": {
-            "description": "Ação não autorizada",
-            "schema": {
-              "$ref": "#/definitions/falha"
-            }
-          }
-        }
-      }
-    },
-    "/api/usuarios.json": {
-      "post": {
-        "tags": [
-          "Usuarios"
-        ],
-        "description": "Cadastro de novo usuário",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "nome",
-            "description": "Nome do usuário",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "email",
-            "description": "E-mail para login",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "senha",
-            "description": "Senha para login",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "sub_agente_id",
-            "description": "Id do subagente",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "status_cliente_id",
-            "description": "Id do status do cliente",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "morada",
-            "description": "morada",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "bairro",
-            "description": "bairro",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "municipio_id",
-            "description": "municipio_id",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "provincia_id",
-            "description": "provincia_id",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "industry_id",
-            "description": "industry_id",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "uni_pessoal_empresa_id",
-            "description": "uni_pessoal_empresa_id",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "data_adesao",
-            "description": "data_adesao",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "telefone",
-            "description": "telefone",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "whatsapp",
-            "description": "whatsapp",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Operação de sucesso",
-            "schema": {
-              "$ref": "#/definitions/usuario_create"
-            }
-          },
-          "401": {
-            "description": "Ação não autorizada",
-            "schema": {
-              "$ref": "#/definitions/falha_usuario"
-            }
-          }
-        }
-      }
-    },
-    "/api/usuarios/{id}.json": {
-      "get": {
-        "tags": [
-          "Usuarios"
-        ],
-        "description": "Mostra de novo usuário",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Operação de sucesso",
-            "schema": {
-              "$ref": "#/definitions/usuario_create"
-            }
-          },
-          "401": {
-            "description": "Ação não autorizada",
-            "schema": {
-              "$ref": "#/definitions/falha_usuario"
-            }
-          }
-        }
-      }
-    },
     "api/alegacao_de_pagamentos/criar.json": {
       "post": {
         "tags": [
@@ -839,7 +962,7 @@
             "name": "banco_id",
             "description": "Banco no qual o depósito foi efetuado, adotando os seguintes códigos: </br> 2-Banco Angolano de Investimentos, S.A. </br>4-Banco BIC, S.A. </br>  5-Banco Caixa Geral Angola, S.A. </br> 11-Banco de Fomento de Angola, S.A. </br> 16-Banco Económico </br> 17-Banco Sol S.A. </br> 18-Banco Atlantico </br> 19-Banco Keve",
             "required": true,
-            "type": "string"
+            "type": "integer"
           },
           {
             "name": "comprovativo",
@@ -958,6 +1081,14 @@
         "status": { "type": "string" }
       }
     },
+    "falha_v2": {
+      "type": "object",
+      "properties": {
+        "message": { "type": "string" },
+        "code": { "type": "string" },
+        "status": { "type": "integer" }
+      }
+    },
     "falha_usuario": {
       "type": "object",
       "properties": {
@@ -988,11 +1119,11 @@
       "type": "object",
       "properties": {
         "id": { "type": "number" },
-        "usuario_id": { "type": "number" },
+        "usuario_id": { "type": "integer" },
         "valor_deposito": { "type": "number" },
         "data_deposito": { "type": "string" },
         "numero_talao": { "type": "string" },
-        "banco_id": { "type": "number" },
+        "banco_id": { "type": "integer" },
         "comprovativo": { "type": "string" },
         "created_at": { "type": "string" }
       }
@@ -1000,7 +1131,7 @@
     "conta_corrente": {
       "type": "object",
       "properties": {
-        "usuario_id": { "type": "string" },
+        "usuario_id": { "type": "integer" },
         "banco_nome": { "type": "string" },
         "valor": { "type": "number" },
         "iban": { "type": "string" },
@@ -1091,9 +1222,7 @@
       "type": "object",
       "properties": {
         "id": { "type": "integer" },
-        "nome": { "type": "string" },
-        "capital": { "type": "string" },
-        "country_id": { "type": "integer" }
+        "nome": { "type": "string" }
       }
     },
     "industries": {
