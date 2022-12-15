@@ -102,12 +102,16 @@ class Venda < ApplicationRecord
 
   def status_desc
     if self.status.present?
-      return ReturnCodeApi.where(return_code: self.status, partner_id: self.partner_id).first 
-    elsif self.message_api_terceiro.present?
-      return ReturnCodeApi.where(return_description: self.message_api_terceiro, partner_id: self.partner_id).first 
-    else
-      return ReturnCodeApi.new(error_description_pt: "Status não localizado ou sem resposta da operadora")
+      return_code = ReturnCodeApi.where(return_code: self.status, partner_id: self.partner_id).first 
+      return return_code if return_code.present?
     end
+    
+    if self.message_api_terceiro.present?
+      return_code = ReturnCodeApi.where(return_description: self.message_api_terceiro, partner_id: self.partner_id).first 
+      return return_code if return_code.present?
+    end
+    
+    return ReturnCodeApi.new(error_description_pt: "Status não localizado ou sem resposta da operadora")
   rescue
     return ReturnCodeApi.new(error_description_pt: "Status não localizado ou sem resposta da operadora")
   end
