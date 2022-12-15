@@ -17,15 +17,19 @@
     },
     {
       "name": "Recarga",
-      "description": "Compras de recarga"
+      "description": "Compra de Recarga"
+    },
+    {
+      "name": "Recarga v2",
+      "description": "Compra de Recarga - Com Códigos de Erro Pagasó"
     },
     {
       "name": "ContaCorrente",
-      "description": "Extrato de conta corrente"
+      "description": "Extrato de Conta Corrente"
     },
     {
       "name": "AlegacaoPagamento",
-      "description": "Informar depósitos para a Pagasó"
+      "description": "Informar depósitos feitos para a Pagasó"
     }
   ],
   "schemes": [
