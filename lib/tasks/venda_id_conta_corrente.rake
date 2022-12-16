@@ -1,17 +1,5 @@
-return_code = ReturnCodeApi..where("error_description ilike ?", "%#{mensagem}%").where(partner_id: self.partner_id).first 
-if return_code.present?
-  return return_code if return_code.present?
-end
-
-
-
-ReturnCodeApi.where(return_code: venda.status, sucesso: true, partner_id: venda.partner_id).count > 0
-
-
-
-
-fazer uma rake que busca todas as vendas que não tem registro em conta corrente
-se a venda foi sucesso rodar o codigo abaixo
+#fazer uma rake que busca todas as vendas que não tem registro em conta corrente
+#se a venda foi sucesso rodar o codigo abaixo
 Venda.where("created_at > ?", Time.zone.now - 3.months).each do |venda| 
   if ContaCorrente.where(venda_id: venda.id).count == 0
     if venda.sucesso?
