@@ -384,6 +384,8 @@ class Venda < ApplicationRecord
         banco = cc.banco
       end
 
+      banco = Banco.first if banco.blank?
+
       lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first
       lancamento = Lancamento.first if lancamento.blank?
 
@@ -920,6 +922,8 @@ class Venda < ApplicationRecord
               banco = cc.banco
             end
 
+            banco = Banco.first if banco.blank?
+
             lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first
             lancamento = Lancamento.first if lancamento.blank?
 
@@ -985,13 +989,10 @@ class Venda < ApplicationRecord
 
   def status_dstv
     return if self.partner.name.downcase != "dstv"
-    
-    #TODO fazer
     return 0
   end
 
   def self.venda_dstv(params, usuario, ip)
-    # TODO confirmar se este código é utilizado com o xml do soap
     parceiro = Partner.dstv
     valor = params[:valor].to_i
     parametro = Parametro.where(partner_id: parceiro.id).first
@@ -1332,6 +1333,8 @@ class Venda < ApplicationRecord
         iban = cc.iban
         banco = cc.banco
       end
+
+      banco = Banco.first if banco.blank?
 
       lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first
       lancamento = Lancamento.first if lancamento.blank?
