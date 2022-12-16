@@ -27,16 +27,16 @@ class RecargaController < ApplicationController
         }, status: 401
     end
   rescue Exception => erro
-    LogVenda.create(usuario_id: usuario_logado.id,titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{erro.message} - #{erro.backtrace}")
-    mensagem = erro.message
-    mensagem = erro.message.to_s.split("-").first if Rails.env == "production" && (erro.message.to_s.split("-").length rescue 0) > 0
+    mensagem = mensagem_dos_parametros_com_erro(erro)
 
     code = "PGS_ERRO_RECARGA_0001"
-    #mensagem_tratada = "Erro de sistema. Entre em contato com o Administrador"
+    code = "PGS_ERRO_TIMEOUT_0001" if mensagem.downcase.include?("timeout")
 
-    if mensagem.downcase.include?("timeout")
-      code = "PGS_ERRO_TIMEOUT_RECARGA_0002" 
-      #mensagem_tratada = "Timeout. Sem resposta da operadora."
+    return_code = busca_return_code_params(mensagem)
+
+    if return_code.present?
+      code = return_code.codigo_erro_pagaso
+      mensagem = return_code.error_description_pt
     end
 
     Rails.logger.info(mensagem)
@@ -58,9 +58,27 @@ class RecargaController < ApplicationController
       render json: {mensagem: "#{venda.status_desc.error_description_pt} - #{venda.error_message}", status: venda.status, venda_id: venda.id, sucesso: false, redirect: venda.partner_id == Partner.ende.id}, status: 401
     end
   rescue Exception => erro
+    mensagem = mensagem_dos_parametros_com_erro(erro)
+    return_code = busca_return_code_params(mensagem)
+    mensagem = return_code.error_description_pt if return_code.present?
+    render json: {mensagem: mensagem, status:401, sucesso: false}, status: 401
+  end
+
+  private
+  def busca_return_code_params(mensagem)
+    if params[:produto_id].present?
+      produto = Produto.find(params[:produto_id]) rescue nil
+      parceiro_id = produto&.partner_id
+    end
+
+    mensagem_busca = mensagem.split("-").first.to_s.strip rescue mensagem
+    ReturnCodeApi.where("error_description ilike ?", "%#{mensagem_busca}%").where(partner_id: parceiro_id).first 
+  end
+
+  def mensagem_dos_parametros_com_erro(erro)
     LogVenda.create(usuario_id: usuario_logado.id,titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{erro.message} - #{erro.backtrace}")
     mensagem = erro.message
     mensagem = erro.message.to_s.split("-").first if Rails.env == "production" && (erro.message.to_s.split("-").length rescue 0) > 0
-    render json: {mensagem: mensagem, status:401, sucesso: false}, status: 401
+    mensagem
   end
 end
