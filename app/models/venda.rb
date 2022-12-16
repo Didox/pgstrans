@@ -112,6 +112,12 @@ class Venda < ApplicationRecord
     end
 
     mensagem = "Status não localizado ou sem resposta da operadora"
+
+    return_code = ReturnCodeApi.where("error_description ilike ?", "%#{mensagem}%").where(partner_id: self.partner_id).first 
+    if return_code.present?
+      return return_code if return_code.present?
+    end
+
     mensagem = self.message_api_terceiro if self.message_api_terceiro.present?
 
     return ReturnCodeApi.new(error_description_pt: mensagem)
