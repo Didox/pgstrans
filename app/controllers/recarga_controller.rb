@@ -29,6 +29,7 @@ class RecargaController < ApplicationController
         }, status: 401
     end
   rescue Exception => erro
+    
     mensagem = mensagem_dos_parametros_com_erro(erro)
     mensagem_original = mensagem
 
