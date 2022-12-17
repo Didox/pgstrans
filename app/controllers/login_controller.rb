@@ -1,6 +1,6 @@
 class LoginController < ApplicationController
   layout = "login"
-  skip_before_action :verify_authenticity_token, only: [:autentica, :autentica_api, :mudar_senha, :password_esquecida, :recuperar_password_esquecida]
+  skip_before_action :verify_authenticity_token, only: [:autentica, :autentica_api, :autentica_api_v2, :mudar_senha, :password_esquecida, :recuperar_password_esquecida]
   skip_before_action :validate_login
 
   def index;end
@@ -55,42 +55,46 @@ class LoginController < ApplicationController
     #end
   end
 
-  def autentica_api
-    if params[:email].present? && params[:senha].present?
-      senha = Digest::SHA1.hexdigest(params[:senha])
-      usuarios = Usuario.ativo.where("email = ? or login = ?", params[:email], params[:email]).where(senha: senha, status_cliente_id: StatusCliente.where("lower(nome) = 'ativo'"))
-      if usuarios.count > 0
-        usuario = usuarios.first
-        Usuario.where(id: usuario.id).update_all(logado: true)
+  def autentica_api_v2
+    autentica_apis(false)
+  rescue Exception => erro
 
-        if usuario.senha_padrao?
-          require 'securerandom'
-          token = SecureRandom.uuid
-          TokenUsuarioSenha.where(usuario_id: usuario.id).destroy_all
-          TokenUsuarioSenha.create(usuario_id: usuario.id, token: token)
+    mensagem = erro.message
+    mensagem_original = mensagem
+    code = "PGS_ERRO_LOGIN_0001"
 
-          return render json: {
-            mensagem: "Sua senha padrão precisa ser alterada, acesse o path '/alterar-senha?token=#{token}' e faça a modificação", 
-            status:401
-          }, status: 401
-        end
+    return_code = ReturnCodeApi.where("error_description ilike ?", "%#{mensagem}%").first
 
-        UsuarioAcesso.create(usuario: usuario, mac_adress: request.ip)
-
-        payload = {
-          id: usuario.id,
-          nome: usuario.nome,
-          updated_at: usuario.updated_at,
-          senha: usuario.senha
-        }
-
-        payload[:token] = JWT.encode(payload, SECRET_JWT, 'HS256')
-        return render json: payload, status: 401
-      end
+    if return_code.present?
+      mensagem = return_code.error_description_pt 
+      mensagem_original = return_code.error_description
+      code = return_code.codigo_erro_pagaso
     end
 
     return render json: {
-      mensagem: "E-mail ou palavra-passe inválidos' e faça a modificação", 
+      code: code,
+      message: mensagem,
+      original_message: mensagem_original,
+      status:401
+    }, status: 401
+  end
+
+  def autentica_api
+    autentica_apis
+  rescue Exception => erro
+    mensagem = erro.message
+    mensagem_original = mensagem
+
+    return_code = ReturnCodeApi.where("error_description ilike ?", "%#{mensagem}%").first
+
+    if return_code.present?
+      mensagem = return_code.error_description_pt 
+      mensagem_original = return_code.error_description
+    end
+
+    return render json: {
+      mensagem: mensagem, 
+      original_mensagem: mensagem_original, 
       status:401
     }, status: 401
   end
@@ -196,6 +200,42 @@ class LoginController < ApplicationController
 
     UsuarioAcesso.create(usuario: usuario, mac_adress: request.ip)
     redirect_to root_path
+  end
+
+  private
+
+  def autentica_apis(v1 = true)
+    if params[:email].present? && params[:senha].present?
+      senha = Digest::SHA1.hexdigest(params[:senha])
+      usuarios = Usuario.ativo.where("email = ? or login = ?", params[:email], params[:email]).where(senha: senha, status_cliente_id: StatusCliente.where("lower(nome) = 'ativo'"))
+      if usuarios.count > 0
+        usuario = usuarios.first
+        Usuario.where(id: usuario.id).update_all(logado: true)
+
+        if v1 && usuario.senha_padrao?
+          require 'securerandom'
+          token = SecureRandom.uuid
+          TokenUsuarioSenha.where(usuario_id: usuario.id).destroy_all
+          TokenUsuarioSenha.create(usuario_id: usuario.id, token: token)
+
+          raise "Sua senha padrão precisa ser alterada, acesse o path '/alterar-senha?token=#{token}' e faça a modificação"
+        end
+
+        UsuarioAcesso.create(usuario: usuario, mac_adress: request.ip)
+
+        payload = {
+          id: usuario.id,
+          nome: usuario.nome,
+          updated_at: usuario.updated_at,
+          senha: usuario.senha
+        }
+
+        payload[:token] = JWT.encode(payload, SECRET_JWT, 'HS256')
+        return render json: payload, status: 401
+      end
+    end
+
+    raise "E-mail ou palavra-passe inválidos faça a modificação"
   end
   
 end

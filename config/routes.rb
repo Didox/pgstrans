@@ -152,6 +152,7 @@ Rails.application.routes.draw do
   post 'api/usuarios/', to: 'usuarios#create_api'
   get 'api/usuarios/:id', to: 'usuarios#show_api'
   post 'api/login', to: 'login#autentica_api'
+  post 'api/v2/login', to: 'login#autentica_api_v2'
 
   post 'api/recarga/confirma/:tipo_venda', to: 'recarga#confirma_api', as: "api_recarga_confirma"
   get 'api/recarga/dstv-produtos', to: 'dstv#produtos_api'

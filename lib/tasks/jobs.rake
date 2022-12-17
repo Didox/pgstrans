@@ -31,6 +31,53 @@ namespace :jobs do
     end
   end
 
+  desc "Busca todas as vendas que não tem registro em conta corrente"
+  task atualiza_id_venda_conta_corrente: :environment do
+    itens_para_salvar = []
+    puts "=== Iniciando a busca de vendas que não têm registro em conta corrente nos últimos três meses ==="
+    Venda.where("created_at > ?", Time.zone.now - 3.months).each do |venda| 
+      puts "===[#{venda.id}] | inicio ==="
+      if ContaCorrente.where(venda_id: venda.id).count == 0
+        if venda.sucesso?
+          puts "===[#{venda.id}] | Início ==="
+          cc = ContaCorrente.where(usuario_id: usuario.id).first
+          if cc.blank?
+            banco = Banco.first
+            iban = ""
+          else
+            iban = cc.iban
+            banco = cc.banco
+          end
+    
+          banco = Banco.first if banco.blank?
+    
+          lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first
+          lancamento = Lancamento.first if lancamento.blank?
+    
+          conta_corrente = ContaCorrente.new(
+            usuario_id: usuario.id,
+            valor: "-#{valor}",
+            observacao: "Compra de recarga dia #{venda.created_at.strftime("%d/%m/%Y %H:%M:%S")}",
+            lancamento_id: lancamento.id,
+            banco_id: (banco.id rescue Banco.first.id),
+            partner_id: parceiro.id,
+            iban: iban,
+            venda_id: venda.id,
+            created_at:venda.created_at,
+            updated_at:venda.created_at,
+          )
+          conta_corrente.responsavel = usuario
+
+          itens_para_salvar << conta_corrente.to_hash
+
+          #conta_corrente.save!
+        end
+      end
+    end
+
+    File.open("/tmp/conta_correntes_colocar_venda.json", 'w') { |file| itens_para_salvar.to_json }
+  end
+
   desc "zappi_capture"
   task zappi_capture: :environment do
     vendas = Venda.all.where(partner_id: 4).where("zappi is null")

@@ -97,7 +97,7 @@ class Ende
 
     desconto_aplicado, valor_original, valor = Venda.desconto_venda(usuario, parceiro, valor)
 
-    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
+    raise PagasoError.new("Saldo insuficiente para recarga no agente Pagasó") if usuario.saldo < valor
 
     uniq_number = EndeUniqNumber.create(data: Time.zone.now)
 
