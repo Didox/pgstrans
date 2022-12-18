@@ -25,33 +25,35 @@
   </div>
 </div>
 <hr>
-<div class="row h-50 p-3">
-  <div class="col-md-4">
-      Login:
+<% if @adm.admin? %>
+  <div class="row h-50 p-3">
+    <div class="col-md-4">
+        Login:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.login %>
+    </div>
   </div>
-  <div class="col-md-8">
-      <%= @parametro.get.login %>
+  <hr>
+  <div class="row h-50 p-3">
+    <div class="col-md-4">
+        Passphrase/Password:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.passphrase %>
+    </div>
   </div>
-</div>
-<hr>
-<div class="row h-50 p-3">
-  <div class="col-md-4">
-      Passphrase/Password:
+  <hr>    
+  <div class="row h-50 p-3">
+    <div class="col-md-4">
+        Active Session Code:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.session %>
+    </div>
   </div>
-  <div class="col-md-8">
-      <%= @parametro.get.passphrase %>
-  </div>
-</div>
-<hr>    
-<div class="row h-50 p-3">
-  <div class="col-md-4">
-      Active Session Code:
-  </div>
-  <div class="col-md-8">
-      <%= @parametro.get.session %>
-  </div>
-</div>
-<hr>
+  <hr>
+<% end %>
 <div class="row bg-light h-50 p-3">    
   <div class="col-md-4">
       Endpoint HTTP_Login:

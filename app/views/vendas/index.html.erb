@@ -29,7 +29,7 @@
             </div>
           </div>
         <% end %>
-        <div class="col-sm-2">
+        <div class="col-sm-5">
           <div class="form-group">
             <label>Situação da Venda</label>
             <div>
@@ -47,7 +47,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Tipo de Lançamento</label>
               <div>
@@ -76,7 +76,22 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Perfil do Usuário</label>
+              <div>
+                <select name="perfil_usuario_id" onchange="pgstrans.carregaPerfilUsuario(this)" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% PerfilUsuario.all.reorder(nome: :asc).each do |perfil_usuario| %>
+                    <option value="<%= perfil_usuario.id %>" <% if perfil_usuario.id.to_s == params[:perfil_usuario_id] %> selected="selected" <% end %> ><%= perfil_usuario.nome %></option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div>
+         <% end %>
+         <div class="col-sm-4">
           <div class="form-group">
             <label>Nome do Usuário</label>
             <div>
@@ -211,21 +226,6 @@
             </div>
           </div>
         </div>
-        <% if usuario_logado.admin? || usuario_logado.operador? %>
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label>Perfil do Usuário</label>
-              <div>
-                <select name="perfil_usuario_id" onchange="pgstrans.carregaPerfilUsuario(this)" class="form-control">
-                  <option value="" selected="'selected'">Todos</option>
-                  <% PerfilUsuario.all.reorder(nome: :asc).each do |perfil_usuario| %>
-                    <option value="<%= perfil_usuario.id %>" <% if perfil_usuario.id.to_s == params[:perfil_usuario_id] %> selected="selected" <% end %> ><%= perfil_usuario.nome %></option>
-                  <% end %>
-                </select>
-              </div>
-            </div>
-          </div>
-         <% end %>
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
