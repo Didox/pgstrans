@@ -31,10 +31,10 @@ namespace :jobs do
     end
   end
 
-  desc "Busca todas as vendas que não tem registro em conta corrente"
+  desc "Busca todas as vendas quem não tem registro em conta corrente"
   task atualiza_id_venda_conta_corrente: :environment do
     itens_para_salvar = []
-    puts "=== Iniciando a busca de vendas que não têm registro em conta corrente nos últimos três meses ==="
+    puts "=== Iniciando a busca de vendas quem não têm registro em conta corrente nos últimos três meses ==="
     Venda.where("created_at > ?", Time.zone.now - 3.months).each do |venda| 
       puts "===[#{venda.id}] | inicio ==="
       if ContaCorrente.where(venda_id: venda.id).count == 0
