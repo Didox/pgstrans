@@ -309,7 +309,7 @@ class Venda < ApplicationRecord
 
     desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
     
-    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
+    raise PagasoError.new("Saldo insuficiente para recarga no agente Pagasó") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o telemovel") if params[:zaptv_cartao].blank?
@@ -482,7 +482,7 @@ class Venda < ApplicationRecord
     meter_number = params[:meter_number]
   
     raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
-    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
+    raise PagasoError.new("Saldo insuficiente para recarga no agente Pagasó") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Digite o Número do Medidor") if meter_number.blank?
@@ -746,7 +746,7 @@ class Venda < ApplicationRecord
 
     raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
-    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
+    raise PagasoError.new("Saldo insuficiente para recarga no agente Pagasó") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o telemóvel") if params[:movicel_telefone].blank?
@@ -1174,7 +1174,7 @@ class Venda < ApplicationRecord
 
     raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
-    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
+    raise PagasoError.new("Saldo insuficiente para recarga no agente Pagasó") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o telemóvel") if params[:unitel_telefone].blank?
@@ -1258,7 +1258,7 @@ class Venda < ApplicationRecord
 
     desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
     
-    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
+    raise PagasoError.new("Saldo insuficiente para recarga no agente Pagasó") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o Telemóvel MSISDN") if params[:target_msisdn].blank?
