@@ -266,20 +266,7 @@
   </div>
 -->
 
-  <div>
-    <p><strong>Lista de Relatórios Disponíveis para Download</strong></p>
-    <% 
-    @relatorios = Relatorio.where(controller_acao: "VendasController::index")
-    @relatorios = @relatorios.where("arquivo is not null").order("updated_at desc")
-    @relatorios.limit(5).each do |rel| %>
-      <div>
-        <%= rel.updated_at.strftime("%d/%m/%Y %H:%M") %> -
-        <a href="<%= rel.arquivo %>" target="_blank">Baixar</a>
-      </div>
-    <% end %>
-  </div> 
-  
-  <% if @vendas_total.present? %>
+    <% if @vendas_total.present? %>
     <div class="scroltable col-md-12">
       <h4>
         Quantidade de recargas ou transações: <%= number_to_currency(@vendas_total, :precision => 0, :unit => "") %>
@@ -304,7 +291,37 @@
     <% end %>
   <% else %>
     <div style="height: 100px; text-align:center;font-size: 20px; color: #856404; padding: 20px;">
+      <hr>
       Informe os parâmetros de busca
     </div>
   <% end %>
+
+  <% if usuario_logado.admin? && usuario_logado.operador? %>
+    <div>
+        <p><strong>Lista de Relatórios Disponíveis para Download</strong></p>
+        <hr>
+        <% 
+        @relatorios = Relatorio.where(controller_acao: "VendasController::index")
+        @relatorios = @relatorios.where("arquivo is not null").where(usuario_id: @adm.id).order("updated_at desc")
+        @relatorios.limit(10).each do |rel| %>
+          <div>
+            <%= rel.updated_at.strftime("%d/%m/%Y %H:%M") %> -
+            <a href="<%= rel.arquivo %>" target="_blank"><%= rel.arquivo %></a>
+            <% if @adm.admin? %>
+              <p>Parâmetros de busca:</p> 
+              <ul>
+                <% JSON.parse(rel.parametros).each do |key,value| %>
+                  <% next if value.blank? %>
+                  <li>
+                    <%= key %>:
+                    <%= value %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div> 
+
 </div>

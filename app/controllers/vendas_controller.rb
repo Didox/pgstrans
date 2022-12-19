@@ -250,7 +250,7 @@ class VendasController < ApplicationController
       if params[:csv].present?
         rel = Relatorio.create(controller_acao: "#{params[:controller].camelize}Controller::#{params[:action]}", usuario_id: usuario_logado.id, parametros: params.to_json).envia_sqs
 
-        flash[:success] = "Relatório gerado com sucesso"
+        flash[:success] = "Relatório agendado com sucesso. Aguarde a geração do relatório."
         return redirect_to "/vendas"
       end
      

@@ -35,12 +35,12 @@ namespace :jobs do
   task atualiza_id_venda_conta_corrente: :environment do
     itens_para_salvar = []
     puts "=== Iniciando a busca de vendas quem não têm registro em conta corrente nos últimos três meses ==="
-    Venda.where("created_at > ?", Time.zone.now - 3.months).each do |venda| 
+    Venda.where("created_at > ?", Time.zone.now - 2.months).each do |venda| 
       puts "===[#{venda.id}] | inicio ==="
       if ContaCorrente.where(venda_id: venda.id).count == 0
         if venda.sucesso?
           puts "===[#{venda.id}] | Início ==="
-          cc = ContaCorrente.where(usuario_id: usuario.id).first
+          cc = ContaCorrente.where(usuario_id: venda.usuario_id).first
           if cc.blank?
             banco = Banco.first
             iban = ""
@@ -55,7 +55,7 @@ namespace :jobs do
           lancamento = Lancamento.first if lancamento.blank?
     
           conta_corrente = ContaCorrente.new(
-            usuario_id: usuario.id,
+            usuario_id: venda.usuario_id,
             valor: "-#{valor}",
             observacao: "Compra de recarga dia #{venda.created_at.strftime("%d/%m/%Y %H:%M:%S")}",
             lancamento_id: lancamento.id,
@@ -66,8 +66,8 @@ namespace :jobs do
             created_at:venda.created_at,
             updated_at:venda.created_at,
           )
-          conta_corrente.responsavel = usuario
-
+          conta_corrente.responsavel = venda.usuario
+''
           itens_para_salvar << conta_corrente.to_hash
 
           #conta_corrente.save!
