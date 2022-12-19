@@ -296,7 +296,7 @@
     </div>
   <% end %>
 
-  <% if usuario_logado.admin? && usuario_logado.operador? %>
+  <% if usuario_logado.admin? || usuario_logado.operador? %>
     <div>
         <p><strong>Lista de Relatórios Disponíveis para Download</strong></p>
         <hr>
