@@ -337,10 +337,14 @@ label{
 @media only screen and (max-width: 600px) {
   	.africell-menu{
 		display: block!important;
-	}
-
-
-
-  
+	} 
 }
 
+.elephantbet-menu{
+	display: inline-block!important;
+}
+@media only screen and (max-width: 600px) {
+  	.elephantbet-menu{
+		display: block!important;
+	} 
+}

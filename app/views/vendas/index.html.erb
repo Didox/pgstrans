@@ -29,7 +29,7 @@
             </div>
           </div>
         <% end %>
-        <div class="col-sm-2">
+        <div class="col-sm-5">
           <div class="form-group">
             <label>Situação da Venda</label>
             <div>
@@ -47,7 +47,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Tipo de Lançamento</label>
               <div>
@@ -76,7 +76,22 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Perfil do Usuário</label>
+              <div>
+                <select name="perfil_usuario_id" onchange="pgstrans.carregaPerfilUsuario(this)" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% PerfilUsuario.all.reorder(nome: :asc).each do |perfil_usuario| %>
+                    <option value="<%= perfil_usuario.id %>" <% if perfil_usuario.id.to_s == params[:perfil_usuario_id] %> selected="selected" <% end %> ><%= perfil_usuario.nome %></option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div>
+         <% end %>
+         <div class="col-sm-4">
           <div class="form-group">
             <label>Nome do Usuário</label>
             <div>
@@ -211,21 +226,6 @@
             </div>
           </div>
         </div>
-        <% if usuario_logado.admin? || usuario_logado.operador? %>
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label>Perfil do Usuário</label>
-              <div>
-                <select name="perfil_usuario_id" onchange="pgstrans.carregaPerfilUsuario(this)" class="form-control">
-                  <option value="" selected="'selected'">Todos</option>
-                  <% PerfilUsuario.all.reorder(nome: :asc).each do |perfil_usuario| %>
-                    <option value="<%= perfil_usuario.id %>" <% if perfil_usuario.id.to_s == params[:perfil_usuario_id] %> selected="selected" <% end %> ><%= perfil_usuario.nome %></option>
-                  <% end %>
-                </select>
-              </div>
-            </div>
-          </div>
-         <% end %>
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
@@ -266,20 +266,7 @@
   </div>
 -->
 
-  <div>
-    <p><strong>Lista de Relatórios Disponíveis para Download</strong></p>
-    <% 
-    @relatorios = Relatorio.where(controller_acao: "VendasController::index")
-    @relatorios = @relatorios.where("arquivo is not null").order("updated_at desc")
-    @relatorios.limit(5).each do |rel| %>
-      <div>
-        <%= rel.updated_at.strftime("%d/%m/%Y %H:%M") %> -
-        <a href="<%= rel.arquivo %>" target="_blank">Baixar</a>
-      </div>
-    <% end %>
-  </div> 
-  
-  <% if @vendas_total.present? %>
+    <% if @vendas_total.present? %>
     <div class="scroltable col-md-12">
       <h4>
         Quantidade de recargas ou transações: <%= number_to_currency(@vendas_total, :precision => 0, :unit => "") %>
@@ -304,7 +291,37 @@
     <% end %>
   <% else %>
     <div style="height: 100px; text-align:center;font-size: 20px; color: #856404; padding: 20px;">
+      <hr>
       Informe os parâmetros de busca
     </div>
   <% end %>
+
+  <% if usuario_logado.admin? && usuario_logado.operador? %>
+    <div>
+        <p><strong>Lista de Relatórios Disponíveis para Download</strong></p>
+        <hr>
+        <% 
+        @relatorios = Relatorio.where(controller_acao: "VendasController::index")
+        @relatorios = @relatorios.where("arquivo is not null").where(usuario_id: @adm.id).order("updated_at desc")
+        @relatorios.limit(10).each do |rel| %>
+          <div>
+            <%= rel.updated_at.strftime("%d/%m/%Y %H:%M") %> -
+            <a href="<%= rel.arquivo %>" target="_blank"><%= rel.arquivo %></a>
+            <% if @adm.admin? %>
+              <p>Parâmetros de busca:</p> 
+              <ul>
+                <% JSON.parse(rel.parametros).each do |key,value| %>
+                  <% next if value.blank? %>
+                  <li>
+                    <%= key %>:
+                    <%= value %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div> 
+
 </div>
