@@ -221,7 +221,7 @@ class VendasController < ApplicationController
       @vendas = @vendas.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
       @vendas = @vendas.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
       @vendas = @vendas.where("vendas.partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
-      if params[:slug] = "zaptv"
+      if params[:slug] == "zaptv"
         @vendas = @vendas.where("vendas.categoria = ?", params[:categoria]) if params[:categoria].present?
       end
       @vendas = @vendas.where("vendas.product_id = ?", params[:produto_id]) if params[:produto_id].present?
