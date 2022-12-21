@@ -471,8 +471,8 @@ class Venda < ApplicationRecord
   end
 
   def token_ende
-    return nil if venda.request_id.blank?
-    uniq_number = EndeUniqNumber.find(venda.request_id)
+    return nil if self.request_id.blank?
+    uniq_number = EndeUniqNumber.find(self.request_id)
     info = Ende.informacoes_parse(self.response_get, uniq_number).first
     return info["stsCipher"]
   rescue
