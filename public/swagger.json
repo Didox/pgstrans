@@ -127,7 +127,7 @@
           "200": {
             "description": "Operação de sucesso",
             "schema": {
-              "$ref": "#/definitions/recarga"
+              "$ref": "#/definitions/recarga_v2"
             }
           },
           "401": {
@@ -217,7 +217,7 @@
           "200": {
             "description": "Operação de sucesso",
             "schema": {
-              "$ref": "#/definitions/recarga"
+              "$ref": "#/definitions/recarga_v2"
             }
           },
           "401": {
@@ -307,7 +307,7 @@
           "200": {
             "description": "Operação de sucesso",
             "schema": {
-              "$ref": "#/definitions/recarga"
+              "$ref": "#/definitions/recarga_v2"
             }
           },
           "401": {
@@ -397,7 +397,7 @@
           "200": {
             "description": "Operação de sucesso",
             "schema": {
-              "$ref": "#/definitions/recarga"
+              "$ref": "#/definitions/recarga_v2"
             }
           },
           "401": {
@@ -487,7 +487,7 @@
           "200": {
             "description": "Operação de sucesso",
             "schema": {
-              "$ref": "#/definitions/recarga"
+              "$ref": "#/definitions/recarga_v2"
             }
           },
           "401": {
@@ -601,7 +601,7 @@
           "200": {
             "description": "Operação de sucesso",
             "schema": {
-              "$ref": "#/definitions/recarga"
+              "$ref": "#/definitions/recarga_v2"
             }
           },
           "401": {
@@ -691,7 +691,7 @@
           "200": {
             "description": "Operação de sucesso",
             "schema": {
-              "$ref": "#/definitions/recarga"
+              "$ref": "#/definitions/recarga_v2"
             }
           },
           "401": {
@@ -924,6 +924,45 @@
         }
       }
     },
+    "/api/v2/login.json": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Login com usuário e senha",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "description": "E-mail ou login para acesso",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "senha",
+            "description": "Palavra-passe de acesso",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/usuario_v2"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
+            }
+          }
+        }
+      }
+    },
     "api/alegacao_de_pagamentos/criar.json": {
       "post": {
         "tags": [
@@ -1071,7 +1110,23 @@
       "type": "object",
       "properties": {
         "mensagem": { "type": "string" },
-        "status": { "type": "string" }
+        "token_recarga": { "type": "string" },
+        "status": { "type": "integer" },
+        "venda_id": { "type": "integer" },
+        "sucesso": { "type": "boolean" },
+        "redirect": { "type": "boolean" }
+      }
+    },
+    "recarga_v2": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "message": { "type": "string" },
+        "status": { "type": "integer" },
+        "original_message": { "type": "string" },
+        "sell_id": { "type": "integer" },
+        "recharge_token": { "type": "string" },
+        "redirect": { "type": "boolean" }
       }
     },
     "falha": {
@@ -1096,6 +1151,16 @@
       }
     },
     "usuario": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "email": { "type": "string" },
+        "updated_at": { "type": "string" },
+        "token": { "type": "string" }
+      }
+    },
+    "usuario_v2": {
       "type": "object",
       "properties": {
         "id": { "type": "integer" },
