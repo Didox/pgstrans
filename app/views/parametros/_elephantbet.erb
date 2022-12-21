@@ -14,6 +14,13 @@
   </div>
 </div>
 
+<div class="form-input col-sm-12">
+  <div class="form-group string optional bearer_token_default">
+    <label class="string optional" for="bearer_token_default">Bearer Token Default</label>
+    <input class="form-control string optional" value="<%= @parametro.get.bearer_token_default %>" type="text" name="parametro[bearer_token_default]" id="bearer_token_default">
+  </div>
+</div>
+
 <div class="form-input col-sm-6">
   <div class="form-group string optional login">
     <label class="string optional" for="login">Login</label>
@@ -29,25 +36,18 @@
 </div>
 
 <div class="form-input col-sm-6">
-  <div class="form-group string optional Active_Session_Code">
-    <label class="string optional" for="Active_Session_Code">Active Session Code</label>
-    <input class="form-control string optional" value="<%= @parametro.get.Active_Session_Code %>" type="text" name="parametro[Active_Session_Code]" id="Active_Session_Code">
-  </div>
-</div>
-
-<div class="form-input col-sm-6">
   <div class="form-group string optional endpoint_HTTP_Login">
     <label class="string optional" for="endpoint_HTTP_Login">Endpoint HTTP_Login</label>
     <input class="form-control string optional" value="<%= @parametro.get.endpoint_HTTP_Login %>" type="text" name="parametro[endpoint_HTTP_Login]" id="endpoint_HTTP_Login">
   </div>
 </div>
+
 <div class="form-input col-sm-6">
   <div class="form-group string optional endpoint_HTTP_Heartbeat">
     <label class="string optional" for="endpoint_HTTP_Heartbeat">Endpoint HTTP_Heartbeat</label>
     <input class="form-control string optional" value="<%= @parametro.get.endpoint_HTTP_Heartbeat %>" type="text" name="parametro[endpoint_HTTP_Heartbeat]" id="endpoint_HTTP_Heartbeat">
   </div>
 </div>
-
 
 <div class="form-input col-sm-6">
   <div class="form-group string optional endpoint_HTTP_StaffsMeStatus">

@@ -309,7 +309,7 @@ class Venda < ApplicationRecord
 
     desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
     
-    raise PagasoError.new("Saldo insuficiente para recarga no agente Pagasó") if usuario.saldo < valor
+    raise PagasoError.new("O saldo do agente Pagasó é insuficiente para realizar a recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o telemovel") if params[:zaptv_cartao].blank?
@@ -470,6 +470,15 @@ class Venda < ApplicationRecord
     raise PagasoError.new(e.message)
   end
 
+  def token_ende
+    return nil if venda.request_id.blank?
+    uniq_number = EndeUniqNumber.find(venda.request_id)
+    info = Ende.informacoes_parse(self.response_get, uniq_number).first
+    return info["stsCipher"]
+  rescue
+    return nil
+  end
+
   def self.venda_ende(params, usuario, ip)
     parceiro = Partner.ende
     
@@ -482,7 +491,7 @@ class Venda < ApplicationRecord
     meter_number = params[:meter_number]
   
     raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
-    raise PagasoError.new("Saldo insuficiente para recarga no agente Pagasó") if usuario.saldo < valor
+    raise PagasoError.new("O saldo do agente Pagasó é insuficiente para realizar a recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Digite o Número do Medidor") if meter_number.blank?
@@ -746,7 +755,7 @@ class Venda < ApplicationRecord
 
     raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
-    raise PagasoError.new("Saldo insuficiente para recarga no agente Pagasó") if usuario.saldo < valor
+    raise PagasoError.new("O saldo do agente Pagasó é insuficiente para realizar a recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o telemóvel") if params[:movicel_telefone].blank?
@@ -1174,7 +1183,7 @@ class Venda < ApplicationRecord
 
     raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
-    raise PagasoError.new("Saldo insuficiente para recarga no agente Pagasó") if usuario.saldo < valor
+    raise PagasoError.new("O saldo do agente Pagasó é insuficiente para realizar a recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o telemóvel") if params[:unitel_telefone].blank?
@@ -1258,11 +1267,10 @@ class Venda < ApplicationRecord
 
     desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
     
-    raise PagasoError.new("Saldo insuficiente para recarga no agente Pagasó") if usuario.saldo < valor
+    raise PagasoError.new("O saldo do agente Pagasó é insuficiente para realizar a recarga") if usuario.saldo < valor
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
     raise PagasoError.new("Selecione o valor") if params[:valor].blank?
-    raise PagasoError.new("Digite o Telemóvel MSISDN") if params[:target_msisdn].blank?
-    #raise PagasoError.new("Não é um número Africell") if params[:target_msisdn][0, 3] != "244"
+    raise PagasoError.new("Digite o Telemóvel / MSISDN") if params[:target_msisdn].blank?
    
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
 
@@ -1305,6 +1313,115 @@ class Venda < ApplicationRecord
       body: body,
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
+
+    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: transaction_reference, customer_number: numero_africell, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda.responsavel = usuario
+    venda.save!
+    
+    venda.store_id = usuario.sub_agente.store_id_parceiro
+    venda.seller_id = usuario.sub_agente.seller_id_parceiro
+    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+
+    venda.request_send = "#{url} ---------- body=#{body}"
+    venda.response_get = res.body
+
+    begin
+      venda.status = JSON.parse(res.body)["StatusCode"]
+    rescue;end
+
+    venda.status ||= res.code
+    venda.save!
+
+    if venda.sucesso?
+      cc = ContaCorrente.where(usuario_id: usuario.id).first
+      if cc.blank?
+        banco = Banco.first
+        iban = ""
+      else
+        iban = cc.iban
+        banco = cc.banco
+      end
+
+      banco = Banco.first if banco.blank?
+
+      lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first
+      lancamento = Lancamento.first if lancamento.blank?
+
+      conta_corrente = ContaCorrente.new(
+        usuario_id: usuario.id,
+        valor: "-#{valor}",
+        observacao: "Compra de recarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+        lancamento_id: lancamento.id,
+        banco_id: (banco.id rescue Banco.first.id),
+        partner_id: parceiro.id,
+        iban: iban,
+        venda_id: venda.id
+      )
+      conta_corrente.responsavel = usuario
+      conta_corrente.save!
+    end
+
+    return venda
+  rescue PagasoError => e
+    raise "#{e.message} - #{e.backtrace}"
+  rescue Net::ReadTimeout => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Net::OpenTimeout => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Errno::ETIMEDOUT => e
+    raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
+  rescue Exception => e
+    raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
+  end
+
+  
+
+  def self.venda_elephantbet(params, usuario, ip)
+    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
+    product_id = params[:produto_id]
+    produto = Produto.find(product_id)
+    parceiro = produto.partner
+    valor = params[:valor].to_f
+
+    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
+    
+    raise PagasoError.new("O saldo do agente Pagasó é insuficiente para realizar a recarga") if usuario.saldo < valor
+    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
+    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
+    raise PagasoError.new("Digite o número do telefone do jogador") if params[:elephantbet_telefone].blank?
+    params[:elephantbet_telefone] = "244#{params[:elephantbet_telefone]}"
+   
+    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
+
+    debugger
+    elephant_bet_login, parceiro, parametro, url_service = ElephantBet.login
+    sessao = JSON.parse(elephant_bet_login.body_request)
+    session_id = sessao["loginInformation"]["session"]
+
+    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
+    raise PagasoError.new("Sessão expirada") if session_id.blank?
+
+    url = "#{url_service}#{parametro.get.endpoint_HTTP_Heartbeat}?sessao=#{session_id}"
+    uri = URI.parse(URI::Parser.new.escape(url))
+
+    body = {
+      "session": "#{session_id}",
+    }.to_json
+
+    res = HTTParty.post(uri, 
+      :headers => {
+        'Content-Type' => 'application/json',
+        'Authorization' => "Basic #{parametro.bearer_token_default}",
+      },
+      body: body,
+      timeout: DEFAULT_TIMEOUT.to_i.seconds
+    )
+
+    debugger
+
+    puts res.body
+
+    #TODO ver proximos passos do que retornou da api
 
     venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: transaction_reference, customer_number: numero_africell, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
