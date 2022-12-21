@@ -14,7 +14,7 @@ class RecargaController < ApplicationController
         status: 200,
         original_message: venda.status_desc.error_description,
         sell_id: venda.id,
-        token_ende: venda.token_ende,
+        recharge_token: venda.token_ende,
         redirect: venda.partner_id == Partner.ende.id
       }, status: 200
     else
@@ -59,7 +59,14 @@ class RecargaController < ApplicationController
   def confirma
     venda = Venda.fazer_venda(params, usuario_logado, params[:tipo_venda], request.ip)
     if venda.sucesso?
-        render json: {mensagem: venda.status_desc.error_description_pt, token_ende: venda.token_ende, status: venda.status, venda_id: venda.id, sucesso: venda.sucesso?, redirect: venda.partner_id == Partner.ende.id}, status: 200
+        render json: {
+          mensagem: venda.status_desc.error_description_pt, 
+          token_recarga: venda.token_ende, 
+          status: venda.status, 
+          venda_id: venda.id, 
+          sucesso: venda.sucesso?, 
+          redirect: venda.partner_id == Partner.ende.id
+        }, status: 200
     else
       LogVenda.create(usuario_id: usuario_logado.id, titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{venda.status_desc.error_description_pt} - #{venda.status} - #{venda.response_get}")
       render json: {mensagem: "#{venda.status_desc.error_description_pt} - #{venda.error_message}", status: venda.status, venda_id: venda.id, sucesso: false, redirect: venda.partner_id == Partner.ende.id}, status: 401
