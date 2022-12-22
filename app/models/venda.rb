@@ -1404,8 +1404,8 @@ class Venda < ApplicationRecord
   
     produto = Produto.where(id: params[:produto_id]).first
     raise PagasoError.new("Produto não encontrado") if produto.blank?
-    if produto.valor > 0
-      if produto.valor.to_f != valor
+    if produto.valor_compra_telemovel > 0
+      if produto.valor_compra_telemovel.to_f != valor
         raise PagasoError.new("O valor do produto informado não corresponde ao valor produto no portfolio")
       end
     end
