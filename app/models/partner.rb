@@ -47,36 +47,41 @@ class Partner < ApplicationRecord
     end
   end
 
+  def self.find_by_slug(slug)
+    slug = slug.to_s.downcase.strip
+    Partner.where("lower(slug) = ?", slug).first
+  end
+
   def self.africell
-    Partner.where("lower(slug) = 'africell'").first
+    Partner.find_by_slug('africell')
   end
 
   def self.elephantbet
-    Partner.where("lower(slug) = 'elephantbet'").first
+    Partner.find_by_slug('elephantbet')
   end
 
   def self.dstv
-    Partner.where("lower(slug) = 'dstv'").first
+    Partner.find_by_slug('dstv')
   end
 
   def self.ende
-    Partner.where("lower(slug) = 'ende'").first
+    Partner.find_by_slug('ende')
   end
 
   def self.movicel
-    Partner.where("lower(slug) = 'movicel'").first
+    Partner.find_by_slug('movicel')
   end
 
   def self.zaptv
-    Partner.where("lower(slug) = 'zaptv'").first
+    Partner.find_by_slug('zaptv')
   end
 
   def self.unitel
-    Partner.where("lower(slug) = 'unitel'").first
+    Partner.find_by_slug('unitel')
   end
 
   def self.zapfibra
-    Partner.where("lower(slug) = 'zapfibra'").first
+    Partner.find_by_slug('zapfibra')
   end
 
   def valor_total_original_sql(params={}, usuario_logado)

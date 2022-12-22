@@ -96,12 +96,19 @@ class RecargaController < ApplicationController
   private
   def busca_return_code_params(mensagem)
     if params[:produto_id].present?
-      produto = Produto.find(params[:produto_id]) rescue nil
-      parceiro_id = produto&.partner_id
+      produto = Produto.where(id: params[:produto_id]).first
+      parceiro_id = produto&.partner_id if produto.present?
+    end
+
+    if parceiro_id.blank?
+      parceiro = Partner.find_by_slug(params[:tipo_venda])
+      parceiro_id = parceiro.id if parceiro.present?
     end
 
     mensagem_busca = mensagem.split("-").first.to_s.strip rescue mensagem
-    ReturnCodeApi.where("error_description ilike ?", "%#{mensagem_busca}%").where(partner_id: parceiro_id).first 
+    return_code_api = ReturnCodeApi.where("error_description ilike ?", "%#{mensagem_busca}%")
+    return_code_api = return_code_api.where(partner_id: parceiro_id) if parceiro_id.present?
+    return_code_api.first 
   end
 
   def mensagem_dos_parametros_com_erro(erro)
