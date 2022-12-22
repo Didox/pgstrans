@@ -303,11 +303,11 @@
         <% 
         @relatorios = Relatorio.where(controller_acao: "VendasController::index")
         @relatorios = @relatorios.where("arquivo is not null").where(usuario_id: @adm.id).order("updated_at desc")
-        @relatorios.limit(10).each do |rel| %>
+        @relatorios.limit(3).each do |rel| %>
           <div>
             <%= rel.updated_at.strftime("%d/%m/%Y %H:%M") %> -
             <a href="<%= rel.arquivo %>" target="_blank"><%= rel.arquivo %></a>
-            <% if @adm.admin? %>
+             <% if @adm.id == Usuario::ROOT %>
               <p>Parâmetros de busca:</p> 
               <ul>
                 <% JSON.parse(rel.parametros).each do |key,value| %>
