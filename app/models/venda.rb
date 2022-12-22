@@ -1125,22 +1125,9 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_unitel(params, usuario, ip)
-    parceiro = Partner.unitel
-    valor = params[:valor].to_i
-    parametro = Parametro.where(partner_id: parceiro.id).first
-    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
+    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip)
 
-    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
-    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
-    raise PagasoError.new("O saldo do agente Pagasó é insuficiente para realizar a recarga") if usuario.saldo < valor
-    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
-    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o telemóvel") if params[:unitel_telefone].blank?
-    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
-
-    product_id = params[:produto_id]
-    produto = Produto.where(id: params[:produto_id]).first
-    raise PagasoError.new("Produto não encontrado") if produto.blank?
 
     telefone = params[:unitel_telefone]
 
@@ -1429,7 +1416,7 @@ class Venda < ApplicationRecord
     desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
   
     parametro = Parametro.where(partner_id: parceiro.id)
-    parametro = parametro.where("upper(categoria) = ?", produto.categoria.upcase) if produto.categoria.present?
+    # parametro = parametro.where("upper(categoria) = ?", produto.categoria.upcase) if produto.categoria.present?
     parametro = parametro.first
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
   
