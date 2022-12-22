@@ -2,11 +2,14 @@ class RecargaController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def confirma_api
+    params[:api] = "v1"
     confirma
   end
 
   def confirma_api_v2
+    params[:api] = "v2"
     venda = Venda.fazer_venda(params, usuario_logado, params[:tipo_venda], request.ip)
+    token, data = venda.token_e_data_ende
     if venda.sucesso?
       render json: {
         code: venda.status_desc.codigo_erro_pagaso,
@@ -14,7 +17,8 @@ class RecargaController < ApplicationController
         status: 200,
         original_message: venda.status_desc.error_description,
         sell_id: venda.id,
-        recharge_token: venda.token_ende,
+        recharge_token: token,
+        date_recharge_token: data,
         redirect: venda.partner_id == Partner.ende.id
       }, status: 200
     else
@@ -58,10 +62,12 @@ class RecargaController < ApplicationController
   
   def confirma
     venda = Venda.fazer_venda(params, usuario_logado, params[:tipo_venda], request.ip)
+    token, data = venda.token_e_data_ende
     if venda.sucesso?
         render json: {
           mensagem: venda.status_desc.error_description_pt, 
-          token_recarga: venda.token_ende, 
+          token_recarga: token, 
+          data_token_recarga: data, 
           status: venda.status, 
           venda_id: venda.id, 
           sucesso: venda.sucesso?, 

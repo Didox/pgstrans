@@ -469,12 +469,12 @@ class Venda < ApplicationRecord
 
     raise PagasoError.new(e.message)
   end
-
-  def token_ende
+  
+  def token_e_data_ende
     return nil if self.request_id.blank?
     uniq_number = EndeUniqNumber.find(self.request_id)
-    ###info = Ende.informacoes_parse(self.response_get, uniq_number).first
-    return info["stsCipher", "respDateTime"]
+    info = Ende.informacoes_parse(self.response_get, uniq_number).first
+    return [info["stsCipher"], info["respDateTime"]]
   rescue
     return nil
   end
@@ -496,7 +496,9 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Digite o Número do Medidor") if meter_number.blank?
     raise PagasoError.new("Número do Medidor Inválido") if !Ende.validate_meter_number(meter_number)
-    raise PagasoError.new("Digite o Número SMS para envio do token de recarga") if params[:talao_sms_ende].blank?
+    if params[:api].blank?
+      raise PagasoError.new("Digite o Número SMS para envio do token de recarga") if params[:talao_sms_ende].blank?
+    end
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
   
     host = Rails.env == "development" ? "#{parametro.get.url_integracao_desenvolvimento}" : "#{parametro.get.url_integracao_producao}"
@@ -628,15 +630,18 @@ class Venda < ApplicationRecord
 
       assunto_email = "ENDE PRE-PAGO"
       mensagem = "#{assunto_email} #{respdatetime} Contador: #{meter_number} Kz: #{Venda.helper.number_to_currency(valor_original, :unit => "")} #{energia.join(" ")} Codigo Recarga: #{stscipher} Call Center: 222 640 770/90"
-      envia, resposta = Sms.enviar(params[:talao_sms_ende], mensagem)
+      
+      if params[:api].blank?
+        envia, resposta = Sms.enviar(params[:talao_sms_ende], mensagem)
 
-      sms_log = SmsHistoricoEnvio.new(numero: params[:talao_sms_ende], conteudo: mensagem, usuario_id: usuario.id, venda_id: venda.id, sucesso: true)
-      if envia
-        sms_log.save!
-      else
-        sms_log.sucesso = false
-        sms_log.save!
-        LogVenda.create(usuario_id: usuario.id, titulo: "SMS não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: resposta.inspect)
+        sms_log = SmsHistoricoEnvio.new(numero: params[:talao_sms_ende], conteudo: mensagem, usuario_id: usuario.id, venda_id: venda.id, sucesso: true)
+        if envia
+          sms_log.save!
+        else
+          sms_log.sucesso = false
+          sms_log.save!
+          LogVenda.create(usuario_id: usuario.id, titulo: "SMS não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: resposta.inspect)
+        end
       end
 
       if params[:email].present?

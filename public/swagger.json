@@ -528,12 +528,6 @@
             "type": "string"
           },
           {
-            "name": "talao_sms_ende",
-            "description": "Número SMS para envio do token de recarga",
-            "required": true,
-            "type": "string"
-          },
-          {
             "name": "email",
             "description": "E-mail para envio do token de recarga",
             "required": false,
@@ -581,12 +575,6 @@
           {
             "name": "meter_number",
             "description": "Número do Medidor",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "talao_sms_ende",
-            "description": "Número SMS para envio do token de recarga",
             "required": true,
             "type": "string"
           },
@@ -1108,6 +1096,7 @@
       "properties": {
         "mensagem": { "type": "string" },
         "token_recarga": { "type": "string" },
+        "data_token_recarga": { "type": "string" },
         "status": { "type": "integer" },
         "venda_id": { "type": "integer" },
         "sucesso": { "type": "boolean" },
@@ -1123,6 +1112,7 @@
         "original_message": { "type": "string" },
         "sell_id": { "type": "integer" },
         "recharge_token": { "type": "string" },
+        "date_recharge_token": { "type": "string" },
         "redirect": { "type": "boolean" }
       }
     },
