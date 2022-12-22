@@ -1432,7 +1432,7 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Produto não encontrado") if produto.blank?
     if produto.valor_compra_telemovel > 0
       if produto.valor_compra_telemovel.to_f != valor
-        raise PagasoError.new("O valor do produto informado não corresponde ao valor produto no portfolio")
+        raise PagasoError.new("O valor do produto informado não corresponde ao valor do produto no portfolio")
       end
     end
   
