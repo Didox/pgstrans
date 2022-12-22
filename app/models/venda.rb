@@ -301,27 +301,9 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_zaptv(params, usuario, ip)
-    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
-    product_id = params[:produto_id]
-    produto = Produto.where(id: params[:produto_id]).first
-    raise PagasoError.new("Produto não encontrado") if produto.blank?
-    
-    parceiro = produto.partner
-    valor = params[:valor].to_f
+    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip)
 
-    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
-    
-    raise PagasoError.new("O saldo do agente Pagasó é insuficiente para realizar a recarga") if usuario.saldo < valor
-    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
-    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o telemovel") if params[:zaptv_cartao].blank?
-    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
-    
-    parametro = Parametro.where(partner_id: parceiro.id)
-    parametro = parametro.where("upper(categoria) = ?", produto.categoria.upcase) if produto.categoria.present?
-    parametro = parametro.first
-
-    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
 
     telefone = params[:zaptv_cartao]
     request_id = Time.zone.now.strftime("%d%m%Y%H%M%S")
@@ -482,31 +464,16 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_ende(params, usuario, ip)
-    parceiro = Partner.ende
-    
-    valor = params[:valor].to_f
-    raise PagasoError.new("Valor é obrigatório") if valor < 0.1
+    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip)
 
-    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
-    
-    parametro = Parametro.where(partner_id: parceiro.id).first
     meter_number = params[:meter_number]
-  
-    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
-    raise PagasoError.new("O saldo do agente Pagasó é insuficiente para realizar a recarga") if usuario.saldo < valor
-    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
-    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Digite o Número do Medidor") if meter_number.blank?
     raise PagasoError.new("Número do Medidor Inválido") if !Ende.validate_meter_number(meter_number)
     if params[:api].blank?
       raise PagasoError.new("Digite o Número SMS para envio do token de recarga") if params[:talao_sms_ende].blank?
     end
-    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
-  
-    host = Rails.env == "development" ? "#{parametro.get.url_integracao_desenvolvimento}" : "#{parametro.get.url_integracao_producao}"
-    produto = Produto.where(id: params[:produto_id]).first
-    raise PagasoError.new("Produto não encontrado") if produto.blank?
 
+    host = Rails.env == "development" ? "#{parametro.get.url_integracao_desenvolvimento}" : "#{parametro.get.url_integracao_producao}"
 
     uniq_number = EndeUniqNumber.create(data: Time.zone.now)
     venda = Venda.new(product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: uniq_number.id, customer_number: meter_number, usuario_id: usuario.id, partner_id: parceiro.id)
@@ -756,25 +723,11 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_movicel(params, usuario, ip)
-    parceiro = Partner.movicel
-    valor = params[:valor].to_i
-    parametro = Parametro.where(partner_id: parceiro.id).first
-
-    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
-
-    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
-    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
-    raise PagasoError.new("O saldo do agente Pagasó é insuficiente para realizar a recarga") if usuario.saldo < valor
-    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
-    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
+    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip)
+    
     raise PagasoError.new("Digite o telemóvel") if params[:movicel_telefone].blank?
-    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
-
+    
     telefone = params[:movicel_telefone]
-
-    product_id = params[:produto_id]
-    produto = Produto.where(id: params[:produto_id]).first
-    raise PagasoError.new("Produto não encontrado") if produto.blank?
 
     require 'openssl'
 
@@ -1012,25 +965,10 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_dstv(params, usuario, ip)
-    parceiro = Partner.dstv
-    valor = params[:valor].to_i
-    parametro = Parametro.where(partner_id: parceiro.id).first
-
-    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
+    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip)
 
     smartcard = params[:transacao_smartcard].blank? ? true : ActiveModel::Type::Boolean.new.cast(params[:transacao_smartcard])
-    
-    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
-    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
-    raise PagasoError.new("Saldo insuficiente para recarga") if usuario.saldo < valor
-    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
-    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o número do cliente/customer number") if params[:dstv_number].blank?
-    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
-
-    product_id = params[:produto_id]
-    produto = Produto.where(id: params[:produto_id]).first
-    raise PagasoError.new("Produto não encontrado") if produto.blank?
 
     require 'openssl'
 
@@ -1187,22 +1125,9 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_unitel(params, usuario, ip)
-    parceiro = Partner.unitel
-    valor = params[:valor].to_i
-    parametro = Parametro.where(partner_id: parceiro.id).first
-    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
+    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip)
 
-    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
-    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
-    raise PagasoError.new("O saldo do agente Pagasó é insuficiente para realizar a recarga") if usuario.saldo < valor
-    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
-    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o telemóvel") if params[:unitel_telefone].blank?
-    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
-
-    product_id = params[:produto_id]
-    produto = Produto.where(id: params[:produto_id]).first
-    raise PagasoError.new("Produto não encontrado") if produto.blank?
 
     telefone = params[:unitel_telefone]
 
@@ -1272,26 +1197,11 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_africell(params, usuario, ip)
-    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
-    product_id = params[:produto_id]
-    produto = Produto.where(id: params[:produto_id]).first
-    raise PagasoError.new("Produto não encontrado") if produto.blank?
+    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip)
 
-    parceiro = produto.partner
-    valor = params[:valor].to_f
-
-    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
-    
-    raise PagasoError.new("O saldo do agente Pagasó é insuficiente para realizar a recarga") if usuario.saldo < valor
-    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
-    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o Telemóvel / MSISDN") if params[:target_msisdn].blank?
    
-    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
-
     jwt_token, parceiro, parametro, url_service = Africell.refresh_token
-
-    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Token expirado") if jwt_token.blank?
 
     url = "#{url_service}#{parametro.get.endpoint_HTTP_Recharge}"
@@ -1392,30 +1302,16 @@ class Venda < ApplicationRecord
   
 
   def self.venda_elephantbet(params, usuario, ip)
-    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
-    product_id = params[:produto_id]
-    produto = Produto.where(id: params[:produto_id]).first
-    raise PagasoError.new("Produto não encontrado") if produto.blank?
+    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip)
 
-    parceiro = produto.partner
-    valor = params[:valor].to_f
-
-    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
-    
-    raise PagasoError.new("O saldo do agente Pagasó é insuficiente para realizar a recarga") if usuario.saldo < valor
-    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
-    raise PagasoError.new("Selecione o valor") if params[:valor].blank?
     raise PagasoError.new("Digite o número do telefone do jogador") if params[:elephantbet_telefone].blank?
     params[:elephantbet_telefone] = "244#{params[:elephantbet_telefone]}"
    
-    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
-
     debugger
     elephant_bet_login, parceiro, parametro, url_service = ElephantBet.login
     sessao = JSON.parse(elephant_bet_login.body_request)
     session_id = sessao["loginInformation"]["session"]
 
-    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
     raise PagasoError.new("Sessão expirada") if session_id.blank?
 
     url = "#{url_service}#{parametro.get.endpoint_HTTP_Heartbeat}?sessao=#{session_id}"
@@ -1498,6 +1394,37 @@ class Venda < ApplicationRecord
     raise "Timeout. Sem resposta da operadora - #{e.backtrace}"
   rescue Exception => e
     raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
+  end
+
+  def self.valida_informacoes_para_venda(params, usuario, ip)
+    valor = params[:valor].to_f
+    raise PagasoError.new("Valor é obrigatório") if valor < 0.1
+  
+    raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
+  
+    produto = Produto.where(id: params[:produto_id]).first
+    raise PagasoError.new("Produto não encontrado") if produto.blank?
+    if produto.valor > 0
+      if produto.valor.to_f != valor
+        raise PagasoError.new("O valor do produto informado não corresponde ao valor produto no portfolio")
+      end
+    end
+  
+    parceiro = produto.partner
+    raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
+  
+    desconto_aplicado, valor_original, valor, porcentagem_desconto = desconto_venda(usuario, parceiro, valor)
+  
+    parametro = Parametro.where(partner_id: parceiro.id)
+    parametro = parametro.where("upper(categoria) = ?", produto.categoria.upcase) if produto.categoria.present?
+    parametro = parametro.first
+    raise PagasoError.new("Parâmetros não localizados") if parametro.blank?
+  
+    raise PagasoError.new("O saldo do agente Pagasó é insuficiente para realizar a recarga") if usuario.saldo < valor
+   
+    raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
+  
+    [desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro]
   end
 
   before_save do 
