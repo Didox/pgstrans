@@ -303,7 +303,9 @@ class Venda < ApplicationRecord
   def self.venda_zaptv(params, usuario, ip)
     raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
     product_id = params[:produto_id]
-    produto = Produto.find(product_id)
+    produto = Produto.where(id: params[:produto_id]).first
+    raise PagasoError.new("Produto não encontrado") if produto.blank?
+    
     parceiro = produto.partner
     valor = params[:valor].to_f
 
@@ -502,7 +504,9 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o sub-agente no seu cadastro. Entre em contato com o seu administrador") if usuario.sub_agente.blank?
   
     host = Rails.env == "development" ? "#{parametro.get.url_integracao_desenvolvimento}" : "#{parametro.get.url_integracao_producao}"
-    produto = Produto.find(params[:produto_id])
+    produto = Produto.where(id: params[:produto_id]).first
+    raise PagasoError.new("Produto não encontrado") if produto.blank?
+
 
     uniq_number = EndeUniqNumber.create(data: Time.zone.now)
     venda = Venda.new(product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: uniq_number.id, customer_number: meter_number, usuario_id: usuario.id, partner_id: parceiro.id)
@@ -769,7 +773,8 @@ class Venda < ApplicationRecord
     telefone = params[:movicel_telefone]
 
     product_id = params[:produto_id]
-    produto = Produto.find(product_id)
+    produto = Produto.where(id: params[:produto_id]).first
+    raise PagasoError.new("Produto não encontrado") if produto.blank?
 
     require 'openssl'
 
@@ -1024,7 +1029,8 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
 
     product_id = params[:produto_id]
-    produto = Produto.find(product_id)
+    produto = Produto.where(id: params[:produto_id]).first
+    raise PagasoError.new("Produto não encontrado") if produto.blank?
 
     require 'openssl'
 
@@ -1195,7 +1201,9 @@ class Venda < ApplicationRecord
     raise PagasoError.new("Olá #{usuario.nome}, você precisa selecionar o subagente no seu cadastro. Entre em contato com o Administrador.") if usuario.sub_agente.blank?
 
     product_id = params[:produto_id]
-    produto = Produto.find(product_id)
+    produto = Produto.where(id: params[:produto_id]).first
+    raise PagasoError.new("Produto não encontrado") if produto.blank?
+
     telefone = params[:unitel_telefone]
 
     venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.unitel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
@@ -1266,7 +1274,9 @@ class Venda < ApplicationRecord
   def self.venda_africell(params, usuario, ip)
     raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
     product_id = params[:produto_id]
-    produto = Produto.find(product_id)
+    produto = Produto.where(id: params[:produto_id]).first
+    raise PagasoError.new("Produto não encontrado") if produto.blank?
+
     parceiro = produto.partner
     valor = params[:valor].to_f
 
@@ -1384,7 +1394,9 @@ class Venda < ApplicationRecord
   def self.venda_elephantbet(params, usuario, ip)
     raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
     product_id = params[:produto_id]
-    produto = Produto.find(product_id)
+    produto = Produto.where(id: params[:produto_id]).first
+    raise PagasoError.new("Produto não encontrado") if produto.blank?
+
     parceiro = produto.partner
     valor = params[:valor].to_f
 
