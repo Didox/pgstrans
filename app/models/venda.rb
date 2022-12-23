@@ -1087,8 +1087,6 @@ class Venda < ApplicationRecord
       elsif erro_message.include?("customers who have not been active on any principal package")
         venda.status = "35"
       end
-      
-      venda.message_api_terceiro = erro_message
     else
       status = last_request.downcase.scan(/status.*?<\/a\:status/).first.gsub(/status|\>|\<|a|\:|\//, "") rescue ""
       status = last_request.downcase.scan(/status.*?<\/b\:status/).first.gsub(/status|\>|\<|b|\:|\//, "") rescue "false" if status.blank?
