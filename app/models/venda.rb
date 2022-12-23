@@ -1087,9 +1087,8 @@ class Venda < ApplicationRecord
       elsif erro_message.include?("customers who have not been active on any principal package")
         venda.status = "35"
       end
-      venda.save!
       
-      raise PagasoError.new(erro_message)
+      venda.message_api_terceiro = erro_message
     else
       status = last_request.downcase.scan(/status.*?<\/a\:status/).first.gsub(/status|\>|\<|a|\:|\//, "") rescue ""
       status = last_request.downcase.scan(/status.*?<\/b\:status/).first.gsub(/status|\>|\<|b|\:|\//, "") rescue "false" if status.blank?
@@ -1124,7 +1123,20 @@ class Venda < ApplicationRecord
   end
 
   def message_api_terceiro_para_busca
-    self.message_api_terceiro.strip.gsub(/:.*/, "") rescue ""
+    Venda.mensagem_busca_erro(self.message_api_terceiro, self.partner)
+  end
+
+  def self.mensagem_busca_erro(mensagem, parceiro)
+    if parceiro.present?
+      if parceiro.slug.to_s.downcase == "dstv"
+        return mensagem[0, 100]
+      end
+    end
+    
+    mensage = mensagem.strip.gsub(/:.*/, "") rescue mensagem
+    mensage = mensage.split("-").first.to_s.strip rescue mensagem
+
+    return mensage
   end
 
   def self.venda_unitel(params, usuario, ip)
