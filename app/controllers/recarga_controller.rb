@@ -87,7 +87,7 @@ class RecargaController < ApplicationController
     end
     render json: {
       mensagem: mensagem,
-      original_mensagem: mensagem_original,
+      #original_mensagem: mensagem_original,
       status:401,
       sucesso: false
     }, status: 401
