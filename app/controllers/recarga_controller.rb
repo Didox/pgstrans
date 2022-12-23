@@ -100,7 +100,7 @@ class RecargaController < ApplicationController
       parceiro = produto&.partner if produto.present?
     end
 
-    if parceiro_id.blank?
+    if parceiro.blank?
       parceiro = Partner.find_by_slug(params[:tipo_venda])
     end
 
