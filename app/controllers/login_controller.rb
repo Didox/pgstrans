@@ -74,7 +74,7 @@ class LoginController < ApplicationController
     return render json: {
       code: code,
       message: mensagem,
-      original_message: mensagem_original,
+      #original_message: mensagem_original,
       status:401
     }, status: 401
   end
