@@ -340,7 +340,7 @@ class Venda < ApplicationRecord
       :body => body_send, timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.zaptv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
@@ -476,7 +476,7 @@ class Venda < ApplicationRecord
     host = Rails.env == "development" ? "#{parametro.get.url_integracao_desenvolvimento}" : "#{parametro.get.url_integracao_producao}"
 
     uniq_number = EndeUniqNumber.create(data: Time.zone.now)
-    venda = Venda.new(product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: uniq_number.id, customer_number: meter_number, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(canal_venda: params[:api], product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: uniq_number.id, customer_number: meter_number, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.store_id = usuario.sub_agente.store_id_parceiro
     venda.seller_id = usuario.sub_agente.seller_id_parceiro
@@ -871,7 +871,7 @@ class Venda < ApplicationRecord
 
           last_request = request.body
 
-          venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+          venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.movicel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: request_id, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
           venda.responsavel = usuario
           venda.save!
 
@@ -1062,7 +1062,7 @@ class Venda < ApplicationRecord
 
     last_request = request.body
     
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: transaction_number, customer_number: params[:dstv_number], usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: transaction_number, customer_number: params[:dstv_number], usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -1145,7 +1145,7 @@ class Venda < ApplicationRecord
 
     telefone = params[:unitel_telefone]
 
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.unitel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.unitel_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, customer_number: telefone, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
 
@@ -1256,7 +1256,7 @@ class Venda < ApplicationRecord
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: transaction_reference, customer_number: numero_africell, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: transaction_reference, customer_number: numero_africell, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
@@ -1353,7 +1353,7 @@ class Venda < ApplicationRecord
 
     #TODO ver proximos passos do que retornou da api
 
-    venda = Venda.new(produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: transaction_reference, customer_number: numero_africell, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: transaction_reference, customer_number: numero_africell, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
