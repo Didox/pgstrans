@@ -723,7 +723,7 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_movicel(params, usuario, ip)
-    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip)
+    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip, params[:valor].to_i)
     
     raise PagasoError.new("Digite o telemóvel") if params[:movicel_telefone].blank?
     
@@ -965,7 +965,7 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_dstv(params, usuario, ip)
-    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip)
+    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip, params[:valor].to_i)
 
     smartcard = params[:transacao_smartcard].blank? ? true : ActiveModel::Type::Boolean.new.cast(params[:transacao_smartcard])
     raise PagasoError.new("Digite o número do cliente/customer number") if params[:dstv_number].blank?
@@ -1125,7 +1125,7 @@ class Venda < ApplicationRecord
   end
 
   def self.venda_unitel(params, usuario, ip)
-    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip)
+    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip, params[:valor].to_i)
     valor_original = valor_original.to_i
 
     raise PagasoError.new("Digite o telemóvel") if params[:unitel_telefone].blank?
@@ -1400,8 +1400,9 @@ class Venda < ApplicationRecord
     raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
   end
 
-  def self.valida_informacoes_para_venda(params, usuario, ip)
-    valor = params[:valor].to_f
+  def self.valida_informacoes_para_venda(params, usuario, ip, valor = nil)
+    valor = params[:valor].to_f if valor.blank?
+
     raise PagasoError.new("Valor é obrigatório") if valor < 0.1
   
     raise PagasoError.new("Produto não selecionado") if params[:produto_id].blank?
