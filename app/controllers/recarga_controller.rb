@@ -15,7 +15,7 @@ class RecargaController < ApplicationController
         code: venda.status_desc.codigo_erro_pagaso,
         message: venda.status_desc.error_description_pt,
         status: 200,
-        original_message: venda.status_desc.error_description,
+        #original_message: venda.status_desc.error_description,
         sell_id: venda.id,
         recharge_token: token,
         date_recharge_token: data,
@@ -28,7 +28,7 @@ class RecargaController < ApplicationController
         code: venda.status_desc.codigo_erro_pagaso,
         message: "#{venda.status_desc.error_description_pt} - #{venda.error_message}", 
         status: 401,
-        original_message: venda.status_desc.error_description, 
+        #original_message: venda.status_desc.error_description, 
         sell_id: venda.id, 
         redirect: venda.partner_id == Partner.ende.id
         }, status: 401
@@ -54,7 +54,7 @@ class RecargaController < ApplicationController
       code: code,
       message: mensagem, 
       status: 400,
-      original_message: mensagem_original, 
+      #original_message: mensagem_original, 
       sell_id: nil, 
       redirect:false
     }, status: 400
