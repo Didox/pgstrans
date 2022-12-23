@@ -67,7 +67,7 @@
           },
           {
             "name": "dstv_number",
-            "description": "DSTV customer number ou smartcard, caso seja uma recarga da DSTV, o fator decisório para smartcard ou customer number é o parâmetro transacao_smartcard",
+            "description": "DSTV customer number ou smartcard. O fator decisório para smartcard ou customer number é o parâmetro transacao_smartcard informado",
             "required": true,
             "type": "string"
           }
@@ -118,7 +118,7 @@
           },
           {
             "name": "dstv_number",
-            "description": "DSTV customer number ou smartcard, caso seja uma recarga da DSTV, o fator decisório para smartcard ou customer number é o parâmetro transacao_smartcard",
+            "description": "DSTV customer number ou smartcard. O fator decisório para smartcard ou customer number é o parâmetro transacao_smartcard informado",
             "required": true,
             "type": "string"
           }
