@@ -1109,7 +1109,6 @@
         "code": { "type": "string" },
         "message": { "type": "string" },
         "status": { "type": "integer" },
-        "original_message": { "type": "string" },
         "sell_id": { "type": "integer" },
         "recharge_token": { "type": "string" },
         "date_recharge_token": { "type": "string" },
