@@ -1,0 +1,38 @@
+
+<div class="container scroltable">
+  <div class="container">
+  
+    <% if @venda.present? %>
+      <div class="page" style="text-align:right">
+        <a href="/vendas/<%= @venda.id %>/mini" 
+        onclick="window.open(this.href, 'mywin',
+        'margin=0,size=auto,padding=0,left=0;margin-top=auto,width=302,height=564,toolbar=1,resizable=0'); return false;"
+        class="btn btn-primary">Imprimir Recibo</a>
+      </div>
+    <% end %>
+
+    <div class="card" style="margin-top: 5px;">
+      <div class="card-header">
+        <div class="col-md-12" style="margin-bottom: 20px; font-weight: bold; text-align: center">
+          <ul style="list-style-type: none;">
+            <li><h2>ELEPHANT BET</h2></li>
+            <li><h2>Confirmação de Transação</h2></li>
+          </ul>
+        </div>
+        <div class="col-md-12" style="font-weight: bold; text-align: left">
+          <ul style="list-style-type: none;">
+            <li>Status: <%= info["voucher"]["status"] %></li>
+            <li>Referência: <%= info["voucher"]["reference"] %> </li>
+            <li>Data da Criação:</b> <%= info["respDateTime"].strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
+            <li>Referência do Jogador: <%= info["voucher"]["playerReference"] %></li>
+            <li>Código de Pagamento: <%= info["voucher"]["paymentCode"] %> </li>
+            <li>Valor: <%= @venda.valor_original %></li>
+            <li>creditType: <%= info["voucher"]["creditType"] %> </li>
+            <li>Data de Validade: <%= info["voucher"]["endValidity"].to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
+            <div><b>Operador:</b> <img style="width: 24px;" src="https://www.pagaso.co.ao/<%= asset_path('favicon.png') %>"> PAGASÓ</div>
+            <div><b>ID:</b> <%= (info["venda"]&.usuario || @adm).login %></div>
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>

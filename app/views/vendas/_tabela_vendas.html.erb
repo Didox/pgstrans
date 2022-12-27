@@ -34,10 +34,19 @@
         <% if venda.customer_number.present? %>
           <b>Número do Cliente:</b> <%= venda.customer_number %><br>
         <% end %>
+
         <% if venda.smartcard.present? %>
-          <b>Smartcard:</b> <%= venda.smartcard %>
+          <b>Smartcard:</b> <%= venda.smartcard %><br>
         <% end %>
 
+        <% if venda.transaction_reference.present? %>
+          <b>Referência:</b> <%= venda.transaction_reference %><br>
+        <% end %>
+
+        <% if venda.payment_code.present? %>
+          <b>Código de pagamento:</b> <%= venda.payment_code %><br>
+        <% end %>
+        
         <% if usuario_logado.admin? || usuario_logado.operador? %>
           <b>Conta corrente ID</b> <a href="/conta_correntes/<%= venda.movimentacoes_conta_corrente.id rescue "" %>" target="_blank"><%= venda.movimentacoes_conta_corrente.id rescue "" %></a><br>
         <% end %>

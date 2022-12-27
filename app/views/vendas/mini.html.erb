@@ -8,6 +8,9 @@
       <% infos.each do |info|%>
         <%= render "/ende/venda_recibo_mini", info: info, title: "Recibo de Venda de Crédito", venda: @venda %>
       <% end %>
+    <% elsif @venda.partner.id == Partner.elephantbet.id %>
+      <% info = JSON.parse(@venda.response_get) %>
+      <%= render "/elephant_bet/venda_recibo_mini", info: info, title: "Recibo de Venda de Crédito", venda: @venda %>
     <% end %>
   </dl>
 </div>

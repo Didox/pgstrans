@@ -1,0 +1,2 @@
+class ElephantBetLogin < ApplicationRecord
+end

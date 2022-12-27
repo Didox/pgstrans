@@ -51,6 +51,7 @@ class PerfilUsuario < ApplicationRecord
 
   def self.action_amigavel(action)
     nomes = {
+      consultar_voucher: "Consultar Voucher",
       impressao_recibo: "Impressão do Recibo de Venda - Menu de Venda Africell",
       confirmacao_transacao: "Confirmação de Transação - Menu de Venda Africell",
       confirmar_cliente: "Confirmar Cliente ENDE - Menu de Venda HOME", 
@@ -124,8 +125,7 @@ class PerfilUsuario < ApplicationRecord
       index_vendas_conciliacao: "Relatório de Vendas com dados resumidos para fins de conciliação",
       auth: "Permissão para interagir com a API do Google",
       google_auth: "Permissão para autenticação Google",
-      painel: "Últimas Vendas por Parceiro",
-      #consolidado: "Relatorio de Geral de Vendas - Consolidado",
+      painel: "Últimas Vendas por Parceiro"
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
@@ -194,7 +194,8 @@ class PerfilUsuario < ApplicationRecord
       gestao_operacao: "Gestão da Operação",
       otp_key_africell_logs: "Acesso ao log de leitura e gravação da OTP KEY Africell",
       painel_vendas: "Painel de Vendas",
-      pagaso_erro_codigos: "Códigos de ERRO Pagasó"
+      pagaso_erro_codigos: "Códigos de ERRO Pagasó",
+      elephant_bet: "Elephant BET"
     }
     nomes[controller.to_sym]
   end

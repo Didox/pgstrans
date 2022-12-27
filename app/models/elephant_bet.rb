@@ -24,7 +24,7 @@ class ElephantBet
 
     bearer_token_default = "#{parametro.get.bearer_token_default}"
 
-    request = HTTParty.get(uri, 
+    request = HTTParty.post(uri, 
       headers: {
         'Content-Type' => 'application/json',
         'Authorization' => "Bearer #{bearer_token_default}",
@@ -41,7 +41,7 @@ class ElephantBet
     Rails.logger.info "===================[login]======================="
     Rails.logger.info request.body
     Rails.logger.info "=========================================="
-    [ElephantBetLogin.create(body_request:request.body.to_json), parceiro, parametro, url_service]
+    [ElephantBetLogin.create(body_request:request.body), parceiro, parametro, url_service]
   end
 
 end

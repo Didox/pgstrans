@@ -1,0 +1,130 @@
+<div class="container scroltable">
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="container">
+    
+    <div class="card" style="margin-top: 5px;">
+      <div class="card-header">
+        <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold">
+          Consulta Código de Voucher
+        </div>
+        <% if @info.blank? %>
+          <div class="card-body">
+            <form action="/dstv/validacao-cliente" method="get">
+
+              <div class="col-md-12">
+                <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
+                  <h3>Informe o</h3>
+                  <div style="margin-left: 4%;">Referência da Transação</div>
+                  <input type="text" class="form-control" value="<%= params[:transaction_reference] %>" name="transaction_reference" placeholder="Device Number" style="margin-left: 4%;max-width: 300px;">
+                  <h3>ou</h3>
+                  <div style="margin-left: 4%;">Código de Pagamento</div>
+                  <input type="text" class="form-control" value="<%= params[:payment_code] %>" name="payment_code" placeholder="Customer Number" style="margin-left: 4%;max-width: 300px;">
+                </div>
+                <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: right;">
+                  <div style="display: inline-block;margin-bottom: 10px;">
+                    <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="VALIDAR">
+                  </div>
+                  <div style="display: inline-block;margin-bottom: 10px;">
+                    <%= link_to root_path, class: 'btn btn-space btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+                      <span class="glyphicon glyphicon-list-alt"></span>
+                      VOLTAR
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        <% else %>
+          <div class="col-md-12">
+            <div style="margin-bottom:20px;border-bottom: 1px solid #ccc;">
+                <% if params[:transaction_reference].present? %>
+                  <div style="font-weight: bold;font-size: 15px;"> Referência da Transação: <%= params[:transaction_reference] %> </div>
+                <% else %>
+                  <div style="font-weight: bold;font-size: 15px;"> Código do Pagamento: <%= params[:payment_code] %> </div>
+                <% end %>
+            </div>
+            
+            <div class="col-md-6">
+              <div style="font-weight: bold;font-size: 15px;"> DADOS DO CLIENTE</div>
+                <div>
+                  <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+                    <%
+                    dados_cliente = {}
+                    payment_code = 0
+                    Dstv::TRADUCAO_DADOS_CLIENTE.each do |k, v|
+                      @info[:customer_detail].each do |key, val|
+                        if key == k
+                          key_translate = Dstv::TRADUCAO_DADOS_CLIENTE[key]
+                          if val.present? && key_translate.present?
+                            dados_cliente[key_translate] = val
+                            payment_code = val if key == "number"
+                          end
+                        end
+                      end
+                    end
+                    %>
+
+                    <% dados_cliente.each do |key, val| %>
+                      <li style="margin-bottom: 10px">
+                        <b><%= key %></b>: <%= val %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div style="font-weight: bold;font-size: 15px;">DADOS DA CONTA</div>
+                  <% @info[:accounts].each do |account| %>
+                    <div>
+                      <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+                        <%
+                        dados_conta = {}
+                        Dstv::TRADUCAO_DADOS_CONTAS.each do |k, v|
+                          account.each do |key, val|
+                            if key == k
+                              key_translate = Dstv::TRADUCAO_DADOS_CONTAS[key]
+                              if val.present? && key_translate.present?
+                                dados_conta[key_translate] = val
+                              end
+                            end
+                          end
+                        end
+                        %>
+                        <% dados_conta.each do |key, val| %>
+                          <li style="margin-bottom: 10px">
+                            <b><%= key %></b>: <%= val %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br>
+          <br>
+          <br>
+
+          <!--
+          <a href="/dstv/alteracao-cliente-produtos?payment_code=<%= payment_code %>" class="btn btn-success" style="width:100%;margin-bottom: 5px;white-space: break-spaces;">Alteração de pacotes para um ou múltiplos produtos</a>
+          <a href="/?recarga=DSTv&displayrecarga=ok" class="btn btn-warning" style="width:100%;margin-bottom: 5px;">Recarga com valores pré-fixados</a>
+          -->
+
+          <div style="display: inline-block;margin-bottom: 10px;width: 100%;margin-bottom: 5px;">
+            <%= link_to root_path, class: 'btn btn-danger', style: "width: 100%;text-align: center;" do %>
+              <span class="glyphicon glyphicon-list-alt"></span>
+              Voltar
+            <% end %>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
