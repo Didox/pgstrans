@@ -1419,7 +1419,16 @@ class Venda < ApplicationRecord
       conta_corrente.save!
 
       if params[:api].blank? && params[:voucher_sms_elephantbet].present?
-        mensagem = "Voucher Elephant Bet"
+        
+        assunto_email = "Elephant Bet Voucher"
+        creation_date_time = JSON.parse(res.body)["voucher"]["creationDatetime"].to_datetime.strftime("%d/%m/%Y %H:%M:%S")  rescue ""
+        transaction_reference = JSON.parse(res.body)["voucher"]["reference"] rescue ""
+        endValidity = JSON.parse(res.body)["voucher"]["endValidity"].to_datetime.strftime("%d/%m/%Y %H:%M:%S")  rescue ""
+        payment_code = JSON.parse(res.body)["voucher"]["paymentCode"] rescue ""
+        playerReference = JSON.parse(res.body)["voucher"]["playerReference"] rescue ""
+
+        mensagem = "#{assunto_email} #{creation_date_time} Referência:#{transaction_reference} Valor:#{Venda.helper.number_to_currency(valor_original, :precision => 2,  :unit => "Kz")} Validade:#{endValidity} Código de Pagamento:#{payment_code} Jogador:#{playerReference}"
+
         envia, resposta = Sms.enviar(params[:voucher_sms_elephantbet], mensagem)
 
         sms_log = SmsHistoricoEnvio.new(numero: params[:voucher_sms_elephantbet], conteudo: mensagem, usuario_id: usuario.id, venda_id: venda.id, sucesso: true)
