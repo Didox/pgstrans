@@ -11,28 +11,32 @@
       </div>
     <% end %>
 
-    <div class="card" style="margin-top: 5px;">
-      <div class="card-header">
-        <div class="col-md-12" style="margin-bottom: 20px; font-weight: bold; text-align: center">
-          <ul style="list-style-type: none;">
-            <li><h2>ELEPHANT BET</h2></li>
-            <li><h2><%= title %></h2></li>
-          </ul>
+    <% if @venda.present? %>
+      <div class="card" style="margin-top: 5px;">
+        <div class="card-header">
+          <div class="col-md-12" style="margin-bottom: 20px; font-weight: bold; text-align: center">
+            <ul style="list-style-type: none;">
+              <li><h2>ELEPHANT BET</h2></li>
+              <li><h2><%= title %></h2></li>
+            </ul>
+          </div>
+          <div class="col-md-12" style="font-weight: medium; text-align: left">
+            <ul style="list-style-type: none;">
+              <li><b>Status: </b><%= info["voucher"]["status"] rescue "" %></li>
+              <li><b>Referência: </b><%= info["voucher"]["reference"] %> </li>
+              <li><b>Data da Criação:</b> </b><%= info["voucher"]["creationDatetime"].to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
+              <li><b>Referência do Jogador: </b><%= info["voucher"]["playerReference"] %></li>
+              <li><b>Código de Pagamento: </b><%= info["voucher"]["paymentCode"] %> </li>
+              <li><b>Valor: </b><%= number_to_currency(@venda.valor_original, :unit => "KZ", :precision => 2) %></li>
+              <li><b>creditType: </b><%= info["voucher"]["creditType"] %> </li>
+              <li><b>Data de Validade: </b><%= info["voucher"]["endValidity"].to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
+              <div><b>Agente:</b> <%= (info["venda"]&.usuario || @adm).login %></div>
+              <div><b>Operador:</b> <img style="width: 24px;" src="https://www.pagaso.co.ao/<%= asset_path('favicon.png') %>"> PAGASÓ</div>
+            </ul>
         </div>
-        <div class="col-md-12" style="font-weight: medium; text-align: left">
-          <ul style="list-style-type: none;">
-            <li><b>Status: </b><%= info["voucher"]["status"] %></li>
-            <li><b>Referência: </b><%= info["voucher"]["reference"] %> </li>
-            <li><b>Data da Criação:</b> </b><%= info["voucher"]["creationDatetime"].to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
-            <li><b>Referência do Jogador: </b><%= info["voucher"]["playerReference"] %></li>
-            <li><b>Código de Pagamento: </b><%= info["voucher"]["paymentCode"] %> </li>
-            <li><b>Valor: </b><%= number_to_currency(@venda.valor_original, :unit => "KZ", :precision => 2) %></li>
-            <li><b>creditType: </b><%= info["voucher"]["creditType"] %> </li>
-            <li><b>Data de Validade: </b><%= info["voucher"]["endValidity"].to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
-            <div><b>Agente:</b> <%= (info["venda"]&.usuario || @adm).login %></div>
-            <div><b>Operador:</b> <img style="width: 24px;" src="https://www.pagaso.co.ao/<%= asset_path('favicon.png') %>"> PAGASÓ</div>
-          </ul>
       </div>
-    </div>
+    <% else %>
+      <hr><h2>Nenhum voucher encontrado com o parâmetro fornecido</h2><hr>
+    <% end %>
   </div>
 </div>
