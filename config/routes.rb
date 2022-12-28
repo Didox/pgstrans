@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   get '/africell/confirmacao_transacao', to: 'africell#confirmacao_transacao'
 
   get '/elephant_bet/consultar_voucher', to: 'elephant_bet#consultar_voucher'
+  get '/elephant_bet/consultar_voucher/mini', to: 'elephant_bet#consultar_voucher_mini'
 
   get '/controle-acessos/:modelo/:modelo_id/grupos', to: 'grupos#controle_acessos_modelo'
   get '/controle-acessos/:modelo/:modelo_id/grupos/novo', to: 'grupos#controle_acessos_modelo_novo'

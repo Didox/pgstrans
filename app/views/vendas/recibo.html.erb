@@ -16,7 +16,7 @@
         <% end %>
       <% elsif @venda.partner.id == Partner.elephantbet.id %>
         <% info = JSON.parse(@venda.response_get) %>
-        <%= render "/elephant_bet/venda_recibo", info: info, title: "Recibo de Venda de Crédito", venda: @venda %>
+        <%= render "/elephant_bet/venda_recibo", info: info, title: "Confirmação de Transação", venda: @venda, url: "/vendas/#{@venda.id}/mini" %>
       <% end %>
     </dl>
 

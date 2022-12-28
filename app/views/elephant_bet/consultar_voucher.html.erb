@@ -37,6 +37,8 @@
               </div>
             </form>
           </div>
+        <% else %>
+          <%= render "/elephant_bet/venda_recibo", info: @info, title: "Recibo de Confirmação de Transação", venda: @venda, url: "/elephant_bet/consultar_voucher/mini?transaction_reference=#{params[:transaction_reference]}&payment_code=#{params[:payment_code]}" %>
         <% end %>
       </div>
     </div>
