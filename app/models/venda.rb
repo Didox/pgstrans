@@ -1420,7 +1420,7 @@ class Venda < ApplicationRecord
 
       if params[:api].blank? && params[:voucher_sms_elephantbet].present?
         
-        assunto_email = "Elephant Bet Voucher"
+        assunto_email = "Pagasó Elephant Bet Voucher"
         creation_date_time = JSON.parse(res.body)["voucher"]["creationDatetime"].to_datetime.strftime("%d/%m/%Y %H:%M:%S")  rescue ""
         transaction_reference = JSON.parse(res.body)["voucher"]["reference"] rescue ""
         endValidity = JSON.parse(res.body)["voucher"]["endValidity"].to_datetime.strftime("%d/%m/%Y %H:%M:%S")  rescue ""
