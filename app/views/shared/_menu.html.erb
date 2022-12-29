@@ -62,21 +62,19 @@
 	</ul>
 </div>
 
-<% if @adm.id == Usuario::ROOT %>
-	<div class="elephantbet-menu">
-		<button class="btn btn-sucess menu_recarga elephantbet-menu"
-				id="dLabel"
-				type="button" 
-				data-toggle="dropdown">ELEPHANT BET
-				<span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu" aria-labelledby="dLabel">
-			<li><a href="/elephant_bet/consultar_voucher">
-				<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "elephantbet" && params[:action] == "consultar_voucher" %>active_menu<% end %>">Consultar Voucher</h1>
-			</a></li>
-		</ul>
-	</div>
-<% end %>
+<div class="elephantbet-menu">
+	<button class="btn btn-sucess menu_recarga elephantbet-menu"
+			id="dLabel"
+			type="button" 
+			data-toggle="dropdown">ELEPHANT BET
+			<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu" aria-labelledby="dLabel">
+		<li><a href="/elephant_bet/consultar_voucher">
+			<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "elephantbet" && params[:action] == "consultar_voucher" %>active_menu<% end %>">Consultar Voucher</h1>
+		</a></li>
+	</ul>
+</div>
 
 <% if PerfilUsuario.where("lower(nome) != '%vendedor%'") %>
 	<% if PerfilUsuario.tem_acesso?(usuario_logado, :BackofficeController, :index) %>

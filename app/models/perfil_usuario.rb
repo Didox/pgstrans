@@ -41,8 +41,6 @@ class PerfilUsuario < ApplicationRecord
     menu = {}
     secoes.each do |secao|
       menu[secao] = Menu.where("nome in (?) or (controller_action in (?))", acessos_links, controllers_actions).where(secao: secao)
-      #debugger
-        
       x = ""
     end
 
