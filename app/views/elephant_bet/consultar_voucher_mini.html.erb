@@ -1,0 +1,7 @@
+<div class="col-md-12">
+  <dl class="dl-horizontal">
+    <%= render "/elephant_bet/venda_recibo_mini", info: @info, title: "Recibo de Confirmação de Transação", venda: @venda %>
+  </dl>
+</div>
+
+<script>window.print();setTimeout(function(){ window.close(); }, 1000)</script>

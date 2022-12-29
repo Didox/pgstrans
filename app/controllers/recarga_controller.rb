@@ -15,11 +15,10 @@ class RecargaController < ApplicationController
         code: venda.status_desc.codigo_erro_pagaso,
         message: venda.status_desc.error_description_pt,
         status: 200,
-        #original_message: venda.status_desc.error_description,
         sell_id: venda.id,
         recharge_token: token,
         date_recharge_token: data,
-        redirect: venda.partner_id == Partner.ende.id
+        redirect: venda.redirect
       }, status: 200
     else
       LogVenda.create(usuario_id: usuario_logado.id, titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{venda.status_desc.error_description_pt} - #{venda.status} - #{venda.response_get}")
@@ -28,7 +27,6 @@ class RecargaController < ApplicationController
         code: venda.status_desc.codigo_erro_pagaso,
         message: "#{venda.status_desc.error_description_pt} - #{venda.error_message}", 
         status: 401,
-        #original_message: venda.status_desc.error_description, 
         sell_id: venda.id, 
         redirect: venda.partner_id == Partner.ende.id
         }, status: 401
@@ -54,7 +52,6 @@ class RecargaController < ApplicationController
       code: code,
       message: mensagem, 
       status: 400,
-      #original_message: mensagem_original, 
       sell_id: nil, 
       redirect:false
     }, status: 400
@@ -71,7 +68,7 @@ class RecargaController < ApplicationController
           status: venda.status, 
           venda_id: venda.id, 
           sucesso: venda.sucesso?, 
-          redirect: venda.partner_id == Partner.ende.id
+          redirect: venda.redirect
         }, status: 200
     else
       LogVenda.create(usuario_id: usuario_logado.id, titulo: "#{params[:tipo_venda]} - Tentativa de venda dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: "#{venda.status_desc.error_description_pt} - #{venda.status} - #{venda.response_get}")
@@ -87,7 +84,6 @@ class RecargaController < ApplicationController
     end
     render json: {
       mensagem: mensagem,
-      #original_mensagem: mensagem_original,
       status:401,
       sucesso: false
     }, status: 401

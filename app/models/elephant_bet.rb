@@ -16,6 +16,34 @@ class ElephantBet
 
     [parceiro,parametro,url_service]
   end
+
+  def self.consultar_voucher_reference(transaction_reference)
+    elephant_bet_login, parceiro, parametro, url_service = ElephantBet.login
+
+    bearer_token_default = "#{parametro.get.bearer_token_default}"
+
+    sessao = JSON.parse(elephant_bet_login.body_request)
+    session_id = sessao["loginInformation"]["session"]
+
+    raise PagasoError.new("Sessão expirada") if session_id.blank?
+
+    url = "#{url_service}/#{parametro.get.endpoint_HTTP_ConsultaVoucher}/#{transaction_reference}?session=#{session_id}"
+    uri = URI.parse(URI::Parser.new.escape(url))
+
+    request = HTTParty.get(uri, 
+      headers: {
+        'Content-Type' => 'application/json',
+        'Authorization' => "Bearer #{bearer_token_default}",
+      },
+      timeout: DEFAULT_TIMEOUT.to_i.seconds
+    )
+
+    return JSON.parse(request.body)
+  end
+
+  def self.consultar_voucher_payment_code(payment_code)
+    consultar_voucher_reference(payment_code)
+  end
   
   def self.login
     parceiro, parametro, url_service = self.parametros
@@ -24,7 +52,7 @@ class ElephantBet
 
     bearer_token_default = "#{parametro.get.bearer_token_default}"
 
-    request = HTTParty.get(uri, 
+    request = HTTParty.post(uri, 
       headers: {
         'Content-Type' => 'application/json',
         'Authorization' => "Bearer #{bearer_token_default}",
@@ -41,7 +69,7 @@ class ElephantBet
     Rails.logger.info "===================[login]======================="
     Rails.logger.info request.body
     Rails.logger.info "=========================================="
-    [ElephantBetLogin.create(body_request:request.body.to_json), parceiro, parametro, url_service]
+    [ElephantBetLogin.create(body_request:request.body), parceiro, parametro, url_service]
   end
 
 end
