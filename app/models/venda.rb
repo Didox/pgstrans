@@ -1316,44 +1316,68 @@ class Venda < ApplicationRecord
     raise "Erro ao tentar executar a transação. Entre em contato com o Administrador - #{e.class} - #{e.backtrace}"
   end
 
-  
+  def redirect
+    return self.partner_id == Partner.ende.id || self.partner_id == Partner.elephantbet.id
+  end
 
   def self.venda_elephantbet(params, usuario, ip)
     desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip)
 
     raise PagasoError.new("Digite o número do telefone do jogador") if params[:elephantbet_telefone].blank?
-    params[:elephantbet_telefone] = "244#{params[:elephantbet_telefone]}"
-   
-    debugger
+    params[:elephantbet_telefone] = "+244#{params[:elephantbet_telefone]}" unless params[:elephantbet_telefone].to_s.include?("+244")
+
     elephant_bet_login, parceiro, parametro, url_service = ElephantBet.login
     sessao = JSON.parse(elephant_bet_login.body_request)
     session_id = sessao["loginInformation"]["session"]
 
     raise PagasoError.new("Sessão expirada") if session_id.blank?
 
-    url = "#{url_service}#{parametro.get.endpoint_HTTP_Heartbeat}?sessao=#{session_id}"
+=begin
+    url = "#{url_service}#{parametro.get.endpoint_HTTP_Heartbeat}?session=#{session_id}"
     uri = URI.parse(URI::Parser.new.escape(url))
 
     body = {
       "session": "#{session_id}",
     }.to_json
 
-    res = HTTParty.post(uri, 
+    res = HTTParty.patch(uri, 
       :headers => {
         'Content-Type' => 'application/json',
-        'Authorization' => "Basic #{parametro.bearer_token_default}",
+        'Authorization' => "Basic #{parametro.get.bearer_token_default}",
       },
       body: body,
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
-    debugger
+    sucesso = JSON.parse(res.body)["success"] rescue false
 
-    puts res.body
+    raise PagasoError.new("Fazer login novamente depois") if !sucesso
+=end
 
-    #TODO ver proximos passos do que retornou da api
+    url = "#{url_service}#{parametro.get.endpoint_HTTP_VouchersCreateOnlyPlayable}?session=#{session_id}"
+    uri = URI.parse(URI::Parser.new.escape(url))
 
-    venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: transaction_reference, customer_number: numero_africell, usuario_id: usuario.id, partner_id: parceiro.id)
+    body = {
+      "playerReference": params[:elephantbet_telefone],
+      "amount": valor,
+      "payment": {
+          "mode": "external"
+      },
+      "distribution": "digital"
+    }.to_json
+
+    res = HTTParty.post(uri, 
+      :headers => {
+        'Content-Type' => 'application/json',
+        'Authorization' => "Basic #{parametro.get.bearer_token_default}",
+      },
+      body: body,
+      timeout: DEFAULT_TIMEOUT.to_i.seconds
+    )
+
+    transaction_reference = JSON.parse(res.body)["voucher"]["reference"] rescue ""
+    payment_code = JSON.parse(res.body)["voucher"]["paymentCode"] rescue ""
+    venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, transaction_reference: transaction_reference, customer_number: params[:elephantbet_telefone], payment_code: payment_code, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
@@ -1364,10 +1388,7 @@ class Venda < ApplicationRecord
     venda.request_send = "#{url} ---------- body=#{body}"
     venda.response_get = res.body
 
-    begin
-      venda.status = JSON.parse(res.body)["StatusCode"]
-    rescue;end
-
+    venda.status = JSON.parse(res.body)["success"].to_s rescue nil
     venda.status ||= res.code
     venda.save!
 
@@ -1398,6 +1419,29 @@ class Venda < ApplicationRecord
       )
       conta_corrente.responsavel = usuario
       conta_corrente.save!
+
+      if params[:api].blank? && params[:voucher_sms_elephantbet].present?
+        
+        assunto_email = "Pagasó Elephant Bet Voucher"
+        creation_date_time = JSON.parse(res.body)["voucher"]["creationDatetime"].to_datetime.strftime("%d/%m/%Y %H:%M:%S")  rescue ""
+        transaction_reference = JSON.parse(res.body)["voucher"]["reference"] rescue ""
+        endValidity = JSON.parse(res.body)["voucher"]["endValidity"].to_datetime.strftime("%d/%m/%Y %H:%M:%S")  rescue ""
+        payment_code = JSON.parse(res.body)["voucher"]["paymentCode"] rescue ""
+        playerReference = JSON.parse(res.body)["voucher"]["playerReference"] rescue ""
+
+        mensagem = "#{assunto_email} #{creation_date_time} Referência:#{transaction_reference} Valor:#{Venda.helper.number_to_currency(valor_original, :precision => 2,  :unit => "Kz")} Validade:#{endValidity} Código de Pagamento:#{payment_code} Jogador:#{playerReference}"
+
+        envia, resposta = Sms.enviar(params[:voucher_sms_elephantbet], mensagem)
+
+        sms_log = SmsHistoricoEnvio.new(numero: params[:voucher_sms_elephantbet], conteudo: mensagem, usuario_id: usuario.id, venda_id: venda.id, sucesso: true)
+        if envia
+          sms_log.save!
+        else
+          sms_log.sucesso = false
+          sms_log.save!
+          LogVenda.create(usuario_id: usuario.id, titulo: "SMS não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: resposta.inspect)
+        end
+      end
     end
 
     return venda
