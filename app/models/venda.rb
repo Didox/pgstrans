@@ -1422,14 +1422,14 @@ class Venda < ApplicationRecord
 
       if params[:api].blank? && params[:voucher_sms_elephantbet].present?
         
-        assunto_email = "Pagasó Elephant Bet Voucher"
+        assunto_email = "ElephantBet Voucher"
         creation_date_time = JSON.parse(res.body)["voucher"]["creationDatetime"].to_datetime.strftime("%d/%m/%Y %H:%M:%S")  rescue ""
         transaction_reference = JSON.parse(res.body)["voucher"]["reference"] rescue ""
         endValidity = JSON.parse(res.body)["voucher"]["endValidity"].to_datetime.strftime("%d/%m/%Y %H:%M:%S")  rescue ""
         payment_code = JSON.parse(res.body)["voucher"]["paymentCode"] rescue ""
         playerReference = JSON.parse(res.body)["voucher"]["playerReference"] rescue ""
 
-        mensagem = "#{assunto_email} #{creation_date_time} Referência:#{transaction_reference} Valor:#{Venda.helper.number_to_currency(valor_original, :precision => 2,  :unit => "Kz")} Validade:#{endValidity} Código de Pagamento:#{payment_code} Jogador:#{playerReference}"
+        mensagem = "#{assunto_email} #{creation_date_time} Referência:#{transaction_reference} Valor:Kz#{Venda.helper.number_to_currency(valor_original, :precision => 2)} Validade:#{endValidity} Voucher:#{payment_code} Jogador:#{playerReference}"
 
         envia, resposta = Sms.enviar(params[:voucher_sms_elephantbet], mensagem)
 
