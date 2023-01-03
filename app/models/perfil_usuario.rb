@@ -50,7 +50,7 @@ class PerfilUsuario < ApplicationRecord
   def self.action_amigavel(action)
     nomes = {
       consultar_voucher: "Consultar Voucher",
-      consultar_voucher_mini: "Impressão do Recibo de Consultar Voucher",
+      consultar_voucher_mini: "Impressão do Recibo de Consulta de Voucher por Referência ou Código de Pagamento",
       impressao_recibo: "Impressão do Recibo de Venda - Menu de Venda Africell",
       confirmacao_transacao: "Confirmação de Transação - Menu de Venda Africell",
       confirmar_cliente: "Confirmar Cliente ENDE - Menu de Venda HOME", 
