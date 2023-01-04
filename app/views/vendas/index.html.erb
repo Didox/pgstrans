@@ -233,15 +233,17 @@
               <input type="text" name="transaction_reference" value="<%= params[:transaction_reference] %>" class="form-control">
             </div>
           </div>
-          </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Código de Pagamento</label>
-            <div>
-              <input type="text" name="payment_code" value="<%= params[:payment_code] %>" class="form-control">
+        </div>
+        <% if usuario_logado.admin? %>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label>Código de Pagamento</label>
+              <div>
+                <input type="text" name="payment_code" value="<%= params[:payment_code] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">

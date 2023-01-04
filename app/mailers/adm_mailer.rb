@@ -9,7 +9,7 @@ class AdmMailer < ApplicationMailer
     @otp_token_log = otp_token_log
     @body = body
     mail(to: "pagaso.facilita@gmail.com;
-    rosi.volgarin@tiv-tecnologia.com;
+    rosi.volgarin@gmail.com;
     marcio.santos@tiv-tecnologia.com; 
     orlando.salvador@tiv-tecnologia.com; 
     jorge.centeno@tiv-tecnologia.com; 
