@@ -17,7 +17,7 @@ class ElephantBetController < ApplicationController
          return
       end
 
-      if params[:payment_code].present?
+      if params[:payment_code].present? && usuario_logado.admin?
          if params[:payment_code].present?
             @venda = Venda.where(payment_code: params[:payment_code], partner_id: Partner.elephantbet.id).first
             @info = ElephantBet.consultar_voucher_payment_code(params[:payment_code])
