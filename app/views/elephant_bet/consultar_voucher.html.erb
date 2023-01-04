@@ -19,9 +19,11 @@
                   <h3>Informe a</h3>
                   <div style="margin-left: 4%;">Referência da Transação</div>
                   <input type="text" class="form-control" value="<%= params[:transaction_reference] %>" name="transaction_reference" placeholder="Referëncia da Transação" style="margin-left: 4%;max-width: 300px;">
-                  <h3>ou o</h3>
-                  <div style="margin-left: 4%;">Código do Pagamento</div>
-                  <input type="text" class="form-control" value="<%= params[:payment_code] %>" name="payment_code" placeholder="Código de Pagamento" style="margin-left: 4%;max-width: 300px;">
+                  <% if usuario_logado.admin? %>
+                    <h3>ou o</h3>
+                    <div style="margin-left: 4%;">Código do Pagamento</div>
+                    <input type="text" class="form-control" value="<%= params[:payment_code] %>" name="payment_code" placeholder="Código de Pagamento" style="margin-left: 4%;max-width: 300px;">
+                  <% end %>
                 </div>
                 <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: right;">
                   <div style="display: inline-block;margin-bottom: 10px;">

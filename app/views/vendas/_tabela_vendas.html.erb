@@ -7,7 +7,9 @@
       <th scope="col"  style="text-align: center">Valor</th>
       <th scope="col"  style="text-align: center">Lucro</th>
       <th scope="col"  style="text-align: center">Custo</th>
-      <th colspan="3">Ação</th>
+      <% if usuario_logado.admin? || usuario_logado.operador? %>
+        <th colspan="3">Ação</th>
+      <% end %>
     </tr>
   </thead>
 
@@ -43,8 +45,10 @@
           <b>Referência:</b> <%= venda.transaction_reference %><br>
         <% end %>
 
-        <% if venda.payment_code.present? %>
-          <b>Código de pagamento:</b> <%= venda.payment_code %><br>
+        <% if usuario_logado.admin? %>
+          <% if venda.payment_code.present? %>
+            <b>Código de pagamento:</b> <%= venda.payment_code %><br>
+          <% end %>
         <% end %>
         
         <% if usuario_logado.admin? || usuario_logado.operador? %>

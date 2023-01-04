@@ -66,6 +66,7 @@
         <dt>Número do Cliente:</dt>
         <dd><%= @venda.customer_number %></dd>
       <% end %>
+
       <% if @venda.smartcard.present? %>
         <dt>Smartcard:</dt>
         <dd><%= @venda.smartcard %></dd>
@@ -75,11 +76,13 @@
         <dt>Referência :</dt>
         <dd><%= @venda.transaction_reference %></dd>
       <% end %>
-      <% if @venda.payment_code.present? %>
-        <dt>Código de Pagamento:</dt>
-        <dd><%= @venda.payment_code %></dd>
-      <% end %>
 
+      <% if usuario_logado.admin? %>
+        <% if @venda.payment_code.present? %>
+          <dt>Código de Pagamento:</dt>
+          <dd><%= @venda.payment_code %></dd>
+        <% end %>
+      <% end %>
 
       <dt>Situação:</dt>
       <dd><%= @venda.status_desc.error_description_pt %> - <strong><%= "#{@venda.lancamento.nome}" rescue "" %></strong></dd>
