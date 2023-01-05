@@ -1332,7 +1332,7 @@ class Venda < ApplicationRecord
 
     raise PagasoError.new("Sessão expirada") if session_id.blank?
 
-=begin
+begin
     url = "#{url_service}#{parametro.get.endpoint_HTTP_Heartbeat}?session=#{session_id}"
     uri = URI.parse(URI::Parser.new.escape(url))
 
@@ -1352,14 +1352,14 @@ class Venda < ApplicationRecord
     sucesso = JSON.parse(res.body)["success"] rescue false
 
     raise PagasoError.new("Fazer login novamente depois") if !sucesso
-=end
+end
 
     url = "#{url_service}#{parametro.get.endpoint_HTTP_VouchersCreateOnlyPlayable}?session=#{session_id}"
     uri = URI.parse(URI::Parser.new.escape(url))
 
     body = {
       "playerReference": params[:elephantbet_telefone],
-      "amount": valor,
+      "amount": valor_original,
       "payment": {
           "mode": "external"
       },
