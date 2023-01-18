@@ -41,9 +41,9 @@ class AfricellController < ApplicationController
     parceiro, parametro, url_service = Africell.parametros
     update_parametros(access_token, refresh_token, parametro)
     
-    Rails.logger.info("=====================================================================")
-    Rails.logger.info("Parada para aguardando a chegada do e-mail na conta api@pagaso.com.br")
-    Rails.logger.info("=====================================================================")
+    Rails.logger.info("===================================================================")
+    Rails.logger.info("Parada para aguardar a chegada do e-mail na conta api@pagaso.com.br")
+    Rails.logger.info("===================================================================")
     sleep(30)
 
     user = Google.user(access_token)
