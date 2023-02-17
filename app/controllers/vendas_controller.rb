@@ -78,8 +78,6 @@ class VendasController < ApplicationController
     sql += " and vendas.updated_at <= '#{SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)}'" if params[:data_fim].present?
     sql += " and vendas.partner_id = #{params[:parceiro_id]}" if params[:parceiro_id].present?
     sql += " and vendas.lancamento_id = #{params[:lancamento_id]}" if params[:lancamento_id].present?
-    sql += " and vendas.municipio_id = #{params[:municipio_id]}" if params[:municipio_id].present?
-    sql += " and vendas.provincia_id = #{params[:provincia_id]}" if params[:provincia_id].present?
 
     if params[:status_parceiro_id].present?
       sql += " and partners.status_parceiro_id = #{params[:status_parceiro_id]}"
@@ -246,6 +244,9 @@ class VendasController < ApplicationController
       @vendas = @vendas.where("vendas.customer_number = ?", params[:customer_number].to_s.strip) if params[:customer_number].present?
       @vendas = @vendas.where("vendas.transaction_reference = ?", params[:transaction_reference].to_s.strip) if params[:transaction_reference].present?
       @vendas = @vendas.where("vendas.payment_code = ?", params[:payment_code].to_s.strip) if params[:payment_code].present?
+      @vendas = @vendas.where("usuarios.municipio_id = ?", params[:municipio_id].to_s.strip) if params[:municipio_id].present?
+      @vendas = @vendas.where("usuarios.provincia_id = ?", params[:provincia_id].to_s.strip) if params[:provincia_id].present?
+
       @vendas = @vendas.where("vendas.request_id = '#{params[:log]}' or request_send ilike '%#{params[:log].remove_injection}%' or response_get ilike '%#{params[:log].remove_injection}%'") if params[:log].present?
       @vendas = @vendas.reorder("created_at desc")
      
