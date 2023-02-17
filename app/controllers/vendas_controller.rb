@@ -78,6 +78,8 @@ class VendasController < ApplicationController
     sql += " and vendas.updated_at <= '#{SqlDate.sql_parse(params[:data_fim].to_datetime.end_of_day)}'" if params[:data_fim].present?
     sql += " and vendas.partner_id = #{params[:parceiro_id]}" if params[:parceiro_id].present?
     sql += " and vendas.lancamento_id = #{params[:lancamento_id]}" if params[:lancamento_id].present?
+    sql += " and vendas.municipio_id = #{params[:municipio_id]}" if params[:municipio_id].present?
+    sql += " and vendas.provincia_id = #{params[:provincia_id]}" if params[:provincia_id].present?
 
     if params[:status_parceiro_id].present?
       sql += " and partners.status_parceiro_id = #{params[:status_parceiro_id]}"

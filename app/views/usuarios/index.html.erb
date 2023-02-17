@@ -104,7 +104,7 @@
             <label>Província do Usuário</label>
             <div>
               <select name="provincia_id" onchange="pgstrans.carregaProvincia(this)" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
+                <option value="" selected="'selected'">Todas</option>
                 <% Provincium.all.reorder(nome: :asc).each do |provincia| %>
                   <option value="<%= provincia.id %>" <% if provincia.id.to_s == params[:provincia_id] %> selected="selected" <% end %> ><%= provincia.nome %></option>
                 <% end %>
