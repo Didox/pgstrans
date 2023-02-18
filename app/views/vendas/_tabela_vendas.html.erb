@@ -25,6 +25,8 @@
         <b>ID da Venda:</b> <%= venda.id %> <b>- Login Usuário:</b> <%= venda&.usuario&.login %><br>
         <b>ID Interno do Usuário:</b> <%= venda.usuario_id %> <strong>- Perfil: </strong> <%= venda.usuario.perfil_usuario.nome %><br>
         <b>Usuário:</b> <%= venda&.usuario&.nome %><br>
+        <b>Província:</b> <%= venda&.usuario&.provincia&.nome rescue "" %><br>
+        <b>Município:</b> <%= venda&.usuario&.municipio&.nome rescue "" %><br>
         <b>Parceiro:</b> <%= venda&.partner&.name %><br>
         <% if venda.partner_id == Partner.zaptv.id %>
           <b>Categoria:</b> <%= venda.categoria.upcase %><br>
