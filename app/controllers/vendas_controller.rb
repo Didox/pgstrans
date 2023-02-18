@@ -244,6 +244,9 @@ class VendasController < ApplicationController
       @vendas = @vendas.where("vendas.customer_number = ?", params[:customer_number].to_s.strip) if params[:customer_number].present?
       @vendas = @vendas.where("vendas.transaction_reference = ?", params[:transaction_reference].to_s.strip) if params[:transaction_reference].present?
       @vendas = @vendas.where("vendas.payment_code = ?", params[:payment_code].to_s.strip) if params[:payment_code].present?
+      @vendas = @vendas.where("usuarios.municipio_id = ?", params[:municipio_id].to_s.strip) if params[:municipio_id].present?
+      @vendas = @vendas.where("usuarios.provincia_id = ?", params[:provincia_id].to_s.strip) if params[:provincia_id].present?
+
       @vendas = @vendas.where("vendas.request_id = '#{params[:log]}' or request_send ilike '%#{params[:log].remove_injection}%' or response_get ilike '%#{params[:log].remove_injection}%'") if params[:log].present?
       @vendas = @vendas.reorder("created_at desc")
      
