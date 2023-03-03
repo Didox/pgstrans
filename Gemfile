@@ -27,6 +27,9 @@ gem 'swagger-blocks'
 gem 'swagger_ui_engine', '2.1.4', :path => "vendor/gems/swagger_ui_engine-1.1.3"
 gem 'jwt'
 
+# net/protocol
+gem "net-http"
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
