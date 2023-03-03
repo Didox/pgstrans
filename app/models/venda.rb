@@ -600,7 +600,7 @@ class Venda < ApplicationRecord
       end
 
       assunto_email = "ENDE PRE-PAGO"
-      mensagem = "#{assunto_email} #{respdatetime} Contador: #{meter_number} Kz: #{Venda.helper.number_to_currency(valor_original, :unit => "")} #{energia.join(" ")} Codigo Recarga: #{stscipher} Call Center: 923166850"
+      mensagem = "#{assunto_email} #{respdatetime} Contador: #{meter_number} Kz: #{Venda.helper.number_to_currency(valor_original, :unit => "")} #{energia.join(" ")} Codigo Recarga: #{stscipher} Contact Center: 923166850"
       
       if params[:api].blank?
         envia, resposta = Sms.enviar(params[:talao_sms_ende], mensagem)
