@@ -1,0 +1,43 @@
+<div>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
+
+  <div class="col-md-12">
+    
+    <div class="card" style="margin-top: 5px;">
+      <div class="card-header">
+        <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold">
+          Geração de Dados para Pagamento por Referência
+        </div>
+        <div class="card-body">
+          <form action="/proxy_pay/pagamento_referencia" method="post">
+
+            <div><b>Login/Código do Usuário:</b> <%= usuario_logado.login %></div><br>
+            <div><b>Nome do Usuário :</b> <%= usuario_logado.nome.camelize rescue usuario_logado.nome.camelize %></div><br>
+            <div><b>Valor do Pagamento : Kz</b>
+                <input type="number" min="1" max="999999999999"style="padding-top: 10px;padding-bottom: 10px;text-align: right;" value="<%= params[:valor_pagamento_referencia] %>" name="valor_pagamento_referencia">
+            </div><br>
+
+            <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: right;">
+              <div style="display: inline-block;margin-bottom: 10px;">
+                <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="GERAR DADOS">
+              </div>
+              <div style="display: inline-block;margin-bottom: 10px;">
+                <%= link_to root_path, class: 'btn btn-space btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+                  <span class="glyphicon glyphicon-list-alt"></span>
+                  VOLTAR
+                <% end %>
+              </div>
+            </div>
+          </form>
+              Ao clicar em "Gerar Dados" <br>
+              1-gerar o número de referencia (numero aleatorio de 9 dígitos) - definir a composição do núnero <br>
+              2-gravar dados na tabela pagamento_referencia <br>
+              3-Conduzir o usuario para uma tela de recibo <br>
+              4-Gerar recibo
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

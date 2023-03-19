@@ -49,6 +49,7 @@ class PerfilUsuario < ApplicationRecord
 
   def self.action_amigavel(action)
     nomes = {
+      pagamento_referencia: "Pagamento por Referência",
       consultar_voucher: "Consultar Voucher",
       consultar_voucher_mini: "Impressão do Recibo de Consulta de Voucher por Referência ou Código de Pagamento",
       impressao_recibo: "Impressão do Recibo de Venda - Menu de Venda Africell",
@@ -194,7 +195,8 @@ class PerfilUsuario < ApplicationRecord
       otp_key_africell_logs: "Acesso ao log de leitura e gravação da OTP KEY Africell",
       painel_vendas: "Painel de Vendas",
       pagaso_erro_codigos: "Códigos de ERRO Pagasó",
-      elephant_bet: "Elephant BET"
+      elephant_bet: "Elephant BET",
+      proxy_pay: "Proxy Pay"
     }
     nomes[controller.to_sym]
   end

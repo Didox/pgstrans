@@ -51,6 +51,8 @@ Rails.application.routes.draw do
   get '/elephant_bet/consultar_voucher', to: 'elephant_bet#consultar_voucher'
   get '/elephant_bet/consultar_voucher/mini', to: 'elephant_bet#consultar_voucher_mini'
 
+  get '/proxy_pay/pagamento_referencia', to: 'proxy_pay#pagamento_referencia'
+  
   get '/controle-acessos/:modelo/:modelo_id/grupos', to: 'grupos#controle_acessos_modelo'
   get '/controle-acessos/:modelo/:modelo_id/grupos/novo', to: 'grupos#controle_acessos_modelo_novo'
   post '/controle-acessos/:modelo/:modelo_id/grupos/salvar', to: 'grupos#controle_acessos_modelo_salvar'
