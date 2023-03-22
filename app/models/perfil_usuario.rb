@@ -196,7 +196,8 @@ class PerfilUsuario < ApplicationRecord
       painel_vendas: "Painel de Vendas",
       pagaso_erro_codigos: "Códigos de ERRO Pagasó",
       elephant_bet: "Elephant BET",
-      proxy_pay: "Proxy Pay"
+      proxy_pay: "Proxy Pay (Menu Home Usuário)",
+      pagamento_referencias: "Pagamento por Referência (BackOffice)"
     }
     nomes[controller.to_sym]
   end

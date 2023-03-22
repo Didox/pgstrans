@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_27_160113) do
+ActiveRecord::Schema.define(version: 2023_03_22_183309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -352,6 +352,21 @@ ActiveRecord::Schema.define(version: 2022_12_27_160113) do
     t.string "log"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "pagamento_referencia", force: :cascade do |t|
+    t.bigint "usuario_id"
+    t.integer "nro_pagamento_referencia"
+    t.integer "id_trn_parceiro"
+    t.float "valor_pagamento"
+    t.datetime "data_pagamento"
+    t.datetime "data_conciliacao"
+    t.string "terminal_id"
+    t.string "terminal_location"
+    t.string "terminal_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["usuario_id"], name: "index_pagamento_referencia_on_usuario_id"
   end
 
   create_table "painel_vendas", force: :cascade do |t|
@@ -734,6 +749,7 @@ ActiveRecord::Schema.define(version: 2022_12_27_160113) do
     t.datetime "data_adesao"
     t.bigint "sub_distribuidor_id", default: 8
     t.bigint "master_profile_id", default: 1
+    t.bigint "nro_pagamento_referencia"
     t.index ["industry_id"], name: "index_usuarios_on_industry_id"
     t.index ["master_profile_id"], name: "index_usuarios_on_master_profile_id"
     t.index ["municipio_id"], name: "index_usuarios_on_municipio_id"

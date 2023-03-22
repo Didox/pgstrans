@@ -1,0 +1,46 @@
+<div class="col-md-12">
+	<div class="col-md-12">
+		<h4>Detalhe de Pagamento por Referência</h4>
+	</div>
+	<br><br>
+	<!-- Page Heading/Breadcrumbs -->
+	<%= render :partial => 'shared/header_backoffice' %>
+	<!-- /.row -->
+	<br><br>
+
+  <div class="container">
+    <dl class="dl-horizontal">
+      <dt>Login do Usuário:</dt>
+      <dd><%= @pagamento_referencia.usuario.login %></dd>
+      <dt>Nome do Usuário:</dt>
+      <dd><%= @pagamento_referencia.usuario.nome %></dd>
+      <dt>Número da referência de pagamento:</dt>
+      <dd><%= @pagamento_referencia.nro_pagamento_referencia %></dd>
+      <dt>ID da Transação no Parceiro:</dt>
+      <dd><%= @pagamento_referencia.id_trn_parceiro %></dd>
+      <dt>Valor do Pagamento:</dt>
+      <dd><%= @pagamento_referencia.valor_pagamento %></dd>
+      <dt>Data do Pagamento:</dt>
+      <dd><%= @pagamento_referencia.data_pagamento %></dd>
+      <dt>Data da Conciliação:</dt>
+      <dd><%= @pagamento_referencia.data_conciliacao %></dd>
+      <dt>Identificação do Terminal:</dt>
+      <dd><%= @pagamento_referencia.terminal_id %></dd>
+      <dt>Localização do Terminal:</dt>
+      <dd><%= @pagamento_referencia.terminal_location %></dd>
+      <dt>Tipo do Terminal:</dt>
+      <dd><%= @pagamento_referencia.terminal_type %></dd>
+    </dl>
+
+    <div class="page-header">
+      <%= link_to pagamento_referencias_path, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Voltar
+      <% end %>
+      <%= link_to edit_pagamento_referencias_path(@pagamento_referencia), class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+    </div>
+  </div>
+</div>
