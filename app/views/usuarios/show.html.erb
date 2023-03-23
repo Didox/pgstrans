@@ -16,6 +16,9 @@
 		  <strong>Login:</strong>
 		  <%= @usuario.login %>
 		<hr>
+		  <strong>Número Pagamento por Referência:</strong>
+		  <%= @usuario.nro_pagamento_referencia %>
+		<hr>
 		  <strong>Perfil:</strong>
 		  <%= @usuario.perfil_usuario.nome %>
 		<hr>
@@ -71,7 +74,7 @@
 				<% end %>
 			</ul>
 		<hr>
-		  <div class="page-header">
+		<div class="page-header">
 	      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
 	        <span class="glyphicon glyphicon-list-alt"></span>
 	        Voltar
@@ -79,6 +82,10 @@
 	      <%= link_to edit_usuario_path(@usuario), class: 'btn btn-danger' do %>
 	        <span class="glyphicon glyphicon-pencil"></span>
 	        Editar
+	      <% end %>
+		  <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
+	        <span class="glyphicon glyphicon-plus"></span>
+	        Gerar Referência
 	      <% end %>
 	    </div>
 	</div>
