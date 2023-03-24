@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_22_183309) do
+ActiveRecord::Schema.define(version: 2023_03_24_134412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -434,6 +434,7 @@ ActiveRecord::Schema.define(version: 2023_03_22_183309) do
     t.string "imagem"
     t.float "margem_operadora"
     t.text "usuarios"
+    t.boolean "portfolio_venda", default: true
     t.index ["status_parceiro_id"], name: "index_partners_on_status_parceiro_id"
   end
 

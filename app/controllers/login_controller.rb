@@ -235,7 +235,7 @@ class LoginController < ApplicationController
       end
     end
 
-    raise "E-mail ou palavra-passe inválidos faça a modificação"
+    raise "Credenciais inválidas"
   end
   
 end
