@@ -37,7 +37,7 @@
         </div>
 
         <div class="form-input col-sm-3">
-          <%= f.input :nro_pagamento_referencia, :label => "Número para Pagamento por Referência", placeholder: "Número de pagamento por referência" %>
+          <%= f.input :nro_pagamento_referencia, maxlength: 9, :label => "Número para Pagamento por Referência", placeholder: "Número de pagamento por referência" %>
         </div>
 
         <% if @adm.admin? || @adm.operador? %>

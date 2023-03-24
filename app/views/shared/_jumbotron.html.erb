@@ -10,7 +10,7 @@
     </div>
     <div class="card-body recarga">
       <div class="col-md-12 row justify-content-center mobile-container-icones">
-        <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO).each do |partner|
+        <% Partner.menu_home.each do |partner|
           #next if partner.slug == "ende" && !(@adm.admin? || @adm.operador? || usuario_logado.login == '6056832') # remover depois do teste ENDE
           next if partner.usuarios_operadoras_ativas.present? && !partner.usuarios_operadoras_ativas.include?(usuario_logado.login)
 
@@ -162,7 +162,7 @@
             <input type="hidden" id="tipo_ativo" name="tipo_venda">
             <div class="overlayLoading" id="recargas_RightMenuListItemOverlay"></div>
               <div class="dialogDiv" style="padding: 0px;margin-top: 15px;">
-                <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO).each do |partner| %>
+                <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO, portfolio_venda: true).each do |partner| %>
                   <div class="campos <%= partner.slug %>">
                     <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
                       <div class="p16Bold editDiv" style="text-align: left;">
@@ -178,7 +178,7 @@
                     </div>
                   </div>
                 <% end %>
-                <div class="campos <%= Partner.where(status_parceiro_id: StatusParceiro::ATIVO).map{|p| p.slug}.join(" ") %>">
+                <div class="campos <%= Partner.menu_home.map{|p| p.slug}.join(" ") %>">
                   <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
                     <div class="p16Bold editDiv" style="text-align: left;">
                       Valor

@@ -1,1 +1,1 @@
-#json.extract! municipio, :id, :nome, :provincia_id
+json.extract! municipio, :id, :nome, :provincia_id

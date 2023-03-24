@@ -1061,6 +1061,8 @@ class Venda < ApplicationRecord
     response_get += "=========[SubmitPaymentBySmartCard_AgentSubmitPayment]========"
 
     last_request = request.body
+
+    SequencialDstv.create!(numero: transaction_number, request_body: request.body, response_body: body)
     
     venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, agent_id: parametro.get.dstv_agente_id, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, request_id: transaction_number, customer_number: params[:dstv_number], usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario

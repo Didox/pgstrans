@@ -1,1 +1,1 @@
-json.array! @industries, partial: "industries/industry", as: :industry
+#json.array! @industries, partial: "industries/industry", as: :industry

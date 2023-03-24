@@ -1,1 +1,1 @@
-json.partial! "industries/industry", industry: @industry
+#json.partial! "industries/industry", industry: @industry

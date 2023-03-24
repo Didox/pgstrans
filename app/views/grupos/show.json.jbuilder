@@ -1,1 +1,1 @@
-json.partial! "grupos/grupo", grupo: @grupo
+#json.partial! "grupos/grupo", grupo: @grupo

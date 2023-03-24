@@ -17,7 +17,7 @@ class ProxyPay
     [parceiro,parametro,url_service]
   end
 
-  def self.consultar_voucher_reference(transaction_reference)
+  def self.gerar_referencia(transaction_reference)
     elephant_bet_login, parceiro, parametro, url_service = ProxyPay.login
 
     bearer_token_default = "#{parametro.get.bearer_token_default}"
