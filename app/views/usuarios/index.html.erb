@@ -313,6 +313,12 @@
             <% end %>
             <td>
               Login: <%= usuario.login %><br>
+              Referência: 
+                <% if usuario.nro_pagamento_referencia.present? %>
+                  <%= usuario.nro_pagamento_referencia %>
+                <% else %>
+                Definir
+                <% end %><br>
               Nome: <%= usuario.nome %><br>
               E-mail: <%= usuario.email %><br>
               Situação: <%= usuario.status_cliente.nome rescue "" %>
@@ -366,7 +372,9 @@
                   <%= link_to 'Forçar Logout ', "/usuarios/#{usuario.id}/forcar-logout", data: { confirm: 'Confirma?' }%>
                 <% end %>
                 <br>
-                <%= link_to 'Apagar', usuario, method: :delete, data: { confirm: 'Tem Certeza?' } %>
+                <%= 'Registar Referência' %><br>
+                <%= 'Apagar Referência' %><br>
+                <%= link_to 'Apagar Usuário', usuario, method: :delete, data: { confirm: 'Tem Certeza?' } %>
               <% end %>
             </td>
           </tr>

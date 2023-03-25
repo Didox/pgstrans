@@ -16,8 +16,15 @@
               <div><b>Nome do Usuário :</b> <%= usuario_logado.nome.camelize rescue usuario_logado.nome.camelize %></div><br>
           <% end %>
           <div><b>Entidade :</b> 99674</div><br>
-          <div><b>Referência :</b> <%= usuario_logado.pagamento_por_referencia_nro_referencia rescue "Definir" %></div><br>
           
+          <div><b>Referência :</b> 
+          <% if params[:nro_pagamento_referencia].blank? %>
+            Definir
+          <% else %> 
+            <% params[:nro_pagamento_referencia] %>
+          <% end %>
+          </div><br>
+
           <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: left;">
             <div style="display: inline-block;margin-bottom: 10px;">
               <%= link_to root_path, class: 'btn btn-space btn-danger', style: "width: 150px;text-align: center;margin-left: 0px;" do %>
