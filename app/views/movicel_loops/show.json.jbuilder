@@ -1,1 +1,1 @@
-json.partial! "movicel_loops/movicel_loop", movicel_loop: @movicel_loop
+#json.partial! "movicel_loops/movicel_loop", movicel_loop: @movicel_loop

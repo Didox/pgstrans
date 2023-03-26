@@ -348,3 +348,12 @@ label{
 		display: block!important;
 	} 
 }
+
+.proxypay-menu{
+	display: inline-block!important;
+}
+@media only screen and (max-width: 600px) {
+  	.proxypay-menu{
+		display: block!important;
+	} 
+}

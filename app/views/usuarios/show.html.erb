@@ -16,6 +16,13 @@
 		  <strong>Login:</strong>
 		  <%= @usuario.login %>
 		<hr>
+		  <strong>Número para Pagamento por Referência:</strong>
+		  <% if @usuario.nro_pagamento_referencia.present? %>
+			<%= @usuario.nro_pagamento_referencia %>
+		  <% else %>
+			Definir
+		  <% end %>
+		<hr>
 		  <strong>Perfil:</strong>
 		  <%= @usuario.perfil_usuario.nome %>
 		<hr>
@@ -71,7 +78,7 @@
 				<% end %>
 			</ul>
 		<hr>
-		  <div class="page-header">
+		<div class="page-header">
 	      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
 	        <span class="glyphicon glyphicon-list-alt"></span>
 	        Voltar
@@ -80,6 +87,14 @@
 	        <span class="glyphicon glyphicon-pencil"></span>
 	        Editar
 	      <% end %>
+		  <!--
+		  <%#= link_to 'javascript:if(confirm("Confirma?")){ 
+				window.location.href="/proxy_pay/gerar_referencia?usuario_id=<%#= @usuario.id %>" 
+				}', class: 'btn btn-danger' do %>
+	        <span class="glyphicon glyphicon-plus"></span>
+	        Gerar Referência
+	      <%# end %>
+		  !-->
 	    </div>
 	</div>
 </div>

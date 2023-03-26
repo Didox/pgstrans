@@ -1,0 +1,120 @@
+
+<div class="col-sm-12">
+  <h1>Portal</h1>
+</div>
+
+<div class="form-input col-sm-12">  
+  <div class="form-group string optional url_integracao_desenvolvimento">
+    <label class="string optional" for="url_integracao_desenvolvimento">URL Portal Integração em Desenvolvimento</label>
+    <input class="form-control string optional" value="<%= @parametro.get.url_integracao_desenvolvimento %>" type="text" name="parametro[url_integracao_desenvolvimento]" id="url_integracao_desenvolvimento">
+  </div>
+</div>
+
+<div class="form-input col-sm-12">
+  <div class="form-group string optional url_integracao_producao">
+    <label class="string optional" for="url_integracao_producao">URL Portal Integração em Produção</label>
+    <input class="form-control string optional" value="<%= @parametro.get.url_integracao_producao %>" type="text" name="parametro[url_integracao_producao]" id="url_integracao_producao">
+  </div>
+</div>
+
+<div class="form-input col-sm-6">
+  <div class="form-group string optional username_portal_desenvolvimento">
+    <label class="string optional" for="username_portal_desenvolvimento">Username Portal Desenvolvimento</label>
+    <input class="form-control string optional" value="<%= @parametro.get.username_portal_desenvolvimento %>" type="text" name="parametro[username_portal_desenvolvimento]" id="username_portal_desenvolvimento">
+  </div>
+</div>
+
+<div class="form-input col-sm-6">
+  <div class="form-group string optional username_portal_producao">
+    <label class="string optional" for="username_portal_producao">Username Portal Produção</label>
+    <input class="form-control string optional" value="<%= @parametro.get.username_portal_producao %>" type="text" name="parametro[username_portal_producao]" id="username_portal_producao">
+  </div>
+</div>
+
+<div class="form-input col-sm-6">
+  <div class="form-group string optional password_portal_desenvolvimento">
+    <label class="string optional" for="password_portal_desenvolvimento">Password Portal Desenvolvimento</label>
+    <input class="form-control string optional" value="<%= @parametro.get.password_portal_desenvolvimento %>" type="text" name="parametro[password_portal_desenvolvimento]" id="password_portal_desenvolvimento">
+  </div>
+</div>
+
+<div class="form-input col-sm-6">
+  <div class="form-group string optional password_portal_producao">
+    <label class="string optional" for="password_portal_producao">Password Portal Produção</label>
+    <input class="form-control string optional" value="<%= @parametro.get.password_portal_producao %>" type="text" name="parametro[password_portal_producao]" id="password_portal_producao">
+  </div>
+</div>
+
+<div class="col-sm-12">
+  <h1>API</h1>
+</div>
+
+<div class="form-input col-sm-12">  
+  <div class="form-group string optional url_api_integracao_desenvolvimento">
+    <label class="string optional" for="url_api_integracao_desenvolvimento">URL API Integração em Desenvolvimento</label>
+    <input class="form-control string optional" value="<%= @parametro.get.url_api_integracao_desenvolvimento %>" type="text" name="parametro[url_api_integracao_desenvolvimento]" id="url_api_integracao_desenvolvimento">
+  </div>
+</div>
+
+<div class="form-input col-sm-12">  
+  <div class="form-group string optional url_api_integracao_producao">
+    <label class="string optional" for="url_api_integracao_producao">URL API Integração em Produção</label>
+    <input class="form-control string optional" value="<%= @parametro.get.url_api_integracao_producao %>" type="text" name="parametro[url_api_integracao_producao]" id="url_api_integracao_producao">
+  </div>
+</div>
+
+<div class="form-input col-sm-12">
+  <div class="form-group string optional api_key_desenvolvimento">
+    <label class="string optional" for="api_key_desenvolvimento">Authorization Token API_KEY Desenvolvimento</label>
+    <input class="form-control string optional" value="<%= @parametro.get.api_key_desenvolvimento %>" type="text" name="parametro[api_key_desenvolvimento]" id="api_key_desenvolvimento">
+  </div>
+</div>
+
+<div class="form-input col-sm-12">
+  <div class="form-group string optional api_key_producao">
+    <label class="string optional" for="api_key_producao">Authorization Token API_KEY Produção</label>
+    <input class="form-control string optional" value="<%= @parametro.get.api_key_producao %>" type="text" name="parametro[api_key_producao]" id="api_key_producao">
+  </div>
+</div>
+
+<div class="form-input col-sm-6">
+  <div class="form-group string optional entity_id_desenvolvimento">
+    <label class="string optional" for="entity_id_desenvolvimento">Entity ID Desenvolvimento</label>
+    <input class="form-control string optional" value="<%= @parametro.get.entity_id_desenvolvimento %>" type="text" name="parametro[entity_id_desenvolvimento]" id="entity_id_desenvolvimento">
+  </div>
+</div>
+
+<div class="form-input col-sm-6">
+  <div class="form-group string optional entity_id_producao">
+    <label class="string optional" for="entity_id_producao">Entity ID Produção</label>
+    <input class="form-control string optional" value="<%= @parametro.get.entity_id_producao %>" type="text" name="parametro[entity_id_producao]" id="entity_id_producao">
+  </div>
+</div>
+
+<div class="form-input col-sm-6">
+  <div class="form-group string optional entity_name_desenvolvimento">
+    <label class="string optional" for="entity_name_desenvolvimento">Entity Name Desenvolvimento</label>
+    <input class="form-control string optional" value="<%= @parametro.get.entity_name_desenvolvimento %>" type="text" name="parametro[entity_name_desenvolvimento]" id="entity_name_desenvolvimento">
+  </div>
+</div>
+
+<div class="form-input col-sm-6">
+  <div class="form-group string optional entity_name_producao">
+    <label class="string optional" for="entity_name_producao">Entity Name Produção</label>
+    <input class="form-control string optional" value="<%= @parametro.get.entity_name_producao %>" type="text" name="parametro[entity_name_producao]" id="entity_name_producao">
+  </div>
+</div>
+
+<div class="form-input col-sm-6">
+  <div class="form-group string optional endpoint_HTTP_Create_Update_Delete_Reference">
+    <label class="string optional" for="endpoint_HTTP_Create_Update_Delete_Reference">Endpoint HTTP Create, Update or Delete Reference</label>
+    <input class="form-control string optional" value="<%= @parametro.get.endpoint_HTTP_Create_Update_Delete_Reference %>" type="text" name="parametro[endpoint_HTTP_Create_Update_Delete_Reference]" id="endpoint_HTTP_Create_Update_Delete_Reference">
+  </div>
+</div>
+
+<div class="form-input col-sm-6">
+  <div class="form-group string optional endpoint_HTTP_payments">
+    <label class="string optional" for="endpoint_HTTP_payments">Endpoint HTTP GET Payments</label>
+    <input class="form-control string optional" value="<%= @parametro.get.endpoint_HTTP_payments %>" type="text" name="parametro[endpoint_HTTP_payments]" id="endpoint_HTTP_payments">
+  </div>
+</div>

@@ -1,1 +1,1 @@
-json.partial! "moedas/moeda", moeda: @moeda
+#json.partial! "moedas/moeda", moeda: @moeda

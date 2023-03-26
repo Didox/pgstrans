@@ -1,1 +1,1 @@
-json.array! @dispositivos, partial: "dispositivos/dispositivo", as: :dispositivo
+#json.array! @dispositivos, partial: "dispositivos/dispositivo", as: :dispositivo

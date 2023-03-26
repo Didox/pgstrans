@@ -49,9 +49,15 @@
       <%= @partner.status_parceiro.nome rescue "" %>
     </p>
     <p>
-      <strong>Imagem:</strong>
-      <img src="<%= @partner.imagem %>" style="width:100px">
+      <strong>Este parceiro compõe o portfólio de produtos da Pagasó?</strong>
+      <%= @partner.portfolio_venda? ? "Sim": "Não" %>
     </p>
+    <% if @partner.portfolio_venda? %>
+      <p>
+        <strong>Imagem:</strong>
+        <img src="<%= @partner.imagem %>" style="width:100px">
+      </p>
+    <% end %>
     <% if @partner.slug.downcase.scan(/zap/).present?  %>
       <p>
         <strong>Saldo atual:</strong><br>

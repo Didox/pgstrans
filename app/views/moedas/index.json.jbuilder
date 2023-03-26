@@ -1,1 +1,1 @@
-json.array! @moedas, partial: "moedas/moeda", as: :moeda
+#json.array! @moedas, partial: "moedas/moeda", as: :moeda

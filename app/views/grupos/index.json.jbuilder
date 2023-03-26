@@ -1,1 +1,1 @@
-json.array! @grupos, partial: "grupos/grupo", as: :grupo
+#json.array! @grupos, partial: "grupos/grupo", as: :grupo

@@ -8,9 +8,11 @@ class UsuariosController < ApplicationController
   def index
     @usuarios = Usuario.com_acesso(usuario_logado).order(nome: :asc)
 
+
     @usuarios = @usuarios.joins(:perfil_usuario)
     @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
     @usuarios = @usuarios.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
+    #@usuarios = @usuarios.where("usuarios.nro_pagamento_referencia = ? ", params[:usuarios.nro_pagamento_referencia].to_i) if params[:usuarios.nro_pagamento_referencia].present?  
     @usuarios = @usuarios.where("usuarios.email ilike '%#{params[:email].remove_injection}%'") if params[:email].present?
     @usuarios = @usuarios.where("usuarios.morada ilike '%#{params[:morada].remove_injection}%'") if params[:morada].present?
     @usuarios = @usuarios.where("usuarios.bairro ilike '%#{params[:bairro].remove_injection}%'") if params[:bairro].present?
@@ -202,6 +204,7 @@ class UsuariosController < ApplicationController
 
       parametros.permit(:nome, :email, :senha, :perfil_usuario_id, 
           :sub_agente_id, :sub_distribuidor_id, :status_cliente_id, :morada, :bairro, :municipio_id, 
-          :provincia_id, :industry_id, :uni_pessoal_empresa_id, :data_adesao, :telefone, :whatsapp)
+          :provincia_id, :industry_id, :uni_pessoal_empresa_id, :data_adesao, :telefone, :whatsapp, 
+          :nro_pagamento_referencia)
     end
 end

@@ -1,1 +1,1 @@
-json.array! @bancos, partial: "bancos/banco", as: :banco
+#json.array! @bancos, partial: "bancos/banco", as: :banco

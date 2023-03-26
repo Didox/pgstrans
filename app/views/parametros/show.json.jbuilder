@@ -1,1 +1,1 @@
-json.partial! "parametros/parametro", parametro: @parametro
+#json.partial! "parametros/parametro", parametro: @parametro

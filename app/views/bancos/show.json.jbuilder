@@ -1,1 +1,1 @@
-json.partial! "bancos/banco", banco: @banco
+#son.partial! "bancos/banco", banco: @banco

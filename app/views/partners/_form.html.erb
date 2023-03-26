@@ -34,7 +34,7 @@
 					<%= f.label :order, "Ordem" %>
 					<%= f.select :order, (1..(Partner.count + 1)).map{|i| [i, i]}, {}, required:true, class: "form-control" %>
 				</div>
-
+	
 				<div class="form-input col-sm-6">
 					<%= f.label :status_parceiro_id, "Status do Parceiro" %>
 					<%= f.select :status_parceiro_id, StatusParceiro.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
@@ -57,6 +57,13 @@
 					<%= f.label :imagem, "Imagem", class: "col-sm-8" %>
 					<%= f.file_field :imagem, placeholder: "Imagem", class: "form-control", accept:"image/jpeg, image/jpg, image/gif, image/bmp, image/png, application/pdf" %>
 				</div>
+
+				<div class="form-input col-sm-6">
+					<br><br>
+					<%= f.label :portfolio_venda, :label => "Este parceiro compõe o portfólio de produtos da Pagasó" %>
+					<%= f.check_box :portfolio_venda %>
+					<br>
+				</div>	
 
 				<div class="form-actions col-sm-12" style="margin-top: 20px;">
 					<%= f.button :button, class: 'btn btn-danger' do %>
