@@ -32,8 +32,12 @@
           <%= f.input :email, :label => "E-Mail", placeholder: "Informe um e-mail válido" %>
         </div>
 
-        <div class="form-input col-sm-6">
+        <div class="form-input col-sm-3">
           <%= f.input :login, :label => "Login", disabled: true %>
+        </div>
+
+        <div class="form-input col-sm-3">
+          <%= f.input :nro_pagamento_referencia, maxlength: 9, :label => "Número para Pagamento por Referência", placeholder: "Número de pagamento por referência" %>
         </div>
 
         <% if @adm.admin? || @adm.operador? %>

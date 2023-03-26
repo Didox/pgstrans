@@ -1,1 +1,1 @@
-json.partial! "dispositivos/dispositivo", dispositivo: @dispositivo
+#json.partial! "dispositivos/dispositivo", dispositivo: @dispositivo

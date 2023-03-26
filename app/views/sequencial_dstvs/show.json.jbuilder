@@ -1,1 +1,1 @@
-json.partial! "sequencial_dstvs/sequencial_dstv", sequencial_dstv: @sequencial_dstv
+#json.partial! "sequencial_dstvs/sequencial_dstv", sequencial_dstv: @sequencial_dstv

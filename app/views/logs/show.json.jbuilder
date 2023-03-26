@@ -1,1 +1,1 @@
-json.partial! "logs/log", log: @log
+#json.partial! "logs/log", log: @log

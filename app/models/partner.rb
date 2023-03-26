@@ -13,6 +13,10 @@ class Partner < ApplicationRecord
     return @usuarios_operadoras_ativas
   end
 
+  def self.menu_home
+    Partner.where(status_parceiro_id: StatusParceiro::ATIVO, portfolio_venda: true)
+  end
+
   def total_vendas(usuario_logado, vendas_filtrada=nil)
     unless vendas_filtrada.nil?
       vendas = vendas_filtrada.clone

@@ -1,0 +1,159 @@
+<div class="row bg-light h-50 p-3">
+  <div class="col-md-4">
+      Parceiro
+  </div>
+  <div class="col-md-8">
+      <%= @parametro.partner.name %>
+  </div>
+</div>
+<hr>
+<div class="row h-50 p-3">
+  <div class="col-md-4">
+      URL Portal Integração em Desenvolvimento:
+  </div>
+  <div class="col-md-8">
+      <%= @parametro.get.url_integracao_desenvolvimento %>
+  </div>
+</div>
+<hr>
+<div class="row bg-light h-50 p-3">
+  <div class="col-md-4">
+      URL Portal Integração em Produção:
+  </div>
+  <div class="col-md-8">
+      <%= @parametro.get.url_integracao_producao %>
+  </div>
+</div>
+<hr>
+<% if @adm.admin? %>
+  <div class="row bg-light h-50 p-3">
+    <div class="col-md-4">
+        Username Portal Desenvolvimento:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.username_portal_desenvolvimento %>
+    </div>
+  </div>
+  <hr>
+  <div class="row bg-light h-50 p-3">
+    <div class="col-md-4">
+        Username Portal Produção:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.username_portal_producao %>
+    </div>
+  </div>
+  <hr>
+  <div class="row bg-light h-50 p-3">
+    <div class="col-md-4">
+        Password Portal Desenvolvimento:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.password_portal_desenvolvimento %>
+    </div>
+  </div>
+  <hr>
+  <div class="row bg-light h-50 p-3">
+    <div class="col-md-4">
+        Password Portal Produção:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.password_portal_producao %>
+    </div>
+  </div>
+  <hr>
+<% end %>
+
+<div class="row h-50 p-3">
+  <div class="col-md-4">
+      URL API Integração em Desenvolvimento:
+  </div>
+  <div class="col-md-8">
+      <%= @parametro.get.url_api_integracao_desenvolvimento %>
+  </div>
+</div>
+<hr>
+<div class="row bg-light h-50 p-3">
+  <div class="col-md-4">
+      URL API Integração em Produção:
+  </div>
+  <div class="col-md-8">
+      <%= @parametro.get.url_api_integracao_producao %>
+  </div>
+</div>
+<hr>
+<% if @adm.admin? %>
+  <div class="row bg-light h-50 p-3">
+    <div class="col-md-4">
+        Authorization Token API_KEY Desenvolvimento:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.api_key_desenvolvimento %>
+    </div>
+  </div>
+  <hr>
+  <div class="row bg-light h-50 p-3">
+    <div class="col-md-4">
+        Authorization Token API_KEY Produção:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.api_key_producao %>
+    </div>
+  </div>
+  <hr>
+  <div class="row h-50 p-3">
+    <div class="col-md-4">
+        Entity ID Desenvolvimento:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.entity_id_desenvolvimento %>
+    </div>
+  </div>
+  <hr>
+  <div class="row h-50 p-3">
+    <div class="col-md-4">
+        Entity ID Produção:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.entity_id_producao %>
+    </div>
+  </div>
+  <hr>
+  <div class="row h-50 p-3">
+    <div class="col-md-4">
+        Entity Name Desenvolvimento:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.entity_name_desenvolvimento %>
+    </div>
+  </div>
+  <hr>
+  <div class="row h-50 p-3">
+    <div class="col-md-4">
+        Entity Name Produção:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.entity_name_producao %>
+    </div>
+  </div>
+<% end %>
+<hr>
+<div class="row h-50 p-3">
+    <div class="col-md-4">
+        Endpoint HTTP Create, Update or Delete Reference:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.endpoint_HTTP_Create_Update_Delete_Reference %>
+        
+    </div>
+</div>
+<hr>
+<div class="row h-50 p-3">
+    <div class="col-md-4">
+        Endpoint HTTP GET Payments:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.endpoint_HTTP_payments %>
+        
+    </div>
+</div>

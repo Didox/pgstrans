@@ -1,1 +1,1 @@
-json.partial! "remuneracaos/remuneracao", remuneracao: @remuneracao
+#json.partial! "remuneracaos/remuneracao", remuneracao: @remuneracao

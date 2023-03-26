@@ -1007,7 +1007,7 @@
           },
           {
             "name": "senha",
-            "description": "Palavra-passe de acesso",
+            "description": "Palavra-passe",
             "required": true,
             "type": "string"
           }
@@ -1046,7 +1046,7 @@
           },
           {
             "name": "senha",
-            "description": "Palavra-passe de acesso",
+            "description": "Palavra-passe",
             "required": true,
             "type": "string"
           }
@@ -1258,7 +1258,6 @@
         "id": { "type": "integer" },
         "nome": { "type": "string" },
         "email": { "type": "string" },
-        "updated_at": { "type": "string" },
         "token": { "type": "string" }
       }
     },
@@ -1268,7 +1267,6 @@
         "id": { "type": "integer" },
         "nome": { "type": "string" },
         "email": { "type": "string" },
-        "updated_at": { "type": "string" },
         "token": { "type": "string" }
       }
     },

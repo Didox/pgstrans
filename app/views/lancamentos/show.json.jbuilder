@@ -1,1 +1,1 @@
-json.partial! "lancamentos/lancamento", lancamento: @lancamento
+#json.partial! "lancamentos/lancamento", lancamento: @lancamento

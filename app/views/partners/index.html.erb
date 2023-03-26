@@ -57,6 +57,7 @@
           <th scope="col">Margem da Operadora</th>
           <th scope="col">Desconto Padrão</th>
           <th scope="col">Situação do Parceiro</th>
+          <th scope="col">Compõe Portfólio Pagasó</th>
           <th scope="col"></th>
           <th scope="col" colspan="3">Ações para o Registo</th>
         </tr>
@@ -70,8 +71,9 @@
           <td align="center"><%= partner.order %></td>
           <td align="center"><%= number_to_currency(partner.margem_operadora, :unit => "", precision: 1) %>%</td>
           <td align="center"><%= number_to_currency(partner.desconto, :unit => "", precision: 1) %>%</td>
-          <td><%= partner.status_parceiro.nome rescue "" %></td>
-          <td><%= link_to 'Descontos', partner_desconto_parceiros_path(partner) %></td>
+          <td align="center"><%= partner.status_parceiro.nome rescue "" %></td>
+          <td align="center"><%= partner.portfolio_venda? ? "Sim": "Não" %></td>
+          <td><%= link_to 'Descontos', partner_desconto_parceiros_path(partner) if partner.portfolio_venda? %></td>
           <td><%= link_to 'Mostrar', partner %></td>
           <td><%= link_to 'Editar', edit_partner_path(partner) %></td>
           <td><%= link_to 'Apagar', partner, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>

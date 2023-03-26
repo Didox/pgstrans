@@ -1,1 +1,1 @@
-json.array! @parametros, partial: "parametros/parametro", as: :parametro
+#json.array! @parametros, partial: "parametros/parametro", as: :parametro

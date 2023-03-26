@@ -1,334 +1,336 @@
-<div class="card" style="margin-top: 5px;">
-  <div class="card-header">
-    <div class="col-md-6">
-      Escolha um Parceiro
+<div class="col-md-12">
+  <div class="card" style="margin-top: 5px;">
+    <div class="card-header">
+      <div class="col-md-6">
+        Escolha um Parceiro
+      </div>
+      <div class="col-md-6" style="text-align: right">
+        Saldo Disponível: <%= number_to_currency(usuario_logado.saldo, :unit => "KZ", :precision => 2) %>
+      </div>
     </div>
-    <div class="col-md-6" style="text-align: right">
-      Saldo Disponível: <%= number_to_currency(usuario_logado.saldo, :unit => "KZ", :precision => 2) %>
-    </div>
-  </div>
-  <div class="card-body recarga">
-    <div class="col-md-12 row justify-content-center mobile-container-icones">
-      <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO).each do |partner|
-        #next if partner.slug == "ende" && !(@adm.admin? || @adm.operador? || usuario_logado.login == '6056832') # remover depois do teste ENDE
-        next if partner.usuarios_operadoras_ativas.present? && !partner.usuarios_operadoras_ativas.include?(usuario_logado.login)
+    <div class="card-body recarga">
+      <div class="col-md-12 row justify-content-center mobile-container-icones">
+        <% Partner.menu_home.each do |partner|
+          #next if partner.slug == "ende" && !(@adm.admin? || @adm.operador? || usuario_logado.login == '6056832') # remover depois do teste ENDE
+          next if partner.usuarios_operadoras_ativas.present? && !partner.usuarios_operadoras_ativas.include?(usuario_logado.login)
 
-        if @partner_default.blank?
-          @partner_default = partner
-          ativo = "menu-ativo"
-        end %>
-        
-        <!--<%= partner.slug %>-->
-        <div class="menu-icon" style="text-align: center; margin: 0px 3% 0px 3%">
-          <a <% if partner.status_parceiro_id == 1 %> href="javascript:;" onclick="pgstrans.displayRecarga('<%= partner.slug %>')" <% end %>>
-            <% if partner.imagem.present? %>
-              <%= image_tag(partner.imagem, alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}") %>
-            <% else %>
-              <% begin %>
-                <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}") %>
-              <% rescue %>
-                <%= image_tag("partner/default_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}") %>
+          if @partner_default.blank?
+            @partner_default = partner
+            ativo = "menu-ativo"
+          end %>
+          
+          <!--<%= partner.slug %>-->
+          <div class="menu-icon" style="text-align: center; margin: 0px 3% 0px 3%">
+            <a <% if partner.status_parceiro_id == 1 %> href="javascript:;" onclick="pgstrans.displayRecarga('<%= partner.slug %>')" <% end %>>
+              <% if partner.imagem.present? %>
+                <%= image_tag(partner.imagem, alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}") %>
+              <% else %>
+                <% begin %>
+                  <%= image_tag("partner/#{partner.slug}_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}") %>
+                <% rescue %>
+                  <%= image_tag("partner/default_160x160c.png", alt: partner.slug, class: "img-responsive icone-menu #{ativo} img_#{partner.slug}") %>
+                <% end %>
               <% end %>
-            <% end %>
-          </a>
-        </div>
-      <% end %>
-    </div>
-    <form action="<%= recarga_confirma_path %>" id="recargaForm" method="post">
-
-      <div class="col-md-12" id="DSTVMenu" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
-        <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
-          <h3>O que você deseja fazer?</h3>
-        </div>
-        <div class="menuDSTV" style="padding: 2%">
-          <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-            <li>
-              <a href="/dstv/validacao-cliente">
-                Consulta de dados do cliente
-              </a>
-            </li>
-            <hr>
-            <!--li>
-              <a href="/dstv/consulta-fatura">
-                Efetuar pagamento de diferença de pacote
-              </a>
-            </li>
-            <hr-->
-            <li>
-              <a href="/dstv/alteracao-pacote">
-                Alteração de pacotes para um ou múltiplos produtos
-              </a>
-            </li>
-            <hr>
-            <!--li>
-              <a href="/dstv/alteracao-plano-mensal-anual">
-                Alteração de plano entre anual e mensal
-              </a>
-            </li>
-            <hr-->
-            <li>
-              <a href="javascript:pgstrans.displayRecargaDstv()">
-                Recarga com valores pré-fixados
-              </a>
-            </li>
-          </ul>
-        </div>
+            </a>
+          </div>
+        <% end %>
       </div>
+      <form action="<%= recarga_confirma_path %>" id="recargaForm" method="post">
 
-      <div class="col-md-12" id="ENDEMenu" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
-        <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
-          <h3>O que você deseja fazer?</h3>
-        </div>
-        <div class="menuENDE" style="padding: 2%">
-          <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-            <li>
-              <a href="/ende/venda-teste">
-                Venda Teste / Simulação
-              </a>
-            </li>
-            <% if @adm.id == Usuario::ROOT %>
+        <div class="col-md-12" id="DSTVMenu" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
+          <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
+            <h3>O que você deseja fazer?</h3>
+          </div>
+          <div class="menuDSTV" style="padding: 2%">
+            <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
               <li>
-                <hr>
-                <a href="/ende/confirmar-cliente">
-                  Confirmar Cliente
+                <a href="/dstv/validacao-cliente">
+                  Consulta de dados do cliente
                 </a>
               </li>
-            <% end %>
-            <li>
               <hr>
-              <a href="javascript:pgstrans.displayRecargaEnde()">
-                Venda de Crédito
-              </a>
-            </li>
-            <li>
-              <hr>
-              <a href="/ende/reprint">
-                Reimpressão
-              </a>
-            </li>
-            <% if @adm.id == Usuario::ROOT %>
-              <li>
-                <hr>
-                <a href="/ende/last-advice">
-                  Last Advice
+              <!--li>
+                <a href="/dstv/consulta-fatura">
+                  Efetuar pagamento de diferença de pacote
                 </a>
               </li>
-            <% end %>
-            <li>
-              <hr>
-              <a href="/ende/pagamento-de-conta">
-                Pagamento de Conta
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="col-md-12" id="AfricellMenu" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
-        <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
-          <h3>O que você deseja fazer?</h3>
-        </div>
-        <div class="menuAFRICELL" style="padding: 2%">
-          <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
-            <li>
-              <a href="javascript:pgstrans.displayRecargaAfricell()">
-                Venda de Crédito
-              </a>
-            </li>
-            <% if @adm.id == Usuario::ROOT %>
+              <hr-->
               <li>
-                <hr>
-                <a href="/africell/impressao_recibo">
-                  Impressão do Recibo de Venda
+                <a href="/dstv/alteracao-pacote">
+                  Alteração de pacotes para um ou múltiplos produtos
                 </a>
               </li>
+              <hr>
+              <!--li>
+                <a href="/dstv/alteracao-plano-mensal-anual">
+                  Alteração de plano entre anual e mensal
+                </a>
+              </li>
+              <hr-->
               <li>
-                <hr>
-                <a href="/africell/confirmacao_transacao">
-                  Confirmação de Transação
+                <a href="javascript:pgstrans.displayRecargaDstv()">
+                  Recarga com valores pré-fixados
                 </a>
               </li>
             </ul>
-          <% end %>
+          </div>
         </div>
-      </div>
 
-      <div class="col-md-12" id="recarga" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
-        <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
-          <h3>Recargas</h3>
+        <div class="col-md-12" id="ENDEMenu" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
+          <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
+            <h3>O que você deseja fazer?</h3>
+          </div>
+          <div class="menuENDE" style="padding: 2%">
+            <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+              <li>
+                <a href="/ende/venda-teste">
+                  Venda Teste / Simulação
+                </a>
+              </li>
+              <% if @adm.id == Usuario::ROOT %>
+                <li>
+                  <hr>
+                  <a href="/ende/confirmar-cliente">
+                    Confirmar Cliente
+                  </a>
+                </li>
+              <% end %>
+              <li>
+                <hr>
+                <a href="javascript:pgstrans.displayRecargaEnde()">
+                  Venda de Crédito
+                </a>
+              </li>
+              <li>
+                <hr>
+                <a href="/ende/reprint">
+                  Reimpressão
+                </a>
+              </li>
+              <% if @adm.id == Usuario::ROOT %>
+                <li>
+                  <hr>
+                  <a href="/ende/last-advice">
+                    Last Advice
+                  </a>
+                </li>
+              <% end %>
+              <li>
+                <hr>
+                <a href="/ende/pagamento-de-conta">
+                  Pagamento de Conta
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div id="dialogRecharge" title="Recarga">
-          <input type="hidden" id="tipo_ativo" name="tipo_venda">
-          <div class="overlayLoading" id="recargas_RightMenuListItemOverlay"></div>
-            <div class="dialogDiv" style="padding: 0px;margin-top: 15px;">
-              <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO).each do |partner| %>
-                <div class="campos <%= partner.slug %>">
+
+        <div class="col-md-12" id="AfricellMenu" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
+          <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
+            <h3>O que você deseja fazer?</h3>
+          </div>
+          <div class="menuAFRICELL" style="padding: 2%">
+            <ul style="list-style-type: none;margin: 0px;padding: 0px;margin-top: 20px;">
+              <li>
+                <a href="javascript:pgstrans.displayRecargaAfricell()">
+                  Venda de Crédito
+                </a>
+              </li>
+              <% if @adm.id == Usuario::ROOT %>
+                <li>
+                  <hr>
+                  <a href="/africell/impressao_recibo">
+                    Impressão do Recibo de Venda
+                  </a>
+                </li>
+                <li>
+                  <hr>
+                  <a href="/africell/confirmacao_transacao">
+                    Confirmação de Transação
+                  </a>
+                </li>
+              </ul>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="col-md-12" id="recarga" style="display: none;padding: 20px;box-shadow: 0px 0px 10px 5px #AAAAAA;border-radius: 10px;">
+          <div style="background-color: #F2F3F4;padding: 10px;color: #000;">
+            <h3>Recargas</h3>
+          </div>
+          <div id="dialogRecharge" title="Recarga">
+            <input type="hidden" id="tipo_ativo" name="tipo_venda">
+            <div class="overlayLoading" id="recargas_RightMenuListItemOverlay"></div>
+              <div class="dialogDiv" style="padding: 0px;margin-top: 15px;">
+                <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO, portfolio_venda: true).each do |partner| %>
+                  <div class="campos <%= partner.slug %>">
+                    <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
+                      <div class="p16Bold editDiv" style="text-align: left;">
+                        Recarga<span class="required">&nbsp;*</span>
+                      </div>
+                      <div>
+                        <% begin %>
+                          <%= render "/shared/select_#{partner.slug.to_s.downcase}", partner: partner %>
+                        <% rescue %>
+                          <%= render "/shared/select_default", partner: partner %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+                <div class="campos <%= Partner.menu_home.map{|p| p.slug}.join(" ") %>">
                   <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
                     <div class="p16Bold editDiv" style="text-align: left;">
-                      Recarga<span class="required">&nbsp;*</span>
+                      Valor
+                    </div>
+                    <div class="number">
+                      <input type="number" step="0.01" id="rechargeValue" class="form-control clearFieldjs" name="valor" readonly="" placeholder="Valor...">
+                    </div>
+                  </div>
+                </div>
+                <div class="campos movicel" id="divAditionalFieldsMovicel">
+                  <div class="editArea editAreaDiv">
+                    <div class="p16Bold editDiv label-numero" style="text-align: left;">
+                      Telemóvel<span class="required">&nbsp;*</span>
                     </div>
                     <div>
-                      <% begin %>
-                        <%= render "/shared/select_#{partner.slug.to_s.downcase}", partner: partner %>
-                      <% rescue %>
-                        <%= render "/shared/select_default", partner: partner %>
-                      <% end %>
+                      <input type="text" name="movicel_telefone" class="numero form-control vmovicel validate clearFieldjs" data-message="Informe o número do Telemóvel para Recarga" value="" placeholder="Número do Telemóvel" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                     </div>
                   </div>
                 </div>
-              <% end %>
-              <div class="campos <%= Partner.where(status_parceiro_id: StatusParceiro::ATIVO).map{|p| p.slug}.join(" ") %>">
-                <div class="editArea editAreaDiv" style="margin-bottom: 10px;">
-                  <div class="p16Bold editDiv" style="text-align: left;">
-                    Valor
-                  </div>
-                  <div class="number">
-                    <input type="number" step="0.01" id="rechargeValue" class="form-control clearFieldjs" name="valor" readonly="" placeholder="Valor...">
-                  </div>
-                </div>
-              </div>
-              <div class="campos movicel" id="divAditionalFieldsMovicel">
-                <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv label-numero" style="text-align: left;">
-                    Telemóvel<span class="required">&nbsp;*</span>
-                  </div>
-                  <div>
-                    <input type="text" name="movicel_telefone" class="numero form-control vmovicel validate clearFieldjs" data-message="Informe o número do Telemóvel para Recarga" value="" placeholder="Número do Telemóvel" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                <div class="campos africell" id="divAditionalFieldsAfricell">
+                  <div class="editArea editAreaDiv">
+                    <div class="p16Bold editDiv label-numero" style="text-align: left;">
+                      Telemóvel<span class="required">&nbsp;*</span>
+                    </div>
+                    <div>
+                      <input type="text" name="target_msisdn" class="numero form-control vafricell validate clearFieldjs" data-message="Informe o Telemóvel MSISDN" value="" placeholder="Telemóvel MSISDN" >
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="campos africell" id="divAditionalFieldsAfricell">
-                <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv label-numero" style="text-align: left;">
-                     Telemóvel<span class="required">&nbsp;*</span>
-                  </div>
-                  <div>
-                    <input type="text" name="target_msisdn" class="numero form-control vafricell validate clearFieldjs" data-message="Informe o Telemóvel MSISDN" value="" placeholder="Telemóvel MSISDN" >
-                  </div>
-                </div>
-              </div>
-              <div class="campos dstv" id="divAditionalFieldsDSTV">
-                <div class="editArea editAreaDiv">
-                  <div class="divSmartcard">
-                    <input type="radio" class="smartSim" id="transacao_smartcard_sim" onclick="$('.transacao_smartcard_sim').hide();$('.transacao_smartcard_nao').show();$('.dstv .label-numero').text($('.transacao_smartcard_nao').text())" name="transacao_smartcard" class="form-control vdstv radio-menor" checked="checked" value="true">
-                    <label for="transacao_smartcard_sim" style="margin-top: 17px;">
-                      SmartCard
-                    </label>
-                  </div>
-                  <div class="divDeviceId">
-                    <input type="radio" class="smartNao" id="transacao_smartcard_nao" onclick="$('.transacao_smartcard_sim').show();$('.dstv .label-numero').text($('.transacao_smartcard_sim').text());$('.transacao_smartcard_nao').hide();" name="transacao_smartcard" class="form-control vdstv radio-menor" value="false">
-                    <label for="transacao_smartcard_nao" style="margin-top: 17px;">
-                      Customer Number
-                    </label>
+                <div class="campos dstv" id="divAditionalFieldsDSTV">
+                  <div class="editArea editAreaDiv">
+                    <div class="divSmartcard">
+                      <input type="radio" class="smartSim" id="transacao_smartcard_sim" onclick="$('.transacao_smartcard_sim').hide();$('.transacao_smartcard_nao').show();$('.dstv .label-numero').text($('.transacao_smartcard_nao').text())" name="transacao_smartcard" class="form-control vdstv radio-menor" checked="checked" value="true">
+                      <label for="transacao_smartcard_sim" style="margin-top: 17px;">
+                        SmartCard
+                      </label>
+                    </div>
+                    <div class="divDeviceId">
+                      <input type="radio" class="smartNao" id="transacao_smartcard_nao" onclick="$('.transacao_smartcard_sim').show();$('.dstv .label-numero').text($('.transacao_smartcard_sim').text());$('.transacao_smartcard_nao').hide();" name="transacao_smartcard" class="form-control vdstv radio-menor" value="false">
+                      <label for="transacao_smartcard_nao" style="margin-top: 17px;">
+                        Customer Number
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="campos dstv" id="divAditionalFieldsDSTV">
-                <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv transacao_smartcard_nao" style="text-align: left">
-                    SmartCard <span class="required">&nbsp;*</span>
-                  </div>
-                  <div class="p16Bold editDiv transacao_smartcard_sim" style="text-align: left;display:none;">
-                    Customer Number <span class="required">&nbsp;*</span>
-                  </div>
-                  <div style="display:none" class="label-numero"></div>
-                  <div>
-                    <input type="text" id="dstvNr"  name="dstv_number" class="numero form-control vdstv validate clearFieldjs" data-message="Informe o número do Dispositivo ou do Cliente" value="" placeholder="" maxlength="11" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
-                  </div>
-                </div>
-              </div>
-              <div class="campos zaptv zapfibra" id="divAditionalFieldsZAP">
-                <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv label-numero" style="text-align: left;">
-                    Nº do Cartão ZAP ou Telefone <span class="required">&nbsp;*</span>
-                  </div>
-                  <div>
-                    <input type="text" id="zapNr" name="zaptv_cartao" class="numero form-control vzaptv vzapfibra validate clearFieldjs" data-message="Informe o número do Cartão ZAP" value="" placeholder="Número do Cartão ZAP ou Telefone" maxlength="12" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                <div class="campos dstv" id="divAditionalFieldsDSTV">
+                  <div class="editArea editAreaDiv">
+                    <div class="p16Bold editDiv transacao_smartcard_nao" style="text-align: left">
+                      SmartCard <span class="required">&nbsp;*</span>
+                    </div>
+                    <div class="p16Bold editDiv transacao_smartcard_sim" style="text-align: left;display:none;">
+                      Customer Number <span class="required">&nbsp;*</span>
+                    </div>
+                    <div style="display:none" class="label-numero"></div>
+                    <div>
+                      <input type="text" id="dstvNr"  name="dstv_number" class="numero form-control vdstv validate clearFieldjs" data-message="Informe o número do Dispositivo ou do Cliente" value="" placeholder="" maxlength="11" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="campos unitel" id="divAditionalFieldsUnitel">
-                <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv label-numero" style="text-align: left;">
-                    Telemóvel <span class="required">*</span>
-                  </div>
-                  <div>
-                    <input type="text" id="unitelNr" name="unitel_telefone" class="numero form-control vunitel validate clearFieldjs" data-message="Informe o Número do Telemóvel" value="" placeholder="Número do Telemóvel para Recarga" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
-                  </div>
-                </div>
-              </div>
-              <div class="campos ende" id="divAditionalFieldsENDE">
-                <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv label-numero" style="text-align: left;">
-                    Número do Medidor<span class="required">&nbsp;*</span>
-                  </div>
-                  <div>
-                    <input type="text" name="meter_number" class="numero form-control vende validate clearFieldjs" data-message="Informe o número" placeholder="Digite ..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                <div class="campos zaptv zapfibra" id="divAditionalFieldsZAP">
+                  <div class="editArea editAreaDiv">
+                    <div class="p16Bold editDiv label-numero" style="text-align: left;">
+                      Nº do Cartão ZAP ou Telefone <span class="required">&nbsp;*</span>
+                    </div>
+                    <div>
+                      <input type="text" id="zapNr" name="zaptv_cartao" class="numero form-control vzaptv vzapfibra validate clearFieldjs" data-message="Informe o número do Cartão ZAP" value="" placeholder="Número do Cartão ZAP ou Telefone" maxlength="12" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    </div>
                   </div>
                 </div>
-              </div>
-           
-              <div class="campos ende id="divAditionalFieldsENDEsms" style="display: none;margin-top: 10px">
-                <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv" style="text-align: left;">
-                    Número SMS para envio do token de recarga <span class="required">&nbsp;*</span>
-                  </div>
-                  <div>
-                    <input type="text" id="sms_ende" name="talao_sms_ende" class="form-control vende validate clearFieldjs" data-message="Informe o Número SMS para envio do token de recarga" value="" placeholder="Número SMS para envio" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
-                  </div>
-                </div>
-              </div>
-              
-              <div class="campos ende" id="divAditionalFieldsEmail" style="display: none;margin-top: 10px">
-                <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv" style="text-align: left;">
-                    E-mail para envio do recibo de recarga
-                  </div>
-                  <div>
-                    <input type="email" id="email" name="email" class="form-control cOpcionalENDE validate clearFieldjs" data-message="Informe um e-mail válido para envio do token de recarga" value="" placeholder="E-mail para envio" >
+                <div class="campos unitel" id="divAditionalFieldsUnitel">
+                  <div class="editArea editAreaDiv">
+                    <div class="p16Bold editDiv label-numero" style="text-align: left;">
+                      Telemóvel <span class="required">*</span>
+                    </div>
+                    <div>
+                      <input type="text" id="unitelNr" name="unitel_telefone" class="numero form-control vunitel validate clearFieldjs" data-message="Informe o Número do Telemóvel" value="" placeholder="Número do Telemóvel para Recarga" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    </div>
                   </div>
                 </div>
-              </div>
+                <div class="campos ende" id="divAditionalFieldsENDE">
+                  <div class="editArea editAreaDiv">
+                    <div class="p16Bold editDiv label-numero" style="text-align: left;">
+                      Número do Medidor<span class="required">&nbsp;*</span>
+                    </div>
+                    <div>
+                      <input type="text" name="meter_number" class="numero form-control vende validate clearFieldjs" data-message="Informe o número" placeholder="Digite ..." maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="campos ende id="divAditionalFieldsENDEsms" style="display: none;margin-top: 10px">
+                  <div class="editArea editAreaDiv">
+                    <div class="p16Bold editDiv" style="text-align: left;">
+                      Número SMS para envio do token de recarga <span class="required">&nbsp;*</span>
+                    </div>
+                    <div>
+                      <input type="text" id="sms_ende" name="talao_sms_ende" class="form-control vende validate clearFieldjs" data-message="Informe o Número SMS para envio do token de recarga" value="" placeholder="Número SMS para envio" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="campos ende" id="divAditionalFieldsEmail" style="display: none;margin-top: 10px">
+                  <div class="editArea editAreaDiv">
+                    <div class="p16Bold editDiv" style="text-align: left;">
+                      E-mail para envio do recibo de recarga
+                    </div>
+                    <div>
+                      <input type="email" id="email" name="email" class="form-control cOpcionalENDE validate clearFieldjs" data-message="Informe um e-mail válido para envio do token de recarga" value="" placeholder="E-mail para envio" >
+                    </div>
+                  </div>
+                </div>
 
-              <div class="campos elephantbet" id="divAditionalFieldsElephantbet">
-                <div class="editArea editAreaDiv">
-                  <div class="p16Bold editDiv label-numero" style="text-align: left;">
-                    Telefone do Jogador <span class="required">*</span>
-                  </div>
-                  <div>
-                    <input type="text" id="elephantbetNr" name="elephantbet_telefone" class="numero form-control velephantbet validate clearFieldjs" data-message="Informe o Telefone do Jogador" value="" placeholder="Número do Telefone do Jogador" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                <div class="campos elephantbet" id="divAditionalFieldsElephantbet">
+                  <div class="editArea editAreaDiv">
+                    <div class="p16Bold editDiv label-numero" style="text-align: left;">
+                      Telefone do Jogador <span class="required">*</span>
+                    </div>
+                    <div>
+                      <input type="text" id="elephantbetNr" name="elephantbet_telefone" class="numero form-control velephantbet validate clearFieldjs" data-message="Informe o Telefone do Jogador" value="" placeholder="Número do Telefone do Jogador" maxlength="20" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="saveCancelbts" style="padding-top: 25px;text-align: right;">
-            <div style="display: inline-block;margin-bottom: 10px;">
-              <input type="submit" class="btn btn-success" id="btSave" style="width: 210px; text-align: center;" value="SUBMETER PEDIDO">
+            <div class="saveCancelbts" style="padding-top: 25px;text-align: right;">
+              <div style="display: inline-block;margin-bottom: 10px;">
+                <input type="submit" class="btn btn-success" id="btSave" style="width: 100%; text-align: center;" value="SUBMETER PEDIDO">
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      
-    </form>
-    <% if @partner_default.present? %>
-      <script type="text/javascript">
-        pgstrans.displayRecarga('<%= @partner_default.slug %>')
-      </script>
-    <% end %>
+        
+      </form>
+      <% if @partner_default.present? %>
+        <script type="text/javascript">
+          pgstrans.displayRecarga('<%= @partner_default.slug %>')
+        </script>
+      <% end %>
 
-    <% if params[:recarga].present? %>
-      <script type="text/javascript">
-        pgstrans.displayRecarga('<%= params[:recarga] %>')
+      <% if params[:recarga].present? %>
+        <script type="text/javascript">
+          pgstrans.displayRecarga('<%= params[:recarga] %>')
 
-        <% if params[:recarga] == "ende" %>
-          pgstrans.displayRecargaEnde();
-          $("input[name=meter_number]").val("<%= params[:customer_number] %>");
-          $("input[name=talao_sms_ende]").val("<%= params[:customer_number] %>");
-        <% elsif params[:displayrecarga].present? %>
-          pgstrans.displayRecargaDstv();
-        <% end %>
-      </script>
-    <% end %>
+          <% if params[:recarga] == "ende" %>
+            pgstrans.displayRecargaEnde();
+            $("input[name=meter_number]").val("<%= params[:customer_number] %>");
+            $("input[name=talao_sms_ende]").val("<%= params[:customer_number] %>");
+          <% elsif params[:displayrecarga].present? %>
+            pgstrans.displayRecargaDstv();
+          <% end %>
+        </script>
+      <% end %>
+    </div>
   </div>
 </div>
