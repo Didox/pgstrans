@@ -91,12 +91,13 @@
 		</div>
 	</span>
 
-	<span>
-		<a href="<%= proxy_pay_pagamento_referencia_path %>">
-		<h1 class="btn <% if params[:controller] == "proxy_pay_pagamento_referencia" %>active_menu<% end %> menu_recarga">Pagamento Referência</h1>
-		</a>
-	</span>
-
+	<% if @adm.id == Usuario::ROOT %>
+		<span>
+			<a href="<%= proxy_pay_pagamento_referencia_path %>">
+			<h1 class="btn <% if params[:controller] == "proxy_pay_pagamento_referencia" %>active_menu<% end %> menu_recarga">Pagamento Referência</h1>
+			</a>
+		</span>
+	<% end %>
 
 	<span>
 		<% if PerfilUsuario.where("lower(nome) != '%vendedor%'") %>
