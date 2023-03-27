@@ -9,8 +9,17 @@ class ProxyPayController < ApplicationController
    def gerar_referencia
       usuario = Usuario.find(params[:usuario_id])
 
-      xx = ProxyPay.gerar_referencia(usuario.referencia)
-      puts xx
+		if usuario.nro_pagamento_referencia.blank?
+         @erro = "Número de pagamento por referência não cadastrado para o usuário"
+         @sucesso = false
+         return
+      end
+
+      @sucesso = ProxyPay.gerar_referencia(usuario.nro_pagamento_referencia)
+   rescue
+      @erro = "Pagamento por referência - Usuário não encontrado"
+      @sucesso = false
+      return
    end
 
 end

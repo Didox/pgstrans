@@ -9,67 +9,35 @@ class ProxyPay
     raise PagasoError.new("Parceiro não localizado") if parceiro.blank?
 
     if Rails.env == "development"
-      url_service = parametro.get.url_integracao_desenvolvimento
+      url_service = parametro.get.url_api_integracao_desenvolvimento
     else
-      url_service = parametro.get.url_integracao_producao
+      url_service = parametro.get.url_api_integracao_producao
     end
 
     [parceiro,parametro,url_service]
   end
 
   def self.gerar_referencia(transaction_reference)
-    elephant_bet_login, parceiro, parametro, url_service = ProxyPay.login
+    parceiro, parametro, url_service = self.parametros
 
-    bearer_token_default = "#{parametro.get.bearer_token_default}"
+    api_key_desenvolvimento = "#{parametro.get.api_key_desenvolvimento}"
 
-    sessao = JSON.parse(elephant_bet_login.body_request)
-    session_id = sessao["loginInformation"]["session"]
-
-    raise PagasoError.new("Sessão expirada") if session_id.blank?
-
-    url = "#{url_service}/#{parametro.get.endpoint_HTTP_ConsultaVoucher}/#{transaction_reference}?session=#{session_id}"
+    url = "#{url_service}/#{parametro.get.endpoint_HTTP_Create_Update_Delete_Reference}/#{transaction_reference}"
     uri = URI.parse(URI::Parser.new.escape(url))
 
-    request = HTTParty.get(uri, 
+    request = HTTParty.put(uri, 
       headers: {
-        'Content-Type' => 'application/json',
-        'Authorization' => "Bearer #{bearer_token_default}",
+        'Content-Type' => 'application/vnd.proxypay.v2+json',
+        'Authorization' => "Token #{api_key_desenvolvimento}",
       },
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
-    return JSON.parse(request.body)
+    return (200..299).include?(request.code)
   end
 
   def self.consultar_voucher_payment_code(payment_code)
     consultar_voucher_reference(payment_code)
-  end
-  
-  def self.login
-    parceiro, parametro, url_service = self.parametros
-    url = "#{url_service}/#{parametro.get.endpoint_HTTP_Login}"
-    uri = URI.parse(URI::Parser.new.escape(url))
-
-    bearer_token_default = "#{parametro.get.bearer_token_default}"
-
-    request = HTTParty.post(uri, 
-      headers: {
-        'Content-Type' => 'application/json',
-        'Authorization' => "Bearer #{bearer_token_default}",
-      },
-      body: {
-        'login': parametro.get.login,
-        'passphrase': parametro.get.passphrase
-      }.to_json,
-      timeout: DEFAULT_TIMEOUT.to_i.seconds
-    )
-
-    Rails.logger.info "=========================================="
-    Rails.logger.info request.inspect
-    Rails.logger.info "===================[login]======================="
-    Rails.logger.info request.body
-    Rails.logger.info "=========================================="
-    [ElephantBetLogin.create(body_request:request.body), parceiro, parametro, url_service]
   end
 
 end
