@@ -17,7 +17,7 @@ curl "https://developer.proxypay.co.ao/v2/" \
 
 ## Registrar uma referencia
 
-curl -X PUT "https://api.sandbox.proxypay.co.ao/references/938849108" \
+curl -X PUT "https://api.sandbox.proxypay.co.ao////references/938849108" \
   -H "Authorization: Token omj8nk3oh7pvt6k5p9irq2ne4a34pl5i" \
   -H 'Accept: application/vnd.proxypay.v2+json'
 

@@ -88,6 +88,10 @@ class Partner < ApplicationRecord
     Partner.find_by_slug('zapfibra')
   end
 
+  def self.proxypay
+    Partner.find_by_slug('proxypay')
+  end
+
   def valor_total_original_sql(params={}, usuario_logado)
     vendas = Venda.com_acesso(usuario_logado).where(partner_id: self.id, status: ReturnCodeApi.where(partner_id: self.id, sucesso: true).map{|r| r.return_code })
     vendas = vendas.joins("inner join usuarios on usuarios.id = vendas.usuario_id")
