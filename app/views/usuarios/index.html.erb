@@ -366,15 +366,31 @@
             </td>
             <td>
               <% if usuario_logado.admin? || usuario_logado.operador? %>
-                <%= link_to 'Mostrar', usuario_path(usuario) %><br>
-                <%= link_to 'Editar', edit_usuario_path(usuario) %><br>
-                <% if usuario.logado %>
-                  <%= link_to 'Forçar Logout ', "/usuarios/#{usuario.id}/forcar-logout", data: { confirm: 'Confirma?' }%>
-                <% end %>
-                <br>
-                <%= 'Registar Referência' %><br>
-                <%= 'Apagar Referência' %><br>
-                <%= link_to 'Apagar Usuário', usuario, method: :delete, data: { confirm: 'Tem Certeza?' } %>
+                  <%= link_to 'Mostrar', usuario_path(usuario), class: 'btn btn-primary' %><br>
+                  <%= link_to 'Editar', edit_usuario_path(usuario), class: 'btn btn-warning' %><br>
+                  <% if usuario.logado %>
+                    <%= link_to 'Forçar Logout ', "/usuarios/#{usuario.id}/forcar-logout", data: { confirm: 'Confirma?' }, class: 'btn btn-dark' %>
+                  <% end %>
+                  <br>
+
+                  <% if @adm.id == Usuario::ROOT %>
+                      <% if usuario.nro_pagamento_referencia.present? %>
+                          <%= link_to 'javascript:if(confirm("Confirma?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-success' do %>
+                            Gerar Referência
+                        <% end %><br>
+                      <% else %>
+                          <button type="button" class="btn btn-light">Registar Referência</button><br>
+                      <% end %>
+                      <% if usuario.nro_pagamento_referencia.present? %>
+                          <%= link_to 'javascript:if(confirm("Confirma?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-danger' do %>
+                            Apagar Referência
+                        <% end %><br>
+                      <% else %>
+                          <button type="button" class="btn btn-danger">Apagar Referência</button><br>
+                      <% end %>
+                  <% end %>
+
+                  <%= link_to 'Apagar Usuário', usuario, method: :delete, data: { confirm: 'Pense bem! Tem certeza que quer apagar este usuário?' }, class: 'btn btn-warning' %>
               <% end %>
             </td>
           </tr>

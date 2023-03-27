@@ -18,7 +18,7 @@ class Usuario < ApplicationRecord
 
   validate :verifica_tamanho_senha
   after_validation :senha_sha1
-  before_validation :preenche_login, :senha_forte
+  before_validation :preenche_login, :senha_forte, :validar_nro_pagamento_referencia
 
   ROOT = 2
 
@@ -215,6 +215,15 @@ class Usuario < ApplicationRecord
 
     def preenche_login
       self.login = Usuario.gerar_login if self.login.blank?
+    end
+
+    def validar_nro_pagamento_referencia
+      return true if self.nro_pagamento_referencia.blank?
+
+      if self.nro_pagamento_referencia.to_s.length != 9
+        self.errors.add("Número de pagamento por referência", "inválido")
+        return false
+      end
     end
 
     def senha_forte
