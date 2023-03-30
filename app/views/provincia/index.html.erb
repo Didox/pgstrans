@@ -42,7 +42,7 @@
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-info">
-          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+          <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
           <% end %>
@@ -85,11 +85,11 @@
       <%= will_paginate @provincium, :container => false %>
     </div> 
 
-    <%= link_to new_provincium_path, class: 'btn btn-danger' do %>
+    <%= link_to new_provincium_path, class: 'btn btn-success' do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registo
     <% end %>    
-    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+    <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar
     <% end %>

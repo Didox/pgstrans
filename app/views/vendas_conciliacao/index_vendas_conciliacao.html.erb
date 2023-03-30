@@ -103,7 +103,7 @@
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-success">
-          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+          <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
           <% end %>
@@ -227,7 +227,7 @@
     
     <%= render "/shared/paginate", path: "/vendas_conciliacao/index_vendas_conciliacao", records: @vendas, :per_page => @per_page %>
 
-    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+    <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar
     <% end %>

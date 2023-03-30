@@ -253,11 +253,11 @@
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-info">
-          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+          <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
           <% end %>
-          <%= link_to new_usuario_path, class: 'btn btn-danger' do %>
+          <%= link_to new_usuario_path, class: 'btn btn-success' do %>
             <span class="glyphicon glyphicon-plus"></span>
             Novo Registo
           <% end %>
@@ -366,31 +366,32 @@
             </td>
             <td>
               <% if usuario_logado.admin? || usuario_logado.operador? %>
-                  <%= link_to 'Mostrar', usuario_path(usuario), class: 'btn btn-primary' %><br>
-                  <%= link_to 'Editar', edit_usuario_path(usuario), class: 'btn btn-warning' %><br>
+                  <%= link_to 'Mostrar', usuario_path(usuario), class: 'btn btn-light btn-sm btn-block' %>
+                  <%= link_to 'Editar', edit_usuario_path(usuario), class: 'btn btn-light btn-sm btn-block' %>
                   <% if usuario.logado %>
-                    <%= link_to 'Forçar Logout ', "/usuarios/#{usuario.id}/forcar-logout", data: { confirm: 'Confirma?' }, class: 'btn btn-dark' %>
+                    <%= link_to 'Forçar Logout ', "/usuarios/#{usuario.id}/forcar-logout", data: { confirm: 'Confirma?' }, class: 'btn btn-light btn-sm btn-block' %>
                   <% end %>
-                  <br>
 
                   <% if @adm.id == Usuario::ROOT %>
+                      <!-- Gerar referencia -->
                       <% if usuario.nro_pagamento_referencia.present? %>
-                          <%= link_to 'javascript:if(confirm("Confirma?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-success' do %>
+                          <%= link_to 'javascript:if(confirm("Confirma a geração da referência do usuário?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-light btn-sm btn-block' do %>
                             Gerar Referência
-                        <% end %><br>
+                        <% end %>
                       <% else %>
-                          <button type="button" class="btn btn-light">Registar Referência</button><br>
+                          <button type="button" class="btn btn-light btn-sm btn-block">Registar Referência</button>
                       <% end %>
+                      <!-- Apagar referencia -->
                       <% if usuario.nro_pagamento_referencia.present? %>
-                          <%= link_to 'javascript:if(confirm("Confirma?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-danger' do %>
+                          <%= link_to 'javascript:if(confirm("Confirma a remoção da referência do usuário?")){ window.location.href="/proxy_pay/apagar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-danger btn-sm btn-block' do %>
                             Apagar Referência
-                        <% end %><br>
+                        <% end %>
                       <% else %>
-                          <button type="button" class="btn btn-danger">Apagar Referência</button><br>
+                          <button type="button" class="btn btn-light btn-sm btn-block">Apagar Referência</button>
                       <% end %>
                   <% end %>
 
-                  <%= link_to 'Apagar Usuário', usuario, method: :delete, data: { confirm: 'Pense bem! Tem certeza que quer apagar este usuário?' }, class: 'btn btn-warning' %>
+                  <%= link_to 'Apagar Usuário', usuario, method: :delete, data: { confirm: 'Pense bem! Tem certeza que quer apagar este usuário?' }, class: 'btn btn-danger btn-sm btn-block' %>
               <% end %>
             </td>
           </tr>
@@ -402,12 +403,12 @@
       <%= will_paginate @usuarios, :container => false %>
     </div> 
 
-    <%= link_to new_usuario_path, class: 'btn btn-danger' do %>
+    <%= link_to new_usuario_path, class: 'btn btn-success' do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registo
     <% end %>    
 
-    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+    <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar
     <% end %>

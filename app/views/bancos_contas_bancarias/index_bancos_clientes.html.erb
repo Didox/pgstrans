@@ -47,7 +47,7 @@
             Voltar
           <% end %>
           <% if usuario_logado.admin? || usuario_logado.operador? %>
-            <%= link_to new_banco_path, class: 'btn btn-danger' do %>
+            <%= link_to new_banco_path, class: 'btn btn-success' do %>
               <span class="glyphicon glyphicon-plus"></span>
               Novo Registo
             <% end %>

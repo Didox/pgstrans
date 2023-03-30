@@ -72,12 +72,12 @@
                 </div>
                 <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: right;">
                   <div style="display: inline-block;margin-bottom: 10px;">
-                    <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="CONFIRMAR">
+                    <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="Confirmar">
                   </div>
                   <div style="display: inline-block;margin-bottom: 10px;">
-                    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-space btn-danger', style: "width: 150px; text-align: center;margin-right:0px" do %>
+                    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-space btn-primary', style: "width: 150px; text-align: center;margin-right:0px" do %>
                       <span class="glyphicon glyphicon-list-alt"></span>
-                      VOLTAR
+                      Voltar
                     <% end %>
                   </div>                  
                 </div>
@@ -110,7 +110,7 @@
               <input type="hidden" name="customer_number" value="<%= params["customer_number"] %>">
               <input type="hidden" name="dueDate" value="<%= @info["dueDate"].to_datetime.strftime("%d/%m/%Y") %>">
 
-              <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger', style: "width: 150px; text-align: center;" do %>
+              <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary', style: "width: 150px; text-align: center;" do %>
                 <span class="glyphicon glyphicon-list-alt"></span>
                 Voltar
               <% end %>

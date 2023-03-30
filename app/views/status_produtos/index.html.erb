@@ -22,7 +22,7 @@
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" class="btn btn-info" value="Buscar">
-          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+          <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
           <% end %>
@@ -56,12 +56,12 @@
         <%= will_paginate @status_parceiros, :container => false %>
       </div>
 
-      <%= link_to new_status_produto_path, class: 'btn btn-danger' do %>
+      <%= link_to new_status_produto_path, class: 'btn btn-success' do %>
         <span class="glyphicon glyphicon-plus"></span>
         Novo Registo
       <% end %>    
 
-      <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+      <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Voltar
       <% end %>    

@@ -55,6 +55,9 @@ Rails.application.routes.draw do
 
   get '/proxy_pay/pagamento_referencia', to: 'proxy_pay#pagamento_referencia'
   get '/proxy_pay/gerar_referencia', to: 'proxy_pay#gerar_referencia'
+  get '/proxy_pay/apagar_referencia', to: 'proxy_pay#apagar_referencia'
+  post '/webhook/conciliacao_proxy_pay', to: 'proxy_pay#conciliacao_proxy_pay'
+  
   
   get '/controle-acessos/:modelo/:modelo_id/grupos', to: 'grupos#controle_acessos_modelo'
   get '/controle-acessos/:modelo/:modelo_id/grupos/novo', to: 'grupos#controle_acessos_modelo_novo'

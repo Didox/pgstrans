@@ -20,7 +20,7 @@
       <div class="form-group">
         <div style="float: right;margin-right:10px">
           <input type="submit" value="Buscar" class="btn btn-info">
-          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+          <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
             <span class="glyphicon glyphicon-list-alt"></span>
             Voltar
           <% end %>        
@@ -50,11 +50,11 @@
     <div class="apple_pagination">
       <%= will_paginate @status_clientes, :container => false %>
     </div> 
-    <%= link_to new_status_cliente_path, class: 'btn btn-danger' do %>
+    <%= link_to new_status_cliente_path, class: 'btn btn-success' do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registo
     <% end %>    
-    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+    <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Voltar
     <% end %>
