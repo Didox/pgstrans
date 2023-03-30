@@ -40,29 +40,48 @@ class ProxyPayController < ApplicationController
    end
 
    def conciliacao_proxy_pay
+      usuario = Usuario.where(nro_pagamento_referencia: params["reference_id"]).first
+      if usuario.blank?
+         render json: {
+            message: "Usuário não localizado"
+         }, status: 404
+         return 
+      end
+
       hash = {
-         transaction_id: params["transaction_id"],
-         terminal_type: params["terminal_type"],
-         terminal_transaction_id:  params["terminal_transaction_id"],
-         terminal_location:  params["terminal_location"],
-         terminal_id: params["terminal_id"],
-         reference_id: params["reference_id"],
-         product_id: params["product_id"],
-         period_start_datetime: params["period_start_datetime"],
-         period_id: params["period_id"],
-         period_end_datetime: params["period_end_datetime"],
-         parameter_id: params["parameter_id"],
-         id: params["id"],
-         fee: params["fee"],
-         entity_id: params["entity_id"],
-         datetime: params["datetime"],
-         custom_fields: params["custom_fields"],
-         amount: params["amount"]
+         nro_pagamento_referencia: params["reference_id"],
+         id_trn_parceiro: params["id"],
+         data_pagamento: params["datetime"],
+         transaction_id_parceiro: params["transaction_id"],
+         valor: params["amount"],
+         terminal_id_parceiro: params["terminal_id"],
+         terminal_location_parceiro: params["terminal_location"],
+         terminal_type_parceiro: params["terminal_type"],
+         terminal_transaction_id_parceiro: params["terminal_transaction_id"],
+         product_id_parceiro: params["product_id"],
+         period_start_datetime_parceiro: params["period_start_datetime"],
+         parameter_id_parceiro: params["parameter_id"],
+         period_id_parceiro: params["period_id"],
+         period_end_datetime_parceiro: params["period_end_datetime"],
+         fee_parceiro: params["fee"],
+         entity_id_parceiro: params["entity_id"],
+         custom_fields_parceiro: params["custom_fields"]
       }
 
-      api_key = "your API Key"
+      parceiro = Partner.proxypay
+      parametro = Parametro.where(partner_id: parceiro.id).first
+  
+      if parametro.blank? || parceiro.blank?
+         render json: {
+            message: "Parceiro inválido"
+         }, status: 401
+         return 
+      end
+  
+      api_key = parametro.get.api_key_desenvolvimento
       http_body = hash.to_json
 
+=begin
       signature = generate_signature(api_key, http_body)
 
       if request.headers["X-Signature"] != signature
@@ -71,8 +90,12 @@ class ProxyPayController < ApplicationController
          }, status: 401
          return 
       end
+=end
 
+debugger
 
+      hash[:usuario_id] = usuario.id
+      hash[:x_signature] = request.headers["X-Signature"]
       PagamentoReferencia.create(hash)
 
       render json: {}, status: 204
@@ -85,6 +108,7 @@ class ProxyPayController < ApplicationController
       digest = OpenSSL::Digest.new('sha256')
       hmac = OpenSSL::HMAC.digest(digest, api_key, http_body)
       signature = Base64.strict_encode64(hmac)
+
       return signature
    end
 end
