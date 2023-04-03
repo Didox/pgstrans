@@ -19,19 +19,21 @@
       <dt>ID da Transação no Parceiro:</dt>
       <dd><%= @pagamento_referencia.id_parceiro %></dd>
       <dt>Valor do Pagamento:</dt>
-      <dd><%= @pagamento_referencia.valor_pagamento %></dd>
+      <dd><%= @pagamento_referencia.valor %></dd>
       <dt>Data do Pagamento:</dt>
       <dd><%= @pagamento_referencia.data_pagamento %></dd>
       <dt>Data da Conciliação:</dt>
       <dd><%= @pagamento_referencia.data_conciliacao %></dd>
       <dt>Identificação do Terminal:</dt>
-      <dd><%= @pagamento_referencia.terminal_id %></dd>
+      <dd><%= @pagamento_referencia.terminal_id_parceiro %></dd>
       <dt>Localização do Terminal:</dt>
-      <dd><%= @pagamento_referencia.terminal_location %></dd>
+      <dd><%= @pagamento_referencia.terminal_location_parceiro %></dd>
       <dt>Tipo do Terminal:</dt>
-      <dd><%= @pagamento_referencia.terminal_type %></dd>
+      <dd><%= @pagamento_referencia.terminal_type_parceiro %></dd>
     </dl>
-
+<%
+=begin 
+%>
     <div class="page-header">
       <%= link_to pagamento_referencias_path, class: 'btn btn-primary' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
@@ -42,5 +44,8 @@
         Editar
       <% end %>
     </div>
+<%
+=end 
+%>
   </div>
 </div>

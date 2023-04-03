@@ -95,15 +95,15 @@
         <% @conta_correntes.each do |conta_corrente| %>
         <tr>
           <% if @adm.admin? || @adm.operador? %>
-            <td style="width: 100px" align="right"><%= conta_corrente.usuario.id %></td>
+            <td style="width: 6%" align="right"><%= conta_corrente.usuario.id %></td>
           <% end %>
-          <td style="width: 100px"><%= conta_corrente.usuario.login %></td>
-          <td style="width: 250px"><%= conta_corrente.usuario.nome %></td>
-          <td style="width: 300px" align="right"><%= number_to_currency(conta_corrente.valor, :unit => "KZ", :precision => 2) %></td>
-          <td style="width: 150px" align="center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %></td>
-          <td style="width: 200px"><%= conta_corrente.lancamento.nome rescue "" %>
+          <td style="width: 6%"><%= conta_corrente.usuario.login %></td>
+          <td style="width: 21%"><%= conta_corrente.usuario.nome %></td>
+          <td style="width: 16%" align="right"><%= number_to_currency(conta_corrente.valor, :unit => "KZ", :precision => 2) %></td>
+          <td style="width: 14%" align="center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %></td>
+          <td style="width: 17%"><%= conta_corrente.lancamento.nome rescue "" %>
           <% if (@adm.admin? || @adm.operador?) %>  
-            <td style="width: 200px">
+            <td style="width: 20%">
               <% if ![Lancamento::PAGAMENTO_DE_FATURA, Lancamento::ALTERACAO_PLANO, Lancamento::ALTERACAO_PACOTE].include?(conta_corrente.lancamento.nome) %>  
                 <%= conta_corrente.responsavel_aprovacao.nome rescue "" %>
               <% else %>
