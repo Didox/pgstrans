@@ -36,9 +36,17 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
+            <label>ID no Parceiro</label>
+            <div>
+              <input type="text" name="id_parceiro" value="<%= params[:id_parceiro] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
             <label>ID da Transação no Parceiro</label>
             <div>
-              <input type="text" name="id_trn_parceiro" value="<%= params[:id_trn_parceiro] %>" class="form-control">
+              <input type="text" name="transaction_id_parceiro" value="<%= params[:transaction_id_parceiro] %>" class="form-control">
             </div>
           </div>
         </div>
@@ -91,15 +99,27 @@
       <thead>
         <tr>
           <th scope="col" style="width: 10%">Login do Usuário</th>
-          <th scope="col" style="width: 25%">Nome do Usuário</th>
+          <th scope="col" style="width: 30%">Nome do Usuário</th>
           <th scope="col" style="width: 10%">Número da Referência de Pagamento</th>
           <th scope="col" style="width: 10%">ID da Transação no Parceiro</th>
-          <th scope="col">Valor do Pagamento</th>
-          <th scope="col">Data do Pagamento</th>
-          <th scope="col">Data da Conciliação</th>
-          <th scope="col" style="width: 10%">Identificação do Terminal</th>
-          <th scope="col" style="width: 10%">Localização do Terminal</th>
-          <th scope="col" style="width: 10%">Tipo do Terminal</th>
+          <th scope="col" style="width: 10%">ID no Parceiro</th>
+          <th scope="col" style="width: 10%">Valor do Pagamento</th>
+          <th scope="col" style="width: 10%">Data do Pagamento</th>
+          <th scope="col" style="width: 10%">Data da Conciliação</th>
+          <th scope="col" style="width: 10%">Terminal ID Parceiro</th>
+          <th scope="col" style="width: 10%">Terminal Location Parceiro</th>
+          <th scope="col" style="width: 10%">Terminal Type Parceiro</th>
+          <th scope="col" style="width: 10%">Terminal Transaction ID Parceiro</th>
+          <th scope="col" style="width: 10%">Product ID Parceiro</th>
+          <th scope="col" style="width: 10%">Period Start Parceiro</th>
+          <th scope="col" style="width: 10%">Period ID Parceiro</th>
+          <th scope="col" style="width: 10%">Period End Parceiro</th>
+          <th scope="col" style="width: 10%">Parameter ID Parceiro</th>
+          <th scope="col" style="width: 10%">FEE Parceiro</th>
+          <th scope="col" style="width: 10%">Entity ID Parceiro</th>
+          <th scope="col" style="width: 10%">Custom Fields Parceiro</th>
+          <th scope="col" style="width: 10%">X_signature</th>
+          <th scope="col" style="width: 10%">Situação</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -110,16 +130,28 @@
           <td><%= pagamento_referencia.usuario.login %></td>
           <td><%= pagamento_referencia.usuario.nome %></td>
           <td><%= pagamento_referencia.nro_pagamento_referencia %></td>
-          <td><%= pagamento_referencia.id_trn_parceiro %></td>
-          <td><%= pagamento_referencia.valor_pagamento %></td>
+          <td><%= pagamento_referencia.transaction_id_parceiro %></td> 
+          <td><%= pagamento_referencia.id_parceiro %></td>
+          <td><%= pagamento_referencia.valor %></td>
           <td><%= pagamento_referencia.data_pagamento %></td>
           <td><%= pagamento_referencia.data_conciliacao %></td>
-          <td><%= pagamento_referencia.terminal_id %></td>
-          <td><%= pagamento_referencia.terminal_location %></td>
-          <td><%= pagamento_referencia.terminal_type %></td>
-          <td><%= link_to 'Mostrar', pagamento_referencia %></td>
+          <td><%= pagamento_referencia.terminal_id_parceiro %></td>
+          <td><%= pagamento_referencia.terminal_location_parceiro %></td>
+          <td><%= pagamento_referencia.terminal_type_parceiro %></td> 
+          <td><%= pagamento_referencia.terminal_transaction_id_parceiro %></td> 
+          <td><%= pagamento_referencia.product_id_parceiro %></td> 
+          <td><%= pagamento_referencia.period_start_datetime_parceiro %></td> 
+          <td><%= pagamento_referencia.period_id_parceiro %></td> 
+          <td><%= pagamento_referencia.period_end_datetime_parceiro %></td> 
+          <td><%= pagamento_referencia.parameter_id_parceiro %></td> 
+          <td><%= pagamento_referencia.fee_parceiro %></td> 
+          <td><%= pagamento_referencia.entity_id_parceiro %></td> 
+          <td><%= pagamento_referencia.custom_fields_parceiro %></td> 
+          <td><%= pagamento_referencia.status ? "Processado" : "Pendente" %></td> 
+          <td><%= pagamento_referencia.x_signature %></td> 
+          <td><%= link_to 'Mostrar', "/pagamento_referencias/#{pagamento_referencia.id}" %></td>
           <td><%= link_to 'Editar', edit_pagamento_referencia_path(pagamento_referencia) %></td>
-          <td><%= link_to 'Apagar', pagamento_referencia, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+          <td><%= link_to 'Apagar', "/pagamento_referencias/#{pagamento_referencia.id}", method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>
         <% end %>
       </tbody>

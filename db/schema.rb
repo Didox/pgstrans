@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_30_130424) do
+ActiveRecord::Schema.define(version: 2023_04_01_132106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -357,7 +357,7 @@ ActiveRecord::Schema.define(version: 2023_03_30_130424) do
   create_table "pagamento_referencias", force: :cascade do |t|
     t.bigint "usuario_id"
     t.integer "nro_pagamento_referencia"
-    t.integer "id_trn_parceiro"
+    t.string "id_parceiro"
     t.float "valor"
     t.datetime "data_pagamento"
     t.datetime "data_conciliacao"

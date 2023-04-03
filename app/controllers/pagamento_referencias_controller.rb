@@ -12,11 +12,11 @@ class PagamentoReferenciasController < ApplicationController
     @pagamento_referencias = @pagamento_referencias.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
     @pagamento_referencias = @pagamento_referencias.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
     @pagamento_referencias = @pagamento_referencias.where("nro_pagamento_referencia ilike '%#{params[:nro_pagamento_referencia].remove_injection}%'") if params[:nro_pagamento_referencia].present?
-    @pagamento_referencias = @pagamento_referencias.where("id_trn_parceiro ilike '%#{params[:id_trn_parceiro].remove_injection}%'") if params[:id_trn_parceiro].present?
+    @pagamento_referencias = @pagamento_referencias.where("id_parceiro ilike '%#{params[:id_parceiro].remove_injection}%'") if params[:id_parceiro].present?
+    @pagamento_referencias = @pagamento_referencias.where("id_parceiro ilike '%#{params[:transaction_id_parceiro].remove_injection}%'") if params[:transaction_id_parceiro].present?
     @pagamento_referencias = @pagamento_referencias.where("valor_pagamento ilike '%#{params[:valor_pagamento].remove_injection}%'") if params[:valor_pagamento].present?
-    @pagamento_referencias = @pagamento_referencias.where("valor_pagamento ilike '%#{params[:valor_pagamento].remove_injection}%'") if params[:valor_pagamento].present?
-    @pagamento_referencias = @pagamento_referencias.where("data_pagamento >= ?", SqlDate.sql_parse(params[:data_pagamento].to_datetime.beginning_of_day)) if params[:data_pagamento].present?
-    @pagamento_referencias = @pagamento_referencias.where("data_conciliacao >= ?", SqlDate.sql_parse(params[:data_conciliacao].to_datetime.beginning_of_day)) if params[:data_conciliacao].present?
+    @pagamento_referencias = @pagamento_referencias.where("data_pagamento = ?", SqlDate.sql_parse(params[:data_pagamento].to_datetime.beginning_of_day)) if params[:data_pagamento].present?
+    @pagamento_referencias = @pagamento_referencias.where("data_conciliacao = ?", SqlDate.sql_parse(params[:data_conciliacao].to_datetime.beginning_of_day)) if params[:data_conciliacao].present?
     @pagamento_referencias = @pagamento_referencias.where("terminal_type ilike '%#{params[:terminal_type].remove_injection}%'") if params[:terminal_type].present?
   end
 
@@ -83,6 +83,9 @@ class PagamentoReferenciasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def pagamento_referencia_params
-      params.require(:pagamento_referencia).permit(:usuario_id, :nro_pagamento_referencia, :id_trn_parceiro, :valor_pagamento, :data_pagamento, :data_conciliacao, :terminal_id, :terminal_location, :terminal_type)
+      params.require(:pagamento_referencia).permit(:usuario_id, :nro_pagamento_referencia, :id_parceiro, :valor, :data_pagamento, :data_conciliacao, :terminal_id_parceiro, :terminal_location_parceiro, :terminal_type_parceiro, :transaction_id_parceiro,
+      :terminal_transaction_id_parceiro, :product_id_parceiro, :period_start_datetime_parceiro, :period_end_datetime_parceiro,
+      :parameter_id_parceiro, :period_id_parceiro, :fee_parceiro, :entity_id_parceiro, :custom_fields_parceiro, :status,
+      :x_signature)
     end
 end
