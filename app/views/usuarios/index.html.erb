@@ -374,15 +374,15 @@
 
                   <!-- Gerar referencia -->
                   <% if usuario.nro_pagamento_referencia.present? %>
-                      <%= link_to 'javascript:if(confirm("Confirma a geração da referência do usuário?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-light btn-sm btn-block' do %>
+                      <%= link_to 'javascript:if(confirm("Confirma a geração da referência do usuário?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-primary btn-sm btn-block' do %>
                         Gerar Referência
                     <% end %>
                   <% else %>
-                      <button type="button" class="btn btn-light btn-sm btn-block">Registar Referência</button>
+                      <a href="/usuarios/<%= usuario.id%>/edit" class="btn btn-light btn-sm btn-block">Definir Referência</a>
                   <% end %>
 
                   <!-- Apagar referencia -->
-                  <% if usuario.nro_pagamento_referencia.present? %>
+                  <% if usuario.nro_pagamento_referencia.present? && usuario.pagamento_referencia.blank? %>
                       <%= link_to 'javascript:if(confirm("Confirma a remoção da referência do usuário?")){ window.location.href="/proxy_pay/apagar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-danger btn-sm btn-block' do %>
                         Apagar Referência
                     <% end %>

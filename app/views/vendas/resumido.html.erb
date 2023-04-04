@@ -6,7 +6,7 @@
   <div class="col-md-12">
 
     <div class="card" style="margin-top: 5px;">
-      <div class="card-header" style="text-align: center;font-size: 20px;font-weight: bold;">
+      <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
         VENDAS
       </div>
       <form action="" method="get" id="formApuracao">
@@ -269,15 +269,9 @@
       </div>
 
       <div style="padding:10px">
-        <h2>
-          Total geral: <strong><%= number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
-        </h2>
-        <h2>
-          Total de lucro: <strong><%= number_to_currency(Venda.total_lucros_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
-        </h2>
-        <h2>
-          Total de custo: <strong><%= number_to_currency(Venda.total_custo_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
-        </h2>
+          TOTAL GERAL: <strong><%= number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong><br>
+          TOTAL DE LUCRO: <strong><%= number_to_currency(Venda.total_lucros_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong><br>
+          TOTAL DE CUSTO: <strong><%= number_to_currency(Venda.total_custo_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
       </div>
 
       <div class="apple_pagination">

@@ -72,6 +72,10 @@ class Usuario < ApplicationRecord
     grupo_usuarios.map{|g| g.grupo_id}
   end
 
+  def pagamento_referencia
+    PagamentoReferencia.where(nro_pagamento_referencia: self.nro_pagamento_referencia, status: true).first
+  end
+
   def self.ativo
     Usuario.where(status_cliente_id: StatusCliente.where(nome: "Ativo"))
   end

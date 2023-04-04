@@ -103,12 +103,12 @@
           <th scope="col" style="width: 10%">Número da Referência de Pagamento</th>
           <th scope="col" style="width: 10%">ID da Transação no Parceiro</th>
           <th scope="col" style="width: 10%">ID no Parceiro</th>
-          <th scope="col" style="width: 10%">Valor do Pagamento</th>
-          <th scope="col" style="width: 10%">Data do Pagamento</th>
-          <th scope="col" style="width: 10%">Data da Conciliação</th>
+          <th scope="col" style="width: 10%">Valor</th>
+          <th scope="col" style="width: 200px">Data do Pagamento</th>
+          <th scope="col" style="width: 200px">Data da Conciliação</th>
+          <th scope="col" style="width: 10%">Terminal Type Parceiro</th>
           <th scope="col" style="width: 10%">Terminal ID Parceiro</th>
           <th scope="col" style="width: 10%">Terminal Location Parceiro</th>
-          <th scope="col" style="width: 10%">Terminal Type Parceiro</th>
           <th scope="col" style="width: 10%">Terminal Transaction ID Parceiro</th>
           <th scope="col" style="width: 10%">Product ID Parceiro</th>
           <th scope="col" style="width: 10%">Period Start Parceiro</th>
@@ -129,29 +129,34 @@
         <tr>
           <td><%= pagamento_referencia.usuario.login %></td>
           <td><%= pagamento_referencia.usuario.nome %></td>
-          <td><%= pagamento_referencia.nro_pagamento_referencia %></td>
+          <td>
+            <strong>Proxy Pay: </strong><%= pagamento_referencia.nro_pagamento_referencia %><br>
+            <strong>Pagasó: </strong><%= pagamento_referencia.usuario.nro_pagamento_referencia %>
+          </td>
           <td><%= pagamento_referencia.transaction_id_parceiro %></td> 
           <td><%= pagamento_referencia.id_parceiro %></td>
           <td><%= pagamento_referencia.valor %></td>
-          <td><%= pagamento_referencia.data_pagamento %></td>
-          <td><%= pagamento_referencia.data_conciliacao %></td>
-          <td><%= pagamento_referencia.terminal_id_parceiro %></td>
-          <td><%= pagamento_referencia.terminal_location_parceiro %></td>
+          <td><%= pagamento_referencia.data_pagamento.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></td>
+          <td><%= pagamento_referencia.data_conciliacao.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></td>
           <td><%= pagamento_referencia.terminal_type_parceiro %></td> 
-          <td><%= pagamento_referencia.terminal_transaction_id_parceiro %></td> 
-          <td><%= pagamento_referencia.product_id_parceiro %></td> 
-          <td><%= pagamento_referencia.period_start_datetime_parceiro %></td> 
-          <td><%= pagamento_referencia.period_id_parceiro %></td> 
-          <td><%= pagamento_referencia.period_end_datetime_parceiro %></td> 
-          <td><%= pagamento_referencia.parameter_id_parceiro %></td> 
-          <td><%= pagamento_referencia.fee_parceiro %></td> 
-          <td><%= pagamento_referencia.entity_id_parceiro %></td> 
-          <td><%= pagamento_referencia.custom_fields_parceiro %></td> 
           <td><%= pagamento_referencia.status ? "Processado" : "Pendente" %></td> 
-          <td><%= pagamento_referencia.x_signature %></td> 
-          <td><%= link_to 'Mostrar', "/pagamento_referencias/#{pagamento_referencia.id}" %></td>
-          <td><%= link_to 'Editar', edit_pagamento_referencia_path(pagamento_referencia) %></td>
-          <td><%= link_to 'Apagar', "/pagamento_referencias/#{pagamento_referencia.id}", method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+          <% if @adm.id == Usuario::ROOT %>
+            <td><%= pagamento_referencia.terminal_id_parceiro %></td>
+            <td><%= pagamento_referencia.terminal_location_parceiro %></td>
+            <td><%= pagamento_referencia.terminal_transaction_id_parceiro %></td> 
+            <td><%= pagamento_referencia.product_id_parceiro %></td> 
+            <td><%= pagamento_referencia.period_start_datetime_parceiro.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></td> 
+            <td><%= pagamento_referencia.period_id_parceiro %></td> 
+            <td><%= pagamento_referencia.period_end_datetime_parceiro.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></td> 
+            <td><%= pagamento_referencia.parameter_id_parceiro %></td> 
+            <td><%= pagamento_referencia.fee_parceiro %></td> 
+            <td><%= pagamento_referencia.entity_id_parceiro %></td> 
+            <td><%= pagamento_referencia.custom_fields_parceiro %></td> 
+            <td><%= pagamento_referencia.x_signature %></td> 
+          <% end %>
+
+          <td><%= link_to 'Mostrar', "/pagamento_referencias/#{pagamento_referencia.id}", class: 'btn btn-light btn-sm btn-block' %></td>
+          <td><%= link_to 'Editar', "/pagamento_referencias/#{pagamento_referencia.id}/edit", class: 'btn btn-light btn-sm btn-block' %></td>
         </tr>
         <% end %>
       </tbody>
