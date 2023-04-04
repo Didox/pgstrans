@@ -8,7 +8,7 @@
     <div class="card" style="margin-top: 5px;">
       <div class="card-header">
         <div class="col-md-12" style="margin-bottom: 20px;font-weight: bold">
-          A SUA REFERÊNCIA PARA PAGAMENTO
+          SUA REFERÊNCIA PARA PAGAMENTO
         </div>
         <div class="card-body">
           <% if usuario_logado.admin? || usuario_logado.operador? %>
@@ -18,10 +18,10 @@
           <div><b>Entidade :</b> 99674</div><br>
           
           <div><b>Referência :</b> 
-          <% if params[:nro_pagamento_referencia].blank? %>
+          <% if usuario_logado.nro_pagamento_referencia.blank? %>
             Definir
-          <% else %> 
-            <% params[:nro_pagamento_referencia] %>
+          <% else %>
+            <%= usuario_logado.nro_pagamento_referencia %></b> 
           <% end %>
           </div><br>
 

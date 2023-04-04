@@ -2,7 +2,6 @@ class ProxyPayController < ApplicationController
    skip_before_action :verify_authenticity_token, only: [:conciliacao_proxy_pay]
 
    def pagamento_referencia
-      # criar
    rescue Exception => e
       flash[:error] = e.message
    end

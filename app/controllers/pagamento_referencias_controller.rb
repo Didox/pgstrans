@@ -14,10 +14,10 @@ class PagamentoReferenciasController < ApplicationController
     @pagamento_referencias = @pagamento_referencias.where("CAST(usuarios.nro_pagamento_referencia AS VARCHAR) ilike '%#{params[:nro_pagamento_referencia].remove_injection}%'") if params[:nro_pagamento_referencia].present?
     @pagamento_referencias = @pagamento_referencias.where("id_parceiro ilike '%#{params[:id_parceiro].remove_injection}%'") if params[:id_parceiro].present?
     @pagamento_referencias = @pagamento_referencias.where("id_parceiro ilike '%#{params[:transaction_id_parceiro].remove_injection}%'") if params[:transaction_id_parceiro].present?
-    @pagamento_referencias = @pagamento_referencias.where("valor ilike '%#{params[:valor].remove_injection}%'") if params[:valor].present?
+    @pagamento_referencias = @pagamento_referencias.where("valor = ?", params[:valor].to_f) if params[:valor].present?
     @pagamento_referencias = @pagamento_referencias.where("data_pagamento = ?", SqlDate.sql_parse(params[:data_pagamento].to_datetime.beginning_of_day)) if params[:data_pagamento].present?
     @pagamento_referencias = @pagamento_referencias.where("data_conciliacao = ?", SqlDate.sql_parse(params[:data_conciliacao].to_datetime.beginning_of_day)) if params[:data_conciliacao].present?
-    @pagamento_referencias = @pagamento_referencias.where("terminal_type ilike '%#{params[:terminal_type].remove_injection}%'") if params[:terminal_type].present?
+    @pagamento_referencias = @pagamento_referencias.where("terminal_type_parceiro ilike '%#{params[:terminal_type_parceiro].remove_injection}%'") if params[:terminal_type_parceiro].present?
   end
 
   # GET /pagamento_referencias/1 or /pagamento_referencias/1.json

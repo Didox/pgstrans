@@ -80,24 +80,22 @@
 		<hr>
 		<div class="page-header">
 	      
-		  <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary' do %>
-	        <span class="glyphicon glyphicon-list-alt"></span>
-	        Voltar
-	      <% end %>
+			<%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary' do %>
+				<span class="glyphicon glyphicon-list-alt"></span>
+				Voltar
+			<% end %>
 
-	      <%= link_to edit_usuario_path(@usuario), class: 'btn btn-danger' do %>
-	        <span class="glyphicon glyphicon-pencil"></span>
-	        Editar
-	      <% end %>
+			<%= link_to edit_usuario_path(@usuario), class: 'btn btn-danger' do %>
+				<span class="glyphicon glyphicon-pencil"></span>
+				Editar
+			<% end %>
 
-		  <% if @adm.id == Usuario::ROOT %>
 			<% if @usuario.nro_pagamento_referencia.present? %>
 				<%= link_to 'javascript:if(confirm("Confirma a geração da referência do usuário?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + @usuario.id.to_s + '" }', class: 'btn btn-success' do %>
 					<span class="glyphicon glyphicon-plus"></span>
 					Gerar Referência
 				<% end %>
 			<% end %>
-		  <% end %>
 
 	    </div>
 	</div>

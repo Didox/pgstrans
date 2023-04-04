@@ -372,23 +372,22 @@
                     <%= link_to 'Forçar Logout ', "/usuarios/#{usuario.id}/forcar-logout", data: { confirm: 'Confirma?' }, class: 'btn btn-light btn-sm btn-block' %>
                   <% end %>
 
-                  <% if @adm.id == Usuario::ROOT %>
-                      <!-- Gerar referencia -->
-                      <% if usuario.nro_pagamento_referencia.present? %>
-                          <%= link_to 'javascript:if(confirm("Confirma a geração da referência do usuário?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-light btn-sm btn-block' do %>
-                            Gerar Referência
-                        <% end %>
-                      <% else %>
-                          <button type="button" class="btn btn-light btn-sm btn-block">Registar Referência</button>
-                      <% end %>
-                      <!-- Apagar referencia -->
-                      <% if usuario.nro_pagamento_referencia.present? %>
-                          <%= link_to 'javascript:if(confirm("Confirma a remoção da referência do usuário?")){ window.location.href="/proxy_pay/apagar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-danger btn-sm btn-block' do %>
-                            Apagar Referência
-                        <% end %>
-                      <% else %>
-                          <button type="button" class="btn btn-light btn-sm btn-block">Apagar Referência</button>
-                      <% end %>
+                  <!-- Gerar referencia -->
+                  <% if usuario.nro_pagamento_referencia.present? %>
+                      <%= link_to 'javascript:if(confirm("Confirma a geração da referência do usuário?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-light btn-sm btn-block' do %>
+                        Gerar Referência
+                    <% end %>
+                  <% else %>
+                      <button type="button" class="btn btn-light btn-sm btn-block">Registar Referência</button>
+                  <% end %>
+
+                  <!-- Apagar referencia -->
+                  <% if usuario.nro_pagamento_referencia.present? %>
+                      <%= link_to 'javascript:if(confirm("Confirma a remoção da referência do usuário?")){ window.location.href="/proxy_pay/apagar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-danger btn-sm btn-block' do %>
+                        Apagar Referência
+                    <% end %>
+                  <% else %>
+                      <button type="button" class="btn btn-light btn-sm btn-block">Apagar Referência</button>
                   <% end %>
 
                   <%= link_to 'Apagar Usuário', usuario, method: :delete, data: { confirm: 'Pense bem! Tem certeza que quer apagar este usuário?' }, class: 'btn btn-danger btn-sm btn-block' %>

@@ -1,281 +1,288 @@
-<div class="col-md-12">
-  <%= render :partial => 'shared/menu' %>
+<div>
+  <!-- Page Heading/Breadcrumbs -->
+  <%= render :partial => 'shared/header_backoffice' %>
+  <!-- /.row -->
 
-  <div class="card" style="margin-top: 5px;">
-    <div class="card-header" style="text-align: center;font-size: 20px;font-weight: bold;">
-      VENDAS
-    </div>
-    <form action="" method="get" id="formApuracao">
-      <div class="card-body recarga" style="margin-top:10px">
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Data Inicial</label>
-            <div>
-              <input type="date" name="data_inicio" value="<%= params[:data_inicio] %>" class="form-control">
+  <div class="col-md-12">
+
+    <div class="card" style="margin-top: 5px;">
+      <div class="card-header" style="text-align: center;font-size: 20px;font-weight: bold;">
+        VENDAS
+      </div>
+      <form action="" method="get" id="formApuracao">
+        <div class="card-body recarga" style="margin-top:10px">
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Data Inicial</label>
+              <div>
+                <input type="date" name="data_inicio" value="<%= params[:data_inicio] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Data Final</label>
-            <div>
-              <input type="date" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Data Final</label>
+              <div>
+                <input type="date" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Nome do Usuário</label>
-            <div>
-              <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Nome do Usuário</label>
+              <div>
+                <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Situação da Venda</label>
-            <div>
-              <select name="return_code" class="form-control">
-                <option value="">Todos</option>
-                <option value="sucesso" <% if params[:return_code] == "sucesso" || !params.has_key?(:return_code) %> selected="selected" <% end %>>Todos com sucesso</option>
-                <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL).each do |partner| %>
-                  <optgroup label="<%= partner.name %>">
-                    <% ReturnCodeApi.where(partner_id: partner.id).each do |ret| %>
-                      <option value="<%= ret.id %>" <% if ret.id.to_s == params[:return_code] %> selected="selected" <% end %> ><%= ret.partner.name %> - <%= ret.sucesso ? "[SUCESSO] - " : "" %><%= ret.error_description_pt %></option>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Situação da Venda</label>
+              <div>
+                <select name="return_code" class="form-control">
+                  <option value="">Todos</option>
+                  <option value="sucesso" <% if params[:return_code] == "sucesso" || !params.has_key?(:return_code) %> selected="selected" <% end %>>Todos com sucesso</option>
+                  <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL).each do |partner| %>
+                    <optgroup label="<%= partner.name %>">
+                      <% ReturnCodeApi.where(partner_id: partner.id).each do |ret| %>
+                        <option value="<%= ret.id %>" <% if ret.id.to_s == params[:return_code] %> selected="selected" <% end %> ><%= ret.partner.name %> - <%= ret.sucesso ? "[SUCESSO] - " : "" %><%= ret.error_description_pt %></option>
+                      <% end %>
+                    </optgroup>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Tipo de Lançamento
+              </label>
+                <div>
+                  <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
+                    <option value="" selected="'selected'">Todos</option>
+                    <% Lancamento.all.each do |lancamento| %>
+                      <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
                     <% end %>
-                  </optgroup>
-                <% end %>
-              </select>
+                  </select>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Tipo de Lançamento
-            </label>
-              <div>
-                <select name="lancamento_id" onchange="pgstrans.carregaLancamento(this)" class="form-control">
-                  <option value="" selected="'selected'">Todos</option>
-                  <% Lancamento.all.each do |lancamento| %>
-                    <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
-                  <% end %>
-                </select>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Parceiro</label>
-            <div>
-              <select name="parceiro_id" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% Partner.all.each do |partner| %>
-                  <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
-                <% end %>
-              </select>
-            </div>
-          </div>
-        </div>
-        <% if usuario_logado.admin? || usuario_logado.operador? %>
-          <div class="col-sm-2">
+          <div class="col-sm-4">
             <div class="form-group">
-              <label>Situação do Parceiro</label>
+              <label>Parceiro</label>
               <div>
-                <select name="status_parceiro_id" class="form-control">
+                <select name="parceiro_id" class="form-control">
                   <option value="" selected="'selected'">Todos</option>
-                  <% StatusParceiro.all.reorder(nome: :asc).each do |status_parceiro| %>
-                    <option value="<%= status_parceiro.id %>" <% if status_parceiro.id.to_s == params[:status_parceiro_id] %> selected="selected" <% end %> ><%= status_parceiro.nome %></option>
+                  <% Partner.all.each do |partner| %>
+                    <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
                   <% end %>
                 </select>
               </div>
             </div>
           </div>
-        <% end %>
-        <% if usuario_logado.admin? || usuario_logado.operador? %>
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label>ID da Venda</label>
-              <div>
-                <input type="text" name="venda_id" value="<%= params[:venda_id] %>" class="form-control">
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label>Situação do Parceiro</label>
+                <div>
+                  <select name="status_parceiro_id" class="form-control">
+                    <option value="" selected="'selected'">Todos</option>
+                    <% StatusParceiro.all.reorder(nome: :asc).each do |status_parceiro| %>
+                      <option value="<%= status_parceiro.id %>" <% if status_parceiro.id.to_s == params[:status_parceiro_id] %> selected="selected" <% end %> ><%= status_parceiro.nome %></option>
+                    <% end %>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-        <% end %>
-        <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <% end %>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label>ID da Venda</label>
+                <div>
+                  <input type="text" name="venda_id" value="<%= params[:venda_id] %>" class="form-control">
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Código Produto Pagasó</label>
+                <div>
+                  <input type="text" name="produto_id" value="<%= params[:produto_id] %>" class="form-control">
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label>Código Produto Parceiro</label>
+                <div>
+                  <input type="text" name="produto_id_parceiro" value="<%= params[:produto_id_parceiro] %>" class="form-control">
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <% if usuario_logado.admin? || usuario_logado.operador? %>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label>Valor KZ maior que</label>
+                <div>
+                  <input type="text" name="valor" value="<%= params[:valor] %>" class="form-control">
+                </div>
+              </div>
+            </div>
+          <% end %>
           <div class="col-sm-3">
             <div class="form-group">
-              <label>Código Produto Pagasó</label>
+              <label>Número do Cliente/Smartcard</label>
               <div>
-                <input type="text" name="produto_id" value="<%= params[:produto_id] %>" class="form-control">
+                <input type="text" name="customer_number" value="<%= params[:customer_number] %>" class="form-control">
               </div>
-            </div>
-          </div>
-        <% end %>
-        <% if usuario_logado.admin? || usuario_logado.operador? %>
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label>Código Produto Parceiro</label>
-              <div>
-                <input type="text" name="produto_id_parceiro" value="<%= params[:produto_id_parceiro] %>" class="form-control">
-              </div>
-            </div>
-          </div>
-        <% end %>
-        <% if usuario_logado.admin? || usuario_logado.operador? %>
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label>Valor KZ maior que</label>
-              <div>
-                <input type="text" name="valor" value="<%= params[:valor] %>" class="form-control">
-              </div>
-            </div>
-          </div>
-        <% end %>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Número do Cliente/Smartcard</label>
-            <div>
-              <input type="text" name="customer_number" value="<%= params[:customer_number] %>" class="form-control">
             </div>
           </div>
         </div>
+        <div class="form-group">
+          <div style="float: right;margin-right:20px;margin-top: 40px;">
+            <% if usuario_logado.admin? || usuario_logado.operador? %>
+              <label>
+                  Exportar CSV <input type="checkbox" name="csv"> 
+                </label>
+            <% end %>
+            <input type="submit" value="Buscar" class="btn btn-success">
+          </div>
+        </div>
+      </form>
+
+      <div class="col-md-12">
+        <% if Venda.total(@adm, @vendas_graficos) > 0 %>
+          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+          <script type="text/javascript">
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+              var data = google.visualization.arrayToDataTable([
+                ['Operadora', 'Vendas'],
+                <%  
+                  if params[:status_parceiro_id].blank?
+                    @partners = Partner.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL)
+                  else
+                    @partners = Partner.where(status_parceiro_id: params[:status_parceiro_id])
+                  end
+                  @partners.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL).each do |partner| %>
+                  ['<%= partner.name %>',  <%= partner.total_vendas(@adm, @vendas_graficos) %>],
+                <% end %>
+              ]);
+
+              var options = {
+                title: 'Total de Vendas',
+                is3D: true,
+              };
+
+              var chart = new google.visualization.PieChart(document.getElementById('grafico_vendas'));
+              chart.draw(data, options);
+            }
+          </script>
+          <div id="grafico_vendas" style="width: 100%; height: 300px;"></div>
+        <% end %>
       </div>
-      <div class="form-group">
-        <div style="float: right;margin-right:20px;margin-top: 40px;">
-          <% if usuario_logado.admin? || usuario_logado.operador? %>
-            <label>
-                Exportar CSV <input type="checkbox" name="csv"> 
-              </label>
-          <% end %>
-          <input type="submit" value="Buscar" class="btn btn-success">
-        </div>
+
+      <div class="scroltable" style="padding:10px">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 25%">Dados</th>
+              <th scope="col" style="width: 25%">Cliente</th>
+              <th scope="col">Produto</th>
+              <th scope="col" style="text-align: center">Valor</th>
+              <th scope="col" style="text-align: center">Lucro</th>
+              <th scope="col" style="text-align: center">Custo</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% 
+            valor_original_total = 0
+            valor_desconto_total = 0
+            valor_total = 0 
+            %>
+            <% @vendas.each do |venda| %>
+            <tr>
+              <td>
+                <b>ID da Venda:</b> <%= venda.id %><br>
+                <b>Usuário:</b> <%= venda.usuario.nome %><br>
+                <b>Parceiro:</b> <%= venda.partner.name %><br>
+                <b>Data da Venda:</b> <%= venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %><br>
+                <b>Status:</b> <%= venda.status_desc.error_description_pt %> <%= "- #{venda.lancamento.nome}" rescue "" %><br>
+              </td>
+              <td>
+                <% if venda.customer_number.present? %>
+                  <b>Número do Cliente:</b> <%= venda.customer_number %><br>
+                <% end %>
+                <% if venda.smartcard.present? %>
+                  <b>Smartcard:</b> <%= venda.smartcard %>
+                <% end %>
+              </td>
+              <td style="width:50px">
+                <%= venda.product_id %>
+                <hr>
+                <%= venda.product_nome %>
+              </td>
+              <td style="width:80px" align="right"><%= number_to_currency(venda.valor_original) %></td>
+              <td style="width:80px" align="right">
+                <%= number_to_currency(venda.desconto_aplicado) %><br>
+                <% porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
+                unless porcentagem.nan? %>
+                  <%= number_to_currency(porcentagem, :unit => "", :precision => 3) %>%
+                <% end %>
+              </td>
+              <td style="width:80px" align="right"><%= number_to_currency(venda.value) %></td>              
+            </tr>
+            <% 
+            valor_original_total += venda.valor_original 
+            valor_desconto_total += venda.desconto_aplicado 
+            valor_total += venda.value 
+            %>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td></td>
+              <td align="right"><b>T o t a l</b></td>
+              <td style="width:110px" align="right">
+                <b><%= number_to_currency(valor_original_total) %></b>
+              </td>    
+              <td style="width:110px" align="right">
+                <b>
+                  <%= number_to_currency(valor_desconto_total) %><br>
+                </b>
+              </td>
+              <td style="width:110px" align="right">
+                <b><%= number_to_currency(valor_total) %></b>
+              </td>      
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div style="padding:10px">
+        <h2>
+          Total geral: <strong><%= number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
+        </h2>
+        <h2>
+          Total de lucro: <strong><%= number_to_currency(Venda.total_lucros_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
+        </h2>
+        <h2>
+          Total de custo: <strong><%= number_to_currency(Venda.total_custo_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
+        </h2>
+      </div>
+
+      <div class="apple_pagination">
+        <%= will_paginate @usuarios, :container => false %>
       </div>
     </div>
-  </form>
-
-  <% if Venda.total(@adm, @vendas_graficos) > 0 %>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Operadora', 'Vendas'],
-          <%  
-            if params[:status_parceiro_id].blank?
-              @partners = Partner.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL)
-            else
-              @partners = Partner.where(status_parceiro_id: params[:status_parceiro_id])
-            end
-            @partners.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL).each do |partner| %>
-            ['<%= partner.name %>',  <%= partner.total_vendas(@adm, @vendas_graficos) %>],
-          <% end %>
-        ]);
-
-        var options = {
-          title: 'Total de Vendas',
-          is3D: true,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('grafico_vendas'));
-        chart.draw(data, options);
-      }
-    </script>
-    <div id="grafico_vendas" style="width: 100%; height: 300px;"></div>
-  <% end %>
-
-  <div class="scroltable" style="padding:10px">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col" style="width: 25%">Dados</th>
-          <th scope="col" style="width: 25%">Cliente</th>
-          <th scope="col">Produto</th>
-          <th scope="col" style="text-align: center">Valor</th>
-          <th scope="col" style="text-align: center">Lucro</th>
-          <th scope="col" style="text-align: center">Custo</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% 
-        valor_original_total = 0
-        valor_desconto_total = 0
-        valor_total = 0 
-        %>
-        <% @vendas.each do |venda| %>
-        <tr>
-          <td>
-            <b>ID da Venda:</b> <%= venda.id %><br>
-            <b>Usuário:</b> <%= venda.usuario.nome %><br>
-            <b>Parceiro:</b> <%= venda.partner.name %><br>
-            <b>Data da Venda:</b> <%= venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %><br>
-            <b>Status:</b> <%= venda.status_desc.error_description_pt %> <%= "- #{venda.lancamento.nome}" rescue "" %><br>
-          </td>
-          <td>
-            <% if venda.customer_number.present? %>
-              <b>Número do Cliente:</b> <%= venda.customer_number %><br>
-            <% end %>
-            <% if venda.smartcard.present? %>
-              <b>Smartcard:</b> <%= venda.smartcard %>
-            <% end %>
-          </td>
-          <td style="width:50px">
-            <%= venda.product_id %>
-            <hr>
-            <%= venda.product_nome %>
-          </td>
-          <td style="width:80px" align="right"><%= number_to_currency(venda.valor_original) %></td>
-          <td style="width:80px" align="right">
-            <%= number_to_currency(venda.desconto_aplicado) %><br>
-            <% porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
-            unless porcentagem.nan? %>
-              <%= number_to_currency(porcentagem, :unit => "", :precision => 3) %>%
-            <% end %>
-          </td>
-          <td style="width:80px" align="right"><%= number_to_currency(venda.value) %></td>              
-        </tr>
-        <% 
-        valor_original_total += venda.valor_original 
-        valor_desconto_total += venda.desconto_aplicado 
-        valor_total += venda.value 
-        %>
-        <% end %>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td></td>
-          <td></td>
-          <td align="right"><b>T o t a l</b></td>
-          <td style="width:110px" align="right">
-            <b><%= number_to_currency(valor_original_total) %></b>
-          </td>    
-          <td style="width:110px" align="right">
-            <b>
-              <%= number_to_currency(valor_desconto_total) %><br>
-            </b>
-          </td>
-          <td style="width:110px" align="right">
-            <b><%= number_to_currency(valor_total) %></b>
-          </td>      
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-
-  <div style="padding:10px">
-    <h2>
-      Total geral: <strong><%= number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
-    </h2>
-    <h2>
-      Total de lucro: <strong><%= number_to_currency(Venda.total_lucros_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
-    </h2>
-    <h2>
-      Total de custo: <strong><%= number_to_currency(Venda.total_custo_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
-    </h2>
-  </div>
-
-  <div class="apple_pagination">
-    <%= will_paginate @usuarios, :container => false %>
   </div>
 </div>
