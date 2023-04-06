@@ -26,11 +26,6 @@ class PagamentoReferenciasController < ApplicationController
   def show
   end
 
-  # GET /pagamento_referencias/new
-  def new
-    @pagamento_referencia = PagamentoReferencia.new
-  end
-
   # GET /pagamento_referencias/1/edit
   def edit
   end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :usuario_referencia_pagamentos
   resources :pagamento_referencias
   get 'painel_vendas/painel'
   get 'painel_vendas/index'

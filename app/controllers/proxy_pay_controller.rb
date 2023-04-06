@@ -15,9 +15,9 @@ class ProxyPayController < ApplicationController
          return
       end
 
-      @sucesso = ProxyPay.gerar_referencia(@usuario.nro_pagamento_referencia)
-   rescue
-      @erro = "Pagamento por referência - Usuário não encontrado"
+      @sucesso = ProxyPay.gerar_referencia(@usuario)
+   rescue Exception => err
+      @erro = "Pagamento por referência - Usuário não encontrado - #{err.message}"
       @sucesso = false
       return
    end
@@ -31,9 +31,9 @@ class ProxyPayController < ApplicationController
          return
       end
 
-      @sucesso = ProxyPay.apagar_referencia(@usuario.nro_pagamento_referencia)
-   rescue
-      @erro = "Pagamento por referência - Usuário não encontrado"
+      @sucesso = ProxyPay.apagar_referencia(@usuario)
+   rescue Exception => err
+      @erro = "Pagamento por referência - Usuário não encontrado - #{err.message}"
       @sucesso = false
       return
    end

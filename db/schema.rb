@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_01_132106) do
+ActiveRecord::Schema.define(version: 2023_04_06_183423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -356,7 +356,7 @@ ActiveRecord::Schema.define(version: 2023_04_01_132106) do
 
   create_table "pagamento_referencias", force: :cascade do |t|
     t.bigint "usuario_id"
-    t.integer "nro_pagamento_referencia"
+    t.string "nro_pagamento_referencia"
     t.string "id_parceiro"
     t.float "valor"
     t.datetime "data_pagamento"
@@ -740,6 +740,15 @@ ActiveRecord::Schema.define(version: 2023_04_01_132106) do
     t.index ["usuario_id"], name: "index_usuario_acessos_on_usuario_id"
   end
 
+  create_table "usuario_referencia_pagamentos", force: :cascade do |t|
+    t.bigint "usuario_id"
+    t.string "nro_pagamento_referencia"
+    t.integer "acao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["usuario_id"], name: "index_usuario_referencia_pagamentos_on_usuario_id"
+  end
+
   create_table "usuarios", force: :cascade do |t|
     t.string "nome"
     t.string "email"
@@ -762,7 +771,7 @@ ActiveRecord::Schema.define(version: 2023_04_01_132106) do
     t.datetime "data_adesao"
     t.bigint "sub_distribuidor_id", default: 8
     t.bigint "master_profile_id", default: 1
-    t.bigint "nro_pagamento_referencia"
+    t.string "nro_pagamento_referencia"
     t.index ["industry_id"], name: "index_usuarios_on_industry_id"
     t.index ["master_profile_id"], name: "index_usuarios_on_master_profile_id"
     t.index ["municipio_id"], name: "index_usuarios_on_municipio_id"
@@ -865,6 +874,7 @@ ActiveRecord::Schema.define(version: 2023_04_01_132106) do
   add_foreign_key "ultima_atualizacao_reconciliacaos", "partners"
   add_foreign_key "unitel_sequences", "vendas"
   add_foreign_key "usuario_acessos", "usuarios"
+  add_foreign_key "usuario_referencia_pagamentos", "usuarios"
   add_foreign_key "usuarios", "industries"
   add_foreign_key "usuarios", "master_profiles"
   add_foreign_key "usuarios", "municipios"

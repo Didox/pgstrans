@@ -10,7 +10,7 @@
   <div class="card border-bootstrap box-shadow mb-4">
     <div class="card-header text-bootstrap align-items-center justify-content-between">
       <% url = @pagamento_referencia.new_record? ? "/pagamento_referencias" : "/pagamento_referencias/#{@pagamento_referencia.id}/edit" %>
-      <%= simple_form_for(url, html: { class: "form-horizontal", role: "form" }) do |f| %>
+      <%= simple_form_for(@pagamento_referencia, url: url, html: { class: "form-horizontal", role: "form" }) do |f| %>
         <% if @pagamento_referencia.errors.any? %>
           <div class="alert alert-danger alert-dismissable" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -30,8 +30,8 @@
           </div>
 
           <div class="form-input col-sm-4">
-            <%= f.label :valor_pagamento, "Valor do Depósito" %>
-            <%= f.text_field :valor_pagamento, class: "form-control" %>
+            <%= f.label :valor, "Valor do Depósito" %>
+            <%= f.text_field :valor, class: "form-control" %>
           </div>
 
           <div class="form-input col-sm-4">
