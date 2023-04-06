@@ -1,5 +1,7 @@
-<div class="col-md-12"> 
-  <h4>Edição de Dados de Pagamento por Referência</h4>
+<div class="col-md-12">
+  <div class="col-md-12">
+    <h4>Edição de Dados de Pagamento por Referência</h4>
+  </div>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -11,7 +13,7 @@
     <span class="glyphicon glyphicon-info-sign"></span>
     Mostrar
   <% end %>
-  <%= link_to pagamento_referencias_path, class: 'btn btn-primary' do %>
+  <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
     Voltar
   <% end %>

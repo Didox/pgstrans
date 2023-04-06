@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :pagamento_referencias
-  get 'pagamento_referencia/index'
   get 'painel_vendas/painel'
   get 'painel_vendas/index'
   resources :otp_key_africell_logs

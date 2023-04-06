@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Lista de Mensagens apresentadas no Modal Informativo</h3>
+    <h4>Lista de Mensagens apresentadas no Modal Informativo</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -29,7 +29,7 @@
           <div>
             <select name="ativa" id="ativa" class="form-control" style="width100%;max-width: 500px;">
               <option value="" <% if params[:ativa].blank? %> selected="selected" <% end %>>
-                Todos
+                Todas
               </option>
               <option value="true" <% if params[:ativa] == "true" %> selected="selected" <% end %>>
                 Somente Ativas

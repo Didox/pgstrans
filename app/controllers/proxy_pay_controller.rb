@@ -101,9 +101,9 @@ class ProxyPayController < ApplicationController
       conta_corrente.banco_id = Banco.order("ordem_prioridade asc").first.id
       conta_corrente.valor = pagamento_referencia.valor
       conta_corrente.lancamento = Lancamento.where(nome: Lancamento::DEPOSITO).first || Lancamento.first
-      debugger
       conta_corrente.observacao = "Pagamento por referência número (#{pagamento_referencia.nro_pagamento_referencia}) do usuário #{usuario.id}/#{usuario.nome} ."
       conta_corrente.usuario = usuario
+      conta_corrente.iban = pagamento_referencia.nro_pagamento_referencia
       conta_corrente.responsavel = Usuario.proxypay
       conta_corrente.responsavel_aprovacao_id = Usuario.proxypay.id
       conta_corrente.partner_id = Partner.where(slug: 'proxypay').first.id
