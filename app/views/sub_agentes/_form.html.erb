@@ -66,7 +66,7 @@
           <%= f.select :uni_pessoal_empresa_id, UniPessoalEmpresa.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
         <div class="form-actions col-sm-12">
-          <%= f.button :button, class: 'btn btn-danger' do %>
+          <%= f.button :button, class: 'btn btn-success' do %>
             <span class="glyphicon glyphicon-ok"></span>
             Confirmar
           <% end %>

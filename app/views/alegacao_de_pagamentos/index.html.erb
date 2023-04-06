@@ -1,3 +1,4 @@
+
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
     <h3>Alegações de Pagamentos</h3>
@@ -6,7 +7,7 @@
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
-
+  
   <form action="" method="get" id="formApuracao">
   <div class="col-sm-2">
     <div class="form-group">
@@ -132,6 +133,7 @@
       </div>
     </div>
   <% end %>
+  
   <div class="form-group">
     <div style="float: right;margin-right:10px">
       <input type="submit" value="Buscar" class="btn btn-info">
@@ -141,7 +143,7 @@
         Novo Registo
       <% end %>    
 
-      <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
+      <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Voltar
       <% end %>
