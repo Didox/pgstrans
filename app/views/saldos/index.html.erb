@@ -61,117 +61,117 @@
                 </div>
               </div>
             </div>
-
-
+          <div class="col-md-12">
             <div class="form-group ml-auto">
-              <div style="float: right;margin-right:10px">
-                    <input type="submit" value="Buscar" class="btn btn-info">
-              </div>
+              <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+                  <span class="glyphicon glyphicon-search"></span> Buscar
+              <% end %>
             </div>
           </div>
         </form>
-        
-        <% if @total_ocorrencias.present? %>
-          <h4>
-            Total de Ocorrências: <strong><%= number_to_currency(@total_ocorrencias, :precision => 0, :unit => "") %></strong>
-          </h4>
-          <hr>
-
-          <table class="scroltable table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Data da Movimentação</th>
-                <th scope="col">Usuário</th>
-                <th scope="col">Lançamento</th>
-                <th scope="col">Hierarquia Imediata</th>
-                <th scope="col" align="right">Saldo Anterior</th>
-                <th scope="col" align="right">Valor da Movimentação</th>
-                <th scope="col" align="right">Saldo Atual</th>
-              </tr>
-            </thead>
-            <tbody>
-              <%
-              soma_saldo_anterior_da_pagina = 0
-              soma_valor_da_pagina = 0
-              soma_saldo_atual_da_pagina = 0
-              %>
-              <% @conta_correntes.each do |conta_corrente| %>
-                <tr>
-                  <td>
-                    <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %>
-                  </td>
-                  <td>
-                    <%= conta_corrente.usuario.login %>/<%= conta_corrente.usuario.nome %>
-                  </td>
-                  <td>
-                    <b><%= conta_corrente.lancamento.nome %></b>
-                    <% if conta_corrente.partner_id.present? %>
-                        <b><%= conta_corrente.partner.name %></b><br>
-                    <% end %>
-                    <%= conta_corrente.observacao %>
-                  </td>
-                  <td>
-                    <%= conta_corrente.usuario.superiores_imediato.join(", ") %>
-                  </td>
-                  <td style="width:150px" align="right">
-                    <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "Kz") %>
-                  </td>
-                  <td style="width:170px" align="right">
-                    <%= number_to_currency(conta_corrente.valor, :unit => "Kz") %>
-                  </td>
-                  <td style="width:150px" align="right">
-                    <%= number_to_currency(conta_corrente.saldo_atual, :unit => "Kz") %>
-                  </td>
-                </tr>
-                <%
-                soma_saldo_anterior_da_pagina += conta_corrente.saldo_anterior
-                soma_valor_da_pagina += conta_corrente.valor
-                soma_saldo_atual_da_pagina += conta_corrente.saldo_atual
-                %>
-              <% end %>
-            </tbody>
-            <tfoot>
-              <tr class="text-right">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><b>Total da Página</b></td>
-                <td>
-                  <%= number_to_currency(soma_saldo_anterior_da_pagina, :unit => "KZ") %>
-                </td>
-                <td>
-                  <%= number_to_currency(soma_valor_da_pagina, :unit => "KZ") %>
-                </td>
-                <td>
-                  <%= number_to_currency(soma_saldo_atual_da_pagina, :unit => "KZ") %><br>
-                </td>
-              </tr>
-              <tr class="text-right">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><b>Total Geral</b></td>
-                <td>
-                  <%= number_to_currency(@soma_saldo_anterior, :unit => "KZ") %>
-                </td>
-                <td>
-                  <%= number_to_currency(@soma_valor, :unit => "KZ") %>
-                </td>
-                <td>
-                  <%= number_to_currency(@soma_saldo_atual, :unit => "KZ") %><br>
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-          <div class="apple_pagination">
-            <%= will_paginate @conta_correntes, :container => false %>
-          </div>
-        <% else %>
-          <div style="height: 100px; text-align:center;font-size: 20px; color: #856404; padding: 20px;">
-            Informe os parâmetros de busca
-          </div>
-        <% end %>
       </div>
     </div>
+  </div>
+  <div class="col-md-12">
+    <% if @total_ocorrencias.present? %>
+      <h4><br>
+        Total de Ocorrências: <strong><%= number_to_currency(@total_ocorrencias, :precision => 0, :unit => "") %></strong>
+      </h4>
+      <hr>
+
+      <table class="scroltable table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Data da Movimentação</th>
+            <th scope="col">Usuário</th>
+            <th scope="col">Lançamento</th>
+            <th scope="col">Hierarquia Imediata</th>
+            <th scope="col" align="right">Saldo Anterior</th>
+            <th scope="col" align="right">Valor da Movimentação</th>
+            <th scope="col" align="right">Saldo Atual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%
+          soma_saldo_anterior_da_pagina = 0
+          soma_valor_da_pagina = 0
+          soma_saldo_atual_da_pagina = 0
+          %>
+          <% @conta_correntes.each do |conta_corrente| %>
+            <tr>
+              <td>
+                <%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %>
+              </td>
+              <td>
+                <%= conta_corrente.usuario.login %>/<%= conta_corrente.usuario.nome %>
+              </td>
+              <td>
+                <b><%= conta_corrente.lancamento.nome %></b>
+                <% if conta_corrente.partner_id.present? %>
+                    <b><%= conta_corrente.partner.name %></b><br>
+                <% end %>
+                <%= conta_corrente.observacao %>
+              </td>
+              <td>
+                <%= conta_corrente.usuario.superiores_imediato.join(", ") %>
+              </td>
+              <td style="width:150px" align="right">
+                <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "Kz") %>
+              </td>
+              <td style="width:170px" align="right">
+                <%= number_to_currency(conta_corrente.valor, :unit => "Kz") %>
+              </td>
+              <td style="width:150px" align="right">
+                <%= number_to_currency(conta_corrente.saldo_atual, :unit => "Kz") %>
+              </td>
+            </tr>
+            <%
+            soma_saldo_anterior_da_pagina += conta_corrente.saldo_anterior
+            soma_valor_da_pagina += conta_corrente.valor
+            soma_saldo_atual_da_pagina += conta_corrente.saldo_atual
+            %>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr class="text-right">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b>Total da Página</b></td>
+            <td>
+              <%= number_to_currency(soma_saldo_anterior_da_pagina, :unit => "KZ") %>
+            </td>
+            <td>
+              <%= number_to_currency(soma_valor_da_pagina, :unit => "KZ") %>
+            </td>
+            <td>
+              <%= number_to_currency(soma_saldo_atual_da_pagina, :unit => "KZ") %><br>
+            </td>
+          </tr>
+          <tr class="text-right">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b>Total Geral</b></td>
+            <td>
+              <%= number_to_currency(@soma_saldo_anterior, :unit => "KZ") %>
+            </td>
+            <td>
+              <%= number_to_currency(@soma_valor, :unit => "KZ") %>
+            </td>
+            <td>
+              <%= number_to_currency(@soma_saldo_atual, :unit => "KZ") %><br>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="apple_pagination">
+        <%= will_paginate @conta_correntes, :container => false %>
+      </div>
+    <% else %>
+      <div style="height: 100px; text-align:center;font-size: 12px; color: #856404; padding: 20px;">
+        Informe os parâmetros de busca
+      </div>
+    <% end %>
   </div>
 </div>

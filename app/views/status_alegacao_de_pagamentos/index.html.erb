@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Situações Possíveis para Alegações de Pagamentos</h3>
+    <h4>Situações Possíveis para Alegações de Pagamentos</h4>
   </div>
   <br><br>
   <!-- Page Heading/Breadcrumbs -->
@@ -33,12 +33,12 @@
       <%= will_paginate @status_alegacao_de_pagamento, :container => false %>
     </div> 
 
-    <%= link_to new_status_alegacao_de_pagamento_path, class: 'btn btn-success' do %>
+    <%= link_to new_status_alegacao_de_pagamento_path, class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registo
     <% end %>    
 
-    <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
+    <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
       <span class="glyphicon glyphicon-arrow-left"></span>
       Voltar
     <% end %>

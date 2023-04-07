@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Cliente Unipessoal ou Empresa</h3>
+    <h4>Cliente Unipessoal ou Empresa</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -17,8 +17,10 @@
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
-          <input type="submit" value="Buscar" class="btn btn-info">
-          <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
+          <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+              <span class="glyphicon glyphicon-search"></span> Buscar
+          <% end %>
+          <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
             <span class="glyphicon glyphicon-arrow-left"></span>
             Voltar
           <% end %>        
@@ -52,12 +54,12 @@
       <%= will_paginate @uni_pessoal_empresas, :container => false %>
     </div>
 
-    <%= link_to new_uni_pessoal_empresa_path, class: 'btn btn-success' do %>
+    <%= link_to new_uni_pessoal_empresa_path, class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registo
     <% end %>    
 
-    <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
+    <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
       <span class="glyphicon glyphicon-arrow-left"></span>
       Voltar
     <% end %>

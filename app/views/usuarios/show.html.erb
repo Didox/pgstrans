@@ -1,6 +1,6 @@
 <div class="col-md-12">
 	<div class="col-md-12">
-  		<h3>Detalhe do Usuário</h3>
+  		<h4>Detalhe do Usuário</h4>
 	</div>
   	<!-- Page Heading/Breadcrumbs -->
   	<%= render :partial => 'shared/header_backoffice' %>
@@ -80,18 +80,18 @@
 		<hr>
 		<div class="page-header">
 	      
-			<%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary' do %>
+			<%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
 				<span class="glyphicon glyphicon-arrow-left"></span>
 				Voltar
 			<% end %>
 
-			<%= link_to edit_usuario_path(@usuario), class: 'btn btn-warning' do %>
+			<%= link_to edit_usuario_path(@usuario), class: 'btn btn-warning', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
 				<span class="glyphicon glyphicon-pencil"></span>
 				Editar
 			<% end %>
 
 			<% if @usuario.nro_pagamento_referencia.present? %>
-				<%= link_to 'javascript:if(confirm("Confirma a geração da referência do usuário?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + @usuario.id.to_s + '" }', class: 'btn btn-success' do %>
+				<%= link_to 'javascript:if(confirm("Confirma a geração da referência do usuário?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + @usuario.id.to_s + '" }', class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
 					<span class="glyphicon glyphicon-plus"></span>
 					Gerar Referência
 				<% end %>

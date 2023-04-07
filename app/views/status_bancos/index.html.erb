@@ -1,7 +1,7 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
     <p id="notice"><%= notice %></p>
-    <h3>Situação de Bancos</h3>
+    <h4>Situação de Bancos</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -21,11 +21,16 @@
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
-          <input type="submit" class="btn btn-info" value="Buscar">
-          <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
+
+          <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+              <span class="glyphicon glyphicon-search"></span> Buscar
+          <% end %>
+
+          <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
             <span class="glyphicon glyphicon-arrow-left"></span>
             Voltar
           <% end %>
+
         </div>
       </div>
     </form>
@@ -57,12 +62,12 @@
     <%= will_paginate @status_banco, :container => false %>
   </div>
 
-  <%= link_to new_status_banco_path, class: 'btn btn-success' do %>
+  <%= link_to new_status_banco_path, class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
     <span class="glyphicon glyphicon-plus"></span>
     Novo Registo
   <% end %>    
 
-  <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
+  <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
     <span class="glyphicon glyphicon-arrow-left"></span>
     Voltar
   <% end %>

@@ -1,20 +1,21 @@
-<div class="col-md-12"> 
-  <div class="col-md-12"> 
-    <h4>Edição de Dados de Usuários</h4>
+<div class="col-md-12">
+  <div class="col-md-12">
+    <h4>Edição de Dados de Províncias</h4>
   </div>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <%= render 'form', usuario: @usuario %>
+  <%= render 'form' %>
 
-  <%= link_to @usuario, class: 'btn btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+  <%= link_to @provincium, class: 'btn btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
     <span class="glyphicon glyphicon-info-sign"></span>
     Mostrar
   <% end %>
+
   <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
-    <span class="glyphicon glyphicon-arrow-left"></span>
+    <span class="glyphicon glyphicon-list-alt"></span>
     Voltar
   <% end %>
 </div>

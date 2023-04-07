@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Detalhes da Remuneração</h3>
+    <h4>Detalhes da Remuneração</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -37,11 +37,11 @@
     </dl>
 
     <div class="page-header">
-      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary' do %>
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
         <span class="glyphicon glyphicon-arrow-left"></span>
         Voltar
       <% end %>
-      <%= link_to edit_remuneracao_path(@remuneracao), class: 'btn btn-warning' do %>
+      <%= link_to edit_remuneracao_path(@remuneracao), class: 'btn btn-warning', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
         <span class="glyphicon glyphicon-pencil"></span>
         Editar
       <% end %>

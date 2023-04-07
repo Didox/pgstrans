@@ -113,8 +113,10 @@
         </div>
         <div class="form-group">
           <div style="float: right;margin:10px">
-            <input type="submit" value="Buscar" class="btn btn-success">
-            <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
+            <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+                <span class="glyphicon glyphicon-search"></span> Buscar
+            <% end %>
+            <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
               <span class="glyphicon glyphicon-arrow-left"></span>
               Voltar
             <% end %>
@@ -216,15 +218,15 @@
             %>
             <tr>
               <td style="text-align:center" ><%= venda.data_venda.to_datetime.strftime("%d/%m/%Y") %></td>
-              <td align="right"><%= number_to_currency(venda.valor_original) %></td>
-              <td align="right">
+              <td style="text-align:right"><%= number_to_currency(venda.valor_original) %></td>
+              <td style="text-align:right">
                 <%= number_to_currency(venda.desconto_aplicado) %><br>
                 <% porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
                 unless porcentagem.nan? %>
                   <%= number_to_currency(porcentagem, :unit => "", :precision => 3) %>%
                 <% end %>
               </td>
-              <td align="right"><%= number_to_currency(venda.value) %></td>
+              <td style="text-align:right"><%= number_to_currency(venda.value) %></td>
               <% 
                 valor_original_total += venda.valor_original
                 valor_desconto_total += venda.desconto_aplicado 
@@ -234,16 +236,16 @@
             <% end %>
             <tfoot>
               <tr>
-                <td align="right"><b>Total da página:</b></td>
-                <td align="right">
+                <td style="text-align:right"><b>Total da página:</b></td>
+                <td style="text-align:right">
                   <b><%= number_to_currency(valor_original_total) %></b>
                 </td>    
-                <td align="right">
+                <td style="text-align:right">
                   <b>
                     <%= number_to_currency(valor_desconto_total) %>
                   </b>
                 </td>
-                <td align="right">
+                <td style="text-align:right">
                   <b><%= number_to_currency(valor_total) %></b>
                 </td>        
               </tr>
@@ -253,7 +255,7 @@
 
         <%= render "/shared/paginate", path: "/vendas/consolidado", records: @vendas, :per_page => @per_page %>
 
-        <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
+        <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
           <span class="glyphicon glyphicon-arrow-left"></span>
           Voltar
         <% end %>

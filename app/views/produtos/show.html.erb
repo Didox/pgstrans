@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Detalhes do Produto</h3>
+    <h4>Detalhes do Produto</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -88,11 +88,11 @@
       </div> 
     </dl>
     <div class="col-sm-12 page-header">
-      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary' do %>
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
         <span class="glyphicon glyphicon-arrow-left"></span>
         Voltar
       <% end %>
-      <%= link_to edit_produto_path(@produto), class: 'btn btn-warning' do %>
+      <%= link_to edit_produto_path(@produto), class: 'btn btn-warning', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
         <span class="glyphicon glyphicon-pencil"></span>
         Editar
       <% end %>

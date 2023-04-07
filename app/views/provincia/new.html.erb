@@ -1,14 +1,15 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-		<h4>Nova Situação de Alegação de Pagamento</h4>
+		<h4>Cadastro de Novo Províncias</h4>
 	</div>
 	<!-- Page Heading/Breadcrumbs -->
   	<%= render :partial => 'shared/header_backoffice' %>
-  	<!-- /.row -->	
+  	<!-- /.row -->
 
-	<%= render 'form' %>
+	<%= render 'form', municipio: @provincium %>
+
 	<div class="col-md-12">
-		<%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+		<%= link_to @provincium_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
 			<span class="glyphicon glyphicon-arrow-left"></span>
 			Voltar
 		<% end %>
