@@ -9,13 +9,13 @@
 	<%= render 'form' %>
 
 	<div class="col-md-12">
-		<%= link_to partner_desconto_parceiros_path(@partner), class: 'btn btn-primary' do %>
-			<span class="glyphicon glyphicon-list-alt"></span>
+		<%= link_to partner_desconto_parceiros_path(@partner), class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+			<span class="glyphicon glyphicon-arrow-left"></span>
 			Voltar
 		<% end %>
 
-		<%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary' do %>
-			<span class="glyphicon glyphicon-list-alt"></span>
+		<%= link_to 'javascript:history.go(-1)', class: 'btn btn-warning', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+			<span class="glyphicon glyphicon-transfer"></span>
 			Tela Anterior
 		<% end %>
 	</div>

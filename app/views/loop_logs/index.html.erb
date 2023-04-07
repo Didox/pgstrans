@@ -1,13 +1,13 @@
-<div class="container">
+<div class="col-md-12">
   <p id="notice"><%= notice %></p>
 
-  <h4>LoopLog</h4>
+  <h3>LoopLog</h3>
 
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div class="container scroltable">
+  <div class="col-md-12 scroltable">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -42,5 +42,11 @@
     </div>
 
     <%= link_to 'Voltar', movicel_loop_path(@movicel_loop), class: 'btn btn-primary' %>
+
+    <%= link_to movicel_loop_loop_logs_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>  
+
   </div>
 </div>

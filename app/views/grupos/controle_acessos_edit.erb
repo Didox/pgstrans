@@ -1,5 +1,5 @@
-<div class="col-sm-12">
-  <div class="col-sm-12">
+<div class="col-md-12">
+  <div class="col-md-12">
     <h3>Edição Grupo</h3>
   </div>
   <!-- Page Heading/Breadcrumbs -->
@@ -49,7 +49,9 @@
           </div>
 
           <div class="form-actions">
-            <input type="submit" value="Salvar" class="btn btn-danger">
+            <%= button_tag(type: 'submit', class: "btn btn-info", value: "Salvar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+              <span class="glyphicon glyphicon-search"></span> Salvar
+            <% end %>
           </div>
         </form>
 
@@ -58,12 +60,12 @@
   </div>
 
   <div class="col-sm-12">
-    <%= link_to @grupo, class: 'btn btn-danger' do %>
+    <%= link_to @grupo, class: 'btn btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
       <span class="glyphicon glyphicon-info-sign"></span>
       Mostrar
     <% end %>
-    <%= link_to grupos_path, class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to grupos_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span>
       Voltar
     <% end %>
   </div>

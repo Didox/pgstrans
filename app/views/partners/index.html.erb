@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Parceiros</h3>
+    <h4>Parceiros</h4>
   </div>
 
   <!-- Page Heading/Breadcrumbs -->
@@ -37,9 +37,13 @@
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
-          <input type="submit" value="Buscar" class="btn btn-success">
-          <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
-          <span class="glyphicon glyphicon-list-alt"></span>
+
+          <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+              <span class="glyphicon glyphicon-search"></span> Buscar
+          <% end %>
+
+          <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+          <span class="glyphicon glyphicon-arrow-left"></span>
           Voltar
           <% end %>
         </div>
@@ -68,11 +72,11 @@
         <tr>
           <td><%= partner.id %></td>
           <td><%= partner.name %></td>
-          <td align="center"><%= partner.order %></td>
-          <td align="center"><%= number_to_currency(partner.margem_operadora, :unit => "", precision: 1) %>%</td>
-          <td align="center"><%= number_to_currency(partner.desconto, :unit => "", precision: 1) %>%</td>
-          <td align="center"><%= partner.status_parceiro.nome rescue "" %></td>
-          <td align="center"><%= partner.portfolio_venda? ? "Sim": "Não" %></td>
+          <td style="text-align: center"><%= partner.order %></td>
+          <td style="text-align: center"><%= number_to_currency(partner.margem_operadora, :unit => "", precision: 1) %>%</td>
+          <td style="text-align: center"><%= number_to_currency(partner.desconto, :unit => "", precision: 1) %>%</td>
+          <td style="text-align: center"><%= partner.status_parceiro.nome rescue "" %></td>
+          <td style="text-align: center"><%= partner.portfolio_venda? ? "Sim": "Não" %></td>
           <td><%= link_to 'Descontos', partner_desconto_parceiros_path(partner) if partner.portfolio_venda? %></td>
           <td><%= link_to 'Mostrar', partner %></td>
           <td><%= link_to 'Editar', edit_partner_path(partner) %></td>
@@ -86,13 +90,13 @@
       <%= will_paginate @partners, :container => false %>
     </div>
 
-    <%= link_to new_partner_path, class: 'btn btn-success' do %>
+    <%= link_to new_partner_path, class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
     <span class="glyphicon glyphicon-plus"></span>
     Novo Registo
     <% end %>
 
-    <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span>
     Voltar
     <% end %>
   </div>

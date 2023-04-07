@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Lista de Carregamento por Usuário</h3>
+    <h4>Lista de Carregamento por Usuário</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -53,11 +53,15 @@
           <div style="float: right;margin-right:10px">
             <% if @adm.admin? || @adm.operador? %>
               <input type="checkbox" name="download_xlsx" id="download_xlsx">
-              <input type="submit" value="Exportar Excel (xlsx)" onclick="$('#download_xlsx').val('ok');" class="btn btn-success navbar-btn btn-space mobile-botao">
+              <input type="submit" value="Exportar Excel (xlsx)" onclick="$('#download_xlsx').val('ok');" class="btn btn-success navbar-btn mobile-botao">
             <% end %>
-            <input type="submit" value="Buscar" class="btn btn-space btn-info">
-            <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
-              <span class="glyphicon glyphicon-list-alt"></span>
+
+            <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+              <span class="glyphicon glyphicon-search"></span> Buscar
+            <% end %>
+
+            <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+              <span class="glyphicon glyphicon-arrow-left"></span>
               Voltar
             <% end %>
           </div>
@@ -143,20 +147,20 @@
       <%= will_paginate @conta_correntes, :container => false %>
     </div>
 
-    <%= link_to conta_correntes_path, class: 'btn btn-dark' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
-      Creditar Conta  Corrente
+    <%= link_to conta_correntes_path, class: 'btn btn-dark', style: "width: 200px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-check"></span>
+      Creditar Conta Corrente
     <% end %>
 
     <% if @adm.admin? || @adm.operador? %>
-      <%= link_to index_morada_saldo_path, class: 'btn btn-success' do %>
-        <span class="glyphicon glyphicon-list-alt"></span>
-        Consulta Saldo de Usuário
+      <%= link_to index_morada_saldo_path, class: 'btn btn-success', style: "width: 200px;text-align: center;margin-right: 0px;" do %>
+        <span class="glyphicon glyphicon-search"></span>
+        Consultar Saldo de Usuário
       <% end %>
     <% end %>
 
-    <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 200px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span>
       Voltar
     <% end %>
 

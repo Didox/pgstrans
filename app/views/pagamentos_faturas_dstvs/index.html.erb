@@ -2,7 +2,7 @@
 	<div class="col-md-12">
     <p id="notice"><%= notice %></p>
     <br>
-    <h3>Log de Pagamentos de Faturas DSTV</h3>
+    <h4>Log de Pagamentos de Faturas DSTV</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -62,9 +62,12 @@
         <div class="col-md-12">
           <div class="form-group">
             <div style="float: right;margin-right:10px">
-              <input type="submit" value="Buscar" class="btn btn-info">
+              <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+                  <span class="glyphicon glyphicon-search"></span> Buscar
+              <% end %>
+
               <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
-                <span class="glyphicon glyphicon-list-alt"></span>
+                <span class="glyphicon glyphicon-arrow-left"></span>
                 Voltar
               <% end %>        
             </div>
@@ -122,5 +125,5 @@
     <%= will_paginate @pagamentos_faturas_dstvs, :container => false %>
   </div> 
 
-  <%= link_to 'Voltar', "/backoffice/index", class: 'btn btn-primary' %>
+  <%= link_to 'Voltar', "/backoffice/index", class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" %>
 </div>

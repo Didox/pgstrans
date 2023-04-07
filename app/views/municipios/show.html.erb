@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-	  <h3>Detalhe de Município</h2>
+	  <h4>Detalhe de Município</h4>
 	</div>
 	<!-- Page Heading/Breadcrumbs -->
 	<%= render :partial => 'shared/header_backoffice' %>
@@ -20,12 +20,12 @@
 		<%= @municipio.provincia.nome rescue "Não informado" %>
 		</p>      
 
-		<%= link_to edit_municipio_path(@municipio), class: 'btn btn-warning' do %>
+		<%= link_to edit_municipio_path(@municipio), class: 'btn btn-warning', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
 			<span class="glyphicon glyphicon-edit"></span>
 			Editar
 		<% end %>
-		<%= link_to municipios_path, class: 'btn btn-primary' do %>
-			<span class="glyphicon glyphicon-list-alt"></span>
+		<%= link_to municipios_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+			<span class="glyphicon glyphicon-arrow-left"></span>
 			Voltar
 		<% end %>
 	</div>

@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Lista de Moedas</h3>
+    <h4>Lista de Moedas</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -35,13 +35,13 @@
       <%= will_paginate @moedas, :container => false %>
     </div> 
 
-    <%= link_to new_moeda_path, class: 'btn btn-success' do %>
+    <%= link_to new_moeda_path, class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registo
     <% end %>    
 
-    <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span>
       Voltar
     <% end %>
   </div>

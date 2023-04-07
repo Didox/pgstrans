@@ -87,10 +87,13 @@
         </div>
         <div class="form-group">
           <div style="float: right;margin-right:10px">
-            <input type="submit" value="Buscar" class="btn btn-info">
 
-            <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary' do %>
-              <span class="glyphicon glyphicon-list-alt"></span>
+            <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+              <span class="glyphicon glyphicon-search"></span> Buscar
+            <% end %>
+
+            <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+              <span class="glyphicon glyphicon-arrow-left"></span>
               Voltar
             <% end %>  
           </div>
@@ -178,9 +181,11 @@
     <div class="apple_pagination">
       <%= will_paginate @conta_correntes, :container => false %>
     </div>
-    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+ 
+    <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span>
       Voltar
-    <% end %>    
+    <% end %>
+
   </div>
 <% end %>

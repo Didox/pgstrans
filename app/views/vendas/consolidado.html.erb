@@ -115,7 +115,7 @@
           <div style="float: right;margin:10px">
             <input type="submit" value="Buscar" class="btn btn-success">
             <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
-              <span class="glyphicon glyphicon-list-alt"></span>
+              <span class="glyphicon glyphicon-arrow-left"></span>
               Voltar
             <% end %>
           </div>
@@ -254,7 +254,7 @@
         <%= render "/shared/paginate", path: "/vendas/consolidado", records: @vendas, :per_page => @per_page %>
 
         <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
-          <span class="glyphicon glyphicon-list-alt"></span>
+          <span class="glyphicon glyphicon-arrow-left"></span>
           Voltar
         <% end %>
       </div>

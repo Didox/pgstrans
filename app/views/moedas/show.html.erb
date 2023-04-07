@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Detalhe da Moeda</h3>
+    <h4>Detalhe da Moeda</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -18,11 +18,11 @@
     </dl>
 
     <div class="col-md-12">
-      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary' do %>
-        <span class="glyphicon glyphicon-list-alt"></span>
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+        <span class="glyphicon glyphicon-arrow-left"></span>
         Voltar
       <% end %>
-      <%= link_to edit_moeda_path(@moeda), class: 'btn btn-warning' do %>
+      <%= link_to edit_moeda_path(@moeda), class: 'btn btn-warning', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
         <span class="glyphicon glyphicon-pencil"></span>
         Editar
       <% end %>

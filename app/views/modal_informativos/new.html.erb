@@ -1,14 +1,14 @@
 <div class="col-md-12 scroltable">
   <div class="col-md-12">
-    <h3>Nova Mensagem para o Modal Informativo</h3>
+    <h4>Nova Mensagem para o Modal Informativo</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
   <%= render 'form' %>
   <div class="col-md-12">
-    <%= link_to modal_informativos_path, class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to modal_informativos_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span>
       Voltar
     <% end %>
   </div>

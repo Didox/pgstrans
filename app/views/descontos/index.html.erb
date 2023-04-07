@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
   <div class="col-md-12">
-    <h3>Lista de Descontos por Parceiro</h3>
+    <h4>Lista de Descontos por Parceiro</h4>
   </div>
 
   <!-- Page Heading/Breadcrumbs -->
@@ -58,11 +58,16 @@
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
-          <input type="submit" value="Buscar" class="btn btn-info">
-          <%= link_to backoffice_index_path, class: 'btn btn-primary' do %>
-            <span class="glyphicon glyphicon-list-alt"></span>
+
+          <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+             <span class="glyphicon glyphicon-search"></span> Buscar
+          <% end %>
+
+          <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+            <span class="glyphicon glyphicon-arrow-left"></span>
             Voltar
           <% end %>
+
         </div>
       </div>
     </form>
@@ -85,9 +90,9 @@
         <% @desconto_parceiros.each do |desconto_parceiro| %>
         <tr>
           <td><%= desconto_parceiro.partner.name %></td>
-          <td align="center"><%= desconto_parceiro.porcentagem %></td>
-          <td align="center"><%= desconto_parceiro.partner.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
-          <td align="center"><%= desconto_parceiro.partner.updated_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+          <td style="text-align: center"><%= desconto_parceiro.porcentagem %></td>
+          <td style="text-align: center"><%= desconto_parceiro.partner.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+          <td style="text-align: center"><%= desconto_parceiro.partner.updated_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td><%= link_to 'Editar', edit_partner_desconto_parceiro_path(desconto_parceiro.partner, desconto_parceiro) %></td>
           <td><%= link_to 'Apagar', partner_desconto_parceiro_path(desconto_parceiro.partner, desconto_parceiro), method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         </tr>
@@ -99,8 +104,8 @@
       <%= will_paginate @desconto_parceiros, :container => false %>
     </div>    
 
-    <%= link_to partners_path, class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to partners_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span>
       Voltar
     <% end %>
     

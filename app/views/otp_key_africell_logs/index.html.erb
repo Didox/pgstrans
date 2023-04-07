@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>OTP_Key Africell Log</h3>
+    <h4>OTP_Key Africell Log</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -29,6 +29,11 @@
     <div class="apple_pagination">
       <%= will_paginate @otp_key_africell_logs, :container => false %>
     </div>
-    <%= link_to 'Voltar', root_path, class: 'btn btn-primary' %>
+
+    <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span>
+      Voltar
+    <% end %>
+
   </div>
 </div>

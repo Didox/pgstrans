@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-		<h3>Detalhe de Registo de Atividade Econômica</h3>
+		<h4>Detalhe de Registo de Atividade Econômica</h4>
 	</div>
 	<!-- Page Heading/Breadcrumbs -->
 	<%= render :partial => 'shared/header_backoffice' %>
@@ -21,12 +21,12 @@
 		  <%= @industry.descricao_grupo %>
 		</p>
 		<hr>
-	    <%= link_to edit_industry_path(@industry), class: 'btn btn-warning' do %>
+	    <%= link_to edit_industry_path(@industry), class: 'btn btn-warning', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
 	      	<span class="glyphicon glyphicon-edit"></span>
 	      	Editar
 	    <% end %>
-		<%= link_to industries_path, class: 'btn btn-primary' do %>
-			<span class="glyphicon glyphicon-list-alt"></span>
+		<%= link_to industries_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+			<span class="glyphicon glyphicon-arrow-left"></span>
 			Voltar
 		<% end %>
 	</div>
