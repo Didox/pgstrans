@@ -24,9 +24,9 @@
                   <input type="text" class="form-control" value="<%= params[:unique_number] %>" name="unique_number" placeholder="Número Único de Identificação" style="margin-left: 4%;max-width: 300px;">
                 </div>
                 <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: right;">
-                  <div style="display: inline-block;margin-bottom: 10px;">
-                    <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="Validar">
-                  </div>
+                  <%= button_tag(type: 'submit', class: "btn btn-success", value: "Validar", style: "width: 150px; text-align: center;") do %>
+                      <span class="glyphicon glyphicon-triangle-right"></span> Validar
+                  <% end %>
                   <div style="display: inline-block;margin-bottom: 10px;">
                     <%= link_to root_path, class: 'btn btn-space btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
                       <span class="glyphicon glyphicon-arrow-left"></span>
