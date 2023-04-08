@@ -7,11 +7,11 @@
 
   <%%= render 'form' %>
 
-  <%%= link_to @<%= singular_table_name %>, class: 'btn btn-danger' do %>
+  <%%= link_to @<%= singular_table_name %>, class: 'btn btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
     <span class="glyphicon glyphicon-info-sign"></span>
     Mostrar
   <%% end %>
-  <%%= link_to <%= index_helper %>_path, class: 'btn btn-primary' do %>
+  <%%= link_to <%= index_helper %>_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
     <span class="glyphicon glyphicon-arrow-left"></span>
     Voltar
   <%% end %>

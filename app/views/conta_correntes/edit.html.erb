@@ -7,11 +7,11 @@
 
   <%= render 'form', habilita_salvar:false %>
 
-  <%= link_to @conta_corrente, class: 'btn btn-danger' do %>
+  <%= link_to @conta_corrente, class: 'btn btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
     <span class="glyphicon glyphicon-info-sign"></span>
     Mostrar
   <% end %>
-  <%= link_to conta_correntes_path, class: 'btn btn-primary' do %>
+  <%= link_to conta_correntes_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
     <span class="glyphicon glyphicon-arrow-left"></span>
     Voltar
   <% end %>

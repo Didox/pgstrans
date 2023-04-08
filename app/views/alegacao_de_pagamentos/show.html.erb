@@ -37,19 +37,20 @@
     </dl>
 
     <div class="page-header">
-      <%= link_to alegacao_de_pagamentos_path, class: 'btn btn-primary' do %>
+      <%= link_to alegacao_de_pagamentos_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
         <span class="glyphicon glyphicon-arrow-left"></span>
         Voltar
       <% end %>
       
       <% if ![StatusAlegacaoDePagamento::PROCESSADO,StatusAlegacaoDePagamento::CANCELADO,StatusAlegacaoDePagamento::INVALIDO,StatusAlegacaoDePagamento::REJEITADO].include?(@alegacao_de_pagamento.status_alegacao_de_pagamento.nome) && (@adm.admin? || @adm.operador?) %>
-        <%= link_to edit_alegacao_de_pagamento_path(@alegacao_de_pagamento), class: 'btn btn-warning' do %>
+        <%= link_to edit_alegacao_de_pagamento_path(@alegacao_de_pagamento), class: 'btn btn-warning', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
           <span class="glyphicon glyphicon-pencil"></span>
           Editar
         <% end %>
       
         <% if ![StatusAlegacaoDePagamento::PROCESSADO,StatusAlegacaoDePagamento::CANCELADO,StatusAlegacaoDePagamento::INVALIDO,StatusAlegacaoDePagamento::REJEITADO].include?(@alegacao_de_pagamento.status_alegacao_de_pagamento.nome) && @alegacao_de_pagamento.data_deposito.present? %>
-          <%= link_to "/alegacao_de_pagamentos/#{@alegacao_de_pagamento.id}/processar", class: 'btn btn-success', method: :post, data: { confirm: 'Tem certeza?' } do %>
+          <%= link_to "/alegacao_de_pagamentos/#{@alegacao_de_pagamento.id}/processar", class: 'btn btn-success', method: :post, data: { confirm: 'Tem certeza?' }, style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+            <span class="glyphicon glyphicon-ok"></span>
             Processar
           <% end %>
         <% end %>

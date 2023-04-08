@@ -151,7 +151,9 @@
                   Exportar CSV <input type="checkbox" name="csv"> 
                 </label>
             <% end %>
-            <input type="submit" value="Buscar" class="btn btn-success">
+            <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+              <span class="glyphicon glyphicon-search"></span> Buscar
+            <% end %>
           </div>
         </div>
       </form>
