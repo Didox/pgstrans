@@ -1,7 +1,7 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
     <p id="notice"><%= notice %></p>
-    <h3>Sequencial de Transações ENDE</h3>
+    <h4>Sequencial de Transações ENDE</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -47,10 +47,13 @@
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
-          <input type="submit" value="Buscar" class="btn btn-info">
 
-          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-            <span class="glyphicon glyphicon-list-alt"></span>
+          <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+             <span class="glyphicon glyphicon-search"></span> Buscar
+          <% end %>
+
+          <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+            <span class="glyphicon glyphicon-arrow-left"></span>
             Voltar
           <% end %>
           
@@ -97,8 +100,8 @@
       <%= will_paginate @ende_uniq_numbers, :container => false %>
     </div>
 
-    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span>
       Voltar
     <% end %> 
 

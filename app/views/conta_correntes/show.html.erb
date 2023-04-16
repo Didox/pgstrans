@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Detalhe de Registo de Conta Corrente</h3>
+    <h4>Detalhe de Registo de Conta Corrente</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -55,32 +55,33 @@
     </dl>
 
     <div class="page-header"> 
-    
-      <%= link_to "index_carregamento_usuario", class: 'btn btn-success' do %>
+
+      <%= link_to "index_carregamento_usuario", class: 'btn btn-space btn-success', style: "width: 200px;text-align: center;margin-right: 0px;" do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Lista de Carregamento
       <% end %>
       
-      <%= link_to conta_correntes_path, class: 'btn btn-info' do %>
-        <span class="glyphicon glyphicon-list-alt"></span>
-        Creditar Conta  Corrente
-      <% end %>   
+      <%= link_to conta_correntes_path, class: 'btn btn-space btn-dark', style: "width: 200px;text-align: center;margin-right: 0px;" do %>
+        <span class="glyphicon glyphicon-check"></span>
+         Creditar Conta Corrente
+      <% end %>
   
       <% if @adm.admin? || @adm.operador? %>
-        <%= link_to "/conta_correntes/resumido", style: "color: #fff", class: 'btn btn-warning' do %>
+        <%= link_to "/conta_correntes/resumido", class: 'btn btn-space btn-warning', style: "width: 200px;text-align: center;margin-right: 0px;" do %>
+          <span class="glyphicon glyphicon-list"></span>
           Resumo Operador
         <% end %>
       <% end %>
       
       <% if @adm.id == Usuario::ROOT %>
-          <%= link_to edit_conta_corrente_path(@conta_corrente), class: 'btn btn-danger' do %>
+          <%= link_to edit_conta_corrente_path(@conta_corrente), class: 'btn btn-space btn-info', style: "width: 200px;text-align: center;margin-right: 0px;" do %>
             <span class="glyphicon glyphicon-pencil"></span>
             Editar
           <% end %>
       <% end %>
       
-      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-list-alt"></span>
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-space btn-primary', style: "width: 200px;text-align: center;margin-right: 0px;" do %>
+        <span class="glyphicon glyphicon-arrow-left"></span>
         Voltar
       <% end %>  
     </div>

@@ -1,6 +1,6 @@
 <div class="col-md-12">
   <div class="col-md-12">
-    <h3>Detalhe de Item do Menu Backoffice</h3>
+    <h4>Detalhe de Item do Menu Backoffice</h4>
   </div>
   <br><br>
   <!-- Page Heading/Breadcrumbs -->
@@ -26,11 +26,11 @@
       </dl>
 
     <div class="page-header">
-      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-list-alt"></span>
+      <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+        <span class="glyphicon glyphicon-arrow-left"></span>
         Voltar
       <% end %>
-      <%= link_to edit_menu_path(@menu), class: 'btn btn-danger' do %>
+      <%= link_to edit_menu_path(@menu), class: 'btn btn-warning', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
         <span class="glyphicon glyphicon-pencil"></span>
         Editar
       <% end %>

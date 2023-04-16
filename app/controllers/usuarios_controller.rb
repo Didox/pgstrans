@@ -18,6 +18,7 @@ class UsuariosController < ApplicationController
     @usuarios = @usuarios.where("usuarios.bairro ilike '%#{params[:bairro].remove_injection}%'") if params[:bairro].present?
     @usuarios = @usuarios.where("usuarios.telefone ilike '%#{params[:telefone].remove_injection}%'") if params[:telefone].present?
     @usuarios = @usuarios.where("usuarios.whatsapp ilike '%#{params[:whatsapp].remove_injection}%'") if params[:whatsapp].present?
+    @usuarios = @usuarios.where("usuarios.nro_pagamento_referencia ilike '%#{params[:nro_pagamento_referencia].remove_injection}%'") if params[:nro_pagamento_referencia].present?
     @usuarios = @usuarios.where("perfil_usuarios.admin = ?", params[:perfil_admin]) if params[:perfil_admin].present?
     @usuarios = @usuarios.where("perfil_usuarios.operador = ?", params[:perfil_operador]) if params[:perfil_operador].present?
     @usuarios = @usuarios.where("perfil_usuario_id = ?", params[:perfil_usuario_id]) if params[:perfil_usuario_id].present?

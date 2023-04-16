@@ -11,7 +11,10 @@
         <%= f.error_notification %>
         <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
         <%= f.input :description, :label => "Descrição" %>
-        <%= f.button :submit, "Confirmar", class: 'btn-danger' %>
+        <%= f.button :button, class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+          <span class="glyphicon glyphicon-ok"></span>
+          Confirmar
+        <% end %>
       <% end %>
     </div>
   </div>

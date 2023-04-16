@@ -5,14 +5,14 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <%= render 'form' %>
+  <%#= render 'form' %>
 
-  <%= link_to @movicel_loop, class: 'btn btn-danger' do %>
+  <%= link_to @movicel_loop, class: 'btn btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
     <span class="glyphicon glyphicon-info-sign"></span>
     Mostrar
   <% end %>
-  <%= link_to movicel_loops_path, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
+  <%= link_to movicel_loops_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span>
     Voltar
   <% end %>
 </div>

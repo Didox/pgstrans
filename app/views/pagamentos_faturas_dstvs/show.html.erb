@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Mostrar Pagamentos Faturas DSTV</h3>
+    <h4>Mostrar Pagamentos Faturas DSTV</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -35,11 +35,11 @@
     </dl>
 
     <div class="page-header">
-      <%= link_to pagamentos_faturas_dstvs_path, class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-list-alt"></span>
+      <%= link_to pagamentos_faturas_dstvs_path, class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-arrow-left"></span>
         Voltar
       <% end %>
-      <%= link_to edit_pagamentos_faturas_dstv_path(@pagamentos_faturas_dstv), class: 'btn btn-danger' do %>
+      <%= link_to edit_pagamentos_faturas_dstv_path(@pagamentos_faturas_dstv), class: 'btn btn-warning', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
         <span class="glyphicon glyphicon-pencil"></span>
         Editar
       <% end %>

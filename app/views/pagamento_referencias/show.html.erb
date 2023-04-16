@@ -8,39 +8,61 @@
 	<!-- /.row -->
 	<br><br>
 
-  <div class="container">
+  <div class="col-md-12">
     <dl class="dl-horizontal">
       <dt>Login do Usuário:</dt>
       <dd><%= @pagamento_referencia.usuario.login %></dd>
       <dt>Nome do Usuário:</dt>
       <dd><%= @pagamento_referencia.usuario.nome %></dd>
-      <dt>Número da referência de pagamento:</dt>
+      <dt>Referência do Usuário:</dt>
       <dd><%= @pagamento_referencia.nro_pagamento_referencia %></dd>
       <dt>ID da Transação no Parceiro:</dt>
-      <dd><%= @pagamento_referencia.id_trn_parceiro %></dd>
-      <dt>Valor do Pagamento:</dt>
-      <dd><%= @pagamento_referencia.valor_pagamento %></dd>
-      <dt>Data do Pagamento:</dt>
+      <dd><%= @pagamento_referencia.transaction_id_parceiro %></dd>
+      <dt>ID Parceiro:</dt>
+      <dd><%= @pagamento_referencia.id_parceiro %></dd>      
+      <dt>Valor do Depósito:</dt>
+      <dd><%= @pagamento_referencia.valor %></dd>
+      <dt>Data do Depósito:</dt>
       <dd><%= @pagamento_referencia.data_pagamento %></dd>
       <dt>Data da Conciliação:</dt>
       <dd><%= @pagamento_referencia.data_conciliacao %></dd>
-      <dt>Identificação do Terminal:</dt>
-      <dd><%= @pagamento_referencia.terminal_id %></dd>
-      <dt>Localização do Terminal:</dt>
-      <dd><%= @pagamento_referencia.terminal_location %></dd>
       <dt>Tipo do Terminal:</dt>
-      <dd><%= @pagamento_referencia.terminal_type %></dd>
+      <dd><%= @pagamento_referencia.terminal_type_parceiro %></dd>      
+      <dt>Identificação do Terminal:</dt>
+      <dd><%= @pagamento_referencia.terminal_id_parceiro %></dd>
+      <dt>Localização do Terminal:</dt>
+      <dd><%= @pagamento_referencia.terminal_location_parceiro %></dd>
+      <dt>Terminal Transaction ID Parceiro:</dt>
+      <dd><%= @pagamento_referencia.terminal_transaction_id_parceiro %></dd>
+      <dt>Product ID Parceiro:</dt>
+      <dd><%= @pagamento_referencia.product_id_parceiro %></dd>
+      <dt>Period Start Parceiro:</dt>
+      <dd><%= @pagamento_referencia.period_start_datetime_parceiro.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></dd>
+      <dt>Period END Parceiro:</dt>
+      <dd><%= @pagamento_referencia.period_end_datetime_parceiro.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></dd>
+      <dt>Period ID Parceiro:</dt>
+      <dd><%= @pagamento_referencia.period_id_parceiro %></dd>
+      <dt>Parameter ID Parceiro:</dt>
+      <dd><%= @pagamento_referencia.parameter_id_parceiro %></dd>
+      <dt>FEE Parceiro:</dt>
+      <dd><%= @pagamento_referencia.fee_parceiro %></dd>
+      <dt>Entity ID Parceiro:</dt>
+      <dd><%= @pagamento_referencia.entity_id_parceiro %></dd>
+      <dt>Custom Fields Parceiro:</dt>
+      <dd><%= @pagamento_referencia.custom_fields_parceiro %></dd>
+      <% if @adm.id == Usuario::ROOT %>
+            <dt>X_Signature:</dt>
+            <dd><%= @pagamento_referencia.x_signature %></dd>
+      <% end %>
+      <dt>Situação:</dt>
+      <dd><%= @pagamento_referencia.status ? "Processado" : "Pendente" %></dd>
     </dl>
 
     <div class="page-header">
-      <%= link_to pagamento_referencias_path, class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-list-alt"></span>
-        Voltar
-      <% end %>
-      <%= link_to edit_pagamento_referencias_path(@pagamento_referencia), class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-pencil"></span>
-        Editar
-      <% end %>
+        <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+          <span class="glyphicon glyphicon-arrow-left"></span>
+          Voltar
+        <% end %>
     </div>
   </div>
 </div>

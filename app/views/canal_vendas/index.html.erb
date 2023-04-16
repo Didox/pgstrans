@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Lista Canais de Venda</h3>
+    <h4>Lista Canais de Venda</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -11,7 +11,7 @@
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Nome do Canal de Venda</th>
-          <th scope="col">Carragamento Mínimo KZ</th>
+          <th scope="col">Carragamento Mínimo Kz</th>
           <th scope="col">Dispositivo</th>
           <th colspan="3">Ações para o Registo</th>
         </tr>
@@ -21,8 +21,8 @@
         <% @canal_vendas.each do |canal_venda| %>
         <tr>
           <td><%= canal_venda.id %></td>
-          <td style="width: 200px"><%= canal_venda.nome %></td>
-          <td style="width: 180px" align="right"><%= canal_venda.carregamento_minimo %></td>
+          <td><%= canal_venda.nome %></td>
+          <td style="text-align: center;"><%= canal_venda.carregamento_minimo %></td>
           <td><%= canal_venda.dispositivo.nome %></td>
           <td><%= link_to 'Mostrar', canal_venda %></td>
           <td><%= link_to 'Editar', edit_canal_venda_path(canal_venda) %></td>
@@ -36,13 +36,13 @@
       <%= will_paginate @canal_vendas, :container => false %>
     </div> 
 
-    <%= link_to new_canal_venda_path, class: 'btn btn-danger' do %>
+    <%= link_to new_canal_venda_path, class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registo
     <% end %>    
 
-    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span>
       Voltar
     <% end %>
   </div>

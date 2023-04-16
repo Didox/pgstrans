@@ -1,0 +1,120 @@
+<div class="col-md-12">
+    <div class="col-md-12">
+      <h4>Lista Ações sobre Pagamento por Referência (Geração e Exclusão)</h4>
+    </div>
+    <br>
+    <!-- Page Heading/Breadcrumbs -->
+    <%= render :partial => 'shared/header_backoffice' %>
+    <!-- /.row -->
+    <br>
+    <div>
+    <form action="" method="get" id="formApuracao">
+        <div class="row" style="padding:10px">
+          <div class="col-sm-1">
+            <div class="form-group">
+              <label>Login</label>
+              <div>
+                <input type="text" name="login" value="<%= params[:login] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label>Nome do Usuário</label>
+              <div>
+                <input type="text" name="nome" value="<%= params[:nome] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Referência de Pagamento</label>
+              <div>
+                <input type="text" name="nro_pagamento_referencia" value="<%= params[:nro_pagamento_referencia] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Ação</label>
+              <div>
+                <select name="acao" id="acao" class="form-control" style="width100%;max-width: 500px;">
+                  <option value="" <% if params[:acao].blank? %> selected="selected" <% end %>>
+                    Todas
+                  </option>
+                  <option value="1" <% if params[:acao] == "1" %> selected="selected" <% end %>>
+                    Referência gerada
+                  </option>
+                  <option value="0" <% if params[:acao] == "0" %> selected="selected" <% end %>>
+                    Referência apagada
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Data da Ocorrência (Início)</label>
+              <div>
+                <input type="date" name="data_ocorrencia_inicio" value="<%= params[:data_ocorrencia_inicio] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Data da Ocorrência (Fim)</label>
+              <div>
+                <input type="date" name="data_ocorrencia_fim" value="<%= params[:data_ocorrencia_fim] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div style="float: right;margin-right:10px">
+            <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+              <span class="glyphicon glyphicon-search"></span> Buscar
+            <% end %>
+            <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+              <span class="glyphicon glyphicon-arrow-left"></span>
+              Voltar
+            <% end %>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-12 scroltable">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col" style="width: 8%">Login do Usuário</th>
+          <th scope="col" style="width: 30%">Nome do Usuário</th>
+          <th scope="col" style="width: 10%">Número de Referência</th>
+          <th scope="col" style="width: 15%">Ação</th>
+          <th scope="col" style="width: 15%">Data e Hora da Ocorrência</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @usuario_referencia_pagamentos.each do |usuario_referencia_pagamento| %>
+        <tr>
+          <td><%= usuario_referencia_pagamento.usuario.login %></td>
+          <td><%= usuario_referencia_pagamento.usuario.nome %></td>
+          <td style="text-align: center"><%= usuario_referencia_pagamento.nro_pagamento_referencia %></td>
+          <td><%= usuario_referencia_pagamento.acao == 1 ? "Referência gerada" : "Referência apagada" %></td>
+          <td style="text-align: center"><%= usuario_referencia_pagamento.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="apple_pagination">
+      <%= will_paginate @usuario_referencia_pagamentos, :container => false %>
+    </div> 
+
+    <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span>
+      Voltar
+    <% end %>  
+  </div>
+</div>

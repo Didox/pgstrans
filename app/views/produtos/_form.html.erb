@@ -111,17 +111,21 @@
             ["SERVIÇOS ADICIONAIS", "SERVIÇOS ADICIONAIS"], 
             ["SMS", "SMS"], 
             ["VOZ", "VOZ"], 
+            ["REDES SOCIAIS", "REDES SOCIAIS"], 
             ["PLANOS BAZZA", "PLANOS BAZZA"], 
             ["AFRICELL VOZ", "AFRICELL VOZ"], 
             ["AFRICELL DADOS", "AFRICELL DADOS"],
+            ["AFRICELL PROMOCIONAL", "AFRICELL PROMOCIONAL"],
             ["MODE DIGITAL", "MODE DIGITAL"],
+            ["TV", "TV"],
+            ["WIFI", "WIFI"],
             ["FILMES", "FILMES"],
             ["BBB 24 HORAS", "BBB 24 HORAS"]
             ], {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>
         </div>
 
         <div class="form-actions col-sm-12" style="margin-top: 20px;">
-          <%= f.button :button, class: 'btn btn-danger' do %>
+          <%= f.button :button, class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
             <span class="glyphicon glyphicon-ok"></span>
             Confirmar
           <% end %>

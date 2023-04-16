@@ -47,8 +47,16 @@
         <% end %>
       </tbody>
     </table>
+      
+    <%= link_to new_relatorio_conciliacao_zaptv_path, class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      Novo Registo
+    <% end %>   
 
-    <%= link_to "Novo Registo", new_relatorio_conciliacao_zaptv_path, class: 'btn btn-danger' %>
-    <%= link_to 'Voltar', backoffice_index_path, class: 'btn btn-danger' %>
+    <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Voltar
+    <% end %>  
+
   </div>
 </div>

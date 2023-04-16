@@ -5,7 +5,7 @@ RSpec.describe "pagamento_referencia/show", type: :view do
     @pagamento_referencia = assign(:pagamento_referencia, PagamentoReferencia.create!(
       usuario: "",
       nro_pagamento_referencia: 2,
-      id_trn_parceiro: 3,
+      id_parceiro: 3,
       valor_pagamento: 4.5,
       terminal_id: "Terminal",
       terminal_location: "Terminal Location",

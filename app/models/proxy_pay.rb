@@ -17,15 +17,39 @@ class ProxyPay
     [parceiro,parametro,url_service]
   end
 
-  def self.gerar_referencia(transaction_reference)
+  def self.gerar_referencia(usuario)
+
+    UsuarioReferenciaPagamento.create(usuario_id: usuario.id, acao: 1, nro_pagamento_referencia: usuario.nro_pagamento_referencia)
+
     parceiro, parametro, url_service = self.parametros
 
     api_key_desenvolvimento = "#{parametro.get.api_key_desenvolvimento}"
 
-    url = "#{url_service}/#{parametro.get.endpoint_HTTP_Create_Update_Delete_Reference}/#{transaction_reference}"
+    url = "#{url_service}/#{parametro.get.endpoint_HTTP_Create_Update_Delete_Reference}/#{usuario.nro_pagamento_referencia}"
     uri = URI.parse(URI::Parser.new.escape(url))
 
     request = HTTParty.put(uri, 
+      headers: {
+        'Content-Type' => 'application/vnd.proxypay.v2+json',
+        'Authorization' => "Token #{api_key_desenvolvimento}",
+      },
+      timeout: DEFAULT_TIMEOUT.to_i.seconds
+    )
+
+    return (200..299).include?(request.code)
+  end
+  
+  def self.apagar_referencia(usuario)
+    UsuarioReferenciaPagamento.create(usuario_id: usuario.id, acao: 0, nro_pagamento_referencia: usuario.nro_pagamento_referencia)
+
+    parceiro, parametro, url_service = self.parametros
+
+    api_key_desenvolvimento = "#{parametro.get.api_key_desenvolvimento}"
+
+    url = "#{url_service}/#{parametro.get.endpoint_HTTP_Create_Update_Delete_Reference}/#{usuario.nro_pagamento_referencia}"
+    uri = URI.parse(URI::Parser.new.escape(url))
+
+    request = HTTParty.delete(uri, 
       headers: {
         'Content-Type' => 'application/vnd.proxypay.v2+json',
         'Authorization' => "Token #{api_key_desenvolvimento}",
