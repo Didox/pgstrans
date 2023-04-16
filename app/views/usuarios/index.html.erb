@@ -1,6 +1,6 @@
 <div class="col-md-12">
   <div class="col-md-12">
-    <h3>Lista de Usuários</h3>
+    <h4>Lista de Usuários</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -222,7 +222,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <div class="form-group">
             <label>Tipo de Estabelecimento</label>
             <div>
@@ -235,7 +235,15 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Número para Pagamento por Referência</label>
+            <div>
+              <input type="text" name="nro_pagamento_referencia" value="<%= params[:nro_pagamento_referencia] %>" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
           <div class="form-group">
             <label>Grupo de Actividade Económica </label>
             <div>
@@ -252,12 +260,14 @@
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
-          <input type="submit" value="Buscar" class="btn btn-info">
-          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-            <span class="glyphicon glyphicon-list-alt"></span>
+          <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+            <span class="glyphicon glyphicon-search"></span> Buscar
+          <% end %>
+          <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+            <span class="glyphicon glyphicon-arrow-left"></span>
             Voltar
           <% end %>
-          <%= link_to new_usuario_path, class: 'btn btn-danger' do %>
+          <%= link_to new_usuario_path, class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
             <span class="glyphicon glyphicon-plus"></span>
             Novo Registo
           <% end %>
@@ -366,31 +376,31 @@
             </td>
             <td>
               <% if usuario_logado.admin? || usuario_logado.operador? %>
-                  <%= link_to 'Mostrar', usuario_path(usuario), class: 'btn btn-primary' %><br>
-                  <%= link_to 'Editar', edit_usuario_path(usuario), class: 'btn btn-warning' %><br>
+                  <%= link_to 'Mostrar', usuario_path(usuario), class: 'btn btn-light btn-sm btn-block' %>
+                  <%= link_to 'Editar', edit_usuario_path(usuario), class: 'btn btn-light btn-sm btn-block' %>
                   <% if usuario.logado %>
-                    <%= link_to 'Forçar Logout ', "/usuarios/#{usuario.id}/forcar-logout", data: { confirm: 'Confirma?' }, class: 'btn btn-dark' %>
-                  <% end %>
-                  <br>
-
-                  <% if @adm.id == Usuario::ROOT %>
-                      <% if usuario.nro_pagamento_referencia.present? %>
-                          <%= link_to 'javascript:if(confirm("Confirma?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-success' do %>
-                            Gerar Referência
-                        <% end %><br>
-                      <% else %>
-                          <button type="button" class="btn btn-light">Registar Referência</button><br>
-                      <% end %>
-                      <% if usuario.nro_pagamento_referencia.present? %>
-                          <%= link_to 'javascript:if(confirm("Confirma?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-danger' do %>
-                            Apagar Referência
-                        <% end %><br>
-                      <% else %>
-                          <button type="button" class="btn btn-danger">Apagar Referência</button><br>
-                      <% end %>
+                    <%= link_to 'Forçar Logout ', "/usuarios/#{usuario.id}/forcar-logout", data: { confirm: 'Confirma?' }, class: 'btn btn-light btn-sm btn-block' %>
                   <% end %>
 
-                  <%= link_to 'Apagar Usuário', usuario, method: :delete, data: { confirm: 'Pense bem! Tem certeza que quer apagar este usuário?' }, class: 'btn btn-warning' %>
+                  <!-- Gerar referencia -->
+                  <% if usuario.nro_pagamento_referencia.present? %>
+                      <%= link_to 'javascript:if(confirm("Confirma a geração da referência do usuário?")){ window.location.href="/proxy_pay/gerar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-primary btn-sm btn-block' do %>
+                        Gerar Referência
+                    <% end %>
+                  <% else %>
+                      <a href="/usuarios/<%= usuario.id%>/edit" class="btn btn-light btn-sm btn-block">Definir Referência</a>
+                  <% end %>
+
+                  <!-- Apagar referencia -->
+                  <% if usuario.nro_pagamento_referencia.present? && usuario.pagamento_referencia.blank? %>
+                      <%= link_to 'javascript:if(confirm("Confirma a remoção da referência do usuário?")){ window.location.href="/proxy_pay/apagar_referencia?usuario_id=' + usuario.id.to_s + '" }', class: 'btn btn-danger btn-sm btn-block' do %>
+                        Apagar Referência
+                    <% end %>
+                  <% else %>
+                      <button type="button" class="btn btn-light btn-sm btn-block">Apagar Referência</button>
+                  <% end %>
+
+                  <%= link_to 'Apagar Usuário', usuario, method: :delete, data: { confirm: 'Pense bem! Tem certeza que quer apagar este usuário?' }, class: 'btn btn-danger btn-sm btn-block' %>
               <% end %>
             </td>
           </tr>
@@ -402,13 +412,13 @@
       <%= will_paginate @usuarios, :container => false %>
     </div> 
 
-    <%= link_to new_usuario_path, class: 'btn btn-danger' do %>
+    <%= link_to new_usuario_path, class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registo
     <% end %>    
 
-    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span>
       Voltar
     <% end %>
   </div>

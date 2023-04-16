@@ -1,6 +1,6 @@
 <div class="col-md-12 scroltable">
 	<div class="col-md-12">
-    <h3>Edição PagamentosFaturasDstv</h3>
+    <h4>Edição PagamentosFaturasDstv</h4>
   </div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
@@ -8,12 +8,12 @@
 
   <%= render 'form' %>
 
-  <%= link_to @pagamentos_faturas_dstv, class: 'btn btn-danger' do %>
+  <%= link_to @pagamentos_faturas_dstv, class: 'btn btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
     <span class="glyphicon glyphicon-info-sign"></span>
     Mostrar
   <% end %>
-  <%= link_to pagamentos_faturas_dstvs_path, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
+  <%= link_to pagamentos_faturas_dstvs_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span>
     Voltar
   <% end %>
 </div>

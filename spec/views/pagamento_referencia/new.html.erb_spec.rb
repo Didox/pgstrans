@@ -5,7 +5,7 @@ RSpec.describe "pagamento_referencia/new", type: :view do
     assign(:pagamento_referencia, PagamentoReferencia.new(
       usuario: "",
       nro_pagamento_referencia: 1,
-      id_trn_parceiro: 1,
+      id_parceiro: 1,
       valor_pagamento: 1.5,
       terminal_id: "MyString",
       terminal_location: "MyString",
@@ -22,7 +22,7 @@ RSpec.describe "pagamento_referencia/new", type: :view do
 
       assert_select "input[name=?]", "pagamento_referencia[nro_pagamento_referencia]"
 
-      assert_select "input[name=?]", "pagamento_referencia[id_trn_parceiro]"
+      assert_select "input[name=?]", "pagamento_referencia[id_parceiro]"
 
       assert_select "input[name=?]", "pagamento_referencia[valor_pagamento]"
 

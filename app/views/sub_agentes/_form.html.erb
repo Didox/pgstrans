@@ -66,16 +66,16 @@
           <%= f.select :uni_pessoal_empresa_id, UniPessoalEmpresa.all.collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control" %>      
         </div>
         <div class="form-actions col-sm-12">
-          <%= f.button :button, class: 'btn btn-danger' do %>
+          <%= f.button :button, class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
             <span class="glyphicon glyphicon-ok"></span>
             Confirmar
           <% end %>
-          <%= link_to @sub_agente, class: 'btn btn-danger' do %>
+          <%= link_to @sub_agente, class: 'btn btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
             <span class="glyphicon glyphicon-info-sign"></span>
             Mostrar
           <% end %>
-          <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
-            <span class="glyphicon glyphicon-list-alt"></span>
+          <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+            <span class="glyphicon glyphicon-arrow-left"></span>
             Voltar
           <% end %>
         </div>  

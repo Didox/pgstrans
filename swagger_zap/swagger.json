@@ -1,0 +1,1436 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "A plataforma Pagasó prevê a resposta a requisições no formato JSON, um formato compacto, de padrão aberto independente, para a troca de dados entre sistemas. Esta é a documentação da Pagasó API.",
+    "version": "1.0.6",
+    "title": "Pagasó API",
+    "termsOfService": "",
+    "contact": {
+      "email": "rosi.volgarin@tiv-tecnologia.com"
+    }
+  },
+  "host": "localhost:3000",
+  "tags": [
+    {
+      "name": "Usuarios",
+      "description": "Efetuar Login na Plataforma Pagasó"
+    },
+    {
+      "name": "Recarga",
+      "description": "Compra de Recarga"
+    },
+    {
+      "name": "Recarga v2",
+      "description": "Compra de Recarga - Com Códigos de Erro Pagasó"
+    },
+    {
+      "name": "ContaCorrente",
+      "description": "Extrato de Conta Corrente"
+    },
+    {
+      "name": "AlegacaoPagamento",
+      "description": "Informar depósitos feitos para a Pagasó"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/api/recarga/confirma/dstv.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "transacao_smartcard",
+            "description": "Se envio de transação é smartcard selecionar true, se for customer number, selectionar false",
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "dstv_number",
+            "description": "DSTV customer number ou smartcard. O fator decisório para smartcard ou customer number é o parâmetro transacao_smartcard informado",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/recarga/confirma/dstv.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "transacao_smartcard",
+            "description": "Se envio de transação é smartcard selecionar true, se for customer number, selectionar false",
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "dstv_number",
+            "description": "DSTV customer number ou smartcard. O fator decisório para smartcard ou customer number é o parâmetro transacao_smartcard informado",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga_v2"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/confirma/unitel.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "unitel_telefone",
+            "description": "Telemóvel Unitel que receberá a recarga",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/recarga/confirma/unitel.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "unitel_telefone",
+            "description": "Telemóvel Unitel que receberá a recarga",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga_v2"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/confirma/movicel.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "movicel_telefone",
+            "description": "Telemóvel Movicel que receberá a recarga",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/recarga/confirma/movicel.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "movicel_telefone",
+            "description": "Telemóvel Movicel que receberá a recarga",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga_v2"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
+            }
+          }
+        }
+      }
+    },
+/*    "/api/recarga/confirma/zaptv.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "zaptv_cartao",
+            "description": "ZAP Cartão para TV ou Wifi",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/recarga/confirma/zaptv.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "zaptv_cartao",
+            "description": "ZAP Cartão para TV ou Wifi",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga_v2"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/confirma/zapfibra.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "zaptv_cartao",
+            "description": "Número do Cartão/Cliente ZAP que receberá a recarga (ZAP FIBRA)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/recarga/confirma/zapfibra.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "zaptv_cartao",
+            "description": "Número do Cartão/Cliente ZAP que receberá a recarga (ZAP FIBRA)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga_v2"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
+            }
+          }
+        }
+      }
+    }, */
+    "/api/recarga/confirma/ende.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "meter_number",
+            "description": "Número do Medidor",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "description": "E-mail para envio do token de recarga",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/recarga/confirma/ende.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "meter_number",
+            "description": "Número do Medidor",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "description": "E-mail para envio do token de recarga",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga_v2"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/confirma/africell.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto Africell conforme tabela de produtos",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "target_msisdn",
+            "description": "Número telemóvel Africell que receberá a recarga",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/recarga/confirma/africell.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto Africell conforme tabela de produtos",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "target_msisdn",
+            "description": "Número telemóvel Africell que receberá a recarga",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga_v2"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/confirma/elephantbet.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto ElephantBet conforme tabela de produtos",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "elephantbet_telefone",
+            "description": "Número do Telefone do Jogador",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/recarga/confirma/elephantbet.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto ElephantBet conforme tabela de produtos",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "elephantbet_telefone",
+            "description": "Número do Telefone do Jogador",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga_v2"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/dstv-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos DSTV",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_dstv"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/unitel-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos Unitel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_dstv"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/movicel-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos Movicel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+/*    "/api/recarga/zap-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos ZAPTV",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/zapfibra-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos ZAP FIBRA",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    }, */
+    "/api/recarga/ende-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos ENDE",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/africell-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos AFRICELL",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga_africell"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/elephantbet-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos ELEPHANT BET",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga_elephanetbet"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/login.json": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Login com usuário e senha",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "description": "E-mail ou login para acesso",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "senha",
+            "description": "Palavra-passe",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/usuario"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/login.json": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "description": "Login com usuário e senha",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "description": "E-mail ou login para acesso",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "senha",
+            "description": "Palavra-passe",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/usuario_v2"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
+            }
+          }
+        }
+      }
+    },
+    "api/alegacao_de_pagamentos/criar.json": {
+      "post": {
+        "tags": [
+          "AlegacaoPagamento"
+        ],
+        "description": "Manifestação de alegação de pagamento para posterior processamento e crédito em conta corrente",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "usuario_id",
+            "description": "ID do Usuário responsável pela conta que receberá o crédito em conta corrente",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor_deposito",
+            "description": "Valor do Depósito em Kz",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "data_deposito",
+            "description": "Data do efetivo depósito. Formato: 2022-11-08T16:37",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "numero_talao",
+            "description": "Número do Talão para Identificação do Depósito",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "banco_id",
+            "description": "Banco no qual o depósito foi efetuado, adotando os seguintes códigos: </br> 2-Banco Angolano de Investimentos, S.A. </br>4-Banco BIC, S.A. </br>  5-Banco Caixa Geral Angola, S.A. </br> 11-Banco de Fomento de Angola, S.A. </br> 16-Banco Económico </br> 17-Banco Sol S.A. </br> 18-Banco Atlantico </br> 19-Banco Keve",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "comprovativo",
+            "description": "Comprovativo de Pagamento - Imagem convertida para base64",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/alegacao_de_pagamento"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/conta-corrente/extrato.json": {
+      "get": {
+        "tags": [
+          "ContaCorrente"
+        ],
+        "description": "Retorna extrato do usuário incluindo o saldo atual",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "description": "Pagina corrente, paginação - Padrão (1)",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "id",
+            "description": "ID do Usuário",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "nome",
+            "description": "Nome do Usuário",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "data_alegacao_pagamento_inicio",
+            "description": "Data de Lançamento (Início). Formato: 2022-11-08T16:37",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "data_alegacao_pagamento_fim",
+            "description": "Data de Lançamento (Fim). Formato: 2022-11-08T16:37",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "data_ultima_atualizacao_saldo_inicio",
+            "description": "Data da Última Atualização (Início). Formato: 2022-11-08T16:37",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "data_ultima_atualizacao_saldo_fim",
+            "description": "Data da Última Atualização (Fim). Formato: 2022-11-08T16:37",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "iban",
+            "description": "IBAN ou Número do Talão",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/conta_corrente_index"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "recarga": {
+      "type": "object",
+      "properties": {
+        "mensagem": { "type": "string" },
+        "token_recarga": { "type": "string" },
+        "data_token_recarga": { "type": "string" },
+        "status": { "type": "integer" },
+        "venda_id": { "type": "integer" },
+        "sucesso": { "type": "boolean" },
+        "redirect": { "type": "boolean" }
+      }
+    },
+    "recarga_v2": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "message": { "type": "string" },
+        "status": { "type": "integer" },
+        "sell_id": { "type": "integer" },
+        "recharge_token": { "type": "string" },
+        "date_recharge_token": { "type": "string" },
+        "redirect": { "type": "boolean" }
+      }
+    },
+    "falha": {
+      "type": "object",
+      "properties": {
+        "mensagem": { "type": "string" },
+        "status": { "type": "string" }
+      }
+    },
+    "falha_v2": {
+      "type": "object",
+      "properties": {
+        "message": { "type": "string" },
+        "code": { "type": "string" },
+        "status": { "type": "integer" }
+      }
+    },
+    "falha_usuario": {
+      "type": "object",
+      "properties": {
+        "mensagem": { "type": "string" }
+      }
+    },
+    "usuario": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "email": { "type": "string" },
+        "token": { "type": "string" }
+      }
+    },
+    "usuario_v2": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "email": { "type": "string" },
+        "token": { "type": "string" }
+      }
+    },
+    "usuario_create": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "email": { "type": "string" },
+        "saldo": { "type": "string" },
+        "data_saldo": { "type": "string" }
+      }
+    },
+    "alegacao_de_pagamento": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "usuario_id": { "type": "integer" },
+        "valor_deposito": { "type": "number" },
+        "data_deposito": { "type": "string" },
+        "numero_talao": { "type": "string" },
+        "banco_id": { "type": "integer" },
+        "comprovativo": { "type": "string" },
+        "created_at": { "type": "string" }
+      }
+    },
+    "conta_corrente": {
+      "type": "object",
+      "properties": {
+        "usuario_id": { "type": "integer" },
+        "banco_nome": { "type": "string" },
+        "valor": { "type": "number" },
+        "iban": { "type": "string" },
+        "data_alegacao_pagamento": { "type": "string" },
+        "lancamento_nome": { "type": "string" },
+        "saldo_anterior": { "type": "number" },
+        "saldo_atual": { "type": "number" },
+        "data_ultima_atualizacao_saldo": { "type": "string" }
+      }
+    },
+    "conta_corrente_index": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/conta_corrente"
+      }
+    },
+    "produtos_dstv": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/produto_dstv"
+      }
+    },
+    "produtos_recarga_africell": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/produto_recarga_africell"
+      }
+    },
+    "produto_recarga_africell": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "valor": { "type": "string" },
+        "subtipo": { "type": "string" }
+      }
+    },
+    "produtos_recarga_elephanetbet": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/produto_recarga_elephanetbet"
+      }
+    },
+    "produto_recarga_elephanetbet": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "valor": { "type": "string" }
+      }
+    },
+    "produtos_recarga": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/produto_recarga"
+      }
+    },
+    "produto_recarga": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "valor": { "type": "string" }
+      }
+    },
+    "objs_simples": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/obj_simples"
+      }
+    },
+    "obj_simples": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "created_at": { "type": "string" },
+        "updated_at": { "type": "string" }
+      }
+    },
+    "municipios_campos": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/municipio_campos"
+      }
+    },
+    "municipio_campos": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "provincia_id": { "type": "integer" }
+      }
+    },
+    "provincias": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/provincia"
+      }
+    },
+    "provincia": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" }
+      }
+    },
+    "industries": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/industry"
+      }
+    },
+    "industry": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "descricao_seccao": { "type": "string" },
+        "descricao_divisao": { "type": "string" },
+        "descricao_grupo": { "type": "string" }
+      }
+    },
+    "produto_dstv": {
+      "type": "object",
+      "properties": {
+        "subtipo": { "type": "string" },
+        "produtos": {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/produto_recarga"
+          }
+        }
+      }
+    }
+
+  }
+}

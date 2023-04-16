@@ -1,125 +1,129 @@
-<div class="col-md-12">
-  <div class="col-md-12">
-    <br>
-    <h3>Relatório de Vendas - Consolidado por Dia</h3>
-  </div>
+<div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div class="col-md-12" style="margin-top:10px">
-    <form action="" method="get" id="formApuracao">
-      <div class="row" style="padding:10px">
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Data Inicial da Venda</label>
-            <div>
-              <input type="date" name="data_inicio" value="<%= params[:data_inicio] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Data Final da Venda</label>
-            <div>
-              <input type="date" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Parceiro</label>
-            <div>
-              <select name="parceiro_id" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% Partner.all.reorder(name: :asc).each do |partner| %>
-                  <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
-                <% end %>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label>Situação do Parceiro</label>
-            <div>
-              <select name="status_parceiro_id" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% StatusParceiro.all.reorder(nome: :asc).each do |status_parceiro| %>
-                  <option value="<%= status_parceiro.id %>" <% if status_parceiro.id.to_s == params[:status_parceiro_id] %> selected="selected" <% end %> ><%= status_parceiro.nome %></option>
-                <% end %>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Quantidade por página</label>
-            <div>
-              <select name="per_page" class="form-control">
-                <option value="" <% if params[:per_page].blank? %> selected="selected" <% end %>>[Selecione]</option>
-                <% [31, 40, 50, 100, 200, 300, 400, 1000, 2000, 3000].each do |per_page| %>
-                  <option value="<%= per_page %>" <% if @per_page.to_s == per_page.to_s %> selected="selected" <% end %>><%= per_page %></option>
-                <% end %>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label>Situação do Usuário</label>
-            <div>
-              <select name="status" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% StatusCliente.all.each do |status| %>
-                  <option value="<%= status.id %>" <% if params[:status].to_s == status.id.to_s %> selected="selected" <% end %>><%= status.nome %></option>
-                <% end %>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Lançamentos</label>
-            <div>
-              <select name="lancamento_id" class="form-control">
-                <option value="" selected="'selected'">Todos</option>
-                <% Lancamento.all.each do |lancamento| %>
-                  <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
-                <% end %>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label>Situação da Venda</label>
-            <div>
-              <select name="return_code" class="form-control">
-                <option value="">Todos</option>
-                <option value="sucesso" <% if params[:return_code] == "sucesso" || !params.has_key?(:return_code) %> selected="selected" <% end %>>Todos com sucesso</option>
-                <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL).each do |partner| %>
-                  <optgroup label="<%= partner.name %>">
-                    <% ReturnCodeApi.where(partner_id: partner.id).each do |ret| %>
-                      <option value="<%= ret.id %>" <% if ret.id.to_s == params[:return_code] %> selected="selected" <% end %> ><%= ret.partner.name %> - <%= ret.sucesso ? "[SUCESSO] - " : "" %><%= ret.error_description_pt %></option>
-                    <% end %>
-                  </optgroup>
-                <% end %>
-              </select>
-            </div>
-          </div>
-        </div>
+  <div class="col-md-12">
+    <div class="card" style="margin-top: 5px;">
+      <div class="card-header" style="text-align: center;font-size: 12px;font-weight: bold;">
+        Relatório de Vendas Consolidado por Dia
       </div>
-      <div class="form-group">
-        <div style="float: right;margin-right:10px">
-          <input type="submit" value="Buscar" class="btn btn-success">
-          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-            <span class="glyphicon glyphicon-list-alt"></span>
-            Voltar
-          <% end %>
+
+      <form action="" method="get" id="formApuracao">
+        <div class="row" style="padding:10px">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label>Data Inicial da Venda</label>
+              <div>
+                <input type="date" name="data_inicio" value="<%= params[:data_inicio] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label>Data Final da Venda</label>
+              <div>
+                <input type="date" name="data_fim" value="<%= params[:data_fim] %>" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label>Parceiro</label>
+              <div>
+                <select name="parceiro_id" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% Partner.all.reorder(name: :asc).each do |partner| %>
+                    <option value="<%= partner.id %>" <% if partner.id.to_s == params[:parceiro_id] %> selected="selected" <% end %> ><%= partner.name %></option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label>Situação do Parceiro</label>
+              <div>
+                <select name="status_parceiro_id" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% StatusParceiro.all.reorder(nome: :asc).each do |status_parceiro| %>
+                    <option value="<%= status_parceiro.id %>" <% if status_parceiro.id.to_s == params[:status_parceiro_id] %> selected="selected" <% end %> ><%= status_parceiro.nome %></option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Quantidade por página</label>
+              <div>
+                <select name="per_page" class="form-control">
+                  <option value="" <% if params[:per_page].blank? %> selected="selected" <% end %>>[Selecione]</option>
+                  <% [31, 40, 50, 100, 200, 300, 400, 1000, 2000, 3000].each do |per_page| %>
+                    <option value="<%= per_page %>" <% if @per_page.to_s == per_page.to_s %> selected="selected" <% end %>><%= per_page %></option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Situação do Usuário</label>
+              <div>
+                <select name="status" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% StatusCliente.all.each do |status| %>
+                    <option value="<%= status.id %>" <% if params[:status].to_s == status.id.to_s %> selected="selected" <% end %>><%= status.nome %></option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Lançamentos</label>
+              <div>
+                <select name="lancamento_id" class="form-control">
+                  <option value="" selected="'selected'">Todos</option>
+                  <% Lancamento.all.each do |lancamento| %>
+                    <option value="<%= lancamento.id %>" <% if lancamento.id.to_s == params[:lancamento_id] %> selected="selected" <% end %> ><%= lancamento.nome %></option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Situação da Venda</label>
+              <div>
+                <select name="return_code" class="form-control">
+                  <option value="">Todos</option>
+                  <option value="sucesso" <% if params[:return_code] == "sucesso" || !params.has_key?(:return_code) %> selected="selected" <% end %>>Todos com sucesso</option>
+                  <% Partner.where(status_parceiro_id: StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL).each do |partner| %>
+                    <optgroup label="<%= partner.name %>">
+                      <% ReturnCodeApi.where(partner_id: partner.id).each do |ret| %>
+                        <option value="<%= ret.id %>" <% if ret.id.to_s == params[:return_code] %> selected="selected" <% end %> ><%= ret.partner.name %> - <%= ret.sucesso ? "[SUCESSO] - " : "" %><%= ret.error_description_pt %></option>
+                      <% end %>
+                    </optgroup>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </form>
+        <div class="form-group">
+          <div style="float: right;margin:10px">
+            <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+                <span class="glyphicon glyphicon-search"></span> Buscar
+            <% end %>
+            <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+              <span class="glyphicon glyphicon-arrow-left"></span>
+              Voltar
+            <% end %>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 
   <% if @vendas_total.present? %>
@@ -185,7 +189,6 @@
         </div>
       <% end %>
     </div>
-    <hr>
 
   
     <div class="scroltable col-md-12">
@@ -215,15 +218,15 @@
             %>
             <tr>
               <td style="text-align:center" ><%= venda.data_venda.to_datetime.strftime("%d/%m/%Y") %></td>
-              <td align="right"><%= number_to_currency(venda.valor_original) %></td>
-              <td align="right">
+              <td style="text-align:right"><%= number_to_currency(venda.valor_original) %></td>
+              <td style="text-align:right">
                 <%= number_to_currency(venda.desconto_aplicado) %><br>
                 <% porcentagem = (venda.desconto_aplicado.to_f / venda.valor_original.to_f * 100) 
                 unless porcentagem.nan? %>
                   <%= number_to_currency(porcentagem, :unit => "", :precision => 3) %>%
                 <% end %>
               </td>
-              <td align="right"><%= number_to_currency(venda.value) %></td>
+              <td style="text-align:right"><%= number_to_currency(venda.value) %></td>
               <% 
                 valor_original_total += venda.valor_original
                 valor_desconto_total += venda.desconto_aplicado 
@@ -233,16 +236,16 @@
             <% end %>
             <tfoot>
               <tr>
-                <td align="right"><b>Total da página:</b></td>
-                <td align="right">
+                <td style="text-align:right"><b>Total da página:</b></td>
+                <td style="text-align:right">
                   <b><%= number_to_currency(valor_original_total) %></b>
                 </td>    
-                <td align="right">
+                <td style="text-align:right">
                   <b>
                     <%= number_to_currency(valor_desconto_total) %>
                   </b>
                 </td>
-                <td align="right">
+                <td style="text-align:right">
                   <b><%= number_to_currency(valor_total) %></b>
                 </td>        
               </tr>
@@ -252,8 +255,8 @@
 
         <%= render "/shared/paginate", path: "/vendas/consolidado", records: @vendas, :per_page => @per_page %>
 
-        <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-          <span class="glyphicon glyphicon-list-alt"></span>
+        <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+          <span class="glyphicon glyphicon-arrow-left"></span>
           Voltar
         <% end %>
       </div>
@@ -267,7 +270,7 @@
       -->
       <% end %>
     <% else %>
-      <div style="height: 100px; text-align:center;font-size: 20px; color: #856404; padding: 20px;">
+      <div style="height: 100px; text-align:center;font-size: 12px; color: #856404; padding: 20px;">
         Informe os parâmetros de busca
       </div>
   <% end %>

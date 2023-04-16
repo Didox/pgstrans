@@ -1,6 +1,6 @@
 <div class="col-md-12"> 
   <div class="col-md-12"> 
-    <h3>Edição de Dados de Usuários</h3>
+    <h4>Edição de Dados de Usuários</h4>
   </div>
 
   <!-- Page Heading/Breadcrumbs -->
@@ -9,12 +9,12 @@
 
   <%= render 'form', usuario: @usuario %>
 
-  <%= link_to @usuario, class: 'btn btn-danger' do %>
+  <%= link_to @usuario, class: 'btn btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
     <span class="glyphicon glyphicon-info-sign"></span>
     Mostrar
   <% end %>
-  <%= link_to 'javascript:history.go(-1)', class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
+  <%= link_to 'javascript:history.go(-1)', class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span>
     Voltar
   <% end %>
 </div>

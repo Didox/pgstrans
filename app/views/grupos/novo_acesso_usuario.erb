@@ -1,6 +1,6 @@
-<div class="col-sm-12">
-	<div class="col-sm-12">
-		<h3>Novo acesso do usuário no grupo</h3>
+<div class="col-md-12">
+	<div class="col-md-12">
+		<h4>Novo acesso do usuário no grupo</h4>
 	</div>
 	<!-- Page Heading/Breadcrumbs -->
   	<%= render :partial => 'shared/header_backoffice' %>
@@ -28,20 +28,20 @@
 							</ul>
 						</div>
 					<% end %>
-					<div class="form-input col-sm-12">
+					<div class="form-input col-md-12">
             <%= f.label :usuario_id, "Buscar ou selecionar usuário" %>
             <div style="display:flex">
               <input type="text" id="usuario" class="form-control autocomplete" style="width:30%">
               <%= f.select :usuario_id, Usuario.com_acesso(usuario_logado).limit(300).collect{|d| [d.nome, d.id]}, {:include_blank => "[Selecione]"}, required:true, class: "form-control options-autocomplete", style: "width:70%" %>
             </div>
           </div>
-			<div class="form-input col-sm-12" style="margin-top:20px">
+			<div class="form-input col-md-12" style="margin-top:20px">
           	<%= f.check_box :escrita %>
 						<%= f.label :escrita, "Se marcar esta opção irá inserir este grupo em todo registo que alterar ou incluir, ou seja, o prório usuário poderá ver as vendas dele e todas as outras pessoas do grupo também" %>
 					</div>
-					<div class="form-actions col-sm-12">
+					<div class="form-actions col-md-12">
 						<hr>
-						<%= f.button :button, class: 'btn btn-danger' do %>
+						<%= f.button :button, class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
 							<span class="glyphicon glyphicon-ok"></span>
 							Confirmar
 						<% end %>
@@ -52,8 +52,8 @@
 	</div>
 
 	<div class="col-md-12">
-		<%= link_to "/grupos/#{@grupo.id}/usuarios", class: 'btn btn-danger' do %>
-			<span class="glyphicon glyphicon-list-alt"></span>
+		<%= link_to "/grupos/#{@grupo.id}/usuarios", class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+			<span class="glyphicon glyphicon-arrow-left"></span>
 			Voltar
 		<% end %>
 	</div>

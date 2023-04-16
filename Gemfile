@@ -27,6 +27,9 @@ gem 'swagger-blocks'
 gem 'swagger_ui_engine', '2.1.4', :path => "vendor/gems/swagger_ui_engine-1.1.3"
 gem 'jwt'
 
+# Conversao valores formato moeda para busca
+gem 'money'
+
 # net/protocol
 gem "net-http"
 

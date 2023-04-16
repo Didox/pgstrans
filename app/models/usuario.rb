@@ -24,6 +24,10 @@ class Usuario < ApplicationRecord
 
   SENHA_PADRAO = "pa3g5a1so14v!2@"
 
+  def self.proxypay
+    Usuario.where(login: "proxypay").first
+  end
+
   def provincia
     Provincium.find(self.provincia_id)
   rescue
@@ -66,6 +70,10 @@ class Usuario < ApplicationRecord
 
   def grupos_id
     grupo_usuarios.map{|g| g.grupo_id}
+  end
+
+  def pagamento_referencia
+    PagamentoReferencia.where(nro_pagamento_referencia: self.nro_pagamento_referencia, status: true).first
   end
 
   def self.ativo

@@ -1,9 +1,9 @@
-<div class="container scroltable">
+<div>
   <!-- Page Heading/Breadcrumbs -->
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div class="container">
+  <div class="col-md-12"> 
     
     <div class="card" style="margin-top: 5px;">
       <div class="card-header">
@@ -24,13 +24,13 @@
                   <input type="text" class="form-control" value="<%= params[:valor_pagamento] %>" name="valor_pagamento" placeholder="Valor do Pagamento" style="margin-left: 4%;max-width: 300px;">
                 </div>
                 <div class="saveCancelbts" style="padding-top: 25px;padding-bottom: 25px;text-align: right;">
+                  <%= button_tag(type: 'submit', class: "btn btn-success", value: "Validar", style: "width: 150px; text-align: center;") do %>
+                      <span class="glyphicon glyphicon-triangle-right"></span> Validar
+                  <% end %>
                   <div style="display: inline-block;margin-bottom: 10px;">
-                    <input type="submit" class="btn btn-success" style="width: 150px; text-align: center;" value="VALIDAR">
-                  </div>
-                  <div style="display: inline-block;margin-bottom: 10px;">
-                    <%= link_to root_path, class: 'btn btn-space btn-danger', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
-                      <span class="glyphicon glyphicon-list-alt"></span>
-                      VOLTAR
+                    <%= link_to root_path, class: 'btn btn-space btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+                      <span class="glyphicon glyphicon-arrow-left"></span>
+                      Voltar
                     <% end %>
                   </div>
                 </div>
@@ -53,8 +53,8 @@
             <br>
             <br>
             <div style="display: inline-block;margin-bottom: 10px;width: 100%;margin-bottom: 5px;">
-              <%= link_to root_path, class: 'btn btn-danger', style: "width: 100%;text-align: center;" do %>
-                <span class="glyphicon glyphicon-list-alt"></span>
+              <%= link_to root_path, class: 'btn btn-primary', style: "width: 100%;text-align: center;" do %>
+                <span class="glyphicon glyphicon-arrow-left"></span>
                 Voltar
               <% end %>
             </div>

@@ -1,5 +1,5 @@
-<div class="container">
-  <div class="col-md-12 panel panel-default">
+<div class="col-md-12">
+  <div class="panel panel-default">
     <div class="panel-heading">
         <h1>Entrar</h1>
     </div>
@@ -8,7 +8,7 @@
           Mais vantagens para você <strong>VENDER MAIS!</strong>
         </h3>
 
-        <div class="container">
+        <div class="col-md-12">
           <div id="formContent">
             <form action="/autentica" method="post">
               <div class="form-group row">
@@ -34,7 +34,11 @@
                   </div>
                   <!-- recaptcha_tags -->
                   <div>
-                    <input type="submit" class="fadeIn fourth btn-block btn-success btn-login" value="Aceder">
+
+                    <%= button_tag(type: 'submit', class: "fadeIn fourth btn-block btn-success btn-login") do %>
+                        <span class="glyphicon glyphicon-new-window"></span> Aceder
+                    <% end %>                  
+
                   </div>
                 </div>
               </div>

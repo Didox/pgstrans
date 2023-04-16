@@ -1,71 +1,75 @@
-	<div class="col-md-12">
-		<div>
-			<a href="<%= root_path %>">
-			<h1 class="btn btn-sucess <% if params[:controller] == "welcome" %>active_menu<% end %> menu_recarga">Recarga</h1>
-			</a>
-		</div><br>
+<div class="col-md-12">
+	<div>
+		<a href="<%= root_path %>">
+		<button class="btn btn-danger <% if params[:controller] == "welcome" %>active_menu<% end %> menu_recarga">Recarga</button>
+		</a>
+	</div><br>
 
-		<% if PerfilUsuario.where("lower(nome) != '%vendedor%'") %>
-			<% if PerfilUsuario.tem_acesso?(usuario_logado, :BackofficeController, :index) %>
-			<a href="<%= backoffice_index_path %>">
-				<h1 class="btn btn-sucess <% if params[:controller] == "backoffice" && params[:action] == "index" %>active_menu<% end %> menu_recarga btn-backoffice">Backoffice</h1>
-			</a>
-			<% end %>
+	<% if PerfilUsuario.where("lower(nome) != '%vendedor%'") %>
+		<% if PerfilUsuario.tem_acesso?(usuario_logado, :BackofficeController, :index) %>
+		<a href="<%= backoffice_index_path %>">
+			<button class="btn btn-dark <% if params[:controller] == "backoffice" && params[:action] == "index" %>active_menu<% end %> menu_recarga btn-backoffice">Backoffice</button>
+		</a>
 		<% end %>
+	<% end %>
 
-		<a href="<%= saldos_path %>">
-		<h1 class="btn btn-sucess <% if params[:controller] == "saldos" %>active_menu<% end %> menu_recarga">Saldo</h1>
-		</a>
-		<a href="<%= vendas_resumido_path %>">
-		<h1 class="btn btn-sucess <% if params[:controller] == "vendas" && (params[:action] == "resumido" || params[:action] == "mostrar_resumido") %>active_menu<% end %> menu_recarga">Vendas</h1>
-		</a>
+	<a href="<%= saldos_path %>">
+	<button class="btn btn-warning <% if params[:controller] == "saldos" %>active_menu<% end %> menu_recarga">Saldo</button>
+	</a>
+	<a href="<%= vendas_resumido_path %>">
+	<button class="btn btn-warning <% if params[:controller] == "vendas" && (params[:action] == "resumido" || params[:action] == "mostrar_resumido") %>active_menu<% end %> menu_recarga">Vendas</button>
+	</a>
 
+	<% if usuario_logado.admin? || usuario_logado.operador? %>
+		<a href="/vendas/consolidado">
+			<button class="btn btn-warning menu_recarga <% if params[:controller] == "vendas" && params[:action] == "consolidado" %>active_menu<% end %>">Consolidado</button>
+		</a>
+	<% end %>
+
+	<button class="btn btn-warning menu_recarga" 
+			type="button" 
+			data-toggle="dropdown">ENDE
+			<span class="caret"></span>
+	</button>
+		<ul class="dropdown-menu">
 		<% if usuario_logado.admin? || usuario_logado.operador? %>
-			<a href="/vendas/consolidado">
-				<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "vendas" && params[:action] == "consolidado" %>active_menu<% end %>">Consolidado</h1>
-			</a>
+			<li><a href="/ende/venda-teste">
+				<button class="btn btn-warning menu_recarga <% if params[:controller] == "ende" && params[:action] == "venda-teste" %>active_menu<% end %>">Venda Teste</button>
+			</a></li>
 		<% end %>
+		<li><a href="/ende/confirmar-cliente">
+			<button class="btn btn-warning menu_recarga <% if params[:controller] == "ende" && params[:action] == "confirmar_cliente" %><% end %>">Confirmar Cliente</button>
+		</a></li>
+		<li><a href="/ende/reprint">
+			<button class="btn btn-warning menu_recarga <% if params[:controller] == "ende" && params[:action] == "reprint" %>active_menu<% end %>">Consultar Pagamentos</button>
+		</a></li>
+		<li><a href="/ende/pagamento-de-conta">
+			<button class="btn btn-warning menu_recarga <% if params[:controller] == "ende" && params[:action] == "pagamento_de_conta" %><% end %>">Pagamento de Conta</button>
+		</a></li>
+		<% if @adm.id == Usuario::ROOT %>	
+			<li><a href="/ende/last-advice">
+				<button class="btn btn-warning menu_recarga <% if params[:controller] == "ende" && params[:action] == "last_advice" %><% end %>">Last Advice</button>
+			</a></li>
+		<% end %>
+	</ul>
 
-
-		<button class="btn btn-sucess menu_recarga" 
+	<div class="elephantbet-menu">
+		<button class="btn btn-warning menu_recarga elephantbet-menu"
+				id="dLabel"
 				type="button" 
-				data-toggle="dropdown">ENDE
+				data-toggle="dropdown">ELEPHANT BET
 				<span class="caret"></span>
 		</button>
-			<ul class="dropdown-menu">
-			<% if usuario_logado.admin? || usuario_logado.operador? %>
-				<li><a href="/ende/venda-teste">
-					<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "venda-teste" %>active_menu<% end %>">Venda Teste</h1>
-				</a></li>
-			<% end %>
-			<li><a href="/ende/confirmar-cliente">
-				<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "confirmar_cliente" %><% end %>">Confirmar Cliente</h1>
+		<ul class="dropdown-menu" aria-labelledby="dLabel">
+			<li><a href="/elephant_bet/consultar_voucher">
+				<button class="btn btn-warning menu_recarga <% if params[:controller] == "elephantbet" && params[:action] == "consultar_voucher" %>active_menu<% end %>">Consultar Voucher</button>
 			</a></li>
-			<li><a href="/ende/reprint">
-				<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "reprint" %>active_menu<% end %>">Consultar Pagamentos</h1>
-			</a></li>
-			<li><a href="/ende/pagamento-de-conta">
-				<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "pagamento_de_conta" %><% end %>">Pagamento de Conta</h1>
-			</a></li>
-			<% if @adm.id == Usuario::ROOT %>	
-				<li><a href="/ende/last-advice">
-					<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "ende" && params[:action] == "last_advice" %><% end %>">Last Advice</h1>
-				</a></li>
-			<% end %>
 		</ul>
-
-		<div class="elephantbet-menu">
-			<button class="btn btn-sucess menu_recarga elephantbet-menu"
-					id="dLabel"
-					type="button" 
-					data-toggle="dropdown">ELEPHANT BET
-					<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" aria-labelledby="dLabel">
-				<li><a href="/elephant_bet/consultar_voucher">
-					<h1 class="btn btn-sucess menu_recarga <% if params[:controller] == "elephantbet" && params[:action] == "consultar_voucher" %>active_menu<% end %>">Consultar Voucher</h1>
-				</a></li>
-			</ul>
-		</div>
 	</div>
+
+	<% if usuario_logado.admin? || usuario_logado.operador? %>
+		<a href="/proxy_pay/pagamento_referencia">
+			<button class="btn btn-warning menu_recarga <% if params[:controller] == "proxy_pay" && params[:action] == "gerar_referencia" %>active_menu<% end %>">Pagamento Referência</button>
+		</a>
+	<% end %>
 </div>

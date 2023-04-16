@@ -1,8 +1,8 @@
-<div class="col-sm-12">
+<div class="col-md-12">
   <p id="notice"><%= notice %></p>
 
-  <div class="col-sm-12">
-    <h3>Grupos de Usuários</h3>
+  <div class="col-md-12">
+    <h4>Grupos de Usuários</h4>
     <hr>
     <p>Utilize os parâmetros desta tela para definir os registos aos quais o usuário terá acesso. Considere a hirarquia das informações para fazer a composição dos grupos.</p>
   </div>
@@ -10,10 +10,10 @@
   <%= render :partial => 'shared/header_backoffice' %>
   <!-- /.row -->
 
-  <div class="col-sm-12">
+  <div class="col-md-12">
     <form action="" method="get" id="formApuracao">
       <div class="row" style="padding:10px">
-        <div class="col-sm-6">
+        <div class="col-md-6">
           <div class="form-group">
             <label>Nome do Grupo</label>
             <div>
@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-md-6">
           <div class="form-group">
             <label>Descrição do Grupo</label>
             <div>
@@ -29,7 +29,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-md-6">
           <div class="form-group">
             <label>Nome do Usuário</label>
             <div>
@@ -37,7 +37,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-md-6">
           <div class="form-group">
             <label>Perfil do Usuário</label>
             <div>
@@ -53,10 +53,13 @@
       </div>
       <div class="form-group">
         <div style="float: right;margin-right:10px">
-          <input type="submit" value="Buscar" class="btn btn-info">
 
-          <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-            <span class="glyphicon glyphicon-list-alt"></span>
+          <%= button_tag(type: 'submit', class: "btn btn-info", value: "Buscar", style: "width: 150px;text-align: center;margin-right: 0px;") do %>
+            <span class="glyphicon glyphicon-search"></span> Buscar
+          <% end %>
+
+          <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+            <span class="glyphicon glyphicon-arrow-left"></span>
             Voltar
           <% end %>
           
@@ -65,7 +68,7 @@
     </form>
   </div>
 
-  <div class="col-sm-12">
+  <div class="col-md-12">
     <h4>
     Total de Grupos: <strong><%= number_to_currency(@grupos_total, :precision => 0, :unit => "") %></strong>
     <hr>
@@ -111,13 +114,13 @@
       <%= will_paginate @grupos, :container => false %>
     </div> 
 
-    <%= link_to new_grupo_path, class: 'btn btn-danger' do %>
+    <%= link_to new_grupo_path, class: 'btn btn-success', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
       <span class="glyphicon glyphicon-plus"></span>
       Novo Registo
     <% end %>    
 
-    <%= link_to backoffice_index_path, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to backoffice_index_path, class: 'btn btn-primary', style: "width: 150px;text-align: center;margin-right: 0px;" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span>
       Voltar
     <% end %>
 
