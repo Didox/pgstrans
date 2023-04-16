@@ -94,7 +94,7 @@ class ProdutosController < ApplicationController
 
   def produtos_unitel_api
     produtos_api = []
-    ["VOZ", "PLANO MAIS", "DADOS", "SMS", "PLANOS BAZZA"].each do |subtipo|
+    ["VOZ", "REDES SOCIAIS", "PLANO MAIS", "DADOS", "SMS", "PLANOS BAZZA"].each do |subtipo|
       produtos_api << {
         subtipo: subtipo,
         produtos: Produto.produtos.where(partner_id: Partner.where(slug: Partner.unitel.slug), subtipo: subtipo).reorder("nome_comercial asc, valor_compra_telemovel asc").map do |produto|
