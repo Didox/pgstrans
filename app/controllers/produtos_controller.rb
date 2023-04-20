@@ -65,6 +65,8 @@ class ProdutosController < ApplicationController
   end
 
   def produtos_zap_api
+    return if nega_consulta_api("zaptv")
+
     produtos_api = []
     produtos = Produto.produtos.where(partner_id: Partner.where(slug: Partner.zaptv.slug)).reorder("valor_compra_telemovel asc, nome_comercial asc")
     produtos.each do |produto|
@@ -140,6 +142,8 @@ class ProdutosController < ApplicationController
   end
 
   def produtos_zapfibra_api
+    return if nega_consulta_api("zapfibra")
+
     produtos_api = []
     produtos = Produto.produtos.where(partner_id: Partner.where(slug: Partner.zapfibra.slug)).reorder("valor_compra_telemovel asc, nome_comercial asc")
     produtos.each do |produto|
@@ -179,7 +183,38 @@ class ProdutosController < ApplicationController
   end
 
   private
+
+    def nega_consulta_api(tipo_venda)
+      if ["zaptv", "zapfibra"].include?(tipo_venda.to_s.downcase)
+
+        mensagem = "Consulta não autorizada API"
+        return_code = busca_return_code_params(mensagem, tipo_venda)
+
+        if return_code.present?
+          code = return_code.codigo_erro_pagaso
+          mensagem = return_code.error_description_pt
+          mensagem_original = return_code.error_description
+        else
+          code = "0403"
+          mensagem_original = mensagem
+        end
+        render json: {mensagem: mensagem, status: code, sucesso: false, redirect: false}, status: 403
+        return true
+      end
+
+      return false
+    end
     
+    def busca_return_code_params(mensagem, tipo_venda)
+      parceiro = Partner.find_by_slug(params[:tipo_venda])
+
+      mensagem_busca = Venda.mensagem_busca_erro(mensagem, parceiro)
+      
+      return_code_api = ReturnCodeApi.where("error_description ilike ?", "%#{mensagem_busca}%")
+      return_code_api = return_code_api.where(partner_id: parceiro.id) if parceiro.present?
+      return_code_api.first 
+    end
+
     def set_produto
       @produto = Produto.find(params[:id])
     end
