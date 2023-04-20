@@ -2,11 +2,13 @@ class RecargaController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def confirma_api
+    return if nega_venda_api
     params[:api] = "v1"
     confirma
   end
 
   def confirma_api_v2
+    return if nega_venda_api
     params[:api] = "v2"
     venda = Venda.fazer_venda(params, usuario_logado, params[:tipo_venda], request.ip)
     token, data = venda.token_e_data_ende
@@ -90,6 +92,27 @@ class RecargaController < ApplicationController
   end
 
   private
+  def nega_venda_api
+    if ["zaptv", "zapfibra"].include?(params[:tipo_venda].to_s.downcase)
+
+      mensagem = "Venda não autorizada API"
+      return_code = busca_return_code_params(mensagem)
+
+      if return_code.present?
+        code = return_code.codigo_erro_pagaso
+        mensagem = return_code.error_description_pt
+        mensagem_original = return_code.error_description
+      else
+        code = "403"
+        mensagem_original = mensagem
+      end
+      render json: {mensagem: mensagem, status: code, sucesso: false, redirect: false}, status: 403
+      return true
+    end
+
+    return false
+  end
+
   def busca_return_code_params(mensagem)
     if params[:produto_id].present?
       produto = Produto.where(id: params[:produto_id]).first
