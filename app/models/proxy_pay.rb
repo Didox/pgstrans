@@ -18,7 +18,6 @@ class ProxyPay
   end
 
   def self.gerar_referencia(usuario)
-
     UsuarioReferenciaPagamento.create(usuario_id: usuario.id, acao: 1, nro_pagamento_referencia: usuario.nro_pagamento_referencia)
 
     parceiro, parametro, url_service = self.parametros
