@@ -983,7 +983,7 @@ class Venda < ApplicationRecord
       agent_account = parametro.get.agent_account_dstv_desenvolvimento
       currency = parametro.get.currency_dstv_desenvolvimento
       product_user_key = parametro.get.product_user_key_dstv_desenvolvimento
-      mop = parametro.get.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM "
+      mop = parametro.get.mop_dstv_desenvolvimento # mop = "CASH, MOBILE or ATM " # “Mobile, Web ou USSD”
       agent_number = parametro.get.agent_number_dstv_desenvolvimento #122434345
     else
       url_service = parametro.get.url_integracao_producao
@@ -993,7 +993,7 @@ class Venda < ApplicationRecord
       agent_account = parametro.get.agent_account_dstv_producao
       currency = parametro.get.currency_dstv_producao
       product_user_key = parametro.get.product_user_key_dstv_producao
-      mop = parametro.get.mop_dstv_producao # mop = "CASH, MOBILE or ATM "
+      mop = parametro.get.mop_dstv_producao # mop = "CASH, MOBILE or ATM " # “Mobile, Web ou USSD”
       agent_number = parametro.get.agent_number_dstv_producao #122434345
     end
 
