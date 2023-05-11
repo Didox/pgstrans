@@ -32,6 +32,11 @@ class ProxyPayController < ApplicationController
       end
 
       @sucesso = ProxyPay.apagar_referencia(@usuario)
+
+      @usuario.nro_pagamento_referencia = ""
+      @usuario.responsavel = usuario_logado
+      @usuario.save
+
    rescue Exception => err
       @erro = "Pagamento por referência - Usuário não encontrado - #{err.message}"
       @sucesso = false
@@ -40,6 +45,7 @@ class ProxyPayController < ApplicationController
 
    def conciliacao_proxy_pay
       usuario = Usuario.where(nro_pagamento_referencia: params["reference_id"]).first
+      debugger
       if usuario.blank?
          render json: {
             message: "Usuário não localizado"
@@ -80,16 +86,26 @@ class ProxyPayController < ApplicationController
       api_key = parametro.get.api_key_desenvolvimento
       http_body = hash.to_json
 
-=begin
       signature = generate_signature(api_key, http_body)
 
       if request.headers["X-Signature"] != signature
+
+         # gravar no log com api_key, http_body request.headers["X-Signature"]
+
+         file_path = Rails.public_path.join("log_proxy_pay_x-signature-#{Time.now.to_i}.json")
+         File.open(file_path, 'w') do |file|
+            file.write({
+               api_key: api_key,
+               http_body: http_body,
+               x_signature: request.headers["X-Signature"]
+            }.to_json)
+         end
+
          render json: {
             message: "Chave inválida"
          }, status: 401
          return 
       end
-=end
 
       hash[:usuario_id] = usuario.id
       hash[:x_signature] = request.headers["X-Signature"]
