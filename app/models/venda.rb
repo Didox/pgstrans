@@ -1022,7 +1022,7 @@ class Venda < ApplicationRecord
             <sel1:invoicePeriod>1</sel1:invoicePeriod>
             <sel1:currency>AOA</sel1:currency>
             <sel1:paymentDescription>Pagaso Payment System</sel1:paymentDescription>
-            <sel1:methodofPayment>CASH</sel1:methodofPayment>
+            <sel1:methodofPayment>#{mop}</sel1:methodofPayment>
             <sel1:agentNumber>#{agent_number}</sel1:agentNumber>
             <sel1:productCollection>
               <sel1:Product>
