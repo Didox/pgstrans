@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  usuario_id: 1
+  usuario_nome: MyString
+  usuario_login: MyString
+  status_cliente_id: 1
+  status_cliente_nome: MyString
+  partner_status_parceiro_id: 1
+  partner_status_parceiro_nome: MyString
+  vendas_valor_original_valor: 1.5
+  vendas_desconto_aplicado_lucro: 1.5
+  porcentagem_vendas_desconto_aplicado: MyString
+  vendas_value_custo: 1.5
+  vendas_created_at: 2023-05-11 19:57:07
+  vendas_updated_at: 2023-05-11 19:57:07
+  vendas_product_id: 1
+  vendas_product_nome: MyString
+  vendas_product_subtipo: MyString
+  return_code_api_return_code: MyString
+  return_code_api_error_description_pt: MyText
+  return_code_api_partner_name: MyString
+
+two:
+  usuario_id: 1
+  usuario_nome: MyString
+  usuario_login: MyString
+  status_cliente_id: 1
+  status_cliente_nome: MyString
+  partner_status_parceiro_id: 1
+  partner_status_parceiro_nome: MyString
+  vendas_valor_original_valor: 1.5
+  vendas_desconto_aplicado_lucro: 1.5
+  porcentagem_vendas_desconto_aplicado: MyString
+  vendas_value_custo: 1.5
+  vendas_created_at: 2023-05-11 19:57:07
+  vendas_updated_at: 2023-05-11 19:57:07
+  vendas_product_id: 1
+  vendas_product_nome: MyString
+  vendas_product_subtipo: MyString
+  return_code_api_return_code: MyString
+  return_code_api_error_description_pt: MyText
+  return_code_api_partner_name: MyString

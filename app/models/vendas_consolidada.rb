@@ -1,0 +1,2 @@
+class VendasConsolidada < ApplicationRecord
+end
