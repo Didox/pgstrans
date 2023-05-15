@@ -16,7 +16,7 @@ class Venda < ApplicationRecord
     cc = ccs.reorder("created_at asc").first
     cc
   rescue
-    nil
+    nilZ
   end
   
   def destroy
@@ -1330,11 +1330,10 @@ class Venda < ApplicationRecord
 
     elephant_bet_login, parceiro, parametro, url_service = ElephantBet.login
     sessao = JSON.parse(elephant_bet_login.body_request)
-    session_id = sessao["loginInformation"]["session"]
+    session_id = sessao["loginInformation"]["session"] rescue nil
 
     raise PagasoError.new("Sessão expirada") if session_id.blank?
 
-begin
     url = "#{url_service}#{parametro.get.endpoint_HTTP_Heartbeat}?session=#{session_id}"
     uri = URI.parse(URI::Parser.new.escape(url))
 
@@ -1354,7 +1353,6 @@ begin
     sucesso = JSON.parse(res.body)["success"] rescue false
 
     raise PagasoError.new("Fazer login novamente depois") if !sucesso
-end
 
     url = "#{url_service}#{parametro.get.endpoint_HTTP_VouchersCreateOnlyPlayable}?session=#{session_id}"
     uri = URI.parse(URI::Parser.new.escape(url))
