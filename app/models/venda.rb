@@ -5,7 +5,7 @@ class Venda < ApplicationRecord
   belongs_to :lancamento, optional: true
   belongs_to :partner
 
-  after_save :update_product
+  after_save :update_product, :atualizar_vendas_consolidadas
 
   def movimentacoes_conta_corrente
     ccs = ContaCorrente.where(venda_id: self.id)
@@ -1515,5 +1515,31 @@ end
     @helper ||= Class.new do
       include ActionView::Helpers::NumberHelper
     end.new
+  end
+
+  def atualizar_vendas_consolidadas
+    venda_consolidada = VendasConsolidada.where(venda_id: self.id).first
+    venda_consolidada = VendasConsolidada.new if venda_consolidada.blank?
+    venda_consolidada.venda_id = self.id
+    venda_consolidada.usuario_id = self.usuario_id
+    venda_consolidada.usuario_nome = self.usuario.nome
+    venda_consolidada.usuario_login = self.usuario.login
+    venda_consolidada.status_cliente_id = self.usuario.status_cliente_id
+    venda_consolidada.status_cliente_nome = self.usuario.status_cliente.nome
+    venda_consolidada.partner_status_parceiro_id = self.partner.status_parceiro_id
+    venda_consolidada.partner_status_parceiro_nome = self.partner.status_parceiro.nome
+    venda_consolidada.vendas_valor_original_valor = self.valor_original
+    venda_consolidada.vendas_desconto_aplicado_lucro = self.desconto_aplicado
+    venda_consolidada.porcentagem_vendas_desconto_aplicado = self.porcentagem_desconto
+    venda_consolidada.vendas_value_custo = self.value
+    venda_consolidada.vendas_created_at = self.created_at
+    venda_consolidada.vendas_updated_at = self.updated_at
+    venda_consolidada.vendas_product_id = self.product_id
+    venda_consolidada.vendas_product_nome = self.product.name
+    venda_consolidada.vendas_product_subtipo = self.product.subtipo
+    venda_consolidada.return_code_api_return_code = self.status_desc.return_code
+    venda_consolidada.return_code_api_error_description_pt = self.status_desc.error_description_pt 
+    venda_consolidada.return_code_api_partner_name = self.status_desc.partner_name 
+    venda_consolidada.save
   end
 end

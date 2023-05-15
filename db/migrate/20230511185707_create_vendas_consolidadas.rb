@@ -2,6 +2,7 @@ class CreateVendasConsolidadas < ActiveRecord::Migration[5.2]
   def change
     create_table :vendas_consolidadas do |t|
       t.integer :usuario_id
+      t.integer :venda_id
       t.string :usuario_nome
       t.string :usuario_login
       t.integer :status_cliente_id
