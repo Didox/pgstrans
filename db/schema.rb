@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_06_183423) do
+ActiveRecord::Schema.define(version: 2023_05_15_182444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -825,6 +825,32 @@ ActiveRecord::Schema.define(version: 2023_04_06_183423) do
     t.index ["partner_id"], name: "index_vendas_on_partner_id"
     t.index ["usuario_id"], name: "index_vendas_on_usuario_id"
     t.index ["zappi"], name: "vendas_zappi"
+  end
+
+  create_table "vendas_consolidadas", force: :cascade do |t|
+    t.integer "usuario_id"
+    t.integer "venda_id"
+    t.string "usuario_nome"
+    t.string "usuario_login"
+    t.integer "status_cliente_id"
+    t.string "status_cliente_nome"
+    t.integer "partner_status_parceiro_id"
+    t.string "partner_status_parceiro_nome"
+    t.float "vendas_valor_original_valor"
+    t.float "vendas_desconto_aplicado_lucro"
+    t.string "porcentagem_vendas_desconto_aplicado"
+    t.float "vendas_value_custo"
+    t.datetime "vendas_created_at"
+    t.datetime "vendas_updated_at"
+    t.integer "vendas_product_id"
+    t.string "vendas_product_nome"
+    t.string "vendas_product_subtipo"
+    t.string "return_code_api_return_code"
+    t.text "return_code_api_error_description_pt"
+    t.string "return_code_api_partner_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "vendas_product_categoria"
   end
 
   add_foreign_key "alegacao_de_pagamentos", "bancos"

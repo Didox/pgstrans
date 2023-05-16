@@ -5,7 +5,7 @@ class Venda < ApplicationRecord
   belongs_to :lancamento, optional: true
   belongs_to :partner
 
-  after_save :update_product
+  after_save :update_product, :atualizar_vendas_consolidadas
 
   def movimentacoes_conta_corrente
     ccs = ContaCorrente.where(venda_id: self.id)
@@ -16,7 +16,7 @@ class Venda < ApplicationRecord
     cc = ccs.reorder("created_at asc").first
     cc
   rescue
-    nil
+    nilZ
   end
   
   def destroy
@@ -1330,11 +1330,10 @@ class Venda < ApplicationRecord
 
     elephant_bet_login, parceiro, parametro, url_service = ElephantBet.login
     sessao = JSON.parse(elephant_bet_login.body_request)
-    session_id = sessao["loginInformation"]["session"]
+    session_id = sessao["loginInformation"]["session"] rescue nil
 
     raise PagasoError.new("Sessão expirada") if session_id.blank?
 
-begin
     url = "#{url_service}#{parametro.get.endpoint_HTTP_Heartbeat}?session=#{session_id}"
     uri = URI.parse(URI::Parser.new.escape(url))
 
@@ -1354,7 +1353,6 @@ begin
     sucesso = JSON.parse(res.body)["success"] rescue false
 
     raise PagasoError.new("Fazer login novamente depois") if !sucesso
-end
 
     url = "#{url_service}#{parametro.get.endpoint_HTTP_VouchersCreateOnlyPlayable}?session=#{session_id}"
     uri = URI.parse(URI::Parser.new.escape(url))
@@ -1515,5 +1513,32 @@ end
     @helper ||= Class.new do
       include ActionView::Helpers::NumberHelper
     end.new
+  end
+
+  def atualizar_vendas_consolidadas
+    venda_consolidada = VendasConsolidada.where(venda_id: self.id).first
+    venda_consolidada = VendasConsolidada.new if venda_consolidada.blank?
+    venda_consolidada.venda_id = self.id
+    venda_consolidada.usuario_id = self.usuario_id
+    venda_consolidada.usuario_nome = self.usuario.nome
+    venda_consolidada.usuario_login = self.usuario.login
+    venda_consolidada.status_cliente_id = self.usuario.status_cliente_id
+    venda_consolidada.status_cliente_nome = self.usuario.status_cliente.nome
+    venda_consolidada.partner_status_parceiro_id = self.partner.status_parceiro_id
+    venda_consolidada.partner_status_parceiro_nome = self.partner.status_parceiro.nome
+    venda_consolidada.vendas_valor_original_valor = self.valor_original
+    venda_consolidada.vendas_desconto_aplicado_lucro = self.desconto_aplicado
+    venda_consolidada.porcentagem_vendas_desconto_aplicado = self.porcentagem_desconto
+    venda_consolidada.vendas_value_custo = self.value
+    venda_consolidada.vendas_created_at = self.created_at
+    venda_consolidada.vendas_updated_at = self.updated_at
+    venda_consolidada.vendas_product_id = self.product_id
+    venda_consolidada.vendas_product_nome = self.product.description
+    venda_consolidada.vendas_product_subtipo = self.product.subtipo
+    venda_consolidada.vendas_product_categoria = self.product.categoria
+    venda_consolidada.return_code_api_return_code = self.status_desc.return_code
+    venda_consolidada.return_code_api_error_description_pt = self.status_desc.error_description_pt 
+    venda_consolidada.return_code_api_partner_name = self.status_desc.partner.name 
+    venda_consolidada.save
   end
 end
