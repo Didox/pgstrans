@@ -21,7 +21,7 @@ namespace :jobs do
   end
 
   desc "Cria ou atualiza relatório de vendas consolidado"
-  task vendas_consolidado: :environment do
+  task processa_historico_vendas_consolidadas: :environment do
     puts "=== Iniciando a busca === #{Time.now} ==="
 
     quantidade = Venda.count
