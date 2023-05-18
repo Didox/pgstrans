@@ -20,6 +20,26 @@ namespace :jobs do
     end
   end
 
+  desc "Cria ou atualiza relatório de vendas consolidado"
+  task vendas_consolidado: :environment do
+    puts "=== Iniciando a busca === #{Time.now} ==="
+
+    quantidade = Venda.count
+    levas = quantidade / 1000
+    levas.times do |i|
+      Venda.where("id > #{i} and id < #{i*1000}").each do |venda|
+        puts "===[#{venda.id}] | inicio ===  #{Time.now} ==="
+        venda.atualizar_vendas_consolidadas
+        puts "===[#{venda.id}] | fim ===  #{Time.now} ==="
+      end
+
+      puts "=== Esperando para não honerar servidor #{Time.now} ==="
+      sleep(3)
+      puts "=== Segunda leva #{i} de #{levas} ===  #{Time.now} ==="
+    end
+
+  end
+
   desc "Atualiza porcentagem_desconto_venda"
   task atualiza_porcentagem_desconto_venda: :environment do
     puts "=== Iniciando a busca ==="
