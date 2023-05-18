@@ -141,6 +141,23 @@ class ProdutosController < ApplicationController
     return render json: produtos_api.to_json, status: 200
   end
 
+  def produtos_elephantbet_api
+    return if nega_consulta_api("elephantbet")
+
+    produtos_api = []
+    produtos = Produto.produtos.where(partner_id: Partner.where(slug: Partner.elephantbet.slug)).reorder("valor_compra_telemovel asc, nome_comercial asc")
+    produtos.each do |produto|
+      produtos_api << {
+        id: produto.id,
+        nome: "#{produto.nome_comercial} - #{helper.number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2)}",
+        valor: formata_numero_duas_casas(produto.valor_compra_telemovel),
+        subtipo: produto.subtipo
+      }
+    end
+
+    return render json: produtos_api.to_json, status: 200
+  end
+
   def produtos_zapfibra_api
     return if nega_consulta_api("zapfibra")
 

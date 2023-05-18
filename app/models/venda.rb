@@ -1539,7 +1539,7 @@ class Venda < ApplicationRecord
       venda_consolidada.vendas_product_categoria = self.product.categoria
       venda_consolidada.return_code_api_return_code = self.status_desc.return_code
       venda_consolidada.return_code_api_error_description_pt = self.status_desc.error_description_pt 
-      venda_consolidada.return_code_api_partner_name = self.status_desc.partner.name 
+      venda_consolidada.return_code_api_partner_name = self.status_desc.partner.name rescue venda_consolidada.partner_status_parceiro_nome
       venda_consolidada.save
     end
   end
