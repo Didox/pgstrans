@@ -173,6 +173,7 @@ Rails.application.routes.draw do
   get 'api/recarga/ende-produtos', to: 'produtos#produtos_ende_api'
   get 'api/recarga/africell-produtos', to: 'produtos#produtos_africell_api'
   get 'api/recarga/zapfibra-produtos', to: 'produtos#produtos_zapfibra_api'
+  get 'api/recarga/elephantbet-produtos', to: 'produtos#produtos_elephantbet_api'
 
   post 'api/v2/recarga/confirma/:tipo_venda', to: 'recarga#confirma_api_v2', as: "api_recarga_confirma_v2"
 
