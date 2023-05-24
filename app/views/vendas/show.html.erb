@@ -15,10 +15,11 @@
     <dl class="dl-horizontal">
       <dt>ID da Venda:</dt>
       <dd><%= @venda.id %></dd>
-      <dt>Usuário:</dt>
-      <dd><%= @venda&.usuario&.nome %></dd>
       <dt>Login do Usuário:</dt>
       <dd><%= @venda&.usuario&.login %></dd>
+      <dt>Nome do Usuário:</dt>
+      <dd><%= @venda&.usuario&.nome %></dd>
+
       <dt>Produto no Pagasó:</dt>
       <dd>
         <% if @venda.product_id.present? %>
