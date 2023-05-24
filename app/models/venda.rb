@@ -16,7 +16,7 @@ class Venda < ApplicationRecord
     cc = ccs.reorder("created_at asc").first
     cc
   rescue
-    nilZ
+    nil
   end
   
   def destroy
