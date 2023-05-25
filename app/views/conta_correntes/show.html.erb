@@ -30,6 +30,10 @@
       <% end %>
       <dt>Data:</dt>
       <dd><%= @conta_corrente.data_alegacao_pagamento rescue "" %></dd>
+      <% if @conta_corrente.venda_id.present? %>
+          <dt>Venda ID:</dt>
+          <dd><a href="/vendas/<%= @conta_corrente.venda_id %>"><%= @conta_corrente.venda_id %></a><br></dd>
+      <% end %>
       <hr>
       <dt>
         Valor do Lançamento:

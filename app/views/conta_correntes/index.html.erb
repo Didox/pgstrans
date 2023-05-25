@@ -221,7 +221,10 @@
           <tr>
             <td style="width: 450px">
               <% if @adm.admin? || @adm.operador? %> 
-                <b>ID Interno Usuário:</b> <%= conta_corrente&.usuario&.id %><br>
+                <b>ID Interno Usuário:</b> <%= conta_corrente&.usuario&.id %> - 
+              <% end %>
+              <% if conta_corrente.venda_id.present? %>
+                 <b>Venda ID</b> <a href="/vendas/<%= conta_corrente.venda_id %>"><%= conta_corrente.venda_id %></a><br>
               <% end %>
               <b>Login:</b> <%= conta_corrente&.usuario&.login %><br>
               <b>Nome do Usuário:</b> <%= conta_corrente&.usuario&.nome %><br>

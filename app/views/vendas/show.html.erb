@@ -15,6 +15,11 @@
     <dl class="dl-horizontal">
       <dt>ID da Venda:</dt>
       <dd><%= @venda.id %></dd>
+      <dt>Login do Usuário:</dt>
+      <dd><%= @venda&.usuario&.login %></dd>
+      <dt>Nome do Usuário:</dt>
+      <dd><%= @venda&.usuario&.nome %></dd>
+
       <dt>Produto no Pagasó:</dt>
       <dd>
         <% if @venda.product_id.present? %>
@@ -67,6 +72,11 @@
         <dd><%= @venda.customer_number %></dd>
       <% end %>
 
+      <dt>Data da Venda:</dt>
+      <dd>
+        <%= @venda.created_at.strftime("%d/%m/%Y %H:%M:%S") %>
+      </dd>  
+
       <% if @venda.smartcard.present? %>
         <dt>Smartcard:</dt>
         <dd><%= @venda.smartcard %></dd>
@@ -84,7 +94,7 @@
         <% end %>
       <% end %>
 
-      <dt>Situação:</dt>
+      <dt>Situação da Venda:</dt>
       <dd><%= @venda.status_desc.error_description_pt %> - <strong><%= "#{@venda.lancamento.nome}" rescue "" %></strong></dd>
 
       <% if @venda.error_message.present? %>
