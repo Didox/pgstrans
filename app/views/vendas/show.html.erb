@@ -102,6 +102,11 @@
       <dd><%= @venda.error_message %></strong></dd>
       <% end %>
 
+      <% if usuario_logado.admin? || usuario_logado.operador? %>
+          <dt><b>Conta corrente ID</b></dt> 
+          <dd><a href="/conta_correntes/<%= @venda.movimentacoes_conta_corrente.id rescue "" %>" target="_blank"><%= @venda.movimentacoes_conta_corrente.id rescue "" %></a><br></dd>
+      <% end %>
+
       <% if @adm.id == Usuario::ROOT %>
         <% if @venda.log_erro_text.present? %>
           <dt>Log Erro Text:</dt>
