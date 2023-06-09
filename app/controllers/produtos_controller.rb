@@ -86,8 +86,8 @@ class ProdutosController < ApplicationController
     produtos.each do |produto|
       produtos_api << {
         id: produto.id,
-        nome: "#{helper.number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2)}",
-        valor: produto.nome_comercial
+        valor: "#{helper.number_to_currency(produto.valor_compra_telemovel, :unit => "KZ", :precision => 2)}",
+        nome: produto.nome_comercial
       }
     end
 
