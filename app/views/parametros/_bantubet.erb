@@ -1,0 +1,36 @@
+
+
+<div class="form-input col-sm-12">  
+  <div class="form-group string optional url_integracao_desenvolvimento">
+    <label class="string optional" for="url_integracao_desenvolvimento">URL Integração em Desenvolvimento</label>
+    <input class="form-control string optional" value="<%= @parametro.get.url_integracao_desenvolvimento %>" type="text" name="parametro[url_integracao_desenvolvimento]" id="url_integracao_desenvolvimento">
+  </div>
+</div>
+
+<div class="form-input col-sm-12">
+  <div class="form-group string optional url_integracao_producao">
+    <label class="string optional" for="url_integracao_producao">URL Integração em Produção</label>
+    <input class="form-control string optional" value="<%= @parametro.get.url_integracao_producao %>" type="text" name="parametro[url_integracao_producao]" id="url_integracao_producao">
+  </div>
+</div>
+
+<div class="form-input col-sm-4">
+  <div class="form-group string optional sid">
+    <label class="string optional" for="sid">SID</label>
+    <input class="form-control string optional" value="<%= @parametro.get.sid %>" type="text" name="parametro[sid]" id="sid">
+  </div>
+</div>
+
+<div class="form-input col-sm-4">
+  <div class="form-group string optional resource">
+    <label class="string optional" for="resource">Resource</label>
+    <input class="form-control string optional" value="<%= @parametro.get.resource %>" type="text" name="parametro[resource]" id="resource">
+  </div>
+</div>
+
+<div class="form-input col-sm-4">
+  <div class="form-group string optional secret">
+    <label class="string optional" for="secret">SECRET</label>
+    <input class="form-control string optional" value="<%= @parametro.get.secret %>" type="text" name="parametro[secret]" id="secret">
+  </div>
+</div>
