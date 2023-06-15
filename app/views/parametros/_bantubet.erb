@@ -14,23 +14,37 @@
   </div>
 </div>
 
-<div class="form-input col-sm-4">
+<div class="form-input col-sm-3">
   <div class="form-group string optional sid">
     <label class="string optional" for="sid">SID</label>
     <input class="form-control string optional" value="<%= @parametro.get.sid %>" type="text" name="parametro[sid]" id="sid">
   </div>
 </div>
 
-<div class="form-input col-sm-4">
+<div class="form-input col-sm-3">
   <div class="form-group string optional resource">
     <label class="string optional" for="resource">Resource</label>
     <input class="form-control string optional" value="<%= @parametro.get.resource %>" type="text" name="parametro[resource]" id="resource">
   </div>
 </div>
 
-<div class="form-input col-sm-4">
-  <div class="form-group string optional secret">
-    <label class="string optional" for="secret">SECRET</label>
-    <input class="form-control string optional" value="<%= @parametro.get.secret %>" type="text" name="parametro[secret]" id="secret">
+<div class="form-input col-sm-3">
+  <div class="form-group string optional secret_key">
+    <label class="string optional" for="secret_key">SECRET KEY</label>
+    <input class="form-control string optional" value="<%= @parametro.get.secret_key %>" type="text" name="parametro[secret_key]" id="secret_key">
+  </div>
+</div>
+
+<div class="form-input col-sm-3">
+  <div class="form-group string optional payment_id">
+    <label class="string optional" for="payment_id">PaymentID</label>
+    <input class="form-control string optional" value="<%= @parametro.get.payment_id %>" type="text" name="parametro[payment_id]" id="payment_id">
+  </div>
+</div>
+
+<div class="form-input col-sm-12">
+  <div class="form-group string optional endpoint_Transactions">
+    <label class="string optional" for="endpoint_Transactions">Endpoint Transactions</label>
+    <input class="form-control string optional" value="<%= @parametro.get.endpoint_Transactions %>" type="text" name="parametro[endpoint_Transactions]" id="endpoint_Transactions">
   </div>
 </div>
