@@ -64,6 +64,10 @@ class Partner < ApplicationRecord
     Partner.find_by_slug('elephantbet')
   end
 
+  def self.bantubet
+    Partner.find_by_slug('bantubet')
+  end
+
   def self.dstv
     Partner.find_by_slug('dstv')
   end

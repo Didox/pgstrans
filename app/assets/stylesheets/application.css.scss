@@ -361,3 +361,12 @@ label{
 		display: block!important;
 	} 
 }
+
+.bantubet-menu{
+	display: inline-block!important;
+}
+@media only screen and (max-width: 600px) {
+  	.bantubet-menu{
+		display: block!important;
+	} 
+}

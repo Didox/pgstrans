@@ -1453,21 +1453,40 @@ class Venda < ApplicationRecord
 
     bantu_bet_check_client, parceiro, parametro, url_service = BantuBet.CheckClient
     sessao = JSON.parse(bantu_bet_check_client.body_request)
-    session_id = sessao["loginInformation"]["session"] rescue nil
 
-    raise PagasoError.new("Sessão expirada") if session_id.blank?
-
-    url = "#{url_service}#{parametro.get.endpoint_HTTP_Heartbeat}?session=#{session_id}"
+    url = "#{url_service}#{parametro.get.endpoint_HTTP_Heartbeat}?"
     uri = URI.parse(URI::Parser.new.escape(url))
 
+    bt_resource = "#{parametro.get.resource}"
+    secret_key = "#{parametro.get.secret_key}"
+    command = "pay"
+    account = params[:bantubet_telefone]
+    payment_id = "#{parametro.get.payment_id}"
+    amount = valor_original
+    currency = "AOA"
+    txn_id = "número da transação única pagasó"
+    sid = "#{parametro.get.sid}"
+    
+    hashcode = gerar ##
+
+   ## curl 'https://payments1.betconstruct.com/Bets/PaymentsCallback/TerminalCallbackPG/?command=check&account=946908645&paymentID=3128&currency=AOA&sid=1869146&hashcode=57f6ceec1130226beedb208a78fe32f4'
+   ## "response":{"code":0,"message":"OK","FirstName":"Jonathan","LastName":"Da silva "}}% 
+
+    url = "#{url_service}/#{parametro.get.endpoint_Transactions}/?command=#{command}&account=#{account}&paymentID=#{payment_id}&currency=#{currency}&txn_id=#{txn_id}&sid=#{sid}&hashcode=#{hashcode}"
+  
     body = {
-      "session": "#{session_id}",
+      "command": "#{command}",
+      "account": "#{account}",
+      "paymentID": "#{paymentID}",
+      "currency": "#{currency}",
+      "sid": "#{sid}",
+      "hashcode": "#{hashcode}",
+
     }.to_json
 
     res = HTTParty.patch(uri, 
       :headers => {
         'Content-Type' => 'application/json',
-        'Authorization' => "Basic #{parametro.get.bearer_token_default}",
       },
       body: body,
       timeout: DEFAULT_TIMEOUT.to_i.seconds
@@ -1475,46 +1494,6 @@ class Venda < ApplicationRecord
 
     sucesso = JSON.parse(res.body)["success"] rescue false
 
-    raise PagasoError.new("Fazer login novamente depois") if !sucesso
-
-    uri = URI.parse(URI::Parser.new.escape(url))
-
-
-
-    bt_resource = "#{parametro.get.resource}"
-    secret_key = "#{parametro.get.secret_key}"
-    command = "pay"
-    account = "numero do telefone" ##
-    payment_id = "#{parametro.get.payment_id}"
-    amount = "valor que vem da tela de vendas"
-    currency = "AOA"
-    txn_id = "número da transação única pagasó"
-    sid = "#{parametro.get.sid}"
-    
-    hashcode = gerar ##
-
-    url = "#{url_service}/#{parametro.get.endpoint_Transactions}/?command=#{command}&account=#{account}&paymentID=#{payment_id}&currency=#{currency}&txn_id=#{txn_id}&sid=#{sid}&hashcode=#{hashcode}"
-  
-    body = {
-      "playerReference": params[:elephantbet_telefone],
-      "amount": valor_original,
-      "payment": {
-          "mode": "external"
-      },
-      "distribution": "digital"
-    }.to_json
-
-    res = HTTParty.post(uri, 
-      :headers => {
-        'Content-Type' => 'application/json',
-        'Authorization' => "Basic #{parametro.get.bearer_token_default}",
-      },
-      body: body,
-      timeout: DEFAULT_TIMEOUT.to_i.seconds
-    )
-
-    transaction_reference = JSON.parse(res.body)["voucher"]["reference"] rescue ""
-    payment_code = JSON.parse(res.body)["voucher"]["paymentCode"] rescue ""
     venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, transaction_reference: transaction_reference, customer_number: params[:bantubet_telefone], payment_code: payment_code, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
@@ -1558,9 +1537,9 @@ class Venda < ApplicationRecord
       conta_corrente.responsavel = usuario
       conta_corrente.save!
 
-      if params[:api].blank? && params[:voucher_sms_elephantbet].present?
+      if params[:api].blank? && params[:voucher_sms_bantubet].present?
         
-        assunto_email = "ElephantBet Voucher"
+        assunto_email = "BantuBet Voucher"
         creation_date_time = JSON.parse(res.body)["voucher"]["creationDatetime"].to_datetime.strftime("%d/%m/%Y %H:%M:%S")  rescue ""
         transaction_reference = JSON.parse(res.body)["voucher"]["reference"] rescue ""
         endValidity = JSON.parse(res.body)["voucher"]["endValidity"].to_datetime.strftime("%d/%m/%Y %H:%M:%S")  rescue ""
@@ -1569,9 +1548,9 @@ class Venda < ApplicationRecord
 
         mensagem = "#{assunto_email} #{creation_date_time} Referência:#{transaction_reference} Valor:#{Venda.helper.number_to_currency(valor_original, :precision => 2)} Validade:#{endValidity} Voucher:#{payment_code}"
 
-        envia, resposta = Sms.enviar(params[:voucher_sms_elephantbet], mensagem)
+        envia, resposta = Sms.enviar(params[:voucher_sms_bantubet], mensagem)
 
-        sms_log = SmsHistoricoEnvio.new(numero: params[:voucher_sms_elephantbet], conteudo: mensagem, usuario_id: usuario.id, venda_id: venda.id, sucesso: true)
+        sms_log = SmsHistoricoEnvio.new(numero: params[:voucher_sms_bantubet], conteudo: mensagem, usuario_id: usuario.id, venda_id: venda.id, sucesso: true)
         if envia
           sms_log.save!
         else

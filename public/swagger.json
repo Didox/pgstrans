@@ -847,7 +847,7 @@
         }
       }
     },
-    "/api/recarga/bantutbet-produtos.json": {
+    "/api/recarga/bantubet-produtos.json": {
       "get": {
         "tags": [
           "Recarga"
@@ -861,7 +861,7 @@
           "200": {
             "description": "Operação de sucesso",
             "schema": {
-              "$ref": "#/definitions/produtos_recarga_bantutbet"
+              "$ref": "#/definitions/produtos_recarga_bantubet"
             }
           },
           "401": {

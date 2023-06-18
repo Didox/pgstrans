@@ -73,6 +73,7 @@ class PerfilUsuario < ApplicationRecord
       produtos_africell_api: "Lista de produtos da AFRICELL pela Pagasó API",
       produtos_zapfibra_api: "Lista de produtos da ZAP FIBRA pela Pagasó API",
       produtos_elephantbet_api: "Lista de produtos da ELEPHANT BET pela Pagasó API", 
+      produtos_bantubet_api: "Lista de produtos da BANTU BET pela Pagasó API", 
       index: "(INDEX) Mostrar a lista de todos os registos ou serviços dessa sessão",
       index_grafico: "Gráfico de vendas",
       index_resumo: "Resumo de vendas",
