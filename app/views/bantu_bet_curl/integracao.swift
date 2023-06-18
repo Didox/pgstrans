@@ -33,11 +33,7 @@ curl 'https://payments1.betconstruct.com/Bets/PaymentsCallback/TerminalCallbackP
 {"response":{"code":0,"message":"OK","FirstName":"","LastName":""}}%
 
 
-# Check Transaction Status
 
-Exemplo de Transação Válida
-
-curl 'https://payments1.betconstruct.com/Bets/PaymentsCallback/TerminalCallbackPG/?command=status&txn_id=11&sid=1869146&hashcode=9576eb92b56787d792c83e8209e6d196'
 
 
 

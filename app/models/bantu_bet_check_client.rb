@@ -1,0 +1,2 @@
+class BantuBetCheckClient < ApplicationRecord
+end

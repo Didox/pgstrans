@@ -601,6 +601,96 @@
         }
       }
     },
+    "/api/recarga/confirma/bantubet.json": {
+      "post": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto BantuBet conforme tabela de produtos",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "bantubet_telefone",
+            "description": "Número do Telefone do Jogador",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/recarga/confirma/bantubet.json": {
+      "post": {
+        "tags": [
+          "Recarga v2"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "description": "ID do produto BantuBet conforme tabela de produtos",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "valor",
+            "description": "Valor de compra (KZ)",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "bantubet_telefone",
+            "description": "Número do Telefone do Jogador",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/recarga_v2"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha_v2"
+            }
+          }
+        }
+      }
+    },
     "/api/recarga/dstv-produtos.json": {
       "get": {
         "tags": [
@@ -746,6 +836,32 @@
             "description": "Operação de sucesso",
             "schema": {
               "$ref": "#/definitions/produtos_recarga_elephanetbet"
+            }
+          },
+          "401": {
+            "description": "Ação não autorizada",
+            "schema": {
+              "$ref": "#/definitions/falha"
+            }
+          }
+        }
+      }
+    },
+    "/api/recarga/bantutbet-produtos.json": {
+      "get": {
+        "tags": [
+          "Recarga"
+        ],
+        "description": "Retorna produtos BANTU BET",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operação de sucesso",
+            "schema": {
+              "$ref": "#/definitions/produtos_recarga_bantutbet"
             }
           },
           "401": {
@@ -1109,6 +1225,20 @@
       }
     },
     "produto_recarga_elephanetbet": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "nome": { "type": "string" },
+        "valor": { "type": "string" }
+      }
+    },
+    "produtos_recarga_bantubet": {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/produto_recarga_bantubet"
+      }
+    },
+    "produto_recarga_bantubet": {
       "type": "object",
       "properties": {
         "id": { "type": "integer" },
