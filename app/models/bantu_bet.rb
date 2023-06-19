@@ -18,7 +18,7 @@ class BantuBet
   end
 
   def self.check_client(params)
-    bantu_bet_check_client, parceiro, parametro, url_service = BantuBet.CheckClient
+    # bantu_bet_check_client, parceiro, parametro, url_service = BantuBet.fazer_verifica_cao_cliente # TODO não implementado
 
     command = "check"
     account = "numero do telefone" ##

@@ -105,7 +105,7 @@ class Venda < ApplicationRecord
       return_code = ReturnCodeApi.where(return_code: self.status, partner_id: self.partner_id).first 
       return return_code if return_code.present?
     end
-    
+
     if self.message_api_terceiro.present?
       return_code = ReturnCodeApi.where("error_description ilike ?", "%#{self.message_api_terceiro_para_busca}%").where(partner_id: self.partner_id).first 
       return return_code if return_code.present?
@@ -1449,13 +1449,13 @@ class Venda < ApplicationRecord
     desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip)
 
     raise PagasoError.new("Digite o número do telefone do jogador") if params[:bantubet_telefone].blank?
-    params[:bantubet_telefone] = "+244#{params[:bantubet_telefone]}" unless params[:bantubet_telefone].to_s.include?("+244")
+    #params[:bantubet_telefone] = "+244#{params[:bantubet_telefone]}" unless params[:bantubet_telefone].to_s.include?("+244")
 
-    bantu_bet_check_client, parceiro, parametro, url_service = BantuBet.CheckClient
-    sessao = JSON.parse(bantu_bet_check_client.body_request)
-
-    url = "#{url_service}#{parametro.get.endpoint_HTTP_Heartbeat}?"
-    uri = URI.parse(URI::Parser.new.escape(url))
+    if Rails.env == "development"
+      url_service = parametro.get.url_integracao_desenvolvimento
+    else
+      url_service = parametro.get.url_integracao_producao
+    end
 
     bt_resource = "#{parametro.get.resource}"
     secret_key = "#{parametro.get.secret_key}"
@@ -1464,37 +1464,24 @@ class Venda < ApplicationRecord
     payment_id = "#{parametro.get.payment_id}"
     amount = valor_original
     currency = "AOA"
-    txn_id = "número da transação única pagasó"
+    txn_id = Time.now.to_i #"número da transação única pagasó"
     sid = "#{parametro.get.sid}"
-    
-    hashcode = gerar ##
 
-   ## curl 'https://payments1.betconstruct.com/Bets/PaymentsCallback/TerminalCallbackPG/?command=check&account=946908645&paymentID=3128&currency=AOA&sid=1869146&hashcode=57f6ceec1130226beedb208a78fe32f4'
-   ## "response":{"code":0,"message":"OK","FirstName":"Jonathan","LastName":"Da silva "}}% 
+    require 'digest'
+    hashcode = Digest::MD5.new.hexdigest("#{command}#{txn_id}#{account}#{amount}#{currency}#{sid}#{parametro.get.secret_key}")
 
-    url = "#{url_service}/#{parametro.get.endpoint_Transactions}/?command=#{command}&account=#{account}&paymentID=#{payment_id}&currency=#{currency}&txn_id=#{txn_id}&sid=#{sid}&hashcode=#{hashcode}"
+    url = "#{url_service}/#{parametro.get.endpoint_Transactions}/#{bt_resource}/?command=#{command}&account=#{account}&paymentID=#{payment_id}&amount=#{amount}&currency=#{currency}&txn_id=#{txn_id}&hashcode=#{hashcode}&sid=#{sid}"
   
-    body = {
-      "command": "#{command}",
-      "account": "#{account}",
-      "paymentID": "#{paymentID}",
-      "currency": "#{currency}",
-      "sid": "#{sid}",
-      "hashcode": "#{hashcode}",
-
-    }.to_json
-
-    res = HTTParty.patch(uri, 
+    res = HTTParty.get(url, 
       :headers => {
         'Content-Type' => 'application/json',
       },
-      body: body,
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
-    sucesso = JSON.parse(res.body)["success"] rescue false
+    sucesso = (200..300).include?(res.code) || (JSON.parse(res.body)["success"] rescue false)
 
-    venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, transaction_reference: transaction_reference, customer_number: params[:bantubet_telefone], payment_code: payment_code, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, transaction_reference: txn_id, customer_number: params[:bantubet_telefone], payment_code: payment_id, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
@@ -1502,11 +1489,10 @@ class Venda < ApplicationRecord
     venda.seller_id = usuario.sub_agente.seller_id_parceiro
     venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
 
-    venda.request_send = "#{url} ---------- body=#{body}"
+    venda.request_send = "#{url}"
     venda.response_get = res.body
 
-    venda.status = JSON.parse(res.body)["success"].to_s rescue nil
-    venda.status ||= res.code
+    venda.status = sucesso
     venda.save!
 
     if venda.sucesso?
@@ -1537,30 +1523,9 @@ class Venda < ApplicationRecord
       conta_corrente.responsavel = usuario
       conta_corrente.save!
 
-      if params[:api].blank? && params[:voucher_sms_bantubet].present?
-        
-        assunto_email = "BantuBet Voucher"
-        creation_date_time = JSON.parse(res.body)["voucher"]["creationDatetime"].to_datetime.strftime("%d/%m/%Y %H:%M:%S")  rescue ""
-        transaction_reference = JSON.parse(res.body)["voucher"]["reference"] rescue ""
-        endValidity = JSON.parse(res.body)["voucher"]["endValidity"].to_datetime.strftime("%d/%m/%Y %H:%M:%S")  rescue ""
-        payment_code = JSON.parse(res.body)["voucher"]["paymentCode"] rescue ""
-        playerReference = JSON.parse(res.body)["voucher"]["playerReference"] rescue ""
-
-        mensagem = "#{assunto_email} #{creation_date_time} Referência:#{transaction_reference} Valor:#{Venda.helper.number_to_currency(valor_original, :precision => 2)} Validade:#{endValidity} Voucher:#{payment_code}"
-
-        envia, resposta = Sms.enviar(params[:voucher_sms_bantubet], mensagem)
-
-        sms_log = SmsHistoricoEnvio.new(numero: params[:voucher_sms_bantubet], conteudo: mensagem, usuario_id: usuario.id, venda_id: venda.id, sucesso: true)
-        if envia
-          sms_log.save!
-        else
-          sms_log.sucesso = false
-          sms_log.save!
-          LogVenda.create(usuario_id: usuario.id, titulo: "SMS não enviado para venda id (#{venda.id}) dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M")}", log: resposta.inspect)
-        end
-      end
     end
   return venda
+  debugger
   rescue PagasoError => e
     raise "#{e.message} - #{e.backtrace}"
   rescue Net::ReadTimeout => e
