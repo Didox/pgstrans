@@ -123,9 +123,12 @@ Rails.application.routes.draw do
   resources :status_produtos
   resources :municipios
   resources :industries
+
+  get 'consulta-nome-usuario-operadora', to: 'usuarios#consulta_nome_usuario_operadora'
+
   resources :usuarios do
-    get 'forcar-logout', tox: 'usuarios#forcar_logout'
-    post 'zerar_saldo', tox: 'usuarios#zerar_saldo'
+    get 'forcar-logout', to: 'usuarios#forcar_logout'
+    post 'zerar_saldo', to: 'usuarios#zerar_saldo'
   end
   resources :sub_agentes
   resources :sub_distribuidors

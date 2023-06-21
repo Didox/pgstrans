@@ -1319,7 +1319,7 @@ class Venda < ApplicationRecord
   end
 
   def redirect
-    return self.partner_id == Partner.ende.id || self.partner_id == Partner.elephantbet.id || self.partner_id == Partner.bantubet.id
+    return self.partner_id == Partner.ende.id || self.partner_id == Partner.elephantbet.id
   end
 
   def self.venda_elephantbet(params, usuario, ip)
@@ -1464,7 +1464,7 @@ class Venda < ApplicationRecord
     payment_id = "#{parametro.get.payment_id}"
     amount = valor_original
     currency = "AOA"
-    txn_id = Time.now.to_i #"número da transação única pagasó"
+    txn_id = Time.now.to_i 
     sid = "#{parametro.get.sid}"
 
     require 'digest'
@@ -1479,9 +1479,10 @@ class Venda < ApplicationRecord
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
-    sucesso = (200..300).include?(res.code) || (JSON.parse(res.body)["success"] rescue false)
+    sucesso = JSON.parse(res.body)["success"].to_s rescue ""
+    sucesso = (200..300).include?(res.code).to_s if sucesso.blank?
 
-    venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, transaction_reference: txn_id, customer_number: params[:bantubet_telefone], payment_code: payment_id, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, transaction_reference: txn_id, customer_number: params[:bantubet_telefone], payment_code: txn_id, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
     venda.save!
     
@@ -1525,7 +1526,7 @@ class Venda < ApplicationRecord
 
     end
   return venda
-  debugger
+
   rescue PagasoError => e
     raise "#{e.message} - #{e.backtrace}"
   rescue Net::ReadTimeout => e

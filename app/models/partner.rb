@@ -51,6 +51,11 @@ class Partner < ApplicationRecord
     end
   end
 
+  def nome_operadora(telefone)
+    return BantuBet.busca_nome(telefone) if self.slug == "bantubet"
+    raise "Operadora #{this.slug} não configurada para busca de nome do cliente na operadora"
+  end
+
   def self.find_by_slug(slug)
     slug = slug.to_s.downcase.strip
     Partner.where("lower(slug) = ?", slug).first

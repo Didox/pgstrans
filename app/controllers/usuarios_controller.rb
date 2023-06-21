@@ -53,6 +53,17 @@ class UsuariosController < ApplicationController
     @usuarios = @usuarios.paginate(options)
   end
 
+  def consulta_nome_usuario_operadora
+    return render json: {erro: "Slug obrigatória"}, status: 400 if params[:slug].blank?
+
+    parceiro = Partner.find_by_slug(params[:slug])
+    return render json: {erro: "Parceiro não encontrado"}, status: 404 if parceiro.blank?
+
+    return render json: {erro: "Telefone obrigatório"}, status: 400 if params[:telefone].blank?
+
+    return render json: {nome: parceiro.nome_operadora(params[:telefone]) }, status: 200
+  end
+
   def forcar_logout
     usuarios = Usuario.where(id: params[:usuario_id])
     if(usuarios.count > 0)
