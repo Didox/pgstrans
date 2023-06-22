@@ -38,11 +38,18 @@ class BantuBet
       url_service = parametro.get.url_integracao_producao
     end
 
-    url = "#{url_service}/#{parametro.get.endpoint_Transactions}/?command=#{command}&account=#{account}&paymentID=#{payment_id}&currency=#{currency}&sid=#{sid}&hashcode=#{hashcode}"
+    url = "#{url_service}/#{parametro.get.endpoint_Transactions}/#{bt_resource}/?command=#{command}&account=#{account}&paymentID=#{payment_id}&currency=#{currency}&sid=#{sid}&hashcode=#{hashcode}"
 
     uri = URI.parse(URI::Parser.new.escape(url))
 
+    puts("-------------------------------------")
+    puts(uri)
+    puts("-------------------------------------")
+
     #curl 'https://payments1.betconstruct.com/Bets/PaymentsCallback/TerminalCallbackPG/?command=check&account=946908645&paymentID=3128&currency=AOA&sid=1869146&hashcode=57f6ceec1130226beedb208a78fe32f4'
+    #{"response":{"code":0,"message":"OK","FirstName":"Jonathan","LastName":"Da silva "}}%
+
+    #https://payments1.betconstruct.com/Bets/PaymentsCallback/?command=check&account=11111111111&paymentID=3128&currency=AOA&sid=1869146&hashcode=003ec08ef9c86ad15512ebb58d89aeae
 
     request = HTTParty.post(uri, 
       headers: {
