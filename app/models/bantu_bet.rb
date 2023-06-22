@@ -42,15 +42,6 @@ class BantuBet
 
     uri = URI.parse(URI::Parser.new.escape(url))
 
-    puts("-------------------------------------")
-    puts(uri)
-    puts("-------------------------------------")
-
-    #curl 'https://payments1.betconstruct.com/Bets/PaymentsCallback/TerminalCallbackPG/?command=check&account=946908645&paymentID=3128&currency=AOA&sid=1869146&hashcode=57f6ceec1130226beedb208a78fe32f4'
-    #{"response":{"code":0,"message":"OK","FirstName":"Jonathan","LastName":"Da silva "}}%
-
-    #https://payments1.betconstruct.com/Bets/PaymentsCallback/?command=check&account=11111111111&paymentID=3128&currency=AOA&sid=1869146&hashcode=003ec08ef9c86ad15512ebb58d89aeae
-
     request = HTTParty.post(uri, 
       headers: {
         'Content-Type' => 'application/json'
@@ -59,6 +50,8 @@ class BantuBet
     )
 
     user = JSON.parse(request.body)["response"] rescue {}
+
+    return "Cliente não encontrado na operadora" if user.blank?
     
     return "#{user["FirstName"]} #{user["LastName"]}"
   end
