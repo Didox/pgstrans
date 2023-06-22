@@ -254,7 +254,7 @@ const submeterRecarga = function() {
     content: `
       <div>TEM CERTEZA QUE DESEJA EFECTUAR A RECARGA?</div><br>
       <div><b>Operadora:</b> ${operadora.toUpperCase()}</div>
-      <div id="nome_usuario_operadora"><b>Nome Usuário:</b> <label style="margin-bottom: 0;"> Carregando ...</label></div>
+      <div style="display:none" id="nome_usuario_operadora"><b>Nome Usuário:</b> <label style="margin-bottom: 0;"> Carregando ...</label></div>
       <div><b>Valor da Recarga:</b> KZ ${valor}</div>
       <div><b>${labelNumero}:</b> ${numero}</div>
     `,
@@ -284,16 +284,12 @@ const submeterRecarga = function() {
 };
 
 var carregaNomeUsuario = function(operadora, telefone){
-  setTimeout(function(){
-    $("#nome_usuario_operadora").hide()
-  }, 100)
-
   if(["bantubet"].indexOf(operadora) == -1) return;
 
   setTimeout(function(){
     $("#nome_usuario_operadora").show()
     $("#nome_usuario_operadora label").html("Carregando ...")
-  }, 100)
+  }, 500)
     
   $.ajax({
     url: `/consulta-nome-usuario-operadora.json?slug=${operadora}&telefone=${telefone}`,
