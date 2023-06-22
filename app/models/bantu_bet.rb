@@ -57,9 +57,10 @@ class BantuBet
       },
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
+
+    user = JSON.parse(request.body)["response"] rescue {}
     
-    return request.body
-    #return JSON.parse(request.body)
+    return "#{user["FirstName"]} #{user["LastName"]}"
   end
 
 end
