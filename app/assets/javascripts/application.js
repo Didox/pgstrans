@@ -247,6 +247,7 @@ const submeterRecarga = function() {
   let valor = $("#rechargeValue").val();
   let numero = $("." + operadora + " .numero").val();
   let labelNumero = $("." + operadora + " .label-numero").text().replace("\n","").replace("*", "").trim();
+  if(labelNumero == "") labelNumero = $(".transacao_smartcard_nao").text().replace("\n","").replace("*", "").trim();
   valor = parseFloat(valor).toLocaleString('pt',{style: 'currency', currency: 'AOA'}).replace("AOA", "");
 
   $.confirm({
