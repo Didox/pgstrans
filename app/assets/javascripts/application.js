@@ -291,12 +291,14 @@ var carregaNomeUsuario = function(operadora, telefone){
     $("#nome_usuario_operadora").hide()
   }, 200)
 
-  if(["bantubet"].indexOf(operadora) == -1) return;
+  if(["bantubet", "zaptv"].indexOf(operadora) == -1) return;
 
   setTimeout(function(){
     $("#nome_usuario_operadora").show()
     $("#nome_usuario_operadora label").html("Carregando ...")
   }, 500)
+
+  debugger
     
   $.ajax({
     url: `/consulta-nome-usuario-operadora.json?slug=${operadora}&telefone=${telefone}`,

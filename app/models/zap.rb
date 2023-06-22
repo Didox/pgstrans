@@ -1,4 +1,38 @@
 class Zap
+  
+
+  def self.busca_nome(zaptv_cartao)
+    parceiro = Partner.zaptv
+    parametro = Parametro.where(partner_id: parceiro.id).first
+    
+    if Rails.env == "development"
+      url_service = parametro.get.url_integracao_desenvolvimento
+    else
+      url_service = parametro.get.url_integracao_producao
+    end
+
+    url = "#{url_service}/cliente/#{zaptv_cartao}"
+
+    uri = URI.parse(URI::Parser.new.escape(url))
+
+    request = HTTParty.get(uri, 
+      headers: {
+        'Content-Type' => 'application/json'
+      },
+      timeout: DEFAULT_TIMEOUT.to_i.seconds
+    )
+
+
+    # return request.body
+    # TODO ver o que a zap retorna
+
+    nome = JSON.parse(request.body)["nome"] rescue ""
+
+    return "Cliente não encontrado na operadora" if nome.blank?
+    
+    return nome
+  end
+
   def self.importa_produtos(partner, categoria)
     parametro = Parametro.where(partner_id: partner.id)
     parametro = parametro.where("upper(categoria) = ?", categoria.upcase) if categoria.present?
