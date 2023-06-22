@@ -254,7 +254,7 @@ const submeterRecarga = function() {
     content: `
       <div>TEM CERTEZA QUE DESEJA EFECTUAR A RECARGA?</div><br>
       <div><b>Operadora:</b> ${operadora.toUpperCase()}</div>
-      <div id="nome_usuario_operadora"><b>Nome Usuário:</b> <label> Carregando ...</label></div>
+      <div id="nome_usuario_operadora"><b>Nome Usuário:</b> <label style="margin-bottom: 0;"> Carregando ...</label></div>
       <div><b>Valor da Recarga:</b> KZ ${valor}</div>
       <div><b>${labelNumero}:</b> ${numero}</div>
     `,
@@ -286,7 +286,7 @@ const submeterRecarga = function() {
 var carregaNomeUsuario = function(operadora, telefone){
   $("#nome_usuario_operadora").hide()
 
-  if(operadora != "bantubet") return;
+  if(["bantubet"].indexOf(operadora) == -1) return;
 
   $("#nome_usuario_operadora").show()
   $("#nome_usuario_operadora label").html("Carregando ...")
