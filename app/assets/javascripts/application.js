@@ -284,13 +284,17 @@ const submeterRecarga = function() {
 };
 
 var carregaNomeUsuario = function(operadora, telefone){
-  $("#nome_usuario_operadora").hide()
+  setTimeout(function(){
+    $("#nome_usuario_operadora").hide()
+  }, 100)
 
   if(["bantubet"].indexOf(operadora) == -1) return;
 
-  $("#nome_usuario_operadora").show()
-  $("#nome_usuario_operadora label").html("Carregando ...")
-  
+  setTimeout(function(){
+    $("#nome_usuario_operadora").show()
+    $("#nome_usuario_operadora label").html("Carregando ...")
+  }, 100)
+    
   $.ajax({
     url: `/consulta-nome-usuario-operadora.json?slug=${operadora}&telefone=${telefone}`,
     dataType: "json",

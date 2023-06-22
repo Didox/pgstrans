@@ -164,7 +164,9 @@ class Venda < ApplicationRecord
 
   def self.fazer_venda(params, usuario, slug_parceiro, ip)
     slug_parceiro = slug_parceiro.downcase.strip
-    self.send("venda_#{slug_parceiro}", params, usuario, ip)
+    venda = self.send("venda_#{slug_parceiro}", params, usuario, ip)
+    return Venda.new if venda.blank?
+    return venda
   end
 
   def request_id
