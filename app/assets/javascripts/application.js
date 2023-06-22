@@ -275,6 +275,7 @@ const submeterRecarga = function() {
         btnClass: 'btn-danger',
         action: function(){
           $.alert('VENDA CANCELADA!');
+          $("#nome_usuario_operadora").hide()
         }
       }
     }
@@ -284,6 +285,11 @@ const submeterRecarga = function() {
 };
 
 var carregaNomeUsuario = function(operadora, telefone){
+  
+  setTimeout(function(){
+    $("#nome_usuario_operadora").hide()
+  }, 200)
+
   if(["bantubet"].indexOf(operadora) == -1) return;
 
   setTimeout(function(){
