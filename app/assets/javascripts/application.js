@@ -307,7 +307,7 @@ var carregaNomeUsuario = function(operadora, numero){
   }, 500)
 
   $.ajax({
-    url: `/consulta-nome-usuario-operadora.json?slug=${operadora}&numero=${numero}`,
+    url: `/consulta-nome-usuario-operadora?slug=${operadora}&numero=${numero}`,
     dataType: "json",
     success: function( response ) {
       $("#nome_usuario_operadora").show()
