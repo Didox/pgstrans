@@ -41,8 +41,8 @@ class Ende
 
   def self.busca_nome(numero)
     info, xml_enviado, xml_recebido = Ende.informacoes_meter_number(numero)
-    nome =  info["name"] rescue nil
-    return "Cliente não encontrado na operadora - #{info.inspect}" if nome.blank?
+    nome =  info.first["name"] rescue nil
+    return "Cliente não encontrado na operadora" if nome.blank?
     return nome
   end
 
