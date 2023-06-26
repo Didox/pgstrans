@@ -39,6 +39,13 @@ class Ende
     return symbol.to_s.upcase.strip == "AOA" ? "AKz" : symbol
   end
 
+  def self.busca_nome(numero)
+    info, xml_enviado, xml_recebido = Ende.informacoes_meter_number(numero)
+    nome =  info["name"] rescue nil
+    return "Cliente não encontrado na operadora - #{request.body}" if nome.blank?
+    return nome
+  end
+
   def self.informacoes_meter_number(meter_number, uniq_number = nil)
     raise PagasoError.new("Por favor digite o Número do Medidor") if meter_number.blank?
     raise PagasoError.new("Número do Medidor inválido") if !Ende.validate_meter_number(meter_number)
