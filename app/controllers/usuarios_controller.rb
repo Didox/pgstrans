@@ -59,9 +59,9 @@ class UsuariosController < ApplicationController
     parceiro = Partner.find_by_slug(params[:slug])
     return render json: {erro: "Parceiro não encontrado"}, status: 404 if parceiro.blank?
 
-    return render json: {erro: "Telefone obrigatório"}, status: 400 if params[:telefone].blank?
+    return render json: {erro: "Número obrigatório"}, status: 400 if params[:numero].blank?
 
-    return render json: {nome: parceiro.nome_operadora(params[:telefone]) }, status: 200
+    return render json: {nome: parceiro.nome_operadora(params[:numero], request.remote_ip) }, status: 200
   end
 
   def forcar_logout

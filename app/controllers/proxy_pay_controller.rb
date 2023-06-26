@@ -45,7 +45,6 @@ class ProxyPayController < ApplicationController
 
    def conciliacao_proxy_pay
       usuario = Usuario.where(nro_pagamento_referencia: params["reference_id"]).first
-      debugger
       if usuario.blank?
          render json: {
             message: "Usuário não localizado"

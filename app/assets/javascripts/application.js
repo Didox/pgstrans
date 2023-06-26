@@ -285,23 +285,29 @@ const submeterRecarga = function() {
   carregaNomeUsuario(operadora, numero);
 };
 
-var carregaNomeUsuario = function(operadora, telefone){
-  
+var carregaNomeUsuario = function(operadora, numero){
   setTimeout(function(){
     $("#nome_usuario_operadora").hide()
   }, 200)
 
-  if(["bantubet", "zaptv"].indexOf(operadora) == -1) return;
+  if(["zaptv"].indexOf(operadora) != -1) {
+    var produtoId = $(".vzaptv[name='produto_id']").val();
+    var categoria = $(".vzaptv[name='produto_id']").find("option[value='" + produtoId + "']").parents("optgroup").attr("label")
+    if(categoria && categoria.toUpperCase() == "WIFI") return;
+  }
+  else if(["dstv"].indexOf(operadora) != -1){
+    var tipo = $('#transacao_smartcard_sim:checked').length > 0 ? "smartcard" : "customernumber"
+    numero = `${tipo}-${numero}`
+  }
+  else if(["bantubet"].indexOf(operadora) == -1) return;
 
   setTimeout(function(){
     $("#nome_usuario_operadora").show()
     $("#nome_usuario_operadora label").html("Carregando ...")
   }, 500)
 
-  debugger
-    
   $.ajax({
-    url: `/consulta-nome-usuario-operadora.json?slug=${operadora}&telefone=${telefone}`,
+    url: `/consulta-nome-usuario-operadora.json?slug=${operadora}&numero=${numero}`,
     dataType: "json",
     success: function( response ) {
       $("#nome_usuario_operadora").show()
