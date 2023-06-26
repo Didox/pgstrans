@@ -53,7 +53,7 @@ class Partner < ApplicationRecord
 
   def nome_operadora(numero, remote_ip = "")
     return BantuBet.busca_nome(numero) if self.slug == "bantubet"
-    return Zap.busca_nome(numero) if self.slug == "zaptv"
+    return Zap.busca_nome(numero, self.slug) if self.slug == "zaptv" || self.slug == "zapfibra"
     return Dstv.busca_nome(numero,  remote_ip) if self.slug == "dstv"
     return Ende.busca_nome(numero) if self.slug == "ende"
     raise "Operadora #{this.slug} não configurada para busca de nome do cliente na operadora"

@@ -1,8 +1,8 @@
 class Zap
   
 
-  def self.busca_nome(zaptv_cartao)
-    parceiro = Partner.zaptv
+  def self.busca_nome(zaptv_cartao, slug)
+    parceiro = Partner.send(slug)
     parametro = Parametro.where(partner_id: parceiro.id).first
     
     if Rails.env == "development"

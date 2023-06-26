@@ -299,7 +299,7 @@ var carregaNomeUsuario = function(operadora, numero){
     var tipo = $('#transacao_smartcard_sim:checked').length > 0 ? "smartcard" : "customernumber"
     numero = `${tipo}-${numero}`
   }
-  else if(["bantubet", "ende"].indexOf(operadora) == -1) return;
+  else if(["bantubet", "ende", "zapfibra"].indexOf(operadora) == -1) return;
 
   setTimeout(function(){
     $("#nome_usuario_operadora").show()
