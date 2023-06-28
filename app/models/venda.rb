@@ -1445,6 +1445,8 @@ class Venda < ApplicationRecord
         end
       end
     end
+
+    venda
   end
 
   def self.venda_bantubet(params, usuario, ip)
