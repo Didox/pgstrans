@@ -63,7 +63,8 @@ class Dstv
 
     nome = "#{dados_cliente["primeiro_nome"]} #{dados_cliente["sobrenome"]}" rescue nil
 
-    return "Cliente não encontrado na operadora" if nome.blank?
+    #return "Cliente não encontrado na operadora" if nome.blank?
+    return " " if nome.blank?
     
     return nome
   end

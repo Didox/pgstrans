@@ -51,7 +51,8 @@ class BantuBet
 
     user = JSON.parse(request.body)["response"] rescue {}
 
-    return "Cliente não encontrado na operadora" if user.blank?
+    #return "Cliente não encontrado na operadora" if user.blank?
+    return " " if user.blank?
     
     return "#{user["FirstName"]} #{user["LastName"]}"
   end
