@@ -1,30 +1,27 @@
 class Zap
   
-
   def self.busca_nome(zaptv_cartao, slug)
     parceiro = Partner.send(slug)
     parametro = Parametro.where(partner_id: parceiro.id).first
     
     if Rails.env == "development"
-      url_service = parametro.get.url_integracao_desenvolvimento
+      url = "#{parametro.get.url_nome_desenvolvimento}"
+      api_key = parametro.get.api_key_zaptv_desenvolvimento  
     else
-      url_service = parametro.get.url_integracao_producao
+      url = "#{parametro.get.url_nome_producao}/"
+      api_key = parametro.get.api_key_zaptv_producao
     end
 
-    url = "#{url_service}/cliente/#{zaptv_cartao}"
-
+    url = "#{url}/#{zaptv_cartao}"
     uri = URI.parse(URI::Parser.new.escape(url))
 
     request = HTTParty.get(uri, 
       headers: {
-        'Content-Type' => 'application/json'
+        'Content-Type' => 'application/json',
+        'apikey' => api_key
       },
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
-
-
-    # return request.body
-    # TODO ver o que a zap retorna
 
     nome = JSON.parse(request.body)["nome"] rescue ""
 
