@@ -25,7 +25,7 @@ class Zap
 
     nome = JSON.parse(request.body)["nome"] rescue ""
 
-    return "Cliente não encontrado na operadora - -#{url} - #{request.body}" if nome.blank?
+    return "Cliente não encontrado na operadora - #{api_key} -#{url} - #{request.body}" if nome.blank?
     
     return nome
   end
