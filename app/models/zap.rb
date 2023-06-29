@@ -8,7 +8,7 @@ class Zap
       url = "#{parametro.get.url_nome_desenvolvimento}"
       api_key = parametro.get.api_key_zaptv_desenvolvimento  
     else
-      url = "#{parametro.get.url_nome_producao}/"
+      url = "#{parametro.get.url_nome_producao}"
       api_key = parametro.get.api_key_zaptv_producao
     end
 
