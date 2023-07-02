@@ -1,0 +1,74 @@
+<div class="row bg-light h-50 p-3">
+  <div class="col-md-4">
+      Parceiro
+  </div>
+  <div class="col-md-8">
+      <%= @parametro.partner.name %>
+  </div>
+</div>
+<hr>
+<div class="row h-50 p-3">
+  <div class="col-md-4">
+      URL integração desenvolvimento (HOST):
+  </div>
+  <div class="col-md-8">
+      <%= @parametro.get.url_integracao_desenvolvimento %>
+  </div>
+</div>
+<hr>
+<div class="row bg-light h-50 p-3">
+  <div class="col-md-4">
+      URL integração produção (HOST):
+  </div>
+  <div class="col-md-8">
+      <%= @parametro.get.url_integracao_producao %>
+  </div>
+</div>
+<hr>
+<% if @adm.admin? %>
+  <div class="row bg-light h-50 p-3">
+    <div class="col-md-4">
+        SID:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.sid %>
+    </div>
+  </div>
+  <hr>
+  <div class="row h-50 p-3">
+    <div class="col-md-4">
+        Resource:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.resource %>
+    </div>
+  </div>
+  <hr>
+  <div class="row h-50 p-3">
+    <div class="col-md-4">
+        Secret Key:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.secret_key %>
+    </div>
+  </div>
+  <hr>
+  <div class="row h-50 p-3">
+    <div class="col-md-4">
+        Payment ID:
+    </div>
+    <div class="col-md-8">
+        <%= @parametro.get.payment_id %>
+    </div>
+  </div>
+
+<% end %>
+<hr>
+<div class="row h-50 p-3">
+  <div class="col-md-4">
+      Endpoint Transactions:
+  </div>
+  <div class="col-md-8">
+      <%= @parametro.get.endpoint_Transactions %>
+  </div>
+</div>

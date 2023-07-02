@@ -247,6 +247,7 @@ const submeterRecarga = function() {
   let valor = $("#rechargeValue").val();
   let numero = $("." + operadora + " .numero").val();
   let labelNumero = $("." + operadora + " .label-numero").text().replace("\n","").replace("*", "").trim();
+  if(labelNumero == "") labelNumero = $(".transacao_smartcard_nao").text().replace("\n","").replace("*", "").trim();
   valor = parseFloat(valor).toLocaleString('pt',{style: 'currency', currency: 'AOA'}).replace("AOA", "");
 
   $.confirm({
@@ -254,6 +255,7 @@ const submeterRecarga = function() {
     content: `
       <div>TEM CERTEZA QUE DESEJA EFECTUAR A RECARGA?</div><br>
       <div><b>Operadora:</b> ${operadora.toUpperCase()}</div>
+      <div style="display:none" id="nome_usuario_operadora"><b>Nome Usuário:</b> <label style="margin-bottom: 0;"> Carregando ...</label></div>
       <div><b>Valor da Recarga:</b> KZ ${valor}</div>
       <div><b>${labelNumero}:</b> ${numero}</div>
     `,
@@ -274,11 +276,45 @@ const submeterRecarga = function() {
         btnClass: 'btn-danger',
         action: function(){
           $.alert('VENDA CANCELADA!');
+          $("#nome_usuario_operadora").hide()
         }
       }
     }
   });
+
+  carregaNomeUsuario(operadora, numero);
 };
+
+var carregaNomeUsuario = function(operadora, numero){
+  setTimeout(function(){
+    $("#nome_usuario_operadora").hide()
+  }, 200)
+
+  if(["zaptv"].indexOf(operadora) != -1) {
+    var produtoId = $(".vzaptv[name='produto_id']").val();
+    var categoria = $(".vzaptv[name='produto_id']").find("option[value='" + produtoId + "']").parents("optgroup").attr("label")
+    if(categoria && categoria.toUpperCase() == "WIFI") return;
+  }
+  else if(["dstv"].indexOf(operadora) != -1){
+    var tipo = $('#transacao_smartcard_sim:checked').length > 0 ? "smartcard" : "customernumber"
+    numero = `${tipo}-${numero}`
+  }
+  else if(["bantubet", "ende", "zapfibra"].indexOf(operadora) == -1) return;
+
+  setTimeout(function(){
+    $("#nome_usuario_operadora").show()
+    $("#nome_usuario_operadora label").html("Carregando ...")
+  }, 500)
+
+  $.ajax({
+    url: `/consulta-nome-usuario-operadora?slug=${operadora}&numero=${numero}`,
+    dataType: "json",
+    success: function( response ) {
+      $("#nome_usuario_operadora").show()
+      $("#nome_usuario_operadora label").html(response.nome)
+    }
+  });
+}
 
 $(function(){
   $( ".autocomplete" ).autocomplete({

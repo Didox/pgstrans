@@ -105,7 +105,7 @@ class Venda < ApplicationRecord
       return_code = ReturnCodeApi.where(return_code: self.status, partner_id: self.partner_id).first 
       return return_code if return_code.present?
     end
-    
+
     if self.message_api_terceiro.present?
       return_code = ReturnCodeApi.where("error_description ilike ?", "%#{self.message_api_terceiro_para_busca}%").where(partner_id: self.partner_id).first 
       return return_code if return_code.present?
@@ -164,7 +164,9 @@ class Venda < ApplicationRecord
 
   def self.fazer_venda(params, usuario, slug_parceiro, ip)
     slug_parceiro = slug_parceiro.downcase.strip
-    self.send("venda_#{slug_parceiro}", params, usuario, ip)
+    venda = self.send("venda_#{slug_parceiro}", params, usuario, ip)
+    return Venda.new if venda.blank?
+    return venda
   end
 
   def request_id
@@ -1305,7 +1307,7 @@ class Venda < ApplicationRecord
       conta_corrente.save!
     end
 
-    return venda
+  return venda
   rescue PagasoError => e
     raise "#{e.message} - #{e.backtrace}"
   rescue Net::ReadTimeout => e
@@ -1444,7 +1446,91 @@ class Venda < ApplicationRecord
       end
     end
 
-    return venda
+    venda
+  end
+
+  def self.venda_bantubet(params, usuario, ip)
+    desconto_aplicado, valor_original, valor, porcentagem_desconto, parametro, produto, parceiro = valida_informacoes_para_venda(params, usuario, ip)
+
+    raise PagasoError.new("Digite o número do telefone do jogador") if params[:bantubet_telefone].blank?
+    #params[:bantubet_telefone] = "+244#{params[:bantubet_telefone]}" unless params[:bantubet_telefone].to_s.include?("+244")
+
+    if Rails.env == "development"
+      url_service = parametro.get.url_integracao_desenvolvimento
+    else
+      url_service = parametro.get.url_integracao_producao
+    end
+
+    bt_resource = "#{parametro.get.resource}"
+    secret_key = "#{parametro.get.secret_key}"
+    command = "pay"
+    account = params[:bantubet_telefone]
+    payment_id = "#{parametro.get.payment_id}"
+    amount = valor_original
+    currency = "AOA"
+    txn_id = Time.now.to_i 
+    sid = "#{parametro.get.sid}"
+
+    require 'digest'
+    hashcode = Digest::MD5.new.hexdigest("#{command}#{txn_id}#{account}#{amount}#{currency}#{sid}#{parametro.get.secret_key}")
+
+    url = "#{url_service}/#{parametro.get.endpoint_Transactions}/#{bt_resource}/?command=#{command}&account=#{account}&paymentID=#{payment_id}&amount=#{amount}&currency=#{currency}&txn_id=#{txn_id}&hashcode=#{hashcode}&sid=#{sid}"
+  
+    res = HTTParty.get(url, 
+      :headers => {
+        'Content-Type' => 'application/json',
+      },
+      timeout: DEFAULT_TIMEOUT.to_i.seconds
+    )
+
+    sucesso = JSON.parse(res.body)["success"].to_s rescue ""
+    sucesso = (200..300).include?(res.code).to_s if sucesso.blank?
+
+    venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, transaction_reference: txn_id, customer_number: params[:bantubet_telefone], payment_code: txn_id, usuario_id: usuario.id, partner_id: parceiro.id)
+    venda.responsavel = usuario
+    venda.save!
+    
+    venda.store_id = usuario.sub_agente.store_id_parceiro
+    venda.seller_id = usuario.sub_agente.seller_id_parceiro
+    venda.terminal_id = usuario.sub_agente.terminal_id_parceiro
+
+    venda.request_send = "#{url}"
+    venda.response_get = res.body
+
+    venda.status = sucesso
+    venda.save!
+
+    if venda.sucesso?
+      cc = ContaCorrente.where(usuario_id: usuario.id).first
+      if cc.blank?
+        banco = Banco.first
+        iban = ""
+      else
+        iban = cc.iban
+        banco = cc.banco
+      end
+
+      banco = Banco.first if banco.blank?
+
+      lancamento = Lancamento.where(nome: Lancamento::COMPRA_DE_CREDITO_OU_RECARGA).first
+      lancamento = Lancamento.first if lancamento.blank?
+
+      conta_corrente = ContaCorrente.new(
+        usuario_id: usuario.id,
+        valor: "-#{valor}",
+        observacao: "Compra de recarga dia #{Time.zone.now.strftime("%d/%m/%Y %H:%M:%S")}",
+        lancamento_id: lancamento.id,
+        banco_id: (banco.id rescue Banco.first.id),
+        partner_id: parceiro.id,
+        iban: iban,
+        venda_id: venda.id
+      )
+      conta_corrente.responsavel = usuario
+      conta_corrente.save!
+
+    end
+  return venda
+
   rescue PagasoError => e
     raise "#{e.message} - #{e.backtrace}"
   rescue Net::ReadTimeout => e

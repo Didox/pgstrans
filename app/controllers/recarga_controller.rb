@@ -61,8 +61,9 @@ class RecargaController < ApplicationController
   
   def confirma
     venda = Venda.fazer_venda(params, usuario_logado, params[:tipo_venda], request.ip)
-    token, data = venda.token_e_data_ende
     if venda.sucesso?
+        token, data = venda.token_e_data_ende
+
         render json: {
           mensagem: venda.status_desc.error_description_pt, 
           token_recarga: token, 

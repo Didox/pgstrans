@@ -51,6 +51,14 @@ class Partner < ApplicationRecord
     end
   end
 
+  def nome_operadora(numero, remote_ip = "")
+    return BantuBet.busca_nome(numero) if self.slug == "bantubet"
+    return Zap.busca_nome(numero, self.slug) if self.slug == "zaptv" || self.slug == "zapfibra"
+    return Dstv.busca_nome(numero,  remote_ip) if self.slug == "dstv"
+    return Ende.busca_nome(numero) if self.slug == "ende"
+    raise "Operadora #{this.slug} não configurada para busca de nome do cliente na operadora"
+  end
+
   def self.find_by_slug(slug)
     slug = slug.to_s.downcase.strip
     Partner.where("lower(slug) = ?", slug).first
@@ -62,6 +70,10 @@ class Partner < ApplicationRecord
 
   def self.elephantbet
     Partner.find_by_slug('elephantbet')
+  end
+
+  def self.bantubet
+    Partner.find_by_slug('bantubet')
   end
 
   def self.dstv

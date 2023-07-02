@@ -40,6 +40,35 @@ class Dstv
     produtos
   end
 
+  def self.busca_nome(tipo_numero, remote_ip)
+    tipo, numero = tipo_numero.split("-")
+    
+    if tipo.downcase == "smartcard"
+      info = Dstv.informacoes_device_number(numero, remote_ip)
+    else
+      info = Dstv.informacoes_customer_number(numero, remote_ip)
+    end
+
+    dados_cliente = {}
+    Dstv::TRADUCAO_DADOS_CLIENTE.each do |k, v|
+      info[:customer_detail].each do |key, val|
+        if key == k
+          key_translate = Dstv::TRADUCAO_DADOS_CLIENTE[key].parameterize.gsub("-", "_")
+          if val.present? && key_translate.present?
+            dados_cliente[key_translate] = val
+          end
+        end
+      end
+    end
+
+    nome = "#{dados_cliente["primeiro_nome"]} #{dados_cliente["sobrenome"]}" rescue nil
+
+    #return "Cliente não encontrado na operadora" if nome.blank?
+    return " " if nome.blank?
+    
+    return nome
+  end
+
   def self.importa_produtos(customer_number = nil, ip="?")
     customer_number = customer_number.to_s.strip
     parceiro,parametro,url_service,data_source,payment_vendor_code,vendor_code,agent_account,currency,product_user_key,mop,agent_number,business_unit,language,customer_number_default = parametros

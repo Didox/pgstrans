@@ -20,6 +20,20 @@
 </div>
 
 <div class="form-input col-sm-12">
+  <div class="form-group string optional url_nome_desenvolvimento">
+    <label class="string optional" for="url_nome_desenvolvimento">URL para a busca de nome em Desenvolvimento</label>
+    <input class="form-control string optional" value="<%= @parametro.get.url_nome_desenvolvimento %>" type="text" name="parametro[url_nome_desenvolvimento]" id="url_nome_desenvolvimento">
+  </div>
+</div>
+
+<div class="form-input col-sm-12">
+  <div class="form-group string optional url_nome_producao">
+    <label class="string optional" for="url_nome_producao">URL para a busca de nome em Produção</label>
+    <input class="form-control string optional" value="<%= @parametro.get.url_nome_producao %>" type="text" name="parametro[url_nome_producao]" id="url_nome_producao">
+  </div>
+</div>
+
+<div class="form-input col-sm-12">
   <div class="form-group string optional api_key_zaptv_desenvolvimento">
     <label class="string optional" for="api_key_zaptv_desenvolvimento">API Key ZAPTV em Desenvolvimento</label>
     <input class="form-control string optional" value="<%= @parametro.get.api_key_zaptv_desenvolvimento %>" type="text" name="parametro[api_key_zaptv_desenvolvimento]" id="api_key_zaptv_desenvolvimento">

@@ -58,7 +58,6 @@ Rails.application.routes.draw do
   get '/proxy_pay/apagar_referencia', to: 'proxy_pay#apagar_referencia'
   post '/webhook/conciliacao_proxy_pay', to: 'proxy_pay#conciliacao_proxy_pay'
   
-  
   get '/controle-acessos/:modelo/:modelo_id/grupos', to: 'grupos#controle_acessos_modelo'
   get '/controle-acessos/:modelo/:modelo_id/grupos/novo', to: 'grupos#controle_acessos_modelo_novo'
   post '/controle-acessos/:modelo/:modelo_id/grupos/salvar', to: 'grupos#controle_acessos_modelo_salvar'
@@ -124,9 +123,12 @@ Rails.application.routes.draw do
   resources :status_produtos
   resources :municipios
   resources :industries
+
+  get 'consulta-nome-usuario-operadora', to: 'usuarios#consulta_nome_usuario_operadora'
+
   resources :usuarios do
-    get 'forcar-logout', tox: 'usuarios#forcar_logout'
-    post 'zerar_saldo', tox: 'usuarios#zerar_saldo'
+    get 'forcar-logout', to: 'usuarios#forcar_logout'
+    post 'zerar_saldo', to: 'usuarios#zerar_saldo'
   end
   resources :sub_agentes
   resources :sub_distribuidors
@@ -174,6 +176,7 @@ Rails.application.routes.draw do
   get 'api/recarga/africell-produtos', to: 'produtos#produtos_africell_api'
   get 'api/recarga/zapfibra-produtos', to: 'produtos#produtos_zapfibra_api'
   get 'api/recarga/elephantbet-produtos', to: 'produtos#produtos_elephantbet_api'
+  get 'api/recarga/bantubet-produtos', to: 'produtos#produtos_bantubet_api'
 
   post 'api/v2/recarga/confirma/:tipo_venda', to: 'recarga#confirma_api_v2', as: "api_recarga_confirma_v2"
 
