@@ -23,6 +23,10 @@ class Zap
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
+    puts "==============================="
+    puts request.body
+    puts "==============================="
+
     nome = JSON.parse(request.body)["nome"] rescue ""
 
     #return "Cliente não encontrado na operadora - #{api_key} -#{url} - #{request.body}" if nome.blank?

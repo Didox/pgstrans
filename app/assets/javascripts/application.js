@@ -304,16 +304,16 @@ var carregaNomeUsuario = function(operadora, numero){
   setTimeout(function(){
     $("#nome_usuario_operadora").show()
     $("#nome_usuario_operadora label").html("Carregando ...")
-  }, 500)
 
-  $.ajax({
-    url: `/consulta-nome-usuario-operadora?slug=${operadora}&numero=${numero}`,
-    dataType: "json",
-    success: function( response ) {
-      $("#nome_usuario_operadora").show()
-      $("#nome_usuario_operadora label").html(response.nome)
-    }
-  });
+    $.ajax({
+      url: `/consulta-nome-usuario-operadora?slug=${operadora}&numero=${numero}`,
+      dataType: "json",
+      success: function( response ) {
+        $("#nome_usuario_operadora").show()
+        $("#nome_usuario_operadora label").html(response.nome)
+      }
+    });
+  }, 300)
 }
 
 $(function(){
