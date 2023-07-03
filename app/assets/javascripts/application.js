@@ -304,7 +304,7 @@ var carregaNomeUsuario = function(operadora, numero){
   setTimeout(function(){
     $("#nome_usuario_operadora").show()
     $("#nome_usuario_operadora label").html("Carregando ...")
-  }, 200)
+  }, 500)
 
   $.ajax({
     url: `/consulta-nome-usuario-operadora?slug=${operadora}&numero=${numero}`,
