@@ -288,7 +288,7 @@ const submeterRecarga = function() {
 var carregaNomeUsuario = function(operadora, numero){
   setTimeout(function(){
     $("#nome_usuario_operadora").hide()
-  }, 200)
+  }, 500)
 
   if(["zaptv"].indexOf(operadora) != -1) {
     var produtoId = $(".vzaptv[name='produto_id']").val();
