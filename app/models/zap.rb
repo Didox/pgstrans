@@ -23,9 +23,9 @@ class Zap
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
-    puts "==============================="
-    puts request.body
-    puts "==============================="
+    Rails.logger.info("===============================")
+    Rails.logger.info request.body
+    Rails.logger.info("===============================")
 
     nome = JSON.parse(request.body)["nome"] rescue ""
 
