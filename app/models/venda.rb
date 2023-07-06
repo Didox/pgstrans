@@ -1475,6 +1475,9 @@ class Venda < ApplicationRecord
     hashcode = Digest::MD5.new.hexdigest("#{command}#{txn_id}#{account}#{amount}#{currency}#{sid}#{parametro.get.secret_key}")
 
     url = "#{url_service}/#{parametro.get.endpoint_Transactions}/#{bt_resource}/?command=#{command}&account=#{account}&paymentID=#{payment_id}&amount=#{amount}&currency=#{currency}&txn_id=#{txn_id}&hashcode=#{hashcode}&sid=#{sid}"
+
+
+    "https://payments1.betconstruct.com/Bets/PaymentsCallback/TerminalCallbackPG/?command=pay&account=946908645 &paymentID=3128&amount=5.0&currency=AOA&txn_id=1688643154&hashcode=a3a25d48d6500835e4eb40de1e6b48c6&sid=1869146"
   
     res = HTTParty.get(url, 
       :headers => {
@@ -1483,8 +1486,8 @@ class Venda < ApplicationRecord
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
-    sucesso = JSON.parse(res.body)["OK"].to_s rescue ""
-    sucesso = ((200..299).include?(res.code) || res.code == 0).to_s if sucesso.blank?
+    sucesso = JSON.parse(res.body)["response"]["code"].to_s rescue ""
+    sucesso = (sucesso == "0").to_s
 
     venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, transaction_reference: txn_id, customer_number: params[:bantubet_telefone], payment_code: txn_id, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
