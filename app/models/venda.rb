@@ -1483,8 +1483,8 @@ class Venda < ApplicationRecord
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
 
-    sucesso = JSON.parse(res.body)["success"].to_s rescue ""
-    sucesso = (200..300).include?(res.code).to_s if sucesso.blank?
+    sucesso = JSON.parse(res.body)["OK"].to_s rescue ""
+    sucesso = ((200..299).include?(res.code) || res.code == 0).to_s if sucesso.blank?
 
     venda = Venda.new(canal_venda: params[:api], produto_id_parceiro: produto.produto_id_parceiro, product_id: produto.id, product_nome: produto.description, value: valor, desconto_aplicado: desconto_aplicado, valor_original: valor_original, porcentagem_desconto: porcentagem_desconto, transaction_reference: txn_id, customer_number: params[:bantubet_telefone], payment_code: txn_id, usuario_id: usuario.id, partner_id: parceiro.id)
     venda.responsavel = usuario
