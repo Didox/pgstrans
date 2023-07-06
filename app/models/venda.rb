@@ -1476,9 +1476,6 @@ class Venda < ApplicationRecord
 
     url = "#{url_service}/#{parametro.get.endpoint_Transactions}/#{bt_resource}/?command=#{command}&account=#{account}&paymentID=#{payment_id}&amount=#{amount}&currency=#{currency}&txn_id=#{txn_id}&hashcode=#{hashcode}&sid=#{sid}"
 
-
-    "https://payments1.betconstruct.com/Bets/PaymentsCallback/TerminalCallbackPG/?command=pay&account=946908645 &paymentID=3128&amount=5.0&currency=AOA&txn_id=1688643154&hashcode=a3a25d48d6500835e4eb40de1e6b48c6&sid=1869146"
-  
     res = HTTParty.get(url, 
       :headers => {
         'Content-Type' => 'application/json',
