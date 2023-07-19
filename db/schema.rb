@@ -2,35 +2,34 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_15_182444) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_07_18_212317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
 
   create_table "africell_logins", force: :cascade do |t|
     t.text "body_request"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "alegacao_de_pagamentos", force: :cascade do |t|
     t.bigint "usuario_id"
     t.float "valor_deposito", null: false
-    t.datetime "data_deposito", null: false
+    t.datetime "data_deposito", precision: nil, null: false
     t.string "numero_talao", null: false
     t.bigint "banco_id"
     t.string "comprovativo", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "status_alegacao_de_pagamento_id"
     t.text "observacao"
     t.index ["banco_id"], name: "index_alegacao_de_pagamentos_on_banco_id"
@@ -40,8 +39,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
 
   create_table "bancos", force: :cascade do |t|
     t.string "nome"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "sigla"
     t.string "morada_sede"
     t.string "telefone_sede"
@@ -61,8 +60,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "nome"
     t.float "carregamento_minimo"
     t.bigint "dispositivo_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["dispositivo_id"], name: "index_canal_vendas_on_dispositivo_id"
   end
 
@@ -73,7 +72,7 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "usuario_nome"
     t.string "partner_name"
     t.string "venda_categoria_zap"
-    t.datetime "venda_created_at"
+    t.datetime "venda_created_at", precision: nil
     t.string "venda_status_desc_error_description_pt"
     t.string "venda_lancamento_nome"
     t.string "venda_customer_number"
@@ -89,16 +88,16 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.float "rodape_valor_original_total"
     t.float "rodape_desconto_total"
     t.float "rodape_valor_total"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["consolidado_venda_id"], name: "index_consolidado_venda_relatorios_on_consolidado_venda_id"
   end
 
   create_table "consolidado_vendas", force: :cascade do |t|
     t.text "parametros"
     t.bigint "usuario_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "conta_correntes", force: :cascade do |t|
@@ -107,23 +106,24 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.bigint "banco_id"
     t.float "valor"
     t.string "iban"
-    t.datetime "data_alegacao_pagamento"
+    t.datetime "data_alegacao_pagamento", precision: nil
     t.float "saldo_anterior"
     t.float "saldo_atual"
-    t.datetime "data_ultima_atualizacao_saldo"
+    t.datetime "data_ultima_atualizacao_saldo", precision: nil
     t.text "observacao"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "partner_id"
     t.bigint "responsavel_aprovacao_id"
     t.bigint "alegacao_de_pagamento_id"
-    t.datetime "data_processamento"
+    t.datetime "data_processamento", precision: nil
     t.bigint "venda_id"
     t.index ["alegacao_de_pagamento_id"], name: "index_conta_correntes_on_alegacao_de_pagamento_id"
     t.index ["banco_id"], name: "index_conta_correntes_on_banco_id"
     t.index ["lancamento_id"], name: "index_conta_correntes_on_lancamento_id"
     t.index ["partner_id"], name: "index_conta_correntes_on_partner_id"
     t.index ["usuario_id"], name: "index_conta_correntes_on_usuario_id"
+    t.index ["venda_id"], name: "idx_venda_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -131,15 +131,15 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "name_pt"
     t.string "iso2"
     t.integer "bacen"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "desconto_parceiros", force: :cascade do |t|
     t.float "porcentagem"
     t.bigint "partner_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["partner_id"], name: "index_desconto_parceiros_on_partner_id"
   end
 
@@ -150,8 +150,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "numero_serie"
     t.string "macaddr"
     t.string "imei"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "imei2"
     t.string "rated"
     t.string "screensize"
@@ -164,8 +164,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.bigint "sub_distribuidor_id"
     t.bigint "partner_id"
     t.bigint "desconto_parceiro_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["desconto_parceiro_id"], name: "index_distribuidor_descontos_on_desconto_parceiro_id"
     t.index ["partner_id"], name: "index_distribuidor_descontos_on_partner_id"
     t.index ["sub_distribuidor_id"], name: "index_distribuidor_descontos_on_sub_distribuidor_id"
@@ -173,8 +173,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
 
   create_table "elephant_bet_logins", force: :cascade do |t|
     t.text "body_request"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "email_historico_envios", force: :cascade do |t|
@@ -184,15 +184,15 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.bigint "usuario_id"
     t.bigint "venda_id"
     t.boolean "sucesso"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["usuario_id"], name: "index_email_historico_envios_on_usuario_id"
   end
 
   create_table "ende_uniq_numbers", force: :cascade do |t|
-    t.datetime "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "data", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "xml_enviado"
     t.text "xml_recebido"
     t.integer "venda_id"
@@ -201,16 +201,16 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
   create_table "erro_amigavels", force: :cascade do |t|
     t.string "de"
     t.string "para"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "grupo_registros", force: :cascade do |t|
     t.string "modelo"
     t.bigint "modelo_id"
     t.bigint "grupo_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "usuario_id"
     t.index ["grupo_id"], name: "index_grupo_registros_on_grupo_id"
     t.index ["modelo"], name: "grupo_registros_modelo_idx"
@@ -220,8 +220,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
   create_table "grupo_usuarios", force: :cascade do |t|
     t.bigint "usuario_id"
     t.bigint "grupo_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "escrita", default: false
     t.index ["grupo_id"], name: "index_grupo_usuarios_on_grupo_id"
     t.index ["usuario_id"], name: "index_grupo_usuarios_on_usuario_id"
@@ -230,8 +230,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
   create_table "grupos", force: :cascade do |t|
     t.string "nome"
     t.text "descricao"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "grupo_id"
     t.boolean "pai", default: false
   end
@@ -239,32 +239,32 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
   create_table "industries", force: :cascade do |t|
     t.string "descricao_seccao"
     t.string "descricao_divisao"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "descricao_grupo"
   end
 
   create_table "ip_api_autorizados", force: :cascade do |t|
     t.string "ip"
     t.bigint "sub_distribuidor_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "descricao"
     t.index ["sub_distribuidor_id"], name: "index_ip_api_autorizados_on_sub_distribuidor_id"
   end
 
   create_table "lancamentos", force: :cascade do |t|
     t.string "nome"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "status"
   end
 
   create_table "log_vendas", force: :cascade do |t|
     t.string "titulo"
     t.text "log"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "usuario_id"
   end
 
@@ -272,24 +272,24 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "titulo"
     t.string "responsavel"
     t.text "dados_alterados"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "loop_logs", force: :cascade do |t|
     t.text "request"
     t.text "response"
     t.bigint "movicel_loop_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.decimal "index"
     t.index ["movicel_loop_id"], name: "index_loop_logs_on_movicel_loop_id"
   end
 
   create_table "master_profiles", force: :cascade do |t|
     t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "menus", force: :cascade do |t|
@@ -298,8 +298,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "link"
     t.string "controller"
     t.string "action"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "ordem_secao"
     t.integer "ordem_item"
     t.string "controller_action"
@@ -308,8 +308,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
   create_table "modal_informativos", force: :cascade do |t|
     t.string "titulo"
     t.text "mensagem"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "ativa", default: true
   end
 
@@ -318,8 +318,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "codigo_iso"
     t.string "simbolo"
     t.bigint "country_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["country_id"], name: "index_moedas_on_country_id"
   end
 
@@ -334,24 +334,24 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.integer "repeticao"
     t.decimal "nropedidoinicio"
     t.decimal "nropedido"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "processar_loop", default: false
   end
 
   create_table "municipios", force: :cascade do |t|
     t.string "nome"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "provincia_id"
     t.index ["provincia_id"], name: "index_municipios_on_provincia_id"
   end
 
   create_table "otp_key_africell_logs", force: :cascade do |t|
-    t.datetime "data"
+    t.datetime "data", precision: nil
     t.string "log"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "pagamento_referencias", force: :cascade do |t|
@@ -359,18 +359,18 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "nro_pagamento_referencia"
     t.string "id_parceiro"
     t.float "valor"
-    t.datetime "data_pagamento"
-    t.datetime "data_conciliacao"
+    t.datetime "data_pagamento", precision: nil
+    t.datetime "data_conciliacao", precision: nil
     t.string "terminal_id_parceiro"
     t.string "terminal_location_parceiro"
     t.string "terminal_type_parceiro"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "transaction_id_parceiro"
     t.string "terminal_transaction_id_parceiro"
     t.string "product_id_parceiro"
-    t.datetime "period_start_datetime_parceiro"
-    t.datetime "period_end_datetime_parceiro"
+    t.datetime "period_start_datetime_parceiro", precision: nil
+    t.datetime "period_end_datetime_parceiro", precision: nil
     t.string "parameter_id_parceiro"
     t.string "period_id_parceiro"
     t.string "fee_parceiro"
@@ -382,8 +382,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
   end
 
   create_table "painel_vendas", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "parametros", force: :cascade do |t|
@@ -408,8 +408,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "product_user_key_dstv_producao"
     t.string "mop_dstv_desenvolvimento"
     t.string "mop_dstv_producao"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "api_key_zaptv_desenvolvimento"
     t.string "api_key_zaptv_producao"
     t.string "agent_number_dstv_desenvolvimento"
@@ -437,8 +437,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
 
   create_table "partners", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "slug"
     t.bigint "status_parceiro_id"
     t.integer "order"
@@ -453,12 +453,13 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
   create_table "perfil_usuarios", force: :cascade do |t|
     t.string "nome"
     t.boolean "admin"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "acessos"
     t.boolean "operador", default: false
     t.boolean "agente"
     t.text "links_externos"
+    t.boolean "consumidor_final"
   end
 
   create_table "produtos", force: :cascade do |t|
@@ -470,14 +471,14 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.float "valor_compra_pos"
     t.float "valor_compra_tef"
     t.text "mensagem_cupom_venda"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "moeda_id"
     t.string "produto_id_parceiro"
     t.float "valor_unitario"
     t.string "tipo"
     t.string "subtipo"
-    t.datetime "data_vigencia"
+    t.datetime "data_vigencia", precision: nil
     t.string "nome_comercial"
     t.string "categoria"
     t.string "parameter_code_africell"
@@ -495,8 +496,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.integer "population"
     t.string "image_map"
     t.bigint "country_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["country_id"], name: "index_provincia_on_country_id"
   end
 
@@ -507,13 +508,13 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "source_reference"
     t.bigint "product_code"
     t.integer "quantity"
-    t.datetime "date_time"
+    t.datetime "date_time", precision: nil
     t.string "type_data"
     t.float "total_price"
     t.string "status"
     t.float "unit_price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "categoria", default: "tv"
     t.index ["partner_id"], name: "index_relatorio_conciliacao_zaptvs_on_partner_id"
     t.index ["partner_id"], name: "relatorio_conciliacao_zaptvs_partner_id"
@@ -524,8 +525,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.integer "partner_id"
     t.string "arquivo"
     t.string "parametros"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "usuario_id"
     t.string "categoria", default: "tv"
     t.string "controller_acao", default: "PartnersController::zap_conciliacao"
@@ -535,8 +536,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.bigint "remuneracao_id"
     t.bigint "partner_id"
     t.bigint "desconto_parceiro_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["desconto_parceiro_id"], name: "index_remuneracao_descontos_on_desconto_parceiro_id"
     t.index ["partner_id"], name: "index_remuneracao_descontos_on_partner_id"
     t.index ["remuneracao_id"], name: "index_remuneracao_descontos_on_remuneracao_id"
@@ -544,10 +545,10 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
 
   create_table "remuneracaos", force: :cascade do |t|
     t.bigint "usuario_id"
-    t.datetime "vigencia_inicio"
-    t.datetime "vigencia_fim"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "vigencia_inicio", precision: nil
+    t.datetime "vigencia_fim", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "ativo", default: true
     t.index ["usuario_id"], name: "index_remuneracaos_on_usuario_id"
   end
@@ -557,8 +558,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "return_description"
     t.string "error_description"
     t.string "error_description_pt"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "partner_id"
     t.boolean "sucesso"
     t.string "codigo_erro_pagaso"
@@ -569,8 +570,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.bigint "partner_id"
     t.text "request"
     t.text "response"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.float "saldo"
     t.string "moeda"
     t.string "agent_first_name"
@@ -585,15 +586,15 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.bigint "partner_id"
     t.float "saldo"
     t.text "log"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["partner_id"], name: "index_saldo_parceiros_on_partner_id"
   end
 
   create_table "sequencial_dstvs", force: :cascade do |t|
     t.integer "numero"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "request_body"
     t.text "response_body"
   end
@@ -601,8 +602,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
   create_table "sessions", force: :cascade do |t|
     t.string "session_id", null: false
     t.text "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
@@ -613,39 +614,39 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.bigint "usuario_id"
     t.bigint "venda_id"
     t.boolean "sucesso"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["usuario_id"], name: "index_sms_historico_envios_on_usuario_id"
   end
 
   create_table "status_alegacao_de_pagamentos", force: :cascade do |t|
     t.string "nome"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "status_bancos", force: :cascade do |t|
     t.string "nome"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "status_clientes", force: :cascade do |t|
     t.string "nome"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "status_parceiros", force: :cascade do |t|
     t.string "nome"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "status_produtos", force: :cascade do |t|
     t.string "nome"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "sub_agentes", force: :cascade do |t|
@@ -656,8 +657,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "bairro"
     t.string "email"
     t.string "telefone"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "provincia_id"
     t.bigint "industry_id"
     t.string "contato"
@@ -676,8 +677,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "bi"
     t.string "telefone"
     t.string "morada"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "provincia_id"
     t.bigint "municipio_id"
     t.string "ramo_negociacao"
@@ -689,45 +690,45 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
 
   create_table "tipo_transacaos", force: :cascade do |t|
     t.string "nome"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "token_usuario_senhas", force: :cascade do |t|
     t.string "token"
     t.bigint "usuario_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["usuario_id"], name: "index_token_usuario_senhas_on_usuario_id"
   end
 
   create_table "ultima_atualizacao_produtos", force: :cascade do |t|
     t.bigint "partner_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "categoria"
     t.index ["partner_id"], name: "index_ultima_atualizacao_produtos_on_partner_id"
   end
 
   create_table "ultima_atualizacao_reconciliacaos", force: :cascade do |t|
     t.bigint "partner_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "categoria", default: "tv"
     t.index ["partner_id"], name: "index_ultima_atualizacao_reconciliacaos_on_partner_id"
   end
 
   create_table "uni_pessoal_empresas", force: :cascade do |t|
     t.string "nome"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "unitel_sequences", force: :cascade do |t|
     t.integer "sequence_id"
     t.bigint "venda_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "log"
     t.index ["venda_id"], name: "index_unitel_sequences_on_venda_id"
   end
@@ -735,8 +736,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
   create_table "usuario_acessos", force: :cascade do |t|
     t.bigint "usuario_id"
     t.string "mac_adress"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["usuario_id"], name: "index_usuario_acessos_on_usuario_id"
   end
 
@@ -744,8 +745,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.bigint "usuario_id"
     t.string "nro_pagamento_referencia"
     t.integer "acao"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["usuario_id"], name: "index_usuario_referencia_pagamentos_on_usuario_id"
   end
 
@@ -753,8 +754,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "nome"
     t.string "email"
     t.string "senha"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "perfil_usuario_id"
     t.bigint "sub_agente_id"
     t.bigint "status_cliente_id"
@@ -768,7 +769,7 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "login"
     t.string "telefone"
     t.string "whatsapp"
-    t.datetime "data_adesao"
+    t.datetime "data_adesao", precision: nil
     t.bigint "sub_distribuidor_id", default: 8
     t.bigint "master_profile_id", default: 1
     t.string "nro_pagamento_referencia"
@@ -793,8 +794,8 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.string "customer_number"
     t.text "request_send"
     t.text "response_get"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "partner_id"
     t.bigint "usuario_id"
     t.string "status"
@@ -840,16 +841,16 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.float "vendas_desconto_aplicado_lucro"
     t.string "porcentagem_vendas_desconto_aplicado"
     t.float "vendas_value_custo"
-    t.datetime "vendas_created_at"
-    t.datetime "vendas_updated_at"
+    t.datetime "vendas_created_at", precision: nil
+    t.datetime "vendas_updated_at", precision: nil
     t.integer "vendas_product_id"
     t.string "vendas_product_nome"
     t.string "vendas_product_subtipo"
     t.string "return_code_api_return_code"
     t.text "return_code_api_error_description_pt"
     t.string "return_code_api_partner_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "vendas_product_categoria"
   end
 
