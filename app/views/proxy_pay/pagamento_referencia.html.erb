@@ -16,14 +16,8 @@
               <div><b>Nome do Usuário :</b> <%= usuario_logado.nome.camelize rescue usuario_logado.nome.camelize %></div><br>
           <% end %>
 
-          <% if Rails.env == "development" && Partner.proxypay.present? %>
-            <% entidade = @parametro.get.entity_id_desenvolvimento %>
-          <% else %>
-            <% entidade = @parametro.get.entity_id_producao %>
-          <% end %>
-          
-          <div><b>Entidade :</b> "#{entidade}"</div><br>
           <div><b>Referência :</b> 
+
           <% if usuario_logado.nro_pagamento_referencia.blank? %>
             Definir
           <% else %>
