@@ -71,7 +71,7 @@ class VendasController < ApplicationController
     end
 
     if params[:status].present?
-      sql += " and usuarios.status_cliente_id = #{params[:status]}"
+      sql += " and usuarios.status_cliente_id = #{params[:status].to_i}"
     end
 
     sql += " and vendas.updated_at >= '#{SqlDate.sql_parse(params[:data_inicio].to_datetime.beginning_of_day)}'" if params[:data_inicio].present?
@@ -80,7 +80,7 @@ class VendasController < ApplicationController
     sql += " and vendas.lancamento_id = #{params[:lancamento_id]}" if params[:lancamento_id].present?
 
     if params[:status_parceiro_id].present?
-      sql += " and partners.status_parceiro_id = #{params[:status_parceiro_id]}"
+      sql += " and partners.status_parceiro_id = #{params[:status_parceiro_id].to_i}"
     else
       sql += " and partners.status_parceiro_id in (#{StatusParceiro::ATIVO_TEMPORARIAMENTE_INDISPONIVEL.join(",")})"
     end

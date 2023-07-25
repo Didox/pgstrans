@@ -3,6 +3,8 @@ class Grupo < ApplicationRecord
 
   has_many :grupo_usuarios
 
+  validates :nome, presence: true
+
   def hierarquia
     self.get_pai
   end
