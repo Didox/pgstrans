@@ -51,6 +51,54 @@ class ProxyPayController < ApplicationController
          }, status: 404
          return 
       end
+      
+      hash_signature = {
+         "amount" => params["amount"],
+         "custom_fields" => params["custom_fields"],
+         "datetime" => params["datetime"],
+         "entity_id" => params["entity_id"],
+         "fee" => params["fee"],
+         "id" => params["id"],
+         "parameter_id" => params["parameter_id"],
+         "period_end_datetime" => params["period_end_datetime"],
+         "period_id" => params["period_id"],
+         "period_start_datetime" => params["period_start_datetime"],
+         "product_id" => params["product_id"],
+         "reference_id" => params["reference_id"],
+         "terminal_id" => params["terminal_id"],
+         "terminal_location" => params["terminal_location"],
+         "terminal_period_id" => params["terminal_period_id"],
+         "terminal_transaction_id" => params["terminal_transaction_id"],
+         "terminal_type" => params["terminal_type"],
+         "transaction_id" => params["transaction_id"]
+      }
+
+      parceiro = Partner.proxypay
+      parametro = Parametro.where(partner_id: parceiro.id).first
+  
+      if parametro.blank? || parceiro.blank?
+         render json: {
+            message: "Parceiro inválido"
+         }, status: 401
+         return 
+      end
+  
+      if Rails.env == "development"
+         api_key = parametro.get.api_key_desenvolvimento
+      else
+         api_key = parametro.get.api_key_producao
+      end
+
+      http_body = hash_signature.to_json
+
+      signature = generate_signature(api_key, http_body)
+
+      if request.headers["X-Signature"] != signature
+         render json: {
+            message: "Chave inválida"
+         }, status: 401
+         return 
+      end
 
       hash = {
          nro_pagamento_referencia: params["reference_id"],
@@ -65,46 +113,12 @@ class ProxyPayController < ApplicationController
          product_id_parceiro: params["product_id"],
          period_start_datetime_parceiro: params["period_start_datetime"],
          parameter_id_parceiro: params["parameter_id"],
-         period_id_parceiro: params["period_id"],
+         period_id_parceiro: params["terminal_period_id"],
          period_end_datetime_parceiro: params["period_end_datetime"],
          fee_parceiro: params["fee"],
          entity_id_parceiro: params["entity_id"],
          custom_fields_parceiro: params["custom_fields"]
       }
-
-      parceiro = Partner.proxypay
-      parametro = Parametro.where(partner_id: parceiro.id).first
-  
-      if parametro.blank? || parceiro.blank?
-         render json: {
-            message: "Parceiro inválido"
-         }, status: 401
-         return 
-      end
-  
-      api_key = parametro.get.api_key_desenvolvimento
-      http_body = hash.to_json
-
-      signature = generate_signature(api_key, http_body)
-
-      if request.headers["X-Signature"] != signature
-
-         # gravar no log com api_key, http_body request.headers["X-Signature"]
-
-         file_path = Rails.public_path.join("log_proxy_pay_x-signature-#{Time.now.to_i}.json")
-         File.open(file_path, 'w') do |file|
-            file.write({
-               api_key: api_key,
-               http_body: http_body,
-               x_signature: request.headers["X-Signature"]
-            }.to_json)
-         end
-
-         render json: {
-            message: "Chave inválida"
-         }, status: 401
-         return 
-      end
 
       hash[:usuario_id] = usuario.id
       hash[:x_signature] = request.headers["X-Signature"]
@@ -131,15 +145,10 @@ class ProxyPayController < ApplicationController
 
       render json: {}, status: 204
    end
-
-   def generate_signature(api_key, http_body)
+   
+   def generate_signature(api_key, json_body)
       require 'openssl'
       require 'base64'
-
-      digest = OpenSSL::Digest.new('sha256')
-      hmac = OpenSSL::HMAC.digest(digest, api_key, http_body)
-      signature = Base64.strict_encode64(hmac)
-
-      return signature
+      OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), api_key, json_body)
    end
 end
