@@ -2,35 +2,28 @@ namespace :signature do
     desc "Generate signature"
 
     task :generate do
-      file_path = Rails.public_path.join("log_proxy_pay_x-signature-1683814651.json")
-  
-      unless File.exist?(file_path)
-        puts "O arquivo #{file_name} não existe."
-        exit
-      end
-  
       require 'json'
       require 'openssl'
       require 'base64'
   
-      file_content = File.read(file_path)
-      data = JSON.parse(file_content)
-  
-      api_key = data['api_key']
-      http_body = data['http_body']
-      x_signature = data['x_signature']
+
+      data = {"amount":"1000.00","custom_fields":{},"datetime":"2023-07-25T09:30:26Z","entity_id":1166,"fee":"0.00","id":753904015866,"parameter_id":0,"period_end_datetime":"2023-07-25T19:00:00Z","period_id":7539,"period_start_datetime":"2023-07-24T19:00:00Z","product_id":1,"reference_id":938849107,"terminal_id":"0000140555","terminal_location":"Benguela","terminal_period_id":73,"terminal_transaction_id":160,"terminal_type":"ATM","transaction_id":4015866}
+      
+      api_key = "???? colocar aqui ????"
+
+      http_body = data.to_json
+      x_signature = "bf556ec5a13b68e2e2073155e6255889095d166bd333e5264ebeb9393b28fe13"
   
       signature = generate_signature(api_key, http_body)
   
       puts "A assinatura passada é: #{x_signature}"
       puts "A assinatura gerada é: #{signature}"
+
+      puts "Comparacao: #{signature == x_signature}"
+
     end
   end
   
-  def generate_signature(api_key, http_body)
-    digest = OpenSSL::Digest.new('sha256')
-    hmac = OpenSSL::HMAC.digest(digest, api_key, http_body)
-    signature = Base64.strict_encode64(hmac)
-  
-    return signature
+  def generate_signature(api_key, json_body)
+    OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), api_key, json_body)
   end
