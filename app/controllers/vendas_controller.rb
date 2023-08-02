@@ -215,9 +215,26 @@ class VendasController < ApplicationController
 
       @vendas = @vendas.where("vendas.id = ?", params[:venda_id]) if params[:venda_id].present?
 
-      @vendas = @vendas.where("vendas.created_at >= ?", SqlDate.sql_parse(params[:data_inicio].to_datetime) ) if params[:data_inicio].present?
-      @vendas = @vendas.where("vendas.created_at <= ?", SqlDate.sql_parse(params[:data_fim].to_datetime) ) if params[:data_fim].present?
-      
+      if params[:data_inicio].present? && params[:data_fim].present?
+        data_inicio = params[:data_inicio].to_datetime rescue Time.zone.now - 30.years
+        data_fim = params[:data_fim].to_datetime rescue Time.zone.now - 30.years
+        
+        if data_inicio > data_fim
+          return @vendas = bloqueia_resultado_busca(@vendas, "Data inicial não pode ser maior que a data final")
+        else
+          diferenca_data = (data_inicial - data_fim).to_i
+          if diferenca_data > 90
+            return @vendas = bloqueia_resultado_busca(@vendas, "Pesquisa limitada ao período máximo de 90 dias. Para período superior consulte o Administrador.")
+          else
+            @vendas = @vendas.where("vendas.created_at >= ?", SqlDate.sql_parse(data_inicio) )
+            @vendas = @vendas.where("vendas.created_at <= ?", SqlDate.sql_parse(data_fim) )
+          end
+        end
+      elsif (params[:data_inicio].present? && params[:data_fim].blank?) || (params[:data_inicio].blank? && params[:data_fim].present?)
+        return @vendas = bloqueia_resultado_busca(@vendas, "Informar a data inicial e a data final")
+      end
+
+
       @vendas = @vendas.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
       @vendas = @vendas.where("usuarios.login ilike '%#{params[:login].remove_injection}%'") if params[:login].present?
       @vendas = @vendas.where("vendas.partner_id = ?", params[:parceiro_id]) if params[:parceiro_id].present?
