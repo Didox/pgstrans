@@ -19,7 +19,8 @@
   <!-- Estilos customizados para esse template -->
   <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Playfair+Display:700,900' %>
 
-  <%= favicon_link_tag 'favicon-5e221aa404440bd784c357f064bdca523280c7cdae2424d44e4501d320e56d62.png', type: 'image/png' %>
+  <%= favicon_link_tag 'favicon.png', rel: 'icon', type: 'image/png' %>
+  <%= favicon_link_tag 'favicon.png', type: 'image/png', sizes: '24x24' %>
 </head>
 <body>
   <div class="container">
@@ -40,16 +41,16 @@
         </div>
         <div class="panel-body">
           <div class="col-md-4">
-            <%= image_tag('static/MascotePagaso.png', class: 'img-responsive', data: { image: 'static/MascotePagaso.png' }) %>
+            <%= image_tag('/static/MascotePagaso.png', class: 'img-responsive', data: { image: '/static/MascotePagaso.png' }) %>
             <a href="/login">
-              <%= image_tag('static/MascotePagaso.png') %>
+              <%= image_tag('/static/MascotePagaso.png') %>
             </a>
           </div>
           <br>
           <h1>
             Ops ... 
             <br>
-            Ocorreu um erro no sistema, tente novamente mais tarde!
+            Sem permissão para acessar esta página
           </h1>
         </div>
       </div>
