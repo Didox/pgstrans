@@ -2,7 +2,7 @@ namespace :jobs do
     desc "Importa csv"
     task importa_csv_proxy_pay: :environment do
         require 'csv'
-        csv_file = Rails.root.join('lib/tasks', 'usuarios_com_nro_pagto_referencia_202305041741.csv')
+        csv_file = Rails.root.join('lib/tasks', 'usuarios_com_nro_pagto_referencia_producao_provisionados_202308022300.csv')
 
         # Abre o arquivo CSV e itera através de cada linha
         CSV.foreach(csv_file, headers: true) do |row|
@@ -35,7 +35,7 @@ namespace :jobs do
             # Imprime as informações extraídas para o console
             puts "ID: #{id}, Nome: #{nome}, Telefone: #{telefone}, Login: #{login}, Nro Pagamento Referencia: #{nro_pagamento_referencia}"
 
-            arquivo_saida = File.open("lib/tasks/provisiona_proxy_pay_resultado.txt", "a")
+            arquivo_saida = File.open("lib/tasks/provisiona_proxy_pay_resultado_producao.txt", "a")
             arquivo_saida.puts "ID: #{id}, Nome: #{nome}, Telefone: #{telefone}, Login: #{login}, Nro Pagamento Referencia: #{nro_pagamento_referencia}"
           
         end

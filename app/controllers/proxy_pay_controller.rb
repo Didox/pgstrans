@@ -142,7 +142,6 @@ class ProxyPayController < ApplicationController
       pagamento_referencia.data_conciliacao = DateTime.now
       pagamento_referencia.save
 
-
       render json: {}, status: 204
    end
    
