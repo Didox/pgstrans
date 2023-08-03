@@ -208,7 +208,7 @@
                 <b>Número de Recibo:</b> <%= info["receiptNo"] %>
                 <hr>
               <% end %>
-              <div><b>Operador:</b> <img style="width: 24px;" src="https://www.pagaso.co.ao/<%= asset_path('favicon.png') %>"> PAGASÓ</div>
+              <div><b>Operador:</b> <img style="width: 24px;" src="https://www.pagaso.co.ao/<%= asset_path('icone.png') %>"> PAGASÓ</div>
               <div><b>Agente:</b> <%= (info["venda"]&.usuario || @adm).login %></div>
               <% if info["sgc"].present? %>
                 <div><b>SGC/Índice de Tarifa:</b> <%= "#{info["sgc"]}/#{info["ti"]}" %></div>

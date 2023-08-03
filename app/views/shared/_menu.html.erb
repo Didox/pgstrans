@@ -67,9 +67,7 @@
 		</ul>
 	</div>
 
-	<% if usuario_logado.admin? || usuario_logado.operador? %>
-		<a href="/proxy_pay/pagamento_referencia">
-			<button class="btn btn-warning menu_recarga <% if params[:controller] == "proxy_pay" && params[:action] == "gerar_referencia" %>active_menu<% end %>">Pagamento Referência</button>
-		</a>
-	<% end %>
+	<a href="/proxy_pay/pagamento_referencia">
+		<button class="btn btn-warning menu_recarga <% if params[:controller] == "proxy_pay" && params[:action] == "gerar_referencia" %>active_menu<% end %>">Pagamento Referência</button>
+	</a>
 </div>

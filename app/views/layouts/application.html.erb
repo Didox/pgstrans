@@ -5,14 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <meta name="description" content="">
+    <meta name="description" content="Pagasó Meios de Pagamentos - Angola">
 
-    <title>Pagasó · Facilita Bué</title>
+    <title>Pagasó · Facilita Bué . Angola</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+    <%= favicon_link_tag asset_path('favicon.png'), :rel => 'icon', :type =>  'image/png' %>
+    <%= favicon_link_tag asset_path('favicon.png'), :type => 'image/png', :sizes => '24x24' %>
 
     <!-- Bootstrap CSS -->
 
@@ -68,10 +71,9 @@
     
     <!-- Estilos customizados para esse template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
-    
-    <%= favicon_link_tag asset_path('favicon.png'), :rel => 'icon', :type =>  'image/png' %>
 
     </head>
+
     <body>
       <div class="col-sm-12">
         <header>
@@ -85,12 +87,15 @@
             <%= msg %>
           <% end %>
         <% end %>
+
         <div id="content">
           <%= yield %>
         </div>
+
         <footer>
           <%= render 'shared/footer' %>     
         </footer>
+        
       </div>
 
       <div class="modal_loader">
