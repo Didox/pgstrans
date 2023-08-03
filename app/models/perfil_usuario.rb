@@ -138,6 +138,7 @@ class PerfilUsuario < ApplicationRecord
   def self.nome_amigavel_controller(controller)
     nomes = {
       vendas: "Backoffice - Relatório de Vendas - Geral",
+      errors_controller: "Apresentação de páginas de erros personalizadas (Habilitar essa função para todos os perfis)",
       email_historico_envios: "Histórico de envio de email ENDE",
       sms_historico_envios: "Histórico de SMS de email ENDE",
       ip_api_autorizados: "Cadastro de IPs com permissão de acesso à API (Habilitar somente para Administradores)",
