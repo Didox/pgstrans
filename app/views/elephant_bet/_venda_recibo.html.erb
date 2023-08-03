@@ -33,7 +33,7 @@
               <li><b>creditType: </b><%= info["voucher"]["creditType"] %> </li>
               <li><b>Data de Validade: </b><%= info["voucher"]["endValidity"].to_datetime.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></li>
               <div><b>Agente:</b> <%= (info["venda"]&.usuario || @adm).login %></div>
-              <div><b>Operador:</b> <img style="width: 24px;" src="https://www.pagaso.co.ao/<%= asset_path('favicon.png') %>"> PAGASÓ</div>
+              <div><b>Operador:</b> <img style="width: 24px;" src="https://www.pagaso.co.ao/<%= asset_path('icone.png') %>"> PAGASÓ</div>
             </ul>
         </div>
       </div>
