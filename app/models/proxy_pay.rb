@@ -21,10 +21,13 @@ class ProxyPay
     UsuarioReferenciaPagamento.create(usuario_id: usuario.id, acao: 1, nro_pagamento_referencia: usuario.nro_pagamento_referencia)
 
     parceiro, parametro, url_service = self.parametros
+
     if Rails.env == "development"
-      api_key = "#{parametro.get.api_key_desenvolvimento}"
+      url_service = parametro.get.url_api_integracao_desenvolvimento
+      api_key = parametro.get.api_key_desenvolvimento
     else
-      api_key = "#{parametro.get.api_key_producao}"
+      url_service = parametro.get.url_api_integracao_producao
+      api_key = parametro.get.api_key_producao
     end
 
     url = "#{url_service}/#{parametro.get.endpoint_HTTP_Create_Update_Delete_Reference}/#{usuario.nro_pagamento_referencia}"
@@ -46,7 +49,13 @@ class ProxyPay
 
     parceiro, parametro, url_service = self.parametros
 
-    api_key_desenvolvimento = "#{parametro.get.api_key_desenvolvimento}"
+    if Rails.env == "development"
+      url_service = parametro.get.url_api_integracao_desenvolvimento
+      api_key = parametro.get.api_key_desenvolvimento
+    else
+      url_service = parametro.get.url_api_integracao_producao
+      api_key = parametro.get.api_key_producao
+    end
 
     url = "#{url_service}/#{parametro.get.endpoint_HTTP_Create_Update_Delete_Reference}/#{usuario.nro_pagamento_referencia}"
     uri = URI.parse(URI::Parser.new.escape(url))
@@ -54,7 +63,7 @@ class ProxyPay
     request = HTTParty.delete(uri, 
       headers: {
         'Content-Type' => 'application/vnd.proxypay.v2+json',
-        'Authorization' => "Token #{api_key_desenvolvimento}",
+        'Authorization' => "Token #{api_key}",
       },
       timeout: DEFAULT_TIMEOUT.to_i.seconds
     )
