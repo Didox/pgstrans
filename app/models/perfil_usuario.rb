@@ -48,8 +48,7 @@ class PerfilUsuario < ApplicationRecord
   end
 
   def self.action_amigavel(action)
-    nomes = {
-      pagamento_referencia: "Pagamento por referência (Botão no Menu Home do usuário)",
+    nomes = { 
       gerar_referencia: "Gerar número de pagamento por referência para o usuário",
       apagar_referencia: "Apagar número de Pagamento por Referência cadastrado para o usuário",
       consultar_voucher: "Consultar Voucher",
