@@ -191,9 +191,9 @@ Rails.application.routes.draw do
   get 'api/dstv/validacao-cliente', to: 'dstv#validacao_cliente_api'
 
   # Rotas personalizadas para erros 404, 422 e 500
-  get '/404', to: 'errors#not_found'
-  get '/422', to: 'errors#unprocessable_entity'
-  get '/500', to: 'errors#internal_server_error'
+  get '/not_found', to: 'errors#not_found'
+  get '/unprocessable_entity', to: 'errors#unprocessable_entity'
+  get '/internal_server_error', to: 'errors#internal_server_error'
 
   # Rota curinga para capturar outros erros não tratados
   match "*path", to: "errors#not_found", via: :all

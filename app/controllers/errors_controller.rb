@@ -10,9 +10,4 @@ class ErrorsController < ApplicationController
   def unprocessable_entity
     render status: :unprocessable_entity
   end
-
-  def show
-    status_code = params[:code] || 500
-    render status: status_code.to_i
-  end
 end

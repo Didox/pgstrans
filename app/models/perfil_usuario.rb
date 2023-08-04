@@ -49,6 +49,7 @@ class PerfilUsuario < ApplicationRecord
 
   def self.action_amigavel(action)
     nomes = { 
+      pagamento_referencia: "Pagamento por referência (Botão no Menu Home do usuário)",
       gerar_referencia: "Gerar número de pagamento por referência para o usuário",
       apagar_referencia: "Apagar número de Pagamento por Referência cadastrado para o usuário",
       consultar_voucher: "Consultar Voucher",
@@ -129,7 +130,10 @@ class PerfilUsuario < ApplicationRecord
       index_vendas_conciliacao: "Relatório de Vendas com dados resumidos para fins de conciliação",
       auth: "Permissão para interagir com a API do Google",
       google_auth: "Permissão para autenticação Google",
-      painel: "Últimas Vendas por Parceiro"
+      painel: "Últimas Vendas por Parceiro",
+      not_found: "Páginas não encontradas",
+      internal_server_error: "Erro interno no servidor",
+      unprocessable_entity: "Requisição não pode ser processada"
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
@@ -138,7 +142,7 @@ class PerfilUsuario < ApplicationRecord
   def self.nome_amigavel_controller(controller)
     nomes = {
       vendas: "Backoffice - Relatório de Vendas - Geral",
-      errors_controller: "Apresentação de páginas de erros personalizadas (Habilitar essa função para todos os perfis)",
+      errors: "Apresentação de páginas de erros (Habilitar essa função para todos os perfis)",
       email_historico_envios: "Histórico de envio de email ENDE",
       sms_historico_envios: "Histórico de SMS de email ENDE",
       ip_api_autorizados: "Cadastro de IPs com permissão de acesso à API (Habilitar somente para Administradores)",

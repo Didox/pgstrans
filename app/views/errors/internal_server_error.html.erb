@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,71 +20,29 @@
   <!-- Estilos customizados para esse template -->
   <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Playfair+Display:700,900' %>
 
-  <%= favicon_link_tag 'favicon-5e221aa404440bd784c357f064bdca523280c7cdae2424d44e4501d320e56d62.png', type: 'image/png' %>
+  <%= favicon_link_tag 'favicon.png', rel: 'icon', type: 'image/png' %>
+  <%= favicon_link_tag 'favicon.png', type: 'image/png', sizes: '24x24' %>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="container" style="margin-bottom: 5px;">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-          <div class="col-4 text-center">
-            <a target="_blank" href="https://www.pagaso.co.ao">
-              <%= image_tag('PagaSo-Logo-4e8e1324a89ee6927821f63d24fa6d96e3b87d4617b3315e4c060f0af6b9d346.png', class: 'logo') %>
-            </a>
-          </div>
-        </div>
-      </div>
-    </header>
-    <div class="container">
-      <div class="col-md-12 panel panel-default">
-        <div class="panel-heading">
-        </div>
+  <div class="container-fluid">
+    <div class="col-md-12 panel panel-default">
+      <div class="panel-heading">
         <div class="panel-body">
-          <div class="col-md-4">
-            <%= image_tag('/static/MascotePagaso.png', class: 'img-responsive', data: { image: '/static/MascotePagaso.png' }) %>
-            <a href="/login">
-              <%= image_tag('/static/MascotePagaso.png') %>
-            </a>
+          <div class="col-md-3">
+              <%= image_tag('/static/MascotePagaso.png', data: { image: '/static/MascotePagaso.png' }, class: 'img-responsive') %>
           </div>
-          <br>
-          <h1>
-            Ops ... 
-            <br>
-            Ocorreu um erro no sistema, tente novamente mais tarde!
-          </h1>
+          <div class="col-md-8">
+              <h1>
+                Que pena! 
+                <br><br>
+                Ocorreu um erro no sistema!
+                <br><br>
+                Vamos <%= link_to 'recomeçar', '/' %> ?
+              </h1>
+          </div>
         </div>
       </div>
     </div>
-    <footer>
-      <!-- Footer -------------------------------------- -->
-      <nav class="navbar navbar-wrapper navbar-dark bg-default navbar-fixed-bottom">
-        <div class="navbar-collapse">
-          <div class="container">
-            <ul class="nav navbar-nav pull-right">
-              <li>
-                <button type="button" class="btn btn-info navbar-btn btn-space mobile-botao" style="width: 280px; text-align: center;">
-                  <copyright>
-                    &copy; <%= Time.now.year %> TIV TECNOLOGIA PAGASÓ
-                  </copyright>        
-                </button>
-                <button type="button" class="btn btn-warning navbar-btn btn-space mobile-botao" style="width: 262px; text-align: center;">
-                  <%= link_to 'SEGURANÇA E PRIVACIDADE', 'https://www.pagaso.co.ao', style: 'color: #fff' %>
-                </button>
-                <button type="button" class="btn btn-danger navbar-btn pull-right mobile-botao" style="width: 262px; text-align: center;">
-                  <%= link_to 'SEJA NOSSO CLIENTE', 'https://www.pagaso.co.ao', style: 'color: #fff' %>
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <h3 style="font-size: 25px;margin-top: 20px;"></h3>     
-    </footer>
   </div>
-
-  <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
-  <%= javascript_include_tag 'https://code.jquery.com/jquery-3.3.1.slim.min.js' %>
-  <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' %>
-  <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' %>
 </body>
 </html>
