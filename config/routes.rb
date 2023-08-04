@@ -189,7 +189,15 @@ Rails.application.routes.draw do
   get 'api/industries', to: 'industries#index_api'
 
   get 'api/dstv/validacao-cliente', to: 'dstv#validacao_cliente_api'
-  
+
+  # Rotas personalizadas para erros 404, 422 e 500
+  get '/not_found', to: 'errors#not_found'
+  get '/unprocessable_entity', to: 'errors#unprocessable_entity'
+  get '/internal_server_error', to: 'errors#internal_server_error'
+
+  # Rota curinga para capturar outros erros não tratados
+  match "*path", to: "errors#not_found", via: :all
+
   resources :return_code_apis
   resources :matrix_users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
