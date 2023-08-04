@@ -10,4 +10,20 @@ class ErrorsController < ApplicationController
   def unprocessable_entity
     render status: :unprocessable_entity
   end
+    
+  def show
+    status_code = params[:code] || 500
+    render_error(status_code.to_i)
+  end
+
+  private
+
+  def render_error(status)
+    respond_to do |format|
+      format.html { render status: status }
+      format.all { render plain: "Error #{status}", status: status }
+    end
+  end
+
+
 end
