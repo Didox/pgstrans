@@ -29,5 +29,6 @@ module Pgstrans
 
     config.exceptions_app = ->(env) { ErrorsController.action(:show).call(env) }
 
+    #config.exceptions_app = self.routes
   end
 end

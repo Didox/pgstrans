@@ -120,29 +120,37 @@ class ProxyPayController < ApplicationController
          custom_fields_parceiro: params["custom_fields"]
       }
 
-      hash[:usuario_id] = usuario.id
-      hash[:x_signature] = request.headers["X-Signature"]
-      pagamento_referencia = PagamentoReferencia.new(hash)
-      pagamento_referencia.responsavel = Usuario.proxypay
-      pagamento_referencia.save
+      duplicado = PagamentoReferencia.where(id_parceiro: params["id"]).first
+      if duplicado.blank?
+         hash[:usuario_id] = usuario.id
+         hash[:x_signature] = request.headers["X-Signature"]
+         pagamento_referencia = PagamentoReferencia.new(hash)
+         pagamento_referencia.responsavel = Usuario.proxypay
+         pagamento_referencia.save
 
-      conta_corrente = ContaCorrente.new
-      conta_corrente.banco_id = Banco.order("ordem_prioridade asc").first.id
-      conta_corrente.valor = pagamento_referencia.valor
-      conta_corrente.lancamento = Lancamento.where(nome: Lancamento::DEPOSITO).first || Lancamento.first
-      conta_corrente.observacao = "Pagamento por referência número (#{pagamento_referencia.nro_pagamento_referencia}) do usuário #{usuario.id}/#{usuario.nome} ."
-      conta_corrente.usuario = usuario
-      conta_corrente.iban = pagamento_referencia.nro_pagamento_referencia
-      conta_corrente.responsavel = Usuario.proxypay
-      conta_corrente.responsavel_aprovacao_id = Usuario.proxypay.id
-      conta_corrente.partner_id = Partner.where(slug: 'proxypay').first.id
-      conta_corrente.save!
+         conta_corrente = ContaCorrente.new
+         conta_corrente.banco_id = Banco.order("ordem_prioridade asc").first.id
+         conta_corrente.valor = pagamento_referencia.valor
+         conta_corrente.lancamento = Lancamento.where(nome: Lancamento::DEPOSITO).first || Lancamento.first
+         conta_corrente.observacao = "Pagamento por referência número (#{pagamento_referencia.nro_pagamento_referencia}) do usuário #{usuario.id}/#{usuario.nome} - ID Parceiro #{params["id"]}."
+         conta_corrente.usuario = usuario
+         conta_corrente.iban = pagamento_referencia.nro_pagamento_referencia
+         conta_corrente.responsavel = Usuario.proxypay
+         conta_corrente.responsavel_aprovacao_id = Usuario.proxypay.id
+         conta_corrente.partner_id = Partner.where(slug: 'proxypay').first.id
+         conta_corrente.save!
 
-      pagamento_referencia.status = true
-      pagamento_referencia.data_conciliacao = DateTime.now
-      pagamento_referencia.save
+         pagamento_referencia.status = true
+         pagamento_referencia.data_conciliacao = DateTime.now
+         pagamento_referencia.save
 
-      render json: {}, status: 204
+         render json: {}, status: 204
+      else
+         render json: {
+            message: "Pagamento de referência já conciliado ID - #{params["id"]} - Valor: #{params["amount"]}"
+         }, status: 404
+         return
+      end
    end
    
    def generate_signature(api_key, json_body)
