@@ -120,14 +120,14 @@ class ProxyPayController < ApplicationController
          custom_fields_parceiro: params["custom_fields"]
       }
 
-      duplicado = PagamentoReferencia.where(id_parceiro: params["id"]).first
+      duplicado = PagamentoReferencia.where(id_parceiro: params["id"]).first   
+      hash[:usuario_id] = usuario.id
+      hash[:x_signature] = request.headers["X-Signature"]
+      pagamento_referencia = PagamentoReferencia.new(hash)
+      pagamento_referencia.responsavel = Usuario.proxypay
+      pagamento_referencia.save
+   
       if duplicado.blank?
-         hash[:usuario_id] = usuario.id
-         hash[:x_signature] = request.headers["X-Signature"]
-         pagamento_referencia = PagamentoReferencia.new(hash)
-         pagamento_referencia.responsavel = Usuario.proxypay
-         pagamento_referencia.save
-
          conta_corrente = ContaCorrente.new
          conta_corrente.banco_id = Banco.order("ordem_prioridade asc").first.id
          conta_corrente.valor = pagamento_referencia.valor
@@ -146,6 +146,9 @@ class ProxyPayController < ApplicationController
 
          render json: {}, status: 204
       else
+         pagamento_referencia.status = false
+         pagamento_referencia.save
+
          render json: {
             message: "Pagamento de referência já conciliado ID - #{params["id"]} - Valor: #{params["amount"]}"
          }, status: 404

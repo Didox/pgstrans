@@ -55,7 +55,7 @@
             <dd><%= @pagamento_referencia.x_signature %></dd>
       <% end %>
       <dt>Situação:</dt>
-      <dd><%= @pagamento_referencia.status ? "Processado" : "Pendente" %></dd>
+      <dd><%= @pagamento_referencia.status ? "Processado" : "Pendente ou Duplicado" %></dd>
     </dl>
 
     <div class="page-header">

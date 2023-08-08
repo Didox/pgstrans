@@ -132,10 +132,10 @@
           <th scope="col" style="width: 5%">ID da Transação no Parceiro</th>
           <th scope="col" style="width: 5%; text-align: center;">ID Parceiro</th>
           <th scope="col" style="width: 15%; text-align: center;">Valor do Depósito</th>
-          <th scope="col" style="width: 17%">Data do Depósito</th>
-          <th scope="col" style="width: 17%">Data da Conciliação</th>
+          <th scope="col" style="width: 12%">Data do Depósito</th>
+          <th scope="col" style="width: 12%">Data da Conciliação</th>
           <th scope="col" style="width: 5%">Tipo de Terminal</th>
-          <th scope="col">Situação</th>
+          <th scope="col" style="width: 10%">Situação</th>
           <th colspan="2" style="text-align: center;">Ações</th>
         </tr>
       </thead>
@@ -157,7 +157,7 @@
           <td><%= pagamento_referencia.data_pagamento.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></td>
           <td><%= pagamento_referencia.data_conciliacao.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></td>
           <td><%= pagamento_referencia.terminal_type_parceiro %></td> 
-          <td><%= pagamento_referencia.status ? "Processado" : "Pendente" %></td> 
+          <td><%= pagamento_referencia.status ? "Processado" : "Pendente ou Duplicado" %></td> 
 
           <td><%= link_to 'Mostrar', "/pagamento_referencias/#{pagamento_referencia.id}", class: 'btn btn-light btn-sm btn-block' %></td>
 
