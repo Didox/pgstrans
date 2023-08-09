@@ -222,7 +222,7 @@ class VendasController < ApplicationController
         if data_inicio > data_fim
           return @vendas = bloqueia_resultado_busca(@vendas, "Data inicial não pode ser maior que a data final")
         else
-          diferenca_data = (data_inicial - data_fim).to_i
+          diferenca_data = (data_inicio - data_fim).to_i
           if diferenca_data > 90
             return @vendas = bloqueia_resultado_busca(@vendas, "Pesquisa limitada ao período máximo de 90 dias. Para período superior consulte o Administrador.")
           else
