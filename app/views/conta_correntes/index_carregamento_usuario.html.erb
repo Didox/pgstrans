@@ -99,14 +99,14 @@
         <% @conta_correntes.each do |conta_corrente| %>
         <tr>
           <% if @adm.admin? || @adm.operador? %>
-            <td style="width: 6%" align="right"><%= conta_corrente.usuario.id %></td>
+            <td style="width: 6%; text-align: right;"><%= conta_corrente.usuario.id %></td>
           <% end %>
           <td style="width: 6%"><%= conta_corrente.usuario.login %></td>
           <td style="width: 21%"><%= conta_corrente.usuario.nome %></td>
-          <td style="width: 16%" align="right"><%= number_to_currency(conta_corrente.valor, :unit => "KZ", :precision => 2) %></td>
-          <td style="width: 14%" align="center"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %></td>
+          <td style="width: 16%; text-align: right;"><%= number_to_currency(conta_corrente.valor, :unit => "KZ", :precision => 2) %></td>
+          <td style="width: 14%; text-align: right;"><%= conta_corrente.data_alegacao_pagamento.strftime("%d/%m/%Y %H:%M:%S") %></td>
           <td style="width: 17%"><%= conta_corrente.lancamento.nome rescue "" %>
-          <% if (@adm.admin? || @adm.operador?) %>  
+          <% if (@adm.admin? || @adm.operador?) %>
             <td style="width: 20%">
               <% if ![Lancamento::PAGAMENTO_DE_FATURA, Lancamento::ALTERACAO_PLANO, Lancamento::ALTERACAO_PACOTE].include?(conta_corrente.lancamento.nome) %>  
                 <%= conta_corrente.responsavel_aprovacao.nome rescue "" %>
@@ -129,11 +129,11 @@
             <td></td>
             <td style="text-align:right">
               <b>Total da Página: </b><br>
-              <b>Total Geral de Lançamentos: </b>
+              <!--b>Total Geral de Lançamentos: </b-->
             </td>
             <td style="text-align:right">
               <%= number_to_currency(valor_total, :unit => "KZ") %><br>
-              <%= number_to_currency(@valor_total, :unit => "KZ") %>
+              <%#= number_to_currency(@valor_total, :unit => "KZ") %>
             </td>
             <td></td>
             <td></td>
