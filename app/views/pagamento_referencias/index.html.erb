@@ -141,6 +141,7 @@
       </thead>
 
       <tbody>
+        <% valor_total = 0 %>
         <% @pagamento_referencias.each do |pagamento_referencia| %>
         <tr>
           <td>
@@ -152,7 +153,7 @@
           </td>
           <td><%= pagamento_referencia.transaction_id_parceiro %></td>
           <td><%= pagamento_referencia.id_parceiro %></td>
-          <td style="text-align: center"><%= number_to_currency(pagamento_referencia.valor) %></td>
+          <td style="text-align: right"><%= number_to_currency(pagamento_referencia.valor) %></td>
 
           <td><%= pagamento_referencia.data_pagamento.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></td>
           <td><%= pagamento_referencia.data_conciliacao.strftime("%d/%m/%Y %H:%M:%S") rescue "" %></td>
@@ -166,8 +167,31 @@
           <% else %>
             <td><button type="button" class="btn btn-light btn-sm btn-block">Editar</button></td>
           <% end %>
+          <% if pagamento_referencia.status %>
+            <% valor_total += pagamento_referencia.valor %>
+          <% end %>
         </tr>
         <% end %>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td></td>
+            <td colspan="2" style="text-align:right;">
+              <b>Total da Página </b><br>
+              <!--b>Total Geral de Lançamentos: </b-->
+            </td>
+            <td style="text-align:right;">
+              <%= number_to_currency(valor_total, :unit => "KZ") %><br>
+              <%#= number_to_currency(@valor_total, :unit => "KZ") %>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tfoot>
       </tbody>
     </table>
 
