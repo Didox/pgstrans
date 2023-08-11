@@ -123,6 +123,8 @@ Rails.application.routes.draw do
   resources :status_produtos
   resources :municipios
   resources :industries
+  resources :return_code_apis
+  resources :matrix_users
 
   get 'consulta-nome-usuario-operadora', to: 'usuarios#consulta_nome_usuario_operadora'
 
@@ -198,7 +200,5 @@ Rails.application.routes.draw do
   # Rota curinga para capturar outros erros não tratados
   match "*path", to: "errors#not_found", via: :all
 
-  resources :return_code_apis
-  resources :matrix_users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

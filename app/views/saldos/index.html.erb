@@ -115,13 +115,13 @@
               <td>
                 <%= conta_corrente.usuario.superiores_imediato.join(", ") %>
               </td>
-              <td style="width:150px" align="right">
+              <td style="width:150px" style="text-align: right">
                 <%= number_to_currency(conta_corrente.saldo_anterior, :unit => "Kz") %>
               </td>
-              <td style="width:170px" align="right">
+              <td style="width:170px" style="text-align: right">
                 <%= number_to_currency(conta_corrente.valor, :unit => "Kz") %>
               </td>
-              <td style="width:150px" align="right">
+              <td style="width:150px" style="text-align: right">
                 <%= number_to_currency(conta_corrente.saldo_atual, :unit => "Kz") %>
               </td>
             </tr>
