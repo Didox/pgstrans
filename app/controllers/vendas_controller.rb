@@ -266,6 +266,7 @@ class VendasController < ApplicationController
 
       @vendas_total = @vendas.count
 
+      ConsolidadoFinanceiro.create(usuario_id: @adm.id, parametros: params.to_json)
     end
 
     

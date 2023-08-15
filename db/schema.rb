@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_15_182444) do
+ActiveRecord::Schema.define(version: 2023_08_15_124712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,18 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["dispositivo_id"], name: "index_canal_vendas_on_dispositivo_id"
+  end
+
+  create_table "consolidado_financeiros", force: :cascade do |t|
+    t.integer "tipo"
+    t.text "parametros"
+    t.string "valor_total"
+    t.string "total_lucro"
+    t.string "total_custo"
+    t.bigint "usuario_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["usuario_id"], name: "index_consolidado_financeiros_on_usuario_id"
   end
 
   create_table "consolidado_venda_relatorios", force: :cascade do |t|
@@ -124,6 +136,7 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.index ["lancamento_id"], name: "index_conta_correntes_on_lancamento_id"
     t.index ["partner_id"], name: "index_conta_correntes_on_partner_id"
     t.index ["usuario_id"], name: "index_conta_correntes_on_usuario_id"
+    t.index ["venda_id"], name: "idx_venda_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -459,6 +472,7 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
     t.boolean "operador", default: false
     t.boolean "agente"
     t.text "links_externos"
+    t.boolean "consumidor_final"
   end
 
   create_table "produtos", force: :cascade do |t|
@@ -857,6 +871,7 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
   add_foreign_key "alegacao_de_pagamentos", "status_alegacao_de_pagamentos"
   add_foreign_key "alegacao_de_pagamentos", "usuarios"
   add_foreign_key "canal_vendas", "dispositivos"
+  add_foreign_key "consolidado_financeiros", "usuarios"
   add_foreign_key "consolidado_venda_relatorios", "consolidado_vendas"
   add_foreign_key "conta_correntes", "alegacao_de_pagamentos"
   add_foreign_key "conta_correntes", "bancos"
@@ -898,7 +913,6 @@ ActiveRecord::Schema.define(version: 2023_05_15_182444) do
   add_foreign_key "token_usuario_senhas", "usuarios"
   add_foreign_key "ultima_atualizacao_produtos", "partners"
   add_foreign_key "ultima_atualizacao_reconciliacaos", "partners"
-  add_foreign_key "unitel_sequences", "vendas"
   add_foreign_key "usuario_acessos", "usuarios"
   add_foreign_key "usuario_referencia_pagamentos", "usuarios"
   add_foreign_key "usuarios", "industries"
