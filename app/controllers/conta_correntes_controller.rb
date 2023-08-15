@@ -54,7 +54,7 @@ class ContaCorrentesController < ApplicationController
     end
 
     @conta_correntes_total = @conta_correntes.count
-    #@valor_total = @conta_correntes.sum(:valor)
+    @valor_total = @conta_correntes.sum(:valor)
     options = {page: params[:page] || 1, per_page: 10}
     @conta_correntes = @conta_correntes.paginate(options)
   end
@@ -111,13 +111,13 @@ class ContaCorrentesController < ApplicationController
     "
     @sql = sql.gsub(/\n/, "")
 
-    # sqlTotalGeral = "select  
-    #                   sum(valor) as valor
-    #                 from#{@sql.gsub(/select.*?from|group by.*/, "")}"
+    sqlTotalGeral = "select  
+                      sum(valor) as valor
+                    from#{@sql.gsub(/select.*?from|group by.*/, "")}"
     
-    # sqlQuantidade = "select  
-    #                     count(1) as quantidade
-    #                   from#{@sql.gsub(/select.*?from|group by.*/, "")}"
+    sqlQuantidade = "select  
+                        count(1) as quantidade
+                      from#{@sql.gsub(/select.*?from|group by.*/, "")}"
     
     @valor_total = ActiveRecord::Base.connection.exec_query(sqlTotalGeral).first["valor"] rescue 0
     @quantidade = ActiveRecord::Base.connection.exec_query(sqlQuantidade).first["quantidade"] rescue 0

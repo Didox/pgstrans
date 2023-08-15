@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tipo: 1
+  parametros: MyText
+  valor_total: MyString
+  total_lucro: MyString
+  total_custo: MyString
+  usuario: one
+
+two:
+  tipo: 1
+  parametros: MyText
+  valor_total: MyString
+  total_lucro: MyString
+  total_custo: MyString
+  usuario: two
