@@ -1,10 +1,13 @@
 <p>Somatória de acordo a busca</p>
 <h4>
-  Total Geral: <strong><%= number_to_currency(Venda.total_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
+  <% 
+  cf = Venda.total_acesso_consolidado(@adm, @vendas_graficos) 
+  %>
+  Total Geral: <strong><%= cf.present? ? "#{number_to_currency(cf.valor_total, :unit => "KZ")} - #{cf.created_at.strftime("%d/%m/%Y %H:%M:%S")}" : "Item calculando ..." %></strong>
 </h4>
 <h4>
-  Total de Lucro: <strong><%= number_to_currency(Venda.total_lucros_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
+  Total de Lucro: <strong><%= cf.present? ? "#{number_to_currency(cf.total_lucro, :unit => "KZ")} - #{cf.created_at.strftime("%d/%m/%Y %H:%M:%S")}" : "Item calculando ..." %></strong>
 </h4>
 <h4>
-  Total de Custo: <strong><%= number_to_currency(Venda.total_custo_acesso(@adm, @vendas_graficos), :unit => "KZ") %></strong>
+  Total de Custo: <strong><%= cf.present? ? "#{number_to_currency(cf.total_custo, :unit => "KZ")} - #{cf.created_at.strftime("%d/%m/%Y %H:%M:%S")}" : "Item calculando ..." %></strong>
 </h4>

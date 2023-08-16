@@ -4,17 +4,22 @@ class ConsolidadoFinanceiro < ApplicationRecord
     VENDAS = 1
     CONTA_CORRENTE = 2
 
-    def calcular_valor_total
+    def calcular_valor_total!
         params = JSON.parse(self.parametros)
-        adm = Usuario.find(self.usuario_id)
+        adm = Usuario.where(id: self.usuario_id).first
+        if adm.blank?
+            adm.delete
+            return
+        end
 
         if self.tipo == ConsolidadoFinanceiro::VENDAS
             params.delete("csv")
             params["usuario_id"] = self.usuario_id
             params["relatorio_job"] = "ok"
+            params["ultimo_dado_consolidado"] = "ok"
             params = ActiveSupport::HashWithIndifferentAccess.new(params)
 
-            controller_const = controller.constantize
+            controller_const = "#{params["controller"]}_controller".camelize.constantize
             controller_const.instance_eval do
                 def parametros=(value)
                     @parametros = value
@@ -28,7 +33,6 @@ class ConsolidadoFinanceiro < ApplicationRecord
             controller_const.parametros = params
 
             controller_const.class_eval do
-                # perfil "Financeiro"
                 def administrador
                     @adm = Usuario.find(self.class.parametros["usuario_id"])
                     self.class.parametros.delete("usuario_id")
@@ -38,12 +42,14 @@ class ConsolidadoFinanceiro < ApplicationRecord
                     self.class.parametros
                 end
             end
+
+            acao = params["action"]
             dados = controller_const.new.send(acao)
             
-            self.valor_total = number_to_currency(Venda.total_acesso(adm, dados), :unit => "KZ")
-            self.total_lucro = number_to_currency(Venda.total_lucros_acesso(adm, dados), :unit => "KZ")
-            self.total_custo = number_to_currency(Venda.total_custo_acesso(adm, dados), :unit => "KZ")
-            self.save
+            self.valor_total = Venda.total_acesso(adm, dados)
+            self.total_lucro = Venda.total_lucros_acesso(adm, dados)
+            self.total_custo = Venda.total_custo_acesso(adm, dados)
+            self.save!
         else
             puts "... conta corrente"
         end
