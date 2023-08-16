@@ -272,6 +272,7 @@ class VendasController < ApplicationController
           ConsolidadoFinanceiro.where(query: @vendas_graficos.to_sql).where("id not in (#{ultimo.id})").destroy_all
         end
         ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::VENDAS, parametros: params.to_json, query: @vendas_graficos.to_sql)
+        
       end
     end
 
