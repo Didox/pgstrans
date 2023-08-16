@@ -123,15 +123,23 @@
   <br>
   <script>
     $(document).ready(function(){
-      var params = window.location.href.split("?")[1]
-      $.ajax({
-        type: "GET",
-        url: "/vendas_resumo?" + params,
-        success: function(data){
-          $("#resumo_vendas").html(data);
-        }
-      });
-      $(".modal_loader").hide();
+      const loadResumoVendas = () =>{
+        var params = window.location.href.split("?")[1]
+        $.ajax({
+          type: "GET",
+          url: "/vendas_resumo?" + params,
+          success: function(data){
+            $("#resumo_vendas").html(data);
+          }
+        });
+        $(".modal_loader").hide();
+      }
+
+      loadResumoVendas();
+      
+      setInterval(() => {
+       loadResumoVendas();
+      }, 10000);
     });
   </script>
 </div>

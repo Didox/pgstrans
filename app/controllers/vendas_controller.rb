@@ -23,6 +23,7 @@ class VendasController < ApplicationController
 
   
   def index_resumo
+    params["ultimo_dado_consolidado"] = "ok"
     index
   end
 
@@ -267,12 +268,18 @@ class VendasController < ApplicationController
       @vendas_total = @vendas.count
 
       if params["ultimo_dado_consolidado"].blank?
-          ultimo = ConsolidadoFinanceiro.where(query: @vendas_graficos.to_sql).where('valor_total is not null').order(id: :asc).last
+        ultimo = ConsolidadoFinanceiro.where(query: @vendas_graficos.to_sql).where('valor_total is not null').order(id: :asc).last
         if ultimo.present?
           ConsolidadoFinanceiro.where(query: @vendas_graficos.to_sql).where("id not in (#{ultimo.id})").destroy_all
+
+          if (Time.zone.now - 1.day) > ultimo.created_at
+            ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::VENDAS, parametros: params.to_json, query: @vendas_graficos.to_sql)
+            # mandar para o SQS agendando este total em tempo real, fazer ajax para mostrar total calculado no resumo de vendas
+          end
+        else
+          ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::VENDAS, parametros: params.to_json, query: @vendas_graficos.to_sql)
+          # mandar para o SQS agendando este total em tempo real, fazer ajax para mostrar total calculado no resumo de vendas
         end
-        ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::VENDAS, parametros: params.to_json, query: @vendas_graficos.to_sql)
-        
       end
     end
 
