@@ -5,7 +5,7 @@ class ConsolidadoFinanceiro < ApplicationRecord
     CONTA_CORRENTE = 2
 
     def calcular_valor_total!
-        params = JSON.parse(self.parametros)
+        params = JSON.parse(self.parametros) rescue {}
         adm = Usuario.where(id: self.usuario_id).first
         if adm.blank?
             adm.delete
@@ -51,7 +51,8 @@ class ConsolidadoFinanceiro < ApplicationRecord
             self.total_custo = Venda.total_custo_acesso(adm, dados)
             self.save!
         else
-            puts "... conta corrente"
+            self.valor_total = ActiveRecord::Base.connection.exec_query(self.query).first["total"].to_f
+            self.save!
         end
     end
 end

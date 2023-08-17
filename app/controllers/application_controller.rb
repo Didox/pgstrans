@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :validate_login, except: [:conciliacao_proxy_pay]
+  before_action :validate_login, except: [:conciliacao_proxy_pay, :total_cc]
 
   def usuario_logado
     administrador
