@@ -3,11 +3,11 @@
   <% 
   cf = Venda.total_acesso_consolidado(@adm, @vendas_graficos) 
   %>
-  Total Geral: <strong><%= cf.present? ? "#{number_to_currency(cf.valor_total, :unit => "KZ")} - #{cf.created_at.strftime("%d/%m/%Y %H:%M:%S")}" : "Item calculando ..." %></strong>
+  Total Geral: <strong><%= cf.present? ? "#{number_to_currency(cf.valor_total, :unit => "KZ")} - #{cf.created_at.strftime("%d/%m/%Y %H:%M:%S")}" : "Processando ..." %></strong>
 </h4>
 <h4>
-  Total de Lucro: <strong><%= cf.present? ? "#{number_to_currency(cf.total_lucro, :unit => "KZ")} - #{cf.created_at.strftime("%d/%m/%Y %H:%M:%S")}" : "Item calculando ..." %></strong>
+  Total de Lucro: <strong><%= cf.present? ? "#{number_to_currency(cf.total_lucro, :unit => "KZ")} - #{cf.created_at.strftime("%d/%m/%Y %H:%M:%S")}" : "Processando ..." %></strong>
 </h4>
 <h4>
-  Total de Custo: <strong><%= cf.present? ? "#{number_to_currency(cf.total_custo, :unit => "KZ")} - #{cf.created_at.strftime("%d/%m/%Y %H:%M:%S")}" : "Item calculando ..." %></strong>
+  Total de Custo: <strong><%= cf.present? ? "#{number_to_currency(cf.total_custo, :unit => "KZ")} - #{cf.created_at.strftime("%d/%m/%Y %H:%M:%S")}" : "Processando ..." %></strong>
 </h4>

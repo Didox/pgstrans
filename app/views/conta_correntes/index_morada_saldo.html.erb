@@ -123,6 +123,7 @@
       Total de Registos: <strong><%= number_to_currency(@usuarios_total, :precision => 0, :unit => "") %></strong>
     </h4>
     <hr>
+    <% if @usuarios.present? %>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -176,11 +177,11 @@
             <td></td>
             <td style="text-align: right;">
               <b>Total da Página:</b><br>
-              <b>Total Geral:</b-->
+              <b>Total Geral:</b>
             </td>
             <td style="width:120px; text-align: right;">
               <b><%= number_to_currency(valor_total) %></b><br>
-              <b id="valor_total_cc">Carregando resumo ...<%#= number_to_currency(@valor_total) %></b>
+              <b id="valor_total_cc">Processando ...</b>
             </td>              
           </tr>
         </tfoot>
@@ -211,6 +212,11 @@
     <div class="apple_pagination">
       <%= will_paginate @usuarios, :container => false %>
     </div>
+    <% else %>
+      <div style="height: 100px; text-align:center;font-size: 20px; color: #856404; padding: 20px;">
+        Informe os parâmetros de busca
+      </div>
+    <% end %>
 
     <%= link_to "index_carregamento_usuario", class: 'btn btn-success', style: "width: 200px;text-align: center;margin-right: 0px;" do %>
       <span class="glyphicon glyphicon-list-alt"></span>

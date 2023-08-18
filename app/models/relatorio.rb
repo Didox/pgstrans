@@ -7,7 +7,7 @@ class Relatorio < ApplicationRecord
 
         sqs_client.send_message(
             queue_url: SQS_URL,
-            message_body: self.id.to_s
+            message_body: "relatorio_id:#{self.id.to_s}"
         )
 
         Rails.logger.info "=====[SQS Agendamento Sucesso #{DateTime.now}]====="

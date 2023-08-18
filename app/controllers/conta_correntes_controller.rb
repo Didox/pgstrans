@@ -179,11 +179,14 @@ class ContaCorrentesController < ApplicationController
 
   def total_cc
     params["ultimo_dado_consolidado"] = "ok"
-    @valor_total = index_morada_saldo
-    render json: { valor_total: helper.number_to_currency(@valor_total) }, status: 200
+    cf = index_morada_saldo
+    saldo = cf.present? ? "#{helper.number_to_currency(cf.valor_total)} <br> #{cf.created_at.strftime("%d/%m/%Y %H:%M:%S")}" : "Processando ..."
+    render json: { valor_total: saldo }, status: 200
   end
 
   def index_morada_saldo
+    return if nao_buscavel
+
     @usuarios = Usuario.com_acesso(usuario_logado)
     @usuarios = @usuarios.reorder("nome asc")
     @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
@@ -214,7 +217,7 @@ class ContaCorrentesController < ApplicationController
     end
 
     where = @usuarios.to_sql.gsub("\n","").scan(/WHERE.*/).first
-    where = where.gsub(/ORDER.*/, "")
+    where = where.gsub(/ORDER.*/, "") rescue ""
     sql = "
       select 
         sum((
@@ -242,9 +245,7 @@ class ContaCorrentesController < ApplicationController
       end
       @valor_total = 0
     else
-      @valor_total = ConsolidadoFinanceiro.where(query: sql).where('valor_total is not null').order(id: :asc).last.valor_total rescue 0
-      #@valor_total = ActiveRecord::Base.connection.exec_query(sql).first["total"].to_f
-      return @valor_total
+      return ConsolidadoFinanceiro.where(query: sql).where('valor_total is not null').order(id: :asc).last
     end
     
     @usuarios_total = @usuarios.count

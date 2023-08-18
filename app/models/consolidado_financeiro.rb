@@ -1,5 +1,19 @@
 class ConsolidadoFinanceiro < ApplicationRecord
     belongs_to :usuario
+
+    after_save do
+        sqs_client = Aws::SQS::Client.new(
+            credentials: Aws::Credentials.new(AWS_ID, AWS_KEY),
+            region: 'us-east-1'
+        )
+
+        sqs_client.send_message(
+            queue_url: SQS_URL,
+            message_body: "cf_id:#{self.id.to_s}"
+        )
+
+        Rails.logger.info "=====[SQS Agendamento Sucesso CF #{DateTime.now}]====="
+    end
     
     VENDAS = 1
     CONTA_CORRENTE = 2
