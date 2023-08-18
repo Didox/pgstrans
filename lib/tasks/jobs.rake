@@ -8,8 +8,6 @@ namespace :jobs do
   
   desc "consolidado financeiro calcular"
   task consolidado_financeiro_calcular: :environment do
-    require 'byebug'
-
     puts "================ Nulls #{ConsolidadoFinanceiro.where('valor_total is null').count} =========="
     ConsolidadoFinanceiro.where('valor_total is null').each do |item|
       item.calcular_valor_total!
