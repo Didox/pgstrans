@@ -128,7 +128,7 @@ class ApplicationController < ActionController::Base
             end
   
             flash[:erro] = "Usuário sem permissão de acesso à página"
-            redirect_to "/" if !["total_cc"].include?(params[:action])
+            redirect_to "/"
             return false
           else
             unless administrador.acessos.include? "#{self.class}::#{params[:action]}"
@@ -138,7 +138,7 @@ class ApplicationController < ActionController::Base
               end
               
               flash[:erro] = "Usuário sem permissão de acesso à página"
-              redirect_to "/" if !["total_cc"].include?(params[:action])
+              redirect_to "/"
               return false
             end
           end
