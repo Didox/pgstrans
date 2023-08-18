@@ -1,5 +1,4 @@
 class ContaCorrentesController < ApplicationController
-  skip_before_action :validate_login, only: [:total_cc]
   before_action :set_conta_corrente, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
 
