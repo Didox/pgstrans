@@ -1,7 +1,7 @@
 class ConsolidadoFinanceiro < ApplicationRecord
     belongs_to :usuario
 
-    after_save do
+    def mandar_fila
         sqs_client = Aws::SQS::Client.new(
             credentials: Aws::Credentials.new(AWS_ID, AWS_KEY),
             region: 'us-east-1'

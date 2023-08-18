@@ -236,11 +236,13 @@ class ContaCorrentesController < ApplicationController
         ConsolidadoFinanceiro.where(query: sql).where("id not in (#{ultimo.id})").destroy_all
 
         if (Time.zone.now - 1.hour) > ultimo.created_at
-          ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::CONTA_CORRENTE, query: sql)
+          cf = ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::CONTA_CORRENTE, query: sql)
+          cf.mandar_fila
           # mandar para o SQS agendando este total em tempo real, fazer ajax para mostrar total calculado no resumo de vendas
         end
       else
-        ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::CONTA_CORRENTE, query: sql)
+        cf = ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::CONTA_CORRENTE, query: sql)
+        cf.mandar_fila
         # mandar para o SQS agendando este total em tempo real, fazer ajax para mostrar total calculado no resumo de vendas
       end
       @valor_total = 0

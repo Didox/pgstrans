@@ -274,11 +274,13 @@ class VendasController < ApplicationController
           ConsolidadoFinanceiro.where(query: @vendas_graficos.to_sql).where("id not in (#{ultimo.id})").destroy_all
 
           if (Time.zone.now - 1.day) > ultimo.created_at
-            ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::VENDAS, parametros: params.to_json, query: @vendas_graficos.to_sql)
+            cf = ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::VENDAS, parametros: params.to_json, query: @vendas_graficos.to_sql)
+            cf.mandar_fila
             # mandar para o SQS agendando este total em tempo real, fazer ajax para mostrar total calculado no resumo de vendas
           end
         else
-          ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::VENDAS, parametros: params.to_json, query: @vendas_graficos.to_sql)
+          cf = ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::VENDAS, parametros: params.to_json, query: @vendas_graficos.to_sql)
+          cf.mandar_fila
           # mandar para o SQS agendando este total em tempo real, fazer ajax para mostrar total calculado no resumo de vendas
         end
       end
