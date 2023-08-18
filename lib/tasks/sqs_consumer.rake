@@ -17,7 +17,7 @@ namespace :sqs do
 
       receive_message_result.messages.each do |message|
         begin
-          Rails.logger.info "#{Time.zone.now.strftime("%Y%m%d%H%M%S")} - Importando ..."~
+          Rails.logger.info "#{Time.zone.now.strftime("%Y%m%d%H%M%S")} - Importando ..."
           if message.body.to_s.include?("relatorio_id:")
             relatorio_id = message.body.gsub("relatorio_id:", "")
             rel = Relatorio.where(id: relatorio_id).where("arquivo is null").first
