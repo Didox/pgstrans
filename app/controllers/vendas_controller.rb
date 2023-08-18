@@ -2,6 +2,7 @@ class VendasController < ApplicationController
   before_action :set_venda, only: [:show, :mini, :recibo, :edit, :update, :destroy, :mostrar_resumido]
   layout "blank", only: [:index_grafico, :index_resumo]
 
+
   # GET /vendas
   # GET /vendas.json
   def index
@@ -23,6 +24,7 @@ class VendasController < ApplicationController
 
   
   def index_resumo
+    params["ultimo_dado_consolidado"] = "ok"
     index
   end
 
@@ -266,7 +268,20 @@ class VendasController < ApplicationController
 
       @vendas_total = @vendas.count
 
-      ConsolidadoFinanceiro.create(usuario_id: @adm.id, parametros: params.to_json)
+      if params["ultimo_dado_consolidado"].blank?
+        ultimo = ConsolidadoFinanceiro.where(query: @vendas_graficos.to_sql).where('valor_total is not null').order(id: :asc).last
+        if ultimo.present?
+          ConsolidadoFinanceiro.where(query: @vendas_graficos.to_sql).where("id not in (#{ultimo.id})").destroy_all
+
+          if (Time.zone.now - 15.minutes) > ultimo.created_at
+            cf = ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::VENDAS, parametros: params.to_json, query: @vendas_graficos.to_sql)
+            cf.mandar_fila
+          end
+        else
+          cf = ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::VENDAS, parametros: params.to_json, query: @vendas_graficos.to_sql)
+          cf.mandar_fila
+        end
+      end
     end
 
     

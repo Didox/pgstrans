@@ -177,7 +177,16 @@ class ContaCorrentesController < ApplicationController
   def show
   end
 
+  def total_cc
+    params["ultimo_dado_consolidado"] = "ok"
+    cf = index_morada_saldo
+    saldo = cf.present? ? "#{helper.number_to_currency(cf.valor_total)} <br> #{cf.created_at.strftime("%d/%m/%Y %H:%M:%S")}" : "Processando ..."
+    render json: { valor_total: saldo }, status: 200
+  end
+
   def index_morada_saldo
+    return if nao_buscavel
+
     @usuarios = Usuario.com_acesso(usuario_logado)
     @usuarios = @usuarios.reorder("nome asc")
     @usuarios = @usuarios.where("usuarios.nome ilike '%#{params[:nome].remove_injection}%'") if params[:nome].present?
@@ -192,23 +201,7 @@ class ContaCorrentesController < ApplicationController
     if params[:status].present?
       @usuarios = @usuarios.where("usuarios.status_cliente_id = ?", params[:status])
     end
-    @usuarios_total = @usuarios.count
-
-    where = @usuarios.to_sql.gsub("\n","").scan(/WHERE.*/).first
-    where = where.gsub(/ORDER.*/, "")
-    sql = "
-      select 
-        sum((
-          select conta_correntes.saldo_atual from conta_correntes 
-          where conta_correntes.usuario_id = usuarios.id
-          order by conta_correntes.data_ultima_atualizacao_saldo desc limit 1
-        )) as total
-      from usuarios
-      #{where}
-    "
-
-    @valor_total = ActiveRecord::Base.connection.exec_query(sql).first["total"].to_i 
-
+    
     if params[:saldo_menor_que].present?
       @usuarios = @usuarios.where("
         (
@@ -222,6 +215,40 @@ class ContaCorrentesController < ApplicationController
         ) <= ?
       ", params[:saldo_menor_que].to_f)
     end
+
+    where = @usuarios.to_sql.gsub("\n","").scan(/WHERE.*/).first
+    where = where.gsub(/ORDER.*/, "") rescue ""
+    sql = "
+      select 
+        sum((
+          select conta_correntes.saldo_atual from conta_correntes 
+          where conta_correntes.usuario_id = usuarios.id
+          order by conta_correntes.data_ultima_atualizacao_saldo desc limit 1
+        )) as total
+      from usuarios
+      #{where}
+    "
+
+
+    if params["ultimo_dado_consolidado"].blank?
+      ultimo = ConsolidadoFinanceiro.where(query: sql).where('valor_total is not null').order(id: :asc).last
+      if ultimo.present?
+        ConsolidadoFinanceiro.where(query: sql).where("id not in (#{ultimo.id})").destroy_all
+
+        if (Time.zone.now - 15.minutes) > ultimo.created_at
+          cf = ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::CONTA_CORRENTE, query: sql)
+          cf.mandar_fila
+        end
+      else
+        cf = ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::CONTA_CORRENTE, query: sql)
+        cf.mandar_fila
+      end
+      @valor_total = 0
+    else
+      return ConsolidadoFinanceiro.where(query: sql).where('valor_total is not null').order(id: :asc).last
+    end
+    
+    @usuarios_total = @usuarios.count
 
     options = {page: params[:page] || 1, per_page: 10}
     @usuarios = @usuarios.paginate(options)

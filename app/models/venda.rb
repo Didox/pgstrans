@@ -136,6 +136,11 @@ class Venda < ApplicationRecord
     vendas.sum(:value)
   end
 
+  def self.total_acesso_consolidado(usuario_logado, vendas_filtrada)
+    cf = ConsolidadoFinanceiro.where(query: vendas_filtrada.to_sql).where('valor_total is not null').order(id: :asc).last
+    cf
+  end
+
   def self.total_acesso(usuario_logado, vendas_filtrada=nil)
     total_acesso_geral(usuario_logado, :valor_original, vendas_filtrada)
   end

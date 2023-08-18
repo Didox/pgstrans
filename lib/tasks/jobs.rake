@@ -5,6 +5,15 @@ namespace :jobs do
     partner.importa_dados!
   end
 
+  
+  desc "consolidado financeiro calcular"
+  task consolidado_financeiro_calcular: :environment do
+    puts "================ Nulls #{ConsolidadoFinanceiro.where('valor_total is null').count} =========="
+    ConsolidadoFinanceiro.where('valor_total is null').each do |item|
+      item.calcular_valor_total!
+    end
+  end
+
   desc "Import menu"
   task menu_import: :environment do
     require 'yaml'
