@@ -93,6 +93,11 @@ namespace :sqs do
             ConsolidadoFinanceiro.where(id: cf_id).each do |item|
               item.calcular_valor_total!
             end
+            
+            sqs_client.delete_message({
+              queue_url: SQS_URL,
+              receipt_handle: message.receipt_handle    
+            })
           else
             sqs_client.delete_message({
               queue_url: SQS_URL,
