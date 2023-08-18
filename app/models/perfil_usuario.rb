@@ -133,7 +133,9 @@ class PerfilUsuario < ApplicationRecord
       painel: "Últimas Vendas por Parceiro",
       not_found: "Páginas não encontradas",
       internal_server_error: "Erro interno no servidor",
-      unprocessable_entity: "Requisição não pode ser processada"
+      unprocessable_entity: "Requisição não pode ser processada",
+      index_resumo: "index_resumo",
+      total_cc: "total_cc"
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
