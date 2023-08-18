@@ -134,7 +134,7 @@ class PerfilUsuario < ApplicationRecord
       not_found: "Páginas não encontradas",
       internal_server_error: "Erro interno no servidor",
       unprocessable_entity: "Requisição não pode ser processada",
-      total_cc: "Total de valor consolidado em conta corrente (Total Geral)"
+      total_cc: "Total de Geral Consolidado na Página Conta Corrente"
      }
     return nil if ["usuario_logado", "administrador"].include?(action)
     nomes[action.to_sym]
