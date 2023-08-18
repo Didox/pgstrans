@@ -1,6 +1,8 @@
 class VendasController < ApplicationController
   before_action :set_venda, only: [:show, :mini, :recibo, :edit, :update, :destroy, :mostrar_resumido]
   layout "blank", only: [:index_grafico, :index_resumo]
+  before_action :validate_login, except: [:index_resumo]
+
 
   # GET /vendas
   # GET /vendas.json
