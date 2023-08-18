@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
             return
           end
 
-          redirect_to login_path if !["total_cc"].include?(params[:action])
+          redirect_to login_path
         else
           time = cookies[:usuario_pgstrans_oauth_time].to_time + 5.seconds
 
@@ -128,7 +128,7 @@ class ApplicationController < ActionController::Base
             end
   
             flash[:erro] = "Usuário sem permissão de acesso à página"
-            redirect_to "/"
+            redirect_to "/" if !["total_cc"].include?(params[:action])
             return false
           else
             unless administrador.acessos.include? "#{self.class}::#{params[:action]}"
@@ -138,7 +138,7 @@ class ApplicationController < ActionController::Base
               end
               
               flash[:erro] = "Usuário sem permissão de acesso à página"
-              redirect_to "/"
+              redirect_to "/" if !["total_cc"].include?(params[:action])
               return false
             end
           end
