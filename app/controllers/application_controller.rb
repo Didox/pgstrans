@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
             return
           end
 
-          redirect_to login_path
+          redirect_to login_path if !["total_cc"].include?(params[:action])
         else
           time = cookies[:usuario_pgstrans_oauth_time].to_time + 5.seconds
 
