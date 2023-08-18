@@ -193,7 +193,7 @@
           var params = window.location.href.split("?")[1]
           $.ajax({
             type: "GET",
-            url: "/total_cc.json?" + params,
+            url: "/total_cc_consolidado/?" + params,
             success: function(data){
               $("#valor_total_cc").html(data.valor_total);
             }

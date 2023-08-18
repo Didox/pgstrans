@@ -82,7 +82,7 @@ Rails.application.routes.draw do
   get 'conta_correntes/index_carregamento_usuario', to: 'conta_correntes#index_carregamento_usuario', as: "index_carregamento_usuario"
   get 'conta_correntes/conciliacao', to: 'conta_correntes#conciliacao', as: "conta_correntes_conciliacao"
   post 'conta_correntes/conciliacao/aplicar', to: 'conta_correntes#conciliacao_aplicar', as: "conta_correntes_conciliacao_aplicar"
-  get 'total_cc', to: 'conta_correntes#total_cc', as: "total_cc"
+  get 'total_cc_consolidado', to: 'conta_correntes#total_cc', as: "total_cc"
   get 'conta_correntes/resumido', to: 'conta_correntes#conta_corrente_resumido'
 
   resources :conta_correntes
