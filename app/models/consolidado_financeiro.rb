@@ -8,7 +8,7 @@ class ConsolidadoFinanceiro < ApplicationRecord
         )
 
         sqs_client.send_message(
-            queue_url: SQS_URL,
+            queue_url: SQS_URL_TOTAIS,
             message_body: "cf_id:#{self.id.to_s}"
         )
 

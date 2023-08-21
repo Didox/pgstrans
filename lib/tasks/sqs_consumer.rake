@@ -113,7 +113,7 @@ namespace :sqs do
     while (true)
       Rails.logger.info "#{Time.zone.now.strftime("%Y%m%d%H%M%S")} - lendo ..."
       receive_message_result = sqs_client.receive_message({
-        queue_url: SQS_URL, 
+        queue_url: SQS_URL_TOTAIS, 
         message_attribute_names: ["All"], # Receive all custom attributes.
         max_number_of_messages: 1, # Receive at most one message.
         wait_time_seconds: 20 # Do not wait to check for the message.
