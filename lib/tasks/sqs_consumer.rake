@@ -1,5 +1,5 @@
 namespace :sqs do
-  desc "Consome mensagens SQS"
+  desc "Consome mensagens SQS XLS"
   task consumer: :environment do
     sqs_client = Aws::SQS::Client.new(
         credentials: Aws::Credentials.new(AWS_ID, AWS_KEY),
@@ -88,17 +88,46 @@ namespace :sqs do
             `echo "=====[SQS #{DateTime.now} Sucesso]=====" >> log/#{Rails.env}.log`
             `echo "#{url}" >> log/#{Rails.env}.log`
             `echo "=======================================" >> log/#{Rails.env}.log`
-          elsif message.body.to_s.include?("cf_id:")
+          end
+
+        rescue Exception => e
+          Rails.logger.info e.message
+          Rails.logger.info e.backtrace
+
+          `echo "=====[SQS #{DateTime.now} Erro]=====" >> log/#{Rails.env}.log`
+          `echo "#{e.message},  #{e.backtrace}" >> log/#{Rails.env}.log`
+          `echo "====================================" >> log/#{Rails.env}.log`
+        end
+      end
+    end
+  end
+
+
+  desc "Consome mensagens SQS Totais"
+  task consumer_totais: :environment do
+    sqs_client = Aws::SQS::Client.new(
+        credentials: Aws::Credentials.new(AWS_ID, AWS_KEY),
+        region: 'us-east-1'
+    )
+
+    while (true)
+      Rails.logger.info "#{Time.zone.now.strftime("%Y%m%d%H%M%S")} - lendo ..."
+      receive_message_result = sqs_client.receive_message({
+        queue_url: SQS_URL, 
+        message_attribute_names: ["All"], # Receive all custom attributes.
+        max_number_of_messages: 1, # Receive at most one message.
+        wait_time_seconds: 20 # Do not wait to check for the message.
+      })
+
+      receive_message_result.messages.each do |message|
+        begin
+          Rails.logger.info "#{Time.zone.now.strftime("%Y%m%d%H%M%S")} - Importando ..."
+          if message.body.to_s.include?("cf_id:")
             cf_id = message.body.gsub("cf_id:", "")
             ConsolidadoFinanceiro.where(id: cf_id).each do |item|
               item.calcular_valor_total!
             end
             
-            sqs_client.delete_message({
-              queue_url: SQS_URL,
-              receipt_handle: message.receipt_handle    
-            })
-          else
             sqs_client.delete_message({
               queue_url: SQS_URL,
               receipt_handle: message.receipt_handle    
