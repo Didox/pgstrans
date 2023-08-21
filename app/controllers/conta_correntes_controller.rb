@@ -235,7 +235,7 @@ class ContaCorrentesController < ApplicationController
       if ultimo.present?
         ConsolidadoFinanceiro.where(query: sql).where("id not in (#{ultimo.id})").destroy_all
 
-        if (Time.zone.now - 15.minutes) > ultimo.created_at
+        if (Time.zone.now - 1.hour) > ultimo.created_at
           cf = ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::CONTA_CORRENTE, query: sql)
           cf.mandar_fila
         end

@@ -273,7 +273,7 @@ class VendasController < ApplicationController
         if ultimo.present?
           ConsolidadoFinanceiro.where(query: @vendas_graficos.to_sql).where("id not in (#{ultimo.id})").destroy_all
 
-          if (Time.zone.now - 15.minutes) > ultimo.created_at
+          if (Time.zone.now - 1.hour) > ultimo.created_at
             cf = ConsolidadoFinanceiro.create(usuario_id: @adm.id, tipo: ConsolidadoFinanceiro::VENDAS, parametros: params.to_json, query: @vendas_graficos.to_sql)
             cf.mandar_fila
           end
