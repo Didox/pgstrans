@@ -129,7 +129,7 @@ namespace :sqs do
             end
             
             sqs_client.delete_message({
-              queue_url: SQS_URL,
+              queue_url: SQS_URL_TOTAIS,
               receipt_handle: message.receipt_handle    
             })
           end
@@ -138,9 +138,9 @@ namespace :sqs do
           Rails.logger.info e.message
           Rails.logger.info e.backtrace
 
-          `echo "=====[SQS #{DateTime.now} Erro]=====" >> log/#{Rails.env}.log`
+          `echo "=====[SQS_TOTAIS #{DateTime.now} Erro]=====" >> log/#{Rails.env}.log`
           `echo "#{e.message},  #{e.backtrace}" >> log/#{Rails.env}.log`
-          `echo "====================================" >> log/#{Rails.env}.log`
+          `echo "===========================================" >> log/#{Rails.env}.log`
         end
       end
     end
