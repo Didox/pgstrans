@@ -168,4 +168,14 @@ class ApplicationController < ActionController::Base
 
         return true
       end
+
+    protected
+      require 'will_paginate/array'
+
+      def bloqueia_resultado_busca(active_record_registros, mensagem) 
+        flash[:error] = mensagem
+        active_record_registros = []
+        active_record_registros = active_record_registros.paginate(page:1, per_page: 10)
+        return active_record_registros
+      end
 end

@@ -15,7 +15,6 @@
 //= require jquery-3.4.1.min
 //= require popper
 //= require tether
-//= require bootstrap
 //= require chartkick
 //= require Chart.bundle
 //= require_tree .
