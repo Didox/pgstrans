@@ -32,8 +32,6 @@ Rails.application.configure do
 
   config.assets.debug = true
 
-  config.serve_static_assets = true
-
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
 
