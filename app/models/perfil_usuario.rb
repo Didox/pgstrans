@@ -131,7 +131,7 @@ class PerfilUsuario < ApplicationRecord
       auth: "Permissão para interagir com a API do Google",
       google_auth: "Permissão para autenticação Google",
       painel: "Últimas Vendas por Parceiro",
-      not_found: "Páginas não encontradas",
+      not_found: "Página(s) não encontrada(s)",
       internal_server_error: "Erro interno no servidor",
       unprocessable_entity: "Requisição não pode ser processada",
       total_cc: "Total de Geral Consolidado na Página Conta Corrente"
