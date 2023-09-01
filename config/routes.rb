@@ -197,8 +197,5 @@ Rails.application.routes.draw do
   get '/unprocessable_entity', to: 'errors#unprocessable_entity', code: 422
   get '/internal_server_error', to: 'errors#internal_server_error', code: 500
 
-  # # Rota curinga para capturar outros erros não tratados
-  # match "*path", to: "errors#not_found", via: :all
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
