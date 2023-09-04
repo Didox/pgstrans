@@ -34,5 +34,6 @@ module Pgstrans
     config.active_record.legacy_connection_handling = false
 
     config.i18n.fallbacks = true
+
   end
 end
