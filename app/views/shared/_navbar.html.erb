@@ -15,7 +15,7 @@
           <% if (@adm.admin? || @adm.operador?) && AlegacaoDePagamento.where(status_alegacao_de_pagamento_id: AlegacaoDePagamento::PENDENTE).count > 0 %>
             <a style="margin-right: 20px;text-decoration: none;" title="Alegação de Pagamento Pendente" href="/alegacao_de_pagamentos">
               <img src="/sino.png" style="width:20px;animation: shake 2.2s;animation-iteration-count: infinite;">
-            </a>  
+            </a>
           <% end %>
           <a class="text-muted jsdropdown" style="white-space: nowrap;font-size: 12px;" id="jsItensMenu" href="javascript:;">
             <span class="fa fa-user text-muted"></span> <%= usuario_logado.nome.camelize.split(" ").first rescue usuario_logado.nome.camelize %>
