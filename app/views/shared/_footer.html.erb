@@ -13,11 +13,13 @@
     </div>
  </nav>
  <h3 style="font-size: 25px;margin-top: 10px;"></h3>
- <% if AMBIENTE_QA.present? %>
-	 <footer class="col-md-3 bg-warning fixed-bottom align-middle w-25 p-3">
-		 <h4>Ambiente de Q&A/Homologação</h4>
-	</footer>
-<% end %>
+ <div>
+	<% if AMBIENTE_QA.present? %>
+		<footer class="bg-warning fixed-bottom align-middle p-3">
+			<h4>Ambiente de Q&A/Homologação</h4>
+		</footer>
+	<% end %>
+</div>
 
 <div id="cookie" class="bg-warning fixed-bottom" style="text-align:center;display:none">
 	<h3>Atenção! Este site utiliza cookies para melhorar a sua navegação. Ao navegar, você concorda com o armazenamento de cookies no seu dispositivo para melhorar a sua experiência no site, para possibilitar a análise de utilização do site e ajudar nas nossas iniciativas de marketing e comunicação. By using this website, you automatically accept that we use cookies.</h3>
