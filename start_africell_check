@@ -1,0 +1,7 @@
+# Ruby on Rails task
+
+DATE=`date '+%Y-%m-%d %H:%M:%S'`
+
+rake jobs:update_africell_token &
+
+DATE=`date '+%Y-%m-%d %H:%M:%S'`
