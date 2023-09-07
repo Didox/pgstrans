@@ -1,0 +1,22 @@
+# Ativa o servico sqs:consumer relatorios e outros atividades em fila
+# Ruby on Rails application
+
+DATE=`date '+%Y-%m-%d %H:%M:%S'`
+
+echo "PGSTRANS service started at ${DATE}"
+
+bundle exec "RAILS_ENV=production rails sqs:consumer &"
+
+sleep 5
+
+bundle exec "RAILS_ENV=production rails sqs:consumer_totais &"
+
+sleep 5
+
+ps -efa | grep sqs
+
+DATE=`date '+%Y-%m-%d %H:%M:%S'`
+
+echo "SQS Consumer service started at ${DATE}"
+
+echo "(EOF)"
