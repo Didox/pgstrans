@@ -1,7 +1,7 @@
 <p>Somatória de acordo a busca</p>
 <h4>
   <% 
-  cf = Venda.total_acesso_consolidado(@adm, @vendas_graficos) 
+  cf = Venda.total_acesso_consolidado(@vendas_graficos) 
   %>
   Total Geral: <strong><%= cf.present? ? "#{number_to_currency(cf.valor_total, :unit => "KZ")} - #{cf.created_at.strftime("%d/%m/%Y %H:%M:%S")}" : "Processando ..." %></strong>
 </h4>
